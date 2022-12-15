@@ -36,9 +36,8 @@ export default function Register() {
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel forInput="name" value="Name" />
-
                     <TextInput
+                        placeholder="Npmbre"
                         id="name"
                         name="name"
                         value={data.name}
@@ -53,9 +52,8 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel forInput="email" value="Email" />
-
                     <TextInput
+                        placeholder="Correo"
                         id="email"
                         type="email"
                         name="email"
@@ -70,9 +68,9 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel forInput="password" value="Password" />
 
                     <TextInput
+                        placeholder="Contraseña"
                         id="password"
                         type="password"
                         name="password"
@@ -87,9 +85,9 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel forInput="password_confirmation" value="Confirm Password" />
 
                     <TextInput
+                        placeholder="Confirmar contraseña"
                         id="password_confirmation"
                         type="password"
                         name="password_confirmation"
@@ -107,11 +105,11 @@ export default function Register() {
                         href={route('login')}
                         className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
-                        Already registered?
+                        Ya estas Registrado?
                     </Link>
 
                     <PrimaryButton className="ml-4" processing={processing}>
-                        Register
+                        Registrarme
                     </PrimaryButton>
                 </div>
             </form>

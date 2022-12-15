@@ -38,8 +38,7 @@ export default function Login({ status, canResetPassword }) {
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel forInput="email" value="Email" />
-
+    
                     <TextInput
                         id="email"
                         type="email"
@@ -48,6 +47,7 @@ export default function Login({ status, canResetPassword }) {
                         className="mt-1 block w-full"
                         autoComplete="username"
                         isFocused={true}
+                        placeholder="Ingresa tu correo electrónico"
                         handleChange={onHandleChange}
                     />
 
@@ -55,12 +55,11 @@ export default function Login({ status, canResetPassword }) {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel forInput="password" value="Password" />
-
                     <TextInput
                         id="password"
                         type="password"
                         name="password"
+                        placeholder="Contraseña"
                         value={data.password}
                         className="mt-1 block w-full"
                         autoComplete="current-password"
@@ -73,7 +72,7 @@ export default function Login({ status, canResetPassword }) {
                 <div className="block mt-4">
                     <label className="flex items-center">
                         <Checkbox name="remember" value={data.remember} handleChange={onHandleChange} />
-                        <span className="ml-2 text-sm text-gray-600">Remember me</span>
+                        <span className="ml-2 text-sm text-gray-600">No Cerrar Sesión</span>
                     </label>
                 </div>
 
@@ -83,12 +82,12 @@ export default function Login({ status, canResetPassword }) {
                             href={route('password.request')}
                             className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
-                            Forgot your password?
+                             ¿Olvidaste tu contraseña?
                         </Link>
                     )}
 
-                    <PrimaryButton className="ml-4" processing={processing}>
-                        Log in
+                    <PrimaryButton  className="ml-4" processing={processing}>
+                    Ingresar
                     </PrimaryButton>
                 </div>
             </form>
