@@ -31,7 +31,9 @@ class ContratoController extends Controller
             }
         }
 
-        return Inertia::render('Contrato/Index', compact('contratos'));
+        return Inertia::render('Contratos/Index', [
+            'contratos' => $contratos
+        ]);
     }
 
    

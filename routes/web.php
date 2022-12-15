@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -44,3 +45,8 @@ require __DIR__.'/auth.php';
 Route::resource('posts', PostController::class)
     ->only(['index','store', 'update', 'destroy'])
     ->middleware(['auth']);
+
+
+Route::resource('contratos', ContratoController::class)
+->only(['index'])
+->middleware(['auth']);
