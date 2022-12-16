@@ -1,0 +1,23 @@
+.contenedor-contratos {
+    display: flex;
+    flex-direction: row;
+}
+
+.tabla {
+    font-size: 13px;
+}
+
+.alto-tabla {
+    width: auto;
+    height: 600px;
+}
+
+.cabecera-tabla {
+    position: sticky;
+    top: 0;
+}
+
+th {
+    padding: 5px;
+    font-size: 12px;
+}
