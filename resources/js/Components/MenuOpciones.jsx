@@ -17,14 +17,14 @@ export default function MenuOpciones({
                 type={type}
                 onClick={onClick}
                 className={
-                    `tamano-boton items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:#00a1c9 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 ${
+                    `tamano-boton items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-500 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:#00a1c9 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 ${
                         processing && "opacity-25"
                     } ` + className
                 }
                 disabled={processing}
             >
                 {children}
-                <span className="material-symbols-outlined">
+                <span className="material-symbols-outlined iconos-tamano">
                     admin_panel_settings
                 </span>
             </button>
@@ -33,70 +33,80 @@ export default function MenuOpciones({
                 type={type}
                 onClick={onClick}
                 className={
-                    `inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 ${
+                    `tamano-boton items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-500 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:#00a1c9 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 ${
                         processing && "opacity-25"
                     } ` + className
                 }
                 disabled={processing}
             >
                 {children}
-                <span class="icons material-symbols-outlined">filter_alt</span>
+                <span className="icons material-symbols-outlined iconos-tamano">
+                    filter_alt
+                </span>
             </button>
             <p align="center">Perfiles</p>
             <button
                 type={type}
                 onClick={onClick}
                 className={
-                    `inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:#00a1c9 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 ${
+                    `tamano-boton items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-500 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:#00a1c9 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 ${
                         processing && "opacity-25"
                     } ` + className
                 }
                 disabled={processing}
             >
                 {children}
-                <span class="icons material-symbols-outlined">visibility</span>
+                <span className="icons material-symbols-outlined iconos-tamano">
+                    visibility
+                </span>
             </button>
             <p align="center">Mis Seguimientos</p>
             <button
                 type={type}
                 onClick={onClick}
                 className={
-                    `inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 ${
+                    `tamano-boton items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-500 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:#00a1c9 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 ${
                         processing && "opacity-25"
                     } ` + className
                 }
                 disabled={processing}
             >
                 {children}
-                <span class="icons material-symbols-outlined">folder</span>
+                <span className="icons material-symbols-outlined iconos-tamano">
+                    folder
+                </span>
             </button>
             <p align="center">Carpetas</p>
             <button
                 type={type}
                 onClick={onClick}
                 className={
-                    `inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 ${
+                    `tamano-boton items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-500 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:#00a1c9 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 ${
                         processing && "opacity-25"
                     } ` + className
                 }
                 disabled={processing}
             >
                 {children}
-                <span class="icons material-symbols-outlined">folder_open</span>
+                <span className="icons material-symbols-outlined iconos-tamano">
+                    folder_open
+                </span>
             </button>
             <p align="center">Todos los contratos</p>
             <button
                 type={type}
                 onClick={onClick}
                 className={
-                    `inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 ${
+                    `tamano-boton items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-500 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:#00a1c9 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 ${
                         processing && "opacity-25"
                     } ` + className
                 }
                 disabled={processing}
             >
                 {children}
-                <span class="icons material-symbols-outlined">settings</span>
+                <span className="icons material-symbols-outlined iconos-tamano">
+                    settings
+                </span>
             </button>
             <p align="center">Ajustes</p>
         </div>

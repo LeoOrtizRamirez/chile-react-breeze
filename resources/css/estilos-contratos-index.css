@@ -14,10 +14,23 @@
 
 .cabecera-tabla {
     position: sticky;
-    top: 0;
+    top: -1px;
 }
 
 th {
     padding: 5px;
     font-size: 12px;
+}
+
+.iconos-horizontal {
+    display: flex;
+}
+
+.iconos-tamano-margen {
+    font-size: 22px !important;
+    margin: 0px 3px;
+}
+
+.margen-textos {
+    padding: 7px;
 }
