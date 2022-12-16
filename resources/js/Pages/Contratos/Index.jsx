@@ -24,10 +24,10 @@ const Index = ({ auth, contratos }) => {
             <Head title="Contratos" />
             <div className="contenedor-contratos">
                 <MenuOpciones />
-                <div className="alto-tabla bg-white overflow-auto">
-                    <table className="w-full bg-white border tabla">
+                <div className="alto-tabla bg-white overflow-auto ">
+                    <table className="w-full bg-white border tabla ">
                         <thead
-                            className="bg-light text-dark cabecera-tabla"
+                            className="cabecera-tabla "
                             style={{ backgroundColor: "#00a1c9" }}
                         >
                             <tr className="bg-paginador text-white uppercase leading-normal">
@@ -48,23 +48,64 @@ const Index = ({ auth, contratos }) => {
                         <tbody>
                             {contratos.map((contrato) => (
                                 <tr key={contrato.id}>
-                                    <td className="border border-gray-200 text-left py-3 px-4"></td>
-                                    <td className="border border-gray-200 text-left py-3 px-4">
+                                    <td className="border border-gray-200 text-left px-4 ">
+                                        <div className="iconos-horizontal">
+                                            <div>
+                                                <button className="">
+                                                    <span className="material-symbols-outlined text-gray-500 iconos-tamano-margen">
+                                                        picture_as_pdf
+                                                    </span>
+                                                </button>
+                                                <button className="">
+                                                    <span className="material-symbols-outlined text-gray-500 iconos-tamano-margen">
+                                                        ios_share
+                                                    </span>
+                                                </button>
+                                            </div>
+
+                                            <div className="">
+                                                <button className="">
+                                                    <span className="material-symbols-outlined text-gray-500 iconos-tamano-margen">
+                                                        star
+                                                    </span>
+                                                </button>
+                                                <button className="">
+                                                    <span className="material-symbols-outlined text-gray-500 iconos-tamano-margen">
+                                                        visibility
+                                                    </span>
+                                                </button>
+                                            </div>
+
+                                            <div className="">
+                                                <button className="">
+                                                    <span className="material-symbols-outlined text-gray-500 iconos-tamano-margen">
+                                                        share
+                                                    </span>
+                                                </button>
+                                                <button className="">
+                                                    <span className="material-symbols-outlined text-gray-500 iconos-tamano-margen">
+                                                        folder_delete
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td className="border border-gray-200 text-left margen-textos">
                                         {" "}
                                         {contrato.fuente.alias_portal}{" "}
                                     </td>
-                                    <td className="border border-gray-200 text-left py-3 px-4">
+                                    <td className="border border-gray-200 text-left margen-textos">
                                         {" "}
                                         {contrato.entidad_contratante}{" "}
                                     </td>
-                                    <td className="border border-gray-200 text-left py-3 px-4">
+                                    <td className="border border-gray-200 text-left margen-textos">
                                         {" "}
                                         {contrato.objeto.substr(0, 30)}...{" "}
                                         <a href="" className="text-primary">
                                             Ver más
                                         </a>
                                     </td>
-                                    <td className="border border-gray-200 text-left py-3 px-4">
+                                    <td className="border border-gray-200 text-left margen-textos">
                                         {" "}
                                         {contrato.valor > 0
                                             ? contrato.valor.toLocaleString(
@@ -72,31 +113,31 @@ const Index = ({ auth, contratos }) => {
                                               )
                                             : contrato.valor_texto}{" "}
                                     </td>
-                                    <td className="border border-gray-200 text-left py-3 px-4">
+                                    <td className="border border-gray-200 text-left margen-textos">
                                         {" "}
                                         {contrato.modalidad}{" "}
                                     </td>
-                                    <td className="border border-gray-200 text-left py-3 px-4">
+                                    <td className="border border-gray-200 text-left margen-textos">
                                         {" "}
                                         {contrato.codigo_proceso}{" "}
                                     </td>
-                                    <td className="border border-gray-200 text-left py-3 px-4">
+                                    <td className="border border-gray-200 text-left margen-textos">
                                         {" "}
                                         {contrato.estado_proceso}{" "}
                                     </td>
-                                    <td className="border border-gray-200 text-left py-3 px-4">
+                                    <td className="border border-gray-200 text-left margen-textos">
                                         {" "}
                                         {contrato.fecha_publicacion}{" "}
                                     </td>
-                                    <td className="border border-gray-200 text-left py-3 px-4">
+                                    <td className="border border-gray-200 text-left margen-textos">
                                         {" "}
                                         {contrato.ubicacion}{" "}
                                     </td>
-                                    <td className="border border-gray-200 text-left py-3 px-4">
+                                    <td className="border border-gray-200 text-left margen-textos">
                                         {" "}
                                         {contrato.contratista}{" "}
                                     </td>
-                                    <td className="border border-gray-200 text-left py-3 px-4">
+                                    <td className="border border-gray-200 text-left margen-textos">
                                         {" "}
                                         {contrato.actividad_economica}{" "}
                                     </td>

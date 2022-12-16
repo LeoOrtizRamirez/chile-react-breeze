@@ -51,8 +51,11 @@ export default function Authenticated({ auth, header, children }) {
                                         <span className="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 hover:text-cyan-500 focus:outline-none transition ease-in-out duration-150"
                                             >
+                                                <span className="material-symbols-outlined tamano-iconos">
+                                                    account_circle
+                                                </span>
                                                 {auth.user.name}
 
                                                 <svg
@@ -77,7 +80,7 @@ export default function Authenticated({ auth, header, children }) {
                                             method="post"
                                             as="button"
                                         >
-                                            Log Out
+                                            Cerrar sesión
                                         </Dropdown.Link>
                                     </Dropdown.Content>
                                 </Dropdown>
@@ -170,7 +173,7 @@ export default function Authenticated({ auth, header, children }) {
                                 href={route("logout")}
                                 as="button"
                             >
-                                Log Out
+                                Cerrar sesión
                             </ResponsiveNavLink>
                         </div>
                     </div>
