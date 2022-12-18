@@ -1,11 +1,15 @@
 import React from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import InputError from "@/Components/InputError";
-import PrimaryButton from "@/Components/PrimaryButton";
 import { useForm, Head } from "@inertiajs/inertia-react";
-import Post from "@/Components/Post";
-import MenuOpciones from "../../Components/MenuOpciones";
+import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 import "../../../css/estilos-contratos-index.css";
+import Compartir from "../../Components/Acciones/Compartir";
+import Eliminar from "../../Components/Acciones/Eliminar";
+import Enviar from "../../Components/Acciones/Enviar";
+import Favoritos from "../../Components/Acciones/Favoritos";
+import Pdf from "../../Components/Acciones/Pdf";
+import Visualizar from "../../Components/Acciones/Visualizar";
+// import {Compartir, Eliminar, Enviar, Favoritos, Pdf, Visualizar } from "../../Components/Acciones";
 
 const Index = ({ auth, contratos }) => {
     const { data, setData, post, processing, reset, errors } = useForm({
@@ -51,42 +55,18 @@ const Index = ({ auth, contratos }) => {
                                     <td className="border border-gray-200 text-left px-4 ">
                                         <div className="iconos-horizontal">
                                             <div>
-                                                <button className="">
-                                                    <span className="material-symbols-outlined text-gray-500 iconos-tamano-margen">
-                                                        picture_as_pdf
-                                                    </span>
-                                                </button>
-                                                <button className="">
-                                                    <span className="material-symbols-outlined text-gray-500 iconos-tamano-margen">
-                                                        ios_share
-                                                    </span>
-                                                </button>
+                                                <Pdf />
+                                                <Enviar />
                                             </div>
 
                                             <div className="">
-                                                <button className="">
-                                                    <span className="material-symbols-outlined text-gray-500 iconos-tamano-margen">
-                                                        star
-                                                    </span>
-                                                </button>
-                                                <button className="">
-                                                    <span className="material-symbols-outlined text-gray-500 iconos-tamano-margen">
-                                                        visibility
-                                                    </span>
-                                                </button>
+                                                <Favoritos />
+                                                <Visualizar />
                                             </div>
 
                                             <div className="">
-                                                <button className="">
-                                                    <span className="material-symbols-outlined text-gray-500 iconos-tamano-margen">
-                                                        share
-                                                    </span>
-                                                </button>
-                                                <button className="">
-                                                    <span className="material-symbols-outlined text-gray-500 iconos-tamano-margen">
-                                                        folder_delete
-                                                    </span>
-                                                </button>
+                                                <Compartir />
+                                                <Eliminar />
                                             </div>
                                         </div>
                                     </td>
