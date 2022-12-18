@@ -39,3 +39,16 @@ th {
     background-color: white !important;
     margin: 2px;
 }
+
+.data-text {
+    text-transform: lowercase;
+    display: inline-block;
+}
+
+.data-text:first-letter {
+    text-transform: uppercase;
+}
+
+.codigo-proceso {
+    width: 55px;
+}

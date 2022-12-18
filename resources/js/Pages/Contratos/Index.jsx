@@ -71,55 +71,50 @@ const Index = ({ auth, contratos }) => {
                                         </div>
                                     </td>
                                     <td className="border border-gray-200 text-left margen-textos">
-                                        {" "}
-                                        {contrato.fuente.alias_portal}{" "}
+                                        {contrato.fuente.alias_portal}
                                     </td>
                                     <td className="border border-gray-200 text-left margen-textos">
-                                        {" "}
-                                        {contrato.entidad_contratante}{" "}
+                                        <span className="data-text ">
+                                            {contrato.entidad_contratante}
+                                        </span>
                                     </td>
                                     <td className="border border-gray-200 text-left margen-textos">
-                                        {" "}
-                                        {contrato.objeto.substr(0, 30)}...{" "}
+                                        <span className="data-text">
+                                            {contrato.objeto.substr(0, 30)}...{" "}
+                                        </span>
                                         <a href="" className="text-primary">
                                             Ver más
                                         </a>
                                     </td>
                                     <td className="border border-gray-200 text-left margen-textos">
-                                        {" "}
                                         {contrato.valor > 0
                                             ? contrato.valor.toLocaleString(
                                                   "co-CO"
                                               )
-                                            : contrato.valor_texto}{" "}
+                                            : contrato.valor_texto}
                                     </td>
                                     <td className="border border-gray-200 text-left margen-textos">
-                                        {" "}
-                                        {contrato.modalidad}{" "}
+                                        {contrato.modalidad}
                                     </td>
                                     <td className="border border-gray-200 text-left margen-textos">
-                                        {" "}
-                                        {contrato.codigo_proceso}{" "}
+                                        {contrato.codigo_proceso}
                                     </td>
                                     <td className="border border-gray-200 text-left margen-textos">
-                                        {" "}
-                                        {contrato.estado_proceso}{" "}
+                                        {contrato.estado_proceso}
                                     </td>
                                     <td className="border border-gray-200 text-left margen-textos">
-                                        {" "}
-                                        {contrato.fecha_publicacion}{" "}
+                                        {contrato.fecha_publicacion}
                                     </td>
                                     <td className="border border-gray-200 text-left margen-textos">
-                                        {" "}
-                                        {contrato.ubicacion}{" "}
+                                        {contrato.ubicacion}
                                     </td>
                                     <td className="border border-gray-200 text-left margen-textos">
-                                        {" "}
-                                        {contrato.contratista}{" "}
+                                        <span className="data-text ">
+                                            {contrato.contratista}
+                                        </span>
                                     </td>
                                     <td className="border border-gray-200 text-left margen-textos">
-                                        {" "}
-                                        {contrato.actividad_economica}{" "}
+                                        {contrato.actividad_economica}
                                     </td>
                                 </tr>
                             ))}
