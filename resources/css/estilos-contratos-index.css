@@ -34,3 +34,8 @@ th {
 .margen-textos {
     padding: 7px;
 }
+
+.boton {
+    background-color: white !important;
+    margin: 2px;
+}
