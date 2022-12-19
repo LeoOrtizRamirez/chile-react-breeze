@@ -48,4 +48,5 @@ Route::resource('posts', PostController::class)
 
 
 Route::resource('contratos', ContratoController::class)
-->only(['index']);
+->only(['index'])
+->middleware(['auth']);
