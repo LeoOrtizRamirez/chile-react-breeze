@@ -37,7 +37,7 @@ export default function Register() {
             <form onSubmit={submit}>
                 <div>
                     <TextInput
-                        placeholder="Npmbre"
+                        placeholder="Nombre"
                         id="name"
                         name="name"
                         value={data.name}

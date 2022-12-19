@@ -19,25 +19,42 @@ class User extends Authenticatable
 
     protected $fillable = [
         'name',
+
+        'nombre_completo',
+        'identificacion',
+        'celular',
+        'indicativo',
+        'telefono_fijo',
+        'direccion',
+        'ciudad',
+        'pais',
+        'idplan',
         'email',
+        'email_verified_at',
+        'fecha_vencimiento',
+        'estado',
+        'origen',
         'password',
+
+        'nombre_empresa',
+        'nit_empresa',
+        'pais_empresa',
+        'ciudad_empresa',
+        'direccion_empresa',
+        'celular_empresa',
+        'indicativo_empresa',
+        'telefono_fijo_empresa',
+        'email_facturacion_empresa',
+        'descripcion_actividad_economica'
+
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
+   
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
