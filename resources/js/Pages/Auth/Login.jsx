@@ -8,10 +8,13 @@ import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
 
 export default function Login({ status, canResetPassword }) {
+
+    const token = document.querySelector("meta[name='csrf-token']").getAttribute('content')
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
         remember: '',
+        "_token":token,
     });
 
     useEffect(() => {
