@@ -45,5 +45,4 @@ Route::resource('contratos', ContratoController::class)
 ->middleware(['auth']);
 
 Route::resource('usuarios', UserController::class)
-->only(['index','store','update','destroy'])
 ->middleware(['auth']);
