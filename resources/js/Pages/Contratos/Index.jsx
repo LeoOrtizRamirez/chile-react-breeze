@@ -31,7 +31,7 @@ const Index = ({ auth, contratos }) => {
                 <div className="alto-tabla bg-white overflow-auto ">
                     <table className="w-full bg-white border tabla ">
                         <thead
-                            className="cabecera-tabla "
+                            className="cabecera-tabla"
                             style={{ backgroundColor: "#00a1c9" }}
                         >
                             <tr className="bg-paginador text-white uppercase leading-normal">
