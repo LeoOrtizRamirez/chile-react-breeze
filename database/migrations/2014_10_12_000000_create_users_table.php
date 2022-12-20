@@ -27,7 +27,13 @@ return new class extends Migration
             $table->string('direccion',50)->nullable();
             $table->string('ciudad',50)->nullable();
             $table->string('pais',50)->nullable();
-            $table->integer('idplan')->nullable();
+
+            $table->unsignedBigInteger('idplan')->nullable();
+            $table->foreign('idplan')
+                ->references('id')
+                ->on('planes')
+                ->onDelete('set null');
+
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->date('fecha_vencimiento')->nullable();
