@@ -3,6 +3,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { useForm, Head } from "@inertiajs/inertia-react";
 import InputError from "@/Components/InputError";
 import PrimaryButton from "@/Components/PrimaryButton";
+														 
 import "../../../css/estilos-usuarios-index.css";
 
 const Crear = ({ auth }) => {
@@ -195,6 +196,20 @@ const Crear = ({ auth }) => {
                             />
                             <InputError
                                 message={errors.idplan}
+                                className="mt-2"
+                            />
+                            <input
+                                value={data.fecha_vencimiento}
+                                onChange={(e) =>
+                                    setData("fecha_vencimiento", e.target.value)
+                                }
+                                type="date"
+                                placeholder="fecha_vencimiento"
+                                autoFocus
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                            />
+                            <InputError
+                                message={errors.fecha_vencimiento}
                                 className="mt-2"
                             />
                         </div>
