@@ -48,7 +48,7 @@ const editar = ({ usuario }) => {
 
     return (
         <AuthenticatedLayout auth={auth}>
-            <Head title="Editar Usuario" />
+            <Head title="Editar Usuario" /> 
             
             <div className="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8">
                 <form onSubmit={submit}>
