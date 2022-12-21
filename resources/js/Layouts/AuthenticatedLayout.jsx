@@ -21,14 +21,15 @@ export default function Authenticated({ auth, header, children }) {
                                     <ApplicationLogo className="block h-9 w-auto text-gray-500" />
                                 </Link>
                             </div>
+
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 {/* <NavLink
                                     href={route("dashboard")}
                                     active={route().current("dashboard")}
                                 >
                                     Dashboard
-                                </NavLink> */}
-                                {/* <NavLink
+                                </NavLink>
+                                <NavLink
                                     href={route("posts.index")}
                                     active={route().current("posts.index")}
                                 >

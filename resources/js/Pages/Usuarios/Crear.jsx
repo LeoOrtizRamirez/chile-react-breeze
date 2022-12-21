@@ -1,9 +1,8 @@
 import React from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { useForm, Head } from "@inertiajs/inertia-react";
 import InputError from "@/Components/InputError";
 import PrimaryButton from "@/Components/PrimaryButton";
-														 
+import { useForm, Head } from "@inertiajs/inertia-react";
 import "../../../css/estilos-usuarios-index.css";
 
 const Crear = ({ auth }) => {
@@ -54,9 +53,9 @@ const Crear = ({ auth }) => {
                                     setData("identificacion", e.target.value)
                                 }
                                 type="text"
-                                placeholder="Documento De Identidad"
+                                placeholder="Documento de identidad"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.identificacion}
@@ -68,9 +67,9 @@ const Crear = ({ auth }) => {
                                     setData("nombre_completo", e.target.value)
                                 }
                                 type="text"
-                                placeholder="Nombre Completo"
+                                placeholder="Nombre completo"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.nombre_completo}
@@ -85,9 +84,9 @@ const Crear = ({ auth }) => {
                                     setData("pais", e.target.value)
                                 }
                                 type="text"
-                                placeholder="País"
+                                placeholder="pais"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.pais}
@@ -102,7 +101,7 @@ const Crear = ({ auth }) => {
                                 type="text"
                                 placeholder="Indicativo"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.indicativo}
@@ -116,7 +115,7 @@ const Crear = ({ auth }) => {
                                 type="text"
                                 placeholder="Celular"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.celular}
@@ -130,7 +129,7 @@ const Crear = ({ auth }) => {
                                 type="text"
                                 placeholder="Teléfono Fijo"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.telefono_fijo}
@@ -144,9 +143,9 @@ const Crear = ({ auth }) => {
                                     setData("ciudad", e.target.value)
                                 }
                                 type="text"
-                                placeholder="Ciudad"
+                                placeholder="ciudad"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.ciudad}
@@ -158,9 +157,9 @@ const Crear = ({ auth }) => {
                                     setData("direccion", e.target.value)
                                 }
                                 type="text"
-                                placeholder="Dirección"
+                                placeholder="Direccion"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.direccion}
@@ -174,9 +173,9 @@ const Crear = ({ auth }) => {
                                     setData("email", e.target.value)
                                 }
                                 type="text"
-                                placeholder="Email"
+                                placeholder="email"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.email}
@@ -190,9 +189,9 @@ const Crear = ({ auth }) => {
                                     setData("idplan", e.target.value)
                                 }
                                 type="number"
-                                placeholder="Id plan"
+                                placeholder="idplan"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.idplan}
@@ -220,9 +219,9 @@ const Crear = ({ auth }) => {
                                     setData("estado", e.target.value)
                                 }
                                 type="number"
-                                placeholder="Estado"
+                                placeholder="estado"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.estado}
@@ -234,9 +233,9 @@ const Crear = ({ auth }) => {
                                     setData("origen", e.target.value)
                                 }
                                 type="text"
-                                placeholder="Origen"
+                                placeholder="origen"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.origen}
@@ -251,9 +250,9 @@ const Crear = ({ auth }) => {
                                     setData("nit_empresa", e.target.value)
                                 }
                                 type="text"
-                                placeholder="Nit Empresa"
+                                placeholder="nit_empresa"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.nit_empresa}
@@ -265,9 +264,9 @@ const Crear = ({ auth }) => {
                                     setData("nombre_empresa", e.target.value)
                                 }
                                 type="text"
-                                placeholder="Nombre Empresa"
+                                placeholder="nombre_empresa"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.nombre_empresa}
@@ -282,9 +281,9 @@ const Crear = ({ auth }) => {
                                     setData("pais_empresa", e.target.value)
                                 }
                                 type="text"
-                                placeholder="País Empresa"
+                                placeholder="pais_empresa"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.pais_empresa}
@@ -300,9 +299,9 @@ const Crear = ({ auth }) => {
                                     )
                                 }
                                 type="text"
-                                placeholder="Indicativo Empresa"
+                                placeholder="indicativo_empresa"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.indicativo_empresa}
@@ -314,9 +313,9 @@ const Crear = ({ auth }) => {
                                     setData("celular_empresa", e.target.value)
                                 }
                                 type="text"
-                                placeholder="Celular Empresa"
+                                placeholder="celular_empresa"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.celular_empresa}
@@ -331,9 +330,9 @@ const Crear = ({ auth }) => {
                                     )
                                 }
                                 type="text"
-                                placeholder="Teléfono Fijo Empresa"
+                                placeholder="telefono_fijo_empresa"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.telefono_fijo_empresa}
@@ -347,9 +346,9 @@ const Crear = ({ auth }) => {
                                     setData("ciudad_empresa", e.target.value)
                                 }
                                 type="text"
-                                placeholder="Ciudad Empresa"
+                                placeholder="ciudad_empresa"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.ciudad_empresa}
@@ -361,9 +360,9 @@ const Crear = ({ auth }) => {
                                     setData("direccion_empresa", e.target.value)
                                 }
                                 type="text"
-                                placeholder="Dirección Empresa"
+                                placeholder="direccion_empresa"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.direccion_empresa}
@@ -380,9 +379,9 @@ const Crear = ({ auth }) => {
                                     )
                                 }
                                 type="text"
-                                placeholder="Email Facturación Empresa"
+                                placeholder="email_facturacion_empresa"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.email_facturacion_empresa}
@@ -397,9 +396,9 @@ const Crear = ({ auth }) => {
                                     )
                                 }
                                 type="text"
-                                placeholder="Descripción Actividad Económica"
+                                placeholder="descripcion_actividad_economica"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.descripcion_actividad_economica}
@@ -412,10 +411,10 @@ const Crear = ({ auth }) => {
                                 onChange={(e) =>
                                     setData("password", e.target.value)
                                 }
-                                type="password"
-                                placeholder="Contraseña"
+                                type="text"
+                                placeholder="password"
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             />
                             <InputError
                                 message={errors.password}
