@@ -197,6 +197,20 @@ const Crear = ({ auth }) => {
                                 message={errors.idplan}
                                 className="mt-2"
                             />
+                            <input
+                                value={data.fecha_vencimiento}
+                                onChange={(e) =>
+                                    setData("fecha_vencimiento", e.target.value)
+                                }
+                                type="date"
+                                placeholder="fecha_vencimiento"
+                                autoFocus
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                            />
+                            <InputError
+                                message={errors.fecha_vencimiento}
+                                className="mt-2"
+                            />
                         </div>
                         <div className="contenedor-usuarios">
                             <input
