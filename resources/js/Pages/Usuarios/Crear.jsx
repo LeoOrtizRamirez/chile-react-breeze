@@ -3,7 +3,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { useForm, Head } from "@inertiajs/inertia-react";
 import InputError from "@/Components/InputError";
 import PrimaryButton from "@/Components/PrimaryButton";
-														 
+
 import "../../../css/estilos-usuarios-index.css";
 
 const Crear = ({ auth }) => {
@@ -173,7 +173,7 @@ const Crear = ({ auth }) => {
                                 onChange={(e) =>
                                     setData("email", e.target.value)
                                 }
-                                type="text"
+                                type="email"
                                 placeholder="Email"
                                 autoFocus
                                 className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
@@ -379,7 +379,7 @@ const Crear = ({ auth }) => {
                                         e.target.value
                                     )
                                 }
-                                type="text"
+                                type="email"
                                 placeholder="Email Facturación Empresa"
                                 autoFocus
                                 className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"

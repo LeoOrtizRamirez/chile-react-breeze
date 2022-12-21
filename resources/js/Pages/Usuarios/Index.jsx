@@ -30,30 +30,30 @@ const Index = ({ auth, usuarios }) => {
                         >
                             <tr className="bg-paginador text-white uppercase leading-normal">
                                 <th>Acciones</th>
-                                <th>Nombre</th>
                                 <th># Documento</th>
+                                <th>Nombre</th>
+                                <th>País</th>
+                                <th>Ciudad</th>
+                                <th>Dirección</th>
                                 <th>indicativo</th>
                                 <th>Celular</th>
                                 <th>teléfono fijo</th>
-                                <th>Dirección</th>
-                                <th>Ciudad</th>
-                                <th>País</th>
-                                <th>Plan</th>
                                 <th>Email</th>
+                                <th>Plan</th>
                                 {/* <th>Email confirmado</th> */}
                                 <th>Creacion</th>
                                 <th>Final Plan</th>
                                 <th>Estado</th>
                                 <th>Como se entero de Licitaciones</th>
-                                <th>Empresa</th>
                                 <th>NIT</th>
+                                <th>Empresa</th>
                                 <th>País empresa</th>
                                 <th>Ciudad empresa</th>
                                 <th>Dirección empresa</th>
                                 <th>Indicativo empresa</th>
                                 <th>Celular empresa</th>
-                                <th>Telefono fijo</th>
-                                <th>Email</th>
+                                <th>Telefono fijo empresa</th>
+                                <th>Email empresa</th>
                                 <th>Actividad economica</th>
                             </tr>
                         </thead>
@@ -62,7 +62,7 @@ const Index = ({ auth, usuarios }) => {
                                 <tr key={usuario.id}>
                                     <td className="border border-gray-200 text-left px-4 ">
                                         <div className="iconos-horizontal">
-                                        <div className="">
+                                            <div className="">
                                                 <span className="material-symbols-outlined text-red-500 iconos-tamano-margen">
                                                     delete
                                                 </span>
@@ -80,10 +80,19 @@ const Index = ({ auth, usuarios }) => {
                                         </div>
                                     </td>
                                     <td className="border border-gray-200 text-left margen-textos">
+                                        {usuario.identificacion}
+                                    </td>
+                                    <td className="border border-gray-200 text-left margen-textos">
                                         {usuario.nombre_completo}
                                     </td>
                                     <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.identificacion}
+                                        {usuario.pais}
+                                    </td>
+                                    <td className="border border-gray-200 text-left margen-textos">
+                                        {usuario.ciudad}
+                                    </td>
+                                    <td className="border border-gray-200 text-left margen-textos">
+                                        {usuario.direccion}
                                     </td>
                                     <td className="border border-gray-200 text-left margen-textos">
                                         {usuario.indicativo}
@@ -95,19 +104,10 @@ const Index = ({ auth, usuarios }) => {
                                         {usuario.telefono_fijo}
                                     </td>
                                     <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.direccion}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.ciudad}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.pais}
+                                        {usuario.email}
                                     </td>
                                     <td className="border border-gray-200 text-left margen-textos">
                                         {usuario.idplan}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.email}
                                     </td>
                                     {/* <td className="border border-gray-200 text-left margen-textos">
                                         {usuario.email_verified_at}
@@ -125,10 +125,10 @@ const Index = ({ auth, usuarios }) => {
                                         {usuario.origen}
                                     </td>
                                     <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.nombre_empresa}
+                                        {usuario.nit_empresa}
                                     </td>
                                     <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.nit_empresa}
+                                        {usuario.nombre_empresa}
                                     </td>
                                     <td className="border border-gray-200 text-left margen-textos">
                                         {usuario.pais_empresa}
