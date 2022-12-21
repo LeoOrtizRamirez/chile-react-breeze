@@ -29,11 +29,13 @@ class UserController extends Controller
 
     }
 
-    public function edit()
+    public function edit(User $usuario)
     {
+    
         return Inertia::render('Usuarios/Editar', [
-        
+            'usuario' => $usuario
         ]);
+
 
     }
 
@@ -83,9 +85,39 @@ class UserController extends Controller
 
  
  
-    public function update(Request $request, $id)
+    public function update(Request $request, User $usuario)
     {
-        //
+        $validated = $request->validate([
+            'nombre_completo' => 'required|string|max:100',
+            'identificacion' => 'required',
+            'celular' => 'required|max:15',
+            'indicativo' => 'required|max:20',
+            'telefono_fijo' => '|max:10',
+            'direccion' => 'required|max:50',
+            'ciudad' => 'required|max:50',
+            'pais' => 'required|max:50',
+            'idplan' => 'required',
+            'email' => ['required', 'email'],
+            'fecha_vencimiento' => 'required',
+            'estado' => 'required',
+            'origen' => 'required|max:30',
+            'password' => 'required|string|max:255',
+
+            'nombre_empresa' => 'required|max:50',
+            'nit_empresa' => 'required|max:20',
+            'pais_empresa' => 'required|max:50',
+            'ciudad_empresa' => 'required|max:50',
+            'direccion_empresa' => 'required|max:50',
+            'celular_empresa' => 'required|max:15',
+            'indicativo_empresa' => 'required|max:20',
+            'telefono_fijo_empresa' => 'required|max:15',
+            'email_facturacion_empresa' => 'required','email',
+            'descripcion_actividad_economica' => 'required|max:30',
+          
+          
+         ]);
+        $usuario->update($validated);
+        return redirect(route('usuarios.index'));
     }
 
    

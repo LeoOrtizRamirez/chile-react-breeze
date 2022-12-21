@@ -77,17 +77,17 @@ const Index = ({ auth, usuarios }) => {
                                     <td className="border border-gray-200 text-left px-4 ">
                                         <div className="iconos-horizontal">
                                             <div className="">
-                                                <span class="material-symbols-outlined text-red-500 iconos-tamano-margen">
+                                                <span className="material-symbols-outlined text-red-500 iconos-tamano-margen">
                                                     delete
                                                 </span>
                                             </div>
                                             <div className="">
-                                                <span class="material-symbols-outlined text-cyan-500 iconos-tamano-margen">
+                                                <span className="material-symbols-outlined text-cyan-500 iconos-tamano-margen">
                                                     edit
                                                 </span>
                                             </div>
                                             <div className="">
-                                                <span class="material-symbols-outlined text-gray-500 iconos-tamano-margen">
+                                                <span className="material-symbols-outlined text-gray-500 iconos-tamano-margen">
                                                     mail
                                                 </span>
                                             </div>

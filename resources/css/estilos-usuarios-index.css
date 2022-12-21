@@ -1,7 +1,17 @@
-.color-titulos-empresa{
+.color-titulos-empresa {
     background-color: #006f8b;
 }
 
-.color-data-empresa{
+.color-data-empresa {
     background-color: #f3f3f3;
 }
+
+.contenedor-usuarios {
+    display: flex;
+    flex-direction: row;
+}
+
+input {
+    margin: 3px;
+}
+
