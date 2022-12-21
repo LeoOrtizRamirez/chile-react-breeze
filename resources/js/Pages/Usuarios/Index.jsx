@@ -32,43 +32,29 @@ const Index = ({ auth, usuarios }) => {
                                 <th>Acciones</th>
                                 <th>Nombre</th>
                                 <th># Documento</th>
-                                <th>Celular</th>
                                 <th>indicativo</th>
+                                <th>Celular</th>
                                 <th>teléfono fijo</th>
                                 <th>Dirección</th>
                                 <th>Ciudad</th>
                                 <th>País</th>
                                 <th>Plan</th>
                                 <th>Email</th>
-                                <th>Email confirmado</th>
+                                {/* <th>Email confirmado</th> */}
                                 <th>Creacion</th>
                                 <th>Final Plan</th>
                                 <th>Estado</th>
                                 <th>Como se entero de Licitaciones</th>
-                                <th className="color-titulos-empresa">
-                                    Empresa
-                                </th>
-                                <th className="color-titulos-empresa">NIT</th>
-                                <th className="color-titulos-empresa">País</th>
-                                <th className="color-titulos-empresa">
-                                    Ciudad
-                                </th>
-                                <th className="color-titulos-empresa">
-                                    Dirección
-                                </th>
-                                <th className="color-titulos-empresa">
-                                    Celular
-                                </th>
-                                <th className="color-titulos-empresa">
-                                    Indicativo
-                                </th>
-                                <th className="color-titulos-empresa">
-                                    Telefono fijo
-                                </th>
-                                <th className="color-titulos-empresa">Email</th>
-                                <th className="color-titulos-empresa">
-                                    Actividad economica
-                                </th>
+                                <th>Empresa</th>
+                                <th>NIT</th>
+                                <th>País empresa</th>
+                                <th>Ciudad empresa</th>
+                                <th>Dirección empresa</th>
+                                <th>Indicativo empresa</th>
+                                <th>Celular empresa</th>
+                                <th>Telefono fijo</th>
+                                <th>Email</th>
+                                <th>Actividad economica</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -76,7 +62,7 @@ const Index = ({ auth, usuarios }) => {
                                 <tr key={usuario.id}>
                                     <td className="border border-gray-200 text-left px-4 ">
                                         <div className="iconos-horizontal">
-                                            <div className="">
+                                        <div className="">
                                                 <span className="material-symbols-outlined text-red-500 iconos-tamano-margen">
                                                     delete
                                                 </span>
@@ -100,10 +86,10 @@ const Index = ({ auth, usuarios }) => {
                                         {usuario.identificacion}
                                     </td>
                                     <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.celular}
+                                        {usuario.indicativo}
                                     </td>
                                     <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.indicativo}
+                                        {usuario.celular}
                                     </td>
                                     <td className="border border-gray-200 text-left margen-textos">
                                         {usuario.telefono_fijo}
@@ -123,9 +109,9 @@ const Index = ({ auth, usuarios }) => {
                                     <td className="border border-gray-200 text-left margen-textos">
                                         {usuario.email}
                                     </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
+                                    {/* <td className="border border-gray-200 text-left margen-textos">
                                         {usuario.email_verified_at}
-                                    </td>
+                                    </td> */}
                                     <td className="border border-gray-200 text-left margen-textos">
                                         {usuario.created_at.substr(0, 10)}
                                     </td>
@@ -138,34 +124,34 @@ const Index = ({ auth, usuarios }) => {
                                     <td className="border border-gray-200 text-left margen-textos">
                                         {usuario.origen}
                                     </td>
-                                    <td className="border border-gray-200 text-left margen-textos color-data-empresa">
+                                    <td className="border border-gray-200 text-left margen-textos">
                                         {usuario.nombre_empresa}
                                     </td>
-                                    <td className="border border-gray-200 text-left margen-textos color-data-empresa">
+                                    <td className="border border-gray-200 text-left margen-textos">
                                         {usuario.nit_empresa}
                                     </td>
-                                    <td className="border border-gray-200 text-left margen-textos color-data-empresa">
+                                    <td className="border border-gray-200 text-left margen-textos">
                                         {usuario.pais_empresa}
                                     </td>
-                                    <td className="border border-gray-200 text-left margen-textos color-data-empresa">
+                                    <td className="border border-gray-200 text-left margen-textos">
                                         {usuario.ciudad_empresa}
                                     </td>
-                                    <td className="border border-gray-200 text-left margen-textos color-data-empresa">
+                                    <td className="border border-gray-200 text-left margen-textos">
                                         {usuario.direccion_empresa}
                                     </td>
-                                    <td className="border border-gray-200 text-left margen-textos color-data-empresa">
-                                        {usuario.celular_empresa}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos color-data-empresa">
+                                    <td className="border border-gray-200 text-left margen-textos">
                                         {usuario.indicativo_empresa}
                                     </td>
-                                    <td className="border border-gray-200 text-left margen-textos color-data-empresa">
+                                    <td className="border border-gray-200 text-left margen-textos">
+                                        {usuario.celular_empresa}
+                                    </td>
+                                    <td className="border border-gray-200 text-left margen-textos">
                                         {usuario.telefono_fijo_empresa}
                                     </td>
-                                    <td className="border border-gray-200 text-left margen-textos color-data-empresa">
+                                    <td className="border border-gray-200 text-left margen-textos">
                                         {usuario.email_facturacion_empresa}
                                     </td>
-                                    <td className="border border-gray-200 text-left margen-textos color-data-empresa">
+                                    <td className="border border-gray-200 text-left margen-textos">
                                         {
                                             usuario.descripcion_actividad_economica
                                         }
