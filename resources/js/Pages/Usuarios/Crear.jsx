@@ -7,6 +7,7 @@ import "../../../css/estilos-usuarios-index.css";
 
 const Crear = ({ auth }) => {
     const { data, setData, post, processing, reset, errors } = useForm({
+        
         nombre_completo: "",
         identificacion: "",
         celular: "",
