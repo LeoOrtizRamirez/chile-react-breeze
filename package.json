@@ -24,6 +24,7 @@
     "dependencies": {
         "bootstrap": "^5.2.3",
         "dayjs": "^1.11.7",
-        "react-bootstrap": "^2.7.0"
+        "react-bootstrap": "^2.7.0",
+        "react-hook-form": "^7.41.0"
     }
 }

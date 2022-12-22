@@ -26,7 +26,7 @@ const Index = ({ auth, planes }) => {
     const getPlan = (plan) => {
         data.nombre = plan.nombre
         data.dias = plan.dias
-        const modal_activo = document.getElementById("updateModal"+plan.id)//Buscar modal para abrir
+        const modal_activo = document.getElementById("updateModal" + plan.id)//Buscar modal para abrir
         modal_activo.style.display = "block";
         modal_activo.classList.toggle("show");
     }
@@ -38,14 +38,14 @@ const Index = ({ auth, planes }) => {
     }
 
     const all_close_btn = document.querySelectorAll("button[data-bs-dismiss]")//Buscar botones para cerrar modal
-    if(all_close_btn){
-        all_close_btn.forEach(modalClose);	
+    if (all_close_btn) {
+        all_close_btn.forEach(modalClose);
     }
-    
+
     function modalClose(element, index, array) {//Al dar clic en cualquier boton
-        element.onclick = function(){
+        element.onclick = function () {
             const modal = document.querySelector(".modal.fade.show")//Buscar modal abierto
-            if(modal){
+            if (modal) {
                 modal.style.display = "none";
                 modal.classList.toggle("show");
             }
@@ -60,7 +60,7 @@ const Index = ({ auth, planes }) => {
                 <MenuOpciones />
                 <div className="bg-white overflow-auto w-full text-center">
 
-                <CreateModal/>
+                    <CreateModal />
                     <table className="w-full bg-white border tabla ">
                         <thead
                             className="cabecera-tabla "
@@ -104,40 +104,37 @@ const Index = ({ auth, planes }) => {
                                         {plan.estado}
                                     </td>
                                     <td className="border border-gray-200 margen-textos">
-                                        {  plan.estado == "Activo"
-                                        ?   <Link href={route("planes.status", plan.id)}>
-                                                <span class="material-symbols-outlined text-red-500 iconos-tamano-margen">
+                                        {plan.estado == "Activo"
+                                            ? <Link href={route("planes.status", plan.id)} className="btn btn-danger">
+                                                <span class="material-symbols-outlined text-white iconos-tamano-margen">
                                                     cancel
                                                 </span>
                                             </Link>
-                                        : (
-                                            <Link href={route("planes.status", plan.id)}>
-                                                <span class="material-symbols-outlined text-green-500 iconos-tamano-margen">
-                                                    check
-                                                </span>
-                                            </Link>
-                                        )
+                                            : (
+                                                <Link href={route("planes.status", plan.id)} className="btn btn-success">
+                                                    <span class="material-symbols-outlined text-white iconos-tamano-margen">
+                                                        check
+                                                    </span>
+                                                </Link>
+                                            )
                                         }
                                     </td>
                                     <td className="border border-gray-200 margen-textos">
-                                    <button type="button"
-                                        className="btn btn-info"
-                                        data-bs-toggle="modal"
-                                        data-bs-target={'#updateModal' + plan.id}
-                                        onClick={() => { getPlan(plan) }}
-                                    >
-                                        Update
-                                    </button>
-                                    <UpdateModal modalId={plan.id} employeeData={plan }/>
-                                        <Link href={route("planes.edit", plan.id)}>
-                                            <span class="material-symbols-outlined text-cyan-500 iconos-tamano-margen">
+                                        <button type="button"
+                                            className="btn btn-info"
+                                            data-bs-toggle="modal"
+                                            data-bs-target={'#updateModal' + plan.id}
+                                            onClick={() => { getPlan(plan) }}
+                                        >
+                                            <span class="material-symbols-outlined text-white iconos-tamano-margen">
                                                 edit
                                             </span>
-                                        </Link>
+                                        </button>
+                                        <UpdateModal planData={plan} />
                                     </td>
                                     <td className="border border-gray-200 margen-textos">
-                                        <Link href={route('planes.destroy', plan)} method='delete' as="button">
-                                            <span class="material-symbols-outlined text-red-500 iconos-tamano-margen">
+                                        <Link href={route('planes.destroy', plan)} method='delete' as="button" className="btn btn-danger">
+                                            <span class="material-symbols-outlined text-white iconos-tamano-margen">
                                                 delete
                                             </span>
                                         </Link>
