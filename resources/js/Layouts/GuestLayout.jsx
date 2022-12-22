@@ -1,5 +1,6 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import { Link } from '@inertiajs/inertia-react';
+import "../../css/estilos-capa-autentificacion.css";
 
 export default function Guest({ children }) {
     return (

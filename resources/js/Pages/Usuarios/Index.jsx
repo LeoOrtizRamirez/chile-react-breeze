@@ -68,6 +68,29 @@ const Index = ({ auth, usuarios }) => {
             <div className="contenedor-contratos">
                 <MenuOpciones />
                 <div className="alto-tabla bg-white overflow-auto ">
+                    <div className="usuarios">
+                        <div className="contenedor-botones">
+                            <a
+                                className="autorenew"
+                                href="javascript:location.reload()"
+                            >
+                                <span className="material-symbols-outlined">
+                                    autorenew
+                                </span>
+                            </a>
+                            <a
+                                className="add_circle"
+                                href={route("usuarios.create")}
+                            >
+                                <span className="material-symbols-outlined material-symbols-outlined-color">
+                                    add_circle
+                                </span>
+                            </a>
+                        </div>
+                        <div className="margen-titulo">Usuarios</div>
+                        <div></div>
+                    </div>
+
                     <table className="w-full bg-white border tabla ">
                         <thead
                             className="cabecera-tabla "
@@ -108,9 +131,11 @@ const Index = ({ auth, usuarios }) => {
                                     <td className="border border-gray-200 text-left px-4 ">
                                         <div className="iconos-horizontal">
                                             <div className="">
-                                                <span className="material-symbols-outlined text-red-500 iconos-tamano-margen">
-                                                    delete
-                                                </span>
+                                                <a href="">
+                                                    <span className="material-symbols-outlined text-red-500 iconos-tamano-margen">
+                                                        delete
+                                                    </span>
+                                                </a>
                                             </div>
                                             <div className="">
                                             <a href={route('usuarios.update',usuario.id) + "/edit"}>

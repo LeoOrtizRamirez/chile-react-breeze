@@ -9,12 +9,11 @@ import { Link } from "@inertiajs/inertia-react";
 import UpdateModal from "@/Components/Modals/UpdateModal";
 import CreateModal from "@/Components/Modals/CreateModal";
 
-
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Index = ({ auth, planes }) => {
     const { data, setData, post, processing, reset, errors } = useForm({
-        planes
+        planes,
     });
 
     const submit = (e) => {
@@ -22,21 +21,19 @@ const Index = ({ auth, planes }) => {
         post(route("planes.store"), { onSuccess: () => reset() });
     };
 
-
     const getPlan = (plan) => {
         data.nombre = plan.nombre
         data.dias = plan.dias
         const modal_activo = document.getElementById("updateModal" + plan.id)//Buscar modal para abrir
         modal_activo.style.display = "block";
         modal_activo.classList.toggle("show");
-    }
+    };
 
     const openModal = () => {
-        const modal_activo = document.getElementById("modalCreate")//Buscar modal para abrir
+        const modal_activo = document.getElementById("modalCreate"); //Buscar modal para abrir
         modal_activo.style.display = "block";
         modal_activo.classList.toggle("show");
-    }
-
+    };
     const all_close_btn = document.querySelectorAll("button[data-bs-dismiss]")//Buscar botones para cerrar modal
     if (all_close_btn) {
         all_close_btn.forEach(modalClose);
@@ -52,14 +49,12 @@ const Index = ({ auth, planes }) => {
         };
     }
 
-
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Planes" />
             <div className="contenedor-contratos">
                 <MenuOpciones />
                 <div className="bg-white overflow-auto w-full text-center">
-
                     <CreateModal />
                     <table className="w-full bg-white border tabla ">
                         <thead
