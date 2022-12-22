@@ -68,10 +68,17 @@ const Index = ({ auth, usuarios }) => {
                                                 </span>
                                             </div>
                                             <div className="">
-                                            <a href={route('usuarios.update',usuario.id) + "/edit"}>
-                                                <span className="material-symbols-outlined text-cyan-500 iconos-tamano-margen">
-                                                    edit
-                                                </span>
+                                                <a
+                                                    href={
+                                                        route(
+                                                            "usuarios.update",
+                                                            usuario.id
+                                                        ) + "/edit"
+                                                    }
+                                                >
+                                                    <span className="material-symbols-outlined text-cyan-500 iconos-tamano-margen">
+                                                        edit
+                                                    </span>
                                                 </a>
                                             </div>
                                             <div className="">
