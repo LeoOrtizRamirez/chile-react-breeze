@@ -1,14 +1,56 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { useForm, Head } from "@inertiajs/inertia-react";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
+import Paginador from "@/Components/Paginador";
 import "../../../css/estilos-contratos-index.css";
 import "../../../css/estilos-usuarios-index.css";
 
 const Index = ({ auth, usuarios }) => {
+
+
+    /* paginador*/
+
+    const itemsPagina = 30;
+
+    const totalElementos = usuarios.length
+
+    const totalPaginas = parseInt(totalElementos / itemsPagina) + 1
+
+    const [datos, setDatos] = useState(usuarios)
+
+    const [items, setItems] = useState([...usuarios].splice(0, itemsPagina))
+
+    const [currentPage, setCurrentPage] = useState(0)
+
+    const nextHandler = () => {
+
+        const nextPage = currentPage + 1
+
+        const firstIndex = nextPage * itemsPagina
+
+        if (firstIndex >= totalElementos) return;
+
+        setItems([...datos].splice(firstIndex, itemsPagina))
+
+        setCurrentPage(nextPage)
+    }
+
+    const prevHandler = () => {
+        const prevPage = currentPage -1 ;
+
+        if(prevPage < 0) return
+
+        const firstIndex = prevPage * itemsPagina
+
+        setItems([...datos].splice(firstIndex, itemsPagina))
+
+        setCurrentPage(prevPage)
+
+    }
+
+    /* end  paginador */
     const { data, setData, post, processing, reset, errors } = useForm({
-        title: "",
-        body: "",
     });
 
     const submit = (e) => {
@@ -18,7 +60,10 @@ const Index = ({ auth, usuarios }) => {
     };
 
     return (
+
+
         <AuthenticatedLayout auth={auth}>
+
             <Head title="Usuarios" />
             <div className="contenedor-contratos">
                 <MenuOpciones />
@@ -81,7 +126,7 @@ const Index = ({ auth, usuarios }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {usuarios.map((usuario) => (
+                            {items.map((usuario) => (
                                 <tr key={usuario.id}>
                                     <td className="border border-gray-200 text-left px-4 ">
                                         <div className="iconos-horizontal">
@@ -93,17 +138,10 @@ const Index = ({ auth, usuarios }) => {
                                                 </a>
                                             </div>
                                             <div className="">
-                                                <a
-                                                    href={
-                                                        route(
-                                                            "usuarios.update",
-                                                            usuario.id
-                                                        ) + "/edit"
-                                                    }
-                                                >
-                                                    <span className="material-symbols-outlined text-cyan-500 iconos-tamano-margen">
-                                                        edit
-                                                    </span>
+                                            <a href={route('usuarios.update',usuario.id) + "/edit"}>
+                                                <span className="material-symbols-outlined text-cyan-500 iconos-tamano-margen">
+                                                    edit
+                                                </span>
                                                 </a>
                                             </div>
                                             <div className="">
@@ -194,6 +232,9 @@ const Index = ({ auth, usuarios }) => {
                             ))}
                         </tbody>
                     </table>
+
+                    <Paginador nextHandler={nextHandler}  prevHandler={prevHandler} currentPage={currentPage} itemsPagina={itemsPagina} totalElementos={totalElementos} totalPaginas={totalPaginas}></Paginador>
+
                 </div>
             </div>
         </AuthenticatedLayout>

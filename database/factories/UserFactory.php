@@ -27,7 +27,7 @@ class UserFactory extends Factory
             'direccion' => 'cra 22 # 12-18',
             'ciudad' =>fake()->randomElement(['Manizales','Cali','Pereira','Medellín','Bogota']),
             'pais' =>fake()->randomElement(['Colombia','Chile','Panama']),
-            'idplan' => fake()->randomElement([2,3,4,5,6,7,8,9,10]),
+            'idplan' => null,
             'email' => $this->faker->unique()->safeEmail(),
             'fecha_vencimiento' => fake()->dateTimeBetween($startDate = '-2 years', $endDate = '2022-11-01', $timezone = null),
             'email_verified_at' => now(),
