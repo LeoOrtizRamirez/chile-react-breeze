@@ -12,8 +12,11 @@ class UserController extends Controller
   
     public function index()
     {
-        $usuarios = User::latest('id')->latest()->get();
-        /* return $usuarios; */
+        $usuarios = User::latest('id')
+                            ->latest()
+                            ->get();
+                            
+       /*  return $usuarios; */
         return Inertia::render('Usuarios/Index', [
             'usuarios' => $usuarios
         ]);
