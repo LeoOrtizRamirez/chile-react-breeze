@@ -1,140 +1,126 @@
-import axios from 'axios';
-import React, { Component } from 'react';
+import React from 'react'
+import { useForm } from "@inertiajs/inertia-react";
 
+const UpdateModal = ({ planData }) => {
 
-class UpdateModal extends Component {
+    console.log(planData.id)
+    const { data, setData, patch, processing, reset, errors } = useForm({
+        id: planData.id,
+        nombre: planData.nombre,
+        valor: planData.valor,
+        dias: planData.dias,
+        tiempo: planData.tiempo,
+        descripcion: planData.descripcion,
+        estado: planData.estado,
+    })
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            employeeName: props.employeeData.nombre,
-            employeeSalary: props.employeeData.valor,
-        }
-    }
-
-    
-    // Updating employee name state.
-
-    inputEmployeeName = (event) => {
-        this.setState({
-            employeeName: event.target.value,
-        });
-    }
-
-    // Update employee salary state.
-
-    inputEmployeeSalary = (event) => {
-        this.setState({
-            employeeSalary: event.target.value,
-        });
-    }
-
-
-    static getDerivedStateFromProps(props, current_state) {
-        let employeeUpdate = {
-            employeeName: null,
-            employeeSalary: null,
-        }
-
-
-
-        // Updating data from input.
-
-        if (current_state.employeeName && (current_state.employeeName !== props.employeeData.currentEmployeeName)) {
-            return null;
-        }
-
-        if (current_state.employeeSalary && (current_state.employeeSalary !== props.employeeData.currentEmployeeSalary)) {
-            return null;
-        }
-
-
-
-        // Updating data from props Below.
-
-        if (current_state.employeeName !== props.employeeData.currentEmployeeName ||
-            current_state.employeeName === props.employeeData.currentEmployeeName) {
-            employeeUpdate.employeeName = props.employeeData.currentEmployeeName;
-        }
-
-        if (current_state.employeeSalary !== props.employeeData.currentEmployeeSalary ||
-            current_state.employeeSalary === props.employeeData.currentEmployeeSalary) {
-            employeeUpdate.employeeSalary = props.employeeData.currentEmployeeSalary;
-        }
-
-        return employeeUpdate;
-
-    }
-
-    // Updating employee data.
-    updateEmployeeData = () => {
-        /*
-        patch(route('planes.update', {
-            employeeId: this.props.modalId,
-            employeeName: this.state.employeeName,
-            employeeSalary: this.state.employeeSalary,
-        }),*/
-        
-        axios.post('/planes/', {
-            id: 1,
-            valor: 5,
-            dias: 1,
-            estado: "As",
-            tiempo: 1
-        }).then(() => {
-
-            //toast.success("Employee Updated Successully");
-            setTimeout(() => {
-                location.reload();
-            },2500)
+    const handleInputChange = (event) => {
+        setData({
+            ...data,//Hace una pseudo copia de data
+            [event.target.name]: event.target.value
         })
-        
     }
 
-    render() {
-        return (
-            <div className="modal fade" id={"updateModal"+this.props.modalId } tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                    <div className="modal-header">
-                        <h5 className="modal-title" id="exampleModalLabel">Employee Details</h5>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                            <form className='form'>
-                                <div className="form-group">
-                                    <input type="text"
-                                        id="employeeName"
-                                        className='form-control mb-3'
-                                        value={this.state.employeeName ?? ""}
-                                        onChange={this.inputEmployeeName}
-                                    />
-                                </div>  
+    const enviarDatos = (e) => {
+        console.log(data)
+        e.preventDefault()
+        patch(route('planes.update', data.id), { onSuccess: () => setEditing(false) })
+        //Cerrar modal
+        const modal = document.querySelector(".modal.fade.show")//Buscar modal abierto
+        if (modal) {
+            modal.style.display = "none";
+            modal.classList.toggle("show");
+        }
+    }
+    return (
+        <div className="modal fade" id={"updateModal" + data.id} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+                <div className="modal-content">
+                    <form className="form" onSubmit={enviarDatos}>
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">Actualizar plan</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
 
-                                <div className="form-group">
-                                    <input type="text"
-                                        id="employeeSalary"
-                                        className='form-control mb-3'
-                                        value={this.state.employeeSalary ?? ""}
-                                        onChange={this.inputEmployeeSalary}
-                                    />
-                                </div>  
-                            </form> 
-                    </div>
+                            <div className="form-group">
+                                <input type="text"
+                                    id="nombre"
+                                    name="nombre"
+                                    className='form-control mb-3'
+                                    placeholder="Nombre"
+                                    value={data.nombre}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <input type="text"
+                                    id="valor"
+                                    name="valor"
+                                    className='form-control mb-3'
+                                    placeholder="Valor"
+                                    value={data.valor}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <input type="text"
+                                    id="dias"
+                                    name="dias"
+                                    className='form-control mb-3'
+                                    placeholder="Días"
+                                    value={data.dias}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <input type="text"
+                                    id="tiempo"
+                                    name="tiempo"
+                                    className='form-control mb-3'
+                                    placeholder="Tiempo"
+                                    value={data.tiempo}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <input type="text"
+                                    id="descripcion"
+                                    name="descripcion"
+                                    className='form-control mb-3'
+                                    placeholder="Descripcion"
+                                    value={data.descripcion}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <input type="text"
+                                    id="estado"
+                                    name="estado"
+                                    className='form-control mb-3'
+                                    placeholder="Estado"
+                                    value={data.estado}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                        </div>
                         <div className="modal-footer">
                             <input type="submit"
                                 className="btn btn-info"
-                                value="Update"
-                                onClick={this.updateEmployeeData}
+                                value="Actualizar"
                             />
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                    </div>
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
 }
 
-export default UpdateModal;
+export default UpdateModal
