@@ -18,10 +18,11 @@ export default function Authenticated({ auth, header, children }) {
                     <div className="flex justify-between h-16">
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
-                                <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto text-gray-500" />
-                                </Link>
-                                <Link href="/" className="margen">
+                                <Link
+                                    href={route("contratos.index")}
+                                    active={route().current("contratos.index")}
+                                    className=""
+                                >
                                     <ApplicationLogoLici className="block h-9 w-auto text-gray-500" />
                                 </Link>
                             </div>
@@ -60,6 +61,9 @@ export default function Authenticated({ auth, header, children }) {
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ml-6">
+                            <Link href="/" className="margen">
+                                <ApplicationLogo className="block h-9 w-auto text-gray-500" />
+                            </Link>
                             <div className="ml-3 relative">
                                 <Dropdown>
                                     <Dropdown.Trigger>
@@ -71,7 +75,7 @@ export default function Authenticated({ auth, header, children }) {
                                                 <span className="material-symbols-outlined tamano-iconos">
                                                     account_circle
                                                 </span>
-                                                {auth.user.name}
+                                                <span>{auth.user.name}</span>
 
                                                 <svg
                                                     className="ml-2 -mr-0.5 h-4 w-4"

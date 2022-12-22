@@ -43,6 +43,15 @@ const Crear = ({ auth }) => {
         <AuthenticatedLayout auth={auth}>
             <Head title="Crear Usuario" />
             <div className="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8">
+                <link
+                    rel="stylesheet"
+                    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+                />
+                <div className="titulo">Creación de usuario</div>
+                <div className="separacion">
+                    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                    - -
+                </div>
                 <form onSubmit={submit}>
                     <div className="contenedor-usuarios">
                         <div>
@@ -511,8 +520,9 @@ const Crear = ({ auth }) => {
                             className="mt-2"
                         />
                     </div>
-                    <PrimaryButton
-                        className="mt-4 
+                    <div className="boton-crear-editar">
+                        <PrimaryButton
+                            className="mt-4 
                         text-white 
                         bg-gradient-to-br
                         from-sky-600
@@ -530,10 +540,11 @@ const Crear = ({ auth }) => {
                         text-center 
                         mr-2 
                         mb-2"
-                        disabled={processing}
-                    >
-                        Crear Usuario
-                    </PrimaryButton>
+                            disabled={processing}
+                        >
+                            Crear Usuario
+                        </PrimaryButton>
+                    </div>
                 </form>
             </div>
         </AuthenticatedLayout>
