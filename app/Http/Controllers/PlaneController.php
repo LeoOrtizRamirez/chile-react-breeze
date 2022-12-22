@@ -88,6 +88,7 @@ class PlaneController extends Controller
      */
     public function update(Request $request, Plane $plane)
     {
+        dd($request);
         //$this->authorize('update', $planes);
         $validated = $request->validate([
             'nombre' => 'max:255',

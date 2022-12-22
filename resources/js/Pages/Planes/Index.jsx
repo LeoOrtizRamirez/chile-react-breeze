@@ -6,17 +6,52 @@ import "../../../css/estilos-contratos-index.css";
 import "../../../css/estilos-usuarios-index.css";
 import { Link } from "@inertiajs/inertia-react";
 
+import UpdateModal from "@/Components/Modals/UpdateModal";
+import CreateModal from "@/Components/Modals/CreateModal";
+
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 const Index = ({ auth, planes }) => {
     const { data, setData, post, processing, reset, errors } = useForm({
-        title: "",
-        body: "",
+        planes
     });
 
     const submit = (e) => {
         e.preventDefault();
-        //console.log(data)
         post(route("planes.store"), { onSuccess: () => reset() });
     };
+
+
+    const getPlan = (plan) => {
+        data.nombre = plan.nombre
+        data.dias = plan.dias
+        const modal_activo = document.getElementById("updateModal"+plan.id)//Buscar modal para abrir
+        modal_activo.style.display = "block";
+        modal_activo.classList.toggle("show");
+    }
+
+    const openModal = () => {
+        const modal_activo = document.getElementById("modalCreate")//Buscar modal para abrir
+        modal_activo.style.display = "block";
+        modal_activo.classList.toggle("show");
+    }
+
+    const all_close_btn = document.querySelectorAll("button[data-bs-dismiss]")//Buscar botones para cerrar modal
+    if(all_close_btn){
+        all_close_btn.forEach(modalClose);	
+    }
+    
+    function modalClose(element, index, array) {//Al dar clic en cualquier boton
+        element.onclick = function(){
+            const modal = document.querySelector(".modal.fade.show")//Buscar modal abierto
+            if(modal){
+                modal.style.display = "none";
+                modal.classList.toggle("show");
+            }
+        };
+    }
+
 
     return (
         <AuthenticatedLayout auth={auth}>
@@ -24,6 +59,8 @@ const Index = ({ auth, planes }) => {
             <div className="contenedor-contratos">
                 <MenuOpciones />
                 <div className="bg-white overflow-auto w-full text-center">
+
+                <CreateModal/>
                     <table className="w-full bg-white border tabla ">
                         <thead
                             className="cabecera-tabla "
@@ -83,6 +120,15 @@ const Index = ({ auth, planes }) => {
                                         }
                                     </td>
                                     <td className="border border-gray-200 margen-textos">
+                                    <button type="button"
+                                        className="btn btn-info"
+                                        data-bs-toggle="modal"
+                                        data-bs-target={'#updateModal' + plan.id}
+                                        onClick={() => { getPlan(plan) }}
+                                    >
+                                        Update
+                                    </button>
+                                    <UpdateModal modalId={plan.id} employeeData={plan }/>
                                         <Link href={route("planes.edit", plan.id)}>
                                             <span class="material-symbols-outlined text-cyan-500 iconos-tamano-margen">
                                                 edit
