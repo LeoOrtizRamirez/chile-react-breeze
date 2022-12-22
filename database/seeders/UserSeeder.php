@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
             'name' => 'Mauricio',
             'nombre_completo' => 'Mauricio giraldo valencia',
             'identificacion' => '1060523423',
-            'idplan' => 1,
+            'idplan' => null,
             'fecha_vencimiento' => '2024-01-02',
             'email' => 'mauricio.giraldo@licitaciones.info',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
             'name' => 'Leonardo',
             'nombre_completo' => 'Leonardo Ortiz r',
             'identificacion' => '1023894324',
-            'idplan' => 2,
+            'idplan' => null,
             'fecha_vencimiento' => '2024-01-02',
             'email' => 'leonardo.ortiz@licitaciones.info',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
             'name' => 'Steven',
             'nombre_completo' => 'Steven ...',
             'identificacion' => '10650523423',
-            'idplan' => 1,
+            'idplan' => null,
             'fecha_vencimiento' => '2024-01-02',
             'email' => 'steven.@licitaciones.info',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
             'name' => 'Camilo',
             'nombre_completo' => 'Camilo',
             'identificacion' => '10540523423',
-            'idplan' => 1,
+            'idplan' => null,
             'fecha_vencimiento' => '2024-01-02',
             'email' => 'camilo@licitaciones.info',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
@@ -54,7 +54,7 @@ class UserSeeder extends Seeder
             'name' => 'Diego',
             'nombre_completo' => 'Diego ..',
             'identificacion' => '10650523423',
-            'idplan' => 1,
+            'idplan' => null,
             'fecha_vencimiento' => '2024-01-02',
             'email' => 'diego@licitaciones.info',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

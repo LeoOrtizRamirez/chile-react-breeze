@@ -6,6 +6,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PlaneController;
 
 
 
@@ -46,3 +47,9 @@ Route::resource('contratos', ContratoController::class)
 
 Route::resource('usuarios', UserController::class)
 ->middleware(['auth']);
+
+Route::resource('planes', PlaneController::class)
+->only(['index','create', 'store', 'edit', 'update', 'destroy'])
+->middleware(['auth']);
+
+Route::get('/planes/satus/{id}', [PlaneController::class, 'status'])->name('planes.status');

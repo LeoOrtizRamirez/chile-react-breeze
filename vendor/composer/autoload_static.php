@@ -592,6 +592,7 @@ class ComposerStaticInitd850ee28bc4416402cd272608e34d70d
         'App\\Models\\Fuente' => __DIR__ . '/../..' . '/app/Models/Fuente.php',
         'App\\Models\\GrupoFiltroUsuario' => __DIR__ . '/../..' . '/app/Models/GrupoFiltroUsuario.php',
         'App\\Models\\HtmlContrato' => __DIR__ . '/../..' . '/app/Models/HtmlContrato.php',
+        'App\\Models\\Plan' => __DIR__ . '/../..' . '/app/Models/Plan.php',
         'App\\Models\\Post' => __DIR__ . '/../..' . '/app/Models/Post.php',
         'App\\Models\\SubCategoria' => __DIR__ . '/../..' . '/app/Models/SubCategoria.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',

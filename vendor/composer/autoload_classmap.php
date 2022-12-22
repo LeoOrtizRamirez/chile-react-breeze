@@ -47,6 +47,7 @@ return array(
     'App\\Models\\Fuente' => $baseDir . '/app/Models/Fuente.php',
     'App\\Models\\GrupoFiltroUsuario' => $baseDir . '/app/Models/GrupoFiltroUsuario.php',
     'App\\Models\\HtmlContrato' => $baseDir . '/app/Models/HtmlContrato.php',
+    'App\\Models\\Plan' => $baseDir . '/app/Models/Plan.php',
     'App\\Models\\Post' => $baseDir . '/app/Models/Post.php',
     'App\\Models\\SubCategoria' => $baseDir . '/app/Models/SubCategoria.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
