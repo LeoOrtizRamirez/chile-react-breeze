@@ -7,31 +7,30 @@ import "../../../css/estilos-usuarios-index.css";
 
 const Crear = ({ auth }) => {
     const { data, setData, post, processing, reset, errors } = useForm({
-        
-        nombre_completo: "",
         identificacion: "",
-        celular: "",
-        indicativo: "",
-        telefono_fijo: "",
-        direccion: "",
-        ciudad: "",
-        pais: "",
-        idplan: "",
-        email: "",
-        fecha_vencimiento: "",
+        nombre_completo: "",
         estado: "",
+        email: "",
+        indicativo: "",
+        celular: "",
+        telefono_fijo: "",
+        pais: "",
+        ciudad: "",
+        direccion: "",
+        idplan: "",
+        fecha_vencimiento: "",
         origen: "",
-        password: "",
-        nombre_empresa: "",
         nit_empresa: "",
+        nombre_empresa: "",
+        email_facturacion_empresa: "",
+        indicativo_empresa: "",
+        celular_empresa: "",
+        telefono_fijo_empresa: "",
         pais_empresa: "",
         ciudad_empresa: "",
         direccion_empresa: "",
-        celular_empresa: "",
-        indicativo_empresa: "",
-        telefono_fijo_empresa: "",
-        email_facturacion_empresa: "",
         descripcion_actividad_economica: "",
+        password: "",
     });
 
     const submit = (e) => {
@@ -45,8 +44,11 @@ const Crear = ({ auth }) => {
             <Head title="Crear Usuario" />
             <div className="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8">
                 <form onSubmit={submit}>
-                    <div>
-                        <div className="contenedor-usuarios">
+                    <div className="contenedor-usuarios">
+                        <div>
+                            <label htmlFor="identificacion">
+                                Documento De Identidad:
+                            </label>
                             <input
                                 style={{ width: "250px" }}
                                 value={data.identificacion}
@@ -62,6 +64,12 @@ const Crear = ({ auth }) => {
                                 message={errors.identificacion}
                                 className="mt-2"
                             />
+                        </div>
+
+                        <div>
+                            <label htmlFor="nombre_completo">
+                                Nombre Completo:
+                            </label>
                             <input
                                 value={data.nombre_completo}
                                 onChange={(e) =>
@@ -77,7 +85,41 @@ const Crear = ({ auth }) => {
                                 className="mt-2"
                             />
                         </div>
-                        <div className="contenedor-usuarios">
+
+                        <div>
+                            <label htmlFor="Estado">Estado:</label>
+                            <input
+                                value={data.estado}
+                                onChange={(e) =>
+                                    setData("estado", e.target.value)
+                                }
+                                type="number"
+                                placeholder="Estado"
+                                autoFocus
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                            />
+                            <InputError
+                                message={errors.estado}
+                                className="mt-2"
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label htmlFor="email">Email:</label>
+                        <input
+                            value={data.email}
+                            onChange={(e) => setData("email", e.target.value)}
+                            type="email"
+                            placeholder="Email"
+                            autoFocus
+                            className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                        />
+                        <InputError message={errors.email} className="mt-2" />
+                    </div>
+                    <div className="contenedor-usuarios">
+                        <div>
+                            <label htmlFor="pais">País:</label>
                             <input
                                 style={{ width: "150px" }}
                                 value={data.pais}
@@ -93,6 +135,10 @@ const Crear = ({ auth }) => {
                                 message={errors.pais}
                                 className="mt-2"
                             />
+                        </div>
+
+                        <div>
+                            <label htmlFor="indicativo">Indicativo:</label>
                             <input
                                 style={{ width: "150px" }}
                                 value={data.indicativo}
@@ -108,6 +154,9 @@ const Crear = ({ auth }) => {
                                 message={errors.indicativo}
                                 className="mt-2"
                             />
+                        </div>
+                        <div>
+                            <label htmlFor="celular">Celular:</label>
                             <input
                                 value={data.celular}
                                 onChange={(e) =>
@@ -122,6 +171,11 @@ const Crear = ({ auth }) => {
                                 message={errors.celular}
                                 className="mt-2"
                             />
+                        </div>
+                        <div>
+                            <label htmlFor="telefono_fijo">
+                                Teléfono Fijo:
+                            </label>
                             <input
                                 value={data.telefono_fijo}
                                 onChange={(e) =>
@@ -137,7 +191,10 @@ const Crear = ({ auth }) => {
                                 className="mt-2"
                             />
                         </div>
-                        <div className="contenedor-usuarios">
+                    </div>
+                    <div className="contenedor-usuarios">
+                        <div>
+                            <label htmlFor="ciudad">Ciudad:</label>
                             <input
                                 value={data.ciudad}
                                 onChange={(e) =>
@@ -152,6 +209,9 @@ const Crear = ({ auth }) => {
                                 message={errors.ciudad}
                                 className="mt-2"
                             />
+                        </div>
+                        <div>
+                            <label htmlFor="direccion">Dirección:</label>
                             <input
                                 value={data.direccion}
                                 onChange={(e) =>
@@ -167,23 +227,10 @@ const Crear = ({ auth }) => {
                                 className="mt-2"
                             />
                         </div>
+                    </div>
+                    <div className="contenedor-usuarios">
                         <div>
-                            <input
-                                value={data.email}
-                                onChange={(e) =>
-                                    setData("email", e.target.value)
-                                }
-                                type="email"
-                                placeholder="Email"
-                                autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
-                            />
-                            <InputError
-                                message={errors.email}
-                                className="mt-2"
-                            />
-                        </div>
-                        <div className="contenedor-usuarios">
+                            <label htmlFor="idplan">Id plan:</label>
                             <input
                                 value={data.idplan}
                                 onChange={(e) =>
@@ -198,6 +245,11 @@ const Crear = ({ auth }) => {
                                 message={errors.idplan}
                                 className="mt-2"
                             />
+                        </div>
+                        <div>
+                            <label htmlFor="fecha_vencimiento">
+                                Fecha Fin Plan:
+                            </label>
                             <input
                                 value={data.fecha_vencimiento}
                                 onChange={(e) =>
@@ -213,21 +265,10 @@ const Crear = ({ auth }) => {
                                 className="mt-2"
                             />
                         </div>
-                        <div className="contenedor-usuarios">
-                            <input
-                                value={data.estado}
-                                onChange={(e) =>
-                                    setData("estado", e.target.value)
-                                }
-                                type="number"
-                                placeholder="Estado"
-                                autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
-                            />
-                            <InputError
-                                message={errors.estado}
-                                className="mt-2"
-                            />
+                    </div>
+                    <div className="contenedor-usuarios">
+                        <div>
+                            <label htmlFor="origen">Origen:</label>
                             <input
                                 value={data.origen}
                                 onChange={(e) =>
@@ -243,7 +284,10 @@ const Crear = ({ auth }) => {
                                 className="mt-2"
                             />
                         </div>
-                        <div className="contenedor-usuarios">
+                    </div>
+                    <div className="contenedor-usuarios">
+                        <div>
+                            <label htmlFor="nit_empresa">Nit Empresa:</label>
                             <input
                                 style={{ width: "250px" }}
                                 value={data.nit_empresa}
@@ -259,6 +303,11 @@ const Crear = ({ auth }) => {
                                 message={errors.nit_empresa}
                                 className="mt-2"
                             />
+                        </div>
+                        <div>
+                            <label htmlFor="nombre_empresa">
+                                Nombre Empresa:
+                            </label>
                             <input
                                 value={data.nombre_empresa}
                                 onChange={(e) =>
@@ -274,7 +323,34 @@ const Crear = ({ auth }) => {
                                 className="mt-2"
                             />
                         </div>
-                        <div className="contenedor-usuarios">
+                    </div>
+                    <div>
+                        <div>
+                            <label htmlFor="email_facturacion_empresa">
+                                Email Facturación Empresa:
+                            </label>
+                            <input
+                                value={data.email_facturacion_empresa}
+                                onChange={(e) =>
+                                    setData(
+                                        "email_facturacion_empresa",
+                                        e.target.value
+                                    )
+                                }
+                                type="email"
+                                placeholder="Email Facturación Empresa"
+                                autoFocus
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                            />
+                            <InputError
+                                message={errors.email_facturacion_empresa}
+                                className="mt-2"
+                            />
+                        </div>
+                    </div>
+                    <div className="contenedor-usuarios">
+                        <div>
+                            <label htmlFor="pais_empresa">País Empresa:</label>
                             <input
                                 style={{ width: "150px" }}
                                 value={data.pais_empresa}
@@ -290,6 +366,11 @@ const Crear = ({ auth }) => {
                                 message={errors.pais_empresa}
                                 className="mt-2"
                             />
+                        </div>
+                        <div>
+                            <label htmlFor="indicativo_empresa">
+                                Indicativo Empresa:
+                            </label>
                             <input
                                 style={{ width: "150px" }}
                                 value={data.indicativo_empresa}
@@ -308,6 +389,11 @@ const Crear = ({ auth }) => {
                                 message={errors.indicativo_empresa}
                                 className="mt-2"
                             />
+                        </div>
+                        <div>
+                            <label htmlFor="celular_empresa">
+                                Celular Empresa:
+                            </label>
                             <input
                                 value={data.celular_empresa}
                                 onChange={(e) =>
@@ -322,6 +408,11 @@ const Crear = ({ auth }) => {
                                 message={errors.celular_empresa}
                                 className="mt-2"
                             />
+                        </div>
+                        <div>
+                            <label htmlFor="telefono_fijo_empresa">
+                                Teléfono Fijo Empresa:
+                            </label>
                             <input
                                 value={data.telefono_fijo_empresa}
                                 onChange={(e) =>
@@ -340,7 +431,12 @@ const Crear = ({ auth }) => {
                                 className="mt-2"
                             />
                         </div>
-                        <div className="contenedor-usuarios">
+                    </div>
+                    <div className="contenedor-usuarios">
+                        <div>
+                            <label htmlFor="ciudad_empresa">
+                                Ciudad Empresa:
+                            </label>
                             <input
                                 value={data.ciudad_empresa}
                                 onChange={(e) =>
@@ -355,6 +451,11 @@ const Crear = ({ auth }) => {
                                 message={errors.ciudad_empresa}
                                 className="mt-2"
                             />
+                        </div>
+                        <div>
+                            <label htmlFor="direccion_empresa">
+                                Dirección Empresa:
+                            </label>
                             <input
                                 value={data.direccion_empresa}
                                 onChange={(e) =>
@@ -370,65 +471,69 @@ const Crear = ({ auth }) => {
                                 className="mt-2"
                             />
                         </div>
-                        <div className="contenedor-usuarios">
-                            <input
-                                value={data.email_facturacion_empresa}
-                                onChange={(e) =>
-                                    setData(
-                                        "email_facturacion_empresa",
-                                        e.target.value
-                                    )
-                                }
-                                type="email"
-                                placeholder="Email Facturación Empresa"
-                                autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
-                            />
-                            <InputError
-                                message={errors.email_facturacion_empresa}
-                                className="mt-2"
-                            />
-                            <input
-                                value={data.descripcion_actividad_economica}
-                                onChange={(e) =>
-                                    setData(
-                                        "descripcion_actividad_economica",
-                                        e.target.value
-                                    )
-                                }
-                                type="text"
-                                placeholder="Descripción Actividad Económica"
-                                autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
-                            />
-                            <InputError
-                                message={errors.descripcion_actividad_economica}
-                                className="mt-2"
-                            />
-                        </div>
-                        <div>
-                            <input
-                                value={data.password}
-                                onChange={(e) =>
-                                    setData("password", e.target.value)
-                                }
-                                type="password"
-                                placeholder="Contraseña"
-                                autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
-                            />
-                            <InputError
-                                message={errors.password}
-                                className="mt-2"
-                            />
-                        </div>
-                        <PrimaryButton
-                            className="mt-4 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                            disabled={processing}
-                        >
-                            Crear
-                        </PrimaryButton>
                     </div>
+                    <div>
+                        <label htmlFor="descripcion_actividad_economica">
+                            Descripción Actividad Económica
+                        </label>
+                        <input
+                            value={data.descripcion_actividad_economica}
+                            onChange={(e) =>
+                                setData(
+                                    "descripcion_actividad_economica",
+                                    e.target.value
+                                )
+                            }
+                            type="text"
+                            placeholder="Descripción Actividad Económica"
+                            autoFocus
+                            className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                        />
+                        <InputError
+                            message={errors.descripcion_actividad_economica}
+                            className="mt-2"
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="password">Contraseña:</label>
+                        <input
+                            value={data.password}
+                            onChange={(e) =>
+                                setData("password", e.target.value)
+                            }
+                            type="password"
+                            placeholder="Contraseña"
+                            autoFocus
+                            className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                        />
+                        <InputError
+                            message={errors.password}
+                            className="mt-2"
+                        />
+                    </div>
+                    <PrimaryButton
+                        className="mt-4 
+                        text-white 
+                        bg-gradient-to-br
+                        from-sky-600
+                        to-sky-600 
+                        hover:bg-gradient-to-bl 
+                        focus:ring-1 
+                        focus:outline-none 
+                        focus:ring-blue-300
+                        dark:focus:ring-blue-800 
+                        font-medium 
+                        rounded-lg 
+                        text-sm 
+                        px-5 
+                        py-2.5 
+                        text-center 
+                        mr-2 
+                        mb-2"
+                        disabled={processing}
+                    >
+                        Crear Usuario
+                    </PrimaryButton>
                 </form>
             </div>
         </AuthenticatedLayout>
