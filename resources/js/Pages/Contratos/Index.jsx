@@ -9,6 +9,7 @@ import Enviar from "../../Components/Acciones/Enviar";
 import Favoritos from "../../Components/Acciones/Favoritos";
 import Pdf from "../../Components/Acciones/Pdf";
 import Visualizar from "../../Components/Acciones/Visualizar";
+import ContenedorFiltros from "@/Components/Filtros/ContenedorFiltros";
 // import {Compartir, Eliminar, Enviar, Favoritos, Pdf, Visualizar } from "../../Components/Acciones";
 
 const Index = ({ auth, contratos }) => {
@@ -26,6 +27,7 @@ const Index = ({ auth, contratos }) => {
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Contratos" />
+            <ContenedorFiltros/>
             <div className="contenedor-contratos">
                 <MenuOpciones />
                 <div className="alto-tabla bg-white overflow-auto ">
