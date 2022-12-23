@@ -46,7 +46,6 @@ class PlaneController extends Controller
             'dias' => 'required',
             'tiempo' => 'required',
             'valor' => 'required',
-            'estado' => 'required',
             'descripcion' => 'max:255',
          ]);
 
@@ -94,7 +93,6 @@ class PlaneController extends Controller
             'dias' => 'required',
             'tiempo' => 'required',
             'valor' => 'required',
-            'estado' => 'required',
             'descripcion' => 'max:255',
          ]);
          

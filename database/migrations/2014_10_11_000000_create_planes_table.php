@@ -17,10 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('nombre')->nullable();
             $table->integer('dias');
-            $table->integer('tiempo');
+            $table->string('tiempo', 10);
+            $table->integer('cantidad_tiempo');
+            $table->integer('valor_cuenta_adicional');
             $table->bigInteger('valor');
             $table->string('descripcion')->nullable();
-            $table->string('estado', 10)->nullable();
+            $table->string('estado', 10)->default('Inactivo')->nullable();
             $table->timestamps();
         });
     }
