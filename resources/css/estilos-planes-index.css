@@ -1,0 +1,27 @@
+ul{
+    padding-left: 0px !important;
+}
+
+a {
+    color: unset !important;
+    text-decoration: none !important;
+}
+
+.w-30 {
+    width: 110px;
+}
+
+p{
+    margin-bottom: 0px !important;
+}
+
+.modal-header , .btn-info{
+    background: #1383ac;
+    color: #fff;
+}
+
+input.btn.btn-info {
+    background: #1383ac;
+    border-color: #1383ac;
+    color: #fff;
+}

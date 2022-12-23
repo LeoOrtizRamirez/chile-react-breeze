@@ -4,6 +4,7 @@ import { useForm, Head } from "@inertiajs/inertia-react";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 import "../../../css/estilos-contratos-index.css";
 import "../../../css/estilos-usuarios-index.css";
+import "../../../css/estilos-planes-index.css";
 import { Link } from "@inertiajs/inertia-react";
 
 import UpdateModal from "@/Components/Modals/UpdateModal";
@@ -55,7 +56,27 @@ const Index = ({ auth, planes }) => {
             <div className="contenedor-contratos">
                 <MenuOpciones />
                 <div className="bg-white overflow-auto w-full text-center">
-                    <CreateModal />
+                    <div className="usuarios">
+                        <div className="contenedor-botones">
+                            <a
+                                className="autorenew"
+                                href="javascript:location.reload()"
+                            >
+                                <span className="material-symbols-outlined">
+                                    autorenew
+                                </span>
+                            </a>
+                            <CreateModal />
+                            <a
+                                className="add_circle"
+                                onClick={() => { openModal() }}
+                            >
+                                <span className="material-symbols-outlined material-symbols-outlined-color">
+                                    add_circle
+                                </span>
+                            </a>
+                        </div>
+                    </div>
                     <table className="w-full bg-white border tabla ">
                         <thead
                             className="cabecera-tabla "
@@ -100,14 +121,14 @@ const Index = ({ auth, planes }) => {
                                     </td>
                                     <td className="border border-gray-200 margen-textos">
                                         {plan.estado == "Activo"
-                                            ? <Link href={route("planes.status", plan.id)} className="btn btn-danger">
-                                                <span class="material-symbols-outlined text-white iconos-tamano-margen">
+                                            ? <Link href={route("planes.status", plan.id)} className="btn btn-danger btn-sm">
+                                                <span class="material-symbols-outlined text-white iconos-tamano-margen align-middle">
                                                     cancel
                                                 </span>
                                             </Link>
                                             : (
-                                                <Link href={route("planes.status", plan.id)} className="btn btn-success">
-                                                    <span class="material-symbols-outlined text-white iconos-tamano-margen">
+                                                <Link href={route("planes.status", plan.id)} className="btn btn-success btn-sm">
+                                                    <span class="material-symbols-outlined text-white iconos-tamano-margen align-middle">
                                                         check
                                                     </span>
                                                 </Link>
@@ -116,20 +137,20 @@ const Index = ({ auth, planes }) => {
                                     </td>
                                     <td className="border border-gray-200 margen-textos">
                                         <button type="button"
-                                            className="btn btn-info"
+                                            className="btn btn-info btn-sm"
                                             data-bs-toggle="modal"
                                             data-bs-target={'#updateModal' + plan.id}
                                             onClick={() => { getPlan(plan) }}
                                         >
-                                            <span class="material-symbols-outlined text-white iconos-tamano-margen">
+                                            <span class="material-symbols-outlined text-white iconos-tamano-margen align-middle">
                                                 edit
                                             </span>
                                         </button>
                                         <UpdateModal planData={plan} />
                                     </td>
                                     <td className="border border-gray-200 margen-textos">
-                                        <Link href={route('planes.destroy', plan)} method='delete' as="button" className="btn btn-danger">
-                                            <span class="material-symbols-outlined text-white iconos-tamano-margen">
+                                        <Link href={route('planes.destroy', plan)} method='delete' as="button" className="btn btn-danger btn-sm">
+                                            <span class="material-symbols-outlined text-white iconos-tamano-margen align-middle">
                                                 delete
                                             </span>
                                         </Link>
