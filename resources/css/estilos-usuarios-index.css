@@ -11,6 +11,18 @@
     flex-direction: row;
 }
 
+.ubicacion-paginador {
+    position: fixed;
+    min-height: 0px;
+    width: 252px;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.ubicacion-tabla {
+    margin-top: 50px;
+}
+
 input {
     margin: 3px;
 }
