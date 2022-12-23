@@ -32,13 +32,13 @@ export default function Authenticated({ auth, header, children }) {
                                     active={route().current("dashboard")}
                                 >
                                     Dashboard
-                                </NavLink> */}
-                                {/* <NavLink
+                                </NavLink>
+                                <NavLink
                                     href={route("posts.index")}
                                     active={route().current("posts.index")}
                                 >
                                     Posts
-                                </NavLink> */}
+                                </NavLink> 
                                 <NavLink
                                     href={route("contratos.index")}
                                     active={route().current("contratos.index")}
@@ -57,6 +57,7 @@ export default function Authenticated({ auth, header, children }) {
                                 >
                                     Planes
                                 </NavLink>
+                                */}
                             </div>
                         </div>
 
@@ -156,6 +157,7 @@ export default function Authenticated({ auth, header, children }) {
                     }
                 >
                     <div className="pt-2 pb-3 space-y-1">
+                        {/*
                         <ResponsiveNavLink
                             href={route("dashboard")}
                             active={route().current("dashboard")}
@@ -186,6 +188,7 @@ export default function Authenticated({ auth, header, children }) {
                         >
                             Planes
                         </ResponsiveNavLink>
+                        */}
                     </div>
 
                     <div className="pt-4 pb-1 border-t border-gray-200">

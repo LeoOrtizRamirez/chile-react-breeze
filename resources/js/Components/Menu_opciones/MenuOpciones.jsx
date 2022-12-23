@@ -11,15 +11,15 @@ const App = () => {
             icon: "admin_panel_settings",
             submenu: true,
             submenuItems: [
-                { title: "Usuarios" },
-                { title: "Planes" },
+                { title: "Usuarios", href: "/usuarios" },
+                { title: "Planes", href: "/planes" },
             ]
         },
-        { title: "Perfiles", icon: "filter_alt" },
-        { title: "Mis Seguimientos", icon: "visibility" },
-        { title: "Carpetas ", icon: "folder" },
-        { title: "Todos los Contratos", icon: "Search" },
-        { title: "Ajustes", icon: "settings" },
+        { title: "Perfiles", icon: "filter_alt", href: "" },
+        { title: "Mis Seguimientos", icon: "visibility", href: "" },
+        { title: "Carpetas ", icon: "folder", href: "" },
+        { title: "Todos los Contratos", icon: "Search", href: "/contratos" },
+        { title: "Ajustes", icon: "settings", href: "" },
     ];
 
     return (
@@ -33,10 +33,9 @@ const App = () => {
                     } bg-dark-purple h-screen p-10  relative duration-300`}
             >
                 
-                <BsArrowLeftShort className={`z-10 bg-white text-dark-purple text-3xl rounded-full absolute -right-3 top-9 border Oborder-dark-purple cursor-pointer ${!open && "rotate-180"}`}
-                    onClick={() => setOpen(!open)} />
+                {/*<BsArrowLeftShort className={`z-10 bg-white text-dark-purple text-3xl rounded-full absolute -right-3 top-9 border Oborder-dark-purple cursor-pointer ${!open && "rotate-180"}`}
+                    onClick={() => setOpen(!open)} />*/}
                     
-
                 <ul className="pt-6">
                     {Menus.map((Menu, index) => (
                         <>
@@ -54,16 +53,18 @@ const App = () => {
                                             {Menu.title}
                                         </p>
 
-                                        <BsChevronDown className={`${subMenuOpen && "rotate-180"}`} onClick={() => { setSubMenuOpen(!subMenuOpen) }} />
+                                        {/*<BsChevronDown className={`${subMenuOpen && "rotate-180"}`} onClick={() => { setSubMenuOpen(!subMenuOpen) }} />*/}
                                     </>
                                     : (
                                         <>
+                                        <a href={Menu.href}>
                                             <span className="text-base material-symbols-outlined iconos-tamano">
                                                 {Menu.icon}
                                             </span>
                                             <p className={`${!open && "hidden"} origin-left duration-200`}>
                                                 {Menu.title}
                                             </p>
+                                        </a>
                                         </>
                                     )
                                 }
@@ -74,10 +75,10 @@ const App = () => {
                             </li>
 
                             {Menu.submenu && subMenuOpen && open && (
-                                <ul className="submenu">
+                                <ul className="submenu z-10">
                                     {Menu.submenuItems.map((submenuItem, index) => (
                                         <li key={index} className="text-gray-500 text-sm flex items-center gap-x-4 cursor-pointer p-2 px-5 Dhover:bg-light-white rounded-md">
-                                            {submenuItem.title}
+                                            <a href={submenuItem.href}>{submenuItem.title}</a>
                                         </li>
                                     ))}
                                 </ul>
