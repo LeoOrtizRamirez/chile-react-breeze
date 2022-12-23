@@ -8,7 +8,7 @@
 }
 
 .tamano-boton {
-    height: 50px;
+    height: 150px;
 }
 
 p {
@@ -21,14 +21,14 @@ p {
 
 .submenu {
     position: absolute;
-    transform: translate3d(135px, -63px, 0px);
+    transform: translate3d(90px, -95px, 0px);
     background: white;
-    min-width: 372px;
+    min-width: 200px;
     border-radius: 10px;
-    padding: 15px 8px 27px 18px!important;
+    padding: 15px 15px 15px 15px;
     -webkit-box-shadow: 0 2px 3px 5px rgb(52 45 45 / 10%);
 }
 
-.p-10{
+.p-10 {
     padding: 10px;
 }

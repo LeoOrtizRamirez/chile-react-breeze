@@ -64,7 +64,7 @@ const editar = ({ usuario }) => {
                                 Documento De Identidad:
                             </label>
                             <input
-                                style={{ width: "250px" }}
+                                style={{ width: "233px" }}
                                 value={data.identificacion}
                                 onChange={(e) =>
                                     setData("identificacion", e.target.value)
@@ -85,6 +85,7 @@ const editar = ({ usuario }) => {
                                 Nombre Completo:
                             </label>
                             <input
+                                style={{ width: "470px" }}
                                 value={data.nombre_completo}
                                 onChange={(e) =>
                                     setData("nombre_completo", e.target.value)
@@ -103,6 +104,7 @@ const editar = ({ usuario }) => {
                         <div>
                             <label htmlFor="Estado">Estado:</label>
                             <input
+                                style={{ marginLeft: "10px" }}
                                 value={data.estado}
                                 onChange={(e) =>
                                     setData("estado", e.target.value)
@@ -122,6 +124,7 @@ const editar = ({ usuario }) => {
                     <div>
                         <label htmlFor="email">Email:</label>
                         <input
+                            style={{ width: "466px" }}
                             value={data.email}
                             onChange={(e) => setData("email", e.target.value)}
                             type="email"
@@ -135,7 +138,7 @@ const editar = ({ usuario }) => {
                         <div>
                             <label htmlFor="pais">País:</label>
                             <input
-                                style={{ width: "150px" }}
+                                style={{ width: "233px" }}
                                 value={data.pais}
                                 onChange={(e) =>
                                     setData("pais", e.target.value)
@@ -154,7 +157,7 @@ const editar = ({ usuario }) => {
                         <div>
                             <label htmlFor="indicativo">Indicativo:</label>
                             <input
-                                style={{ width: "150px" }}
+                                style={{ width: "233px" }}
                                 value={data.indicativo}
                                 onChange={(e) =>
                                     setData("indicativo", e.target.value)
@@ -172,6 +175,7 @@ const editar = ({ usuario }) => {
                         <div>
                             <label htmlFor="celular">Celular:</label>
                             <input
+                                style={{ width: "233px" }}
                                 value={data.celular}
                                 onChange={(e) =>
                                     setData("celular", e.target.value)
@@ -191,6 +195,7 @@ const editar = ({ usuario }) => {
                                 Teléfono Fijo:
                             </label>
                             <input
+                                style={{ marginLeft: "10px", width: "233px" }}
                                 value={data.telefono_fijo}
                                 onChange={(e) =>
                                     setData("telefono_fijo", e.target.value)
@@ -210,6 +215,7 @@ const editar = ({ usuario }) => {
                         <div>
                             <label htmlFor="ciudad">Ciudad:</label>
                             <input
+                                style={{ width: "233px" }}
                                 value={data.ciudad}
                                 onChange={(e) =>
                                     setData("ciudad", e.target.value)
@@ -227,6 +233,7 @@ const editar = ({ usuario }) => {
                         <div>
                             <label htmlFor="direccion">Dirección:</label>
                             <input
+                                style={{ width: "233px" }}
                                 value={data.direccion}
                                 onChange={(e) =>
                                     setData("direccion", e.target.value)
@@ -246,6 +253,7 @@ const editar = ({ usuario }) => {
                         <div>
                             <label htmlFor="idplan">Id plan:</label>
                             <input
+                                style={{ width: "233px" }}
                                 value={data.idplan}
                                 onChange={(e) =>
                                     setData("idplan", e.target.value)
@@ -265,6 +273,7 @@ const editar = ({ usuario }) => {
                                 Fecha Fin Plan:
                             </label>
                             <input
+                                style={{ width: "233px" }}
                                 value={data.fecha_vencimiento}
                                 onChange={(e) =>
                                     setData("fecha_vencimiento", e.target.value)
@@ -272,7 +281,7 @@ const editar = ({ usuario }) => {
                                 type="date"
                                 placeholder=""
                                 autoFocus
-                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                                className="mb-3 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                             />
                             <InputError
                                 message={errors.fecha_vencimiento}
@@ -284,6 +293,7 @@ const editar = ({ usuario }) => {
                         <div>
                             <label htmlFor="origen">Origen:</label>
                             <input
+                                style={{ width: "233px" }}
                                 value={data.origen}
                                 onChange={(e) =>
                                     setData("origen", e.target.value)
@@ -303,7 +313,7 @@ const editar = ({ usuario }) => {
                         <div>
                             <label htmlFor="nit_empresa">Nit Empresa:</label>
                             <input
-                                style={{ width: "250px" }}
+                                style={{ width: "233px" }}
                                 value={data.nit_empresa}
                                 onChange={(e) =>
                                     setData("nit_empresa", e.target.value)
@@ -323,6 +333,7 @@ const editar = ({ usuario }) => {
                                 Nombre Empresa:
                             </label>
                             <input
+                                style={{ width: "460px" }}
                                 value={data.nombre_empresa}
                                 onChange={(e) =>
                                     setData("nombre_empresa", e.target.value)
@@ -344,6 +355,7 @@ const editar = ({ usuario }) => {
                                 Email Facturación Empresa:
                             </label>
                             <input
+                                style={{ width: "466px" }}
                                 value={data.email_facturacion_empresa}
                                 onChange={(e) =>
                                     setData(
@@ -366,7 +378,7 @@ const editar = ({ usuario }) => {
                         <div>
                             <label htmlFor="pais_empresa">País Empresa:</label>
                             <input
-                                style={{ width: "150px" }}
+                                style={{ width: "233px" }}
                                 value={data.pais_empresa}
                                 onChange={(e) =>
                                     setData("pais_empresa", e.target.value)
@@ -386,7 +398,7 @@ const editar = ({ usuario }) => {
                                 Indicativo Empresa:
                             </label>
                             <input
-                                style={{ width: "150px" }}
+                                style={{ width: "233px" }}
                                 value={data.indicativo_empresa}
                                 onChange={(e) =>
                                     setData(
@@ -409,6 +421,7 @@ const editar = ({ usuario }) => {
                                 Celular Empresa:
                             </label>
                             <input
+                                style={{ width: "233px" }}
                                 value={data.celular_empresa}
                                 onChange={(e) =>
                                     setData("celular_empresa", e.target.value)
@@ -428,6 +441,7 @@ const editar = ({ usuario }) => {
                                 Teléfono Fijo Empresa:
                             </label>
                             <input
+                                style={{ marginLeft: "10px", width: "233px" }}
                                 value={data.telefono_fijo_empresa}
                                 onChange={(e) =>
                                     setData(
@@ -471,6 +485,7 @@ const editar = ({ usuario }) => {
                                 Dirección Empresa:
                             </label>
                             <input
+                                style={{ marginLeft: "10px" }}
                                 value={data.direccion_empresa}
                                 onChange={(e) =>
                                     setData("direccion_empresa", e.target.value)
@@ -511,6 +526,7 @@ const editar = ({ usuario }) => {
                     <div>
                         <label htmlFor="password">Contraseña:</label>
                         <input
+                            style={{ width: "233px" }}
                             value={data.password}
                             onChange={(e) =>
                                 setData("password", e.target.value)
