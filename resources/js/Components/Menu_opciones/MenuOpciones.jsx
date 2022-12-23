@@ -1,21 +1,92 @@
-import React from "react";
+import { useState } from "react";
 import "../../../css/estilos-menu-opciones.css";
-import MenuAdmin from "./MenuAdmin";
-import Perfiles from "./Perfiles";
-import MisSeguimientos from "./MisSeguimientos";
-import Carpetas from "./Carpetas";
-import TodosContratos from "./TodosContratos";
-import Ajustes from "./Ajustes";
 
-export default function ManuOpciones() {
+import { BsArrowLeftShort, BsSearch, BsChevronDown } from "react-icons/bs"
+const App = () => {
+    const [open, setOpen] = useState(true);
+    const [subMenuOpen, setSubMenuOpen] = useState(false);
+    const Menus = [
+        {
+            title: "Menú Admin",
+            icon: "admin_panel_settings",
+            submenu: true,
+            submenuItems: [
+                { title: "Usuarios" },
+                { title: "Planes" },
+            ]
+        },
+        { title: "Perfiles", icon: "filter_alt" },
+        { title: "Mis Seguimientos", icon: "visibility" },
+        { title: "Carpetas ", icon: "folder" },
+        { title: "Todos los Contratos", icon: "Search" },
+        { title: "Ajustes", icon: "settings" },
+    ];
+
     return (
-        <div className="contenedor-menu-opciones">
-            <MenuAdmin />
-            <Perfiles />
-            <MisSeguimientos />
-            <Carpetas />
-            <TodosContratos />
-            <Ajustes />
+        <div className="flex">
+            <link
+                rel="stylesheet"
+                href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+            />
+            <div
+                className={` ${open ? "w-30" : "w-20 "
+                    } bg-dark-purple h-screen p-10  relative duration-300`}
+            >
+                
+                <BsArrowLeftShort className={`z-10 bg-white text-dark-purple text-3xl rounded-full absolute -right-3 top-9 border Oborder-dark-purple cursor-pointer ${!open && "rotate-180"}`}
+                    onClick={() => setOpen(!open)} />
+                    
+
+                <ul className="pt-6">
+                    {Menus.map((Menu, index) => (
+                        <>
+                            <li
+                                key={index}
+                                className={`text-center rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-500 text-sm items-center gap-x-4 ${index === 0 && "bg-light-white"}`}
+                            >
+                                {Menu.submenu && open
+                                    ? 
+                                    <>
+                                        <span className="text-base material-symbols-outlined iconos-tamano" onClick={() => { setSubMenuOpen(!subMenuOpen) }}>
+                                            {Menu.icon}
+                                        </span>
+                                        <p className={`${!open && "hidden"} origin-left duration-200`}>
+                                            {Menu.title}
+                                        </p>
+
+                                        <BsChevronDown className={`${subMenuOpen && "rotate-180"}`} onClick={() => { setSubMenuOpen(!subMenuOpen) }} />
+                                    </>
+                                    : (
+                                        <>
+                                            <span className="text-base material-symbols-outlined iconos-tamano">
+                                                {Menu.icon}
+                                            </span>
+                                            <p className={`${!open && "hidden"} origin-left duration-200`}>
+                                                {Menu.title}
+                                            </p>
+                                        </>
+                                    )
+                                }
+
+
+                                
+                                
+                            </li>
+
+                            {Menu.submenu && subMenuOpen && open && (
+                                <ul className="submenu">
+                                    {Menu.submenuItems.map((submenuItem, index) => (
+                                        <li key={index} className="text-gray-500 text-sm flex items-center gap-x-4 cursor-pointer p-2 px-5 Dhover:bg-light-white rounded-md">
+                                            {submenuItem.title}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
-}
+};
+export default App;
