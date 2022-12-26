@@ -69,6 +69,7 @@ const Index = ({ auth, planes }) => {
                     <MenuOpciones />
                 </div>
                 <div className="bg-white overflow-auto w-full text-center">
+                    <h2 class="name_section_app">Planes</h2>
                     <div className="usuarios">
                         <div className="contenedor-botones">
                             <a
@@ -182,7 +183,7 @@ const Index = ({ auth, planes }) => {
                                     <td className="border border-gray-200 margen-textos">
                                         <button
                                             type="button"
-                                            className="btn btn-danger btn-sm"
+                                            className="btn btn-warning btn-sm"
                                             data-bs-toggle="modal"
                                             data-bs-target={
                                                 "#deleteModal" + plan.id
