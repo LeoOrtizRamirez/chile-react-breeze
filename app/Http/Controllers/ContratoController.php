@@ -17,7 +17,7 @@ class ContratoController extends Controller
     {
         //$contratos = Contrato::with('fuente')->get();
 
-        $contratos = Contrato::with('fuente'/*, 'clasificaciones', 'contratistas'*/)->take(100)->get();
+        $contratos = Contrato::with('fuente'/*, 'clasificaciones', 'contratistas'*/)->get();
         foreach ($contratos as $key => $value) {
             $contratista = ContratistaContrato::where('id_contrato', $value->id)->first();
             if($contratista){
