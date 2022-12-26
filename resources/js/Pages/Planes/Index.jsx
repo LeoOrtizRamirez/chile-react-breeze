@@ -9,6 +9,7 @@ import { Link } from "@inertiajs/inertia-react";
 
 import UpdateModal from "@/Components/Modals/UpdateModal";
 import CreateModal from "@/Components/Modals/CreateModal";
+import DeleteModal from "@/Components/Modals/DeleteModal";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -26,6 +27,15 @@ const Index = ({ auth, planes }) => {
         data.nombre = plan.nombre;
         data.dias = plan.dias;
         const modal_activo = document.getElementById("updateModal" + plan.id); //Buscar modal para abrir
+        modal_activo.style.display = "block";
+        modal_activo.classList.toggle("show");
+    };
+
+    const getPlanDelete = (plan) => {
+        console.log('here')
+        data.nombre = plan.nombre;
+        data.dias = plan.dias;
+        const modal_activo = document.getElementById("deleteModal" + plan.id); //Buscar modal para abrir
         modal_activo.style.display = "block";
         modal_activo.classList.toggle("show");
     };
@@ -170,16 +180,22 @@ const Index = ({ auth, planes }) => {
                                         <UpdateModal planData={plan} />
                                     </td>
                                     <td className="border border-gray-200 margen-textos">
-                                        <Link
-                                            href={route("planes.destroy", plan)}
-                                            method="delete"
-                                            as="button"
+                                        <button
+                                            type="button"
                                             className="btn btn-danger btn-sm"
+                                            data-bs-toggle="modal"
+                                            data-bs-target={
+                                                "#deleteModal" + plan.id
+                                            }
+                                            onClick={() => {
+                                                getPlanDelete(plan);
+                                            }}
                                         >
                                             <span className="material-symbols-outlined text-white iconos-tamano-margen align-middle">
                                                 delete
                                             </span>
-                                        </Link>
+                                        </button>
+                                        <DeleteModal planData={plan} />
                                     </td>
                                 </tr>
                             ))}

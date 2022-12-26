@@ -63,7 +63,7 @@ const Index = ({ auth, contratos }) => {
     // Fin Ordenar tabla por columna
 
     // Inicio Paginador
-    const itemsPagina = 4;
+    const itemsPagina = 30;
     const totalElementos = contratos.length;
     const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;
     const [datos, setDatos] = useState(contratos);
