@@ -5,49 +5,77 @@ import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 import Paginador from "@/Components/Paginador";
 import "../../../css/estilos-contratos-index.css";
 import "../../../css/estilos-usuarios-index.css";
+import $ from "jquery";
+
+// Inicio Ordenar tabla por columna
+$("th").click(function () {
+    var table = $(this).parents("table").eq(0);
+    var rows = table
+        .find("tr:gt(0)")
+        .toArray()
+        .sort(comparer($(this).index()));
+    this.asc = !this.asc;
+    if (!this.asc) {
+        rows = rows.reverse();
+    }
+    for (var i = 0; i < rows.length; i++) {
+        table.append(rows[i]);
+    }
+    setIcon($(this), this.asc);
+});
+
+function comparer(index) {
+    return function (a, b) {
+        var valA = getCellValue(a, index),
+            valB = getCellValue(b, index);
+        return $.isNumeric(valA) && $.isNumeric(valB)
+            ? valA - valB
+            : valA.localeCompare(valB);
+    };
+}
+
+function getCellValue(row, index) {
+    return $(row).children("td").eq(index).html();
+}
+
+function setIcon(element, asc) {
+    $("th").each(function (index) {
+        $(this).removeClass("sorting");
+        $(this).removeClass("asc");
+        $(this).removeClass("desc");
+    });
+    element.addClass("sorting");
+    if (asc) element.addClass("asc");
+    else element.addClass("desc");
+}
+// Fin Ordenar tabla por columna
 
 const Index = ({ auth, usuarios }) => {
-    /* paginador*/
-
-    const itemsPagina = 30;
-
+    // Inicio Paginador
+    const itemsPagina = 10;
     const totalElementos = usuarios.length;
-
     const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;
-
     const [datos, setDatos] = useState(usuarios);
-
     const [items, setItems] = useState([...usuarios].splice(0, itemsPagina));
-
     const [currentPage, setCurrentPage] = useState(0);
-
     const nextHandler = () => {
         const nextPage = currentPage + 1;
-
         const firstIndex = nextPage * itemsPagina;
-
         if (firstIndex >= totalElementos) return;
-
         setItems([...datos].splice(firstIndex, itemsPagina));
-
         setCurrentPage(nextPage);
     };
 
     const prevHandler = () => {
         const prevPage = currentPage - 1;
-
         if (prevPage < 0) return;
-
         const firstIndex = prevPage * itemsPagina;
-
         setItems([...datos].splice(firstIndex, itemsPagina));
-
         setCurrentPage(prevPage);
     };
+    // Fin Paginador
 
-    /* end  paginador */
     const { data, setData, post, processing, reset, errors } = useForm({});
-
     const submit = (e) => {
         e.preventDefault();
         //console.log(data)
@@ -58,7 +86,9 @@ const Index = ({ auth, usuarios }) => {
         <AuthenticatedLayout auth={auth}>
             <Head title="Usuarios" />
             <div className="contenedor-contratos">
-                <MenuOpciones />
+                <div className="posicion-opciones-usuarios">
+                    <MenuOpciones />
+                </div>
                 <div className="alto-tabla bg-white overflow-auto ">
                     <div className="usuarios">
                         <div className="contenedor-botones">
@@ -82,7 +112,6 @@ const Index = ({ auth, usuarios }) => {
                         <div className="margen-titulo">Usuarios</div>
                         <div></div>
                     </div>
-
                     <table className="w-full bg-white border tabla ">
                         <thead
                             className="cabecera-tabla "
@@ -118,8 +147,6 @@ const Index = ({ auth, usuarios }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            
-
                             {items.map((usuario) => (
                                 <tr key={usuario.id}>
                                     <td className="border border-gray-200 text-left px-4 ">
