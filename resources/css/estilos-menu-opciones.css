@@ -1,10 +1,11 @@
-.contenedor-menu-opciones {
-    display: flex;
-    flex-direction: column;
-    height: 600px;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px;
+.contenedor-opciones {
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* height: 600px; */
+    /* justify-content: space-around; */
+    /* align-items: center; */
+    /* padding: 10px; */
+    margin-top: -85px;
 }
 
 .tamano-boton {
@@ -30,5 +31,5 @@ p {
 }
 
 .p-10 {
-    padding: 10px;
+    padding: 0px 10px 10px 10px;
 }

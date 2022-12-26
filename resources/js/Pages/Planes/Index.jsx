@@ -23,9 +23,9 @@ const Index = ({ auth, planes }) => {
     };
 
     const getPlan = (plan) => {
-        data.nombre = plan.nombre
-        data.dias = plan.dias
-        const modal_activo = document.getElementById("updateModal" + plan.id)//Buscar modal para abrir
+        data.nombre = plan.nombre;
+        data.dias = plan.dias;
+        const modal_activo = document.getElementById("updateModal" + plan.id); //Buscar modal para abrir
         modal_activo.style.display = "block";
         modal_activo.classList.toggle("show");
     };
@@ -35,14 +35,15 @@ const Index = ({ auth, planes }) => {
         modal_activo.style.display = "block";
         modal_activo.classList.toggle("show");
     };
-    const all_close_btn = document.querySelectorAll("button[data-bs-dismiss]")//Buscar botones para cerrar modal
+    const all_close_btn = document.querySelectorAll("button[data-bs-dismiss]"); //Buscar botones para cerrar modal
     if (all_close_btn) {
         all_close_btn.forEach(modalClose);
     }
 
-    function modalClose(element, index, array) {//Al dar clic en cualquier boton
+    function modalClose(element, index, array) {
+        //Al dar clic en cualquier boton
         element.onclick = function () {
-            const modal = document.querySelector(".modal.fade.show")//Buscar modal abierto
+            const modal = document.querySelector(".modal.fade.show"); //Buscar modal abierto
             if (modal) {
                 modal.style.display = "none";
                 modal.classList.toggle("show");
@@ -54,7 +55,9 @@ const Index = ({ auth, planes }) => {
         <AuthenticatedLayout auth={auth}>
             <Head title="Planes" />
             <div className="contenedor-contratos">
-                <MenuOpciones />
+                <div className="posicion-opciones-planes">
+                    <MenuOpciones />
+                </div>
                 <div className="bg-white overflow-auto w-full text-center">
                     <div className="usuarios">
                         <div className="contenedor-botones">
@@ -69,7 +72,9 @@ const Index = ({ auth, planes }) => {
                             <CreateModal />
                             <a
                                 className="add_circle"
-                                onClick={() => { openModal() }}
+                                onClick={() => {
+                                    openModal();
+                                }}
                             >
                                 <span className="material-symbols-outlined material-symbols-outlined-color">
                                     add_circle
@@ -120,27 +125,43 @@ const Index = ({ auth, planes }) => {
                                         {plan.estado}
                                     </td>
                                     <td className="border border-gray-200 margen-textos">
-                                        {plan.estado == "Activo"
-                                            ? <Link href={route("planes.status", plan.id)} className="btn btn-danger btn-sm">
+                                        {plan.estado == "Activo" ? (
+                                            <Link
+                                                href={route(
+                                                    "planes.status",
+                                                    plan.id
+                                                )}
+                                                className="btn btn-danger btn-sm"
+                                            >
                                                 <span className="material-symbols-outlined text-white iconos-tamano-margen align-middle">
                                                     cancel
                                                 </span>
                                             </Link>
-                                            : (
-                                                <Link href={route("planes.status", plan.id)} className="btn btn-success btn-sm">
-                                                    <span className="material-symbols-outlined text-white iconos-tamano-margen align-middle">
-                                                        check
-                                                    </span>
-                                                </Link>
-                                            )
-                                        }
+                                        ) : (
+                                            <Link
+                                                href={route(
+                                                    "planes.status",
+                                                    plan.id
+                                                )}
+                                                className="btn btn-success btn-sm"
+                                            >
+                                                <span className="material-symbols-outlined text-white iconos-tamano-margen align-middle">
+                                                    check
+                                                </span>
+                                            </Link>
+                                        )}
                                     </td>
                                     <td className="border border-gray-200 margen-textos">
-                                        <button type="button"
+                                        <button
+                                            type="button"
                                             className="btn btn-info btn-sm"
                                             data-bs-toggle="modal"
-                                            data-bs-target={'#updateModal' + plan.id}
-                                            onClick={() => { getPlan(plan) }}
+                                            data-bs-target={
+                                                "#updateModal" + plan.id
+                                            }
+                                            onClick={() => {
+                                                getPlan(plan);
+                                            }}
                                         >
                                             <span className="material-symbols-outlined text-white iconos-tamano-margen align-middle">
                                                 edit
@@ -149,7 +170,12 @@ const Index = ({ auth, planes }) => {
                                         <UpdateModal planData={plan} />
                                     </td>
                                     <td className="border border-gray-200 margen-textos">
-                                        <Link href={route('planes.destroy', plan)} method='delete' as="button" className="btn btn-danger btn-sm">
+                                        <Link
+                                            href={route("planes.destroy", plan)}
+                                            method="delete"
+                                            as="button"
+                                            className="btn btn-danger btn-sm"
+                                        >
                                             <span className="material-symbols-outlined text-white iconos-tamano-margen align-middle">
                                                 delete
                                             </span>

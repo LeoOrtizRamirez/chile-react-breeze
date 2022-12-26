@@ -1,4 +1,8 @@
-ul{
+.posicion-opciones-planes {
+    margin-top: 80px;
+}
+
+ul {
     padding-left: 0px !important;
 }
 
@@ -11,11 +15,12 @@ a {
     width: 110px;
 }
 
-p{
+p {
     margin-bottom: 0px !important;
 }
 
-.modal-header , .btn-info{
+.modal-header,
+.btn-info {
     background: #1383ac;
     color: #fff;
 }
