@@ -14,3 +14,17 @@
 .margen {
     margin-left: 45px;
 }
+
+.contenedor-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.margen-logo {
+    margin: 10px;
+}
+
+a {
+    margin: 0px 3px 0px 3px;
+}
