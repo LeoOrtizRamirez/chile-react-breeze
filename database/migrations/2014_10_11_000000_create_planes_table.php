@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('nombre')->nullable();
             $table->integer('dias');
-            $table->string('tiempo', 10);
-            $table->integer('cantidad_tiempo');
+            $table->string('periodo', 10);
+            $table->integer('tiempo');
             $table->integer('valor_cuenta_adicional');
             $table->bigInteger('valor');
             $table->string('descripcion')->nullable();

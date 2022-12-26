@@ -29,8 +29,7 @@ const App = () => {
                 href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
             />
             <div
-                className={` ${open ? "w-30" : "w-20 "
-                    } bg-dark-purple h-screen p-10  relative duration-300`}
+                className={` ${open ? "w-30" : "w-20 "} bg-dark-purple h-screen p-10  relative duration-300`}
             >
                 
                 {/*<BsArrowLeftShort className={`z-10 bg-white text-dark-purple text-3xl rounded-full absolute -right-3 top-9 border Oborder-dark-purple cursor-pointer ${!open && "rotate-180"}`}

@@ -16,5 +16,7 @@ class Plane extends Model
         'valor',
         'estado',
         'descripcion',
+        'periodo',
+        'valor_cuenta_adicional',
     ];
 }

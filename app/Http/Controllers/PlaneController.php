@@ -41,12 +41,15 @@ class PlaneController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
         $validated = $request->validate([
             'nombre' => 'max:255',
             'dias' => 'required',
             'tiempo' => 'required',
             'valor' => 'required',
             'descripcion' => 'max:255',
+            'periodo' => 'max:10',
+            'valor_cuenta_adicional' => 'integer',
          ]);
 
          Plane::Create($validated);
@@ -94,6 +97,8 @@ class PlaneController extends Controller
             'tiempo' => 'required',
             'valor' => 'required',
             'descripcion' => 'max:255',
+            'periodo' => 'max:10',
+            'valor_cuenta_adicional' => 'integer',
          ]);
          
          $plane->update($validated);

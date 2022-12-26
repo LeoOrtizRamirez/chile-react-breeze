@@ -9,7 +9,7 @@ const CreateModal = () => {
         dias: null,
         tiempo: null,
         descripcion: null,
-        cantidad_tiempo: null,
+        periodo: null,
         valor_cuenta_adicional: null,
         estado: null,
     })
@@ -114,13 +114,13 @@ const CreateModal = () => {
                                     <p className='text-left'>Tiempo de plan:</p>
                                     <p className='text-left px-2'>Días:</p>
                                         <input type="radio"
-                                            name="tiempo"
+                                            name="periodo"
                                             value='dias'
                                             onChange={handleInputChange}
                                         />
                                     <p className='text-left px-2'>Meses:</p>
                                         <input type="radio"
-                                            name="tiempo"
+                                            name="periodo"
                                             value='meses'
                                             onChange={handleInputChange}
                                         />
@@ -128,8 +128,8 @@ const CreateModal = () => {
                                 <div className="row">
                                     <div className="form-group">
                                         <input type="number"
-                                            id="cantidad_tiempo"
-                                            name="cantidad_tiempo"
+                                            id="tiempo"
+                                            name="tiempo"
                                             className='form-control mb-3'
                                             onChange={handleInputChange}
                                         />
