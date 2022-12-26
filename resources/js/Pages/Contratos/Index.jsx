@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { useForm, Head } from "@inertiajs/inertia-react";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
@@ -10,6 +10,8 @@ import Favoritos from "../../Components/Acciones/Favoritos";
 import Pdf from "../../Components/Acciones/Pdf";
 import Visualizar from "../../Components/Acciones/Visualizar";
 import ContenedorFiltros from "@/Components/Filtros/ContenedorFiltros";
+import Paginador from "@/Components/Paginador";
+
 // import {Compartir, Eliminar, Enviar, Favoritos, Pdf, Visualizar } from "../../Components/Acciones";
 
 const Index = ({ auth, contratos }) => {
@@ -17,6 +19,55 @@ const Index = ({ auth, contratos }) => {
         title: "",
         body: "",
     });
+
+
+ /* paginador*/
+
+ const itemsPagina = 30;
+
+ const totalElementos = contratos.length
+
+ const totalPaginas = parseInt(totalElementos / itemsPagina) + 1
+
+ const [datos, setDatos] = useState(contratos)
+
+ const [items, setItems] = useState([...contratos].splice(0, itemsPagina))
+
+ const [currentPage, setCurrentPage] = useState(0)
+
+ const nextHandler = () => {
+
+     const nextPage = currentPage + 1
+
+     const firstIndex = nextPage * itemsPagina
+
+     if (firstIndex >= totalElementos) return;
+
+     setItems([...datos].splice(firstIndex, itemsPagina))
+
+     setCurrentPage(nextPage)
+ }
+
+ const prevHandler = () => {
+     const prevPage = currentPage -1 ;
+
+     if(prevPage < 0) return
+
+     const firstIndex = prevPage * itemsPagina
+
+     setItems([...datos].splice(firstIndex, itemsPagina))
+
+     setCurrentPage(prevPage)
+
+ }
+
+ /* end  paginador */
+
+
+
+
+
+
 
     const submit = (e) => {
         e.preventDefault();
@@ -122,6 +173,8 @@ const Index = ({ auth, contratos }) => {
                             ))}
                         </tbody>
                     </table>
+                    <Paginador nextHandler={nextHandler}  prevHandler={prevHandler} currentPage={currentPage} itemsPagina={itemsPagina} totalElementos={totalElementos} totalPaginas={totalPaginas}></Paginador>
+
                 </div>
             </div>
         </AuthenticatedLayout>
