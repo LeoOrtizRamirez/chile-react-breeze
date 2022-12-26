@@ -122,13 +122,13 @@ const Index = ({ auth, planes }) => {
                                     <td className="border border-gray-200 margen-textos">
                                         {plan.estado == "Activo"
                                             ? <Link href={route("planes.status", plan.id)} className="btn btn-danger btn-sm">
-                                                <span class="material-symbols-outlined text-white iconos-tamano-margen align-middle">
+                                                <span className="material-symbols-outlined text-white iconos-tamano-margen align-middle">
                                                     cancel
                                                 </span>
                                             </Link>
                                             : (
                                                 <Link href={route("planes.status", plan.id)} className="btn btn-success btn-sm">
-                                                    <span class="material-symbols-outlined text-white iconos-tamano-margen align-middle">
+                                                    <span className="material-symbols-outlined text-white iconos-tamano-margen align-middle">
                                                         check
                                                     </span>
                                                 </Link>
@@ -142,7 +142,7 @@ const Index = ({ auth, planes }) => {
                                             data-bs-target={'#updateModal' + plan.id}
                                             onClick={() => { getPlan(plan) }}
                                         >
-                                            <span class="material-symbols-outlined text-white iconos-tamano-margen align-middle">
+                                            <span className="material-symbols-outlined text-white iconos-tamano-margen align-middle">
                                                 edit
                                             </span>
                                         </button>
@@ -150,7 +150,7 @@ const Index = ({ auth, planes }) => {
                                     </td>
                                     <td className="border border-gray-200 margen-textos">
                                         <Link href={route('planes.destroy', plan)} method='delete' as="button" className="btn btn-danger btn-sm">
-                                            <span class="material-symbols-outlined text-white iconos-tamano-margen align-middle">
+                                            <span className="material-symbols-outlined text-white iconos-tamano-margen align-middle">
                                                 delete
                                             </span>
                                         </Link>
