@@ -7,51 +7,46 @@ import "../../../css/estilos-contratos-index.css";
 import "../../../css/estilos-usuarios-index.css";
 
 const Index = ({ auth, usuarios }) => {
-
-
     /* paginador*/
 
     const itemsPagina = 30;
 
-    const totalElementos = usuarios.length
+    const totalElementos = usuarios.length;
 
-    const totalPaginas = parseInt(totalElementos / itemsPagina) + 1
+    const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;
 
-    const [datos, setDatos] = useState(usuarios)
+    const [datos, setDatos] = useState(usuarios);
 
-    const [items, setItems] = useState([...usuarios].splice(0, itemsPagina))
+    const [items, setItems] = useState([...usuarios].splice(0, itemsPagina));
 
-    const [currentPage, setCurrentPage] = useState(0)
+    const [currentPage, setCurrentPage] = useState(0);
 
     const nextHandler = () => {
+        const nextPage = currentPage + 1;
 
-        const nextPage = currentPage + 1
-
-        const firstIndex = nextPage * itemsPagina
+        const firstIndex = nextPage * itemsPagina;
 
         if (firstIndex >= totalElementos) return;
 
-        setItems([...datos].splice(firstIndex, itemsPagina))
+        setItems([...datos].splice(firstIndex, itemsPagina));
 
-        setCurrentPage(nextPage)
-    }
+        setCurrentPage(nextPage);
+    };
 
     const prevHandler = () => {
-        const prevPage = currentPage -1 ;
+        const prevPage = currentPage - 1;
 
-        if(prevPage < 0) return
+        if (prevPage < 0) return;
 
-        const firstIndex = prevPage * itemsPagina
+        const firstIndex = prevPage * itemsPagina;
 
-        setItems([...datos].splice(firstIndex, itemsPagina))
+        setItems([...datos].splice(firstIndex, itemsPagina));
 
-        setCurrentPage(prevPage)
-
-    }
+        setCurrentPage(prevPage);
+    };
 
     /* end  paginador */
-    const { data, setData, post, processing, reset, errors } = useForm({
-    });
+    const { data, setData, post, processing, reset, errors } = useForm({});
 
     const submit = (e) => {
         e.preventDefault();
@@ -60,10 +55,7 @@ const Index = ({ auth, usuarios }) => {
     };
 
     return (
-
-
         <AuthenticatedLayout auth={auth}>
-
             <Head title="Usuarios" />
             <div className="contenedor-contratos">
                 <MenuOpciones />
@@ -74,7 +66,7 @@ const Index = ({ auth, usuarios }) => {
                                 className="autorenew"
                                 href="javascript:location.reload()"
                             >
-                                <span className="material-symbols-outlined">
+                                <span className="material-symbols-outlined actualizar-color">
                                     autorenew
                                 </span>
                             </a>
@@ -130,22 +122,29 @@ const Index = ({ auth, usuarios }) => {
                                 <tr key={usuario.id}>
                                     <td className="border border-gray-200 text-left px-4 ">
                                         <div className="iconos-horizontal">
-                                            <div className="">
+                                            <div className="estilos-boton-eliminar">
                                                 <a href="">
-                                                    <span className="material-symbols-outlined text-red-500 iconos-tamano-margen">
+                                                    <span className="material-symbols-outlined">
                                                         delete
                                                     </span>
                                                 </a>
                                             </div>
-                                            <div className="">
-                                            <a href={route('usuarios.update',usuario.id) + "/edit"}>
-                                                <span className="material-symbols-outlined text-cyan-500 iconos-tamano-margen">
-                                                    edit
-                                                </span>
+                                            <div className="estilos-boton-editar">
+                                                <a
+                                                    href={
+                                                        route(
+                                                            "usuarios.update",
+                                                            usuario.id
+                                                        ) + "/edit"
+                                                    }
+                                                >
+                                                    <span className="material-symbols-outlined">
+                                                        edit
+                                                    </span>
                                                 </a>
                                             </div>
-                                            <div className="">
-                                                <span className="material-symbols-outlined text-gray-500 iconos-tamano-margen">
+                                            <div className="estilos-boton-email">
+                                                <span className="material-symbols-outlined">
                                                     mail
                                                 </span>
                                             </div>
@@ -233,8 +232,14 @@ const Index = ({ auth, usuarios }) => {
                         </tbody>
                     </table>
 
-                    <Paginador nextHandler={nextHandler}  prevHandler={prevHandler} currentPage={currentPage} itemsPagina={itemsPagina} totalElementos={totalElementos} totalPaginas={totalPaginas}></Paginador>
-
+                    <Paginador
+                        nextHandler={nextHandler}
+                        prevHandler={prevHandler}
+                        currentPage={currentPage}
+                        itemsPagina={itemsPagina}
+                        totalElementos={totalElementos}
+                        totalPaginas={totalPaginas}
+                    ></Paginador>
                 </div>
             </div>
         </AuthenticatedLayout>

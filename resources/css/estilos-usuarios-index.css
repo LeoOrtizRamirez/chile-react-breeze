@@ -1,3 +1,7 @@
+.actualizar-color {
+    color: #00a1c9;
+}
+
 .color-titulos-empresa {
     background-color: #006f8b;
 }
@@ -106,4 +110,43 @@ label {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.estilos-boton-eliminar {
+    background-color: red;
+    width: 30px;
+    height: 30px;
+    border-radius: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding-top: 3px;
+    margin: 3px;
+}
+
+.estilos-boton-editar {
+    background-color: #00a1c9;
+    width: 30px;
+    height: 30px;
+    border-radius: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding-top: 3px;
+    margin: 3px;
+}
+
+.estilos-boton-email {
+    background-color: rgb(236, 236, 236);
+    width: 30px;
+    height: 30px;
+    border-radius: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(95, 95, 95);
+    padding-top: 3px;
+    margin: 3px;
 }
