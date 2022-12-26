@@ -103,7 +103,7 @@ const Index = ({ auth, contratos }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {contratos.map((contrato) => (
+                            {items.map((contrato) => (
                                 <tr key={contrato.id}>
                                     <td className="border border-gray-200 text-left px-4 ">
                                         <div className="iconos-horizontal">
