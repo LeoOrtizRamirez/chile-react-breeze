@@ -119,6 +119,7 @@ const Index = ({ auth, usuarios }) => {
                         </thead>
                         <tbody>
                             
+
                             {items.map((usuario) => (
                                 <tr key={usuario.id}>
                                     <td className="border border-gray-200 text-left px-4 ">
