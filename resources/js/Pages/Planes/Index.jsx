@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { useForm, Head } from "@inertiajs/inertia-react";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
@@ -23,42 +23,33 @@ const Index = ({ auth, planes }) => {
         post(route("planes.store"), { onSuccess: () => reset() });
     };
 
+    const [openCreateModal, setOpenCreateModal] = useState(false);
+    
+    const [openUpdateModal, setOpenUpdateModal] = useState(false);
+    const [openUpdateModalId, setOpenUpdateModalId] = useState(0);
+
+    const [openDeleteModal, setOpenDeleteModal] = useState(false);
+    const [openDeleteModalId, setOpenDeleteModalId] = useState(0);
+
     const getPlan = (plan) => {
-        data.nombre = plan.nombre;
-        data.dias = plan.dias;
+        setOpenUpdateModal(true)
+        setOpenUpdateModalId(plan.id)
+        /*
         const modal_activo = document.getElementById("updateModal" + plan.id); //Buscar modal para abrir
         modal_activo.style.display = "block";
         modal_activo.classList.toggle("show");
+        */
     };
 
     const getPlanDelete = (plan) => {
-        console.log('here')
-        data.nombre = plan.nombre;
-        data.dias = plan.dias;
-        const modal_activo = document.getElementById("deleteModal" + plan.id); //Buscar modal para abrir
-        modal_activo.style.display = "block";
-        modal_activo.classList.toggle("show");
+        setOpenDeleteModal(true)
+        setOpenDeleteModalId(plan.id)
     };
 
-    const openModal = () => {
-        const modal_activo = document.getElementById("modalCreate"); //Buscar modal para abrir
-        modal_activo.style.display = "block";
-        modal_activo.classList.toggle("show");
-    };
-    const all_close_btn = document.querySelectorAll("button[data-bs-dismiss]"); //Buscar botones para cerrar modal
-    if (all_close_btn) {
-        all_close_btn.forEach(modalClose);
-    }
-
-    function modalClose(element, index, array) {
-        //Al dar clic en cualquier boton
-        element.onclick = function () {
-            const modal = document.querySelector(".modal.fade.show"); //Buscar modal abierto
-            if (modal) {
-                modal.style.display = "none";
-                modal.classList.toggle("show");
-            }
-        };
+    const handleSearch = (e) =>{
+        setOpenCreateModal(false)
+        setOpenUpdateModal(false)
+        setOpenDeleteModal(false)
     }
 
     return (
@@ -80,17 +71,23 @@ const Index = ({ auth, planes }) => {
                                     autorenew
                                 </span>
                             </a>
-                            <CreateModal />
+                            
+
                             <a
                                 className="add_circle"
                                 onClick={() => {
-                                    openModal();
+                                    setOpenCreateModal(true);
                                 }}
                             >
-                                <span className="material-symbols-outlined material-symbols-outlined-color">
+                                <span className="material-symbols-outlined material-symbols-outlined-color cursor-pointer">
                                     add_circle
                                 </span>
                             </a>
+                            
+                            {openCreateModal &&(
+                                <CreateModal openCreateModal={openCreateModal} handleSearch={handleSearch}/>
+                            )}
+                            
                         </div>
                     </div>
                     <table className="w-full bg-white border tabla ">
@@ -178,12 +175,15 @@ const Index = ({ auth, planes }) => {
                                                 edit
                                             </span>
                                         </button>
-                                        <UpdateModal planData={plan} />
+                                        {openUpdateModal && openUpdateModalId == plan.id &&(
+                                            <UpdateModal planData={plan} openUpdateModal={openUpdateModal} handleSearch={handleSearch}/>
+                                        )}
+                                        
                                     </td>
                                     <td className="border border-gray-200 margen-textos">
                                         <button
                                             type="button"
-                                            className="btn btn-warning btn-sm"
+                                            className="btn btn-danger btn-sm"
                                             data-bs-toggle="modal"
                                             data-bs-target={
                                                 "#deleteModal" + plan.id
@@ -196,7 +196,9 @@ const Index = ({ auth, planes }) => {
                                                 delete
                                             </span>
                                         </button>
-                                        <DeleteModal planData={plan} />
+                                        {openDeleteModal && openDeleteModalId == plan.id &&(
+                                            <DeleteModal planData={plan} openDeleteModal={openDeleteModal} handleSearch={handleSearch}/>
+                                        )}
                                     </td>
                                 </tr>
                             ))}

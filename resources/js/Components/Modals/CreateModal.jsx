@@ -1,7 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { useForm } from "@inertiajs/inertia-react";
 
-const CreateModal = () => {
+const CreateModal = props => {
+
+    console.log(props.openCreateModal)
+
+    console.log(props)
+    const {handleSearch} = props
 
     const { data, setData, post, processing, reset, errors } = useForm({
         nombre: null,
@@ -24,18 +29,7 @@ const CreateModal = () => {
     const enviarDatos = (e) => {
         e.preventDefault()
         post(route("planes.store"), { onSuccess: () => reset() });
-        //Cerrar modal
-        const modal = document.querySelector(".modal.fade.show")//Buscar modal abierto
-        if (modal) {
-            modal.style.display = "none";
-            modal.classList.toggle("show");
-        }
-    }
-
-    const openModal = () => {
-        const modal_activo = document.getElementById("modalCreate")//Buscar modal para abrir
-        modal_activo.style.display = "block";
-        modal_activo.classList.toggle("show");
+        handleSearch()
     }
 
     return (
@@ -49,13 +43,14 @@ const CreateModal = () => {
                     Crear
                 </button>
             */}
-            <div className="modal fade" id="modalCreate" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            {props.openCreateModal &&(
+                <div className="modal fade show" id="modalCreate" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style={{display: 'block'}}>
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <form className="form" onSubmit={enviarDatos}>
                             <div className="modal-header">
                                 <h5 className="modal-title" id="exampleModalLabel">Crear Plan</h5>
-                                <button type="button" className="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" className="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" onClick={handleSearch}></button>
                             </div>
                             <div className="modal-body">
                                 <div className="row">
@@ -153,13 +148,14 @@ const CreateModal = () => {
                                     value="Crear"
                                     className='btn btn-info'
                                 />
-                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={handleSearch}>Cerrar</button>
                             </div>
                         </form>
 
                     </div>
                 </div>
             </div>
+            )}
         </>
     )
 }
