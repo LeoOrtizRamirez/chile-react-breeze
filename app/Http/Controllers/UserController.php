@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Inertia\Inertia;
-
+use PhpParser\Node\Stmt\Return_;
 
 class UserController extends Controller
 {
@@ -31,15 +31,12 @@ class UserController extends Controller
 
     public function edit(User $usuario)
     {
-    
         return Inertia::render('Usuarios/Editar', [
             'usuario' => $usuario
         ]);
-
-
     }
 
-   
+
     public function store(Request $request)
     {
         //validamos los datos
@@ -78,12 +75,7 @@ class UserController extends Controller
          return redirect(route('usuarios.index'));
     }
 
-    public function show(Request $request)
-    {
-        //
-    }
 
- 
  
     public function update(Request $request, User $usuario)
     {
@@ -121,8 +113,9 @@ class UserController extends Controller
     }
 
    
-    public function destroy($id)
+    public function destroy(User $usuario)
     {
-        //
+        $usuario->delete();
+        return redirect(route('usuarios.index'));
     }
 }

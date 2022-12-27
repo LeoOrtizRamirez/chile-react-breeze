@@ -42,9 +42,6 @@ Route::resource('contratos', ContratoController::class)
 ->only(['index'])
 ->middleware(['auth','verified']);
 
-Route::resource('usuarios', UserController::class)
-->middleware(['auth','verified']);
-
 Route::resource('planes', PlaneController::class)
 ->only(['index','create', 'store', 'edit', 'update', 'destroy'])
 ->middleware(['auth','verified']);
@@ -52,3 +49,20 @@ Route::resource('planes', PlaneController::class)
 Route::get('/planes/satus/{id}', [PlaneController::class, 'status'])
 ->name('planes.status')
 ->middleware(['auth','verified']);
+
+
+/* Route::resource('usuarios', UserController::class)
+->middleware(['auth','verified']); */
+
+Route::controller(UserController::class)->group(function(){
+    Route::get('usuarios','index')->name('usuarios.index');
+    Route::post('usuarios','store')->name('usuarios.store');
+    Route::get('usuarios/create','create')->name('usuarios.create');
+
+    Route::get('usuarios/{usuario}','show')->name('usuarios.show');
+    Route::put('usuarios/{usuario}','update')->name('usuarios.update');
+    Route::delete('usuarios/{usuario:uuid}','destroy')->name('usuarios.destroy');
+    Route::get('usuarios/{usuario:uuid}/edit','edit')->name('usuarios.edit');
+
+    
+})->middleware(['auth','verified']);
