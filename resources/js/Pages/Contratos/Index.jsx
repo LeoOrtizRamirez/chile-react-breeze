@@ -9,7 +9,6 @@ import Enviar from "../../Components/Acciones/Enviar";
 import Favoritos from "../../Components/Acciones/Favoritos";
 import Pdf from "../../Components/Acciones/Pdf";
 import Visualizar from "../../Components/Acciones/Visualizar";
-import ContenedorFiltros from "@/Components/Filtros/ContenedorFiltros";
 import Paginador from "@/Components/Paginador";
 import $ from "jquery";
 
@@ -87,6 +86,21 @@ const Index = ({ auth, contratos }) => {
     };
     // Fin Ordenar tabla por columna
 
+    const busquedaRapida = (event) => {
+        const value = event.target.value;
+        const itemsFiltered = datos.filter(function (el) {
+            // debugger;
+            return (
+                el.entidad_contratante
+                    .toUpperCase()
+                    .indexOf(value.toUpperCase()) !== -1 ||
+                el.objeto.toUpperCase().indexOf(value.toUpperCase()) !== -1 ||
+                el.ubicacion.toUpperCase().indexOf(value.toUpperCase()) !== -1
+            );
+        });
+        setItems([...itemsFiltered].splice(0, itemsPagina));
+    };
+
     const submit = (e) => {
         e.preventDefault();
         //console.log(data)
@@ -95,21 +109,55 @@ const Index = ({ auth, contratos }) => {
 
     return (
         <AuthenticatedLayout auth={auth}>
-            <Head title="Contratos" />
             <div>
-                <ContenedorFiltros />
-                <Paginador
-                    nextHandler={nextHandler}
-                    prevHandler={prevHandler}
-                    currentPage={currentPage}
-                    itemsPagina={itemsPagina}
-                    totalElementos={totalElementos}
-                    totalPaginas={totalPaginas}
-                ></Paginador>
+                <div className="contenedor-filtros">
+                    <div className="">
+                        <input
+                            className="buscador_rapido"
+                            id="buscar"
+                            type="text"
+                            placeholder="Escriba algo para filtrar"
+                            onChange={busquedaRapida}
+                        />
+                        <span className="material-symbols-outlined posicion-color">
+                            search
+                        </span>
+                    </div>
+                    <div className="">
+                        <button className="buscador_avanzado mb-3">
+                            <span className="material-symbols-outlined margen-color">
+                                {" "}
+                                list{" "}
+                            </span>
+                            <span className="color-texto">
+                                Búsqueda avanzada
+                            </span>
+                        </button>
+                    </div>
+                    <div className="input-filtro-estado">
+                        <span className="span-visualizar">Visualizar</span>
+                        <select className="input-visualizar">
+                            <option value="">todos</option>
+                            <option value="">Vistos Recientemente</option>
+                            <option value="">No Leidos</option>
+                        </select>
+                    </div>
+                    <Paginador
+                        nextHandler={nextHandler}
+                        prevHandler={prevHandler}
+                        currentPage={currentPage}
+                        itemsPagina={itemsPagina}
+                        totalElementos={totalElementos}
+                        totalPaginas={totalPaginas}
+                    ></Paginador>
+                </div>
                 <div className="contenedor-contratos">
                     <MenuOpciones />
                     <div className="alto-tabla bg-white overflow-auto ">
-                        <table className="w-full bg-white border tabla ">
+                        <table
+                            id="tabla"
+                            className="w-full bg-white border tabla "
+                        >
                             <thead
                                 className="cabecera-tabla"
                                 style={{ backgroundColor: "#00a1c9" }}

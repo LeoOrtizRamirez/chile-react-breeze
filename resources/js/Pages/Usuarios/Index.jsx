@@ -3,7 +3,6 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { useForm, Head } from "@inertiajs/inertia-react";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 import Paginador from "@/Components/Paginador";
-import "../../../css/estilos-contratos-index.css";
 import "../../../css/estilos-usuarios-index.css";
 import $ from "jquery";
 
@@ -85,7 +84,7 @@ const Index = ({ auth, usuarios }) => {
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Usuarios" />
-            <div className="contenedor-contratos">
+            <div className="contenedor-usuarios">
                 <div className="posicion-opciones-usuarios">
                     <MenuOpciones />
                 </div>
@@ -112,7 +111,7 @@ const Index = ({ auth, usuarios }) => {
                         <div className="margen-titulo">Usuarios</div>
                         <div></div>
                     </div>
-                    <table className="w-full bg-white border tabla ">
+                    <table id="tabla" className="w-full bg-white border tabla ">
                         <thead
                             className="cabecera-tabla "
                             style={{ backgroundColor: "#00a1c9" }}

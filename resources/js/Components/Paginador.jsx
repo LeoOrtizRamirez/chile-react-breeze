@@ -1,23 +1,22 @@
-import "../../css/estilos-paginador.css";
 import React from "react";
 
 const Paginador = (props) => {
     return (
-        <div className="contenedor-paginador">
+        <div className="">
             <div
-                className="flex items-center justify-between border-t border-gray-200 bg-white px-4 sm:px-6"
+                className="flex items-center justify-between px-4 sm:px-6"
                 data-v-01f1da49=""
             >
                 <div className="flex flex-1 justify-between sm:hidden">
                     <a
                         href="#"
-                        className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                        className="relative inline-flex items-center rounded-md px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                     >
                         Previous
                     </a>
                     <a
                         href="#"
-                        className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                        className="relative ml-3 inline-flex items-center rounded-md px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                     >
                         Next
                     </a>
@@ -25,7 +24,7 @@ const Paginador = (props) => {
 
                 <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
                     <div>
-                        <p className="text-sm text-gray-700">
+                        <p className="text-xs text-gray-500">
                             <span className="font-medium">
                                 Página {props.currentPage + 1}
                             </span>{" "}
@@ -47,13 +46,13 @@ const Paginador = (props) => {
                         >
                             <a
                                 onClick={props.prevHandler}
-                                className="relative z-10 inline-flex items-center borderborder-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 md:inline-flex"
+                                className="relative z-10 inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 hover:bg-cyan-50 focus:z-90 md:inline-flex"
                                 href="#"
                             >
                                 « Anterior
                             </a>
                             <a
-                                className="bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 md:inline-flex border-indigo-500 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 focus:z-20"
+                                className="px-4 py-2 text-sm font-medium text-gray-500 hover:bg-cyan-50 focus:z-20 md:inline-flex bg-indigo-50"
                                 href="#"
                             >
                                 {props.currentPage + 1}
@@ -61,7 +60,7 @@ const Paginador = (props) => {
 
                             <a
                                 onClick={props.nextHandler}
-                                className="bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 md:inline-flex noactivo"
+                                className=" px-4 py-2 text-sm font-medium text-gray-500 hover:bg-cyan-50 focus:z-20 md:inline-flex noactivo"
                                 href="#"
                             >
                                 Siguiente »

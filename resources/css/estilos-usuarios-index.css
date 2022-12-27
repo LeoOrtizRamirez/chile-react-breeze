@@ -1,17 +1,22 @@
-.posicion-opciones-usuarios {
-    margin-top: 80px;
+table tr th {
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: 12px;
 }
 
-.actualizar-color {
-    color: #00a1c9;
+.sorting {
+    background-color: #0080a0;
 }
 
-.color-titulos-empresa {
-    background-color: #006f8b;
+.asc:after {
+    content: " ↑";
 }
 
-.color-data-empresa {
-    background-color: #f3f3f3;
+.desc:after {
+    content: " ↓";
 }
 
 .contenedor-usuarios {
@@ -19,30 +24,11 @@
     flex-direction: row;
 }
 
-.ubicacion-paginador {
-    position: fixed;
-    min-height: 0px;
-    width: 252px;
-    text-align: center;
-    word-wrap: break-word;
-}
-
-.ubicacion-tabla {
-    margin-top: 50px;
-}
-
-input {
-    margin: 3px;
-}
-
-label {
-    margin-left: 10px;
-    font-weight: 600;
-    color: rgb(94, 94, 94);
+.posicion-opciones-usuarios {
+    margin-top: 58px;
 }
 
 .usuarios {
-    padding: 10px 5px 5px 5px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -52,10 +38,103 @@ label {
     font-weight: bold;
     font-size: 22px;
     justify-content: space-between;
+    height: 40px;
+    margin-bottom: -5px;
+}
+
+.contenedor-botones {
+    display: flex;
+    flex-direction: row;
+}
+
+.actualizar-color {
+    color: #00a1c9;
+}
+
+.material-symbols-outlined-color {
+    color: white;
 }
 
 .margen-titulo {
     margin-left: 1300px;
+}
+
+.tabla {
+    font-size: 13px;
+}
+
+.cabecera-tabla {
+    position: sticky;
+    top: -1px;
+}
+
+.iconos-horizontal {
+    display: flex;
+}
+
+.estilos-boton-eliminar {
+    background-color: red;
+    width: 25px;
+    height: 30px;
+    border-radius: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding-top: 3px;
+    margin: 3px;
+}
+
+.estilos-boton-editar {
+    background-color: #00a1c9;
+    width: 25px;
+    height: 30px;
+    border-radius: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding-top: 3px;
+    margin: 3px;
+}
+
+.estilos-boton-email {
+    background-color: rgb(236, 236, 236);
+    width: 25px;
+    height: 30px;
+    border-radius: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(95, 95, 95);
+    padding-top: 3px;
+    margin: 3px;
+}
+
+.margen-textos {
+    padding: 7px;
+}
+
+.autorenew {
+    background-color: #ffffff;
+    width: 35px;
+    height: 35px;
+    border-bottom: solid 1px #b5b5b5;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    text-align: center;
+    padding: 5px;
+    color: black;
+}
+
+.add_circle {
+    background-color: rgb(58, 182, 0);
+    width: 35px;
+    height: 35px;
+    border-bottom: solid 1px #b5b5b5;
+    margin-bottom: 5px;
+    text-align: center;
+    padding: 5px;
 }
 
 .titulo {
@@ -77,80 +156,4 @@ label {
     font-weight: bold;
     font-size: 22px;
     margin-bottom: 40px;
-}
-
-.contenedor-botones {
-    display: flex;
-    flex-direction: row;
-}
-
-.autorenew {
-    background-color: #ffffff;
-    width: 35px;
-    height: 35px;
-    border-bottom: solid 1px #b5b5b5;
-    margin-bottom: 5px;
-    margin-right: 5px;
-    text-align: center;
-    padding: 5px;
-    color: black;
-}
-
-.add_circle {
-    background-color: #00a1c9;
-    width: 35px;
-    height: 35px;
-    border-bottom: solid 1px #b5b5b5;
-    margin-bottom: 5px;
-    text-align: center;
-    padding: 5px;
-}
-
-.material-symbols-outlined-color {
-    color: white;
-}
-
-.boton-crear-editar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.estilos-boton-eliminar {
-    background-color: red;
-    width: 30px;
-    height: 30px;
-    border-radius: 20%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    padding-top: 3px;
-    margin: 3px;
-}
-
-.estilos-boton-editar {
-    background-color: #00a1c9;
-    width: 30px;
-    height: 30px;
-    border-radius: 20%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    padding-top: 3px;
-    margin: 3px;
-}
-
-.estilos-boton-email {
-    background-color: rgb(236, 236, 236);
-    width: 30px;
-    height: 30px;
-    border-radius: 20%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgb(95, 95, 95);
-    padding-top: 3px;
-    margin: 3px;
 }
