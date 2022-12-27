@@ -1,5 +1,5 @@
 .posicion-opciones-planes {
-    margin-top: 80px;
+    margin-top: 58px;
 }
 
 ul {
@@ -29,6 +29,10 @@ input.btn.btn-info {
     background: #1383ac;
     border-color: #1383ac;
     color: #fff;
+}
+
+th {
+    font-size: 12px;
 }
 
 .name_section_app {
