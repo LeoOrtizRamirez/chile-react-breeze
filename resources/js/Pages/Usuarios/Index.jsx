@@ -4,6 +4,7 @@ import { useForm, Head } from "@inertiajs/inertia-react";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 import Paginador from "@/Components/Paginador";
 import "../../../css/estilos-usuarios-index.css";
+import { Link } from "@inertiajs/inertia-react";
 import $ from "jquery";
 
 // Inicio Ordenar tabla por columna
@@ -150,19 +151,28 @@ const Index = ({ auth, usuarios }) => {
                                 <tr key={usuario.id}>
                                     <td className="border border-gray-200 text-left px-4 ">
                                         <div className="iconos-horizontal">
+                                        
                                             <div className="estilos-boton-eliminar">
-                                                <a href="">
+                                                <Link
+                                                    href={route("usuarios.destroy", usuario.uuid)}
+                                                    method="delete"
+                                                    as="button"
+                                                    className="btn btn-danger"
+                                                >
                                                     <span className="material-symbols-outlined">
                                                         delete
                                                     </span>
-                                                </a>
+                                                </Link>
                                             </div>
+
+
+
                                             <div className="estilos-boton-editar">
                                                 <a
                                                     href={
                                                         route(
                                                             "usuarios.update",
-                                                            usuario.id
+                                                            usuario.uuid
                                                         ) + "/edit"
                                                     }
                                                 >
