@@ -34,3 +34,20 @@ input.btn.btn-info {
 th {
     font-size: 12px;
 }
+
+.name_section_app {
+    text-align: center;
+    display: block;
+    max-width: 410px;
+    margin: 0 auto;
+    color: #00a1c9;
+    font-family: Nexa-bold,sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 5px;
+    border: 0;
+    background-image: linear-gradient(90deg,#e1e1e1 0,#e1e1e1 50%,transparent 0);
+    background-size: 16px 2px;
+    background-position: bottom;
+    background-repeat: repeat-x;
+}
