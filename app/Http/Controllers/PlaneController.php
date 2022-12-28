@@ -97,7 +97,7 @@ class PlaneController extends Controller
             'tiempo' => 'required',
             'valor' => 'required',
             'descripcion' => 'max:255',
-            'periodo' => 'max:10',
+            'periodo' => 'required',
             'valor_cuenta_adicional' => 'integer',
          ]);
          

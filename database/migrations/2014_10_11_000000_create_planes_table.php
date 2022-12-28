@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('planes', function (Blueprint $table) {
             $table->id();
             $table->string('nombre')->nullable();
-            $table->integer('dias');
-            $table->string('periodo', 10);
-            $table->integer('tiempo');
-            $table->integer('valor_cuenta_adicional');
             $table->bigInteger('valor');
+            $table->integer('dias');
+            $table->integer('valor_cuenta_adicional');
+            $table->string('periodo', 10)->comment('dias - meses');;
+            $table->integer('tiempo')->comment('tiempo según periodo seleccionado');
             $table->string('descripcion')->nullable();
             $table->string('estado', 10)->default('Inactivo')->nullable();
             $table->timestamps();
