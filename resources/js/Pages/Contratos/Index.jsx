@@ -17,6 +17,7 @@ const Index = ({ auth, contratos, totalContratos,pagina }) => {
         title: "",
         body: "",
     });
+  
 
     // Inicio Ordenar tabla por columna
     $("th").click(function () {
@@ -64,7 +65,8 @@ const Index = ({ auth, contratos, totalContratos,pagina }) => {
 
     // Inicio Paginador
 
-    var idContrato = 0;
+    const idContratoNext = contratos[29].id;
+    const idContratoPrev = contratos[0].id;
     const itemsPagina = 30;
     const totalElementos = totalContratos;
     const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;
@@ -72,13 +74,12 @@ const Index = ({ auth, contratos, totalContratos,pagina }) => {
 
     const nextHandler = () => {
         if (pagina >= totalPaginas) return;
-        get("/contratos/"+ idContrato + "/"+ pagina + "/next"), { onSuccess: () => reset() };
+        get("/contratos/"+ idContratoNext + "/"+ pagina + "/next"), { onSuccess: () => reset() };
     };
 
     const prevHandler = () => {
         if (pagina == 1) return;
-        console.log("prev")
-        get("/contratos/"+ idContrato + "/"+ pagina + "/prev"), { onSuccess: () => reset() };
+        get("/contratos/"+ idContratoPrev + "/"+ pagina + "/prev"), { onSuccess: () => reset() };
     };
 
     // FIN Paginador
@@ -109,7 +110,6 @@ const Index = ({ auth, contratos, totalContratos,pagina }) => {
     return (
         <AuthenticatedLayout auth={auth}>
             <div>
-                {currentPage}
                 <div className="contenedor-filtros">
                     <div className="">
                         <input
@@ -179,10 +179,9 @@ const Index = ({ auth, contratos, totalContratos,pagina }) => {
                             </thead>
                          
                             <tbody>
-                                {contratos.map((contrato) => (
+                                {contratos.map((contrato, index) => (
+                                 
                                     <tr key={contrato.id}>
-                                       {/*  {idContrato = contrato.id} */}
-                                      
                                         <td className="border border-gray-200 text-left">
                                             <div className="iconos-horizontal">
                                                 <div>
@@ -201,9 +200,9 @@ const Index = ({ auth, contratos, totalContratos,pagina }) => {
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
                                             {contrato.fuente.alias_portal}
-                                            
+
                                            {/*  Input Papginador contratos */}
-                                            <input hidden value={idContrato = contrato.id}></input>
+                                           
                                             
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
