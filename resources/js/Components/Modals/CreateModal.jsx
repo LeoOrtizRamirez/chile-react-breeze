@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { useForm } from "@inertiajs/inertia-react";
+import InputError from "@/Components/InputError";
 
 const CreateModal = props => {
 
@@ -28,8 +29,8 @@ const CreateModal = props => {
 
     const enviarDatos = (e) => {
         e.preventDefault()
-        post(route("planes.store"), { onSuccess: () => reset() });
-        handleSearch()
+        post(route("planes.store"), { onSuccess: () => /*reset()*/ handleSearch() });
+        
     }
 
     return (
@@ -60,7 +61,7 @@ const CreateModal = props => {
                                             <input type="text"
                                                 id="nombre"
                                                 name="nombre"
-                                                className='form-control mb-3'
+                                                className='form-control'
                                                 placeholder="Nombre"
                                                 onChange={handleInputChange}
                                             />
@@ -69,12 +70,16 @@ const CreateModal = props => {
                                     <div className="col-6">
                                         <div className="form-group">
                                         <p className='text-left'>Valor:</p>
-                                            <input type="text"
+                                            <input type="number"
                                                 id="valor"
                                                 name="valor"
-                                                className='form-control mb-3'
+                                                className='form-control'
                                                 placeholder="Valor"
                                                 onChange={handleInputChange}
+                                            />
+                                            <InputError
+                                                message={errors.valor}
+                                                className="text-left mb-2"
                                             />
                                         </div>
                                     </div>
@@ -83,24 +88,32 @@ const CreateModal = props => {
                                     <div className="col-6">
                                         <div className="form-group">
                                             <p className='text-left'>Días:</p>
-                                            <input type="text"
+                                            <input type="number"
                                                 id="dias"
                                                 name="dias"
-                                                className='form-control mb-3'
+                                                className='form-control'
                                                 placeholder="Días"
                                                 onChange={handleInputChange}
+                                            />
+                                            <InputError
+                                                message={errors.dias}
+                                                className="text-left mb-2"
                                             />
                                         </div>
                                     </div>
                                     <div className="col-6">
                                         <div className="form-group">
                                             <p className='text-left'>Valor cuenta adicional:</p>
-                                            <input type="text"
+                                            <input type="number"
                                                 id="valor_cuenta_adicional"
                                                 name="valor_cuenta_adicional"
-                                                className='form-control mb-3'
+                                                className='form-control'
                                                 placeholder="Valor"
                                                 onChange={handleInputChange}
+                                            />
+                                            <InputError
+                                                message={errors.valor_cuenta_adicional}
+                                                className="text-left mb-2"
                                             />
                                         </div>
                                     </div>
@@ -119,15 +132,23 @@ const CreateModal = props => {
                                             value='meses'
                                             onChange={handleInputChange}
                                         />
+                                    <InputError
+                                        message={errors.periodo}
+                                        className="text-left mb-2"
+                                    />
                                 </div>
                                 <div className="row">
                                     <div className="form-group">
                                         <input type="number"
                                             id="tiempo"
                                             name="tiempo"
-                                            className='form-control mb-3'
+                                            className='form-control'
                                             onChange={handleInputChange}
                                         />
+                                        <InputError
+                                                message={errors.tiempo}
+                                                className="text-left mb-2"
+                                            />
                                     </div>
                                 </div>
                                 <div className="row">
@@ -136,7 +157,7 @@ const CreateModal = props => {
                                         <input type="textarea"
                                             id="descripcion"
                                             name="descripcion"
-                                            className='form-control mb-3'
+                                            className='form-control'
                                             placeholder="Descripción"
                                             onChange={handleInputChange}
                                         />
