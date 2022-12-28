@@ -63,11 +63,10 @@ const Index = ({ auth, contratos, totalContratos,pagina }) => {
     // Fin Ordenar tabla por columna
 
 
-    // Inicio Paginador
-
-    if(contratos.length >= 29){
+    // Inicio PaginadorS
+    //if(contratos.length >= 29){
         const idContratoNext = contratos[29].id;
-    }
+    //}
     
     const idContratoPrev = contratos[0].id;
     const itemsPagina = 30;
