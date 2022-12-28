@@ -65,10 +65,7 @@ const Index = ({ auth, contratos, totalContratos,pagina }) => {
 
     // Inicio Paginador
 
-    if(contratos.length >= 29){
-        const idContratoNext = contratos[29].id;
-    }
-    
+    const idContratoNext = contratos[29].id;
     const idContratoPrev = contratos[0].id;
     const itemsPagina = 30;
     const totalElementos = totalContratos;
