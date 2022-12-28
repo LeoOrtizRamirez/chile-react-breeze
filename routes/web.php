@@ -42,6 +42,11 @@ Route::resource('contratos', ContratoController::class)
 ->only(['index'])
 ->middleware(['auth','verified']);
 
+Route::get('/contratos/{idContrato}/{pagina}/{estado}', [ContratoController::class, 'paginador']);
+
+
+
+
 Route::resource('planes', PlaneController::class)
 ->only(['index','create', 'store', 'edit', 'update', 'destroy'])
 ->middleware(['auth','verified']);
@@ -55,14 +60,13 @@ Route::get('/planes/satus/{id}', [PlaneController::class, 'status'])
 ->middleware(['auth','verified']); */
 
 Route::controller(UserController::class)->group(function(){
-    Route::get('usuarios','index')->name('usuarios.index');
-    Route::post('usuarios','store')->name('usuarios.store');
-    Route::get('usuarios/create','create')->name('usuarios.create');
+    Route::get('usuarios','index')->name('usuarios.index')->middleware(['auth','verified']);
+    Route::post('usuarios','store')->name('usuarios.store')->middleware(['auth','verified']);
+    Route::get('usuarios/create','create')->name('usuarios.create')->middleware(['auth','verified']);
 
-    Route::get('usuarios/{usuario}','show')->name('usuarios.show');
-    Route::put('usuarios/{usuario}','update')->name('usuarios.update');
-    Route::delete('usuarios/{usuario:uuid}','destroy')->name('usuarios.destroy');
-    Route::get('usuarios/{usuario:uuid}/edit','edit')->name('usuarios.edit');
-
+    Route::get('usuarios/{usuario}','show')->name('usuarios.show')->middleware(['auth','verified']);
+    Route::PATCH('usuarios/{usuario}','update')->name('usuarios.update')->middleware(['auth','verified']);
+    Route::delete('usuarios/{usuario:uuid}','destroy')->name('usuarios.destroy')->middleware(['auth','verified']);
+    Route::get('usuarios/{usuario:uuid}/edit','edit')->name('usuarios.edit')->middleware(['auth','verified']);
     
-})->middleware(['auth','verified']);
+});

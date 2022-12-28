@@ -9,11 +9,11 @@ import Enviar from "../../Components/Acciones/Enviar";
 import Favoritos from "../../Components/Acciones/Favoritos";
 import Pdf from "../../Components/Acciones/Pdf";
 import Visualizar from "../../Components/Acciones/Visualizar";
-import Paginador from "@/Components/Paginador";
+import Paginador from "@/Components/PaginadorContratos";
 import $ from "jquery";
 
-const Index = ({ auth, contratos }) => {
-    const { data, setData, post, processing, reset, errors } = useForm({
+const Index = ({ auth, contratos, totalContratos,pagina }) => {
+    const { data, setData, post, get, processing, reset, errors } = useForm({
         title: "",
         body: "",
     });
@@ -61,29 +61,28 @@ const Index = ({ auth, contratos }) => {
     }
     // Fin Ordenar tabla por columna
 
+
     // Inicio Paginador
+
+    var idContrato = 0;
     const itemsPagina = 30;
-    const totalElementos = contratos.length;
+    const totalElementos = totalContratos;
     const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;
-    const [datos, setDatos] = useState(contratos);
-    const [items, setItems] = useState([...contratos].splice(0, itemsPagina));
-    const [currentPage, setCurrentPage] = useState(0);
+    const currentPage = pagina;
 
     const nextHandler = () => {
-        const nextPage = currentPage + 1;
-        const firstIndex = nextPage * itemsPagina;
-        if (firstIndex >= totalElementos) return;
-        setItems([...datos].splice(firstIndex, itemsPagina));
-        setCurrentPage(nextPage);
+        if (pagina >= totalPaginas) return;
+        get("/contratos/"+ idContrato + "/"+ pagina + "/next"), { onSuccess: () => reset() };
     };
 
     const prevHandler = () => {
-        const prevPage = currentPage - 1;
-        if (prevPage < 0) return;
-        const firstIndex = prevPage * itemsPagina;
-        setItems([...datos].splice(firstIndex, itemsPagina));
-        setCurrentPage(prevPage);
+        if (pagina == 1) return;
+        console.log("prev")
+        get("/contratos/"+ idContrato + "/"+ pagina + "/prev"), { onSuccess: () => reset() };
     };
+
+    // FIN Paginador
+
     // Fin Ordenar tabla por columna
 
     const busquedaRapida = (event) => {
@@ -110,6 +109,7 @@ const Index = ({ auth, contratos }) => {
     return (
         <AuthenticatedLayout auth={auth}>
             <div>
+                {currentPage}
                 <div className="contenedor-filtros">
                     <div className="">
                         <input
@@ -177,9 +177,12 @@ const Index = ({ auth, contratos }) => {
                                     <th>Actividad económica</th>
                                 </tr>
                             </thead>
+                         
                             <tbody>
-                                {items.map((contrato) => (
+                                {contratos.map((contrato) => (
                                     <tr key={contrato.id}>
+                                       {/*  {idContrato = contrato.id} */}
+                                      
                                         <td className="border border-gray-200 text-left">
                                             <div className="iconos-horizontal">
                                                 <div>
@@ -198,6 +201,10 @@ const Index = ({ auth, contratos }) => {
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
                                             {contrato.fuente.alias_portal}
+                                            
+                                           {/*  Input Papginador contratos */}
+                                            <input hidden value={idContrato = contrato.id}></input>
+                                            
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
                                             <span className="data-text ">
