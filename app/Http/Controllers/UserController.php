@@ -9,7 +9,7 @@ use PhpParser\Node\Stmt\Return_;
 
 class UserController extends Controller
 {
-
+  
     public function index()
     {
         $usuarios = User::latest('id')->latest()->get();
@@ -17,12 +17,16 @@ class UserController extends Controller
         return Inertia::render('Usuarios/Index', [
             'usuarios' => $usuarios
         ]);
+
     }
 
-
+ 
     public function create()
     {
-        return Inertia::render('Usuarios/Crear', []);
+        return Inertia::render('Usuarios/Crear', [
+        
+        ]);
+
     }
 
     public function edit(User $usuario)
@@ -60,19 +64,19 @@ class UserController extends Controller
             'celular_empresa' => 'required|max:15',
             'indicativo_empresa' => 'required|max:20',
             'telefono_fijo_empresa' => 'required|max:15',
-            'email_facturacion_empresa' => 'required', 'email',
+            'email_facturacion_empresa' => 'required','email',
             'descripcion_actividad_economica' => 'required|max:30',
+          
+          
+         ]);
 
+         User::Create($validated);
 
-        ]);
-
-        User::Create($validated);
-
-        return redirect(route('usuarios.index'));
+         return redirect(route('usuarios.index'));
     }
 
 
-
+ 
     public function update(Request $request, User $usuario)
     {
         $validated = $request->validate([
@@ -99,20 +103,19 @@ class UserController extends Controller
             'celular_empresa' => 'required|max:15',
             'indicativo_empresa' => 'required|max:20',
             'telefono_fijo_empresa' => 'required|max:15',
-            'email_facturacion_empresa' => 'required', 'email',
+            'email_facturacion_empresa' => 'required','email',
             'descripcion_actividad_economica' => 'required|max:30',
-
-
-        ]);
+          
+          
+         ]);
         $usuario->update($validated);
         return redirect(route('usuarios.index'));
     }
 
-
+   
     public function destroy(User $usuario)
     {
         $usuario->delete();
-
         return redirect(route('usuarios.index'));
     }
 }
