@@ -38,7 +38,7 @@ export default function Login({ status, canResetPassword }) {
 
             <form onSubmit={submit}>
                 <div>
-    
+
                     <TextInput
                         id="email"
                         type="email"
@@ -82,12 +82,20 @@ export default function Login({ status, canResetPassword }) {
                             href={route('password.request')}
                             className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
-                             ¿Olvidaste tu contraseña?
+                            ¿Olvidaste tu contraseña?
                         </Link>
+
                     )}
 
-                    <PrimaryButton  className="ml-4" processing={processing}>
-                    Ingresar
+                    <Link
+                        href="/register"
+                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                        Registrarme
+                    </Link>
+
+                    <PrimaryButton className="ml-4" processing={processing}>
+                        Ingresar
                     </PrimaryButton>
                 </div>
             </form>
