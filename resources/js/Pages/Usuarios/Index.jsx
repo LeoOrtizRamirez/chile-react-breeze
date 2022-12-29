@@ -162,7 +162,32 @@ const Index = ({ auth, usuarios }) => {
                                                     <span className="material-symbols-outlined">
                                                         delete
                                                     </span>
-                                                </Link>
+
+                                                </Link> */}
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-danger btn-sm usuarios"
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target={
+                                                        "#deleteModal" + usuario.id
+                                                    }
+                                                    onClick={() => {
+                                                        getUsuarioDelete(usuario);
+                                                    }}
+                                                >
+                                                    <span className="material-symbols-outlined text-white iconos-tamano-margen align-middle">
+                                                        delete
+                                                    </span>
+                                                </button>
+
+                                                {openDeleteUserModal && openDeleteUserModalId == usuario.id && (
+                                                    <DeleteModal
+                                                        usuario={usuario}
+                                                        openDeleteModal={openDeleteUserModal}
+                                                        handleSearch={handleSearch}
+                                                    />
+                                                )}
+
                                             </div>
 
 
