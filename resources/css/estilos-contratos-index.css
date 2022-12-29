@@ -7,7 +7,7 @@ table tr th {
 }
 
 .sorting {
-    background-color: #0080a0;
+    background-color: #00a1c9;
 }
 
 .asc:after {
@@ -25,11 +25,12 @@ table tr th {
 
 .tabla {
     font-size: 13px;
+    text-align: center;
 }
 
 .alto-tabla {
     width: auto;
-    height: 600px;
+    height: 1600px;
 }
 
 .cabecera-tabla {
@@ -38,7 +39,7 @@ table tr th {
 }
 
 th {
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .iconos-horizontal {
@@ -46,7 +47,7 @@ th {
 }
 
 .iconos-tamano-margen {
-    font-size: 22px !important;
+    font-size: 20px !important;
     margin: 0px 3px;
 }
 
@@ -94,14 +95,16 @@ th {
 }
 
 .input-filtro-estado {
-    margin-left: 38px;
+    margin-left: -200px;
     font-size: 13px;
     color: #7c7c7c;
-    padding: 0px 15px 0px 15px;
+    padding: 0px 15px 0px 0px;
 }
 
 .span-visualizar {
-    margin-right: 7px !important;
+    margin-right: 7px;
+    color: #8b8b8b;
+    font-weight: bold;
 }
 
 .input-visualizar {
@@ -119,29 +122,87 @@ th {
 }
 
 .buscador_rapido {
-    margin: 15px 25px 15px 5px;
+    margin: 15px 25px 15px 22px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
     border: 2px solid #e6e6e6;
-    padding: 0px 5px 0px 40px;
+    padding: 0px 5px 0px 15px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+    width: 350px;
 }
 
 .buscador_rapido::placeholder {
-    color: #b9b9b9;
+    color: #8b8b8b;
+    font-weight: bold;
     font-size: 13px;
-}
-
-.margen-color {
-    color: rgb(58, 182, 0);
 }
 
 .posicion-color {
     position: absolute;
     margin: 17px 0px 0px -75px;
     width: 13px;
-    color: #b9b9b9;
+    color: #00a1e0;
 }
 
+body {
+    overflow-y: hidden;
+}
+
+span,
+td,
+a {
+    text-align: center;
+    font-weight: bold;
+}
+
+.color-estado {
+    color: #85c914;
+}
+
+.circulo {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #85c914;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0px auto;
+}
+
+.circulo > span {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.titulos-borde {
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+
+html {
+    background-color: #f3f4f6;
+}
+
+p {
+    margin-bottom: 0px;
+}
+
+.width-columna-acciones{
+    width: 80px;
+}
+
+.width-columna-menor{
+    width: 100px;
+}
+
+.width-columna-mayor{
+    width: 200px;
+}

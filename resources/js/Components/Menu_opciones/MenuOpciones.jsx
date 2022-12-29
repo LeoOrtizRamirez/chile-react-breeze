@@ -31,17 +31,16 @@ const App = () => {
             <div
                 className={` ${
                     open ? "w-30" : "w-20 "
-                } bg-dark-purple h-screen p-10  relative duration-300`}
+                } h-screen p-10 relative duration-300 lista-opciones`}
             >
                 {/*<BsArrowLeftShort className={`z-10 bg-white text-dark-purple text-3xl rounded-full absolute -right-3 top-9 border Oborder-dark-purple cursor-pointer ${!open && "rotate-180"}`}
                     onClick={() => setOpen(!open)} />*/}
-
-                <ul className="">
+                <ul className="lista-opciones margen-nav">
                     {Menus.map((Menu, index) => (
                         <>
                             <li
                                 key={index}
-                                className={`text-center rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-500 text-sm items-center gap-x-4 ${
+                                className={`text-center rounded-md p-1 cursor-pointer hover:bg-light-white text-gray-500 text-sm items-center gap-x-4 ${
                                     index === 0 && "bg-light-white"
                                 }`}
                             >
@@ -82,6 +81,8 @@ const App = () => {
                                     </>
                                 )}
                             </li>
+
+                            <hr color="#8b8b8b" />
 
                             {Menu.submenu && subMenuOpen && open && (
                                 <ul className="submenu z-10">

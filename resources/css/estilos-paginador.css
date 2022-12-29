@@ -1,0 +1,26 @@
+.boton-paginador {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    color: rgb(77, 77, 77);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0px auto;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.boton-paginador > a {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: none !important;
+    color: rgb(77, 77, 77) !important;
+}
