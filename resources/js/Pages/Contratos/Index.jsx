@@ -14,8 +14,6 @@ import $ from "jquery";
 
 const Index = ({ auth, contratos, totalContratos, pagina }) => {
     const { data, setData, post, get, processing, reset, errors } = useForm({
-        title: "",
-        body: "",
     });
 
     // Inicio Ordenar tabla por columna
@@ -61,8 +59,13 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
     }
     // Fin Ordenar tabla por columna
 
-    // Inicio Paginador
-    var idContrato = 0;
+
+    // Inicio PaginadorS
+    //if(contratos.length >= 29){
+        const idContratoNext = contratos[29].id;
+    //}
+    
+    const idContratoPrev = contratos[0].id;
     const itemsPagina = 30;
     const totalElementos = totalContratos;
     const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;

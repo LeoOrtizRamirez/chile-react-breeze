@@ -4,8 +4,12 @@ import { useForm, Head } from "@inertiajs/inertia-react";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 import Paginador from "@/Components/Paginador";
 import "../../../css/estilos-usuarios-index.css";
-import { Link } from "@inertiajs/inertia-react";
+import DeleteModal from "@/Components/Modals/DeleteModalUsers";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import $ from "jquery";
+
 
 // Inicio Ordenar tabla por columna
 $("th").click(function () {
@@ -51,13 +55,31 @@ function setIcon(element, asc) {
 // Fin Ordenar tabla por columna
 
 const Index = ({ auth, usuarios }) => {
+
+    //Modal delete users
+    const [openDeleteUserModal, setOpenDeleteUserModal] = useState(false);
+    const [openDeleteUserModalId, setOpenDeleteUserModalId] = useState(0);
+
+
+    const getUsuarioDelete = (usuario) => {
+        setOpenDeleteUserModal(true)
+        setOpenDeleteUserModalId(usuario.id)
+    };
+
+    const handleSearch = (e) => {
+        setOpenDeleteUserModal(false)
+    }
+
+    //
+
     // Inicio Paginador
     const itemsPagina = 10;
     const totalElementos = usuarios.length;
     const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;
     const [datos, setDatos] = useState(usuarios);
-    const [items, setItems] = useState([...usuarios].splice(0, itemsPagina));
+    const [items, setItems] = useState([usuarios].splice(0, itemsPagina));
     const [currentPage, setCurrentPage] = useState(0);
+
     const nextHandler = () => {
         const nextPage = currentPage + 1;
         const firstIndex = nextPage * itemsPagina;
@@ -147,25 +169,37 @@ const Index = ({ auth, usuarios }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {items.map((usuario) => (
+                            {usuarios.map((usuario) => (
                                 <tr key={usuario.id}>
                                     <td className="border border-gray-200 text-left px-4 ">
                                         <div className="iconos-horizontal">
-                                        
                                             <div className="estilos-boton-eliminar">
-                                                <Link
-                                                    href={route("usuarios.destroy", usuario.uuid)}
-                                                    method="delete"
-                                                    as="button"
-                                                    className="btn btn-danger"
+
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-danger btn-sm usuarios"
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target={
+                                                        "#deleteModal" + usuario.id
+                                                    }
+                                                    onClick={() => {
+                                                        getUsuarioDelete(usuario);
+                                                    }}
                                                 >
-                                                    <span className="material-symbols-outlined">
+                                                    <span className="material-symbols-outlined text-white iconos-tamano-margen align-middle">
                                                         delete
                                                     </span>
-                                                </Link>
+                                                </button>
+
+                                                {openDeleteUserModal && openDeleteUserModalId == usuario.id && (
+                                                    <DeleteModal
+                                                        usuario={usuario}
+                                                        openDeleteModal={openDeleteUserModal}
+                                                        handleSearch={handleSearch}
+                                                    />
+                                                )}
+
                                             </div>
-
-
 
                                             <div className="estilos-boton-editar">
                                                 <a
@@ -181,6 +215,7 @@ const Index = ({ auth, usuarios }) => {
                                                     </span>
                                                 </a>
                                             </div>
+                                            
                                             <div className="estilos-boton-email">
                                                 <span className="material-symbols-outlined">
                                                     mail

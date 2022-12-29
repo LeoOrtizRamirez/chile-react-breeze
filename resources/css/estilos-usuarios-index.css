@@ -66,6 +66,7 @@ table tr th {
 .cabecera-tabla {
     position: sticky;
     top: -1px;
+    text-align: center;
 }
 
 .iconos-horizontal {
@@ -81,7 +82,7 @@ table tr th {
     align-items: center;
     justify-content: center;
     color: white;
-    padding-top: 3px;
+    padding-bottom: 2px;
     margin: 3px;
 }
 
@@ -94,7 +95,7 @@ table tr th {
     align-items: center;
     justify-content: center;
     color: white;
-    padding-top: 3px;
+    padding-top: 7px;
     margin: 3px;
 }
 
@@ -156,4 +157,80 @@ table tr th {
     font-weight: bold;
     font-size: 22px;
     margin-bottom: 40px;
+}
+
+/*estilos modal eliminar*/
+button.btn.btn-danger.btn-sm.usuarios{
+    background-color: unset;
+    background-image: unset;
+    border: unset;
+}
+
+button.btn.btn-danger {
+    background-color: red;
+}
+
+.color-negro{
+    color :black;
+}
+
+.modal-header,
+.btn-info {
+    background: #00a1c9 !important;
+    color: #fff;
+}
+
+
+.posicion-opciones-planes {
+    margin-top: 58px;
+}
+
+ul {
+    padding-left: 0px !important;
+}
+
+a {
+    color: unset !important;
+    text-decoration: none !important;
+}
+
+.w-30 {
+    width: 110px;
+}
+
+p {
+    margin-bottom: 0px !important;
+}
+
+.modal-header,
+.btn-info {
+    background: #1383ac;
+    color: #fff;
+}
+
+input.btn.btn-info {
+    background: #1383ac;
+    border-color: #1383ac;
+    color: #fff;
+}
+
+th {
+    font-size: 12px;
+}
+
+.name_section_app {
+    text-align: center;
+    display: block;
+    max-width: 410px;
+    margin: 0 auto;
+    color: #00a1c9;
+    font-family: Nexa-bold,sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 5px;
+    border: 0;
+    background-image: linear-gradient(90deg,#e1e1e1 0,#e1e1e1 50%,transparent 0);
+    background-size: 16px 2px;
+    background-position: bottom;
+    background-repeat: repeat-x;
 }
