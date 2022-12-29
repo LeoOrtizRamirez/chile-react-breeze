@@ -14,8 +14,6 @@ import $ from "jquery";
 
 const Index = ({ auth, contratos, totalContratos,pagina }) => {
     const { data, setData, post, get, processing, reset, errors } = useForm({
-        title: "",
-        body: "",
     });
   
 
