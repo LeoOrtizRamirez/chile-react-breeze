@@ -188,7 +188,7 @@ const Index = ({ auth, usuarios }) => {
                                                 <button
                                                     type="button"
                                                     className="btn btn-danger btn-sm usuarios"
-                                                    data-bs-toggle="modal"
+                                                    data-bs-toggle="modal" 
                                                     data-bs-target={
                                                         "#deleteModal" + usuario.id
                                                     }
