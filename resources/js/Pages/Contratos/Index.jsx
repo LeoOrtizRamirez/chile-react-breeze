@@ -13,8 +13,7 @@ import Paginador from "@/Components/PaginadorContratos";
 import $ from "jquery";
 
 const Index = ({ auth, contratos, totalContratos, pagina }) => {
-    const { data, setData, post, get, processing, reset, errors } = useForm({
-    });
+    const { data, setData, post, get, processing, reset, errors } = useForm({});
 
     // Inicio Ordenar tabla por columna
     $("th").click(function () {
@@ -59,12 +58,9 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
     }
     // Fin Ordenar tabla por columna
 
-
-    // Inicio PaginadorS
-    //if(contratos.length >= 29){
-        const idContratoNext = contratos[29].id;
-    //}
-    
+    // Inicio Paginador
+    var idContrato = 0;
+    const idContratoNext = contratos[29].id;
     const idContratoPrev = contratos[0].id;
     const itemsPagina = 30;
     const totalElementos = totalContratos;
@@ -76,7 +72,6 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
         get("/contratos/" + idContrato + "/" + pagina + "/next"),
             { onSuccess: () => reset() };
     };
-
     const prevHandler = () => {
         if (pagina == 1) return;
         console.log("prev");
