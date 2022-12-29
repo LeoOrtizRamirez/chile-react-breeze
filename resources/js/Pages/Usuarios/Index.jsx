@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { useForm, Head } from "@inertiajs/inertia-react";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
-import Paginador from "@/Components/Paginador";
+/* import Paginador from "@/Components/Paginador"; */
+import Paginador from "@/Components/PaginadorContratos";
 import "../../../css/estilos-usuarios-index.css";
 import DeleteModal from "@/Components/Modals/DeleteModalUsers";
 
@@ -54,7 +55,11 @@ function setIcon(element, asc) {
 }
 // Fin Ordenar tabla por columna
 
-const Index = ({ auth, usuarios }) => {
+const Index = ({ auth, usuarios, totalUsuarios,pagina }) => {
+
+    const { data, setData, post,get, processing, reset, errors } = useForm({});
+
+
 
     //Modal delete users
     const [openDeleteUserModal, setOpenDeleteUserModal] = useState(false);
@@ -73,31 +78,37 @@ const Index = ({ auth, usuarios }) => {
     //
 
     // Inicio Paginador
-    const itemsPagina = 10;
-    const totalElementos = usuarios.length;
+ 
+
+    const ultimoElemento = usuarios[usuarios.length - 1].id
+    var idUsuarioNext = ultimoElemento;
+    const primerElemento = usuarios[0].id
+    
+    console.log(usuarios)
+    console.log("Usuarios.leng "+ usuarios.length )
+    console.log("ultimo elemeto: " + ultimoElemento)
+    console.log("IDUSUARIO:" + idUsuarioNext)
+    console.log("primerElemento: " + primerElemento)
+
+    const idUsuarioPrev = usuarios[0].id;
+    const itemsPagina = 30;
+    const totalElementos = totalUsuarios;
     const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;
-    const [datos, setDatos] = useState(usuarios);
-    const [items, setItems] = useState([usuarios].splice(0, itemsPagina));
-    const [currentPage, setCurrentPage] = useState(0);
+    const currentPage = pagina;
 
     const nextHandler = () => {
-        const nextPage = currentPage + 1;
-        const firstIndex = nextPage * itemsPagina;
-        if (firstIndex >= totalElementos) return;
-        setItems([...datos].splice(firstIndex, itemsPagina));
-        setCurrentPage(nextPage);
+        if (pagina >= totalPaginas) return;
+        get("/usuarios/"+ idUsuarioNext + "/"+ pagina + "/next"), { onSuccess: () => reset() };
     };
 
     const prevHandler = () => {
-        const prevPage = currentPage - 1;
-        if (prevPage < 0) return;
-        const firstIndex = prevPage * itemsPagina;
-        setItems([...datos].splice(firstIndex, itemsPagina));
-        setCurrentPage(prevPage);
+        if (pagina == 1) return;
+        get("/usuarios/"+ primerElemento + "/"+ pagina + "/prev"), { onSuccess: () => reset() };
     };
-    // Fin Paginador
 
-    const { data, setData, post, processing, reset, errors } = useForm({});
+    // FIN Paginador
+
+    
     const submit = (e) => {
         e.preventDefault();
         //console.log(data)
@@ -107,6 +118,7 @@ const Index = ({ auth, usuarios }) => {
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Usuarios" />
+           
             <div className="contenedor-usuarios">
                 <div className="posicion-opciones-usuarios">
                     <MenuOpciones />
@@ -171,6 +183,7 @@ const Index = ({ auth, usuarios }) => {
                         <tbody>
                             {usuarios.map((usuario) => (
                                 <tr key={usuario.id}>
+                                     
                                     <td className="border border-gray-200 text-left px-4 ">
                                         <div className="iconos-horizontal">
                                             <div className="estilos-boton-eliminar">
