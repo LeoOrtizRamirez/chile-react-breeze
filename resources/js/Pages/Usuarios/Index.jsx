@@ -4,12 +4,8 @@ import { useForm, Head } from "@inertiajs/inertia-react";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 import Paginador from "@/Components/Paginador";
 import "../../../css/estilos-usuarios-index.css";
-import DeleteModal from "@/Components/Modals/DeleteModalUsers";
-
-import "bootstrap/dist/css/bootstrap.min.css";
-
+import { Link } from "@inertiajs/inertia-react";
 import $ from "jquery";
-
 
 // Inicio Ordenar tabla por columna
 $("th").click(function () {
@@ -55,31 +51,13 @@ function setIcon(element, asc) {
 // Fin Ordenar tabla por columna
 
 const Index = ({ auth, usuarios }) => {
-
-    //Modal delete users
-    const [openDeleteUserModal, setOpenDeleteUserModal] = useState(false);
-    const [openDeleteUserModalId, setOpenDeleteUserModalId] = useState(0);
-
-
-    const getUsuarioDelete = (usuario) => {
-        setOpenDeleteUserModal(true)
-        setOpenDeleteUserModalId(usuario.id)
-    };
-
-    const handleSearch = (e) => {
-        setOpenDeleteUserModal(false)
-    }
-
-    //
-
     // Inicio Paginador
     const itemsPagina = 10;
     const totalElementos = usuarios.length;
     const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;
     const [datos, setDatos] = useState(usuarios);
-    const [items, setItems] = useState([usuarios].splice(0, itemsPagina));
+    const [items, setItems] = useState([...usuarios].splice(0, itemsPagina));
     const [currentPage, setCurrentPage] = useState(0);
-
     const nextHandler = () => {
         const nextPage = currentPage + 1;
         const firstIndex = nextPage * itemsPagina;
@@ -169,14 +147,14 @@ const Index = ({ auth, usuarios }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {usuarios.map((usuario) => (
+                            {items.map((usuario) => (
                                 <tr key={usuario.id}>
                                     <td className="border border-gray-200 text-left px-4 ">
                                         <div className="iconos-horizontal">
-
+                                        
                                             <div className="estilos-boton-eliminar">
-                                                {/*  <Link
-                                                    href={route("usuarios.destroy", usuario.id)}
+                                                <Link
+                                                    href={route("usuarios.destroy", usuario.uuid)}
                                                     method="delete"
                                                     as="button"
                                                     className="btn btn-danger"
@@ -184,6 +162,7 @@ const Index = ({ auth, usuarios }) => {
                                                     <span className="material-symbols-outlined">
                                                         delete
                                                     </span>
+
                                                 </Link> */}
                                                 <button
                                                     type="button"
