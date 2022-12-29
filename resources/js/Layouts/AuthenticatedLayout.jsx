@@ -12,22 +12,25 @@ export default function Authenticated({ auth, header, children }) {
         useState(false);
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-gray-100 margen-nav">
             <nav className="border-b border-gray-100">
                 <div className="mx-auto px-4 sm:px-6 lg:px-8 margen-izquierda">
-                    <div className="flex justify-between h-16">
-                        <div className="flex">
-                            <div className="shrink-0 flex items-center">
-                                <Link
-                                    href={route("contratos.index")}
-                                    active={route().current("contratos.index")}
-                                    className=""
-                                >
-                                    <ApplicationLogoLici className="block h-9 w-auto text-gray-500" />
-                                </Link>
-                            </div>
-                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                {/* <NavLink
+                    <div className="encabezado">
+                        <div className="flex justify-between">
+                            <div className="flex">
+                                <div className="shrink-0 flex items-center margen-logo">
+                                    <Link
+                                        href={route("contratos.index")}
+                                        active={route().current(
+                                            "contratos.index"
+                                        )}
+                                        className=""
+                                    >
+                                        <ApplicationLogoLici className="block h-9 w-auto text-gray-500" />
+                                    </Link>
+                                </div>
+                                <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                    {/* <NavLink
                                     href={route("dashboard")}
                                     active={route().current("dashboard")}
                                 >
@@ -58,94 +61,168 @@ export default function Authenticated({ auth, header, children }) {
                                     Planes
                                 </NavLink>
                                 */}
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="hidden sm:flex sm:items-center sm:ml-6">
-                            <Link href="/" className="margen">
-                                <ApplicationLogo className="block h-9 w-auto text-gray-500" />
-                            </Link>
-                            <div className="ml-3 relative">
-                                <Dropdown>
-                                    <Dropdown.Trigger>
-                                        <span className="inline-flex rounded-md">
-                                            <button
-                                                type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 hover:text-cyan-500 focus:outline-none transition ease-in-out duration-150"
-                                            >
-                                                <span className="material-symbols-outlined tamano-iconos">
-                                                    account_circle
-                                                </span>
-                                                <span>{auth.user.name}</span>
-
-                                                <svg
-                                                    className="ml-2 -mr-0.5 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
+                            <div className="hidden sm:flex sm:items-center sm:ml-6">
+                                {/* Centro de ayuda */}
+                                <div className="ml-3 relative mx-5">
+                                    <Dropdown>
+                                        <Dropdown.Trigger>
+                                            <span className="inline-flex rounded-md">
+                                                <button
+                                                    type="button"
+                                                    className="inline-flex items-center px-3 py-2 border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 hover:text-gray-500 focus:outline-none transition ease-in-out duration-150"
                                                 >
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clipRule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </span>
-                                    </Dropdown.Trigger>
+                                                    <span class="material-symbols-outlined mr-1 text-bold">
+                                                        help
+                                                    </span>
+                                                    <span>Centro de ayuda</span>
+                                                    <svg
+                                                        className="ml-2 -mr-0.5 h-4 w-4"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 20 20"
+                                                        fill="currentColor"
+                                                    >
+                                                        <path
+                                                            fillRule="evenodd"
+                                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                            clipRule="evenodd"
+                                                        />
+                                                    </svg>
+                                                </button>
+                                            </span>
+                                        </Dropdown.Trigger>
 
-                                    <Dropdown.Content>
-                                        <Dropdown.Link
-                                            href={route("logout")}
-                                            method="post"
-                                            as="button"
-                                        >
-                                            Cerrar sesión
-                                        </Dropdown.Link>
-                                    </Dropdown.Content>
-                                </Dropdown>
+                                        <Dropdown.Content>
+                                            <Dropdown.Link
+                                                href={route("logout")} // Asignar
+                                                method="post"
+                                                as="button"
+                                            >
+                                                <span class="material-symbols-outlined centro-ayuda-iconos">
+                                                    auto_stories
+                                                </span>
+                                                <span className="centro-ayuda-iconos-margen">
+                                                    Instructivos
+                                                </span>
+                                            </Dropdown.Link>
+                                            <Dropdown.Link
+                                                href={route("logout")} // Asignar
+                                                method="post"
+                                                as="button"
+                                            >
+                                                <span class="material-symbols-outlined centro-ayuda-iconos">
+                                                    visibility
+                                                </span>
+                                                <span className="centro-ayuda-iconos-margen">
+                                                    Ver tour
+                                                </span>
+                                            </Dropdown.Link>
+                                            <Dropdown.Link
+                                                href={route("logout")} // Asignar
+                                                method="post"
+                                                as="button"
+                                            >
+                                                <span class="material-symbols-outlined centro-ayuda-iconos centro-ayuda-iconos-color">
+                                                    smart_display
+                                                </span>
+                                                <span className="centro-ayuda-iconos-margen">
+                                                    Videos
+                                                </span>
+                                            </Dropdown.Link>
+                                        </Dropdown.Content>
+                                    </Dropdown>
+                                </div>
+                                {/* logo chile */}
+                                <Link href="/contratos" className="margen">
+                                    <ApplicationLogo className="block h-9 w-auto text-gray-500" />
+                                </Link>
+                                {/* Usuario cerrar sesion */}
+                                <div className="ml-3 relative">
+                                    <Dropdown>
+                                        <Dropdown.Trigger>
+                                            <span className="inline-flex rounded-md">
+                                                <button
+                                                    type="button"
+                                                    className="inline-flex items-center px-3 py-2 border-transparent text-sm leading-4 font-medium rounded-md text-cyan-500 hover:text-gray-500 focus:outline-none transition ease-in-out duration-150"
+                                                >
+                                                    <span className="material-symbols-outlined tamano-iconos">
+                                                        account_circle
+                                                    </span>
+                                                    <span>
+                                                        {auth.user.name}
+                                                    </span>
+
+                                                    <svg
+                                                        className="ml-2 -mr-0.5 h-4 w-4"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 20 20"
+                                                        fill="currentColor"
+                                                    >
+                                                        <path
+                                                            fillRule="evenodd"
+                                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                            clipRule="evenodd"
+                                                        />
+                                                    </svg>
+                                                </button>
+                                            </span>
+                                        </Dropdown.Trigger>
+
+                                        <Dropdown.Content>
+                                            <Dropdown.Link
+                                                href={route("logout")}
+                                                method="post"
+                                                as="button"
+                                            >
+                                                Cerrar sesión
+                                            </Dropdown.Link>
+                                        </Dropdown.Content>
+                                    </Dropdown>
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="-mr-2 flex items-center sm:hidden">
-                            <button
-                                onClick={() =>
-                                    setShowingNavigationDropdown(
-                                        (previousState) => !previousState
-                                    )
-                                }
-                                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
-                            >
-                                <svg
-                                    className="h-6 w-6"
-                                    stroke="currentColor"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
+                            <div className="-mr-2 flex items-center sm:hidden">
+                                <button
+                                    onClick={() =>
+                                        setShowingNavigationDropdown(
+                                            (previousState) => !previousState
+                                        )
+                                    }
+                                    className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
                                 >
-                                    <path
-                                        className={
-                                            !showingNavigationDropdown
-                                                ? "inline-flex"
-                                                : "hidden"
-                                        }
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M4 6h16M4 12h16M4 18h16"
-                                    />
-                                    <path
-                                        className={
-                                            showingNavigationDropdown
-                                                ? "inline-flex"
-                                                : "hidden"
-                                        }
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                </svg>
-                            </button>
+                                    <svg
+                                        className="h-6 w-6"
+                                        stroke="currentColor"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            className={
+                                                !showingNavigationDropdown
+                                                    ? "inline-flex"
+                                                    : "hidden"
+                                            }
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="2"
+                                            d="M4 6h16M4 12h16M4 18h16"
+                                        />
+                                        <path
+                                            className={
+                                                showingNavigationDropdown
+                                                    ? "inline-flex"
+                                                    : "hidden"
+                                            }
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="2"
+                                            d="M6 18L18 6M6 6l12 12"
+                                        />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

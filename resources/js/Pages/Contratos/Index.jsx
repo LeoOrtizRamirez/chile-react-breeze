@@ -12,10 +12,9 @@ import Visualizar from "../../Components/Acciones/Visualizar";
 import Paginador from "@/Components/PaginadorContratos";
 import $ from "jquery";
 
-const Index = ({ auth, contratos, totalContratos,pagina }) => {
+const Index = ({ auth, contratos, totalContratos, pagina }) => {
     const { data, setData, post, get, processing, reset, errors } = useForm({
     });
-  
 
     // Inicio Ordenar tabla por columna
     $("th").click(function () {
@@ -74,18 +73,19 @@ const Index = ({ auth, contratos, totalContratos,pagina }) => {
 
     const nextHandler = () => {
         if (pagina >= totalPaginas) return;
-        get("/contratos/"+ idContratoNext + "/"+ pagina + "/next"), { onSuccess: () => reset() };
+        get("/contratos/" + idContrato + "/" + pagina + "/next"),
+            { onSuccess: () => reset() };
     };
 
     const prevHandler = () => {
         if (pagina == 1) return;
-        get("/contratos/"+ idContratoPrev + "/"+ pagina + "/prev"), { onSuccess: () => reset() };
+        console.log("prev");
+        get("/contratos/" + idContrato + "/" + pagina + "/prev"),
+            { onSuccess: () => reset() };
     };
+    // Fin Paginador
 
-    // FIN Paginador
-
-    // Fin Ordenar tabla por columna
-
+    // Inicio Filtro rapido
     const busquedaRapida = (event) => {
         const value = event.target.value;
         const itemsFiltered = datos.filter(function (el) {
@@ -100,6 +100,7 @@ const Index = ({ auth, contratos, totalContratos,pagina }) => {
         });
         setItems([...itemsFiltered].splice(0, itemsPagina));
     };
+    // Fin Filtro rapido
 
     const submit = (e) => {
         e.preventDefault();
@@ -109,6 +110,18 @@ const Index = ({ auth, contratos, totalContratos,pagina }) => {
 
     return (
         <AuthenticatedLayout auth={auth}>
+            <link
+                href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+                rel="stylesheet"
+                integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+                crossorigin="anonymous"
+            />
+            <link
+                rel="stylesheet"
+                href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+                integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+                crossorigin="anonymous"
+            />
             <div>
                 <div className="contenedor-filtros">
                     <div className="">
@@ -116,29 +129,28 @@ const Index = ({ auth, contratos, totalContratos,pagina }) => {
                             className="buscador_rapido"
                             id="buscar"
                             type="text"
-                            placeholder="Escriba algo para filtrar"
+                            placeholder="Búsqueda rápida"
                             onChange={busquedaRapida}
                         />
                         <span className="material-symbols-outlined posicion-color">
                             search
                         </span>
                     </div>
-                    <div className="">
+                    {/* <div className="">
                         <button className="buscador_avanzado mb-3">
                             <span className="material-symbols-outlined margen-color">
-                                {" "}
-                                list{" "}
+                                list
                             </span>
                             <span className="color-texto">
                                 Búsqueda avanzada
                             </span>
                         </button>
-                    </div>
+                    </div> */}
                     <div className="input-filtro-estado">
-                        <span className="span-visualizar">Visualizar</span>
+                        <span className="span-visualizar">Visualizar:</span>
                         <select className="input-visualizar">
                             <option value="">todos</option>
-                            <option value="">Vistos Recientemente</option>
+                            <option value="">Vistos recientemente</option>
                             <option value="">No Leidos</option>
                         </select>
                     </div>
@@ -156,7 +168,7 @@ const Index = ({ auth, contratos, totalContratos,pagina }) => {
                     <div className="alto-tabla bg-white overflow-auto ">
                         <table
                             id="tabla"
-                            className="w-full bg-white border tabla "
+                            className="w-full bg-white border tabla table-hover"
                         >
                             <thead
                                 className="cabecera-tabla"
@@ -177,49 +189,54 @@ const Index = ({ auth, contratos, totalContratos,pagina }) => {
                                     <th>Actividad económica</th>
                                 </tr>
                             </thead>
-                         
+
                             <tbody>
-                                {contratos.map((contrato, index) => (
-                                 
+                                {contratos.map((contrato) => (
                                     <tr key={contrato.id}>
+                                        {/*  {idContrato = contrato.id} */}
+
                                         <td className="border border-gray-200 text-left">
-                                            <div className="iconos-horizontal">
+                                            <div className="iconos-horizontal width-columna-acciones">
                                                 <div>
                                                     <Pdf />
                                                     <Enviar />
-                                                </div>
-                                                <div className="">
                                                     <Favoritos />
-                                                    <Visualizar />
                                                 </div>
                                                 <div className="">
                                                     <Compartir />
                                                     <Eliminar />
+                                                    <Visualizar />
                                                 </div>
                                             </div>
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
-                                            {contrato.fuente.alias_portal}
-
-                                           {/*  Input Papginador contratos */}
-                                           
-                                            
+                                            <span className="circulo">
+                                                {contrato.fuente.alias_portal}
+                                                {/*  Input Papginador contratos */}
+                                                <input
+                                                    hidden
+                                                    value={
+                                                        (idContrato =
+                                                            contrato.id)
+                                                    }
+                                                ></input>
+                                            </span>
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
-                                            <span className="data-text ">
+                                            <span className="data-text width-columna-menor">
                                                 {contrato.entidad_contratante}
                                             </span>
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
                                             <span className="data-text">
-                                                {contrato.objeto.substr(0, 30)}
+                                                {contrato.objeto.substr(0, 40)}
                                                 ...{" "}
                                             </span>
                                             <a href="" className="text-primary">
                                                 Ver más
                                             </a>
                                         </td>
-                                        <td className="border border-gray-200 text-left margen-textos">
+                                        <td className="border border-gray-200 text-left margen-textos width-columna-menor">
                                             {contrato.valor > 0
                                                 ? contrato.valor.toLocaleString(
                                                       "co-CO"
@@ -227,19 +244,29 @@ const Index = ({ auth, contratos, totalContratos,pagina }) => {
                                                 : contrato.valor_texto}
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
-                                            {contrato.modalidad}
+                                            <span className="data-text ">
+                                                {contrato.modalidad}
+                                            </span>
+                                        </td>
+                                        <td className="border border-gray-200 text-left margen-textos ">
+                                            <span className="data-text ">
+                                                {contrato.codigo_proceso}
+                                            </span>
+                                        </td>
+                                        <td className="border border-gray-200 text-left color-estado margen-textos width-columna-menor">
+                                            <span className="data-text ">
+                                                {contrato.estado_proceso}
+                                            </span>
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
-                                            {contrato.codigo_proceso}
+                                            <span className="data-text width-columna-menor">
+                                                {contrato.fecha_publicacion}
+                                            </span>
                                         </td>
-                                        <td className="border border-gray-200 text-left margen-textos">
-                                            {contrato.estado_proceso}
-                                        </td>
-                                        <td className="border border-gray-200 text-left margen-textos">
-                                            {contrato.fecha_publicacion}
-                                        </td>
-                                        <td className="border border-gray-200 text-left margen-textos">
-                                            {contrato.ubicacion}
+                                        <td className="border border-gray-200 text-left margen-textos width-columna-menor">
+                                            <span className="data-text ">
+                                                {contrato.ubicacion}
+                                            </span>
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
                                             <span className="data-text ">
@@ -247,7 +274,9 @@ const Index = ({ auth, contratos, totalContratos,pagina }) => {
                                             </span>
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
-                                            {contrato.actividad_economica}
+                                            <span className="data-text ">
+                                                {contrato.actividad_economica}
+                                            </span>
                                         </td>
                                     </tr>
                                 ))}
