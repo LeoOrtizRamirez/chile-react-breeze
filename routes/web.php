@@ -69,4 +69,6 @@ Route::controller(UserController::class)->group(function(){
     Route::delete('usuarios/{usuario:uuid}','destroy')->name('usuarios.destroy')->middleware(['auth','verified']);
     Route::get('usuarios/{usuario:uuid}/edit','edit')->name('usuarios.edit')->middleware(['auth','verified']);
     
+    Route::get('/usuarios/{idUsuario}/{pagina}/{estado}', [UserController::class, 'paginador']);
+
 });

@@ -12,13 +12,63 @@ class UserController extends Controller
   
     public function index()
     {
-        $usuarios = User::latest('id')->latest()->get();
-        /* return $usuarios; */
+
+        $pagina = 1;
+        $usuariosAll = User::all() ->count();
+
+        $usuarios = User::take(30)
+        ->get();
+
         return Inertia::render('Usuarios/Index', [
-            'usuarios' => $usuarios
+            'usuarios' =>$usuarios,
+            'totalUsuarios' =>  $usuariosAll,
+            'pagina' => $pagina
+
         ]);
 
     }
+
+
+    public function paginador($idUsuario,$page,$estado)
+    {
+        /* dd($idUsuario ." - ". $page ." - ". $estado); */
+
+        $pagina = 1;
+        $usuariosAll = User::all() ->count();
+        
+        if($estado == "next"){
+           $usuarios = User::where('id', '>' , $idUsuario)
+            ->limit(30)
+            ->get();
+
+            $pagina = $pagina + $page;
+
+        }else{
+            $desde = $idUsuario - 30;
+           
+            $usuarios = User::where('id', '<' , $idUsuario)
+            ->orderBy('id', 'desc')
+            ->limit(30)
+            ->get()
+            ->reverse();
+           
+             $usuarios= $usuarios->values();
+
+            $pagina = $page - $pagina;
+        }
+ 
+
+        return Inertia::render('Usuarios/Index',
+         [
+            'usuarios' =>$usuarios,
+            'totalUsuarios' =>  $usuariosAll,
+            'pagina' => $pagina
+        ]);
+
+    }
+
+
+
 
  
     public function create()
