@@ -173,18 +173,8 @@ const Index = ({ auth, usuarios }) => {
                                 <tr key={usuario.id}>
                                     <td className="border border-gray-200 text-left px-4 ">
                                         <div className="iconos-horizontal">
-
                                             <div className="estilos-boton-eliminar">
-                                                {/*  <Link
-                                                    href={route("usuarios.destroy", usuario.id)}
-                                                    method="delete"
-                                                    as="button"
-                                                    className="btn btn-danger"
-                                                >
-                                                    <span className="material-symbols-outlined">
-                                                        delete
-                                                    </span>
-                                                </Link> */}
+
                                                 <button
                                                     type="button"
                                                     className="btn btn-danger btn-sm usuarios"
@@ -211,8 +201,6 @@ const Index = ({ auth, usuarios }) => {
 
                                             </div>
 
-
-
                                             <div className="estilos-boton-editar">
                                                 <a
                                                     href={
@@ -227,6 +215,7 @@ const Index = ({ auth, usuarios }) => {
                                                     </span>
                                                 </a>
                                             </div>
+                                            
                                             <div className="estilos-boton-email">
                                                 <span className="material-symbols-outlined">
                                                     mail
