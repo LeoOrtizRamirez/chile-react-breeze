@@ -31,8 +31,6 @@ class UserController extends Controller
 
     public function paginador($idUsuario,$page,$estado)
     {
-        /* dd($idUsuario ." - ". $page ." - ". $estado); */
-
         $pagina = 1;
         $usuariosAll = User::all() ->count();
         
@@ -40,20 +38,15 @@ class UserController extends Controller
            $usuarios = User::where('id', '>' , $idUsuario)
             ->limit(30)
             ->get();
-
             $pagina = $pagina + $page;
-
+            
         }else{
-            $desde = $idUsuario - 30;
-           
             $usuarios = User::where('id', '<' , $idUsuario)
             ->orderBy('id', 'desc')
             ->limit(30)
             ->get()
             ->reverse();
-           
-             $usuarios= $usuarios->values();
-
+            $usuarios= $usuarios->values();
             $pagina = $page - $pagina;
         }
  

@@ -15,6 +15,11 @@ import $ from "jquery";
 const Index = ({ auth, contratos, totalContratos, pagina }) => {
     const { data, setData, post, get, processing, reset, errors } = useForm({});
 
+
+    console.log(contratos)
+
+
+
     // Inicio Ordenar tabla por columna
     $("th").click(function () {
         var table = $(this).parents("table").eq(0);
@@ -58,27 +63,35 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
     }
     // Fin Ordenar tabla por columna
 
-    // Inicio Paginador
     var idContrato = 0;
-    const idContratoNext = contratos[29].id;
-    const idContratoPrev = contratos[0].id;
-    const itemsPagina = 30;
-    const totalElementos = totalContratos;
-    const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;
-    const currentPage = pagina;
 
-    const nextHandler = () => {
-        if (pagina >= totalPaginas) return;
-        get("/contratos/" + idContrato + "/" + pagina + "/next"),
-            { onSuccess: () => reset() };
-    };
-    const prevHandler = () => {
-        if (pagina == 1) return;
-        console.log("prev");
-        get("/contratos/" + idContrato + "/" + pagina + "/prev"),
-            { onSuccess: () => reset() };
-    };
-    // Fin Paginador
+        // Inicio Paginador
+        const ultimoElemento = contratos[contratos.length - 1].id
+        var idUsuarioNext = ultimoElemento;
+        const primerElemento = contratos[0].id
+
+        const itemsPagina = 30;
+        const totalElementos = totalContratos;
+        const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;
+        const currentPage = pagina;
+
+        const nextHandler = () => {
+            if (pagina >= totalPaginas) return;
+            get("/contratos/"+ idUsuarioNext + "/"+ pagina + "/next"), { onSuccess: () => reset() };
+        };
+
+        const prevHandler = () => {
+            if (pagina == 1) return;
+            get("/contratos/"+ primerElemento + "/"+ pagina + "/prev"), { onSuccess: () => reset() };
+        };
+
+        // FIN Paginador
+
+
+
+
+
+
 
     // Inicio Filtro rapido
     const busquedaRapida = (event) => {
@@ -189,8 +202,6 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
                             <tbody>
                                 {contratos.map((contrato) => (
                                     <tr key={contrato.id}>
-                                        {/*  {idContrato = contrato.id} */}
-
                                         <td className="border border-gray-200 text-left">
                                             <div className="iconos-horizontal width-columna-acciones">
                                                 <div>
@@ -206,16 +217,9 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
                                             </div>
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
-                                            <span className="circulo">
+                                        <span className="circulo">
                                                 {contrato.fuente.alias_portal}
-                                                {/*  Input Papginador contratos */}
-                                                <input
-                                                    hidden
-                                                    value={
-                                                        (idContrato =
-                                                            contrato.id)
-                                                    }
-                                                ></input>
+                                               
                                             </span>
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
