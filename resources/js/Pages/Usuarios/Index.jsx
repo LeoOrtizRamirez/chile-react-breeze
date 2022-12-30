@@ -83,14 +83,7 @@ const Index = ({ auth, usuarios, totalUsuarios,pagina }) => {
     const ultimoElemento = usuarios[usuarios.length - 1].id
     var idUsuarioNext = ultimoElemento;
     const primerElemento = usuarios[0].id
-    
-    console.log(usuarios)
-    console.log("Usuarios.leng "+ usuarios.length )
-    console.log("ultimo elemeto: " + ultimoElemento)
-    console.log("IDUSUARIO:" + idUsuarioNext)
-    console.log("primerElemento: " + primerElemento)
 
-    const idUsuarioPrev = usuarios[0].id;
     const itemsPagina = 30;
     const totalElementos = totalUsuarios;
     const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;

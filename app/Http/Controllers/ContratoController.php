@@ -48,12 +48,10 @@ class ContratoController extends Controller
 
     }
 
-
     public function paginador($idContrato,$page,$estado)
     {
         
         $pagina = 1;
-        /* dd($nextPage." - ". $idContrato." - ". $estado); */
         $contratosAll = Contrato::all() ->count();
         
         if($estado == "next"){
@@ -65,19 +63,18 @@ class ContratoController extends Controller
             $pagina = $pagina + $page;
 
         }else{
-            $desde = $idContrato - 30;
-           
-            $contratos = Contrato::with('fuente'/*, 'clasificaciones', 'contratistas'*/)
-           /*  ->where('id', '>' , $desde ) */
-            /* ->where('id', '<' , $idContrato) */
-            ->whereBetween('id', array($desde,$idContrato))
+            $contratos = Contrato::with('fuente')
+            ->orderBy('id', 'desc')
+            ->where('id', '<' , $idContrato )
             ->limit(30)
-            ->get();
+            ->get()
+            ->reverse();
 
+            $contratos= $contratos->values();
            
             $pagina = $page - $pagina;
         }
-        
+
         foreach ($contratos as $key => $value) {
             $contratista = ContratistaContrato::where('id_contrato', $value->id)->first();
             if($contratista){
