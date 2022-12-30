@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
             'identificacion' => '10650523423',
             'idplan' => null,
             'fecha_vencimiento' => '2024-01-02',
-            'email' => 'steven.@licitaciones.info',
+            'email' => 'steven@licitaciones.info',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
 

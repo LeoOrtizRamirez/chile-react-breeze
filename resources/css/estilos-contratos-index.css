@@ -195,14 +195,24 @@ p {
     margin-bottom: 0px;
 }
 
-.width-columna-acciones{
+.width-columna-acciones {
     width: 80px;
 }
 
-.width-columna-menor{
+.width-columna-menor {
     width: 100px;
 }
 
-.width-columna-mayor{
+.width-columna-mayor {
     width: 200px;
+}
+
+table#tabla {
+    border-collapse: collapse;
+    border-radius: 1em;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+    border-bottom-left-radius: 1em;
+    overflow: hidden;
 }

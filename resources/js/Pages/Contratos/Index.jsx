@@ -105,6 +105,7 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
 
     return (
         <AuthenticatedLayout auth={auth}>
+            <link rel="shortcut icon" href="#"></link>
             <link
                 href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
                 rel="stylesheet"
@@ -131,7 +132,7 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
                             search
                         </span>
                     </div>
-                    {/* <div className="">
+                    <div className="">
                         <button className="buscador_avanzado mb-3">
                             <span className="material-symbols-outlined margen-color">
                                 list
@@ -140,7 +141,7 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
                                 Búsqueda avanzada
                             </span>
                         </button>
-                    </div> */}
+                    </div>
                     <div className="input-filtro-estado">
                         <span className="span-visualizar">Visualizar:</span>
                         <select className="input-visualizar">
