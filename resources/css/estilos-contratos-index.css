@@ -30,7 +30,7 @@ table tr th {
 
 .alto-tabla {
     width: auto;
-    height: 1600px;
+    height: 100vh;
 }
 
 .cabecera-tabla {
@@ -205,14 +205,4 @@ p {
 
 .width-columna-mayor {
     width: 200px;
-}
-
-table#tabla {
-    border-collapse: collapse;
-    border-radius: 1em;
-    border-top-left-radius: 1em;
-    border-top-right-radius: 1em;
-    border-bottom-right-radius: 1em;
-    border-bottom-left-radius: 1em;
-    overflow: hidden;
 }
