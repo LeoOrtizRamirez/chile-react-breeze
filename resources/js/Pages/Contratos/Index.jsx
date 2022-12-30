@@ -238,8 +238,8 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos width-columna-menor">
                                             {contrato.valor > 0
-                                                ? contrato.valor.toLocaleString(
-                                                      "co-CO"
+                                                ? "$" + contrato.valor.toLocaleString(
+                                                      "ch-CH"
                                                   )
                                                 : contrato.valor_texto}
                                         </td>
