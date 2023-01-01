@@ -23,4 +23,15 @@ createInertiaApp({
     },
 });
 
-InertiaProgress.init({ color: "#4B5563" });
+InertiaProgress.init(
+    {
+        color: "rgb(0, 161, 201)" ,
+        delay: 250,
+      
+        // Whether to include the default NProgress styles.
+        includeCSS: true,
+      
+        // Whether the NProgress spinner will be shown.
+        showSpinner: true,
+    }
+);
