@@ -6,7 +6,6 @@ import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 import Paginador from "@/Components/PaginadorContratos";
 import "../../../css/estilos-usuarios-index.css";
 import DeleteModal from "@/Components/Modals/DeleteModalUsers";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import $ from "jquery";
@@ -83,7 +82,14 @@ const Index = ({ auth, usuarios, totalUsuarios,pagina }) => {
     const ultimoElemento = usuarios[usuarios.length - 1].id
     var idUsuarioNext = ultimoElemento;
     const primerElemento = usuarios[0].id
+    
+    console.log(usuarios)
+    console.log("Usuarios.leng "+ usuarios.length )
+    console.log("ultimo elemeto: " + ultimoElemento)
+    console.log("IDUSUARIO:" + idUsuarioNext)
+    console.log("primerElemento: " + primerElemento)
 
+    const idUsuarioPrev = usuarios[0].id;
     const itemsPagina = 30;
     const totalElementos = totalUsuarios;
     const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;

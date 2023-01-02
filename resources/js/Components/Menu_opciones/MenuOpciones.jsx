@@ -8,26 +8,27 @@ const App = () => {
     const Menus = [
         {
             title: "Menú Admin",
-            icon: "admin_panel_settings",
+            icon: "bi bi-shield text-base material-symbols-outlined iconos-tamano",
             submenu: true,
             submenuItems: [
                 { title: "Usuarios", href: "/usuarios" },
                 { title: "Planes", href: "/planes" },
             ],
         },
-        { title: "Perfiles", icon: "filter_alt", href: "" },
-        { title: "Mis Seguimientos", icon: "visibility", href: "" },
-        { title: "Carpetas ", icon: "folder", href: "" },
-        { title: "Todos los Contratos", icon: "Search", href: "/contratos" },
-        { title: "Ajustes", icon: "settings", href: "" },
+        { title: "Perfiles", icon: 'bi bi-funnel text-base material-symbols-outlined iconos-tamano', href: "" },
+        { title: "Mis Seguimientos", icon: "bi bi-eye text-base material-symbols-outlined iconos-tamano", href: "" },
+        { title: "Carpetas ", icon: "bi bi-folder text-base material-symbols-outlined iconos-tamano", href: "" },
+        { title: "Todos los Contratos", icon: "bi bi-search text-base material-symbols-outlined iconos-tamano", href: "/contratos" },
+        { title: "Ajustes", icon: "bi bi-gear text-base material-symbols-outlined iconos-tamano", href: "" },
     ];
 
     return (
+        
         <div className="contenedor-opciones">
             <div
                 className={` ${
                     open ? "w-30" : "w-20 "
-                } h-screen p-10 relative duration-300 lista-opciones`}
+                } h-screen p-10 relative lista-opciones`}
             >
                 {/*<BsArrowLeftShort className={`z-10 bg-white text-dark-purple text-3xl rounded-full absolute -right-3 top-9 border Oborder-dark-purple cursor-pointer ${!open && "rotate-180"}`}
                     onClick={() => setOpen(!open)} />*/}
@@ -42,18 +43,14 @@ const App = () => {
                             >
                                 {Menu.submenu && open ? (
                                     <>
-                                        <span
-                                            className="text-base material-symbols-outlined iconos-tamano"
-                                            onClick={() => {
+                                        <i className={Menu.icon} onClick={() => {
                                                 setSubMenuOpen(!subMenuOpen);
-                                            }}
-                                        >
-                                            {Menu.icon}
-                                        </span>
+                                            }}>
+                                        </i>
                                         <p
                                             className={`${
                                                 !open && "hidden"
-                                            } origin-left duration-200`}
+                                            } origin-left`}
                                         >
                                             {Menu.title}
                                         </p>
@@ -63,13 +60,11 @@ const App = () => {
                                 ) : (
                                     <>
                                         <a href={Menu.href}>
-                                            <span className="text-base material-symbols-outlined iconos-tamano">
-                                                {Menu.icon}
-                                            </span>
+                                            <i className={Menu.icon}></i>
                                             <p
                                                 className={`${
                                                     !open && "hidden"
-                                                } origin-left duration-200`}
+                                                } origin-left`}
                                             >
                                                 {Menu.title}
                                             </p>

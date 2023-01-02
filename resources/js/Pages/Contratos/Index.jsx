@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+//const AuthenticatedLayout = lazy(() => import("@/Layouts/AuthenticatedLayout"));
 import { useForm, Head } from "@inertiajs/inertia-react";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
+//const MenuOpciones = lazy(() => import("@/Layouts/AuthenticatedLayout"));
 import "../../../css/estilos-contratos-index.css";
 import Compartir from "../../Components/Acciones/Compartir";
 import Eliminar from "../../Components/Acciones/Eliminar";
@@ -11,6 +13,7 @@ import Pdf from "../../Components/Acciones/Pdf";
 import Visualizar from "../../Components/Acciones/Visualizar";
 import Paginador from "@/Components/PaginadorContratos";
 import $ from "jquery";
+import { TypeH1 } from "react-bootstrap-icons";
 
 const Index = ({ auth, contratos, totalContratos, pagina }) => {
     const { data, setData, post, get, processing, reset, errors } = useForm({});
@@ -119,18 +122,7 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
     return (
         <AuthenticatedLayout auth={auth}>
             <link rel="shortcut icon" href="#"></link>
-            <link
-                href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-                rel="stylesheet"
-                integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-                crossorigin="anonymous"
-            />
-            <link
-                rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-                integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-                crossorigin="anonymous"
-            />
+            
             <div>
                 <div className="contenedor-filtros">
                     <div className="">
@@ -219,7 +211,7 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
                                         <td className="border border-gray-200 text-left margen-textos">
                                         <span className="circulo">
                                                 {contrato.fuente.alias_portal}
-                                               
+                                            
                                             </span>
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
@@ -239,8 +231,8 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
                                         <td className="border border-gray-200 text-left margen-textos width-columna-menor">
                                             {contrato.valor > 0
                                                 ? "$" + contrato.valor.toLocaleString(
-                                                      "ch-CH"
-                                                  )
+                                                    "ch-CH"
+                                                )
                                                 : contrato.valor_texto}
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">

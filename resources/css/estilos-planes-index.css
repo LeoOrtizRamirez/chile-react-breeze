@@ -51,3 +51,16 @@ th {
     background-position: bottom;
     background-repeat: repeat-x;
 }
+
+ul.lista-opciones.margen-nav {
+    height: 100vh;
+}
+
+ul.lista-opciones.margen-nav > li {
+    height: 16vh !important;
+}
+
+.contenedor-opciones {
+    margin-top: -126px !important;
+    height: 100vh;
+}
