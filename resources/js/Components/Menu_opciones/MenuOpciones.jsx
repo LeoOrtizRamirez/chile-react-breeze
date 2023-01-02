@@ -50,7 +50,7 @@ const App = () => {
                                         <p
                                             className={`${
                                                 !open && "hidden"
-                                            } origin-left duration-200`}
+                                            } origin-left`}
                                         >
                                             {Menu.title}
                                         </p>
@@ -64,7 +64,7 @@ const App = () => {
                                             <p
                                                 className={`${
                                                     !open && "hidden"
-                                                } origin-left duration-200`}
+                                                } origin-left`}
                                             >
                                                 {Menu.title}
                                             </p>
