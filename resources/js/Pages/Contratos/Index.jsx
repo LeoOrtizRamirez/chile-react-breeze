@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+//const AuthenticatedLayout = lazy(() => import("@/Layouts/AuthenticatedLayout"));
 import { useForm, Head } from "@inertiajs/inertia-react";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 import "../../../css/estilos-contratos-index.css";
@@ -219,7 +220,7 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
                                         <td className="border border-gray-200 text-left margen-textos">
                                         <span className="circulo">
                                                 {contrato.fuente.alias_portal}
-                                               
+                                            
                                             </span>
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
@@ -239,8 +240,8 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
                                         <td className="border border-gray-200 text-left margen-textos width-columna-menor">
                                             {contrato.valor > 0
                                                 ? "$" + contrato.valor.toLocaleString(
-                                                      "ch-CH"
-                                                  )
+                                                    "ch-CH"
+                                                )
                                                 : contrato.valor_texto}
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
