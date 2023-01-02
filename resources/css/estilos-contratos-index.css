@@ -206,3 +206,12 @@ p {
 .width-columna-mayor {
     width: 200px;
 }
+
+
+ul.lista-opciones.margen-nav {
+    height: 100vh;
+}
+
+ul.lista-opciones.margen-nav > li {
+    height: 16vh !important;
+}
