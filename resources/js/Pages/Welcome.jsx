@@ -1,5 +1,5 @@
 import { Link, Head } from "@inertiajs/inertia-react";
-
+import Banner from "@/Components/Banner";
 export default function Welcome(props) {
     return (
         <>
@@ -30,6 +30,8 @@ export default function Welcome(props) {
                     </>
                 )}
             </div>
+
+            <Banner></Banner>
         </>
     );
 }
