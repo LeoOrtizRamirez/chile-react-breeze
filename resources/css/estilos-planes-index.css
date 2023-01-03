@@ -1,3 +1,17 @@
+.contenedor-planes {
+    display: flex;
+    flex-direction: row;
+}
+
+body {
+    overflow-y: hidden;
+}
+
+a {
+    text-align: center;
+    font-weight: bold;
+}
+
 .posicion-opciones-planes {
     margin-top: 58px;
 }
@@ -17,6 +31,10 @@ a {
 
 p {
     margin-bottom: 0px !important;
+}
+
+html {
+    background-color: #f3f4f6;
 }
 
 .modal-header,
@@ -41,12 +59,17 @@ th {
     max-width: 410px;
     margin: 0 auto;
     color: #00a1c9;
-    font-family: Nexa-bold,sans-serif;
+    font-family: Nexa-bold, sans-serif;
     font-size: 24px;
     font-weight: bold;
     padding-bottom: 5px;
     border: 0;
-    background-image: linear-gradient(90deg,#e1e1e1 0,#e1e1e1 50%,transparent 0);
+    background-image: linear-gradient(
+        90deg,
+        #e1e1e1 0,
+        #e1e1e1 50%,
+        transparent 0
+    );
     background-size: 16px 2px;
     background-position: bottom;
     background-repeat: repeat-x;
@@ -61,6 +84,71 @@ ul.lista-opciones.margen-nav > li {
 }
 
 .contenedor-opciones {
-    margin-top: -126px !important;
+    margin-top: -115px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: white;
+    border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
     height: 100vh;
+}
+
+.p-10 {
+    padding: 10px 10px 0px 10px;
+}
+
+.planes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #00a1c9;
+    font-weight: bold;
+    font-size: 22px;
+    justify-content: space-between;
+    height: 40px;
+    margin-bottom: -5px;
+}
+
+.margen-superior {
+    margin-top: 10px !important;
+}
+
+.contenedor-botones {
+    display: flex;
+    flex-direction: row;
+}
+
+.actualizar-color {
+    color: #00a1c9;
+}
+
+.autorenew {
+    background-color: #ffffff;
+    width: 35px;
+    height: 35px;
+    border-bottom: solid 1px #b5b5b5;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    text-align: center;
+    padding: 5px;
+    color: black;
+}
+
+.add_circle {
+    background-color: rgb(58, 182, 0);
+    width: 35px;
+    height: 35px;
+    border-bottom: solid 1px #b5b5b5;
+    margin-bottom: 5px;
+    text-align: center;
+    padding: 5px;
+}
+
+.material-symbols-outlined-color {
+    color: white;
 }

@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { useForm, Head } from "@inertiajs/inertia-react";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
-import "../../../css/estilos-contratos-index.css";
-import "../../../css/estilos-usuarios-index.css";
 import "../../../css/estilos-planes-index.css";
 import { Link } from "@inertiajs/inertia-react";
 
@@ -24,7 +22,7 @@ const Index = ({ auth, planes }) => {
     };
 
     const [openCreateModal, setOpenCreateModal] = useState(false);
-    
+
     const [openUpdateModal, setOpenUpdateModal] = useState(false);
     const [openUpdateModalId, setOpenUpdateModalId] = useState(0);
 
@@ -32,8 +30,8 @@ const Index = ({ auth, planes }) => {
     const [openDeleteModalId, setOpenDeleteModalId] = useState(0);
 
     const getPlan = (plan) => {
-        setOpenUpdateModal(true)
-        setOpenUpdateModalId(plan.id)
+        setOpenUpdateModal(true);
+        setOpenUpdateModalId(plan.id);
         /*
         const modal_activo = document.getElementById("updateModal" + plan.id); //Buscar modal para abrir
         modal_activo.style.display = "block";
@@ -42,26 +40,26 @@ const Index = ({ auth, planes }) => {
     };
 
     const getPlanDelete = (plan) => {
-        setOpenDeleteModal(true)
-        setOpenDeleteModalId(plan.id)
+        setOpenDeleteModal(true);
+        setOpenDeleteModalId(plan.id);
     };
 
-    const handleSearch = (e) =>{
-        setOpenCreateModal(false)
-        setOpenUpdateModal(false)
-        setOpenDeleteModal(false)
-    }
+    const handleSearch = (e) => {
+        setOpenCreateModal(false);
+        setOpenUpdateModal(false);
+        setOpenDeleteModal(false);
+    };
 
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Planes" />
-            <div className="contenedor-contratos">
+            <div className="contenedor-planes">
                 <div className="posicion-opciones-planes">
                     <MenuOpciones />
                 </div>
-                <div className="bg-white overflow-auto w-full text-center">
+                <div className="bg-white overflow-auto w-full text-center margen-superior">
                     <h2 class="name_section_app">Planes</h2>
-                    <div className="usuarios">
+                    <div className="planes">
                         <div className="contenedor-botones">
                             <a
                                 className="autorenew"
@@ -71,7 +69,6 @@ const Index = ({ auth, planes }) => {
                                     autorenew
                                 </span>
                             </a>
-                            
 
                             <a
                                 className="add_circle"
@@ -83,11 +80,13 @@ const Index = ({ auth, planes }) => {
                                     add_circle
                                 </span>
                             </a>
-                            
-                            {openCreateModal &&(
-                                <CreateModal openCreateModal={openCreateModal} handleSearch={handleSearch}/>
+
+                            {openCreateModal && (
+                                <CreateModal
+                                    openCreateModal={openCreateModal}
+                                    handleSearch={handleSearch}
+                                />
                             )}
-                            
                         </div>
                     </div>
                     <table className="w-full bg-white border tabla ">
@@ -141,7 +140,7 @@ const Index = ({ auth, planes }) => {
                                                 )}
                                                 className="btn btn-danger btn-sm"
                                             >
-                                                <span className="material-symbols-outlined text-white iconos-tamano-margen align-middle">
+                                                <span className="text-white iconos-tamano-margen align-middle">
                                                     cancel
                                                 </span>
                                             </Link>
@@ -153,7 +152,7 @@ const Index = ({ auth, planes }) => {
                                                 )}
                                                 className="btn btn-success btn-sm"
                                             >
-                                                <span className="material-symbols-outlined text-white iconos-tamano-margen align-middle">
+                                                <span className="text-white material-symbols-outlined iconos-tamano-margen align-middle">
                                                     check
                                                 </span>
                                             </Link>
@@ -171,14 +170,20 @@ const Index = ({ auth, planes }) => {
                                                 getPlan(plan);
                                             }}
                                         >
-                                            <span className="material-symbols-outlined text-white iconos-tamano-margen align-middle">
+                                            <span className="text-white material-symbols-outlined iconos-tamano-margen align-middle">
                                                 edit
                                             </span>
                                         </button>
-                                        {openUpdateModal && openUpdateModalId == plan.id &&(
-                                            <UpdateModal planData={plan} openUpdateModal={openUpdateModal} handleSearch={handleSearch}/>
-                                        )}
-                                        
+                                        {openUpdateModal &&
+                                            openUpdateModalId == plan.id && (
+                                                <UpdateModal
+                                                    planData={plan}
+                                                    openUpdateModal={
+                                                        openUpdateModal
+                                                    }
+                                                    handleSearch={handleSearch}
+                                                />
+                                            )}
                                     </td>
                                     <td className="border border-gray-200 margen-textos">
                                         <button
@@ -192,13 +197,20 @@ const Index = ({ auth, planes }) => {
                                                 getPlanDelete(plan);
                                             }}
                                         >
-                                            <span className="material-symbols-outlined text-white iconos-tamano-margen align-middle">
+                                            <span className="text-white material-symbols-outlined iconos-tamano-margen align-middle">
                                                 delete
                                             </span>
                                         </button>
-                                        {openDeleteModal && openDeleteModalId == plan.id &&(
-                                            <DeleteModal planData={plan} openDeleteModal={openDeleteModal} handleSearch={handleSearch}/>
-                                        )}
+                                        {openDeleteModal &&
+                                            openDeleteModalId == plan.id && (
+                                                <DeleteModal
+                                                    planData={plan}
+                                                    openDeleteModal={
+                                                        openDeleteModal
+                                                    }
+                                                    handleSearch={handleSearch}
+                                                />
+                                            )}
                                     </td>
                                 </tr>
                             ))}

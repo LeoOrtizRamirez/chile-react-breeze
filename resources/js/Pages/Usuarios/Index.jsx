@@ -10,7 +10,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import $ from "jquery";
 
-
 // Inicio Ordenar tabla por columna
 $("th").click(function () {
     var table = $(this).parents("table").eq(0);
@@ -54,40 +53,35 @@ function setIcon(element, asc) {
 }
 // Fin Ordenar tabla por columna
 
-const Index = ({ auth, usuarios, totalUsuarios,pagina }) => {
-
-    const { data, setData, post,get, processing, reset, errors } = useForm({});
-
-
+const Index = ({ auth, usuarios, totalUsuarios, pagina }) => {
+    const { data, setData, post, get, processing, reset, errors } = useForm({});
 
     //Modal delete users
     const [openDeleteUserModal, setOpenDeleteUserModal] = useState(false);
     const [openDeleteUserModalId, setOpenDeleteUserModalId] = useState(0);
 
-
     const getUsuarioDelete = (usuario) => {
-        setOpenDeleteUserModal(true)
-        setOpenDeleteUserModalId(usuario.id)
+        setOpenDeleteUserModal(true);
+        setOpenDeleteUserModalId(usuario.id);
     };
 
     const handleSearch = (e) => {
-        setOpenDeleteUserModal(false)
-    }
+        setOpenDeleteUserModal(false);
+    };
 
     //
 
     // Inicio Paginador
- 
 
-    const ultimoElemento = usuarios[usuarios.length - 1].id
+    const ultimoElemento = usuarios[usuarios.length - 1].id;
     var idUsuarioNext = ultimoElemento;
-    const primerElemento = usuarios[0].id
-    
-    console.log(usuarios)
-    console.log("Usuarios.leng "+ usuarios.length )
-    console.log("ultimo elemeto: " + ultimoElemento)
-    console.log("IDUSUARIO:" + idUsuarioNext)
-    console.log("primerElemento: " + primerElemento)
+    const primerElemento = usuarios[0].id;
+
+    console.log(usuarios);
+    console.log("Usuarios.leng " + usuarios.length);
+    console.log("ultimo elemeto: " + ultimoElemento);
+    console.log("IDUSUARIO:" + idUsuarioNext);
+    console.log("primerElemento: " + primerElemento);
 
     const idUsuarioPrev = usuarios[0].id;
     const itemsPagina = 30;
@@ -97,17 +91,18 @@ const Index = ({ auth, usuarios, totalUsuarios,pagina }) => {
 
     const nextHandler = () => {
         if (pagina >= totalPaginas) return;
-        get("/usuarios/"+ idUsuarioNext + "/"+ pagina + "/next"), { onSuccess: () => reset() };
+        get("/usuarios/" + idUsuarioNext + "/" + pagina + "/next"),
+            { onSuccess: () => reset() };
     };
 
     const prevHandler = () => {
         if (pagina == 1) return;
-        get("/usuarios/"+ primerElemento + "/"+ pagina + "/prev"), { onSuccess: () => reset() };
+        get("/usuarios/" + primerElemento + "/" + pagina + "/prev"),
+            { onSuccess: () => reset() };
     };
 
     // FIN Paginador
 
-    
     const submit = (e) => {
         e.preventDefault();
         //console.log(data)
@@ -117,7 +112,7 @@ const Index = ({ auth, usuarios, totalUsuarios,pagina }) => {
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Usuarios" />
-           
+
             <div className="contenedor-usuarios">
                 <div className="posicion-opciones-usuarios">
                     <MenuOpciones />
@@ -182,20 +177,21 @@ const Index = ({ auth, usuarios, totalUsuarios,pagina }) => {
                         <tbody>
                             {usuarios.map((usuario) => (
                                 <tr key={usuario.id}>
-                                     
                                     <td className="border border-gray-200 text-left px-4 ">
                                         <div className="iconos-horizontal">
                                             <div className="estilos-boton-eliminar">
-
                                                 <button
                                                     type="button"
                                                     className="btn btn-danger btn-sm usuarios"
-                                                    data-bs-toggle="modal" 
+                                                    data-bs-toggle="modal"
                                                     data-bs-target={
-                                                        "#deleteModal" + usuario.id
+                                                        "#deleteModal" +
+                                                        usuario.id
                                                     }
                                                     onClick={() => {
-                                                        getUsuarioDelete(usuario);
+                                                        getUsuarioDelete(
+                                                            usuario
+                                                        );
                                                     }}
                                                 >
                                                     <span className="material-symbols-outlined text-white iconos-tamano-margen align-middle">
@@ -203,14 +199,19 @@ const Index = ({ auth, usuarios, totalUsuarios,pagina }) => {
                                                     </span>
                                                 </button>
 
-                                                {openDeleteUserModal && openDeleteUserModalId == usuario.id && (
-                                                    <DeleteModal
-                                                        usuario={usuario}
-                                                        openDeleteModal={openDeleteUserModal}
-                                                        handleSearch={handleSearch}
-                                                    />
-                                                )}
-
+                                                {openDeleteUserModal &&
+                                                    openDeleteUserModalId ==
+                                                        usuario.id && (
+                                                        <DeleteModal
+                                                            usuario={usuario}
+                                                            openDeleteModal={
+                                                                openDeleteUserModal
+                                                            }
+                                                            handleSearch={
+                                                                handleSearch
+                                                            }
+                                                        />
+                                                    )}
                                             </div>
 
                                             <div className="estilos-boton-editar">
@@ -227,7 +228,7 @@ const Index = ({ auth, usuarios, totalUsuarios,pagina }) => {
                                                     </span>
                                                 </a>
                                             </div>
-                                            
+
                                             <div className="estilos-boton-email">
                                                 <span className="material-symbols-outlined">
                                                     mail
