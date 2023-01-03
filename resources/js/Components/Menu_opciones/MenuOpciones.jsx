@@ -15,15 +15,34 @@ const App = () => {
                 { title: "Planes", href: "/planes" },
             ],
         },
-        { title: "Perfiles", icon: 'bi bi-funnel text-base material-symbols-outlined iconos-tamano', href: "" },
-        { title: "Mis Seguimientos", icon: "bi bi-eye text-base material-symbols-outlined iconos-tamano", href: "" },
-        { title: "Carpetas ", icon: "bi bi-folder text-base material-symbols-outlined iconos-tamano", href: "" },
-        { title: "Todos los Contratos", icon: "bi bi-search text-base material-symbols-outlined iconos-tamano", href: "/contratos" },
-        { title: "Ajustes", icon: "bi bi-gear text-base material-symbols-outlined iconos-tamano", href: "" },
+        {
+            title: "Perfiles",
+            icon: "bi bi-funnel text-base material-symbols-outlined iconos-tamano",
+            href: "",
+        },
+        {
+            title: "Mis Seguimientos",
+            icon: "bi bi-eye text-base material-symbols-outlined iconos-tamano",
+            href: "",
+        },
+        {
+            title: "Carpetas ",
+            icon: "bi bi-folder text-base material-symbols-outlined iconos-tamano",
+            href: "",
+        },
+        {
+            title: "Todos los Contratos",
+            icon: "bi bi-search text-base material-symbols-outlined iconos-tamano",
+            href: "/contratos",
+        },
+        {
+            title: "Ajustes",
+            icon: "bi bi-gear text-base material-symbols-outlined iconos-tamano",
+            href: "",
+        },
     ];
 
     return (
-        
         <div className="contenedor-opciones">
             <div
                 className={` ${
@@ -43,10 +62,12 @@ const App = () => {
                             >
                                 {Menu.submenu && open ? (
                                     <>
-                                        <i className={Menu.icon} onClick={() => {
+                                        <i
+                                            className={Menu.icon}
+                                            onClick={() => {
                                                 setSubMenuOpen(!subMenuOpen);
-                                            }}>
-                                        </i>
+                                            }}
+                                        ></i>
                                         <p
                                             className={`${
                                                 !open && "hidden"
@@ -73,7 +94,7 @@ const App = () => {
                                 )}
                             </li>
 
-                            <hr color="#8b8b8b" />
+                            <hr />
 
                             {Menu.submenu && subMenuOpen && open && (
                                 <ul className="submenu z-10">
@@ -81,7 +102,7 @@ const App = () => {
                                         (submenuItem, index) => (
                                             <li
                                                 key={index}
-                                                className="text-gray-500 text-sm flex items-center gap-x-4 cursor-pointer p-2 px-5 Dhover:bg-light-white rounded-md"
+                                                className="text-gray-500 text-sm flex items-center gap-x-4 cursor-pointer p-2 px-5 hover:bg-light-white rounded-md"
                                             >
                                                 <a href={submenuItem.href}>
                                                     {submenuItem.title}
