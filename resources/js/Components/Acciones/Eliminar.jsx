@@ -18,9 +18,7 @@ export default function Pdf({
             disabled={processing}
         >
             {children}
-            <span className="material-symbols-outlined text-gray-500 iconos-tamano-margen">
-                folder_delete
-            </span>
+            <i className="bi bi-folder-minus text-gray-500 iconos-tamano-margen"></i>
         </button>
     );
 }

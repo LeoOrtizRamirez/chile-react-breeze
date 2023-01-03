@@ -18,9 +18,7 @@ export default function Pdf({
             disabled={processing}
         >
             {children}
-            <span className="material-symbols-outlined text-gray-500 iconos-tamano-margen">
-                ios_share
-            </span>
+            <i className="bi bi-upload text-gray-500 iconos-tamano-margen"></i>
         </button>
     );
 }
