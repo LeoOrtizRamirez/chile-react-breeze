@@ -13,7 +13,7 @@ export const Footer = () => {
 
                 <div className="container-flex">
                     <div className="size-msj">
-                        <span className="typography-msj">
+                        <span className="typography-msj font-bold">
                             Un mundo de <br />
                             oportunidades de negocio <br />
                             te está esperando
@@ -41,7 +41,7 @@ export const Footer = () => {
                         </ul>
                     </div>
 
-                    <div className="size-politics">
+                    <div className="size-politics text-footer">
                         <h2 className="typography-support-politics">
                             Políticas
                         </h2>
@@ -76,7 +76,7 @@ export const Footer = () => {
 
                 <hr className="h-1 bg-white border-0 mx-11 my-11"></hr>
 
-                <div className="sm:flex sm:items-center sm:justify-between mx-11 pb-12">
+                <div className="sm:flex sm:items-center sm:justify-between mx-11 pb-12 text-footer">
                     <span className="flex text-sm text-white sm:text-center">
                         <a href="https://flowbite.com/">
                             <ApplicationLogoLiciWhite />
@@ -106,7 +106,7 @@ export const Footer = () => {
 
                         <a href="https://www.facebook.com/licitacionesInfo/">
                             <svg
-                                className="w-6 h-6 ml-1.5 youtube"
+                                className="w-6 h-7 ml-1.5 mt-1.5 youtube"
                                 fill="currentColor"
                                 viewBox="0 0 24 24"
                                 aria-hidden="true"
@@ -117,7 +117,7 @@ export const Footer = () => {
                                     clip-rule="evenodd"
                                 />
                             </svg>
-                            <span className="sr-only">Youtube page</span>
+                            <span className="sr-only ">Youtube page</span>
                         </a>
 
                         <a href="https://twitter.com/licitacionesinf?lang=es">
