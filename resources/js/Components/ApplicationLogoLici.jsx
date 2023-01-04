@@ -2,8 +2,27 @@ import React from "react";
 //Logo licitaciones
 export default function ApplicationLogoLici({ className }) {
     return (
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="258px" height="39px" viewBox="0 0 258 39" enableBackground="new 0 0 258 39" xmlSpace="preserve">  <image id="image0" width="258" height="39" x="0" y="0"
-    href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQIAAAAnCAYAAADkWUZhAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+        <svg
+            version="1.1"
+            id="Layer_1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            x="0px"
+            y="0px"
+            width="258px"
+            height="39px"
+            viewBox="0 0 258 39"
+            enableBackground="new 0 0 258 39"
+            xmlSpace="preserve"
+        >
+            {" "}
+            <image
+                id="image0"
+                width="258"
+                height="39"
+                x="0"
+                y="0"
+                href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQIAAAAnCAYAAADkWUZhAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
 AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAA
 CXBIWXMAAAsTAAALEwEAmpwYAAADj3pUWHRSYXcgcHJvZmlsZSB0eXBlIHhtcAAASImdVkmypDoM
 3PsUfQQj2RI+DsWw64i//MfvTLkGoHjjIwp4toZUajDp/7//pT/4G0ptSWfdfPRsg6ndrHqRbGLV
@@ -170,8 +189,8 @@ M6KfEWwhWDEMLG9wSkHpkuwW5ZeofKx+toKGX0ejb2y+m7760Y9+RrBtQrkNlRPyiY4JhJf0SwL9
 2NzoZwTbKpQ7UDkx/YKG/+6YQL8k0I/Nj35l4bYM5bfAhUg4CY1m90sC/Xi38P8AQJFvrbK35qIA
 AAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMTItMjFUMTY6MTQ6NTcrMDA6MDAxg+JoAAAAJXRFWHRk
 YXRlOm1vZGlmeQAyMDIyLTEyLTIxVDE2OjE0OjU3KzAwOjAwQN5a1AAAACh0RVh0ZGF0ZTp0aW1l
-c3RhbXAAMjAyMi0xMi0yMVQxNjoxNDo1OSswMDowMEf0AFYAAAAASUVORK5CYII=" />
-</svg>
-
+c3RhbXAAMjAyMi0xMi0yMVQxNjoxNDo1OSswMDowMEf0AFYAAAAASUVORK5CYII="
+            />
+        </svg>
     );
 }
