@@ -22,7 +22,7 @@ footer {
 
 .container-size {
     width: auto;
-    height: auto;
+    height: 445px;
 }
 
 .size-msj {
@@ -57,7 +57,7 @@ footer {
     text-align: left;
 }
 
-a,
+.text-footer a,
 span {
     font-family: "Roboto", sans-serif;
     color: white;

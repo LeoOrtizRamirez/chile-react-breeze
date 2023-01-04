@@ -74,7 +74,7 @@ export default function Authenticated({ auth, header, children }) {
                                                     type="button"
                                                     className="inline-flex items-center px-3 py-2 border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 hover:text-gray-500 focus:outline-none transition ease-in-out duration-150"
                                                 >
-                                                    <span class="material-symbols-outlined mr-1 text-bold">
+                                                    <span className="material-symbols-outlined mr-1 text-bold">
                                                         help
                                                     </span>
                                                     <span>Centro de ayuda</span>
@@ -100,7 +100,7 @@ export default function Authenticated({ auth, header, children }) {
                                                 method="post"
                                                 as="button"
                                             >
-                                                <span class="material-symbols-outlined centro-ayuda-iconos">
+                                                <span className="material-symbols-outlined centro-ayuda-iconos">
                                                     auto_stories
                                                 </span>
                                                 <span className="centro-ayuda-iconos-margen">
@@ -112,7 +112,7 @@ export default function Authenticated({ auth, header, children }) {
                                                 method="post"
                                                 as="button"
                                             >
-                                                <span class="material-symbols-outlined centro-ayuda-iconos">
+                                                <span className="material-symbols-outlined centro-ayuda-iconos">
                                                     visibility
                                                 </span>
                                                 <span className="centro-ayuda-iconos-margen">
@@ -124,7 +124,7 @@ export default function Authenticated({ auth, header, children }) {
                                                 method="post"
                                                 as="button"
                                             >
-                                                <span class="material-symbols-outlined centro-ayuda-iconos centro-ayuda-iconos-color">
+                                                <span className="material-symbols-outlined centro-ayuda-iconos centro-ayuda-iconos-color">
                                                     smart_display
                                                 </span>
                                                 <span className="centro-ayuda-iconos-margen">
