@@ -1,17 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import "../../css/estilos-banner-home.css";
+import "../../css/font-unicolor.css";
+
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fontsource/poppins";
 
 const Banner = () => {
     const [date, setDate] = useState(new Date().toLocaleTimeString())
     const [printdate, setPrintDate] = useState(new Date().toLocaleTimeString())
-    const [hour, setHour] = useState(0)
+    const [hour, setHour] = useState("")
+    const [saludo, setSaludo] = useState("")
+    const [saludoIcon, setSaludoIcon] = useState("")
 
     async function check() {
         setDate(new Date().toLocaleTimeString())
         setPrintDate(new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}))
         setHour(new Date().getHours())
+
+        if(hour < 12){
+            setSaludo("Buenos días")
+            setSaludoIcon("icon-sun c-yellow")
+        }else if(hour > 12 && hour <=18){
+            setSaludo("Buenas tardes")
+            setSaludoIcon("bi bi-cloud-sun-fill c-blue-ligth")
+        }else{
+            setSaludo("Buenas noches")
+            setSaludoIcon("icon-night c-blue")
+        }
     }
     setTimeout(() => {
         check();
@@ -30,7 +46,7 @@ const Banner = () => {
                                 <div data-v-26cd45b0="" className="cta-content"><span data-v-26cd45b0="" className="cta-button-text">Regístrate y obtén ¡30 días gratis!</span>
                                     <div data-v-26cd45b0="" className="cta-button-icon-content">
                                         <span data-v-26cd45b0="" className="cta-button-icon-content-hidden-text">Regístrate y obtén 30 días de servicio</span>
-                                        <i className="custom bi bi-arrow-right-short"></i>
+                                        <span data-v-26cd45b0="" class="cta-button-icon-content-icon icon-Right"></span>
                                     </div>
                                 </div></a>
                             </div>
@@ -39,11 +55,9 @@ const Banner = () => {
                                     <ul className="row">
                                         <li className="fraja-fuentes__item">
                                             <div className="fraja-fuentes__item-hour">
-                                                <img src="/images/afternoon.svg" alt="icono-buenas-tardes" />
+                                                <i className={saludoIcon}></i>
                                                 <span className="fraja-fuentes__item-saludo">
-                                                    {
-                                                        hour < 15 ? "Buenos días" : "Buenas tardes"
-                                                    }
+                                                    {saludo}
                                                 </span>
                                                 <div>
                                                     <span className="hour">{printdate}</span>
@@ -59,14 +73,14 @@ const Banner = () => {
                                             <a href="#" target="_blank" className="fraja-fuentes__contador">
                                                 <span>Chile Compra : </span>
                                                 <span className="fraja-fuentes__item--claro">131 procesos </span>
-                                                <i class="bi bi-caret-right-fill"></i>
+                                                <i class="icon-up"></i>
                                             </a>
                                         </li>
                                         <li className="fraja-fuentes__item">
                                             <a href="#" target="_blank" className="fraja-fuentes__contador">
                                                 <span>No Centralizados : </span>
                                                 <span className="fraja-fuentes__item--claro">52 procesos </span>
-                                                <i class="bi bi-caret-right-fill"></i>
+                                                <i class="icon-up"></i>
                                             </a>
                                         </li>
                                     </ul>

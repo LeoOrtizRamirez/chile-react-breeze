@@ -1,3 +1,4 @@
+/*
 i.custom.bi.bi-arrow-right-short {
     color: #fff;
     font-size: 2rem;
@@ -12,9 +13,7 @@ i.bi.bi-arrow-right-short {
     position: absolute;
 }
 
-.row>* {
-    width: unset !important;
-}
+
 
 a#CTAButton:hover i.bi.bi-arrow-right-short {
     display: none;
@@ -23,6 +22,27 @@ a#CTAButton:hover i.bi.bi-arrow-right-short {
 a.fraja-fuentes__contador:hover i.bi.bi-caret-right-fill:before{
     transform: rotate(-35deg);
 }
+*/
+
+.row>* {
+    width: unset !important;
+}
+
+.c-blue{
+    color: #1a2fc9;
+}
+
+.c-blue-ligth{
+    color: #00a1c9;
+}
+
+.c-yellow{
+    color: #ffc107;
+}
+
+
+
+
 
 
 .banner-video-paises{
