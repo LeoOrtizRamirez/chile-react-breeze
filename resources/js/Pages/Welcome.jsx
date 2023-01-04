@@ -3,6 +3,7 @@ import Banner from "@/Components/Banner";import { Footer } from "../Components/F
 
 import Header from "@/Layouts/HeaderPublica";
 export default function Welcome(props) {
+
     return (
         <>
             <Head title="Welcome" />
@@ -34,7 +35,7 @@ export default function Welcome(props) {
                 )}
             </div>
 
-            <Banner></Banner>
+            <Banner procesos={props.contratos}></Banner>
             {/* Componentes */}
             <Footer />
         </>
