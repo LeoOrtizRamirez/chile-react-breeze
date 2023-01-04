@@ -73,3 +73,23 @@ span {
 .support-text {
     line-height: 35px;
 }
+
+.support-text:hover {
+    color: white;
+}
+
+.facebook:hover {
+    color: #3b5998;
+}
+
+.youtube:hover {
+    color: #c4302b;
+}
+
+.twitter:hover {
+    color: #00acee;
+}
+
+ul {
+    padding-left: 0;
+}
