@@ -6,12 +6,14 @@ import "../../css/font-unicolor.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fontsource/poppins";
 
-const Banner = () => {
+const Banner = (props) => {
     const [date, setDate] = useState(new Date().toLocaleTimeString())
     const [printdate, setPrintDate] = useState(new Date().toLocaleTimeString())
     const [hour, setHour] = useState("")
     const [saludo, setSaludo] = useState("")
     const [saludoIcon, setSaludoIcon] = useState("")
+
+    const contratosFiltrados = '/contratos?fecha_publicacion=' + new Date().toISOString().slice(0, 10)
 
     async function check() {
         setDate(new Date().toLocaleTimeString())
@@ -21,7 +23,7 @@ const Banner = () => {
         if(hour < 12){
             setSaludo("Buenos días")
             setSaludoIcon("icon-sun c-yellow")
-        }else if(hour > 12 && hour <=18){
+        }else if(hour > 11 && hour <=18){
             setSaludo("Buenas tardes")
             setSaludoIcon("bi bi-cloud-sun-fill c-blue-ligth")
         }else{
@@ -70,16 +72,16 @@ const Banner = () => {
                                             </div>
                                         </li>
                                         <li className="fraja-fuentes__item">
-                                            <a href="#" target="_blank" className="fraja-fuentes__contador">
+                                            <a href={contratosFiltrados} target="_blank" className="fraja-fuentes__contador">
                                                 <span>Chile Compra : </span>
-                                                <span className="fraja-fuentes__item--claro">131 procesos </span>
+                                                <span className="fraja-fuentes__item--claro">{props.procesos} procesos </span>
                                                 <i class="icon-up"></i>
                                             </a>
                                         </li>
                                         <li className="fraja-fuentes__item">
                                             <a href="#" target="_blank" className="fraja-fuentes__contador">
                                                 <span>No Centralizados : </span>
-                                                <span className="fraja-fuentes__item--claro">52 procesos </span>
+                                                <span className="fraja-fuentes__item--claro">0 procesos </span>
                                                 <i class="icon-up"></i>
                                             </a>
                                         </li>

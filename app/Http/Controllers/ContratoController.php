@@ -13,16 +13,26 @@ use Illuminate\Support\Facades\Redirect;
 class ContratoController extends Controller
 {
     
-    public function index()
+    public function index(Request $request)
     {
         $pagina = 1;
-    
-        $contratosAll = Contrato::all()
-        ->count();
 
-        $contratos = Contrato::with('fuente'/*, 'clasificaciones', 'contratistas'*/)
-        ->take(30)
-        ->get();
+        if(request()->has("fecha_publicacion")){
+            $contratosAll = Contrato::where('fecha_publicacion', request("fecha_publicacion"))
+                ->count();
+
+            $contratos = Contrato::with('fuente'/*, 'clasificaciones', 'contratistas'*/)
+                ->where('fecha_publicacion', request("fecha_publicacion"))
+                ->take(30)
+                ->get();
+        }else{
+            $contratosAll = Contrato::all()
+                ->count();
+
+            $contratos = Contrato::with('fuente'/*, 'clasificaciones', 'contratistas'*/)
+                ->take(30)
+                ->get();
+        }
     
         foreach ($contratos as $key => $value) {
             $contratista = ContratistaContrato::where('id_contrato', $value->id)->first();
@@ -50,30 +60,54 @@ class ContratoController extends Controller
 
     public function paginador($idContrato,$page,$estado)
     {
-        
         $pagina = 1;
-        $contratosAll = Contrato::all() ->count();
+
         
-        if($estado == "next"){
-            $contratos = Contrato::with('fuente'/*, 'clasificaciones', 'contratistas'*/)
-            ->where('id', '>' , $idContrato)
-            ->limit(30)
-            ->get();
-
-            $pagina = $pagina + $page;
-
+        if(request()->has("fecha_publicacion")){
+            $contratosAll = Contrato::where('fecha_publicacion', request("fecha_publicacion"))
+                ->count();
+            if($estado == "next"){
+                $contratos = Contrato::with('fuente')
+                ->where('fecha_publicacion', request("fecha_publicacion"))
+                ->where('id', '>' , $idContrato)
+                ->limit(30)
+                ->get();
+                $pagina = $pagina + $page;
+            }else{
+                $contratos = Contrato::with('fuente')
+                ->orderBy('id', 'desc')
+                ->where('id', '<' , $idContrato )
+                ->limit(30)
+                ->get()
+                ->reverse();
+                $contratos= $contratos->values();
+                $pagina = $page - $pagina;
+            }
         }else{
-            $contratos = Contrato::with('fuente')
-            ->orderBy('id', 'desc')
-            ->where('id', '<' , $idContrato )
-            ->limit(30)
-            ->get()
-            ->reverse();
-
-            $contratos= $contratos->values();
-           
-            $pagina = $page - $pagina;
+            $contratosAll = Contrato::all()
+                ->count();
+            if($estado == "next"){
+                $contratos = Contrato::with('fuente'/*, 'clasificaciones', 'contratistas'*/)
+                ->where('id', '>' , $idContrato)
+                ->limit(30)
+                ->get();
+                $pagina = $pagina + $page;
+            }else{
+                $contratos = Contrato::with('fuente')
+                ->orderBy('id', 'desc')
+                ->where('id', '<' , $idContrato )
+                ->limit(30)
+                ->get()
+                ->reverse();
+                $contratos= $contratos->values();
+                $pagina = $page - $pagina;
+            }
         }
+        
+
+
+
+        
 
         foreach ($contratos as $key => $value) {
             $contratista = ContratistaContrato::where('id_contrato', $value->id)->first();

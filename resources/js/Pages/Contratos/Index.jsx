@@ -78,14 +78,26 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
         const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;
         const currentPage = pagina;
 
+        var url_fecha_publicacion = ""
+
+        
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const fecha_publicacion = urlParams.get('fecha_publicacion')
+        console.log(fecha_publicacion);
+
+        if(fecha_publicacion != null){
+            url_fecha_publicacion = "fecha_publicacion="+fecha_publicacion
+        }
+
         const nextHandler = () => {
             if (pagina >= totalPaginas) return;
-            get("/contratos/"+ idUsuarioNext + "/"+ pagina + "/next"), { onSuccess: () => reset() };
+            get("/contratos/"+ idUsuarioNext + "/"+ pagina + "/next?"+url_fecha_publicacion), { onSuccess: () => reset() };
         };
 
         const prevHandler = () => {
             if (pagina == 1) return;
-            get("/contratos/"+ primerElemento + "/"+ pagina + "/prev"), { onSuccess: () => reset() };
+            get("/contratos/"+ primerElemento + "/"+ pagina + "/prev?"+url_fecha_publicacion), { onSuccess: () => reset() };
         };
 
         // FIN Paginador
