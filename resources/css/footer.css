@@ -1,0 +1,75 @@
+footer {
+    background: rgb(123, 229, 255);
+    background: linear-gradient(
+        90deg,
+        rgba(123, 229, 255, 1) 0%,
+        rgba(96, 196, 221, 1) 20%,
+        rgba(0, 161, 201, 1) 100%
+    );
+    border-radius: 25px;
+    -weptbkit-border-radius: 25;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
+    -webkit-border-radius: 25px;
+}
+
+.container-flex {
+    display: flex;
+    align-items: center;
+    padding: 35px 0 0 0;
+}
+
+.container-size {
+    width: auto;
+    height: auto;
+}
+
+.size-msj {
+    width: 455px;
+    height: 116px;
+    margin: 0 auto 0 82pt;
+}
+
+.size-support {
+    width: 212px;
+    height: 222px;
+    margin: 0pt 90pt 0pt 0pt;
+}
+
+.size-politics {
+    width: 212px;
+    height: 222px;
+    margin: 0pt 62pt 0pt 0pt;
+}
+
+.typography-msj {
+    font-family: "Poppins", sans-serif;
+    color: white;
+    font-size: 25pt;
+    text-align: left;
+}
+
+.typography-support-politics {
+    font-family: "Poppins", sans-serif;
+    color: white;
+    font-size: 20pt;
+    text-align: left;
+}
+
+a,
+span {
+    font-family: "Roboto", sans-serif;
+    color: white;
+    font-size: 14pt;
+    text-align: left;
+}
+
+.margin-text-lici {
+    margin-top: 7px;
+    margin-left: 7px;
+}
+
+.support-text {
+    line-height: 35px;
+}

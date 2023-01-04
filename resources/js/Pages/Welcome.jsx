@@ -1,4 +1,5 @@
 import { Link, Head } from "@inertiajs/inertia-react";
+import { Footer } from "../Components/Footer/Footer";
 
 export default function Welcome(props) {
     return (
@@ -30,6 +31,8 @@ export default function Welcome(props) {
                     </>
                 )}
             </div>
+            {/* Componentes */}
+            <Footer />
         </>
     );
 }
