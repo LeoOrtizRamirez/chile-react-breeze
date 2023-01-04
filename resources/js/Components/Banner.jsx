@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "../../css/estilos-banner-home.css";
 import "../../css/font-unicolor.css";
-
+import BotonRegistrarse from './BotonRegistrarse';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fontsource/poppins";
@@ -44,14 +44,7 @@ const Banner = (props) => {
                             </div>
                             <div className="col-12"><p>Identificamos oportunidades de negocio con el gobierno para tu empresa.<br /> Chile Compra y más de 1000 portales de entidades descentralizadas</p>
                             </div>
-                            <div className="col-12 text-center"><a data-v-26cd45b0="" id="CTAButton" href="/registrarse" className="cta-button shadow-button banner-video-paises__button success">
-                                <div data-v-26cd45b0="" className="cta-content"><span data-v-26cd45b0="" className="cta-button-text">Regístrate y obtén ¡30 días gratis!</span>
-                                    <div data-v-26cd45b0="" className="cta-button-icon-content">
-                                        <span data-v-26cd45b0="" className="cta-button-icon-content-hidden-text">Regístrate y obtén 30 días de servicio</span>
-                                        <span data-v-26cd45b0="" class="cta-button-icon-content-icon icon-Right"></span>
-                                    </div>
-                                </div></a>
-                            </div>
+                            <BotonRegistrarse />
                             <div className="d-flex justify-content-center banner-video-paises__franja">
                                 <div className="franja-fuentes">
                                     <ul className="row">

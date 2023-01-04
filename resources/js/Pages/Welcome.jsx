@@ -8,7 +8,9 @@ export default function Welcome(props) {
 
     return (
         <>
-            <Banner/>
+            <Head title="Welcome" />
+            <Header user={props}></Header>
+            <Banner procesos={props.contratos}></Banner>
             <BannerMonitoreamos/>
             <Footer />
         </>

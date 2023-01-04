@@ -1,7 +1,4 @@
-import { Link } from "@inertiajs/inertia-react";
-import { useState, useEffect } from "react";
 import ApplicationLogoLici from "@/Components/ApplicationLogoLici";
-import { Navbar, MobileNav, Typography, Button, IconButton, } from "@material-tailwind/react";
 import "../../css/estilos-header-publica.css";
 
 
