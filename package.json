@@ -23,7 +23,11 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+
+        "@material-tailwind/react": "^1.2.5",
+
         "@fontsource/poppins": "^4.5.10",
+
         "bootstrap": "^5.2.3",
         "dayjs": "^1.11.7",
         "jquery": "^3.6.3",

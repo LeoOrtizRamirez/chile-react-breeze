@@ -1,0 +1,15 @@
+.menu-header {
+    color: #686868;
+    font-size: 12pt;
+    text-align: left;
+    font-weight: bold;
+}
+
+.menu-header:hover {
+    text-decoration: revert;
+}
+
+/*menu hamburguesa icono*/
+svg.h-6.w-6 {
+    color: black;
+}
