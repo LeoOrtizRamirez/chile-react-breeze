@@ -54,31 +54,12 @@
 }
 
 
-
-
-/*menu hamburguesa icono*/
-svg.h-6.w-6 {
-    color: black;
+span.mr-2.icon-logout {
+    color: inherit;
 }
+
 
 
 .mr-5{
     margin-right: 5%;
 }
-
-
-
-/*PC */
-@media only screen and (min-width: 700px) {
-    .menu-derecho {
-        margin-left: 530px;
-    }
-    
-  }
-
-   /*Mobile */
- @media only screen and (max-width: 700px) {
-    .menu-derecho {
-       display: inline-grid;
-   }
-   }
