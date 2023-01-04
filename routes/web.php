@@ -7,16 +7,20 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PlaneController;
+use App\Models\Contrato;
 
 
 
+Route::get('/', function () { 
+    $contratosAll = Contrato::where('fecha_publicacion', date('Y-m-d'))
+        ->count();
 
-Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
+        'contratos' => $contratosAll
     ]);
 });
 
