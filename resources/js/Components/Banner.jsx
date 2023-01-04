@@ -23,7 +23,7 @@ const Banner = (props) => {
         if(hour < 12){
             setSaludo("Buenos días")
             setSaludoIcon("icon-sun c-yellow")
-        }else if(hour > 12 && hour <=18){
+        }else if(hour > 11 && hour <=18){
             setSaludo("Buenas tardes")
             setSaludoIcon("bi bi-cloud-sun-fill c-blue-ligth")
         }else{
