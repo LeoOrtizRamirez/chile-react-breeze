@@ -1,16 +1,20 @@
 .container-monitor-size {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
     width: auto;
     background-color: #dff3f8;
-    border: solid red;
+    border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
+    padding: 20px 20px;
 }
 
 .monitor-text-size {
     height: auto;
     width: 595pt;
-    border: solid blue;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34,7 +38,7 @@
 }
 
 .monitor-allies-size {
-    border: solid green;
+    margin: 20px;
 }
 
 .allies-grid {
@@ -42,7 +46,6 @@
     grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 15px 15px;
-    border: solid red;
     height: 407pt;
     width: 537pt;
 }
@@ -53,12 +56,26 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    border: solid black;
+    /* border: solid black; */
 }
+
 .allies-grid div img {
     width: 70pt;
     height: 70pt;
     /* object-fit: cover; */
+}
+
+.text-end-grid {
+    font-family: "Roboto", sans-serif;
+    color: #686868;
+    font-size: 12pt;
+    text-align: center;
+    margin-bottom: 25pt;
+    font-weight: bold;
+}
+
+.text-end-grid-color {
+    color: #00a1c9;
 }
 
 /* font-family: "Poppins", sans-serif;
