@@ -1,6 +1,7 @@
 import React from "react";
 import "../../../css/banner-monitoreamos.css";
 import Allies from "@/Components/Banners/Allies";
+import BotonRegistrarse from "@/Components/BotonRegistrarse";
 import Img1 from "../../../images/png/1.png";
 import Img2 from "../../../images/png/2.png";
 import Img3 from "../../../images/png/3.png";
@@ -41,6 +42,9 @@ export const BannerMonitoreamos = () => {
                     </span>
                 </div>
                 <br />
+                <div>
+                    <BotonRegistrarse />
+                </div>
             </div>
             <div className="monitor-allies-size">
                 <div className="allies-grid">
@@ -101,7 +105,7 @@ export const BannerMonitoreamos = () => {
                     <div>
                         <Allies rutaImagen={Img19} />
                     </div>
-                    <div >
+                    <div>
                         <span className="text-end-grid">
                             Entre <br />
                             <span className="text-end-grid text-end-grid-color">

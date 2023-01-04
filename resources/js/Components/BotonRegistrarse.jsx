@@ -8,7 +8,7 @@ const BotonRegistrarse = () => {
                     <span className="cta-button-text">Regístrate y obtén ¡30 días gratis!</span>
                     <div className="cta-button-icon-content">
                         <span className="cta-button-icon-content-hidden-text">Regístrate y obtén 30 días de servicio</span>
-                        <span class="cta-button-icon-content-icon icon-Right"></span>
+                        <span className="cta-button-icon-content-icon icon-Right"></span>
                     </div>
                 </div>
             </a>
