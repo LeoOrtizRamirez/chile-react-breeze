@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'Pblica---Unicolor';
-    src:  url('fonts/Pblica---Unicolor.eot?9p2ilf');
-    src:  url('fonts/Pblica---Unicolor.eot?9p2ilf#iefix') format('embedded-opentype'),
-      url('fonts/Pblica---Unicolor.woff2?9p2ilf') format('woff2'),
-      url('fonts/Pblica---Unicolor.ttf?9p2ilf') format('truetype'),
-      url('fonts/Pblica---Unicolor.woff?9p2ilf') format('woff'),
-      url('fonts/Pblica---Unicolor.svg?9p2ilf#Pblica---Unicolor') format('svg');
+    src:  url('/public/fonts/Pblica---Unicolor.eot?9p2ilf');
+    src:  url('/public/fonts/Pblica---Unicolor.eot?9p2ilf#iefix') format('embedded-opentype'),
+      url('/public/fonts/Pblica---Unicolor.woff2?9p2ilf') format('woff2'),
+      url('/public/fonts/Pblica---Unicolor.ttf?9p2ilf') format('truetype'),
+      url('/public/fonts/Pblica---Unicolor.woff?9p2ilf') format('woff'),
+      url('/public/fonts/Pblica---Unicolor.svg?9p2ilf#Pblica---Unicolor') format('svg');
     font-weight: normal;
     font-style: normal;
     font-display: block;
