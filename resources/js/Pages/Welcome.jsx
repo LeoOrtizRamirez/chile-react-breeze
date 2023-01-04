@@ -2,6 +2,7 @@ import { Link, Head } from "@inertiajs/inertia-react";
 import Banner from "@/Components/Banner";import { Footer } from "../Components/Footer/Footer";
 
 export default function Welcome(props) {
+
     return (
         <>
             <Head title="Welcome" />
@@ -32,7 +33,7 @@ export default function Welcome(props) {
                 )}
             </div>
 
-            <Banner></Banner>
+            <Banner procesos={props.contratos}></Banner>
             {/* Componentes */}
             <Footer />
         </>
