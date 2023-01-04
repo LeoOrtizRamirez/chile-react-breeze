@@ -97,7 +97,7 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
 
         const prevHandler = () => {
             if (pagina == 1) return;
-            get("/contratos/"+ primerElemento + "/"+ pagina + "/prev"), { onSuccess: () => reset() };
+            get("/contratos/"+ primerElemento + "/"+ pagina + "/prev"+url_fecha_publicacion), { onSuccess: () => reset() };
         };
 
         // FIN Paginador
