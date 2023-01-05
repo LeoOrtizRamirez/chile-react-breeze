@@ -2,25 +2,6 @@ import React from "react";
 import "../../../css/banner-monitoreamos.css";
 import Allies from "@/Components/Banners/Allies";
 import BotonRegistrarse from "@/Components/BotonRegistrarse";
-import Img1 from "../../../images/png/1.png";
-import Img2 from "../../../images/png/2.png";
-import Img3 from "../../../images/png/3.png";
-import Img4 from "../../../images/png/4.png";
-import Img5 from "../../../images/png/5.png";
-import Img6 from "../../../images/png/6.png";
-import Img7 from "../../../images/png/7.png";
-import Img8 from "../../../images/png/8.png";
-import Img9 from "../../../images/png/9.png";
-import Img10 from "../../../images/png/10.png";
-import Img11 from "../../../images/png/11.png";
-import Img12 from "../../../images/png/12.png";
-import Img13 from "../../../images/png/13.png";
-import Img14 from "../../../images/png/14.png";
-import Img15 from "../../../images/png/15.png";
-import Img16 from "../../../images/png/16.png";
-import Img17 from "../../../images/png/17.png";
-import Img18 from "../../../images/png/18.png";
-import Img19 from "../../../images/png/19.png";
 
 export const BannerMonitoreamos = () => {
     return (
@@ -58,17 +39,17 @@ export const BannerMonitoreamos = () => {
                             href="https://www.mercadopublico.cl/Home"
                             target="_blank"
                         >
-                            <Allies rutaImagen={Img1} />
+                            <Allies rutaImagen="/images/banerMonitoreamos/1.png" />
                         </a>
                     </div>
                     <div className="grid-item2">
                         <a href="https://www.mop.gob.cl/" target="_blank">
-                            <Allies rutaImagen={Img2} />
+                        <Allies rutaImagen="/images/banerMonitoreamos/2.png" />
                         </a>
                     </div>
                     <div className="grid-item1">
                         <a href="https://www.correos.cl/" target="_blank">
-                            <Allies rutaImagen={Img3} />
+                        <Allies rutaImagen="/images/banerMonitoreamos/3.png" />
                         </a>
                     </div>
                     <div className="grid-item2">
@@ -76,17 +57,17 @@ export const BannerMonitoreamos = () => {
                             href="https://www.enami.cl/Pages/default.aspx"
                             target="_blank"
                         >
-                            <Allies rutaImagen={Img4} />
+                            <Allies rutaImagen="/images/banerMonitoreamos/4.png" />
                         </a>
                     </div>
                     <div className="grid-item1">
                         <a href="https://www.efe.cl/" target="_blank">
-                            <Allies rutaImagen={Img5} />
+                        <Allies rutaImagen="/images/banerMonitoreamos/5.png" />
                         </a>
                     </div>
                     <div className="grid-item1">
                         <a href="" target="_blank">
-                            <Allies rutaImagen={Img6} />
+                        <Allies rutaImagen="/images/banerMonitoreamos/6.png" />
                         </a>
                     </div>
                     <div className="grid-item2">
@@ -94,7 +75,7 @@ export const BannerMonitoreamos = () => {
                             href="https://www.portalminero.com/wp/informacion-de-negocios/"
                             target="_blank"
                         >
-                            <Allies rutaImagen={Img7} />
+                            <Allies rutaImagen="/images/banerMonitoreamos/7.png" />
                         </a>
                     </div>
                     <div className="grid-item1">
@@ -102,7 +83,7 @@ export const BannerMonitoreamos = () => {
                             href="https://www.bcentral.cl/inicio"
                             target="_blank"
                         >
-                            <Allies rutaImagen={Img8} />
+                            <Allies rutaImagen="/images/banerMonitoreamos/8.png" />
                         </a>
                     </div>
                     <div className="grid-item2">
@@ -110,12 +91,12 @@ export const BannerMonitoreamos = () => {
                             href="https://www.integra.cl/landing/"
                             target="_blank"
                         >
-                            <Allies rutaImagen={Img9} />
+                            <Allies rutaImagen="/images/banerMonitoreamos/9.png" />
                         </a>
                     </div>
                     <div className="grid-item1">
                         <a href="https://www.buildbim.cl/" target="_blank">
-                            <Allies rutaImagen={Img10} />
+                        <Allies rutaImagen="/images/banerMonitoreamos/10.png" />
                         </a>
                     </div>
                     <div className="grid-item1">
@@ -123,7 +104,7 @@ export const BannerMonitoreamos = () => {
                             href="https://www.corfo.cl/sites/cpp/homecorfo"
                             target="_blank"
                         >
-                            <Allies rutaImagen={Img11} />
+                            <Allies rutaImagen="/images/banerMonitoreamos/11.png" />
                         </a>
                     </div>
                     <div className="grid-item2">
@@ -131,27 +112,27 @@ export const BannerMonitoreamos = () => {
                             href="http://www.fiscaliadechile.cl/Fiscalia/index.do"
                             target="_blank"
                         >
-                            <Allies rutaImagen={Img12} />
+                            <Allies rutaImagen="/images/banerMonitoreamos/12.png" />
                         </a>
                     </div>
                     <div className="grid-item1">
                         <a href="" target="_blank">
-                            <Allies rutaImagen={Img13} />
+                        <Allies rutaImagen="/images/banerMonitoreamos/13.png" />
                         </a>
                     </div>
                     <div className="grid-item2">
                         <a href="https://proexca.es/" target="_blank">
-                            <Allies rutaImagen={Img14} />
+                        <Allies rutaImagen="/images/banerMonitoreamos/14.png" />
                         </a>
                     </div>
                     <div className="grid-item1">
                         <a href="https://www.undp.org/es" target="_blank">
-                            <Allies rutaImagen={Img15} />
+                        <Allies rutaImagen="/images/banerMonitoreamos/15.png" />
                         </a>
                     </div>
                     <div className="grid-item1">
                         <a href="https://www.codelco.com/" target="_blank">
-                            <Allies rutaImagen={Img16} />
+                        <Allies rutaImagen="/images/banerMonitoreamos/16.png" />
                         </a>
                     </div>
                     <div className="grid-item2">
@@ -159,17 +140,17 @@ export const BannerMonitoreamos = () => {
                             href="https://www.scotiabankcolpatria.com/"
                             target="_blank"
                         >
-                            <Allies rutaImagen={Img17} />
+                            <Allies rutaImagen="/images/banerMonitoreamos/17.png" />
                         </a>
                     </div>
                     <div className="grid-item1">
                         <a href="https://www.econssachile.cl/" target="_blank">
-                            <Allies rutaImagen={Img18} />
+                        <Allies rutaImagen="/images/banerMonitoreamos/18.png" />
                         </a>
                     </div>
                     <div className="grid-item2">
                         <a href="https://www.conadi.gob.cl/" target="_blank">
-                            <Allies rutaImagen={Img19} />
+                        <Allies rutaImagen="/images/banerMonitoreamos/19.png" />
                         </a>
                     </div>
                     <div className="div-text-end">
