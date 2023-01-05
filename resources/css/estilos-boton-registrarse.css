@@ -6,7 +6,7 @@ span.cta-button-text {
     color: #686868;
 }
 .cta-button{
-    border-radius:50px;color:#686868;display:inline-block;font-size:1rem;font-weight:700;padding:16px 59px 16px 30px;position:relative;background:#fff
+    border-radius:50px;color:#686868;display:inline-block;font-size:1rem;font-weight:700;padding:16px 59px 16px 30px;position:relative;
 }
 .cta-button.shadow-button{
     box-shadow:0 0 10pxhsla(0,0%,41%,.21);
@@ -35,7 +35,12 @@ span.cta-button-text {
 .cta-button.info .cta-button-icon-content{
     background-color:#00a1c9
 }
-.cta-button.success .cta-button-icon-content{
+.cta-button.success {
+    background-color:blue
+}
+
+/*color icono*/
+.cta-button-icon-content{
     background-color:#73c914
 }
 .cta-button:hover{
