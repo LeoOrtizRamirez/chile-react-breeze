@@ -17,16 +17,16 @@ const Banner = (props) => {
 
     async function check() {
         setDate(new Date().toLocaleTimeString())
-        setPrintDate(new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}))
+        setPrintDate(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))
         setHour(new Date().getHours())
 
-        if(hour < 12){
+        if (hour < 12) {
             setSaludo("Buenos días")
             setSaludoIcon("icon-sun c-yellow")
-        }else if(hour > 11 && hour <=18){
+        } else if (hour > 11 && hour <= 18) {
             setSaludo("Buenas tardes")
             setSaludoIcon("bi bi-cloud-sun-fill c-blue-ligth")
-        }else{
+        } else {
             setSaludo("Buenas noches")
             setSaludoIcon("icon-night c-blue")
         }
@@ -44,7 +44,12 @@ const Banner = (props) => {
                             </div>
                             <div className="col-12"><p>Identificamos oportunidades de negocio con el gobierno para tu empresa.<br /> Chile Compra y más de 1000 portales de entidades descentralizadas</p>
                             </div>
-                            <BotonRegistrarse />
+                            <BotonRegistrarse 
+                            texto={"Regístrate y obtén ¡30 días gratis!"} 
+                            textoHover={"Regístrate y obtén 30 días de servicio"}
+                            color={"white"}
+                            colorHover={"#73c914"}
+                             />
                             <div className="d-flex justify-content-center banner-video-paises__franja">
                                 <div className="franja-fuentes">
                                     <ul className="row">
