@@ -2,6 +2,7 @@ import { Link, Head } from "@inertiajs/inertia-react";
 import Banner from "@/Components/Banner"; import { Footer } from "../Components/Footer/Footer";
 import "../../css/estilos-carousel-publica.css";
 import BotonRegistrarse from '@/Components/BotonRegistrarse';
+import BotonAsesor from '@/Components/BotonHablarAsesor';
 import CarouselImagenes from '@/Components/CarouselImagenes';
 
 import Header from "@/Layouts/HeaderPublica";
@@ -25,7 +26,19 @@ export default function Welcome(props) {
                             Más de 6000 clientes en Colombia y el mundo
                         </span>
                     </div>
-                    <BotonRegistrarse/>
+                    <BotonRegistrarse 
+                            texto={"Regístrate y obtén ¡30 días gratis!"} 
+                            textoHover={"Regístrate y obtén 30 días de servicio"}
+                            color={"white"}
+                            colorHover={"#00A1C9"}
+                             />
+
+                    <BotonAsesor 
+                            texto={"Habla con un consultor"} 
+                            textoHover={"Resolver dudas ahora"}
+                            color={"white"}
+                            colorHover={"#00A1C9"}
+                             />        
                 </div>
                 <CarouselImagenes />
             </div>

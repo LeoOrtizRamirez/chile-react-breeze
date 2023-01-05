@@ -1,6 +1,6 @@
 .customers-cta-since-year {
     color: #00A1C9;
-    font-size: 18pt;
+    font-size: 22px;
     font-family: Poppins;
     font-weight: bold;
     display: block;
@@ -13,9 +13,24 @@
     font-family: Poppins;
     font-weight: bold;
     padding-right: 10%;
+    line-height: 25px;
 }
 .customers-cta {
     padding-left: 40px;
+    padding-top: 10%;
 }
 
 #customersCarousel{overflow:hidden}#customersCarousel img{margin-right:44px;width:136px}#customersCarousel .carousel{display:flex;flex-direction:column}#customersCarousel .carousel-row{animation:carousel-backward-7d8b66fd 20s linear infinite;display:flex}#customersCarousel .carousel-row:nth-child(odd){animation:carousel-forward-7d8b66fd 20s linear infinite}@keyframes carousel-forward-7d8b66fd{0%{transform:translateX(0)}to{transform:translateX(-2720px)}}@keyframes carousel-backward-7d8b66fd{0%{transform:translateX(-2720px)}to{transform:translateX(0)}}
+
+
+.cta-button { 
+   border: 1px solid;
+}
+
+.cta-button:hover { 
+    border: 0px solid;
+ }
+
+ .col-12{
+    margin-top: 25px;
+}

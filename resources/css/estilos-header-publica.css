@@ -1,6 +1,6 @@
 .menu-header {
     color: #686868;
-    font-size: 12pt;
+    font-size: 10pt;
     text-align: left;
     font-weight: bold;
     text-decoration: inherit;
@@ -58,3 +58,6 @@
     margin-right: 5%;
 }
 
+span.icon-logout {
+    color: #00A1C9;
+}

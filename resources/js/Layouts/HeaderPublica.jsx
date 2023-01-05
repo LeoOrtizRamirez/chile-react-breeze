@@ -8,15 +8,13 @@ export default function Example(props) {
 
     return (
         <div class="customers-list">
-            <div className="flex flex-wrap items-center justify-between  lg:mx-5">
+            <div className="flex flex-wrap items-center justify-between lg:mx-3 md:mx-1">
                 <a href="/" className="flex items-center">
                     <ApplicationLogoLici />
                 </a>
 
                 <div className="flex md:order-2">
-                    <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-
-
+                    <ul className="mb-2 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 ">
 
                         {props.user.auth.user ? (
                             <>
@@ -41,7 +39,7 @@ export default function Example(props) {
                                 </li>
 
                                 <li>
-                                    <a href={route("login")} className="flex  ml-4 text-probar ">
+                                    <a href={route("register")} className="flex  ml-4 text-probar ">
                                         Probar 30 días gratis
                                     </a>
                                 </li>
@@ -65,17 +63,17 @@ export default function Example(props) {
                 </div>
 
                 <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-                    <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+                    <ul className="mb-2 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
                         <li>
-                            <a href="#" className="flex  items-center menu-header mx-3"> Funcionalidades</a>
+                            <a href="/funcionalidades" className="flex  items-center menu-header mx-3"> Funcionalidades</a>
                         </li>
                         <li>
-                            <a href="#" className="flex items-center menu-header mx-3  "> Planes </a>
+                            <a href="/planes" className="flex items-center menu-header mx-3  "> Planes </a>
                         </li>
                         <li>
-                            <a href="#" className="flex items-center menu-header mx-3 ">Nosotros</a>                    </li>
+                            <a href="/nosotros" className="flex items-center menu-header mx-3 ">Nosotros</a>                    </li>
                         <li>
-                            <a href="#" className="flex items-center menu-header mx-3  ">Contáctanos </a>                    </li>
+                            <a href="/contactanos" className="flex items-center menu-header mx-3  ">Contáctanos </a>                    </li>
                     </ul>
                 </div>
             </div>
