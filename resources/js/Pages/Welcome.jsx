@@ -1,13 +1,12 @@
 import { Link, Head } from "@inertiajs/inertia-react";
 
-import Banner from "@/Components/Banner"; import { Footer } from "../Components/Footer/Footer";
+import Banner from "@/Components/Banner";
+import { Footer } from "../Components/Footer/Footer";
 import "../../css/estilos-carousel-publica.css";
 import BotonRegistrarse from '@/Components/BotonRegistrarse';
 import BotonAsesor from '@/Components/BotonHablarAsesor';
 import CarouselImagenes from '@/Components/CarouselImagenes';
 
-import Banner from "@/Components/Banner";
-import { Footer } from "../Components/Footer/Footer";
 import { BannerMonitoreamos } from "../Components/Banners/BannerMonitoreamos";
 
 
