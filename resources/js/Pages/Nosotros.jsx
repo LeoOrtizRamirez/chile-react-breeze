@@ -1,6 +1,11 @@
 import { Head } from "@inertiajs/inertia-react";
 import { Footer } from "../Components/Footer/Footer";
 import BannerNosotros from "@/Components/Banners/BannerNosotros";
+import CarouselImagenes from '@/Components/CarouselImagenes';
+
+import "../../css/estilos-carousel-publica.css";
+import BotonRegistrarse from '@/Components/BotonRegistrarse';
+import BotonAsesor from '@/Components/BotonHablarAsesor';
 
 import Header from "@/Layouts/HeaderPublica";
 export default function Welcome(props) {
@@ -134,6 +139,36 @@ export default function Welcome(props) {
                     </div>
                 </div>
             </section>
+            <section id="customers-section">
+                <div class="customers container rounded-container">
+                    <div className="customers-cta">
+                        <div className="contenta-a">
+                            <span className="customers-cta-count-statistics">
+                                Conoce a la comunidad de contratistas que hacen uso de nuestra plataforma para innovar con información
+                            </span>
+                        </div>
+                        <div className="contenta-b">
+                            <BotonRegistrarse
+                                texto={"Regístrate y obtén ¡30 días gratis!"}
+                                textoHover={"Regístrate y obtén 30 días de servicio"}
+                                color={"white"}
+                                colorHover={"#00A1C9"}
+                            />
+
+                            <BotonAsesor
+                                texto={"Habla con un consultor"}
+                                textoHover={"Resolver dudas ahora"}
+                                color={"white"}
+                                colorHover={"#00A1C9"}
+                            />
+                        </div>
+                    </div>
+                    <div className="customers-list customers-list-carrousel">
+                    <CarouselImagenes />
+                    </div>
+                </div>
+            </section>
+            
             <Footer />
         </>
     );

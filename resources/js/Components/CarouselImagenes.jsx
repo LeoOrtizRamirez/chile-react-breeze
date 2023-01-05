@@ -2,7 +2,7 @@ import React from 'react'
 
 const CarouselImagenes = () => {
   return (
-    <div id="customersCarousel" className="col-span-6 carousel">
+    <div className="col-span-6 carousel customersCarousel">
                     <div className="carousel-row">
                         <img src="https://www.licitaciones.info/img/customers/Alianza.png" alt="Alianza" />
                         <img src="https://www.licitaciones.info/img/customers/Apolo.png" alt="Apolo" />
