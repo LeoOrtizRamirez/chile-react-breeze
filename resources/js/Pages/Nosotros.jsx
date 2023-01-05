@@ -1,6 +1,5 @@
 import { Head } from "@inertiajs/inertia-react";
 import { Footer } from "../Components/Footer/Footer";
-import BannerNosotros from "@/Components/Banners/BannerNosotros";
 import CarouselImagenes from '@/Components/CarouselImagenes';
 
 import "../../css/estilos-carousel-publica.css";
@@ -8,13 +7,35 @@ import BotonRegistrarse from '@/Components/BotonRegistrarse';
 import BotonAsesor from '@/Components/BotonHablarAsesor';
 
 import Header from "@/Layouts/HeaderPublica";
+
+
+import './Nosotros.css';
+import "../../css/font-unicolor.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@fontsource/poppins";
+
 export default function Welcome(props) {
 
     return (
         <>
             <Head title="Nosotros" />
             <Header user={props}></Header>
-            <BannerNosotros />
+            <div id="nosotros-view">
+                <div id="banner-top">
+                    <div id="banner-top--img" className="h-100 w-100">
+                        <div className="container">
+                            <div id="banner-top--text-container" className="row">
+                                <div className="col-12 px-0"><h2 className="banner-top--white-title">
+                                    Acerca de nosotros
+                                </h2> <p className="banner-top--white-text">
+                                        Hacemos que el acceso a las licitaciones sea más eficiente, transparente y eficaz
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <section id="nosotros-somos" className="container">
                 <div className="potenciamos">
                     <h5 className="potenciamos__subtitulo">SOMOS LICITACIONES.INFO</h5>
@@ -141,7 +162,7 @@ export default function Welcome(props) {
             </section>
             <section id="customers-section">
                 <div class="customers container rounded-container">
-                    <div className="customers-cta">
+                    <div className="customers-cta w-50">
                         <div className="contenta-a">
                             <span className="customers-cta-count-statistics">
                                 Conoce a la comunidad de contratistas que hacen uso de nuestra plataforma para innovar con información
@@ -163,7 +184,7 @@ export default function Welcome(props) {
                             />
                         </div>
                     </div>
-                    <div className="customers-list customers-list-carrousel">
+                    <div className="customers-list customers-list-carrousel w-50">
                     <CarouselImagenes />
                     </div>
                 </div>
