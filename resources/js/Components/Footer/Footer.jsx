@@ -13,7 +13,7 @@ export const Footer = () => {
 
                 <div className="container-flex">
                     <div className="size-msj">
-                        <span className="typography-msj">
+                        <span className="typography-msj font-bold">
                             Un mundo de <br />
                             oportunidades de negocio <br />
                             te está esperando
@@ -41,7 +41,7 @@ export const Footer = () => {
                         </ul>
                     </div>
 
-                    <div className="size-politics">
+                    <div className="size-politics text-footer">
                         <h2 className="typography-support-politics">
                             Políticas
                         </h2>
@@ -76,7 +76,7 @@ export const Footer = () => {
 
                 <hr className="h-1 bg-white border-0 mx-11 my-11"></hr>
 
-                <div className="sm:flex sm:items-center sm:justify-between mx-11 pb-12">
+                <div className="sm:flex sm:items-center sm:justify-between mx-11 pb-12 text-footer">
                     <span className="flex text-sm text-white sm:text-center">
                         <a href="https://flowbite.com/">
                             <ApplicationLogoLiciWhite />
@@ -96,9 +96,9 @@ export const Footer = () => {
                                 aria-hidden="true"
                             >
                                 <path
-                                    fill-rule="evenodd"
+                                    fillRule="evenodd"
                                     d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
-                                    clip-rule="evenodd"
+                                    clipRule="evenodd"
                                 />
                             </svg>
                             <span className="sr-only">Facebook page</span>
@@ -106,18 +106,18 @@ export const Footer = () => {
 
                         <a href="https://www.facebook.com/licitacionesInfo/">
                             <svg
-                                className="w-6 h-6 ml-1.5 youtube"
+                                className="w-6 h-7 ml-1.5 mt-1.5 youtube"
                                 fill="currentColor"
                                 viewBox="0 0 24 24"
                                 aria-hidden="true"
                             >
                                 <path
-                                    fill-rule="evenodd"
+                                    fillRule="evenodd"
                                     d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"
-                                    clip-rule="evenodd"
+                                    clipRule="evenodd"
                                 />
                             </svg>
-                            <span className="sr-only">Youtube page</span>
+                            <span className="sr-only ">Youtube page</span>
                         </a>
 
                         <a href="https://twitter.com/licitacionesinf?lang=es">

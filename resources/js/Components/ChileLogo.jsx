@@ -2,7 +2,7 @@ import React from "react";
 //Logo bandera chile
 export default function ChileLogo({ className }) {
     return (
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="71px" height="27px" viewBox="0 0 71 27" enable-background="new 0 0 71 27" xml:space="preserve">  <image id="image0" width="71" height="27" x="0" y="0"
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="71px" height="27px" viewBox="0 0 71 27" enableBackground="new 0 0 71 27" xmlSpace="preserve">  <image id="image0" width="71" height="27" x="0" y="0"
     href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEcAAAAbCAMAAAAZImKhAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
 AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAA0lBMVEX////29vnL0+i3w975
 +fn9+vr+/f3c4vBnf7sjRZ0fQpspSp/u7u709PSdrNOZqdHR2OpJZq5ZcrU3V6aotdjn6vTx8fHZ

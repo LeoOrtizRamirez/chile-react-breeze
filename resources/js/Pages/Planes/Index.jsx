@@ -58,7 +58,7 @@ const Index = ({ auth, planes }) => {
                     <MenuOpciones />
                 </div>
                 <div className="bg-white overflow-auto w-full text-center margen-superior">
-                    <h2 class="name_section_app">Planes</h2>
+                    <h2 className="name_section_app">Planes</h2>
                     <div className="planes">
                         <div className="contenedor-botones">
                             <a

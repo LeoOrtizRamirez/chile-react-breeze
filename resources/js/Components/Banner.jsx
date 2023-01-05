@@ -73,14 +73,14 @@ const Banner = (props) => {
                                             <a href={contratosFiltrados} target="_blank" className="fraja-fuentes__contador">
                                                 <span>Chile Compra : </span>
                                                 <span className="fraja-fuentes__item--claro">{props.procesos} procesos </span>
-                                                <i class="icon-up"></i>
+                                                <i className="icon-up"></i>
                                             </a>
                                         </li>
                                         <li className="fraja-fuentes__item">
                                             <a href="#" target="_blank" className="fraja-fuentes__contador">
                                                 <span>No Centralizados : </span>
                                                 <span className="fraja-fuentes__item--claro">0 procesos </span>
-                                                <i class="icon-up"></i>
+                                                <i className="icon-up"></i>
                                             </a>
                                         </li>
                                     </ul>

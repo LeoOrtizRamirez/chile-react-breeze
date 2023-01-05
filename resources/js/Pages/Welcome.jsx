@@ -1,9 +1,15 @@
 import { Link, Head } from "@inertiajs/inertia-react";
+
 import Banner from "@/Components/Banner"; import { Footer } from "../Components/Footer/Footer";
 import "../../css/estilos-carousel-publica.css";
 import BotonRegistrarse from '@/Components/BotonRegistrarse';
 import BotonAsesor from '@/Components/BotonHablarAsesor';
 import CarouselImagenes from '@/Components/CarouselImagenes';
+
+import Banner from "@/Components/Banner";
+import { Footer } from "../Components/Footer/Footer";
+import { BannerMonitoreamos } from "../Components/Banners/BannerMonitoreamos";
+
 
 import Header from "@/Layouts/HeaderPublica";
 export default function Welcome(props) {
@@ -13,6 +19,7 @@ export default function Welcome(props) {
             <Head title="Welcome" />
             <Header user={props}></Header>
             <Banner procesos={props.contratos}></Banner>
+
             {/* Componentes */}
 
             <div class="grid grid-cols-12 my-2 p-5">
@@ -42,6 +49,10 @@ export default function Welcome(props) {
                 </div>
                 <CarouselImagenes />
             </div>
+
+            <BannerMonitoreamos/>
+            <Footer />
+
         </>
     );
 }   
