@@ -5,14 +5,12 @@
     -moz-border-radius: 25px;
     -ms-border-radius: 25px;
     -o-border-radius: 25px;
-    height: 110px;
-    width: 110px;
     box-shadow: 0 0 0.25em 0.25em rgba(139, 139, 139, 0.25);
 }
 
 img {
     object-fit: scale-down;
-    width: 80%;
+    width: 75%;
     /* height: 80%; */
     justify-content: center;
     margin-left: 10px;

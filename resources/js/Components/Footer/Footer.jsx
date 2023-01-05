@@ -1,11 +1,11 @@
 import React from "react";
 import ApplicationLogoLiciWhite from "@/Components/ApplicationLogoLiciWhite";
-import "../../../css/footer.css";
+import "@/Components/Footer/footer.css";
 
 export const Footer = () => {
     return (
-        <footer>
-            <div className="container-size">
+        <footer className="container lg:mx-3 md:mx-1">
+            <div className="">
                 <link
                     href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto&display=swap"
                     rel="stylesheet"
@@ -21,7 +21,9 @@ export const Footer = () => {
                     </div>
 
                     <div className="size-support">
-                        <h2 className="typography-support-politics">Soporte</h2>
+                        <h2 className="typography-support-politics font-bold">
+                            Soporte
+                        </h2>
                         <ul>
                             <li className="support-text">
                                 <span>servicioalcliente@licitaciones.info</span>
@@ -42,7 +44,7 @@ export const Footer = () => {
                     </div>
 
                     <div className="size-politics text-footer">
-                        <h2 className="typography-support-politics">
+                        <h2 className="typography-support-politics font-bold">
                             Políticas
                         </h2>
                         <ul>
@@ -74,9 +76,9 @@ export const Footer = () => {
                     </div>
                 </div>
 
-                <hr className="h-1 bg-white border-0 mx-11 my-11"></hr>
+                <hr className="h-0.5 bg-white border-0 mx-11 mt-24 mb-10"></hr>
 
-                <div className="sm:flex sm:items-center sm:justify-between mx-11 pb-12 text-footer">
+                <div className="sm:flex sm:items-center sm:justify-between mx-11 pb-10 text-footer margin-txt-footer">
                     <span className="flex text-sm text-white sm:text-center">
                         <a href="https://flowbite.com/">
                             <ApplicationLogoLiciWhite />
@@ -92,8 +94,8 @@ export const Footer = () => {
                             <svg
                                 className="w-5 h-5 facebook"
                                 fill="currentColor"
-                                viewBox="0 0 24 24"
-                                aria-hidden="true"
+                                viewBox="0 0 25 25"
+                                // aria-hidden="true"
                             >
                                 <path
                                     fillRule="evenodd"
@@ -108,8 +110,8 @@ export const Footer = () => {
                             <svg
                                 className="w-6 h-7 ml-1.5 mt-1.5 youtube"
                                 fill="currentColor"
-                                viewBox="0 0 24 24"
-                                aria-hidden="true"
+                                viewBox="0 0 25 25"
+                                // aria-hidden="true"
                             >
                                 <path
                                     fillRule="evenodd"
@@ -124,8 +126,8 @@ export const Footer = () => {
                             <svg
                                 className="w-5 h-5 twitter"
                                 fill="currentColor"
-                                viewBox="0 0 24 24"
-                                aria-hidden="true"
+                                viewBox="0 0 25 25"
+                                // aria-hidden="true"
                             >
                                 <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
                             </svg>

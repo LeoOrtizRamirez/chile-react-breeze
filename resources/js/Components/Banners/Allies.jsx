@@ -1,5 +1,5 @@
 import React from "react";
-import "../../../css/allies.css";
+import "@/Components/Banners/Allies.css";
 
 export const Allies = (props) => {
     return (
