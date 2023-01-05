@@ -9,6 +9,7 @@ import CarouselImagenes from '@/Components/CarouselImagenes';
 
 import { BannerMonitoreamos } from "../Components/Banners/BannerMonitoreamos";
 
+import BannerNosotros from "@/Components/Banners/BannerNosotros";
 
 import Header from "@/Layouts/HeaderPublica";
 export default function Welcome(props) {
@@ -21,33 +22,39 @@ export default function Welcome(props) {
 
             {/* Componentes */}
 
-            <div className="grid grid-cols-12 my-2 p-5">
-                <div className="col-span-6 customers-cta">
-                    <div className="contenta-a">
-                        <span className="customers-cta-since-year">
-                            Desde 2004
-                        </span>
+            <section id="customers-section">
+                <div class="customers container rounded-container">
+                    <div className="customers-cta">
+                        <div className="contenta-a">
+                            <span className="customers-cta-since-year">
+                                Desde 2004
+                            </span>
 
-                        <span className="customers-cta-count-statistics">
-                            Más de 6000 clientes en Colombia y el mundo
-                        </span>
+                            <span className="customers-cta-count-statistics">
+                                Más de 6000 clientes en Colombia y el mundo
+                            </span>
+                        </div>
+                        <div className="contenta-b">
+                            <BotonRegistrarse
+                                texto={"Regístrate y obtén ¡30 días gratis!"}
+                                textoHover={"Regístrate y obtén 30 días de servicio"}
+                                color={"white"}
+                                colorHover={"#00A1C9"}
+                            />
+
+                            <BotonAsesor
+                                texto={"Habla con un consultor"}
+                                textoHover={"Resolver dudas ahora"}
+                                color={"white"}
+                                colorHover={"#00A1C9"}
+                            />
+                        </div>
                     </div>
-                    <BotonRegistrarse 
-                            texto={"Regístrate y obtén ¡30 días gratis!"} 
-                            textoHover={"Regístrate y obtén 30 días de servicio"}
-                            color={"white"}
-                            colorHover={"#00A1C9"}
-                             />
-
-                    <BotonAsesor 
-                            texto={"Habla con un consultor"} 
-                            textoHover={"Resolver dudas ahora"}
-                            color={"white"}
-                            colorHover={"#00A1C9"}
-                             />        
+                    <div className="customers-list customers-list-carrousel">
+                    <CarouselImagenes />
+                    </div>
                 </div>
-                <CarouselImagenes />
-            </div>
+            </section>
 
             <BannerMonitoreamos/>
             <Footer />
