@@ -43,7 +43,12 @@ export const BannerMonitoreamos = () => {
                 </div>
                 <br />
                 <div>
-                    <BotonRegistrarse />
+                    <BotonRegistrarse
+                        texto={"Regístrate y obtén ¡30 días gratis!"}
+                        textoHover={"Regístrate y obtén 30 días de servicio"}
+                        color={"white"}
+                        colorHover={"#73c914"}
+                    />
                 </div>
             </div>
             <div className="monitor-allies-size">
