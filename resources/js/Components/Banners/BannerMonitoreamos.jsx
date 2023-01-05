@@ -43,69 +43,74 @@ export const BannerMonitoreamos = () => {
                 </div>
                 <br />
                 <div>
-                    <BotonRegistrarse />
+                    <BotonRegistrarse
+                        texto={"Regístrate y obtén ¡30 días gratis!"}
+                        textoHover={"Regístrate y obtén 30 días de servicio"}
+                        color={"white"}
+                        colorHover={"#73c914"}
+                    />
                 </div>
             </div>
             <div className="monitor-allies-size">
                 <div className="allies-grid">
-                    <div>
+                    <div className="grid-item1">
                         <Allies rutaImagen={Img1} />
                     </div>
-                    <div>
+                    <div className="grid-item2">
                         <Allies rutaImagen={Img2} />
                     </div>
-                    <div>
+                    <div className="grid-item1">
                         <Allies rutaImagen={Img3} />
                     </div>
-                    <div>
+                    <div className="grid-item2">
                         <Allies rutaImagen={Img4} />
                     </div>
-                    <div>
+                    <div className="grid-item1">
                         <Allies rutaImagen={Img5} />
                     </div>
-                    <div>
+                    <div className="grid-item1">
                         <Allies rutaImagen={Img6} />
                     </div>
-                    <div>
+                    <div className="grid-item2">
                         <Allies rutaImagen={Img7} />
                     </div>
-                    <div>
+                    <div className="grid-item1">
                         <Allies rutaImagen={Img8} />
                     </div>
-                    <div>
+                    <div className="grid-item2">
                         <Allies rutaImagen={Img9} />
                     </div>
-                    <div>
+                    <div className="grid-item1">
                         <Allies rutaImagen={Img10} />
                     </div>
-                    <div>
+                    <div className="grid-item1">
                         <Allies rutaImagen={Img11} />
                     </div>
-                    <div>
+                    <div className="grid-item2">
                         <Allies rutaImagen={Img12} />
                     </div>
-                    <div>
+                    <div className="grid-item1">
                         <Allies rutaImagen={Img13} />
                     </div>
-                    <div>
+                    <div className="grid-item2">
                         <Allies rutaImagen={Img14} />
                     </div>
-                    <div>
+                    <div className="grid-item1">
                         <Allies rutaImagen={Img15} />
                     </div>
-                    <div>
+                    <div className="grid-item1">
                         <Allies rutaImagen={Img16} />
                     </div>
-                    <div>
+                    <div className="grid-item2">
                         <Allies rutaImagen={Img17} />
                     </div>
-                    <div>
+                    <div className="grid-item1">
                         <Allies rutaImagen={Img18} />
                     </div>
-                    <div>
+                    <div className="grid-item2">
                         <Allies rutaImagen={Img19} />
                     </div>
-                    <div>
+                    <div className="div-text-end">
                         <span className="text-end-grid">
                             Entre <br />
                             <span className="text-end-grid text-end-grid-color">

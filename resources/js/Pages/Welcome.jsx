@@ -21,14 +21,14 @@ export default function Welcome(props) {
 
             {/* Componentes */}
 
-            <div class="grid grid-cols-12 my-2 p-5">
-                <div class="col-span-6 customers-cta">
-                    <div class="contenta-a">
-                        <span class="customers-cta-since-year">
+            <div className="grid grid-cols-12 my-2 p-5">
+                <div className="col-span-6 customers-cta">
+                    <div className="contenta-a">
+                        <span className="customers-cta-since-year">
                             Desde 2004
                         </span>
 
-                        <span class="customers-cta-count-statistics">
+                        <span className="customers-cta-count-statistics">
                             Más de 6000 clientes en Colombia y el mundo
                         </span>
                     </div>

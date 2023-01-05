@@ -2,8 +2,8 @@ import React from 'react'
 
 const CarouselImagenes = () => {
   return (
-    <div id="customersCarousel" class="col-span-6 carousel">
-                    <div class="carousel-row">
+    <div id="customersCarousel" className="col-span-6 carousel">
+                    <div className="carousel-row">
                         <img src="https://www.licitaciones.info/img/customers/Alianza.png" alt="Alianza" />
                         <img src="https://www.licitaciones.info/img/customers/Apolo.png" alt="Apolo" />
                         <img src="https://www.licitaciones.info/img/customers/Areaandina.png" alt="Areaandina" />
@@ -25,7 +25,7 @@ const CarouselImagenes = () => {
                     </div>
 
 
-                    <div class="carousel-row">
+                    <div className="carousel-row">
                         <img src="https://www.licitaciones.info/img/customers/El bosque.png" alt="El bosque" />
                         <img src="https://www.licitaciones.info/img/customers/El espectador.png" alt="El espectador" />
                         <img src="https://www.licitaciones.info/img/customers/EPM.png" alt="EPM" />
@@ -45,7 +45,7 @@ const CarouselImagenes = () => {
                         <img src="https://www.licitaciones.info/img/customers/La urbe.png" alt="La urbe" />
                         <img src="https://www.licitaciones.info/img/customers/Learn.png" alt="Learn" />
                     </div>
-                    <div class="carousel-row">
+                    <div className="carousel-row">
                         <img src="https://www.licitaciones.info/img/customers/Minepro.png" alt="Minepro" />
                         <img src="https://www.licitaciones.info/img/customers/Multicomputo.png" alt="Multicomputo" />
                         <img src="https://www.licitaciones.info/img/customers/Nexys.png" alt="Nexys" />
