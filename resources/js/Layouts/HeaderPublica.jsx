@@ -8,7 +8,7 @@ export default function Example(props) {
 
     return (
         <div class="customers-list">
-            <div className="flex flex-wrap items-center justify-between lg:mx-3 md:mx-1">
+            <div className="flex flex-wrap items-center justify-between lg:mx-3 md:mx-1 py-2">
                 <a href="/" className="flex items-center">
                     <ApplicationLogoLici />
                 </a>
@@ -19,11 +19,13 @@ export default function Example(props) {
                         {props.user.auth.user ? (
                             <>
                                 <li>
-                                    <a href={route("dashboard")} className="flex text-sm text-gray-700 dark:text-gray-500 underline"> Dashboard</a>
+                                    <a href={route("dashboard")} className="flex  items-center menu-header mx-3"> Dashboard</a>
                                 </li>
 
                                 <li>
-                                    <a href={route("dashboard")} className="flex  items-center menu-header mx-3"> Chile</a>
+                                    <a href="#" className="flex ml-4 ">
+                                        <ChileLogo />
+                                    </a>
                                 </li>
 
 
