@@ -54,61 +54,123 @@ export const BannerMonitoreamos = () => {
             <div className="monitor-allies-size">
                 <div className="allies-grid">
                     <div className="grid-item1">
-                        <Allies rutaImagen={Img1} />
+                        <a
+                            href="https://www.mercadopublico.cl/Home"
+                            target="_blank"
+                        >
+                            <Allies rutaImagen={Img1} />
+                        </a>
                     </div>
                     <div className="grid-item2">
-                        <Allies rutaImagen={Img2} />
+                        <a href="https://www.mop.gob.cl/" target="_blank">
+                            <Allies rutaImagen={Img2} />
+                        </a>
                     </div>
                     <div className="grid-item1">
-                        <Allies rutaImagen={Img3} />
+                        <a href="https://www.correos.cl/" target="_blank">
+                            <Allies rutaImagen={Img3} />
+                        </a>
                     </div>
                     <div className="grid-item2">
-                        <Allies rutaImagen={Img4} />
+                        <a
+                            href="https://www.enami.cl/Pages/default.aspx"
+                            target="_blank"
+                        >
+                            <Allies rutaImagen={Img4} />
+                        </a>
                     </div>
                     <div className="grid-item1">
-                        <Allies rutaImagen={Img5} />
+                        <a href="https://www.efe.cl/" target="_blank">
+                            <Allies rutaImagen={Img5} />
+                        </a>
                     </div>
                     <div className="grid-item1">
-                        <Allies rutaImagen={Img6} />
+                        <a href="" target="_blank">
+                            <Allies rutaImagen={Img6} />
+                        </a>
                     </div>
                     <div className="grid-item2">
-                        <Allies rutaImagen={Img7} />
+                        <a
+                            href="https://www.portalminero.com/wp/informacion-de-negocios/"
+                            target="_blank"
+                        >
+                            <Allies rutaImagen={Img7} />
+                        </a>
                     </div>
                     <div className="grid-item1">
-                        <Allies rutaImagen={Img8} />
+                        <a
+                            href="https://www.bcentral.cl/inicio"
+                            target="_blank"
+                        >
+                            <Allies rutaImagen={Img8} />
+                        </a>
                     </div>
                     <div className="grid-item2">
-                        <Allies rutaImagen={Img9} />
+                        <a
+                            href="https://www.integra.cl/landing/"
+                            target="_blank"
+                        >
+                            <Allies rutaImagen={Img9} />
+                        </a>
                     </div>
                     <div className="grid-item1">
-                        <Allies rutaImagen={Img10} />
+                        <a href="https://www.buildbim.cl/" target="_blank">
+                            <Allies rutaImagen={Img10} />
+                        </a>
                     </div>
                     <div className="grid-item1">
-                        <Allies rutaImagen={Img11} />
+                        <a
+                            href="https://www.corfo.cl/sites/cpp/homecorfo"
+                            target="_blank"
+                        >
+                            <Allies rutaImagen={Img11} />
+                        </a>
                     </div>
                     <div className="grid-item2">
-                        <Allies rutaImagen={Img12} />
+                        <a
+                            href="http://www.fiscaliadechile.cl/Fiscalia/index.do"
+                            target="_blank"
+                        >
+                            <Allies rutaImagen={Img12} />
+                        </a>
                     </div>
                     <div className="grid-item1">
-                        <Allies rutaImagen={Img13} />
+                        <a href="" target="_blank">
+                            <Allies rutaImagen={Img13} />
+                        </a>
                     </div>
                     <div className="grid-item2">
-                        <Allies rutaImagen={Img14} />
+                        <a href="https://proexca.es/" target="_blank">
+                            <Allies rutaImagen={Img14} />
+                        </a>
                     </div>
                     <div className="grid-item1">
-                        <Allies rutaImagen={Img15} />
+                        <a href="https://www.undp.org/es" target="_blank">
+                            <Allies rutaImagen={Img15} />
+                        </a>
                     </div>
                     <div className="grid-item1">
-                        <Allies rutaImagen={Img16} />
+                        <a href="https://www.codelco.com/" target="_blank">
+                            <Allies rutaImagen={Img16} />
+                        </a>
                     </div>
                     <div className="grid-item2">
-                        <Allies rutaImagen={Img17} />
+                        <a
+                            href="https://www.scotiabankcolpatria.com/"
+                            target="_blank"
+                        >
+                            <Allies rutaImagen={Img17} />
+                        </a>
                     </div>
                     <div className="grid-item1">
-                        <Allies rutaImagen={Img18} />
+                        <a href="https://www.econssachile.cl/" target="_blank">
+                            <Allies rutaImagen={Img18} />
+                        </a>
                     </div>
                     <div className="grid-item2">
-                        <Allies rutaImagen={Img19} />
+                        <a href="https://www.conadi.gob.cl/" target="_blank">
+                            <Allies rutaImagen={Img19} />
+                        </a>
                     </div>
                     <div className="div-text-end">
                         <span className="text-end-grid">
