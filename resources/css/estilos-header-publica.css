@@ -1,6 +1,6 @@
 .menu-header {
     color: #686868;
-    font-size: 10pt;
+    font-size: 12px;
     text-align: left;
     font-weight: bold;
     text-decoration: inherit;
@@ -14,7 +14,7 @@
 
 .text-iniciar {
     color : #00A1C9;
-    font-size: 12pt;
+    font-size: 12px;
     text-align: left;
     font-weight: bold;
     text-decoration: inherit;
@@ -32,7 +32,7 @@
 
 .text-probar {
     color : #73C914;
-    font-size: 12pt;
+    font-size: 12px;
     text-align: left;
     font-weight: bold;
     text-decoration: inherit;
@@ -45,7 +45,7 @@
 
 .text-probar:hover {
     color : white;
-    font-size: 12pt;
+    font-size: 12px;
     text-align: left;
     font-weight: bold;
     text-decoration: inherit;
@@ -58,6 +58,17 @@
     margin-right: 5%;
 }
 
-span.icon-logout {
+span.icon-login {
     color: #00A1C9;
+}
+
+.logo-header {
+    width: 170px;
+}
+
+
+
+.div-iniciar-secion {
+    position: absolute;
+    right: 0;
 }
