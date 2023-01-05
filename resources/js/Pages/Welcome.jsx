@@ -9,7 +9,7 @@ import CarouselImagenes from '@/Components/CarouselImagenes';
 
 import { BannerMonitoreamos } from "../Components/Banners/BannerMonitoreamos";
 
-import BannerNosotros from "@/Components/Banners/BannerNosotros";
+
 
 import Header from "@/Layouts/HeaderPublica";
 export default function Welcome(props) {
@@ -23,8 +23,8 @@ export default function Welcome(props) {
             {/* Componentes */}
 
             <section id="customers-section">
-                <div class="customers container rounded-container">
-                    <div className="customers-cta">
+                <div className="customers container rounded-container">
+                    <div className="customers-cta w-50">
                         <div className="contenta-a">
                             <span className="customers-cta-since-year">
                                 Desde 2004
@@ -50,7 +50,7 @@ export default function Welcome(props) {
                             />
                         </div>
                     </div>
-                    <div className="customers-list customers-list-carrousel">
+                    <div className="customers-list customers-list-carrousel w-50">
                     <CarouselImagenes />
                     </div>
                 </div>
