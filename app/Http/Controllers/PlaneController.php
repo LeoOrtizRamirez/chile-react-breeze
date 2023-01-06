@@ -8,11 +8,8 @@ use Inertia\Inertia;
 
 class PlaneController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+   
     public function index()
     {
         $planes = Plane::latest('id')->latest()->get();
@@ -22,23 +19,14 @@ class PlaneController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
         return Inertia::render('Planes/Crear', [
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function store(Request $request)
     {
         //dd($request);
@@ -57,23 +45,13 @@ class PlaneController extends Controller
          return redirect(route('planes.index'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Plane  $plane
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Plane $plane)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Plane  $plane
-     * @return \Illuminate\Http\Response
-     */
+  
     public function edit(Plane $plane)
     {
         return Inertia::render('Planes/Editar', [
@@ -81,13 +59,7 @@ class PlaneController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Plane  $plane
-     * @return \Illuminate\Http\Response
-     */
+   
     public function update(Request $request, Plane $plane)
     {
         //$this->authorize('update', $planes);
@@ -105,12 +77,7 @@ class PlaneController extends Controller
          return redirect(route('planes.index'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Plane  $plane
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy(Plane $plane)
     {
         $plane->delete();
@@ -129,5 +96,11 @@ class PlaneController extends Controller
         }
         $planes->save();
         return redirect(route('planes.index'));
+    }
+
+    public function chile()
+    {
+        return Inertia::render('PlanesChile', [
+        ]);
     }
 }

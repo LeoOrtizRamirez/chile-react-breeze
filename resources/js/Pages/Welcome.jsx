@@ -10,7 +10,6 @@ import CarouselImagenes from '@/Components/CarouselImagenes';
 import { BannerMonitoreamos } from "../Components/Banners/BannerMonitoreamos";
 
 
-
 import Header from "@/Layouts/HeaderPublica";
 export default function Welcome(props) {
 

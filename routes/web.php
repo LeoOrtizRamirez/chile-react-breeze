@@ -28,9 +28,14 @@ Route::get('/nosotros', function () {
     return Inertia::render('Nosotros');
 });
 
+Route::get('/contacto', function () { 
+    return Inertia::render('Contacto');
+});
+
 Route::get('/funcionalidades', function () { 
     return Inertia::render('Funcionalidades');
 });
+
 
 Route::get('/dashboard', [ContratoController::class, 'index']
 )->middleware(['auth', 'verified'])->name('dashboard');
@@ -65,6 +70,10 @@ Route::resource('planes', PlaneController::class)
 Route::get('/planes/satus/{id}', [PlaneController::class, 'status'])
 ->name('planes.status')
 ->middleware(['auth','verified']);
+
+Route::get('/chile/planes', [PlaneController::class, 'chile'])
+->name('planes.chile');
+
 
 
 /* Route::resource('usuarios', UserController::class)

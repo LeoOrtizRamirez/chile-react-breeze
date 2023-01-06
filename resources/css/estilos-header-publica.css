@@ -69,6 +69,9 @@ span.icon-login {
 
 
 .div-iniciar-secion {
-    position: absolute;
     right: 0;
+}
+
+.container-header{
+    width: 1280px;
 }
