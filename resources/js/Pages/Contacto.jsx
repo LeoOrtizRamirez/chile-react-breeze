@@ -30,6 +30,15 @@ export default function Contacto(props) {
         }
     };
 
+    const copyText = (id) => {
+        var aux = document.createElement("input");
+        aux.setAttribute("value", document.getElementById(id).innerHTML);
+        document.body.appendChild(aux);
+        aux.select();
+        document.execCommand("copy");
+        document.body.removeChild(aux);
+      }
+
     return (
         <>
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Poppins"/>
@@ -305,9 +314,9 @@ export default function Contacto(props) {
                                 <div className="informacion-empresa--card">
                                     <div className="informacion-empresa--title"><i className="icon-mail"></i><span>Email:</span>
                                     </div>
-                                    <div className="informacion-empresa--content"><span className='c-gray'>servicioalcliente@licitaciones.info</span>
+                                    <div className="informacion-empresa--content"><span className='c-gray' id="copy-email">servicioalcliente@licitaciones.info</span>
                                         <div className="clipboard-generico-content"><button id="popover-target-1"
-                                            className="clipboard-generico-content--botton"><i className="icon-copy"></i></button>
+                                            className="clipboard-generico-content--botton"><i className="icon-copy" onClick={() => copyText('copy-email')}></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -315,19 +324,21 @@ export default function Contacto(props) {
                                     <div className="informacion-empresa--title"><i className="icon-smartphone"></i><span>Teléfonos:</span>
                                     </div>
                                     <div className="informacion-empresa--content-numbers">
-                                        <div className="informacion-empresa--content informacion-empresa--content--flex mb-2"><span
+                                        <div className="informacion-empresa--content informacion-empresa--content--flex mb-2" ><span
                                             className="informacion-empresa--content-bold-roboto c-gray fw-bold">Fijo:</span><span><span
-                                                className="informacion-empresa--content-margin-right c-gray">+57 601 508 61 55</span>
-                                                <div className="clipboard-generico-content"><button id="popover-target-2"
-                                                    className="clipboard-generico-content--botton"><i className="icon-copy"></i></button>
+                                                className="informacion-empresa--content-margin-right c-gray" id='copy-phone' >+57 601 508 61 55</span>
+                                                <div className="clipboard-generico-content">
+                                                    <button id="popover-target-2"
+                                                    className="clipboard-generico-content--botton"><i className="icon-copy" onClick={() => copyText('copy-phone')}></i></button>
                                                 </div>
                                             </span>
                                         </div>
                                         <div className="informacion-empresa--content informacion-empresa--content--flex"><span
                                             className="informacion-empresa--content-bold-roboto c-gray fw-bold">Móvil:</span><span><span
-                                                className="informacion-empresa--content-margin-right c-gray">+57 310 370 8276</span>
-                                                <div className="clipboard-generico-content"><button id="popover-target-3"
-                                                    className="clipboard-generico-content--botton"><i className="icon-copy"></i></button>
+                                                className="informacion-empresa--content-margin-right c-gray" id='copy-phone-2'>+57 310 370 8276</span>
+                                                <div className="clipboard-generico-content">
+                                                    <button id="popover-target-3"
+                                                    className="clipboard-generico-content--botton"><i className="icon-copy" onClick={() => copyText('copy-phone-2')}></i></button>
                                                 </div>
                                             </span>
                                         </div>
