@@ -12,9 +12,13 @@ footer {
     -ms-border-radius: 25px;
     -o-border-radius: 25px;
     -webkit-border-radius: 25px;
-    width: 1233px;
+    /* width: 1233px; */
     height: 445px;
     margin: 23px;
+}
+
+.container {
+    width: 1233px !important;
 }
 
 .container-flex {

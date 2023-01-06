@@ -4,7 +4,7 @@ import "@/Components/Footer/footer.css";
 
 export const Footer = () => {
     return (
-        <footer className="container lg:mx-3 md:mx-1">
+        <footer className="container">
             <div className="">
                 <link
                     href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto&display=swap"
