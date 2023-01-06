@@ -1,5 +1,10 @@
 import { Head } from "@inertiajs/inertia-react";
 import "../../css/estilos-planes-precios.css";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@fontsource/poppins";
+import "../../css/font-unicolor.css";
+
 import { Footer } from "../Components/Footer/Footer";
 import Header from "@/Layouts/HeaderPublica";
 import BotonRegistrarse from '@/Components/BotonRegistrarse';
@@ -9,7 +14,7 @@ const Chile = (props) => {
         <>
             <Head title="Welcome" />
             <Header user={props}></Header>
-            <section id="planes" className="planes planes-container container">
+            <section id="planes" className="planes planes-container customers-planes container">
                 <div className="planes-info">
                     <p className="plan-info-title">Nuestros planes y precios</p>
                     <h2 className="plan-info-subtitle">
@@ -40,12 +45,12 @@ const Chile = (props) => {
                                 </div>
 
                                 <div className="priceCard-cta">
-                                <BotonRegistrarse
-                                    texto={"Comprar"}
-                                    textoHover={"Adquirir plan"}
-                                    color={"white"}
-                                    colorHover={"#00A1C9"}
-                                />
+                                    <BotonRegistrarse
+                                        texto={"Comprar"}
+                                        textoHover={"Adquirir plan"}
+                                        color={"white"}
+                                        colorHover={"#00A1C9"}
+                                    />
                                 </div>
                                 <div className="priceCard-benefits">
                                     <p className="priceCard-benefits-text"> </p>
@@ -71,15 +76,12 @@ const Chile = (props) => {
                                     </div>
                                 </div>
                                 <div className="priceCard-cta">
-                                    <a id="CTAButton" className="cta-button priceCard-cta-button border-button success">
-                                        <div className="cta-content">
-                                            <span className="cta-button-text"> Comprar</span>
-                                            <div className="cta-button-icon-content">
-                                                <span className="cta-button-icon-content-hidden-text"> Adquirir plan</span>
-                                                <span className="cta-button-icon-content-icon icon-Right"></span>
-                                            </div>
-                                        </div>
-                                    </a>
+                                    <BotonRegistrarse
+                                        texto={"Comprar"}
+                                        textoHover={"Adquirir plan"}
+                                        color={"white"}
+                                        colorHover={"#00A1C9"}
+                                    />
                                 </div>
                                 <div className="priceCard-benefits">
                                     <p className="priceCard-benefits-text">
@@ -105,17 +107,13 @@ const Chile = (props) => {
                                     </div>
                                 </div>
                                 <div className="priceCard-cta">
-                                    <a id="CTAButton" className="cta-button priceCard-cta-button border-button success">
-                                        <div className="cta-content">
-                                            <span className="cta-button-text">Comprar</span>
-                                            <div className="cta-button-icon-content">
-                                                <span className="cta-button-icon-content-hidden-text">
-                                                    Adquirir plan</span>
-                                                <span className="cta-button-icon-content-icon icon-Right">
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </a></div>
+                                    <BotonRegistrarse
+                                        texto={"Comprar"}
+                                        textoHover={"Adquirir plan"}
+                                        color={"white"}
+                                        colorHover={"#00A1C9"}
+                                    />
+                                </div>
                                 <div className="priceCard-benefits">
                                     <p className="priceCard-benefits-text">
                                         * Al renovar con un plan de 3 meses serían $ 248, eso te representa un ahorro de $ 88.
@@ -141,16 +139,13 @@ const Chile = (props) => {
                                     </div>
                                 </div>
                                 <div className="priceCard-cta">
-                                    <a id="CTAButton" className="cta-button priceCard-cta-button border-button success">
-                                        <div className="cta-content">
-                                            <span className="cta-button-text"> Comprar</span>
-                                            <div className="cta-button-icon-content">
-                                                <span className="cta-button-icon-content-hidden-text"> Adquirir plan</span>
-                                                <span className="cta-button-icon-content-icon icon-Right">
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </a></div>
+                                    <BotonRegistrarse
+                                        texto={"Comprar"}
+                                        textoHover={"Adquirir plan"}
+                                        color={"white"}
+                                        colorHover={"#00A1C9"}
+                                    />
+                                </div>
                                 <div className="priceCard-benefits">
                                     <p className="priceCard-benefits-text">
                                         * Al renovar con un plan de 3 meses serían $ 372, eso te representa un ahorro de $ 147.</p>
@@ -174,16 +169,12 @@ const Chile = (props) => {
                                     </div>
                                 </div>
                                 <div className="priceCard-cta">
-                                    <a id="CTAButton" className="cta-button priceCard-cta-button border-button success">
-                                        <div className="cta-content">
-                                            <span className="cta-button-text"> Comprar</span>
-                                            <div className="cta-button-icon-content">
-                                                <span className="cta-button-icon-content-hidden-text"> Adquirir plan</span>
-                                                <span className="cta-button-icon-content-icon icon-Right">
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </a>
+                                    <BotonRegistrarse
+                                        texto={"Comprar"}
+                                        textoHover={"Adquirir plan"}
+                                        color={"white"}
+                                        colorHover={"#00A1C9"}
+                                    />
                                 </div>
                                 <div className="priceCard-benefits">
                                     <p className="priceCard-benefits-text">

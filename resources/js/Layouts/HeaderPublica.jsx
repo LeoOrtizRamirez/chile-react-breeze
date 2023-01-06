@@ -1,14 +1,14 @@
 import ApplicationLogoLici from "@/Components/ApplicationLogoLici";
 import ChileLogo from "@/Components/ChileLogo";
 import "../../css/estilos-header-publica.css";
-
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Example(props) {
 
 
     return (
-        <div className="customers-list">
-            <div className="flex flex-wrap items-center lg:mx-6 md:mx-6 py-2">
+        <div className="customers-list container container-header">
+            <div className="flex justify-between	items-center py-2">
                 <a href="/" className="flex items-center">
                     <ApplicationLogoLici />
                 </a>
@@ -70,7 +70,7 @@ export default function Example(props) {
                             <a href="/funcionalidades" className="flex  items-center menu-header mx-1"> Funcionalidades</a>
                         </li>
                         <li>
-                            <a href="/planes" className="flex items-center menu-header mx-1  "> Planes </a>
+                            <a href={route("planes.chile")} className="flex items-center menu-header mx-1  "> Planes </a>
                         </li>
                         <li>
                             <a href="/nosotros" className="flex items-center menu-header mx-1 ">Nosotros</a>                    </li>
