@@ -161,7 +161,7 @@ export default function Nosotros(props) {
                 </div>
             </section>
             <section id="customers-section">
-                <div class="customers container rounded-container">
+                <div className="customers container rounded-container">
                     <div className="customers-cta w-50">
                         <div className="contenta-a">
                             <span className="customers-cta-count-statistics">

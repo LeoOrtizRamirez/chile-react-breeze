@@ -75,7 +75,7 @@ export default function Example(props) {
                         <li>
                             <a href="/nosotros" className="flex items-center menu-header mx-1 ">Nosotros</a>                    </li>
                         <li>
-                            <a href="/contactanos" className="flex items-center menu-header mx-1  ">Contáctanos </a>                    </li>
+                            <a href="/contacto" className="flex items-center menu-header mx-1  ">Contáctanos </a>                    </li>
                     </ul>
                 </div>
             </div>
