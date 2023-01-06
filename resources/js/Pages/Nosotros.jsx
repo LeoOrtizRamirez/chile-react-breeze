@@ -14,7 +14,7 @@ import "../../css/font-unicolor.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fontsource/poppins";
 
-export default function Welcome(props) {
+export default function Nosotros(props) {
 
     return (
         <>
