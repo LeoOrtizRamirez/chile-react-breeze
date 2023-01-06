@@ -4,67 +4,68 @@ const CarouselImagenes = () => {
   return (
     <div className="col-span-6 carousel customersCarousel">
                     <div className="carousel-row">
-                        <img src="https://www.licitaciones.info/img/customers/Alianza.png" alt="Alianza" />
-                        <img src="https://www.licitaciones.info/img/customers/Apolo.png" alt="Apolo" />
-                        <img src="https://www.licitaciones.info/img/customers/Areaandina.png" alt="Areaandina" />
-                        <img src="https://www.licitaciones.info/img/customers/Argos.png" alt="Argos" />
-                        <img src="https://www.licitaciones.info/img/customers/Aseguradora solidaria.png" alt="Aseguradora solidaria" />
-                        <img src="https://www.licitaciones.info/img/customers/Bancolombia.png" alt="Bancolombia" />
-                        <img src="https://www.licitaciones.info/img/customers/Camacol.png" alt="Camacol" />
-                        <img src="https://www.licitaciones.info/img/customers/Caracol radio.png" alt="Caracol radio" />
-                        <img src="https://www.licitaciones.info/img/customers/Cavelier.png" alt="Cavelier" />
-                        <img src="https://www.licitaciones.info/img/customers/Ceder.png" alt="Ceder" />
-                        <img src="https://www.licitaciones.info/img/customers/Colpatria construxtora.png" alt="Colpatria construxtora" />
-                        <img src="https://www.licitaciones.info/img/customers/Colpatria fiduciaria.png" alt="Colpatria fiduciaria" />
-                        <img src="https://www.licitaciones.info/img/customers/Cruz roja.png" alt="Cruz roja" />
-                        <img src="https://www.licitaciones.info/img/customers/Custodia.png" alt="Custodia" />
-                        <img src="https://www.licitaciones.info/img/customers/Davivienda.png" alt="Davivienda" />
-                        <img src="https://www.licitaciones.info/img/customers/Dobleclick.png" alt="Dobleclick" />
-                        <img src="https://www.licitaciones.info/img/customers/Doxa.png" alt="Doxa" />
-                        <img src="https://www.licitaciones.info/img/customers/Egis.png" alt="Egis" />
+                   
+                        <img src="/images/carousel/Alianza.webp" alt="Alianza" />
+                        <img src="/images/carousel/Apolo.webp" alt="Apolo" />
+                        <img src="/images/carousel/Areaandina.webp" alt="Areaandina" />
+                        <img src="/images/carousel/Argos.webp" alt="Argos" />
+                        <img src="/images/carousel/Aseguradorasolidaria.webp" alt="Aseguradora solidaria" />
+                        <img src="/images/carousel/Bancolombia.webp" alt="Bancolombia" />
+                        <img src="/images/carousel/Camacol.webp" alt="Camacol" />
+                        <img src="/images/carousel/Caracolradio.webp" alt="Caracol radio" />
+                        <img src="/images/carousel/Cavelier.webp" alt="Cavelier" />
+                        <img src="/images/carousel/Ceder.webp" alt="Ceder" />
+                        <img src="/images/carousel/Colpatriaconstruxtora.webp" alt="Colpatria construxtora" />
+                        <img src="/images/carousel/Colpatriafiduciaria.webp" alt="Colpatria fiduciaria" />
+                        <img src="/images/carousel/Cruzroja.webp" alt="Cruz roja" />
+                        <img src="/images/carousel/Custodia.webp" alt="Custodia" />
+                        <img src="/images/carousel/Davivienda.webp" alt="Davivienda" />
+                        <img src="/images/carousel/Dobleclick.webp" alt="Dobleclick" />
+                        <img src="/images/carousel/Doxa.webp" alt="Doxa" />
+                        <img src="/images/carousel/Egis.webp" alt="Egis" />
                     </div>
 
 
                     <div className="carousel-row">
-                        <img src="https://www.licitaciones.info/img/customers/El bosque.png" alt="El bosque" />
-                        <img src="https://www.licitaciones.info/img/customers/El espectador.png" alt="El espectador" />
-                        <img src="https://www.licitaciones.info/img/customers/EPM.png" alt="EPM" />
-                        <img src="https://www.licitaciones.info/img/customers/Epson.png" alt="Epson" />
-                        <img src="https://www.licitaciones.info/img/customers/Faber Castell.png" alt="Faber Castell" />
-                        <img src="https://www.licitaciones.info/img/customers/Fiduagraria.png" alt="Fiduagraria" />
-                        <img src="https://www.licitaciones.info/img/customers/GBarco.png" alt="GBarco" />
-                        <img src="https://www.licitaciones.info/img/customers/GCSI.png" alt="GCSI" />
-                        <img src="https://www.licitaciones.info/img/customers/Global SAT.png" alt="Global SAT" />
-                        <img src="https://www.licitaciones.info/img/customers/Hospitécnica.png" alt="Hospitécnica" />
-                        <img src="https://www.licitaciones.info/img/customers/Icontec.png" alt="Icontec" />
-                        <img src="https://www.licitaciones.info/img/customers/Indra.png" alt="Indra" />
-                        <img src="https://www.licitaciones.info/img/customers/Interactuar.png" alt="Interactuar" />
-                        <img src="https://www.licitaciones.info/img/customers/IT Synergy.png" alt="IT Synergy" />
-                        <img src="https://www.licitaciones.info/img/customers/Itaca.png" alt="Itaca" />
-                        <img src="https://www.licitaciones.info/img/customers/Javeriana.png" alt="Javeriana" />
-                        <img src="https://www.licitaciones.info/img/customers/La urbe.png" alt="La urbe" />
-                        <img src="https://www.licitaciones.info/img/customers/Learn.png" alt="Learn" />
+                        <img src="/images/carousel/Elbosque.webp" alt="El bosque" />
+                        <img src="/images/carousel/Elespectador.webp" alt="El espectador" />
+                        <img src="/images/carousel/EPM.webp" alt="EPM" />
+                        <img src="/images/carousel/Epson.webp" alt="Epson" />
+                        <img src="/images/carousel/FaberCastell.webp" alt="Faber Castell" />
+                        <img src="/images/carousel/Fiduagraria.webp" alt="Fiduagraria" />
+                        <img src="/images/carousel/GBarco.webp" alt="GBarco" />
+                        <img src="/images/carousel/GCSI.webp" alt="GCSI" />
+                        <img src="/images/carousel/Global SAT.webp" alt="Global SAT" />
+                        <img src="/images/carousel/Hospitecnica.webp" alt="Hospitécnica" />
+                        <img src="/images/carousel/Icontec.webp" alt="Icontec" />
+                        <img src="/images/carousel/Indra.webp" alt="Indra" />
+                        <img src="/images/carousel/Interactuar.webp" alt="Interactuar" />
+                        <img src="/images/carousel/IT Synergy.webp" alt="IT Synergy" />
+                        <img src="/images/carousel/Itaca.webp" alt="Itaca" />
+                        <img src="/images/carousel/Javeriana.webp" alt="Javeriana" />
+                        <img src="/images/carousel/Laurbe.webp" alt="La urbe" />
+                        <img src="/images/carousel/Learn.webp" alt="Learn" />
                     </div>
                     <div className="carousel-row">
-                        <img src="https://www.licitaciones.info/img/customers/Minepro.png" alt="Minepro" />
-                        <img src="https://www.licitaciones.info/img/customers/Multicomputo.png" alt="Multicomputo" />
-                        <img src="https://www.licitaciones.info/img/customers/Nexys.png" alt="Nexys" />
-                        <img src="https://www.licitaciones.info/img/customers/Oracle.png" alt="Oracle" />
-                        <img src="https://www.licitaciones.info/img/customers/Panamericana.png" alt="Panamericana" />
-                        <img src="https://www.licitaciones.info/img/customers/Parque Soft.png" alt="Parque Soft" />
-                        <img src="https://www.licitaciones.info/img/customers/Philips.png" alt="Philips" />
-                        <img src="https://www.licitaciones.info/img/customers/Praxair.png" alt="Praxair" />
-                        <img src="https://www.licitaciones.info/img/customers/QHSE.png" alt="QHSE" />
-                        <img src="https://www.licitaciones.info/img/customers/Rentainer.png" alt="Rentainer" />
-                        <img src="https://www.licitaciones.info/img/customers/RUA.png" alt="RUA" />
-                        <img src="https://www.licitaciones.info/img/customers/Sergio arboleda.png" alt="Sergio arboleda" />
-                        <img src="https://www.licitaciones.info/img/customers/Servientrega.png" alt="Servientrega" />
-                        <img src="https://www.licitaciones.info/img/customers/Siemens.png" alt="Siemens" />
-                        <img src="https://www.licitaciones.info/img/customers/Sodexo.png" alt="Sodexo" />
-                        <img src="https://www.licitaciones.info/img/customers/Telefonica.png" alt="Telefonica" />
-                        <img src="https://www.licitaciones.info/img/customers/Thomas.png" alt="Thomas" />
-                        <img src="https://www.licitaciones.info/img/customers/Ticsa.png" alt="Ticsa" />
-                        <img src="https://www.licitaciones.info/img/customers/Tubosa.png" alt="Tubosa" />
+                        <img src="/images/carousel/Minepro.webp" alt="Minepro" />
+                        <img src="/images/carousel/Multicomputo.webp" alt="Multicomputo" />
+                        <img src="/images/carousel/Nexys.webp" alt="Nexys" />
+                        <img src="/images/carousel/Oracle.webp" alt="Oracle" />
+                        <img src="/images/carousel/Panamericana.webp" alt="Panamericana" />
+                        <img src="/images/carousel/ParqueSoft.webp" alt="Parque Soft" />
+                        <img src="/images/carousel/Philips.webp" alt="Philips" />
+                        <img src="/images/carousel/Praxair.webp" alt="Praxair" />
+                        <img src="/images/carousel/QHSE.webp" alt="QHSE" />
+                        <img src="/images/carousel/Rentainer.webp" alt="Rentainer" />
+                        <img src="/images/carousel/RUA.webp" alt="RUA" />
+                        <img src="/images/carousel/Sergioarboleda.webp" alt="Sergio arboleda" />
+                        <img src="/images/carousel/Servientrega.webp" alt="Servientrega" />
+                        <img src="/images/carousel/Siemens.webp" alt="Siemens" />
+                        <img src="/images/carousel/Sodexo.webp" alt="Sodexo" />
+                        <img src="/images/carousel/Telefonica.webp" alt="Telefonica" />
+                        <img src="/images/carousel/Thomas.webp" alt="Thomas" />
+                        <img src="/images/carousel/Ticsa.webp" alt="Ticsa" />
+                        <img src="/images/carousel/Tubosa.webp" alt="Tubosa" />
                     </div>
 
                 </div>
