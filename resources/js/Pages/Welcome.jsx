@@ -21,6 +21,7 @@ export default function Welcome(props) {
             <Banner procesos={props.contratos}></Banner>
 
             {/* Componentes */}
+            <BannerMonitoreamos/>
 
             <section id="customers-section">
                 <div className="customers container rounded-container">
@@ -56,7 +57,8 @@ export default function Welcome(props) {
                 </div>
             </section>
 
-            <BannerMonitoreamos/>
+
+
             <Footer />
 
         </>

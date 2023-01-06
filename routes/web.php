@@ -32,6 +32,10 @@ Route::get('/contacto', function () {
     return Inertia::render('Contacto');
 });
 
+Route::get('/funcionalidades', function () { 
+    return Inertia::render('Funcionalidades');
+});
+
 
 Route::get('/dashboard', [ContratoController::class, 'index']
 )->middleware(['auth', 'verified'])->name('dashboard');

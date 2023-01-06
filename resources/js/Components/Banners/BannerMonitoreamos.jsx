@@ -1,12 +1,12 @@
 import React from "react";
-import "../../../css/banner-monitoreamos.css";
+import "@/Components/Banners/banner-monitoreamos.css";
 import Allies from "@/Components/Banners/Allies";
 import BotonRegistrarse from "@/Components/BotonRegistrarse";
 
 export const BannerMonitoreamos = () => {
     return (
-        <div className="container-monitor-size">
-            <div className="monitor-text-size">
+        <div className="container container-monitor-size lg:mx-3 md:mx-1">
+            <div className="monitor-text-size md:flex md:w-auto md:order-1">
                 <div>
                     <span className="monitor-title">
                         Monitoreamos y centralizamos la información de
@@ -32,7 +32,7 @@ export const BannerMonitoreamos = () => {
                     />
                 </div>
             </div>
-            <div className="monitor-allies-size">
+            <div className="monitor-allies-size md:flex md:w-auto md:order-1">
                 <div className="allies-grid">
                     <div className="grid-item1">
                         <a

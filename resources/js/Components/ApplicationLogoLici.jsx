@@ -17,6 +17,7 @@ export default function ApplicationLogoLici({ className }) {
         >
             {" "}
             <image
+            className="logo-header"
                 id="image0"
                 width="258"
                 height="39"
