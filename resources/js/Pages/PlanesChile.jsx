@@ -3,7 +3,8 @@ import "../../css/estilos-planes-precios.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fontsource/poppins";
-import "../../css/font-unicolor.css";
+import "../../css/font-multicolor.css";
+
 
 import { Footer } from "../Components/Footer/Footer";
 import Header from "@/Layouts/HeaderPublica";
@@ -14,6 +15,16 @@ const Chile = (props) => {
         <>
             <Head title="Welcome" />
             <Header user={props}></Header>
+
+            <div className="clearfix bshadow0 pbs  ">
+                <span className="icon-colombia">
+                    <span className="path1">sadsadasdsadsad </span>
+                    <span className="path2"></span></span>
+                <span className="mls"> icon-colombia</span>
+            </div>
+
+
+
             <section id="planes" className="planes planes-container customers-planes container">
                 <div className="planes-info">
                     <p className="plan-info-title">Nuestros planes y precios</p>
@@ -185,6 +196,8 @@ const Chile = (props) => {
                     </ul>
                 </div>
             </section>
+
+            <span className="icon-gmail">aa</span>
             <Footer />
         </>
     )
