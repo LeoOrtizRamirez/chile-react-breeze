@@ -348,22 +348,22 @@ a.nav-link.active i{
     line-height: 1;
 }
 
-#contenido-contactenos #navegacion-contactenos .navegacion-contactenos--content-acordeon .card:last-of-type {
+.card:last-of-type {
     border-bottom: none;
 }
 
-#contenido-contactenos #navegacion-contactenos .navegacion-contactenos--content-acordeon .card {
+.card {
     border: none;
     border-bottom: 1px solid #999898;
     border-radius: 0px;
 }
 
-#contenido-contactenos #navegacion-contactenos .navegacion-contactenos--content-acordeon .card .card-header {
+.card .card-header {
     border: none;
     background: white;
 }
 
-#contenido-contactenos #navegacion-contactenos .navegacion-contactenos--content-acordeon .card .card-header button {
+.card .card-header button {
     background: white;
     border: none;
     color: #686868;
@@ -375,43 +375,44 @@ a.nav-link.active i{
     line-height: 20px;
 }
 
-#contenido-contactenos #navegacion-contactenos .navegacion-contactenos--content-acordeon .card .card-header button i{
+.card .card-header button i{
     position: absolute;
     right: 0px;
     font-size: 0.438rem;
     top: 47%;
 }
 
-#contenido-contactenos #navegacion-contactenos .navegacion-contactenos--content-acordeon .card .card-header button.not-collapsed .icon-down:before {
+.card .card-header button.not-collapsed .icon-down:before {
     content: "\e936";
 }
 
-#contenido-contactenos #navegacion-contactenos .navegacion-contactenos--content-acordeon .card-body {
+.card-body {
     font: normal 1.063rem Roboto;
-    color: #686868;
+    color: #686868 !important;
     line-height: 1.7;
     padding: 0px 35px 35px 5px;
     text-align: justify;
 }
 
-#contenido-contactenos #navegacion-contactenos .navegacion-contactenos--content-acordeon .card-body a{
+.card-body a{
     color: #00A1C9;
 }
 
-#contenido-contactenos #navegacion-contactenos .navegacion-contactenos--content-acordeon .navegacion-contactenos--content-text-acordeon-blue {
+.navegacion-contactenos--content-text-acordeon-blue {
     color: #00A1C9;
     font: normal normal bold 1.063rem Poppins;
 }
 
-#contenido-contactenos #navegacion-contactenos .navegacion-contactenos--content-acordeon .navegacion-contactenos--content-text-acordeon-bold {
+.navegacion-contactenos--content-text-acordeon-bold {
     font: normal normal bold 1.063rem Poppins;
+    color: #686868;
 }
 
-#contenido-contactenos #navegacion-contactenos .navegacion-contactenos--content-acordeon .navegacion-contactenos--content-img-acordeon {
+.navegacion-contactenos--content-img-acordeon {
     margin-top: 20px;
 }
 
-#contenido-contactenos #navegacion-contactenos .navegacion-contactenos--content-acordeon .navegacion-contactenos--content-img-acordeon a:first-of-type{
+.navegacion-contactenos--content-img-acordeon a:first-of-type{
     margin-right: 37px;
 }
 
@@ -1005,4 +1006,34 @@ to{
     font-size:.9375rem
 }
 
+}
+
+
+/*Accordion*/
+.accordion-button:not(.collapsed) {
+    color: #686868 !important;
+    background-color: #fff !important; 
+}
+
+button.accordion-button.collapsed {
+    color: #686868 !important;
+    font: normal normal 1rem Poppins;
+    text-align: left;
+    padding: 20px 29px 21px 0px;
+    position: relative;
+    white-space: break-spaces;
+    line-height: 20px;
+}
+
+.accordion-item {
+    border: none !important;
+    border-bottom: 1px solid #686868 !important;
+}
+
+h3{
+    color: #959595;
+    font: normal normal bold 1.375rem Poppins;
+    text-align: center;
+    margin-bottom: 17px;
+    line-height: 1;
 }
