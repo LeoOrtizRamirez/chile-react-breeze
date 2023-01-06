@@ -1,0 +1,10 @@
+<svg id="Component_254_1" data-name="Component 254 – 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="111.711" height="36.466" viewBox="0 0 111.711 36.466">
+  <defs>
+    <linearGradient id="linear-gradient" x1="7.021" y1="-3.725" x2="-1.198" y2="1.607" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ff00f2"/>
+      <stop offset="1" stop-color="#00ffd9"/>
+    </linearGradient>
+  </defs>
+  <path id="Path_211" data-name="Path 211" d="M182.551,505.169v24.953H290.52a3.738,3.738,0,0,0,3.421-5.244l-9.581-21.763a6.386,6.386,0,0,0-5.845-3.813h-90.1A5.866,5.866,0,0,0,182.551,505.169Z" transform="translate(-182.551 -499.302)" fill="url(#linear-gradient)"/>
+  <path id="Path_212" data-name="Path 212" d="M182.551,538.073h8.4v5.647Z" transform="translate(-182.551 -507.253)" fill="#333"/>
+</svg>

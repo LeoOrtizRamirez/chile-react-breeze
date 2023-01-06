@@ -63,6 +63,10 @@ Route::get('/planes/satus/{id}', [PlaneController::class, 'status'])
 ->name('planes.status')
 ->middleware(['auth','verified']);
 
+Route::get('/chile/planes', [PlaneController::class, 'chile'])
+->name('planes.chile');
+
+
 
 /* Route::resource('usuarios', UserController::class)
 ->middleware(['auth','verified']); */
