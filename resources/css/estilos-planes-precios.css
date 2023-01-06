@@ -1,10 +1,12 @@
 .planes.planes-container {
     align-items: center;
-   /*  box-shadow: 0px 0px 20px #6868681c; */
+    /* box-shadow: 0px 0px 20px #6868681c; */
     margin-top: 24px;
     margin-bottom: 24px;
-    padding: 26px 30px;
+    padding: 50px 30px;
     background-color: #f9f9f9;
+    border-radius: 17px;
+    width: 1233px;
 }
 
 
@@ -13,21 +15,21 @@
     font-size: 13px;
     font-weight: bold;
     text-transform: uppercase;
-    font-family: 'Poppins';
+    font-family: Poppins;
     margin-bottom: 3px;
 }
 #planes .planes-info .plan-info-subtitle {
     color: #686868;
     font-size: 25px;
     font-weight: bold;
-    font-family: 'Poppins';
+    font-family: Poppins;
 }
 #planes .planes-info {
     color: #686868;
     font-size: 16px;
     margin-top: 13px;
     text-align: left;
-    font-family: 'Poppins';
+    font-family: Poppins;
 }
 
 .plan-info-description {
@@ -57,7 +59,7 @@
     padding: 16px 59px 16px 30px;
     position: relative;
     background: #fff;
-    font-family: 'Poppins';
+    font-family: Poppins;
 }
 
 .cta-button.shadow-button {
@@ -256,12 +258,13 @@
 }
 
 #PriceCardsList .priceCard-pricing {
-    border-bottom: 2px solid hsla(0, 1%, 61%, .15);
+    border-bottom: 2px solid;
+    border-color: #f2f2f2;
     font-weight: bold;
     line-height: 22px;
     padding-bottom: 14px;
     position: relative;
-    text-align: center
+    text-align: center;
 }
 
 #PriceCardsList .priceCard-price-popular-text {
@@ -272,7 +275,7 @@
     font-size: 20px;
     color : #686868;
     font-weight: bold;
-    font-family: 'Poppins';
+    font-family: Poppins;
     margin-bottom: 0px;
 }
 
@@ -280,7 +283,7 @@
     font-size: 10px;
     color : #686868;
     font-weight: bold;
-    font-family: 'Poppins';
+    font-family: Poppins;
 }
 
 #PriceCardsList .priceCard-benefits-text {
@@ -325,3 +328,93 @@
 }
 
 
+/*Secion funcionalidades*/
+
+
+#funcionalidades {
+    color: #686868;
+    font-family: Poppins;
+    margin: 24px auto;
+    padding: 23px 0px;
+    width: 1280px;
+}
+#funcionalidades .funcionalidades-info {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    max-width: 770px;
+    margin: auto;
+    margin-bottom: 47px;
+    text-align: center;
+}
+#funcionalidades .funcionalidades-info-title {
+    color: #73C914;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 0px;
+    font-family: Poppins;
+}
+#funcionalidades .funcionalidades-info-subtitle {
+    color: #686868;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: left;
+    font-family: Poppins;
+}
+#funcionalidades .funcionalidades-list-content {
+    display: flex;
+    font-family: 'Roboto';
+}
+#funcionalidades .funcionalidades-list-item {
+    margin-bottom: 26px;
+}
+#funcionalidades .funcionalidades-list-item .funcionalidad {
+    display: flex;
+    align-items: center;
+}
+#funcionalidades .funcionalidades-list-item .funcionalidad.visit-funcionalities .mark-text {
+    font-weight: bold;
+    position: relative;
+    margin-bottom: 0px;
+}
+#funcionalidades .funcionalidades-list-item .funcionalidad.visit-funcionalities a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #686868;
+}
+#funcionalidades .funcionalidades-list-item .funcionalidad.visit-funcionalities .icon {
+    color: #00A1C9;
+    transform: rotate(-90deg);
+    font-size: .4rem;
+    margin-left: 10px;
+}
+#funcionalidades .funcionalidades-list-item .funcionalidad-image {
+    height: 49px;
+    width: 49px;
+}
+#funcionalidades .funcionalidades-list-item .funcionalidad-text {
+    font-size: 18px;
+    text-align: left;
+    margin-left: 21px;
+    margin-bottom: 0px;
+    
+}
+#funcionalidades .funcionalidades-content-button {
+    margin-top: 28px;
+    text-align: center;
+}
+#funcionalidades .funcionalidades-content-button #CTAButton {
+    padding: 18px 25px;
+}
+#funcionalidades .funcionalidades-content-button #CTAButton .cta-button-text {
+    margin-right: 38px;
+}
+#funcionalidades .funcionalidades-content-button #CTAButton .cta-button-icon-content-icon {
+    transform: rotate(-90deg);
+}
+
+.mr-3{
+    margin-right: 3%;
+}

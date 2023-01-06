@@ -3,9 +3,7 @@ import "../../css/estilos-planes-precios.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fontsource/poppins";
-import "../../css/font-multicolor.css";
-
-
+import "../../css/font-unicolor.css";
 import { Footer } from "../Components/Footer/Footer";
 import Header from "@/Layouts/HeaderPublica";
 import BotonRegistrarse from '@/Components/BotonRegistrarse';
@@ -15,16 +13,6 @@ const Chile = (props) => {
         <>
             <Head title="Welcome" />
             <Header user={props}></Header>
-
-            <div className="clearfix bshadow0 pbs  ">
-                <span className="icon-colombia">
-                    <span className="path1">sadsadasdsadsad </span>
-                    <span className="path2"></span></span>
-                <span className="mls"> icon-colombia</span>
-            </div>
-
-
-
             <section id="planes" className="planes planes-container customers-planes container">
                 <div className="planes-info">
                     <p className="plan-info-title">Nuestros planes y precios</p>
@@ -197,7 +185,102 @@ const Chile = (props) => {
                 </div>
             </section>
 
-            <span className="icon-gmail">aa</span>
+            <section id="funcionalidades" class="funcionalidades container">
+                <div class="funcionalidades-info">
+                    <p class="funcionalidades-info-title">
+                        incluido en tu plan
+                    </p> <h2 class="funcionalidades-info-subtitle">
+                        Funcionalidades que te facilitan acceso a la información
+                    </h2>
+                </div> <div id="funcionalidades-list" class="funcionalidades-list">
+                    <ul class="funcionalidades-list-content">
+                        <div class="funcionalidades-list-column mr-3">
+
+                            <li class="funcionalidades-list-item">
+                                <div class="funcionalidad">
+                                    <img src="/images/planes/colombia.svg" alt="Item" class="funcionalidad-image" />
+                                    <p class="funcionalidad-text">
+                                        Monitoreo 24/7 de todas las fuentes de información de<br></br> la contratación en Colombia.
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="funcionalidades-list-item">
+                                <div class="funcionalidad">
+                                    <img src="/images/planes/captcha.svg" alt="Item" class="funcionalidad-image" />
+                                    <p class="funcionalidad-text">
+                                        Desciframos por tí el código captcha.
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="funcionalidades-list-item">
+                                <div class="funcionalidad">
+                                    <img src="/images/planes/exportar.svg" alt="Item" class="funcionalidad-image" />
+                                    <p class="funcionalidad-text">
+                                        Exportación de procesos de contratación a Excel.
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="funcionalidades-list-item">
+                                <div class="funcionalidad">
+                                    <img src="/images/planes/acceso-contratacion.svg" alt="Item" class="funcionalidad-image" />
+                                    <p class="funcionalidad-text">
+                                        Acceso a la contratación de Panamá y Ecuador.
+                                    </p>
+                                </div>
+                            </li>
+
+                        </div> <div class="funcionalidades-list-column">
+                            <li class="funcionalidades-list-item">
+                                <div class="funcionalidad">
+                                    <img src="/images/planes/seguimiento.svg" alt="Item" class="funcionalidad-image" />
+                                    <p class="funcionalidad-text">
+                                        Seguimiento a la publicación de nuevos documentos.
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="funcionalidades-list-item">
+                                <div class="funcionalidad">
+                                    <img src="/images/planes/correo.svg" alt="Item" class="funcionalidad-image" />
+                                    <p class="funcionalidad-text">
+                                        Notificamos al correo de cada oportunidad de negocio para tí.
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="funcionalidades-list-item">
+                                <div class="funcionalidad">
+                                    <img src="/images/planes/app.svg" alt="Item" class="funcionalidad-image" />
+                                    <p class="funcionalidad-text">
+                                        App móvil
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="funcionalidades-list-item">
+                                <div class="funcionalidad visit-funcionalities">
+                                    <a href="/colombia/funcionalidades">
+                                        <img src="/images/planes/conocer-mas.svg" alt="Item" class="funcionalidad-image" />
+                                        <p class="funcionalidad-text mark-text">
+                                            Conoce todas las funcionalidades
+                                        </p> <span class="icon-down icon">
+
+                                        </span>
+                                    </a>
+                                </div>
+                            </li>
+
+                        </div>
+                    </ul>
+                </div> <div class="funcionalidades-content-button">
+                    <BotonRegistrarse
+                        texto={"Adquirir un plan"}
+                        textoHover={"Escoger mi plan"}
+                        color={"white"}
+                        colorHover={"#00A1C9"}
+                    />
+
+
+                </div>
+            </section>
+
             <Footer />
         </>
     )
