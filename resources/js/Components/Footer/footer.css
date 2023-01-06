@@ -18,7 +18,7 @@ footer {
 }
 
 .container {
-    width: 1233px;
+    width: 1233px !important;
 }
 
 .container-flex {
