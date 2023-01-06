@@ -121,9 +121,9 @@ export default function Contacto(props) {
                                                                 </div>
                                                                 <div className="contactenos_form--campo-telefono">
                                                                 <div className="contactenos_form--campo-indicativo">
-                                                                    <img src="/public/images/banderas/listado_nombres/COL.svg" alt="imagen bandera seleccionada"
+                                                                    <img src="/public/images/banderas/listado_nombres/CHL.svg" alt="imagen bandera seleccionada"
                                                                         className="contactenos_form--campo-indicativo-bandera"/>
-                                                                    <span for="" className="contactenos_form--campo-indicativo-nombrepais"> +57 </span>
+                                                                    <span for="" className="contactenos_form--campo-indicativo-nombrepais"> +56 </span>
                                                                     <span className="icon-down contactenos_form--campo-indicativo-icoflecha"></span>
                                                                 </div>
                                                                 <hr data-v-74a0c684="" className="linea__divisoria" style={{ width: 4 + 'px', height: 18 + 'px' }}/>
@@ -193,6 +193,7 @@ export default function Contacto(props) {
                                                 </div>
                                             </Tab>
                                             <Tab eventKey="preguntas-frecuentes" title="preguntas-frecuentes">
+                                            <div className="navegacion-contactenos--text-content">
                                                 <h3>Preguntas Frecuentes</h3>
                                                 <Accordion>
                                                     <Accordion.Item eventKey="0">
@@ -283,6 +284,7 @@ export default function Contacto(props) {
                                                         </Accordion.Body>
                                                     </Accordion.Item>
                                                 </Accordion>
+                                                </div>
                                             </Tab>
                                         </Tabs>
 
