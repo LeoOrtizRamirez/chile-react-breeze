@@ -28,6 +28,9 @@ Route::get('/nosotros', function () {
     return Inertia::render('Nosotros');
 });
 
+Route::get('/funcionalidades', function () { 
+    return Inertia::render('Funcionalidades');
+});
 
 Route::get('/dashboard', [ContratoController::class, 'index']
 )->middleware(['auth', 'verified'])->name('dashboard');
