@@ -40,22 +40,23 @@ export const Paises = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div className="modal-filter__list scrollable">
-                        {
-                        
+                    
+                    {
                         Countries[0] != undefined ? 
                             Countries.map((Country, index) => (
                                 <>
-                                    <div>
-                                        <div className="result result--pinned dashed dashed" onClick={() => changeCountry(Country)}>
-                                            <img src={Country.image} alt=""
-                                                className="result__bandera-icono-listado" />
-                                            <span className="result__nombre">{Country.title}</span>
-                                            <span className="result__ext">{Country.indicative}</span>
-                                            {Country.fixed &&
-                                                <img src="/public/images/banderas/listado_nombres/fijado.svg" alt="Fijado"
-                                                    className="pinned-icon" />
-                                            }
+                                    <div className="modal-filter__list scrollable">
+                                        <div>
+                                            <div className="result result--pinned dashed dashed" onClick={() => changeCountry(Country)}>
+                                                <img src={Country.image} alt=""
+                                                    className="result__bandera-icono-listado" />
+                                                <span className="result__nombre">{Country.title}</span>
+                                                <span className="result__ext">{Country.indicative}</span>
+                                                {Country.fixed &&
+                                                    <img src="/public/images/banderas/listado_nombres/fijado.svg" alt="Fijado"
+                                                        className="pinned-icon" />
+                                                }
+                                            </div>
                                         </div>
                                     </div>
                                 </>
@@ -69,11 +70,10 @@ export const Paises = (props) => {
                             </div>
                             <img src="/public/images/sin-resultados-busqueda.webp" alt="Sin resultados"/>
                         </div>
-                        }
-                        
+                    }
                     </div>
                 </div>
-            </div>
+            
         </>
     );
 }
