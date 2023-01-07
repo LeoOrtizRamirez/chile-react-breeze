@@ -19,7 +19,7 @@ import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-import Paises from '@/Components/Paises';
+import { Paises } from '@/Components/Paises';
 
 //import Sonnet from '../../components/Sonnet';
 
@@ -27,6 +27,9 @@ export default function Contacto(props) {
 
     const [key, setKey] = useState('escribenos');
     const [show, setShow] = useState(false);
+    const [Country, SetCountry] = useState(
+        { image: "/images/banderas/listado_nombres/CHL.svg", "title": "Chile", "indicative": "+56", "fixed": true },
+    )
 
     const print = (val) => {
         if (val == "whatsapp") {
@@ -45,10 +48,13 @@ export default function Contacto(props) {
         document.body.removeChild(aux);
     }
 
-
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const addCountry = (country) => {
+        SetCountry(country)
+        setShow(false)
+    }
 
     return (
         <>
@@ -141,9 +147,9 @@ export default function Contacto(props) {
                                                                 </div>
                                                                 <div className="contactenos_form--campo-telefono">
                                                                     <div className="contactenos_form--campo-indicativo" onClick={handleShow}>
-                                                                        <img src="/public/images/banderas/listado_nombres/CHL.svg" alt="imagen bandera seleccionada"
+                                                                        <img src={Country.image} alt="imagen bandera seleccionada"
                                                                             className="contactenos_form--campo-indicativo-bandera" />
-                                                                        <span htmlFor="" className="contactenos_form--campo-indicativo-nombrepais"> +56 </span>
+                                                                        <span htmlFor="" className="contactenos_form--campo-indicativo-nombrepais"> {Country.indicative} </span>
                                                                         <span className="icon-down contactenos_form--campo-indicativo-icoflecha"></span>
                                                                     </div>
                                                                     <hr data-v-74a0c684="" className="linea__divisoria" style={{ width: 4 + 'px', height: 18 + 'px' }} />
@@ -159,7 +165,7 @@ export default function Contacto(props) {
                                                                 <Modal show={show} onHide={handleClose}>
                                                                     <Modal.Header closeButton>
                                                                     </Modal.Header>
-                                                                    <Modal.Body><Paises/></Modal.Body>
+                                                                    <Modal.Body><Paises addCountry={addCountry}/></Modal.Body>
                                                                     <Modal.Footer>
                                                                     </Modal.Footer>
                                                                 </Modal>
@@ -217,7 +223,7 @@ export default function Contacto(props) {
                                                         <div className="navegacion-contactenos--content-ubicacion-google">
                                                             <a
                                                                 href="https://www.google.com/maps/place/Licitaciones.Info/@5.0508836,-75.484211,15z/data=!4m5!3m4!1s0x0:0x6150198db5afae40!8m2!3d5.0508836!4d-75.484211"
-                                                                target="_blank" className='d-flex'><img src="/public/images/contacto/google_maps.svg" alt="Logo google maps" /> Ver en maps </a>
+                                                                target="_blank" className='d-flex'><img src="/images/contacto/google_maps.svg" alt="Logo google maps" /> Ver en maps </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -273,9 +279,9 @@ export default function Contacto(props) {
                                                                     <p className="card-text">Nuestra app móvil se encuentra disponible para sistemas operativos Android y iOS, nos puedes encontrar como Licitaciones.info. <br /><br />Para ingresar debes iniciar sesión con tu correo electrónico registrado en licitaciones.info y la misma contraseña de acceso al portal. <br /><br />El uso de nuestra APP no tiene ningún costo para nuestros suscriptores.</p>
                                                                     <div className="navegacion-contactenos--content-img-acordeon d-flex">
                                                                         <a href="https://play.google.com/store/apps/details?id=com.setcon.licitacionesinfo&amp;hl=es" target="_blank">
-                                                                            <img src="/public/icons/multicolor/google_play.webp" alt="Logo google play" /></a>
+                                                                            <img src="/icons/multicolor/google_play.webp" alt="Logo google play" /></a>
                                                                         <a href="https://apps.apple.com/co/app/licitaciones/id1210052711" target="_blank">
-                                                                            <img src="/public/icons/multicolor/app-store.svg" alt="Logo app store" />
+                                                                            <img src="/icons/multicolor/app-store.svg" alt="Logo app store" />
                                                                         </a>
                                                                     </div>
                                                                 </div>
@@ -369,14 +375,14 @@ export default function Contacto(props) {
                                     <div className="informacion-empresa--title"><i className="icon-social"></i><span>Redes sociales:</span>
                                     </div>
                                     <div className="informacion-empresa--img"><a href="https://www.facebook.com/licitacionesInfo/" target="_blank"><img
-                                        src="/public/icons/multicolor/facebook.svg" alt="logo facebook" /></a><a
+                                        src="/icons/multicolor/facebook.svg" alt="logo facebook" /></a><a
                                             href="https://www.linkedin.com/company/licitaciones.info/about/" target="_blank">
                                             <img
-                                                src="/public/icons/multicolor/linkedin.svg" alt="logo linkedin" /></a><a
+                                                src="/icons/multicolor/linkedin.svg" alt="logo linkedin" /></a><a
                                                     href="https://www.youtube.com/c/LicitacionesInfo" target="_blank"><img
-                                                src="/public/icons/multicolor/youtube.svg" alt="logo youtube" /></a><a
+                                                src="/icons/multicolor/youtube.svg" alt="logo youtube" /></a><a
                                                     href="https://twitter.com/licitacionesinf?lang=es" target="_blank"><img
-                                                src="/public/icons/multicolor/twitter.svg" alt="logo twitter" /></a>
+                                                src="/icons/multicolor/twitter.svg" alt="logo twitter" /></a>
                                     </div>
                                 </div>
                             </div>
