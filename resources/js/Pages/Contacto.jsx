@@ -19,7 +19,7 @@ import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-import Paises from '@/Components/Paises';
+import { Paises } from '@/Components/Paises';
 
 //import Sonnet from '../../components/Sonnet';
 
@@ -27,6 +27,9 @@ export default function Contacto(props) {
 
     const [key, setKey] = useState('escribenos');
     const [show, setShow] = useState(false);
+    const [Country, SetCountry] = useState(
+        { image: "/images/banderas/listado_nombres/CHL.svg", "title": "Chile", "indicative": "+56", "fixed": true },
+    )
 
     const print = (val) => {
         if (val == "whatsapp") {
@@ -49,6 +52,12 @@ export default function Contacto(props) {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+
+    const addCountry = (country) => {
+        SetCountry(country)
+        setShow(false)
+    }
 
     return (
         <>
@@ -141,9 +150,9 @@ export default function Contacto(props) {
                                                                 </div>
                                                                 <div className="contactenos_form--campo-telefono">
                                                                     <div className="contactenos_form--campo-indicativo" onClick={handleShow}>
-                                                                        <img src="/public/images/banderas/listado_nombres/CHL.svg" alt="imagen bandera seleccionada"
+                                                                        <img src={Country.image} alt="imagen bandera seleccionada"
                                                                             className="contactenos_form--campo-indicativo-bandera" />
-                                                                        <span htmlFor="" className="contactenos_form--campo-indicativo-nombrepais"> +56 </span>
+                                                                        <span htmlFor="" className="contactenos_form--campo-indicativo-nombrepais"> {Country.indicative} </span>
                                                                         <span className="icon-down contactenos_form--campo-indicativo-icoflecha"></span>
                                                                     </div>
                                                                     <hr data-v-74a0c684="" className="linea__divisoria" style={{ width: 4 + 'px', height: 18 + 'px' }} />
@@ -159,7 +168,7 @@ export default function Contacto(props) {
                                                                 <Modal show={show} onHide={handleClose}>
                                                                     <Modal.Header closeButton>
                                                                     </Modal.Header>
-                                                                    <Modal.Body><Paises/></Modal.Body>
+                                                                    <Modal.Body><Paises addPaises="" addCountry={addCountry}/></Modal.Body>
                                                                     <Modal.Footer>
                                                                     </Modal.Footer>
                                                                 </Modal>
