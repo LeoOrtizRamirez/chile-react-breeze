@@ -53,7 +53,7 @@ export const Paises = (props) => {
                                             <span className="result__nombre">{Country.title}</span>
                                             <span className="result__ext">{Country.indicative}</span>
                                             {Country.fixed &&
-                                                <img src="/public/images/banderas/listado_nombres/fijado.svg" alt="Fijado"
+                                                <img src="/images/banderas/listado_nombres/fijado.svg" alt="Fijado"
                                                     className="pinned-icon" />
                                             }
                                         </div>
