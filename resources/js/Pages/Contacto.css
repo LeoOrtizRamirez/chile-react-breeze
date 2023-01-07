@@ -1108,3 +1108,7 @@ body {
     color: #686868;
     font-size: 20px;
 }
+
+.modal-filter__list.scrollable{
+    padding: 0 50px !important;
+}
