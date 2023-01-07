@@ -28,7 +28,7 @@ export default function Contacto(props) {
     const [key, setKey] = useState('escribenos');
     const [show, setShow] = useState(false);
     const [Country, SetCountry] = useState(
-        { image: "/images/banderas/listado_nombres/CHL.svg", "title": "Chile", "indicative": "+56", "fixed": true },
+        { image: "/public/images/banderas/listado_nombres/CHL.svg", "title": "Chile", "indicative": "+56", "fixed": true },
     )
 
     const print = (val) => {
@@ -223,7 +223,7 @@ export default function Contacto(props) {
                                                         <div className="navegacion-contactenos--content-ubicacion-google">
                                                             <a
                                                                 href="https://www.google.com/maps/place/Licitaciones.Info/@5.0508836,-75.484211,15z/data=!4m5!3m4!1s0x0:0x6150198db5afae40!8m2!3d5.0508836!4d-75.484211"
-                                                                target="_blank" className='d-flex'><img src="/images/contacto/google_maps.svg" alt="Logo google maps" /> Ver en maps </a>
+                                                                target="_blank" className='d-flex'><img src="/public/images/contacto/google_maps.svg" alt="Logo google maps" /> Ver en maps </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -279,9 +279,9 @@ export default function Contacto(props) {
                                                                     <p className="card-text">Nuestra app móvil se encuentra disponible para sistemas operativos Android y iOS, nos puedes encontrar como Licitaciones.info. <br /><br />Para ingresar debes iniciar sesión con tu correo electrónico registrado en licitaciones.info y la misma contraseña de acceso al portal. <br /><br />El uso de nuestra APP no tiene ningún costo para nuestros suscriptores.</p>
                                                                     <div className="navegacion-contactenos--content-img-acordeon d-flex">
                                                                         <a href="https://play.google.com/store/apps/details?id=com.setcon.licitacionesinfo&amp;hl=es" target="_blank">
-                                                                            <img src="/icons/multicolor/google_play.webp" alt="Logo google play" /></a>
+                                                                            <img src="/public/icons/multicolor/google_play.webp" alt="Logo google play" /></a>
                                                                         <a href="https://apps.apple.com/co/app/licitaciones/id1210052711" target="_blank">
-                                                                            <img src="/icons/multicolor/app-store.svg" alt="Logo app store" />
+                                                                            <img src="/public/icons/multicolor/app-store.svg" alt="Logo app store" />
                                                                         </a>
                                                                     </div>
                                                                 </div>
@@ -375,14 +375,14 @@ export default function Contacto(props) {
                                     <div className="informacion-empresa--title"><i className="icon-social"></i><span>Redes sociales:</span>
                                     </div>
                                     <div className="informacion-empresa--img"><a href="https://www.facebook.com/licitacionesInfo/" target="_blank"><img
-                                        src="/icons/multicolor/facebook.svg" alt="logo facebook" /></a><a
+                                        src="/public/icons/multicolor/facebook.svg" alt="logo facebook" /></a><a
                                             href="https://www.linkedin.com/company/licitaciones.info/about/" target="_blank">
                                             <img
-                                                src="/icons/multicolor/linkedin.svg" alt="logo linkedin" /></a><a
+                                                src="/public/icons/multicolor/linkedin.svg" alt="logo linkedin" /></a><a
                                                     href="https://www.youtube.com/c/LicitacionesInfo" target="_blank"><img
-                                                src="/icons/multicolor/youtube.svg" alt="logo youtube" /></a><a
+                                                src="/public/icons/multicolor/youtube.svg" alt="logo youtube" /></a><a
                                                     href="https://twitter.com/licitacionesinf?lang=es" target="_blank"><img
-                                                src="/icons/multicolor/twitter.svg" alt="logo twitter" /></a>
+                                                src="/public/icons/multicolor/twitter.svg" alt="logo twitter" /></a>
                                     </div>
                                 </div>
                             </div>
