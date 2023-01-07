@@ -48,7 +48,7 @@ export default function Nosotros(props) {
                         <p className="somos__texto-plataforma">La plataforma digital que facilita el acceso equitativo a miles de licitaciones en un solo lugar a través del mejor sistema de procesamiento de información, gracias a que combinamos innovación tecnológica con talento humano especializado en el análisis de datos.</p>
                     </div>
                     <div className="somos__imagen col-lg-6 col-sm-12">
-                        <img src="/images/nosotros/imagen-somos.png" alt="" className="somos__imagen-somos" />
+                        <img src="/public/images/nosotros/imagen-somos.png" alt="" className="somos__imagen-somos" />
                     </div>
                 </div>
             </section>
@@ -64,7 +64,7 @@ export default function Nosotros(props) {
                 <div className="motivos row">
                     <div className="col-lg-6 motivos-volumenes">
                         <div className="motivos__informacion">
-                            <img src="/images/nosotros/volumenes.svg" alt="Columenes" className="motivos__informacion-imagen" />
+                            <img src="/public/images/nosotros/volumenes.svg" alt="Columenes" className="motivos__informacion-imagen" />
                             <h5 className="motivos__informacion-titulo">Grandes volúmenes de información</h5>
                             <p className="motivos__informacion-texto">Tus oportunidades de negocio se ven opacadas por las miles de
                                 convocatorias que se publican diariamente.</p>
@@ -77,7 +77,7 @@ export default function Nosotros(props) {
                     </div>
                     <div className="col-lg-6 motivos-clasificacion">
                         <div className="motivos__informacion">
-                            <img src="/images/nosotros/clasificacion.svg" alt="Clasificacion" className="motivos__informacion-imagen" />
+                            <img src="/public/images/nosotros/clasificacion.svg" alt="Clasificacion" className="motivos__informacion-imagen" />
                             <h5 className="motivos__informacion-titulo">Problemas de clasificación</h5>
                             <p className="motivos__informacion-texto">Debido a la complejidad del lenguaje utilizado para organizar la
                                 información.</p>
@@ -106,13 +106,13 @@ export default function Nosotros(props) {
                             </p>
                         </div>
                         <div className="seccion__imagen col-lg-6 col-sm-12">
-                            <img src="/images/nosotros/trayectoria.webp" alt="Trayectoria" />
+                            <img src="/public/images/nosotros/trayectoria.webp" alt="Trayectoria" />
                         </div>
                     </div>
                     <div className="valor row">
                         <div className="valor__empresa col-lg-6 col-sm-12">
                             <div className="valor__empresa-titulo">
-                                <img src="/images/nosotros/equidad.svg" alt="Equidad y pluralidad" />
+                                <img src="/public/images/nosotros/equidad.svg" alt="Equidad y pluralidad" />
                                 <h5 className="valor__titulo">Equidad y pluralidad</h5>
                             </div>
                             <p className="valor__empresa-texto">
@@ -123,7 +123,7 @@ export default function Nosotros(props) {
                         </div>
                         <div className="valor__empresa col-lg-6 col-sm-12">
                             <div className="valor__empresa-titulo">
-                                <img src="/images/nosotros/transparencia.svg" alt="Transparencia" />
+                                <img src="/public/images/nosotros/transparencia.svg" alt="Transparencia" />
                                 <h5 className="valor__titulo">Transparencia</h5>
                             </div>
                             <p className="valor__empresa-texto">
@@ -136,7 +136,7 @@ export default function Nosotros(props) {
                     <div className="valor row">
                         <div className="valor__empresa col-lg-6 col-sm-12">
                             <div className="valor__empresa-titulo">
-                                <img src="/images/nosotros/equipo.svg" alt="Trabajo en equipo" />
+                                <img src="/public/images/nosotros/equipo.svg" alt="Trabajo en equipo" />
                                 <h5 className="valor__titulo">Trabajo en equipo</h5>
                             </div>
                             <p className="valor__empresa-texto">
@@ -147,7 +147,7 @@ export default function Nosotros(props) {
                         </div>
                         <div className="valor__empresa col-lg-6 col-sm-12">
                             <div className="valor__empresa-titulo">
-                                <img src="/images/nosotros/innovacion.svg" alt="Innovación" />
+                                <img src="/public/images/nosotros/innovacion.svg" alt="Innovación" />
                                 <h5 className="valor__titulo">Innovación</h5>
                             </div>
                             <p className="valor__empresa-texto">
