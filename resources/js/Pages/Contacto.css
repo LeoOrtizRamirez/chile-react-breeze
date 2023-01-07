@@ -693,13 +693,21 @@ button.btn-close {
     width:60px;height:60px
 }
 .botonera__cerrar,.btn-close{
-    border-radius:30px;border:0;color:#686868
+    border-radius:30px !important;
+    border:0 !important;
+    color:#686868 !important;
 }
 .btn-close{
-    width:50px;height:50px;position:absolute;top:11px;right:11px;background-color: #f0f0f0;
+    width:50px !important;
+    height:50px !important;
+    position:absolute !important;
+    top:11px !important;
+    right:11px !important;
+    background-color: #f0f0f0 !important;
 }
 .btn-close:hover{
-    background-color:#c9003d;color:#fff
+    background-color:#c9003d !important;
+    color:#fff !important;
 }
 .btn-close:focus{
     outline:none
@@ -1088,4 +1096,9 @@ body {
 .modal-footer{
     border-top: none !important;
     padding: 0px !important;
+}
+
+.modal-header{
+    border-bottom: 0px !important;
+    padding: 0.5rem 0.5rem 0rem 0.5rem !important;
 }
