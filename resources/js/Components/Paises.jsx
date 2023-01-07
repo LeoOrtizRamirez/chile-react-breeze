@@ -40,12 +40,11 @@ export const Paises = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div className="modal-filter__list scrollable-custom">
-                        {
-                        
-                        Countries[0] != undefined ? 
+                    {/* <div className="modal-filter__list scrollable-custom"> */}
+                        {Countries[0] != undefined ?
                             Countries.map((Country, index) => (
                                 <>
+                                <div className="modal-filter__list scrollable-custom">
                                     <div>
                                         <div className="result result--pinned dashed dashed" onClick={() => changeCountry(Country)}>
                                             <img src={Country.image} alt=""
@@ -58,20 +57,20 @@ export const Paises = (props) => {
                                             }
                                         </div>
                                     </div>
+                                </div>
                                 </>
                             ))
                         :
-                        <div className="modal-filter__no-results">
-                            <p className="main-title">Sin resultados.</p>
-                            <div className="subtitle-content d-flex align-items-center">
-                                <span className="icon-Bombillo"></span>
-                                <p className="subtitle"> No se obtuvieron resultados en su búsqueda, intente de nuevo, por favor. </p>
+                            <div className="modal-filter__no-results">
+                                <p className="main-title">Sin resultados.</p>
+                                <div className="subtitle-content d-flex align-items-center">
+                                    <span className="icon-Bombillo"></span>
+                                    <p className="subtitle"> No se obtuvieron resultados en su búsqueda, intente de nuevo, por favor. </p>
+                                </div>
+                                <img src="/public/images/sin-resultados-busqueda.webp" alt="Sin resultados" />
                             </div>
-                            <img src="/public/images/sin-resultados-busqueda.webp" alt="Sin resultados"/>
-                        </div>
                         }
-                        
-                    </div>
+                    {/* </div> */}
                 </div>
             </div>
         </>
