@@ -696,6 +696,7 @@ button.btn-close {
     border-radius:30px !important;
     border:0 !important;
     color:#686868 !important;
+    opacity: 1 !important;
 }
 .btn-close{
     width:50px !important;
@@ -1101,4 +1102,13 @@ body {
 .modal-header{
     border-bottom: 0px !important;
     padding: 0.5rem 0.5rem 0rem 0.5rem !important;
+}
+
+.modal-filter__list.scrollable {
+    padding: 0px !important;
+}
+
+.modal-filter {
+    color: #686868;
+    font-size: 20px;
 }
