@@ -1104,13 +1104,11 @@ body {
     padding: 0.5rem 0.5rem 0rem 0.5rem !important;
 }
 
+.modal-filter__list.scrollable {
+    padding: 0 50px !important;
+}
+
 .modal-filter {
     color: #686868;
     font-size: 20px;
-}
-
-@media (min-width: 992px){
-.modal-filter__list {
-    padding: 0 50px !important;
-}
 }
