@@ -747,7 +747,7 @@ button.btn-close {
     color:#c9003d!important
 }
 .modal-filter__list{
-    max-height:67vh;min-height:0vh;overflow-x:hidden;padding:0 30px 0 50px;size:7px;scrollbar-width:thin;scrollbar-color:#9c9b9b #eee
+    max-height:67vh;min-height:20vh;overflow-x:hidden;padding:0 30px 0 50px;size:7px;scrollbar-width:thin;scrollbar-color:#9c9b9b #eee
 }
 .modal-filter__list.scrollable{
     overflow-y:scroll
