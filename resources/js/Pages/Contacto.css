@@ -749,7 +749,7 @@ button.btn-close {
 .modal-filter__list{
     max-height:67vh;min-height:20vh;overflow-x:hidden;padding:0 30px 0 50px !important;size:7px;scrollbar-width:thin;scrollbar-color:#9c9b9b #eee
 }
-.modal-filter__list.scrollable{
+.modal-filter__list.scrollable-custom{
     overflow-y:scroll
 }
 .modal-filter__list:not(.scrollable){
@@ -1104,7 +1104,7 @@ body {
     padding: 0.5rem 0.5rem 0rem 0.5rem !important;
 }
 
-.modal-filter__list.scrollable {
+.modal-filter__list.scrollable-custom {
     padding: 0 50px !important;
 }
 

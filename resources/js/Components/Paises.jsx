@@ -40,7 +40,7 @@ export const Paises = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div className="modal-filter__list scrollable">
+                    <div className="modal-filter__list scrollable-custom">
                         {
                         
                         Countries[0] != undefined ? 
