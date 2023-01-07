@@ -1086,8 +1086,8 @@ i.icon-copy {
 
 
 .modal-content {
-    border-radius: 29px;
-    border: 0px;
+    border-radius: 29px !important;
+    border: 0px !important;
 }
 
 body {
