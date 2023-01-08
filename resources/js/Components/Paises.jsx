@@ -42,10 +42,9 @@ export const Paises = (props) => {
                     </div>
 
 
-
-                    <div className="modal-filter__list scrollable-custom">
-                        {Countries[0] != undefined &&
-                            Countries.map((Country, index) => (
+                    {Countries[0] != undefined ?
+                        <div className="modal-filter__list scrollable-custom">
+                            {Countries.map((Country, index) => (
                                 <div>
                                     <div className="result result--pinned dashed dashed" onClick={() => changeCountry(Country)}>
                                         <img src={Country.image} alt=""
@@ -58,10 +57,9 @@ export const Paises = (props) => {
                                         }
                                     </div>
                                 </div>
-                            ))
-                        }
-                    </div>
-                    {Countries[0] == undefined &&
+                            ))}
+                        </div>
+                    :
                         <div className="modal-filter__no-results">
                             <p className="main-title">Sin resultados.</p>
                             <div className="subtitle-content d-flex align-items-center">
