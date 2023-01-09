@@ -358,5 +358,4 @@ export const Funcionalidades = (props) => {
         </>
     );
 };
-
 export default Funcionalidades;
