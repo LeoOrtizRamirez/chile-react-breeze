@@ -1,5 +1,5 @@
 import React from "react";
-import "./funcionalidades.css";
+import "./Funcionalidades.css";
 import { Head } from "@inertiajs/inertia-react";
 import { Footer } from "../Components/Footer/Footer";
 import Header from "@/Layouts/HeaderPublica";
