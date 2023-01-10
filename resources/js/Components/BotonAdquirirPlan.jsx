@@ -5,7 +5,7 @@ const BotonAdquirirPlan = (props) => {
         <div className="col-12">
             <a href="#planes" className={`td-none cta-button bg-${props.color} shadow-button banner-video-paises__button hover:bg-[${props.colorHover}]`}>
     
-                <div className="cta-content">
+                <div className="cta-content"> 
                     <span className="cta-button-text">{props.texto}</span>
                     <div className={`cta-button-icon-content`}>
                         <span className={`cta-button-icon-content-hidden-text `}>{props.textoHover}</span>
