@@ -35,6 +35,8 @@ export default function Example(props) {
             email: '',
             password: '',
         })
+        setInputClass("form-input-section__container-input")
+        setValidForm(true)
     }
 
     const submit = (e) => {
