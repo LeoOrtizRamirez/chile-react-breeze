@@ -5,24 +5,24 @@ const CarouselImagenes = () => {
     <div className="col-span-6 carousel customersCarousel">
                     <div className="carousel-row">
                    
-                        <img src="/images/carousel/Alianza.webp" alt="Alianza" />
-                        <img src="/images/carousel/Apolo.webp" alt="Apolo" />
-                        <img src="/images/carousel/Areaandina.webp" alt="Areaandina" />
-                        <img src="/images/carousel/Argos.webp" alt="Argos" />
-                        <img src="/images/carousel/Aseguradorasolidaria.webp" alt="Aseguradora solidaria" />
-                        <img src="/images/carousel/Bancolombia.webp" alt="Bancolombia" />
-                        <img src="/images/carousel/Camacol.webp" alt="Camacol" />
-                        <img src="/images/carousel/Caracolradio.webp" alt="Caracol radio" />
-                        <img src="/images/carousel/Cavelier.webp" alt="Cavelier" />
-                        <img src="/images/carousel/Ceder.webp" alt="Ceder" />
-                        <img src="/images/carousel/Colpatriaconstruxtora.webp" alt="Colpatria construxtora" />
-                        <img src="/images/carousel/Colpatriafiduciaria.webp" alt="Colpatria fiduciaria" />
-                        <img src="/images/carousel/Cruzroja.webp" alt="Cruz roja" />
-                        <img src="/images/carousel/Custodia.webp" alt="Custodia" />
-                        <img src="/images/carousel/Davivienda.webp" alt="Davivienda" />
-                        <img src="/images/carousel/Dobleclick.webp" alt="Dobleclick" />
-                        <img src="/images/carousel/Doxa.webp" alt="Doxa" />
-                        <img src="/images/carousel/Egis.webp" alt="Egis" />
+                        <img src="/public/images/carousel/Alianza.webp" alt="Alianza" />
+                        <img src="/public/images/carousel/Apolo.webp" alt="Apolo" />
+                        <img src="/public/images/carousel/Areaandina.webp" alt="Areaandina" />
+                        <img src="/public/images/carousel/Argos.webp" alt="Argos" />
+                        <img src="/public/images/carousel/Aseguradorasolidaria.webp" alt="Aseguradora solidaria" />
+                        <img src="/public/images/carousel/Bancolombia.webp" alt="Bancolombia" />
+                        <img src="/public/images/carousel/Camacol.webp" alt="Camacol" />
+                        <img src="/public/images/carousel/Caracolradio.webp" alt="Caracol radio" />
+                        <img src="/public/images/carousel/Cavelier.webp" alt="Cavelier" />
+                        <img src="/public/images/carousel/Ceder.webp" alt="Ceder" />
+                        <img src="/public/images/carousel/Colpatriaconstruxtora.webp" alt="Colpatria construxtora" />
+                        <img src="/public/images/carousel/Colpatriafiduciaria.webp" alt="Colpatria fiduciaria" />
+                        <img src="/public/images/carousel/Cruzroja.webp" alt="Cruz roja" />
+                        <img src="/public/images/carousel/Custodia.webp" alt="Custodia" />
+                        <img src="/public/images/carousel/Davivienda.webp" alt="Davivienda" />
+                        <img src="/public/images/carousel/Dobleclick.webp" alt="Dobleclick" />
+                        <img src="/public/images/carousel/Doxa.webp" alt="Doxa" />
+                        <img src="/public/images/carousel/Egis.webp" alt="Egis" /> 
                     </div>
 
 
