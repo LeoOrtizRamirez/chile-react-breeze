@@ -28,16 +28,25 @@ export default function Example(props) {
 
     /*Modal*/
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleClose = () => {
+        setShow(false);
+        setData({
+            email: '',
+            password: '',
+        })
+        setInputClass("form-input-section__container-input")
+        setValidForm(true)
+    }
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('login'));
-        if (errors) {
-            setInputClass("form-input-section__container-input form-input-section__container-inputError")
-            setValidForm(false)
-        }
+        post(route('login'),{
+            onError: () =>{
+                setInputClass("form-input-section__container-input form-input-section__container-inputError")
+                setValidForm(false)
+            }
+        });
     };
 
     const handleTogglePasswordIcon = (e) =>{
