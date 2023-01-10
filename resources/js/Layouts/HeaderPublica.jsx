@@ -41,11 +41,12 @@ export default function Example(props) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('login'));
-        if (errors) {
-            setInputClass("form-input-section__container-input form-input-section__container-inputError")
-            setValidForm(false)
-        }
+        post(route('login'),{
+            onError: () =>{
+                setInputClass("form-input-section__container-input form-input-section__container-inputError")
+                setValidForm(false)
+            }
+        });
     };
 
     const handleTogglePasswordIcon = (e) =>{
