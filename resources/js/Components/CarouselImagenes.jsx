@@ -35,7 +35,7 @@ const CarouselImagenes = () => {
                         <img src="/public/images/carousel/Fiduagraria.webp" alt="Fiduagraria" />
                         <img src="/public/images/carousel/GBarco.webp" alt="GBarco" />
                         <img src="/public/images/carousel/GCSI.webp" alt="GCSI" />
-                        <img src="/public/images/carousel/Global SAT.webp" alt="Global SAT" />
+                        <img src="/public/images/carousel/GlobalSAT.webp" alt="Global SAT" />
                         <img src="/public/images/carousel/Hospitecnica.webp" alt="Hospitécnica" />
                         <img src="/public/images/carousel/Icontec.webp" alt="Icontec" />
                         <img src="/public/images/carousel/Indra.webp" alt="Indra" />
