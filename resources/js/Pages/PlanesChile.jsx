@@ -198,7 +198,7 @@ const Chile = (props) => {
 
                             <li class="funcionalidades-list-item">
                                 <div class="funcionalidad">
-                                    <img src="/images/planes/colombia.svg" alt="Item" class="funcionalidad-image" />
+                                    <img src="/public/images/planes/colombia.svg" alt="Item" class="funcionalidad-image" />
                                     <p class="funcionalidad-text">
                                         Monitoreo 24/7 de todas las fuentes de información de<br></br> la contratación en Colombia.
                                     </p>
@@ -206,7 +206,7 @@ const Chile = (props) => {
                             </li>
                             <li class="funcionalidades-list-item">
                                 <div class="funcionalidad">
-                                    <img src="/images/planes/captcha.svg" alt="Item" class="funcionalidad-image" />
+                                    <img src="/public/images/planes/captcha.svg" alt="Item" class="funcionalidad-image" />
                                     <p class="funcionalidad-text">
                                         Desciframos por tí el código captcha.
                                     </p>
@@ -214,7 +214,7 @@ const Chile = (props) => {
                             </li>
                             <li class="funcionalidades-list-item">
                                 <div class="funcionalidad">
-                                    <img src="/images/planes/exportar.svg" alt="Item" class="funcionalidad-image" />
+                                    <img src="/public/images/planes/exportar.svg" alt="Item" class="funcionalidad-image" />
                                     <p class="funcionalidad-text">
                                         Exportación de procesos de contratación a Excel.
                                     </p>
@@ -222,7 +222,7 @@ const Chile = (props) => {
                             </li>
                             <li class="funcionalidades-list-item">
                                 <div class="funcionalidad">
-                                    <img src="/images/planes/acceso-contratacion.svg" alt="Item" class="funcionalidad-image" />
+                                    <img src="/public/images/planes/acceso-contratacion.svg" alt="Item" class="funcionalidad-image" />
                                     <p class="funcionalidad-text">
                                         Acceso a la contratación de Panamá y Ecuador.
                                     </p>
@@ -232,7 +232,7 @@ const Chile = (props) => {
                         </div> <div class="funcionalidades-list-column">
                             <li class="funcionalidades-list-item">
                                 <div class="funcionalidad">
-                                    <img src="/images/planes/seguimiento.svg" alt="Item" class="funcionalidad-image" />
+                                    <img src="/public/images/planes/seguimiento.svg" alt="Item" class="funcionalidad-image" />
                                     <p class="funcionalidad-text">
                                         Seguimiento a la publicación de nuevos documentos.
                                     </p>
@@ -240,7 +240,7 @@ const Chile = (props) => {
                             </li>
                             <li class="funcionalidades-list-item">
                                 <div class="funcionalidad">
-                                    <img src="/images/planes/correo.svg" alt="Item" class="funcionalidad-image" />
+                                    <img src="/public/images/planes/correo.svg" alt="Item" class="funcionalidad-image" />
                                     <p class="funcionalidad-text">
                                         Notificamos al correo de cada oportunidad de negocio para tí.
                                     </p>
@@ -248,7 +248,7 @@ const Chile = (props) => {
                             </li>
                             <li class="funcionalidades-list-item">
                                 <div class="funcionalidad">
-                                    <img src="/images/planes/app.svg" alt="Item" class="funcionalidad-image" />
+                                    <img src="/public/images/planes/app.svg" alt="Item" class="funcionalidad-image" />
                                     <p class="funcionalidad-text">
                                         App móvil
                                     </p>
@@ -257,7 +257,7 @@ const Chile = (props) => {
                             <li class="funcionalidades-list-item">
                                 <div class="funcionalidad visit-funcionalities">
                                     <a href="/colombia/funcionalidades">
-                                        <img src="/images/planes/conocer-mas.svg" alt="Item" class="funcionalidad-image" />
+                                        <img src="/public/images/planes/conocer-mas.svg" alt="Item" class="funcionalidad-image" />
                                         <p class="funcionalidad-text mark-text">
                                             Conoce todas las funcionalidades
                                         </p> <span class="icon-down icon">
