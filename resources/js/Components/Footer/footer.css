@@ -51,7 +51,7 @@ footer {
 .size-support {
     width: 212px;
     height: 174px;
-    margin: 0px 0px 0px 297px;
+    margin: 0px 0px 0px 230px;
 }
 
 .size-politics {
@@ -101,5 +101,5 @@ span {
 }
 
 ul {
-    padding-left: 0;
+    padding-left: 0 !important;
 }
