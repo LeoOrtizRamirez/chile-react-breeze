@@ -44,7 +44,7 @@ export const Funcionalidades = (props) => {
                     </div>
                     <div className="img-pantallas">
                         <img
-                            src="/images/funcionalidades/Pantallas---Mockup@3x.png"
+                            src="/public/images/funcionalidades/Pantallas---Mockup@3x.png"
                             alt=""
                         />
                     </div>
@@ -62,7 +62,7 @@ export const Funcionalidades = (props) => {
                 <div className="container-segment">
                     <div class="div1">
                         <img
-                            src="/images/funcionalidades/Component 732 – 1@3x.png"
+                            src="/public/images/funcionalidades/Component 732 – 1@3x.png"
                             alt=""
                         />
                     </div>
@@ -84,7 +84,7 @@ export const Funcionalidades = (props) => {
                     </div>
                     <div class="div3 h-60 container-divs segment-img">
                         <img
-                            src="/images/funcionalidades/exportar.svg"
+                            src="/public/images/funcionalidades/exportar.svg"
                             alt=""
                         />
                         <h1 className="subtitle-segment ml-16">
@@ -99,7 +99,7 @@ export const Funcionalidades = (props) => {
                         </span>
                     </div>
                     <div class="div4 h-60 container-divs segment-img">
-                        <img src="/images/funcionalidades/lupa.svg" alt="" />
+                        <img src="/public/images/funcionalidades/lupa.svg" alt="" />
                         <h1 className="subtitle-segment ml-16">
                             Búsqueda intuitiva
                         </h1>
@@ -114,7 +114,7 @@ export const Funcionalidades = (props) => {
                     </div>
                     <div class="div5 h-60 container-divs segment-img">
                         <img
-                            src="/images/funcionalidades/historico.svg"
+                            src="/public/images/funcionalidades/historico.svg"
                             alt=""
                         />
                         <h1 className="subtitle-segment ml-16">
@@ -129,7 +129,7 @@ export const Funcionalidades = (props) => {
                         </span>
                     </div>
                     <div class="div6 h-60 container-divs segment-img">
-                        <img src="/images/funcionalidades/carpeta.svg" alt="" />
+                        <img src="/public/images/funcionalidades/carpeta.svg" alt="" />
                         <h1 className="subtitle-segment ml-16">Carpetas</h1>
                         <span className="text-segment">
                             Agrupa los procesos de contratación de acuerdo a tu
@@ -163,7 +163,7 @@ export const Funcionalidades = (props) => {
                         </div>
                         <div className="workteam-size">
                             <img
-                                src="/images/funcionalidades/workteam.png"
+                                src="/public/images/funcionalidades/workteam.png"
                                 alt=""
                             />
                         </div>
@@ -171,7 +171,7 @@ export const Funcionalidades = (props) => {
                     <div className="workteam-people-share-note">
                         <div className="workteam-psn workteam-icon">
                             <img
-                                src="/images/funcionalidades/people.svg"
+                                src="/public/images/funcionalidades/people.svg"
                                 alt=""
                             />
                             <h1 className="workteam-psn-title">
@@ -186,7 +186,7 @@ export const Funcionalidades = (props) => {
                         </div>
                         <div className="workteam-psn workteam-icon">
                             <img
-                                src="/images/funcionalidades/share.svg"
+                                src="/public/images/funcionalidades/share.svg"
                                 alt=""
                             />
                             <h1 className="workteam-psn-title">
@@ -200,7 +200,7 @@ export const Funcionalidades = (props) => {
                         </div>
                         <div className="workteam-psn workteam-icon">
                             <img
-                                src="/images/funcionalidades/note.svg"
+                                src="/public/images/funcionalidades/note.svg"
                                 alt=""
                             />
                             <h1 className="workteam-psn-title">
@@ -221,7 +221,7 @@ export const Funcionalidades = (props) => {
                     <div className="tracking">
                         <div className="tracking-size">
                             <img
-                                src="/images/funcionalidades/tracking.png"
+                                src="/public/images/funcionalidades/tracking.png"
                                 alt=""
                             />
                         </div>
@@ -259,7 +259,7 @@ export const Funcionalidades = (props) => {
 
                         <div className="tracking-sd tracking-icon">
                             <img
-                                src="/images/funcionalidades/captcha.svg"
+                                src="/public/images/funcionalidades/captcha.svg"
                                 alt=""
                             />
                             <h1 className="tracking-psn-title">
@@ -275,7 +275,7 @@ export const Funcionalidades = (props) => {
                         </div>
                         <div className="tracking-sd tracking-icon">
                             <img
-                                src="/images/funcionalidades/descarga.svg"
+                                src="/public/images/funcionalidades/descarga.svg"
                                 alt=""
                             />
                             <h1 className="tracking-psn-title">
@@ -330,14 +330,14 @@ export const Funcionalidades = (props) => {
                     </div>
                     <div className="change-size-img change-img">
                         <img
-                            src="/images/funcionalidades/business-team-and-manager-in-meeting@3x.png"
+                            src="/public/images/funcionalidades/business-team-and-manager-in-meeting@3x.png"
                             alt=""
                         />
                     </div>
                 </div>
                 <div className="container-btn">
                     <img
-                        src="/images/funcionalidades/Group 9592@3x.png"
+                        src="/public/images/funcionalidades/Group 9592@3x.png"
                         alt=""
                     />
                     <div className="container-baner-btn">
