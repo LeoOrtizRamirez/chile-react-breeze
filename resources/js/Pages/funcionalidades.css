@@ -52,7 +52,7 @@
 
 .title-functionalities {
     font-family: "Poppins", sans-serif;
-    font-size: 45px;
+    font-size: 40px;
     font-weight: revert;
     color: white;
     text-align: left;
@@ -441,4 +441,8 @@
     font-weight: revert;
     color: white;
     line-height: 25px;
+}
+
+.btn-banner-func {
+    margin: 0px 15px;
 }

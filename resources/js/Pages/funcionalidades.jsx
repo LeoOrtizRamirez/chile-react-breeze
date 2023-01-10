@@ -5,6 +5,7 @@ import { Footer } from "../Components/Footer/Footer";
 import Header from "@/Layouts/HeaderPublica";
 import BotonRegistrarse from "@/Components/BotonRegistrarse";
 import BotonAsesor from "@/Components/BotonHablarAsesor";
+import "../../css/font-unicolor.css";
 
 export const Funcionalidades = (props) => {
     return (
@@ -28,6 +29,16 @@ export const Funcionalidades = (props) => {
                             presentar propuestas más competitivas, por medio de
                             los datos que centralizamos para ti.
                         </span>
+                        <br />
+                        <br />
+                        <BotonRegistrarse
+                            texto={"Regístrate y obtén ¡30 días gratis!"}
+                            textoHover={
+                                "Regístrate y obtén 30 días de servicio"
+                            }
+                            color={"white"}
+                            colorHover={"#00A1C9"}
+                        />
                     </div>
                     <div className="img-pantallas">
                         <img
@@ -336,20 +347,22 @@ export const Funcionalidades = (props) => {
                             </span>
                         </div>
                         <div className="btn-flex">
+                            <div className="btn-banner-func">
                             <BotonRegistrarse
                                 texto={"Regístrate y obtén ¡30 días gratis!"}
-                                textoHover={
-                                    "Regístrate y obtén 30 días de servicio"
-                                }
+                                textoHover={"Regístrate y obtén 30 días de servicio"}
                                 color={"white"}
                                 colorHover={"#00A1C9"}
                             />
-                            <BotonAsesor
+                            </div>
+                            <div className="btn-banner-func">
+                                <BotonAsesor
                                 texto={"Habla con un consultor"}
                                 textoHover={"Resolver dudas ahora"}
                                 color={"white"}
                                 colorHover={"#00A1C9"}
-                            />
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
