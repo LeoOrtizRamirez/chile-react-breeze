@@ -22,7 +22,7 @@ const CarouselImagenes = () => {
                         <img src="/public/images/carousel/Davivienda.webp" alt="Davivienda" />
                         <img src="/public/images/carousel/Dobleclick.webp" alt="Dobleclick" />
                         <img src="/public/images/carousel/Doxa.webp" alt="Doxa" />
-                        <img src="/public/images/carousel/Egis.webp" alt="Egis" />
+                        <img src="/public/images/carousel/Egis.webp" alt="Egis" /> 
                     </div>
 
 
