@@ -40,7 +40,7 @@ const CarouselImagenes = () => {
                         <img src="/public/images/carousel/Icontec.webp" alt="Icontec" />
                         <img src="/public/images/carousel/Indra.webp" alt="Indra" />
                         <img src="/public/images/carousel/Interactuar.webp" alt="Interactuar" />
-                        <img src="/public/images/carousel/IT Synergy.webp" alt="IT Synergy" />
+                        <img src="/public/images/carousel/ITSynergy.webp" alt="IT Synergy" />
                         <img src="/public/images/carousel/Itaca.webp" alt="Itaca" />
                         <img src="/public/images/carousel/Javeriana.webp" alt="Javeriana" />
                         <img src="/public/images/carousel/Laurbe.webp" alt="La urbe" />
