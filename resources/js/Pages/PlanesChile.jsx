@@ -6,6 +6,7 @@ import "@fontsource/poppins";
 import "../../css/font-unicolor.css";
 import { Footer } from "../Components/Footer/Footer";
 import Header from "@/Layouts/HeaderPublica";
+import BotonAdquirirPlan from '@/Components/BotonAdquirirPlan';
 import BotonRegistrarse from '@/Components/BotonRegistrarse';
 
 const Chile = (props) => {
@@ -269,8 +270,9 @@ const Chile = (props) => {
 
                         </div>
                     </ul>
-                </div> <div class="funcionalidades-content-button">
-                    <BotonRegistrarse
+                </div>
+                 <div class="funcionalidades-content-button">
+                    <BotonAdquirirPlan
                         texto={"Adquirir un plan"}
                         textoHover={"Escoger mi plan"}
                         color={"white"}
