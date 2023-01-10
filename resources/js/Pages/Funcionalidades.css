@@ -52,7 +52,7 @@
 
 .title-functionalities {
     font-family: "Poppins", sans-serif;
-    font-size: 45px;
+    font-size: 41px;
     font-weight: revert;
     color: white;
     text-align: left;
@@ -291,7 +291,7 @@
     font-family: "Poppins", sans-serif;
     font-size: 14px;
     font-weight: revert;
-    color: #8c00c9;
+    color: #00c932;
 }
 
 .tracking-title {
@@ -308,6 +308,10 @@
     color: #686868;
     line-height: 35px;
 }
+
+/* .tracking-subtext {
+    margin-left: 45px;
+} */
 
 .tracking-people-share-note {
     display: flex;
@@ -441,4 +445,15 @@
     font-weight: revert;
     color: white;
     line-height: 25px;
+}
+
+.btn-banner-func {
+    margin: 0px 15px;
+}
+
+.icon-success:before {
+    color: #73c914;
+    font-size: 20px;
+    padding: 0 10px 0 0;
+    position: relative;
 }
