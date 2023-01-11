@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import JsonPaises from "../../../public/data/paises.json";
 
+import './Paises.css'
+
 export const Paises = (props) => {
 
 
