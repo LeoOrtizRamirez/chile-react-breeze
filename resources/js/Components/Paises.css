@@ -224,3 +224,7 @@ hr{
     color: #686868;
     font-size: 20px;
 }
+
+.contactenos_form--campo-indicativo-bandera {
+    width: 25px;
+}

@@ -12,6 +12,7 @@ import "@fontsource/poppins";
 
 import Modal from 'react-bootstrap/Modal';
 import { Paises } from '@/Components/Paises';
+import PasswordSecurity from '@/Components/PasswordSecurity';
 
 export default function Register(props) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -23,7 +24,7 @@ export default function Register(props) {
 
     const [showModalPaises, setShowModalPaises] = useState(false);
     const [Country, SetCountry] = useState(
-        { image: "/public/images/banderas/listado_nombres/CHL.svg", "title": "Chile", "indicative": "+56", "fixed": true },
+        { "image": "", "title": "", "indicative": "+0", "fixed": null },
     )
 
     useEffect(() => {
@@ -48,6 +49,13 @@ export default function Register(props) {
     const addCountry = (country) => {
         SetCountry(country)
         setShowModalPaises(false)
+    }
+
+    const handleInputChange = (event) => {
+        setData({
+            ...data,//Hace una pseudo copia de data
+            [event.target.name]: event.target.value
+        })
     }
 
     return (
@@ -146,49 +154,14 @@ export default function Register(props) {
                                     </div>
                                 </div>
                                 <div className="bloque__registro-form-div">
-                                    <div data-v-1bd2ffc4="" id="inputPaswordUserRegisterComponent" className="contenido InputPassword"
+                                    <div id="inputPaswordUserRegisterComponent" className="contenido InputPassword"
                                         name="password" type="password">
-                                        <div data-v-1bd2ffc4="" for="" className="contenido__password-titulo"><span data-v-1bd2ffc4=""
+                                        <div for="" className="contenido__password-titulo"><span
                                             className="contenido__password-titulo-icon icon-lock"></span><span
-                                                data-v-1bd2ffc4="">Contraseña:</span>
+                                            >Contraseña:</span>
                                         </div>
-                                        <div data-v-1bd2ffc4="" className="content-inputs">
-                                            <div data-v-1bd2ffc4="" className="contenido__password">
-                                                <div data-v-1bd2ffc4="" className="contenido__password-div">
-                                                    <input data-v-1bd2ffc4=""
-                                                        type="password" placeholder="Ingresa tu contraseña" id="passwordNueva"
-                                                        name="password" autocomplete="off" icon="icon-lock"
-                                                        className="contenido__password-div-input" aria-required="true" aria-invalid="false"
-                                                        style={{ width: 100 + '%;' }} /><span data-v-1bd2ffc4=""
-                                                            className="contenido__password-div-icon icon-show"></span>
-                                                </div>
-                                            </div>
-                                            <div data-v-1bd2ffc4="" className="contenido__nivel">
-                                                <div data-v-1bd2ffc4="" id="tooltip-informacion" className="contenido__nivel-iconos">
-                                                    <div data-v-1bd2ffc4="" className="contenido__iconos-seguridad">
-                                                        <div data-v-1bd2ffc4="" className="contenido__circulo">
-                                                            <div data-v-1bd2ffc4="" className="contenido__circulo-esquina__sup-der"
-                                                                /* style="border-top: 2px solid rgb(255, 193, 7); border-right: 2px solid rgb(255, 193, 7);" */>
-                                                            </div>
-                                                            <div data-v-1bd2ffc4="" className="contenido__circulo-esquina__inf-der"
-                                                                /* style="border-bottom: 2px solid rgb(255, 193, 7); border-right: 2px solid rgb(255, 193, 7);" */>
-                                                            </div>
-                                                            <div data-v-1bd2ffc4=""
-                                                                className="contenido__circulo-esquina__inf-izq color__gris-inf-izq"
-                                                                /* style="border-bottom: 2px solid rgb(255, 193, 7); border-left: 2px solid rgb(255, 193, 7);" */>
-                                                            </div>
-                                                            <div data-v-1bd2ffc4=""
-                                                                className="contenido__circulo-esquina__sup-izq color__gris-sup-izq"
-                                                                /* style="border-top: 2px solid rgb(255, 193, 7); border-left: 2px solid rgb(255, 193, 7);" */>
-                                                            </div><span data-v-1bd2ffc4="" className="contenido__seguridad-icon icon-shield"
-                                                                /* style="color: rgb(255, 193, 7) !important;" */></span>
-                                                        </div><span data-v-1bd2ffc4="" className="contenido__seguridad-text"> Seguridad
-                                                            <br data-v-1bd2ffc4="" /><span data-v-1bd2ffc4=""
-                                                                className="contenido__seguridad-text--modifier"
-                                                                /* style="color: rgb(255, 193, 7) !important;" */> Media </span></span>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div className="content-inputs">
+                                            <PasswordSecurity/>
                                         </div>
                                     </div>
                                 </div>
