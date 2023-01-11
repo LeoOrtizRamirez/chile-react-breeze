@@ -36,6 +36,9 @@ Route::get('/funcionalidades', function () {
     return Inertia::render('Funcionalidades');
 });
 
+Route::get('/terminos-condiciones', function () { 
+    return Inertia::render('TerminosCondiciones');
+});
 
 Route::get('/dashboard', [ContratoController::class, 'index']
 )->middleware(['auth', 'verified'])->name('dashboard');

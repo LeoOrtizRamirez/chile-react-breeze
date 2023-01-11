@@ -1,0 +1,57 @@
+
+.menu-izquierdo{
+
+top: 98px;
+left: 17px;
+width: 247px;
+height: 605px;
+
+background: var(---ffffff) 0% 0% no-repeat padding-box;
+background: #FFFFFF 0% 0% no-repeat padding-box;
+box-shadow: 0px 0px 20px #68686814;
+border-radius: 17px;
+opacity: 1;
+
+}
+
+.planes.planes-container {
+    margin-bottom: 24px;
+    width: 1280px;
+}
+
+.policy-title {
+    border-bottom: 2px solid hsla(0,1%,61%,.15);
+    color: #959595;
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0;
+    padding: 16px 0 23px;
+    text-align: center;
+    line-height: 22px;
+}
+
+.policy-title .mark-word {
+    color: #00a1c9 !important;
+    font-weight: bold;
+}
+
+.policy-paragraph {
+    color: #686868;
+    font-size: 15px;
+    margin-top: 28px;
+    line-height: 26px;
+}
+
+.policy-subtitle {
+    color: #00a1c9;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    padding: 30px 0 0;
+}
+
+#contacto{
+    color: #00a1c9;
+    font-weight: 700;
+    font-size: 15px;
+}
