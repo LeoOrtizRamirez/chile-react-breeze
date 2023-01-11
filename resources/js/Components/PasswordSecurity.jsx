@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 import './PasswordSecurity.css'
 
@@ -11,6 +11,8 @@ const PasswordSecurity = () => {
     const [securityMedia, setsecurityMedia] = useState(false);
     const [securityFuerte, setsecurityFuerte] = useState(false);
     const [securityMuyFuerte, setsecurityMuyFuerte] = useState(false);
+
+    let refPasswordIcon = useRef();
 
     const checkSecurity = (words) => {
         format()
@@ -105,6 +107,20 @@ const PasswordSecurity = () => {
         */
     }
 
+    const handleTogglePasswordIcon = (e) => {
+        let input_password = document.getElementById("passwordNueva") //PENDIENTE REVISAR COMO SE IMPLEMENTA POR MEDIO DE REFERENCIA
+        console.log(input_password.type)
+        if (refPasswordIcon.current.className == "contenido__password-div-icon icon-show") {
+            refPasswordIcon.current.className = "contenido__password-div-icon icon-hide"
+            input_password.type = "text"
+            input_password.placeholder = "Ingresa tu contraseña"
+        } else {
+            refPasswordIcon.current.className = "contenido__password-div-icon icon-show"
+            input_password.type = "password"
+            input_password.placeholder = "Contraseña1234"
+        }
+    }
+
     return (
         <>
             <div className="contenido__password">
@@ -115,8 +131,12 @@ const PasswordSecurity = () => {
                         className="contenido__password-div-input"
                         style={{ width: 100 + '%;' }}
                         onChange={handleInputChange}
-                    /><span
-                        className="contenido__password-div-icon icon-show"></span>
+                    />
+                    <span 
+                        className="contenido__password-div-icon icon-show" 
+                        onClick={handleTogglePasswordIcon}
+                        ref={refPasswordIcon}
+                    />
                 </div>
             </div>
             <div className="contenido__nivel">
