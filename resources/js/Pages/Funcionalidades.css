@@ -12,7 +12,7 @@
     justify-content: space-evenly;
     align-items: center;
     margin: 24px;
-    width: 1233px;
+    width: 1230px;
     height: 543px;
     border-radius: 25px;
     -webkit-border-radius: 25px;
@@ -97,7 +97,7 @@
     grid-column-gap: 50px;
     /* grid-row-gap: 50px; */
     background-color: white;
-    width: 1233px;
+    width: 1230px;
     /* align-items: center; */
     justify-content: center;
     /* border: solid red; */
@@ -113,7 +113,7 @@
 .container-divs {
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex start;
     text-align: left;
 }
 
@@ -181,8 +181,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: start;
-    width: 1233px;
+    justify-content: flex-start;
+    width: 1230px;
     background-color: #dadada2f;
     border-radius: 25px;
 }
@@ -264,8 +264,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: start;
-    width: 1233px;
+    justify-content: flex start;
+    width: 1230px;
     background-color: white;
 }
 
@@ -351,7 +351,7 @@
 .container-chance {
     display: flex;
     flex-direction: row;
-    width: 1233px;
+    width: 1230px;
     height: 750px;
     background-color: #dadada2f;
     border-radius: 25px;
@@ -408,7 +408,7 @@
 }
 
 .container-btn {
-    width: 1233px;
+    width: 1230px;
     margin-top: 30px;
     height: 315px;
 }

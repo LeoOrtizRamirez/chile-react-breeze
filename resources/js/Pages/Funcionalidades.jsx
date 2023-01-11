@@ -60,13 +60,13 @@ export const Funcionalidades = (props) => {
                     </span>
                 </div>
                 <div className="container-segment">
-                    <div class="div1">
+                    <div className="div1">
                         <img
                             src="/public/images/funcionalidades/Component 732 – 1@3x.png"
                             alt=""
                         />
                     </div>
-                    <div class="div2 container-div segment-img">
+                    <div className="div2 container-div segment-img">
                         <h1 className="title-segment">
                             Segmenta los procesos de tu interés
                         </h1>
@@ -82,7 +82,7 @@ export const Funcionalidades = (props) => {
                             </span>
                         </div>
                     </div>
-                    <div class="div3 h-60 container-divs segment-img">
+                    <div className="div3 h-60 container-divs segment-img">
                         <img
                             src="/public/images/funcionalidades/exportar.svg"
                             alt=""
@@ -98,7 +98,7 @@ export const Funcionalidades = (props) => {
                             otra técnica de transformación de la información.
                         </span>
                     </div>
-                    <div class="div4 h-60 container-divs segment-img">
+                    <div className="div4 h-60 container-divs segment-img">
                         <img src="/public/images/funcionalidades/lupa.svg" alt="" />
                         <h1 className="subtitle-segment ml-16">
                             Búsqueda intuitiva
@@ -112,7 +112,7 @@ export const Funcionalidades = (props) => {
                             ubicación o rangos de cuantía.
                         </span>
                     </div>
-                    <div class="div5 h-60 container-divs segment-img">
+                    <div className="div5 h-60 container-divs segment-img">
                         <img
                             src="/public/images/funcionalidades/historico.svg"
                             alt=""
@@ -128,7 +128,7 @@ export const Funcionalidades = (props) => {
                             entidades.
                         </span>
                     </div>
-                    <div class="div6 h-60 container-divs segment-img">
+                    <div className="div6 h-60 container-divs segment-img">
                         <img src="/public/images/funcionalidades/carpeta.svg" alt="" />
                         <h1 className="subtitle-segment ml-16">Carpetas</h1>
                         <span className="text-segment">
