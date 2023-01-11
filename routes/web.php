@@ -26,7 +26,7 @@ Route::get('/', function () {
 
 Route::get('/nosotros', function () { 
     return Inertia::render('Nosotros');
-});
+})->name('nosotros');
 
 Route::get('/contacto', function () { 
     return Inertia::render('Contacto');
@@ -36,6 +36,13 @@ Route::get('/funcionalidades', function () {
     return Inertia::render('Funcionalidades');
 });
 
+Route::get('/politicasp', function () { 
+    return Inertia::render('PoliticasP');
+})->name('politicasp');
+
+Route::get('/politicasc', function () { 
+    return Inertia::render('PoliticasC');
+})->name('politicasc');
 
 Route::get('/dashboard', [ContratoController::class, 'index']
 )->middleware(['auth', 'verified'])->name('dashboard');
