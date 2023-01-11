@@ -2624,3 +2624,7 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
         display: none
     }
 }
+
+.text-probar{
+    display: none;
+}
