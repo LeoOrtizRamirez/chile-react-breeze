@@ -1,5 +1,6 @@
 import React from "react";
 import { Head } from "@inertiajs/inertia-react";
+import Header from "@/Components/Header/HeaderLite";
 import { FooterLite } from "@/Components/Footer/FooterLite";
 import "./PoliticasP.css";
 import "@fontsource/poppins";
@@ -12,6 +13,7 @@ export const PoliticasP = (props) => {
                 href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto&display=swap"
                 rel="stylesheet"
             ></link>
+            <Header user={props}></Header>
             <div className="container-politicspri">
                 <div className="politicspri">
                     <ul>
