@@ -13,7 +13,6 @@ import './Header.css';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
 
 export default function Example(props) {
-
     const { data, setData, post, processing, errors, reset, } = useForm({
         email: '',
         password: '',
@@ -56,7 +55,7 @@ export default function Example(props) {
     };
 
     const handleTogglePasswordIcon = (e) => {
-        let input_password = document.getElementsByName("password")[0] //PENDIENTE REVISAR COMO SE IMPLEMENTA POR MEDIO DE REFERENCIA
+        let input_password = document.querySelector("password")[0] //PENDIENTE REVISAR COMO SE IMPLEMENTA POR MEDIO DE REFERENCIA
         console.log(input_password.type)
         if (refPasswordIcon.current.className == "form-input-section__container-span icon-show") {
             refPasswordIcon.current.className = "form-input-section__container-span icon-hide"
@@ -75,19 +74,19 @@ export default function Example(props) {
 
     const userValidate = () => {
         fetch('/user-validate', data)
-        .then((response) => response.json())
-        .then((data) => {
-            if(data == 'Succes'){
+            .then((response) => response.json())
+            .then((data) => {
+                if (data == 'Succes') {
 
-            }else{
-                console.log('fallo')
-                setEmailValid(false)
-                setInputEmailValid("error")
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+                } else {
+                    console.log('fallo')
+                    setEmailValid(false)
+                    setInputEmailValid("error")
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
 
@@ -104,7 +103,13 @@ export default function Example(props) {
                         {props.user.auth.user ? (
                             <>
                                 <li>
-                                    <a href={route("dashboard")} className="flex  items-center menu-header mx-1"> Dashboard</a>
+                                    <a href={route("dashboard")} className="flex  items-center menu-header mx-1">
+                                        {props.user.auth.user.nombre_completo ?
+                                            props.user.auth.user.nombre_completo
+                                            :
+                                            Dashboard
+                                        }
+                                    </a>
                                 </li>
 
                                 <li>
