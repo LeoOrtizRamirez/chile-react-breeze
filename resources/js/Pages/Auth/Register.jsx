@@ -5,7 +5,7 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
-import Header from "@/Layouts/HeaderPublica";
+import Header from "@/Components/Header/HeaderLite";
 
 import './Register.css';
 import "@fontsource/poppins";
