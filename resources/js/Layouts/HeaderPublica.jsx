@@ -22,7 +22,8 @@ export default function Example(props) {
 
     const [inputClass, setInputClass] = useState("form-input-section__container-input")
     const [validForm, setValidForm] = useState(true)
-    //const [passwordIcon, setPasswordIcon] = useState("icon-show")
+    const [emailValid, setEmailValid] = useState(true)
+    const [inputEmailValid, setInputEmailValid] = useState("")
 
     let refPasswordIcon = useRef();
 
@@ -71,6 +72,23 @@ export default function Example(props) {
     const onHandleChange = (event) => {
         setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
     };
+
+    const userValidate = () => {
+        fetch('/user-validate', data)
+        .then((response) => response.json())
+        .then((data) => {
+            if(data == 'Succes'){
+
+            }else{
+                console.log('fallo')
+                setEmailValid(false)
+                setInputEmailValid("error")
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
 
 
     return (
@@ -166,7 +184,7 @@ export default function Example(props) {
                                     <span className="login__welcome-content-titulo login__welcome-content-titulo">¡Hola!</span>
                                     <span className="login__welcome-content-titulo login__welcome-content-titulo--modifier">Bienvenido</span>
                                 </p>
-                                <p className="login__welcome-content-texto"> ¿Aún no tienes cuenta? <a className="login__infoLLink"> Regístrate gratis </a>
+                                <p className="login__welcome-content-texto"> ¿Aún no tienes cuenta? <a className="login__infoLLink" href={route("register")}> Regístrate gratis </a>
                                 </p>
                             </div>
                         </div>
@@ -267,7 +285,7 @@ export default function Example(props) {
                         </button>
                         <button className="botonera__cerrar" onClick={handleCloseRecoverPasswordModal}>
                             <span className="botonera__cerrar-icon icon-close"></span>
-                            </button>
+                        </button>
                     </div>
                 </Modal.Header>
                 <Modal.Body id="modal-olvidaste___BV_modal_body_">
@@ -277,15 +295,32 @@ export default function Example(props) {
                         </span>
                     </div>
                     <div className="informacion">
-                        <div className="informacion__texto">
-                            <p className="informacion__texto-span"> Ingresa la dirección de correo electrónico asociado a tu cuenta. Te enviaremos un código de 4 dígitos para recuperar tu contraseña.</p>
-                        </div>
+                        {emailValid ?
+                            <div className="informacion__texto">
+                                <p className="informacion__texto-span"> Ingresa la dirección de correo electrónico asociado a tu cuenta. Te enviaremos un código de 4 dígitos para recuperar tu contraseña.</p>
+                            </div>
+                            :
+                            <div className="informacion__texto mensaje__error">
+                                <p className="informacion__texto-span"> El correo electrónico que has ingresado no se encuentra registrado o se ha escrito de forma incorrecta. Si aún no tienes cuenta puedes registrarte
+                                    <a className="informacion__texto-span--modifier" href={route("register")}> 30 días gratis aqui.</a>
+                                </p>
+                            </div>
+                        }
                         <div className="informacion__correo">
-                            <input name="email" type="email" required="required" placeholder="Ingresa tu correo electrónico"
-                                className="informacion__correo-input" aria-required="true" aria-invalid="true" />
+
+                            <TextInput
+                                type="email"
+                                name="email"
+                                value={data.email}
+                                className={`informacion__correo-input ${inputEmailValid}`}
+                                autoComplete="username"
+                                isFocused={true}
+                                placeholder="Ingresa tu correo electrónico"
+                                handleChange={onHandleChange}
+                            />
                         </div>
                         <div className="informacion__boton">
-                            <button disabled="disabled" className="informacion__boton-button"> Recuperar </button>
+                            <button className="informacion__boton-button" onClick={userValidate}> Recuperar </button>
                         </div>
                     </div>
                 </Modal.Body>
@@ -297,10 +332,10 @@ export default function Example(props) {
                         </div>
                         <div className="contacto__boton">
                             <div className="contactenos">
-                                <button className="contactenos__button">
+                                <a className="contactenos__button" href={route("contacto")}>
                                     <span className="contactenos__button-icon icon-contacto"></span>
                                     <span className="contactenos__button-text">Contáctanos</span>
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>

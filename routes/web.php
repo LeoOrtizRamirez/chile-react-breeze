@@ -30,7 +30,7 @@ Route::get('/nosotros', function () {
 
 Route::get('/contacto', function () { 
     return Inertia::render('Contacto');
-});
+})->name('contacto');
 
 Route::get('/funcionalidades', function () { 
     return Inertia::render('Funcionalidades');
@@ -92,3 +92,5 @@ Route::controller(UserController::class)->group(function(){
     Route::get('/usuarios/{idUsuario}/{pagina}/{estado}', [UserController::class, 'paginador']);
 
 });
+
+Route::get('/user-validate', [UserController::class, 'userValidate'])->name('user-validate');

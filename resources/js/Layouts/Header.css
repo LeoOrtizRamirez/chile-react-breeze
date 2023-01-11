@@ -184,6 +184,11 @@ div[id^=modal-olvidaste].modal-body .informacion__texto-span--modifier{
 div[id^=modal-olvidaste].modal-body .informacion__correo{
     display:flex;justify-content:center;margin-top:35px;position:relative
 }
+
+div[id^=modal-olvidaste].modal-body .informacion__correo > div{
+    width: 100%;
+}
+
 div[id^=modal-olvidaste].modal-body .informacion__correo-input{
     background:#fff;border:2px solid #d4d4d4;border-radius:34px;color:#686868;font-family:Roboto;font-size:1.0625rem;padding:15px 25px;width:100%
 }
@@ -227,7 +232,15 @@ div[id^=modal-olvidaste].modal-body .informacion .mensaje__error{
     display:flex;justify-content:center
 }
 #modal-olvidaste.modal-footer .contacto__boton .contactenos__button{
-    margin-left:0;margin-right:0;border-radius:47px;padding:9px 14px;border:2px solid #686868;font-family:Poppins;font-size:1.0625rem;font-weight:700
+    margin-left:0;
+    margin-right:0;
+    border-radius:47px;
+    padding:9px 14px;
+    border:2px solid #686868;
+    font-family:Poppins;
+    font-size:1.0625rem;
+    font-weight:700;
+    text-decoration: none !important;
 }
 #modal-olvidaste.modal-footer .contacto__boton .contactenos__button-icon{
     color:#00a1c9;
