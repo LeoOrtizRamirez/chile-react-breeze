@@ -27,12 +27,12 @@ Route::get('/', function () {
 Route::get('/nosotros', function () { 
     return Inertia::render('Nosotros');
 })->name('nosotros');
-})->name('nosotros');
+
 
 Route::get('/contacto', function () { 
     return Inertia::render('Contacto');
 })->name('contacto');
-})->name('contacto');
+
 
 Route::get('/funcionalidades', function () { 
     return Inertia::render('Funcionalidades');
