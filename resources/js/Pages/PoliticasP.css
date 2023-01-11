@@ -1,5 +1,6 @@
 .container-politicspri {
     width: 1280px;
+    /* width: auto; */
     display: flex;
     justify-content: center;
     margin: 0 auto;
