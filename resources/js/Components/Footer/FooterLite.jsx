@@ -16,25 +16,33 @@ export const FooterLite = () => {
                         <span>|</span>
                     </div>
                     <div className="footerlite-titles">
-                        <a href="#">Nosotros</a>
+                        <a target="_blank" href={route("nosotros")}>
+                            Nosotros
+                        </a>
                     </div>
                     <div className="footerlite-separator">
                         <span>|</span>
                     </div>
                     <div className="footerlite-titles">
-                        <a href="#">Política de privacidad</a>
+                        <a target="_blank" href={route("politicasp")}>
+                            Política de privacidad
+                        </a>
                     </div>
                     <div className="footerlite-separator">
                         <span>|</span>
                     </div>
                     <div className="footerlite-titles">
-                        <a href="#">Términos y condiciones</a>
+                        <a target="_blank" href="home">
+                            Términos y condiciones
+                        </a>
                     </div>
                     <div className="footerlite-separator">
                         <span>|</span>
                     </div>
                     <div className="footerlite-titles">
-                        <a href="#">Política de cookies</a>
+                        <a target="_blank" href={route("politicasc")}>
+                            Política de cookies
+                        </a>
                     </div>
                 </div>
             </footer>

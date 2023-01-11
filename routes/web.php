@@ -26,7 +26,7 @@ Route::get('/', function () {
 
 Route::get('/nosotros', function () { 
     return Inertia::render('Nosotros');
-});
+})->name('nosotros');
 
 Route::get('/contacto', function () { 
     return Inertia::render('Contacto');
