@@ -32,7 +32,7 @@ export const FooterLite = () => {
                         <span>|</span>
                     </div>
                     <div className="footerlite-titles">
-                        <a target="_blank" href="home">
+                        <a target="_blank" href="/terminos-condiciones">
                             Términos y condiciones
                         </a>
                     </div>
