@@ -50,7 +50,7 @@ export const Footer = () => {
                         <ul>
                             <li>
                                 <a
-                                    href="#"
+                                    href={route("politicasp")}
                                     className="no-underline hover:underline support-text"
                                 >
                                     Política de privacidad
@@ -66,7 +66,7 @@ export const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="#"
+                                    href={route("politicasc")}
                                     className="no-underline hover:underline support-text"
                                 >
                                     Política de cookies

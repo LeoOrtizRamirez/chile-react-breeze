@@ -26,11 +26,11 @@ Route::get('/', function () {
 
 Route::get('/nosotros', function () { 
     return Inertia::render('Nosotros');
-});
+})->name('nosotros');
 
 Route::get('/contacto', function () { 
     return Inertia::render('Contacto');
-});
+})->name('contacto');
 
 Route::get('/funcionalidades', function () { 
     return Inertia::render('Funcionalidades');
@@ -39,6 +39,13 @@ Route::get('/funcionalidades', function () {
 Route::get('/terminos-condiciones', function () { 
     return Inertia::render('TerminosCondiciones');
 });
+Route::get('/politicasp', function () { 
+    return Inertia::render('PoliticasP');
+})->name('politicasp');
+
+Route::get('/politicasc', function () { 
+    return Inertia::render('PoliticasC');
+})->name('politicasc');
 
 Route::get('/dashboard', [ContratoController::class, 'index']
 )->middleware(['auth', 'verified'])->name('dashboard');
@@ -95,3 +102,5 @@ Route::controller(UserController::class)->group(function(){
     Route::get('/usuarios/{idUsuario}/{pagina}/{estado}', [UserController::class, 'paginador']);
 
 });
+
+Route::get('/user-validate', [UserController::class, 'userValidate'])->name('user-validate');
