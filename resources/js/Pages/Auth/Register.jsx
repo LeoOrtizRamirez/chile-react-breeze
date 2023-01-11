@@ -41,7 +41,6 @@ export default function Register(props) {
 
     const submit = (e) => {
         e.preventDefault();
-
         post(route('register'));
     };
 
@@ -82,7 +81,7 @@ export default function Register(props) {
                             <div className="bloque__info-header">
                                 <div className="bloque__info-header-title">
                                     <span className="bloque__info-header-title-text">Crea una <img
-                                        src="/icons/multicolor/crear cuenta.svg" alt="Crea una cuenta gratis"
+                                        src="/public/icons/multicolor/crear cuenta.svg" alt="Crea una cuenta gratis"
                                         className="bloque__info-header-title-img" />
                                         <span
                                             className="bloque__info-header-title-text--modifier">cuenta gratis</span></span>
@@ -99,7 +98,7 @@ export default function Register(props) {
                             <div className="bloque__info-contenido">
                                 <div className="bloque__info-contenido-div">
                                     <div className="bloque__info-contenido-img">
-                                        <img src="/icons/multicolor/servicio.svg" alt="Servicio"
+                                        <img src="/public/icons/multicolor/servicio.svg" alt="Servicio"
                                             className="bloque__info-contenido-img--modifier" />
                                     </div>
                                     <div className="bloque__info-contenido-text">
@@ -110,7 +109,7 @@ export default function Register(props) {
                                 </div>
                                 <div className="bloque__info-contenido-div">
                                     <div className="bloque__info-contenido-img">
-                                        <img src="/icons/multicolor/licitaciones.svg" alt=""
+                                        <img src="/public/icons/multicolor/licitaciones.svg" alt=""
                                             className="bloque__info-contenido-img--modifier" />
                                     </div>
                                     <div className="bloque__info-contenido-text">
@@ -121,7 +120,7 @@ export default function Register(props) {
                                 </div>
                                 <div className="bloque__info-contenido-div">
                                     <div className="bloque__info-contenido-img">
-                                        <img src="/icons/multicolor/notificaciones.svg" alt=""
+                                        <img src="/public/icons/multicolor/notificaciones.svg" alt=""
                                             className="bloque__info-contenido-img--modifier" />
                                     </div>
                                     <div className="bloque__info-contenido-text">
@@ -131,7 +130,7 @@ export default function Register(props) {
                                 </div>
                                 <div className="bloque__info-contenido-div">
                                     <div className="bloque__info-contenido-img">
-                                        <img src="/icons/multicolor/funcionalidades.svg" alt=""
+                                        <img src="/public/icons/multicolor/funcionalidades.svg" alt=""
                                             className="bloque__info-contenido-img--modifier" />
                                     </div>
                                     <div className="bloque__info-contenido-text">
@@ -144,7 +143,7 @@ export default function Register(props) {
                         </div>
                     </div>
                     <div className="bloque__registro col-lg-6">
-                        <form id="form" name="form" action="">
+                        <form id="form" name="form" onSubmit={submit}>
                             <div className="bloque__registro-form">
                                 <div className="bloque__registro-form-div">
                                     <div className="bloque__registro-form-title">
@@ -240,7 +239,14 @@ export default function Register(props) {
                     </div>
                 </div>
             </div>
-            {/* <form onSubmit={submit}>
+
+
+
+
+
+
+
+            <form onSubmit={submit}>
                 <div>
                     <TextInput
                         placeholder="Nombre"
@@ -318,7 +324,7 @@ export default function Register(props) {
                         Registrarme
                     </PrimaryButton>
                 </div>
-            </form> */}
+            </form>
         </>
     );
 }
