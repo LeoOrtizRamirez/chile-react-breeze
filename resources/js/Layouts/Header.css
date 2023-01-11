@@ -130,44 +130,47 @@
 .informacion__division{
     width:100%;max-width:660px;height:3px
 }
-header[id^=modal-olvidaste].modal-header{
+.modal-header{
     padding:0
 }
-header[id^=modal-olvidaste].modal-header .botonera{
+.modal-header .botonera{
     position:relative;width:100%
 }
-header[id^=modal-olvidaste].modal-header .botonera button{
-    border:0;border-radius:30px;color:#686868;height:45px;top:6px;position:absolute;width:45px;z-index:1
+.modal-header .botonera button{
+    border:0;border-radius:30px;color:#686868;height:45px;top:6px;position:absolute;width:45px;z-index:1; background-color: #f0f0f0 !important;
 }
-header[id^=modal-olvidaste].modal-header .botonera button:focus{
+.modal-header .botonera button:focus{
     outline:none
 }
-header[id^=modal-olvidaste].modal-header .botonera__regresar{
+.modal-header .botonera__regresar{
     left:6px
 }
-header[id^=modal-olvidaste].modal-header .botonera__regresar:hover{
-    background:#00a1c9;color:#fff
+.modal-header .botonera__regresar:hover{
+    background:#00a1c9 !important;color:#fff
 }
-header[id^=modal-olvidaste].modal-header .botonera__cerrar{
+.modal-header .botonera__cerrar{
     right:6px
 }
-header[id^=modal-olvidaste].modal-header .botonera__cerrar:hover{
-    background:#c9003d;color:#fff
+.modal-header .botonera__cerrar:hover{
+    background:#c9003d !important;color:#fff
 }
 div[id^=modal-olvidaste].modal-body{
-    padding:44px 53px 0 44px
+    padding:44px 53px 0 44px !important
 }
 div[id^=modal-olvidaste].modal-body .titulo{
     align-items:center;border-bottom:2px solid hsla(0,1%,61%,.15);display:flex;font-family:Poppins;font-size:1.25rem;font-weight:700;justify-content:center;margin:auto;padding-bottom:10px;width:80%
 }
 div[id^=modal-olvidaste].modal-body .titulo__icono{
-    color:#00a1c9;margin-right:22px
+    color:#00a1c9;margin-right:22px;
+    font-size: 1.25rem;
 }
 div[id^=modal-olvidaste].modal-body .titulo__texto{
-    color:#686868!important
+    color:#686868!important;
+    font-size: 1.25rem;
 }
 div[id^=modal-olvidaste].modal-body .titulo__texto--modifier{
-    color:#00a1c9
+    color:#00a1c9;
+    font-size: 1.25rem;
 }
 div[id^=modal-olvidaste].modal-body .informacion{
     margin-top:27px
@@ -208,29 +211,38 @@ div[id^=modal-olvidaste].modal-body .informacion__boton-button:disabled{
 div[id^=modal-olvidaste].modal-body .informacion .mensaje__error{
     padding:0 45px
 }
-footer[id^=modal-olvidaste].modal-footer{
-    padding:0 53px 20px
+#modal-olvidaste.modal-footer{
+    padding:0 53px 20px !important;
 }
-footer[id^=modal-olvidaste].modal-footer .contacto{
+#modal-olvidaste.modal-footer .contacto{
     border-top:2px solid hsla(0,1%,61%,.15);margin-top:31px;padding:27px 0;width:100%
 }
-footer[id^=modal-olvidaste].modal-footer .contacto__texto{
+#modal-olvidaste.modal-footer .contacto__texto{
     display:flex;justify-content:center;margin-bottom:32px
 }
-footer[id^=modal-olvidaste].modal-footer .contacto__texto-informacion{
+#modal-olvidaste.modal-footer .contacto__texto-informacion{
     font-family:Roboto;font-size:1.125rem;letter-spacing:0;color:#686868;text-align:left;margin:0
 }
-footer[id^=modal-olvidaste].modal-footer .contacto__boton{
+#modal-olvidaste.modal-footer .contacto__boton{
     display:flex;justify-content:center
 }
-footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button{
+#modal-olvidaste.modal-footer .contacto__boton .contactenos__button{
     margin-left:0;margin-right:0;border-radius:47px;padding:9px 14px;border:2px solid #686868;font-family:Poppins;font-size:1.0625rem;font-weight:700
 }
-footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-icon{
-    color:#00a1c9;margin-right:10px
+#modal-olvidaste.modal-footer .contacto__boton .contactenos__button-icon{
+    color:#00a1c9;
+    margin-right:10px;
+    font-size: 1.0625rem;
 }
-footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-text{
-    display:block
+#modal-olvidaste.modal-footer .contacto__boton .contactenos__button-text{
+    display:block;
+}
+
+#modal-olvidaste.modal-footer .contacto__boton .contactenos__button-text{
+    font-family: Poppins !important;
+    font-size: 1.0625rem !important;
+    color: #686868;
+    font-weight: 700;
 }
 @media(max-width:767px){
     #modal-olvidaste .modal-content{
@@ -254,30 +266,30 @@ div[id^=modal-olvidaste].modal-body .informacion__texto-span--modifier{
 div[id^=modal-olvidaste].modal-body .informacion__correo .error{
     color:#c9003d;font-weight:700
 }
-header[id^=modal-olvidaste].modal-header .botonera button{
-    height:38px;top:9px;width:38px
+.modal-header .botonera button{
+    height:45px;top:9px;width:45px
 }
-header[id^=modal-olvidaste].modal-header .botonera__regresar{
+.modal-header .botonera__regresar{
     left:13px
 }
-header[id^=modal-olvidaste].modal-header .botonera__cerrar{
+.modal-header .botonera__cerrar{
     right:11px
 }
-footer[id^=modal-olvidaste].modal-footer{
+#modal-olvidaste.modal-footer{
     padding:0 44px 20px
 }
-footer[id^=modal-olvidaste].modal-footer .contacto__boton button{
+#modal-olvidaste.modal-footer .contacto__boton button{
     border-width:2px
 }
 
 }
-#loginModal .btn-close{
+.btn-close{
     border-radius:50%;border:none;color:#686868;cursor:pointer;height:38px;position:absolute;right:7px;top:7px;width:38px;z-index:10
 }
-#loginModal .btn-close:hover{
+.btn-close:hover{
     color:#fff;background-color:#c9003d !important;border:none
 }
-#loginModal .btn-close:focus{
+.btn-close:focus{
     outline:0
 }
 #loginModal .login{
@@ -293,7 +305,7 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton button{
     font-family:Poppins;font-size:2.5rem;font-weight:700;letter-spacing:0;color:#959595;line-height:42px
 }
 #loginModal .login__welcome-content-titulo span{
-    display:block
+    display:block;text-align: left !important;
 }
 #loginModal .login__welcome-content-titulo--modifier{
     color:#00a1c9
@@ -567,22 +579,28 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton button{
     border: 0px;
     color: #686868;
 }
+.botonera__regresar span{
+    color: #686868;
+}
 .botonera__regresar:hover {
     background: #00a1c9;
+    color: white;
+}
+.botonera__regresar:hover span {
     color: white;
 }
 .botonera__regresar:focus {
     outline: none;
 }
 
-.botonera__cerrar {
+.botonera__cerrar span{
     width: 45px;
     height: 45px;
     border-radius: 30px;
     border: 0px;
     color: #686868;
 }
-.botonera__cerrar:hover {
+.botonera__cerrar:hover span{
     background: #c9003d;
     color: white;
 }
@@ -601,10 +619,10 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton button{
 }
 
 .btn-close {
-    width: 50px !important;
-    height: 50px !important;
+    width: 45px !important;
+    height: 45px !important;
     position: absolute !important;
-    top: 11px !important;
+    top: 6px !important;
     right: 11px !important;
     background-color: #f0f0f0 !important;
 }
@@ -644,7 +662,8 @@ body {
     font-size: 20px;
 }
 
-#loginModal{
+#loginModal, #modal-olvidaste___BV_modal_content_{
     display: flex;
     align-items: center;
+    height: 100%;
 }

@@ -13,7 +13,7 @@ import './Header.css';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
 
 export default function Example(props) {
-    
+
     const { data, setData, post, processing, errors, reset, } = useForm({
         email: '',
         password: '',
@@ -39,25 +39,30 @@ export default function Example(props) {
         setValidForm(true)
     }
 
+    /*Modal Recupera contraseña*/
+    const [showRecoverPasswordModal, setShowRecoverPasswordModal] = useState(false);
+    const handleShowRecoverPasswordModal = () => setShowRecoverPasswordModal(true);
+    const handleCloseRecoverPasswordModal = () => setShowRecoverPasswordModal(false);
+
     const submit = (e) => {
         e.preventDefault();
-        post(route('login'),{
-            onError: () =>{
+        post(route('login'), {
+            onError: () => {
                 setInputClass("form-input-section__container-input form-input-section__container-inputError")
                 setValidForm(false)
             }
         });
     };
 
-    const handleTogglePasswordIcon = (e) =>{
+    const handleTogglePasswordIcon = (e) => {
         let input_password = document.getElementsByName("password")[0] //PENDIENTE REVISAR COMO SE IMPLEMENTA POR MEDIO DE REFERENCIA
         console.log(input_password.type)
-        if(refPasswordIcon.current.className =="form-input-section__container-span icon-show"){
-            refPasswordIcon.current.className ="form-input-section__container-span icon-hide"
+        if (refPasswordIcon.current.className == "form-input-section__container-span icon-show") {
+            refPasswordIcon.current.className = "form-input-section__container-span icon-hide"
             input_password.type = "text"
             input_password.placeholder = "Ingresa tu contraseña"
-        }else{
-            refPasswordIcon.current.className ="form-input-section__container-span icon-show"
+        } else {
+            refPasswordIcon.current.className = "form-input-section__container-span icon-show"
             input_password.type = "password"
             input_password.placeholder = "Contraseña1234"
         }
@@ -146,7 +151,12 @@ export default function Example(props) {
                 </div>
             </div>
             <Modal show={show} onHide={handleClose} id="loginModal" className="modal-dialog-centered">
-                <Modal.Header closeButton>
+                <Modal.Header>
+                    <div className="botonera">
+                        <button className="botonera__cerrar" onClick={handleClose}>
+                            <span className="botonera__cerrar-icon icon-close"></span>
+                        </button>
+                    </div>
                 </Modal.Header>
                 <Modal.Body>
                     <div className="login">
@@ -164,18 +174,18 @@ export default function Example(props) {
                             <form onSubmit={submit}>
                                 {!validForm &&
                                     <div className="login__errors-div">
-                                    <p className="login__errors-div-title-p">
-                                        <strong>Datos de ingreso</strong>
-                                        <span className="login__errors-div-title-p-span">
-                                            <strong> incorrectos</strong>
-                                        </span>
-                                    </p>
-                                    <p className="login__errors-div-title-p login__errors-div-title-p--modifier"> Dirección de correo electrónico o
-                                        contraseña incorrectos. Si no tienes una cuenta, regístrate gratis. </p>
-                                    <div>
-                                        <hr className="widthDivider" />
+                                        <p className="login__errors-div-title-p">
+                                            <strong>Datos de ingreso</strong>
+                                            <span className="login__errors-div-title-p-span">
+                                                <strong> incorrectos</strong>
+                                            </span>
+                                        </p>
+                                        <p className="login__errors-div-title-p login__errors-div-title-p--modifier"> Dirección de correo electrónico o
+                                            contraseña incorrectos. Si no tienes una cuenta, regístrate gratis. </p>
+                                        <div>
+                                            <hr className="widthDivider" />
+                                        </div>
                                     </div>
-                                </div>
                                 }
                                 <div className="form-input-section blockEmail">
                                     <p className="form-input-section__title">
@@ -216,7 +226,7 @@ export default function Example(props) {
                                         {!validForm ?
                                             <span className="form-input-section__container-span form-input-section__container-span form-input-section__container-span--modifier icon-alert"></span>
                                             :
-                                            <span 
+                                            <span
                                                 className={`form-input-section__container-span icon-show`}
                                                 ref={refPasswordIcon}
                                                 onClick={handleTogglePasswordIcon}
@@ -231,7 +241,10 @@ export default function Example(props) {
                                         <div className="b-input">
                                         </div>
                                     </label>
-                                    </div><a className="login__infoLLink login__infoLLink--modifier"> ¿Olvidaste tu contraseña? </a>
+                                    </div>
+                                    <a
+                                        className="login__infoLLink login__infoLLink--modifier"
+                                        onClick={handleShowRecoverPasswordModal}> ¿Olvidaste tu contraseña? </a>
                                 </div>
                                 <div className="blockBtn">
                                     <button type="submit" className="blockBtn__content" processing={processing}> Iniciar sesión </button>
@@ -243,6 +256,54 @@ export default function Example(props) {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal show={showRecoverPasswordModal} onHide={handleCloseRecoverPasswordModal} id="modal-olvidaste___BV_modal_content_" className="modal-dialog-centered">
+                <Modal.Header>
+                    <div className="botonera">
+                        <button className="botonera__regresar" onClick={handleCloseRecoverPasswordModal}>
+                            <span className="botonera__regresar-icon icon-back"></span>
+                        </button>
+                        <button className="botonera__cerrar" onClick={handleCloseRecoverPasswordModal}>
+                            <span className="botonera__cerrar-icon icon-close"></span>
+                            </button>
+                    </div>
+                </Modal.Header>
+                <Modal.Body id="modal-olvidaste___BV_modal_body_">
+                    <div className="titulo">
+                        <span className="titulo__icono icon-lock"></span>
+                        <span className="titulo__texto"> Recupera tu <span className="titulo__texto--modifier">contraseña</span>
+                        </span>
+                    </div>
+                    <div className="informacion">
+                        <div className="informacion__texto">
+                            <p className="informacion__texto-span"> Ingresa la dirección de correo electrónico asociado a tu cuenta. Te enviaremos un código de 4 dígitos para recuperar tu contraseña.</p>
+                        </div>
+                        <div className="informacion__correo">
+                            <input name="email" type="email" required="required" placeholder="Ingresa tu correo electrónico"
+                                className="informacion__correo-input" aria-required="true" aria-invalid="true" />
+                        </div>
+                        <div className="informacion__boton">
+                            <button disabled="disabled" className="informacion__boton-button"> Recuperar </button>
+                        </div>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer id="modal-olvidaste">
+                    <div className="contacto">
+                        <div className="contacto__texto">
+                            <p className="contacto__texto-informacion">Si necesitas ayuda ponte en contacto con nuestro equipo de soporte
+                                técnico.</p>
+                        </div>
+                        <div className="contacto__boton">
+                            <div className="contactenos">
+                                <button className="contactenos__button">
+                                    <span className="contactenos__button-icon icon-contacto"></span>
+                                    <span className="contactenos__button-text">Contáctanos</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </Modal.Footer>
             </Modal>
         </div>
