@@ -58,7 +58,7 @@ export const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="#"
+                                    href="/terminos-condiciones"
                                     className="no-underline hover:underline support-text"
                                 >
                                     Términos y condiciones
