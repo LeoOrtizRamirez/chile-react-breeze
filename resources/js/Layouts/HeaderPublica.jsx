@@ -184,7 +184,7 @@ export default function Example(props) {
                                     <span className="login__welcome-content-titulo login__welcome-content-titulo">¡Hola!</span>
                                     <span className="login__welcome-content-titulo login__welcome-content-titulo--modifier">Bienvenido</span>
                                 </p>
-                                <p className="login__welcome-content-texto"> ¿Aún no tienes cuenta? <a className="login__infoLLink"> Regístrate gratis </a>
+                                <p className="login__welcome-content-texto"> ¿Aún no tienes cuenta? <a className="login__infoLLink" href={route("register")}> Regístrate gratis </a>
                                 </p>
                             </div>
                         </div>
@@ -302,7 +302,7 @@ export default function Example(props) {
                             :
                             <div className="informacion__texto mensaje__error">
                                 <p className="informacion__texto-span"> El correo electrónico que has ingresado no se encuentra registrado o se ha escrito de forma incorrecta. Si aún no tienes cuenta puedes registrarte
-                                    <a className="informacion__texto-span--modifier"> 30 días gratis aqui.</a>
+                                    <a className="informacion__texto-span--modifier" href={route("register")}> 30 días gratis aqui.</a>
                                 </p>
                             </div>
                         }
