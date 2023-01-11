@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Inertia\Inertia;
 use PhpParser\Node\Stmt\Return_;
+use Redirect;
 
 class UserController extends Controller
 {
@@ -160,5 +161,17 @@ class UserController extends Controller
     {
         $usuario->delete();
         return redirect(route('usuarios.index'));
+    }
+
+    public function userValidate(Request $request)
+    {
+        $response = "";
+        $user = User::where('email', $request->email)->first();
+        if(is_null($user)){
+            $response = 'Failed';
+        }else{
+            $response = 'Success';
+        }
+        return json_encode($response);
     }
 }
