@@ -186,82 +186,82 @@ const Chile = (props) => {
                 </div>
             </section>
 
-            <section id="funcionalidades" class="funcionalidades container">
-                <div class="funcionalidades-info">
-                    <p class="funcionalidades-info-title">
+            <section id="funcionalidades" className="funcionalidades container">
+                <div className="funcionalidades-info">
+                    <p className="funcionalidades-info-title">
                         incluido en tu plan
-                    </p> <h2 class="funcionalidades-info-subtitle">
+                    </p> <h2 className="funcionalidades-info-subtitle">
                         Funcionalidades que te facilitan acceso a la información
                     </h2>
-                </div> <div id="funcionalidades-list" class="funcionalidades-list">
-                    <ul class="funcionalidades-list-content">
-                        <div class="funcionalidades-list-column mr-3">
+                </div> <div id="funcionalidades-list" className="funcionalidades-list">
+                    <ul className="funcionalidades-list-content">
+                        <div className="funcionalidades-list-column mr-3">
 
-                            <li class="funcionalidades-list-item">
-                                <div class="funcionalidad">
-                                    <img src="/public/images/planes/colombia.svg" alt="Item" class="funcionalidad-image" />
-                                    <p class="funcionalidad-text">
+                            <li className="funcionalidades-list-item">
+                                <div className="funcionalidad">
+                                    <img src="/public/images/planes/colombia.svg" alt="Item" className="funcionalidad-image" />
+                                    <p className="funcionalidad-text">
                                         Monitoreo 24/7 de todas las fuentes de información de<br></br> la contratación en Colombia.
                                     </p>
                                 </div>
                             </li>
-                            <li class="funcionalidades-list-item">
-                                <div class="funcionalidad">
-                                    <img src="/public/images/planes/captcha.svg" alt="Item" class="funcionalidad-image" />
-                                    <p class="funcionalidad-text">
+                            <li className="funcionalidades-list-item">
+                                <div className="funcionalidad">
+                                    <img src="/public/images/planes/captcha.svg" alt="Item" className="funcionalidad-image" />
+                                    <p className="funcionalidad-text">
                                         Desciframos por tí el código captcha.
                                     </p>
                                 </div>
                             </li>
-                            <li class="funcionalidades-list-item">
-                                <div class="funcionalidad">
-                                    <img src="/public/images/planes/exportar.svg" alt="Item" class="funcionalidad-image" />
-                                    <p class="funcionalidad-text">
+                            <li className="funcionalidades-list-item">
+                                <div className="funcionalidad">
+                                    <img src="/public/images/planes/exportar.svg" alt="Item" className="funcionalidad-image" />
+                                    <p className="funcionalidad-text">
                                         Exportación de procesos de contratación a Excel.
                                     </p>
                                 </div>
                             </li>
-                            <li class="funcionalidades-list-item">
-                                <div class="funcionalidad">
-                                    <img src="/public/images/planes/acceso-contratacion.svg" alt="Item" class="funcionalidad-image" />
-                                    <p class="funcionalidad-text">
+                            <li className="funcionalidades-list-item">
+                                <div className="funcionalidad">
+                                    <img src="/public/images/planes/acceso-contratacion.svg" alt="Item" className="funcionalidad-image" />
+                                    <p className="funcionalidad-text">
                                         Acceso a la contratación de Panamá y Ecuador.
                                     </p>
                                 </div>
                             </li>
 
-                        </div> <div class="funcionalidades-list-column">
-                            <li class="funcionalidades-list-item">
-                                <div class="funcionalidad">
-                                    <img src="/public/images/planes/seguimiento.svg" alt="Item" class="funcionalidad-image" />
-                                    <p class="funcionalidad-text">
+                        </div> <div className="funcionalidades-list-column">
+                            <li className="funcionalidades-list-item">
+                                <div className="funcionalidad">
+                                    <img src="/public/images/planes/seguimiento.svg" alt="Item" className="funcionalidad-image" />
+                                    <p className="funcionalidad-text">
                                         Seguimiento a la publicación de nuevos documentos.
                                     </p>
                                 </div>
                             </li>
-                            <li class="funcionalidades-list-item">
-                                <div class="funcionalidad">
-                                    <img src="/public/images/planes/correo.svg" alt="Item" class="funcionalidad-image" />
-                                    <p class="funcionalidad-text">
+                            <li className="funcionalidades-list-item">
+                                <div className="funcionalidad">
+                                    <img src="/public/images/planes/correo.svg" alt="Item" className="funcionalidad-image" />
+                                    <p className="funcionalidad-text">
                                         Notificamos al correo de cada oportunidad de negocio para tí.
                                     </p>
                                 </div>
                             </li>
-                            <li class="funcionalidades-list-item">
-                                <div class="funcionalidad">
-                                    <img src="/public/images/planes/app.svg" alt="Item" class="funcionalidad-image" />
-                                    <p class="funcionalidad-text">
+                            <li className="funcionalidades-list-item">
+                                <div className="funcionalidad">
+                                    <img src="/public/images/planes/app.svg" alt="Item" className="funcionalidad-image" />
+                                    <p className="funcionalidad-text">
                                         App móvil
                                     </p>
                                 </div>
                             </li>
-                            <li class="funcionalidades-list-item">
-                                <div class="funcionalidad visit-funcionalities">
+                            <li className="funcionalidades-list-item">
+                                <div className="funcionalidad visit-funcionalities">
                                     <a href="/colombia/funcionalidades">
-                                        <img src="/public/images/planes/conocer-mas.svg" alt="Item" class="funcionalidad-image" />
-                                        <p class="funcionalidad-text mark-text">
+                                        <img src="/public/images/planes/conocer-mas.svg" alt="Item" className="funcionalidad-image" />
+                                        <p className="funcionalidad-text mark-text">
                                             Conoce todas las funcionalidades
-                                        </p> <span class="icon-down icon">
+                                        </p> <span className="icon-down icon">
 
                                         </span>
                                     </a>
@@ -271,7 +271,7 @@ const Chile = (props) => {
                         </div>
                     </ul>
                 </div>
-                 <div class="funcionalidades-content-button">
+                 <div className="funcionalidades-content-button">
                     <BotonAdquirirPlan
                         texto={"Adquirir un plan"}
                         textoHover={"Escoger mi plan"}
