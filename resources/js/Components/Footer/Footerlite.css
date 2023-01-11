@@ -1,6 +1,6 @@
 .container-footerlite {
     /* width: 1280px; */
-    width: auto !important;
+    width: auto;
     height: 60px;
     margin: 50px auto 0 auto;
     display: flex;
@@ -14,14 +14,22 @@
     opacity: 1;
 }
 
-.footerlite-titles {
-    color: #686868;
+.footerlite-titles a {
+    color: #686868 !important;
     font-size: 13px;
     font-family: "Roboto", sans-serif;
+    text-decoration: none;
 }
 
 .footerlite-titles:hover a {
     text-decoration: underline;
+}
+
+.footerlite-liciinfo {
+    color: #686868 !important;
+    font-size: 13px;
+    font-family: "Roboto", sans-serif;
+    text-decoration: none;
 }
 
 .footerlite-separator {

@@ -5,9 +5,9 @@ export const FooterLite = () => {
     return (
         <>
             <footer>
-                <div className="container container-footerlite">
+                <div className="container-footerlite">
                     <div className="footerlite-titles">
-                        <span>
+                        <span className="footerlite-liciinfo">
                             © 2022 Licitaciones.info S.A.S - Todos los derechos
                             reservados
                         </span>{" "}
