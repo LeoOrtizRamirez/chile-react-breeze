@@ -4,6 +4,7 @@ import { FooterLite } from "@/Components/Footer/FooterLite";
 import Header from "@/Components/Header/HeaderLite";
 import "@fontsource/poppins";
 import "../../css/estilos-terminos-condiciones.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export const TerminosCondiciones = (props) => {
     return (
@@ -14,7 +15,7 @@ export const TerminosCondiciones = (props) => {
                 href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto&display=swap"
                 rel="stylesheet"
             ></link>
-            <div className="container-terminos">
+            <div className="container-terminos container">
                 <div className="banner-izquierdo">
                     
                     <ul>
