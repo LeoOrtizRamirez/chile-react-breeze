@@ -110,7 +110,7 @@ const PasswordSecurity = (props, onHandleChange) => {
     }
 
     const handleTogglePasswordIcon = (e) => {
-        let input_password = document.getElementById("passwordNueva") //PENDIENTE REVISAR COMO SE IMPLEMENTA POR MEDIO DE REFERENCIA
+        let input_password = document.querySelector(".contenido__password-div input[name='password']") //PENDIENTE REVISAR COMO SE IMPLEMENTA POR MEDIO DE REFERENCIA
         if (refPasswordIcon.current.className == "contenido__password-div-icon icon-show") {
             refPasswordIcon.current.className = "contenido__password-div-icon icon-hide"
             input_password.type = "text"

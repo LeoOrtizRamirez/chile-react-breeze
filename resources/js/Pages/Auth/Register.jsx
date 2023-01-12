@@ -71,7 +71,6 @@ export default function Register(props) {
 
     return (
         <>
-
             <Head title="Register" />
             <Header user={props}></Header>
             <div id="register-container" className='container'>
@@ -259,92 +258,6 @@ export default function Register(props) {
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
-
-            {/*  <form onSubmit={submit}>
-                <div>
-                    <TextInput
-                        placeholder="Nombre"
-                        id="name"
-                        name="name"
-                        value={data.name}
-                        className="mt-1 block w-full"
-                        autoComplete="name"
-                        isFocused={true}
-                        handleChange={onHandleChange}
-                        required
-                    />
-
-                    <InputError message={errors.name} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <TextInput
-                        placeholder="Correo"
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        handleChange={onHandleChange}
-                        required
-                    />
-
-                    <InputError message={errors.email} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-
-                    <TextInput
-                        placeholder="Contraseña"
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        handleChange={onHandleChange}
-                        required
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-
-                    <TextInput
-                        placeholder="Confirmar contraseña"
-                        id="password_confirmation"
-                        type="password"
-                        name="password_confirmation"
-                        value={data.password_confirmation}
-                        className="mt-1 block w-full"
-                        handleChange={onHandleChange}
-                        required
-                    />
-
-                    <InputError message={errors.password_confirmation} className="mt-2" />
-                </div>
-
-                <div className="flex items-center justify-end mt-4">
-                    <Link
-                        href={route('login')}
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        Ya estas Registrado?
-                    </Link>
-
-                    <PrimaryButton className="ml-4" processing={processing}>
-                        Registrarme
-                    </PrimaryButton>
-                </div>
-            </form> */}
         </>
     );
 }
