@@ -66,7 +66,7 @@ export const BannerMonitoreamos = () => {
                         </a>
                     </div>
                     <div className="grid-item1">
-                        <a href="" target="_blank">
+                        <a href="https://www.electricas.cl/" target="_blank">
                         <Allies rutaImagen="/public/images/banerMonitoreamos/6.png" />
                         </a>
                     </div>
@@ -116,7 +116,7 @@ export const BannerMonitoreamos = () => {
                         </a>
                     </div>
                     <div className="grid-item1">
-                        <a href="" target="_blank">
+                        <a href="https://www.ctg.com/" target="_blank">
                         <Allies rutaImagen="/public/images/banerMonitoreamos/13.png" />
                         </a>
                     </div>
@@ -127,7 +127,7 @@ export const BannerMonitoreamos = () => {
                     </div>
                     <div className="grid-item1">
                         <a href="https://www.undp.org/es" target="_blank">
-                        <Allies rutaImagen="/public/images/banerMonitoreamos/15.png" />
+                        <Allies rutaImagen="/public/images/banerMonitoreamos/15-1.png" />
                         </a>
                     </div>
                     <div className="grid-item1">
@@ -140,7 +140,7 @@ export const BannerMonitoreamos = () => {
                             href="https://www.scotiabankcolpatria.com/"
                             target="_blank"
                         >
-                            <Allies rutaImagen="/public/images/banerMonitoreamos/17.png" />
+                            <Allies rutaImagen="/public/images/banerMonitoreamos/17-1.png" />
                         </a>
                     </div>
                     <div className="grid-item1">
