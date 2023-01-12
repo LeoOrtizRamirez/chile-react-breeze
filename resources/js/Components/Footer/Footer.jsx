@@ -80,7 +80,10 @@ export const Footer = () => {
 
                 <div className="sm:flex sm:items-center sm:justify-between mx-11 pb-10 text-footer margin-txt-footer">
                     <span className="flex text-sm text-white sm:text-center">
-                        <a href="https://flowbite.com/">
+                        <a
+                            target="_blank"
+                            href="https://www.licitaciones.info/"
+                        >
                             <ApplicationLogoLiciWhite />
                         </a>
                         <span className="margin-text-lici">
@@ -90,7 +93,10 @@ export const Footer = () => {
                     </span>
 
                     <div className="flex mt-4 space-x-6 sm:justify-center sm:mt-0 items-center">
-                        <a href="https://www.facebook.com/licitacionesInfo/">
+                        <a
+                            target="_blank"
+                            href="https://www.facebook.com/licitacionesInfo/"
+                        >
                             <svg
                                 className="w-5 h-5 facebook"
                                 fill="currentColor"
@@ -106,7 +112,10 @@ export const Footer = () => {
                             <span className="sr-only">Facebook page</span>
                         </a>
 
-                        <a href="https://www.facebook.com/licitacionesInfo/">
+                        <a
+                            target="_blank"
+                            href="https://www.youtube.com/@LicitacionesInfo"
+                        >
                             <svg
                                 className="w-6 h-7 ml-1.5 mt-1.5 youtube"
                                 fill="currentColor"
@@ -122,7 +131,10 @@ export const Footer = () => {
                             <span className="sr-only ">Youtube page</span>
                         </a>
 
-                        <a href="https://twitter.com/licitacionesinf?lang=es">
+                        <a
+                            target="_blank"
+                            href="https://twitter.com/licitacionesinf?lang=es"
+                        >
                             <svg
                                 className="w-5 h-5 twitter"
                                 fill="currentColor"

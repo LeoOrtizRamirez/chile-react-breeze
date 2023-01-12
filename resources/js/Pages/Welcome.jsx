@@ -31,7 +31,7 @@ export default function Welcome(props) {
                             </span>
 
                             <span className="customers-cta-count-statistics">
-                                Más de 6000 clientes en Colombia y el mundo
+                                Más de 6000 clientes en Chile y el mundo
                             </span>
                         </div>
                         <div className="contenta-b">
