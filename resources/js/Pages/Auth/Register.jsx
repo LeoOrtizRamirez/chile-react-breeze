@@ -5,7 +5,7 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
-import Header from "@/Layouts/HeaderPublica";
+import Header from "@/Components/Header/HeaderLite";
 
 import './Register.css';
 import "@fontsource/poppins";
@@ -22,6 +22,8 @@ export default function Register(props) {
         password_confirmation: '',
     });
 
+    const [disabledBtnRegister, setDisableddisabledBtnRegister] = useState(true);
+    const [disabledClass, setDisabledClass] = useState("disabled");
     const [showModalPaises, setShowModalPaises] = useState(false);
     const [Country, SetCountry] = useState(
         { "image": "", "title": "", "indicative": "+0", "fixed": null },
@@ -39,7 +41,6 @@ export default function Register(props) {
 
     const submit = (e) => {
         e.preventDefault();
-
         post(route('register'));
     };
 
@@ -52,10 +53,21 @@ export default function Register(props) {
     }
 
     const handleInputChange = (event) => {
+        if (event.target.name == "terms") {
+            if (event.target.checked) {
+                setDisableddisabledBtnRegister(false)
+                setDisabledClass("")
+            } else {
+                setDisableddisabledBtnRegister(true)
+                setDisabledClass("disabled")
+            }
+        }
+        /*
         setData({
             ...data,//Hace una pseudo copia de data
             [event.target.name]: event.target.value
         })
+        */
     }
 
     return (
@@ -69,7 +81,7 @@ export default function Register(props) {
                             <div className="bloque__info-header">
                                 <div className="bloque__info-header-title">
                                     <span className="bloque__info-header-title-text">Crea una <img
-                                        src="/icons/multicolor/crear cuenta.svg" alt="Crea una cuenta gratis"
+                                        src="/public/icons/multicolor/crear cuenta.svg" alt="Crea una cuenta gratis"
                                         className="bloque__info-header-title-img" />
                                         <span
                                             className="bloque__info-header-title-text--modifier">cuenta gratis</span></span>
@@ -86,7 +98,7 @@ export default function Register(props) {
                             <div className="bloque__info-contenido">
                                 <div className="bloque__info-contenido-div">
                                     <div className="bloque__info-contenido-img">
-                                        <img src="/icons/multicolor/servicio.svg" alt="Servicio"
+                                        <img src="/public/icons/multicolor/servicio.svg" alt="Servicio"
                                             className="bloque__info-contenido-img--modifier" />
                                     </div>
                                     <div className="bloque__info-contenido-text">
@@ -97,7 +109,7 @@ export default function Register(props) {
                                 </div>
                                 <div className="bloque__info-contenido-div">
                                     <div className="bloque__info-contenido-img">
-                                        <img src="/icons/multicolor/licitaciones.svg" alt=""
+                                        <img src="/public/icons/multicolor/licitaciones.svg" alt=""
                                             className="bloque__info-contenido-img--modifier" />
                                     </div>
                                     <div className="bloque__info-contenido-text">
@@ -108,7 +120,7 @@ export default function Register(props) {
                                 </div>
                                 <div className="bloque__info-contenido-div">
                                     <div className="bloque__info-contenido-img">
-                                        <img src="/icons/multicolor/notificaciones.svg" alt=""
+                                        <img src="/public/icons/multicolor/notificaciones.svg" alt=""
                                             className="bloque__info-contenido-img--modifier" />
                                     </div>
                                     <div className="bloque__info-contenido-text">
@@ -118,7 +130,7 @@ export default function Register(props) {
                                 </div>
                                 <div className="bloque__info-contenido-div">
                                     <div className="bloque__info-contenido-img">
-                                        <img src="/icons/multicolor/funcionalidades.svg" alt=""
+                                        <img src="/public/icons/multicolor/funcionalidades.svg" alt=""
                                             className="bloque__info-contenido-img--modifier" />
                                     </div>
                                     <div className="bloque__info-contenido-text">
@@ -131,7 +143,7 @@ export default function Register(props) {
                         </div>
                     </div>
                     <div className="bloque__registro col-lg-6">
-                        <form id="form" name="form" action="">
+                        <form id="form" name="form" onSubmit={submit}>
                             <div className="bloque__registro-form">
                                 <div className="bloque__registro-form-div">
                                     <div className="bloque__registro-form-title">
@@ -161,7 +173,7 @@ export default function Register(props) {
                                             >Contraseña:</span>
                                         </div>
                                         <div className="content-inputs">
-                                            <PasswordSecurity/>
+                                            <PasswordSecurity />
                                         </div>
                                     </div>
                                 </div>
@@ -171,11 +183,11 @@ export default function Register(props) {
                                             className="bloque__registro-form-title-label">Telefono:</label>
                                     </div>
                                     <div className="bloque__registro-form-telefono">
-                                        <div className="bloque__registro-form-telefono-button"  onClick={handleShowModalPaises}>
+                                        <div className="bloque__registro-form-telefono-button" onClick={handleShowModalPaises}>
                                             {Country.image == "" ?
                                                 <span className="icon-earth bloque__registro-form-telefono-icono"></span>
-                                            :
-                                            <img src={Country.image} alt="imagen bandera seleccionada" className="contactenos_form--campo-indicativo-bandera" />
+                                                :
+                                                <img src={Country.image} alt="imagen bandera seleccionada" className="contactenos_form--campo-indicativo-bandera" />
                                             }
                                             <label for="" className="bloque__registro-form-telefono-label">{Country.indicative}</label>
                                             <span className="icon-down bloque__registro-form-telefono-flecha"></span>
@@ -199,14 +211,20 @@ export default function Register(props) {
                                     href="#">términos,
                                     condiciones</a></span><span><a href="#"> y las políticas de privacidad</a> de
                                         Licitaciones.info S.A.S. </span>
-                                    <input type="checkbox" />
+                                    <input type="checkbox" name="terms" onChange={handleInputChange} />
                                     <div className="checkbox-input">
 
                                     </div>
                                 </label>
                                 </div>
-                                <div className="bloque__registro-form-registrarse"><button id="submit" type="submit" name="submit"
-                                    disabled="disabled" className="bloque__registro-form-button disabled"> Registrarme </button>
+                                <div className="bloque__registro-form-registrarse">
+                                    <button
+                                        id="submit"
+                                        type="submit"
+                                        name="submit"
+                                        disabled={disabledBtnRegister}
+                                        className={`bloque__registro-form-button ${disabledClass}`}
+                                    > Registrarme </button>
                                 </div>
                                 <div className="bloque__registro-form-beneficios"><a> Conoce los beneficios al registrarse </a>
                                 </div>
@@ -221,7 +239,14 @@ export default function Register(props) {
                     </div>
                 </div>
             </div>
-            {/* <form onSubmit={submit}>
+
+
+
+
+
+
+
+            <form onSubmit={submit}>
                 <div>
                     <TextInput
                         placeholder="Nombre"
@@ -299,7 +324,7 @@ export default function Register(props) {
                         Registrarme
                     </PrimaryButton>
                 </div>
-            </form> */}
+            </form>
         </>
     );
 }

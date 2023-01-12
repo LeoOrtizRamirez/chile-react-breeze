@@ -6,6 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import TextInput from '@/Components/TextInput';
 import "../../../css/font-unicolor.css";
 import './HeaderLite.css';
+import '../../Layouts/Header.css';
 
 import { useForm } from '@inertiajs/inertia-react';
 
