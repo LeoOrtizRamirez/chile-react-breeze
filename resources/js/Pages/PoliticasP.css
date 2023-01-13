@@ -17,7 +17,7 @@
     padding: 25px;
     position: fixed;
     width: 290px;
-    height: 410px;
+    height: auto;
     overflow: auto;
     border-radius: 17px;
     -webkit-border-radius: 17px;
