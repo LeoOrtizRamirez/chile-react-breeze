@@ -89,11 +89,9 @@ export const PoliticasC = (props) => {
                             de cookies.
                         </p>
                         <br />
-                        <br />
                         <span className="politicscoo-subtitles" id="Son">
                             ¿Qué son las cookies?
                         </span>
-                        <br />
                         <br />
                         <p>
                             Una cookie es un fichero que se descarga en su
@@ -106,11 +104,9 @@ export const PoliticasC = (props) => {
                             para reconocer al usuario.
                         </p>
                         <br />
-                        <br />
                         <span className="politicscoo-subtitles" id="Tipos">
                             ¿Qué tipo de cookies utilizamos?
                         </span>
-                        <br />
                         <br />
                         <p>
                             En Licitaciones.info utilizamos los siguientes tipos
@@ -124,7 +120,6 @@ export const PoliticasC = (props) => {
                             de productos o servicios que le ofrecemos.
                         </p>
                         <br />
-                        <br />
                         <p>
                             Cookies técnicas: Son aquellas que permiten al
                             usuario la navegación a través del área restringida
@@ -132,7 +127,6 @@ export const PoliticasC = (props) => {
                             por ejemplo, llevar a cambio el proceso de compra de
                             un artículo.
                         </p>
-                        <br />
                         <br />
                         <p>
                             Cookies de personalización: Son aquellas que
@@ -143,7 +137,6 @@ export const PoliticasC = (props) => {
                             de navegador a través del cual se conecta al
                             servicio.
                         </p>
-                        <br />
                         <br />
                         <p>
                             Cookies publicitarias: Son aquellas que, bien
@@ -157,7 +150,6 @@ export const PoliticasC = (props) => {
                             mostrarle publicidad relacionada con su perfil de
                             navegación.
                         </p>
-                        <br />
                         <br />
                         <p>
                             Cookies de publicidad comportamental: Son aquellas
@@ -173,11 +165,9 @@ export const PoliticasC = (props) => {
                             publicitarios en función del mismo.
                         </p>
                         <br />
-                        <br />
                         <span className="politicscoo-subtitles" id="Desactivar">
                             ¿Cómo desactivar las cookies?
                         </span>
-                        <br />
                         <br />
                         <p>
                             Puede usted permitir, bloquear o eliminar las
@@ -190,7 +180,6 @@ export const PoliticasC = (props) => {
                             configuración de los navegadores webs más frecuentes
                             para aceptar, instalar o desactivar las cookies:
                         </p>
-                        <br />
                         <br />
                         <a
                             className="politicscoo-link"
@@ -225,11 +214,9 @@ export const PoliticasC = (props) => {
                         </a>
                         <br />
                         <br />
-                        <br />
                         <span className="politicscoo-subtitles" id="Terceros">
                             Cookies de terceros
                         </span>
-                        <br />
                         <br />
                         <p>
                             Utilizamos servicios de terceros para recopilar
@@ -242,7 +229,6 @@ export const PoliticasC = (props) => {
                             del mismo.
                         </p>
                         <br />
-                        <br />
                         <p>
                             En concreto, usamos los servicios de Google Adsense
                             y de Google Analytics para nuestras estadísticas y
@@ -250,7 +236,6 @@ export const PoliticasC = (props) => {
                             funcionamiento del sitio, por ejemplo el buscador
                             incorporado.
                         </p>
-                        <br />
                         <br />
                         <p>
                             Nuestro sitio incluye otras funcionalidades
@@ -260,7 +245,6 @@ export const PoliticasC = (props) => {
                             hemos incluido a tal efecto.
                         </p>
                         <br />
-                        <br />
                         <span
                             className="politicscoo-subtitles"
                             id="Advertencia"
@@ -268,13 +252,11 @@ export const PoliticasC = (props) => {
                             Advertencia sobre eliminar cookies
                         </span>
                         <br />
-                        <br />
                         <p>
                             Usted puede eliminar y bloquear todas las cookies de
                             este sitio, pero parte del sitio no funcionará o la
                             calidad de la página web puede verse afectada.
                         </p>
-                        <br />
                         <br />
                         <p>
                             Si tiene cualquier duda acerca de nuestra política
@@ -282,11 +264,9 @@ export const PoliticasC = (props) => {
                             canales de Contacto.
                         </p>
                         <br />
-                        <br />
                         <span className="politicscoo-subtitles" id="Quienes">
                             ¿Quién debe cumplir la ley de cookies?
                         </span>
-                        <br />
                         <br />
                         <p>
                             Tanto las empresas como los profesionales que tengan
@@ -295,7 +275,6 @@ export const PoliticasC = (props) => {
                             deben cumplir con lo establecido en la Ley de
                             cookies.
                         </p>
-                        <br />
                         <br />
                         <p>
                             Si quieres ampliar la información acerca del uso de
@@ -306,7 +285,7 @@ export const PoliticasC = (props) => {
                     </div>
                 </div>
             </div>
-            <FooterLite/>
+            <FooterLite />
         </>
     );
 };
