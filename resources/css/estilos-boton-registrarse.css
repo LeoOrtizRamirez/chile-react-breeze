@@ -54,6 +54,12 @@ span.cta-button-text {
     right: 13px;
     transition: visibility 0.2s ease-in, opacity 0.2s ease-out;
 }
+
+.cta-button-icon-content .icon-Right-2 {
+    position: absolute;
+    right: 13px;
+    transition: visibility 0.2s ease-in, opacity 0.2s ease-out;
+}
 .cta-button.info .cta-button-icon-content {
     background-color: #00a1c9;
 }

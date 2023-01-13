@@ -9,7 +9,7 @@ const BotonAdquirirPlan = (props) => {
                     <span className="cta-button-text">{props.texto}</span>
                     <div className={`cta-button-icon-content`}>
                         <span className={`cta-button-icon-content-hidden-text `}>{props.textoHover}</span>
-                        <span className="cta-button-icon-content-icon icon-Right"></span>
+                        <span className="cta-button-icon-content-icon icon-Right-2"></span>
                     </div>
                 </div>
             </a>
