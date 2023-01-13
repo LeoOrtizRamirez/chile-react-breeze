@@ -50,6 +50,7 @@ export const Footer = () => {
                         <ul>
                             <li>
                                 <a
+                                    target="_blank"
                                     href={route("politicasp")}
                                     className="no-underline hover:underline support-text"
                                 >
@@ -58,6 +59,7 @@ export const Footer = () => {
                             </li>
                             <li>
                                 <a
+                                    target="_blank"
                                     href="/terminos-condiciones"
                                     className="no-underline hover:underline support-text"
                                 >
@@ -66,6 +68,7 @@ export const Footer = () => {
                             </li>
                             <li>
                                 <a
+                                    target="_blank"
                                     href={route("politicasc")}
                                     className="no-underline hover:underline support-text"
                                 >
