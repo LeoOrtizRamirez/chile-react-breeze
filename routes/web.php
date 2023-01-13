@@ -34,6 +34,11 @@ Route::get('/contacto', function () {
 })->name('contacto');
 
 
+Route::get('/recuperar-contrasena', function () { 
+    return Inertia::render('RecuperarContrasena');
+})->name('recuperar-contrasena');
+
+
 Route::get('/funcionalidades', function () { 
     return Inertia::render('Funcionalidades');
 });

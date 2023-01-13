@@ -20,7 +20,6 @@ export default function TextInput({
     }, []);
 
     return (
-        <div className="flex flex-col items-start">
             <input
                 placeholder={placeholder}
                 type={type}
@@ -35,6 +34,5 @@ export default function TextInput({
                 required={required}
                 onChange={(e) => handleChange(e)}
             />
-        </div>
     );
 }
