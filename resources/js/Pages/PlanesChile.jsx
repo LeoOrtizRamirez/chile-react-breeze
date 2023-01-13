@@ -61,7 +61,7 @@ const Chile = (props) => {
                             <div className="priceCard">
                                 <div className="priceCard-discount">
                                     <span className="priceCard-discount-text">
-                                        -27%*</span>
+                                        -21%*</span>
                                 </div>
                                 <div className="priceCard-ribbon">
                                     <span className="priceCard-ribbon-text">6 meses</span>
