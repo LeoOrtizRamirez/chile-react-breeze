@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from 'react'
 
 import './PasswordSecurity.css'
 
-const PasswordSecurity = () => {
+import TextInput from '@/Components/TextInput';
 
+const PasswordSecurity = (props, onHandleChange) => {
     const [securityColor, setSecurityColor] = useState("gray");
     const [securityName, setSecurityName] = useState("no ingresada");
 
@@ -99,6 +100,7 @@ const PasswordSecurity = () => {
 
     const handleInputChange = (event) => {
         checkSecurity(event.target.value)
+        props.onHandleChange(event)
         /*
         setData({
             ...data,//Hace una pseudo copia de data
@@ -108,8 +110,7 @@ const PasswordSecurity = () => {
     }
 
     const handleTogglePasswordIcon = (e) => {
-        let input_password = document.getElementById("passwordNueva") //PENDIENTE REVISAR COMO SE IMPLEMENTA POR MEDIO DE REFERENCIA
-        console.log(input_password.type)
+        let input_password = document.querySelector(".contenido__password-div input[name='password']") //PENDIENTE REVISAR COMO SE IMPLEMENTA POR MEDIO DE REFERENCIA
         if (refPasswordIcon.current.className == "contenido__password-div-icon icon-show") {
             refPasswordIcon.current.className = "contenido__password-div-icon icon-hide"
             input_password.type = "text"
@@ -125,12 +126,19 @@ const PasswordSecurity = () => {
         <>
             <div className="contenido__password">
                 <div className="contenido__password-div">
-                    <input
-                        type="password" placeholder="Ingresa tu contraseña" id="passwordNueva"
-                        name="password" autocomplete="off" icon="icon-lock"
+                    <TextInput
+                        placeholder="Ingresa tu contraseña"
+                        id="passwordNueva"
+                        type="password"
+                        name="password"
+                        /* value={data.password} */
                         className="contenido__password-div-input"
+                        autocomplete="off"
+                        icon="icon-lock"
+                        autoComplete="new-password"
+                        handleChange={handleInputChange}
+                        required
                         style={{ width: 100 + '%;' }}
-                        onChange={handleInputChange}
                     />
                     <span 
                         className="contenido__password-div-icon icon-show" 
@@ -151,9 +159,6 @@ const PasswordSecurity = () => {
                             </div>
                             <div className={`${securityMuyFuerte && `bt-2-${securityColor} bl-2-${securityColor} `} contenido__circulo-esquina__sup-izq securityColor__gris-sup-izq `}>
                             </div>
-
-
-
                             <span className={`contenido__seguridad-icon icon-shield c-${securityColor}`}></span>
                         </div>
                         <span className="contenido__seguridad-text"> Seguridad <br />

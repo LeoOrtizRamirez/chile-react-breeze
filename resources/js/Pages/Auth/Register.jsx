@@ -21,7 +21,6 @@ export default function Register(props) {
         password: '',
         password_confirmation: '',
     });
-
     const [disabledBtnRegister, setDisableddisabledBtnRegister] = useState(true);
     const [disabledClass, setDisabledClass] = useState("disabled");
     const [showModalPaises, setShowModalPaises] = useState(false);
@@ -62,12 +61,12 @@ export default function Register(props) {
                 setDisabledClass("disabled")
             }
         }
-        /*
+
         setData({
             ...data,//Hace una pseudo copia de data
             [event.target.name]: event.target.value
         })
-        */
+
     }
 
     return (
@@ -151,7 +150,17 @@ export default function Register(props) {
                                         <label htmlFor="" className="bloque__registro-form-title-label">Nombre:</label>
                                     </div>
                                     <div className="bloque__registro-form-container">
-                                        <input id="name" name="name" type="text" placeholder="Ingresa tu nombre y apellido" className="bloque__registro-form-container-input" aria-required="true" aria-invalid="false" />
+                                        <TextInput
+                                            placeholder="Ingresa tu nombre y apellido"
+                                            id="name"
+                                            name="name"
+                                            value={data.name}
+                                            className="bloque__registro-form-container-input"
+                                            autoComplete="name"
+                                            isFocused={true}
+                                            handleChange={onHandleChange}
+                                            required
+                                        />
                                         <span className=""></span>
                                     </div>
                                 </div>
@@ -161,25 +170,35 @@ export default function Register(props) {
                                         <label htmlFor="" className="bloque__registro-form-title-label">Correo electrónico:</label>
                                     </div>
                                     <div className="bloque__registro-form-container">
-                                        <input id="email" name="email" type="email" placeholder="Ingresa tu correo electrónico" className="bloque__registro-form-container-input" aria-required="true" aria-invalid="false" />
+                                        <TextInput
+                                            placeholder="Ingresa tu correo electrónico"
+                                            id="email"
+                                            type="email"
+                                            name="email"
+                                            value={data.email}
+                                            className="bloque__registro-form-container-input"
+                                            autoComplete="username"
+                                            handleChange={onHandleChange}
+                                            required
+                                        />
                                         <span className=""></span>
                                     </div>
                                 </div>
                                 <div className="bloque__registro-form-div">
                                     <div id="inputPaswordUserRegisterComponent" className="contenido InputPassword"
                                         name="password" type="password">
-                                        <div for="" className="contenido__password-titulo"><span
+                                        <div htmlFor="" className="contenido__password-titulo"><span
                                             className="contenido__password-titulo-icon icon-lock"></span><span
                                             >Contraseña:</span>
                                         </div>
                                         <div className="content-inputs">
-                                            <PasswordSecurity />
+                                            <PasswordSecurity onHandleChange={onHandleChange} />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="bloque__registro-form-div">
                                     <div className="bloque__registro-form-title"><span
-                                        className="icon-phone bloque__registro-form-title-span"></span><label for=""
+                                        className="icon-phone bloque__registro-form-title-span"></span><label htmlFor=""
                                             className="bloque__registro-form-title-label">Telefono:</label>
                                     </div>
                                     <div className="bloque__registro-form-telefono">
@@ -189,7 +208,7 @@ export default function Register(props) {
                                                 :
                                                 <img src={Country.image} alt="imagen bandera seleccionada" className="contactenos_form--campo-indicativo-bandera" />
                                             }
-                                            <label for="" className="bloque__registro-form-telefono-label">{Country.indicative}</label>
+                                            <label htmlFor="" className="bloque__registro-form-telefono-label">{Country.indicative}</label>
                                             <span className="icon-down bloque__registro-form-telefono-flecha"></span>
                                         </div>
                                         <hr className="bloque__registro-form-telefono-linea" />
@@ -239,92 +258,6 @@ export default function Register(props) {
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
-
-            <form onSubmit={submit}>
-                <div>
-                    <TextInput
-                        placeholder="Nombre"
-                        id="name"
-                        name="name"
-                        value={data.name}
-                        className="mt-1 block w-full"
-                        autoComplete="name"
-                        isFocused={true}
-                        handleChange={onHandleChange}
-                        required
-                    />
-
-                    <InputError message={errors.name} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <TextInput
-                        placeholder="Correo"
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        handleChange={onHandleChange}
-                        required
-                    />
-
-                    <InputError message={errors.email} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-
-                    <TextInput
-                        placeholder="Contraseña"
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        handleChange={onHandleChange}
-                        required
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-
-                    <TextInput
-                        placeholder="Confirmar contraseña"
-                        id="password_confirmation"
-                        type="password"
-                        name="password_confirmation"
-                        value={data.password_confirmation}
-                        className="mt-1 block w-full"
-                        handleChange={onHandleChange}
-                        required
-                    />
-
-                    <InputError message={errors.password_confirmation} className="mt-2" />
-                </div>
-
-                <div className="flex items-center justify-end mt-4">
-                    <Link
-                        href={route('login')}
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        Ya estas Registrado?
-                    </Link>
-
-                    <PrimaryButton className="ml-4" processing={processing}>
-                        Registrarme
-                    </PrimaryButton>
-                </div>
-            </form>
         </>
     );
 }
