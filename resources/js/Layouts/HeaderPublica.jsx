@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ApplicationLogoLici from "@/Components/ApplicationLogoLici";
 import ChileLogo from "@/Components/ChileLogo";
 import "../../css/estilos-header-publica.css";
@@ -22,7 +22,13 @@ export default function Example(props) {
     const [inputClass, setInputClass] = useState("form-input-section__container-input")
     const [validForm, setValidForm] = useState(true)
     const [emailValid, setEmailValid] = useState(true)
+    const [validVerificationCode, setValidVerificationCode] = useState(false)
     const [inputEmailValid, setInputEmailValid] = useState("")
+    const [verificationCode1, setVerificationCode1] = useState("")
+    const [verificationCode2, setVerificationCode2] = useState("")
+    const [verificationCode3, setVerificationCode3] = useState("")
+    const [verificationCode4, setVerificationCode4] = useState("")
+    const [inputCodeClass, setInputCodeClass] = useState("contenido__validacion-input")
 
     let refPasswordIcon = useRef();
 
@@ -44,6 +50,17 @@ export default function Example(props) {
     const handleShowRecoverPasswordModal = () => setShowRecoverPasswordModal(true);
     const handleCloseRecoverPasswordModal = () => setShowRecoverPasswordModal(false);
 
+    /*Modal Código de Verificación*/
+    const [showVerificationCodeModal, setShowVerificationCodeModal] = useState(false);
+    const handleShowVerificationCodeModal = () => setShowVerificationCodeModal(true);
+    const handleCloseVerificationCodeModal = () => setShowVerificationCodeModal(false);
+
+    const backModal = () => {
+        setShowVerificationCodeModal(false)
+        setShowRecoverPasswordModal(true)
+        countDown = null
+    }
+
     const submit = (e) => {
         e.preventDefault();
         post(route('login'), {
@@ -56,7 +73,6 @@ export default function Example(props) {
 
     const handleTogglePasswordIcon = (e) => {
         let input_password = document.querySelector("password")[0] //PENDIENTE REVISAR COMO SE IMPLEMENTA POR MEDIO DE REFERENCIA
-        console.log(input_password.type)
         if (refPasswordIcon.current.className == "form-input-section__container-span icon-show") {
             refPasswordIcon.current.className = "form-input-section__container-span icon-hide"
             input_password.type = "text"
@@ -73,15 +89,19 @@ export default function Example(props) {
     };
 
     const userValidate = () => {
-        fetch('/user-validate', data)
+        fetch('/user-validate/' + data.email)
             .then((response) => response.json())
             .then((data) => {
-                if (data == 'Succes') {
 
+                if (data == 'Success') {
+                    handleCloseRecoverPasswordModal()
+                    handleShowVerificationCodeModal()
+                    setVerificationCodeExpire(false)
+                    countDown()
                 } else {
-                    console.log('fallo')
                     setEmailValid(false)
                     setInputEmailValid("error")
+
                 }
             })
             .catch((error) => {
@@ -89,6 +109,105 @@ export default function Example(props) {
             });
     }
 
+    const codeValidate = () => {
+        var verificationCode = verificationCode1 + verificationCode2 + verificationCode3 + verificationCode4
+
+        fetch('/code-validate/' + data.email + '/' + verificationCode)
+            .then((response) => response.json())
+            .then((data) => {
+
+                if (data == 'Success') {
+                    setEmailValid(true)
+                    console.log('successs')
+                    const url = location.protocol + '//' + location.host + "/recuperar-contrasena"
+                    window.location.href = url
+                } else {
+                    console.log('fallo')
+                    setValidVerificationCode(true)
+                    setEmailValid(false)
+                    setInputEmailValid("error")
+                    setInputCodeClass("contenido__validacion-input contenido__validacion-input-error")
+                    document.getElementsByName("input1")[0].value = ""
+                    document.getElementsByName("input2")[0].value = ""
+                    document.getElementsByName("input3")[0].value = ""
+                    document.getElementsByName("input4")[0].value = ""
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+
+
+    const [startingMinutes, setStartingMinutes] = useState(4)
+    const [startingSeconds, setStartingSeconds] = useState(59)
+    const [mins, setMinutes] = useState(4)
+    const [secs, setSeconds] = useState(59)
+    const [timeColor, setTimeColor] = useState("")
+    const [verificationCodeExpire, setVerificationCodeExpire] = useState(false)
+
+
+    var countDown = () => {
+        var seconds = startingSeconds
+        var minuts = startingMinutes
+        let sampleInterval = setInterval(() => {
+
+            seconds -= 1
+            console.log(seconds)
+            console.log(minuts)
+            setSeconds(seconds)
+            setMinutes(minuts)
+
+            if (seconds > 0) {
+                //setSeconds(secs - 1);
+                setSeconds(seconds)
+            }
+            if (seconds === 0) {
+                if (minuts === 0) {
+                    clearInterval(sampleInterval);
+                    setVerificationCodeExpire(true)
+                } else {
+                    seconds = 59
+                    minuts -= 1
+                    setMinutes(minuts);
+                    setSeconds(seconds);
+                    if(minuts<=1 ){
+                        setTimeColor("c-red")
+                    }else{
+                        setTimeColor("")
+                    }
+                }
+            }
+        }, 1000);
+    }
+
+
+
+    /* useEffect(() => {
+        let sampleInterval = setInterval(() => {
+            console.log(mins)
+            console.log(secs)
+            if(mins<=2 ){
+                setTimeColor("c-red")
+            }
+            if (secs > 0) {
+                setSeconds(secs - 1);
+            }
+            if (secs === 0) {
+                if (mins === 0) {
+                    clearInterval(sampleInterval);
+                    setVerificationCodeExpire(true)
+                } else {
+                    setMinutes(mins - 1);
+                    setSeconds(59);
+                }
+            }
+        }, 1000);
+        return () => {
+            clearInterval(sampleInterval);
+        };
+    }, [countDown]); */
 
     return (
         <div className="customers-list container container-header">
@@ -344,6 +463,114 @@ export default function Example(props) {
                             </div>
                         </div>
                     </div>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal show={showVerificationCodeModal} onHide={handleCloseVerificationCodeModal} id="modal-correo-recuperacion" className="modal-dialog-centered">
+                <Modal.Header>
+                    <div className="botonera">
+                        <button className="botonera__regresar" onClick={backModal}>
+                            <span className="botonera__regresar-icon icon-back"></span>
+                        </button>
+                        <button className="botonera__cerrar" onClick={handleCloseVerificationCodeModal}>
+                            <span className="botonera__cerrar-icon icon-close"></span>
+                        </button>
+                    </div>
+                </Modal.Header>
+                <Modal.Body id="modal-correo-recuperacion___BV_modal_body_">
+                    <div id="modal-correo-recuperacion___BV_modal_body_" >
+                        <div className="titulo">
+                            <div className="titulo__inicio">
+                                <span className="titulo__inicio-texto">Te hemos enviado un <span className="titulo__inicio-texto--modifier">código de confirmación</span></span>
+                            </div>
+                        </div>
+                       
+                        <div className="informacion">
+                            <div className="informacion__correo">
+                                <span className="informacion__correo-span">
+                                    <div className="informacion__correo-span--modifier">L
+
+                                    </div> lortizr@uniremingtonmanizales.edu.co
+                                </span>
+                            </div>
+                            {!verificationCodeExpire ?
+                                <div>
+                                    <div className="informacion__texto-codigo">
+                                        <span className="informacion__texto-span">
+                                            Ingresa aquí el código que te hemos enviado a tu correo. Tu código expira en
+
+                                            {!(mins > 0 || secs >= 0) ? "" : (
+                                                <span className={`informacion__texto-span--modifier ${timeColor}`}>
+                                                    {" "}
+                                                    {`( 0${mins}`}:{secs < 10 ? `0${secs} )` : secs +" )"}
+                                                </span>
+                                            )}
+
+                                        </span>
+                                    </div>
+                                    <div className="informacion__codigo">
+                                        <div className="contenido">
+                                            <div className="contenido__validacion">
+                                                <input
+                                                    name="input1"
+                                                    maxlength="1"
+                                                    required="required"
+                                                    type="text"
+                                                    className={inputCodeClass}
+                                                    onChange={e => setVerificationCode1(e.target.value)}
+                                                />
+                                                <input
+                                                    name="input2"
+                                                    maxlength="1"
+                                                    required="required"
+                                                    type="text"
+                                                    className={inputCodeClass}
+                                                    onChange={e => setVerificationCode2(e.target.value)}
+                                                />
+                                                <input
+                                                    name="input3"
+                                                    maxlength="1"
+                                                    required="required"
+                                                    type="text"
+                                                    className={inputCodeClass}
+                                                    onChange={e => setVerificationCode3(e.target.value)}
+                                                />
+                                                <input
+                                                    name="input4"
+                                                    maxlength="1"
+                                                    required="required"
+                                                    type="text"
+                                                    className={inputCodeClass}
+                                                    onChange={e => setVerificationCode4(e.target.value)}
+                                                />
+                                            </div>
+                                            {validVerificationCode &&
+                                                <div className="contenido__mensaje mensaje_espacio">
+                                                    <span className="contenido__mensaje-texto">El código es <span className="contenido__mensaje-texto--modifier"> incorrecto, </span> ingrésalo de nuevo. </span>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div className="informacion__verificar">
+                                        <button className="informacion__verificar-button" onClick={codeValidate}>Verificar</button>
+                                    </div>
+                                </div>
+                                :
+                                <div>
+                                    <div className="informacion__advertencia">
+                                        <span className="informacion__advertencia-span">
+                                            El código que te hemos enviado a tu correo ha <span className="informacion__advertencia-span--modifier">expirado.</span>
+                                        </span>
+                                    </div>
+                                    <div className="informacion__reenviar">
+                                        <button className="informacion__reenviar-boton" onClick={userValidate}>Reenviar de nuevo</button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
                 </Modal.Footer>
             </Modal>
         </div>

@@ -3,12 +3,8 @@ button.btn-close {
     padding: 0px !important;
     margin: 0px !important;
 }
-.modal-body{
-    padding: 0px !important;
-}
 .modal-header {
     border-bottom: 0px;
-    padding: 0.5rem 0.5rem 0rem 0.5rem;
 }
 .modal-usuario{
     padding-left:0!important
@@ -213,7 +209,6 @@ hr{
 
 .modal-header{
     border-bottom: 0px !important;
-    padding: 0.5rem 0.5rem 0rem 0.5rem !important;
 }
 
 .modal-filter__list.scrollable-custom {
