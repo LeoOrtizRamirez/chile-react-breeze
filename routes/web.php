@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PlaneController;
+use App\Http\Controllers\ScrappingController;
+use App\Http\Controllers\MailController;
 use App\Models\Contrato;
-
 
 
 Route::get('/', function () { 
@@ -117,6 +118,9 @@ Route::controller(UserController::class)->group(function(){
 
 });
 
-Route::get('/user-validate', [UserController::class, 'userValidate'])->name('user-validate');
+Route::get('/scrapping', [ScrappingController::class, 'scrapping'])->name('scrapping');
 
-Route::get('/user-validate', [UserController::class, 'userValidate'])->name('user-validate');
+
+Route::get('/user-validate/{email}', [UserController::class, 'userValidate'])->name('user-validate');
+Route::get('/code-validate/{email}/{verification_code}/', [UserController::class, 'codeValidate'])->name('code-validate');
+Route::get('/verification-code', [MailController::class, 'sendVerificationCode'])->name('verification-code');
