@@ -154,7 +154,7 @@ export default function Contacto(props) {
                                                                     </div>
                                                                     <hr data-v-74a0c684="" className="linea__divisoria" style={{ width: 4 + 'px', height: 18 + 'px' }} />
                                                                     <div className="contactenos_form--campo-input-container">
-                                                                        <input id="tel" name="tel" type="text" placeholder="Ingresa tu número"
+                                                                        <input id="tel" name="tel" type="number" placeholder="Ingresa tu número"
                                                                             className="contactenos_form--campo-telefono-input contactenos_form--campo-input" aria-required="true"
                                                                             aria-invalid="false" />
                                                                         <span className="">
@@ -162,7 +162,7 @@ export default function Contacto(props) {
                                                                     </div>
                                                                 </div>
 
-                                                                <Modal show={show} onHide={handleClose}>
+                                                                <Modal show={show} onHide={handleClose} id="ModalContacto">
                                                                     <Modal.Header closeButton>
                                                                     </Modal.Header>
                                                                     <Modal.Body><Paises addCountry={addCountry}/></Modal.Body>
