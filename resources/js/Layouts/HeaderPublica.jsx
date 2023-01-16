@@ -154,8 +154,6 @@ export default function Example(props) {
         let sampleInterval = setInterval(() => {
 
             seconds -= 1
-            console.log(seconds)
-            console.log(minuts)
             setSeconds(seconds)
             setMinutes(minuts)
 
@@ -172,9 +170,9 @@ export default function Example(props) {
                     minuts -= 1
                     setMinutes(minuts);
                     setSeconds(seconds);
-                    if(minuts<=1 ){
+                    if (minuts <= 1) {
                         setTimeColor("c-red")
-                    }else{
+                    } else {
                         setTimeColor("")
                     }
                 }
@@ -183,6 +181,26 @@ export default function Example(props) {
     }
 
 
+    const nextInput = (e) => {
+        var input2 = document.getElementById("input2")
+        var input3 = document.getElementById("input3")
+        var input4 = document.getElementById("input4")
+        if(e.target.value != ""){
+            switch (e.target.name) {
+                case "input1":
+                    input2.focus()
+                    break;
+                case "input2":
+                    input3.focus()
+                    break;
+                case "input3":
+                    input4.focus()
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 
     /* useEffect(() => {
         let sampleInterval = setInterval(() => {
@@ -484,7 +502,7 @@ export default function Example(props) {
                                 <span className="titulo__inicio-texto">Te hemos enviado un <span className="titulo__inicio-texto--modifier">código de confirmación</span></span>
                             </div>
                         </div>
-                       
+
                         <div className="informacion">
                             <div className="informacion__correo">
                                 <span className="informacion__correo-span">
@@ -502,7 +520,7 @@ export default function Example(props) {
                                             {!(mins > 0 || secs >= 0) ? "" : (
                                                 <span className={`informacion__texto-span--modifier ${timeColor}`}>
                                                     {" "}
-                                                    {`( 0${mins}`}:{secs < 10 ? `0${secs} )` : secs +" )"}
+                                                    {`( 0${mins}`}:{secs < 10 ? `0${secs} )` : secs + " )"}
                                                 </span>
                                             )}
 
@@ -512,30 +530,37 @@ export default function Example(props) {
                                         <div className="contenido">
                                             <div className="contenido__validacion">
                                                 <input
+                                                    id="input1"
                                                     name="input1"
                                                     maxlength="1"
                                                     required="required"
                                                     type="text"
                                                     className={inputCodeClass}
                                                     onChange={e => setVerificationCode1(e.target.value)}
+                                                    onKeyUp={e => nextInput(e)}
                                                 />
                                                 <input
+                                                    id="input2"
                                                     name="input2"
                                                     maxlength="1"
                                                     required="required"
                                                     type="text"
                                                     className={inputCodeClass}
                                                     onChange={e => setVerificationCode2(e.target.value)}
+                                                    onKeyUp={e => nextInput(e)}
                                                 />
                                                 <input
+                                                    id="input3"
                                                     name="input3"
                                                     maxlength="1"
                                                     required="required"
                                                     type="text"
                                                     className={inputCodeClass}
                                                     onChange={e => setVerificationCode3(e.target.value)}
+                                                    onKeyUp={e => nextInput(e)}
                                                 />
                                                 <input
+                                                    id="input4" 
                                                     name="input4"
                                                     maxlength="1"
                                                     required="required"
