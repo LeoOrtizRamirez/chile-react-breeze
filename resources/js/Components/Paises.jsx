@@ -32,7 +32,7 @@ export const Paises = (props) => {
                 return el
             }
         });
-        country.selected = true
+        country.selected = true 
     }
 
     return (

@@ -1,5 +1,5 @@
 [
-    { "image": "/public/images/banderas/listado_nombres/COL.svg", "title": "Colombia", "indicative": "+57", "fixed": true, "selected": false },
+    { "image": "/public/images/banderas/listado_nombres/COL.svg", "title": "Colombia", "indicative": "+57", "fixed": true, "selected": false }, 
     { "image": "/public/images/banderas/listado_nombres/ECU.svg", "title": "Ecuador", "indicative": "+593", "fixed": true, "selected": false },
     { "image": "/public/images/banderas/listado_nombres/PAN.svg", "title": "Panamá", "indicative": "+507", "fixed": true, "selected": false },
     { "image": "/public/images/banderas/listado_nombres/CHL.svg", "title": "Chile", "indicative": "+56", "fixed": true, "selected": true },
