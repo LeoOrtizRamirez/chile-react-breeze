@@ -84,17 +84,27 @@ button.btn-close {
 .modal-filter__list:not(.scrollable){
     padding:0
 }
-.modal-filter__list .result{
+.modal-filter__list .result, .modal-filter__list .result-selected{
     align-items:center;border-radius:10px;cursor:pointer;justify-content:space-between;margin-bottom:10px;padding:0 28px 22px;position:relative
 }
 .modal-filter__list .result__nombre{
     overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:80%
 }
-.modal-filter__list .result.dashed{
+.modal-filter__list .result.dashed, .modal-filter__list .result-selected.dashed{
     background-image:linear-gradient(90deg,#e1e1e1 0,#e1e1e1 50%,transparent 0);background-size:16px 2px;background-position:bottom;background-repeat:repeat-x;display:flex
 }
 .modal-filter__list .result:before{
     content:"";border-radius:50%;border:1px solid #686868;height:18px;position:absolute;left:-22px;width:18px
+}
+
+.modal-filter__list .result-selected:before{
+    content: "";
+    border-radius: 50%;
+    border: 8px solid #44d444;
+    height: 25px;
+    position: absolute;
+    left: -22px;
+    width: 25px;
 }
 .modal-filter__list .result.selected:before{
     background-color:#00a1c9;border:none
@@ -152,7 +162,7 @@ span.result__ext {
 .modal-filter__list{
     padding:0 50px
 }
-.modal-filter__list .result{
+.modal-filter__list .result, .modal-filter__list .result-selected{
     padding:20px 40px
 }
 
@@ -181,11 +191,11 @@ hr{
 }
 
 }
-#modalZonasHorarias.modal-filter__list .result{
+#modalZonasHorarias.modal-filter__list .result, #modalZonasHorarias.modal-filter__list .result-selected{
     padding:0 0 22px 28px!important
 }
 @media(min-width:600px){
-    #modalZonasHorarias.modal-usuario__list .result{
+    #modalZonasHorarias.modal-usuario__list .result, #modalZonasHorarias.modal-usuario__list .result-selected{
     padding:0 28px 22px!important
 }
 
