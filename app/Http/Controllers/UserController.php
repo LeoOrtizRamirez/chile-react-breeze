@@ -8,69 +8,68 @@ use Inertia\Inertia;
 use PhpParser\Node\Stmt\Return_;
 use Redirect;
 
+use App\Mail\VerificationCodeMailable;
+use Illuminate\Support\Facades\Mail;
+
 class UserController extends Controller
 {
-  
+
     public function index()
     {
 
         $pagina = 1;
-        $usuariosAll = User::all() ->count();
+        $usuariosAll = User::all()->count();
 
         $usuarios = User::take(30)
-        ->get();
+            ->get();
 
         return Inertia::render('Usuarios/Index', [
-            'usuarios' =>$usuarios,
+            'usuarios' => $usuarios,
             'totalUsuarios' =>  $usuariosAll,
             'pagina' => $pagina
 
         ]);
-
     }
 
 
-    public function paginador($idUsuario,$page,$estado)
+    public function paginador($idUsuario, $page, $estado)
     {
         $pagina = 1;
-        $usuariosAll = User::all() ->count();
-        
-        if($estado == "next"){
-           $usuarios = User::where('id', '>' , $idUsuario)
-            ->limit(30)
-            ->get();
+        $usuariosAll = User::all()->count();
+
+        if ($estado == "next") {
+            $usuarios = User::where('id', '>', $idUsuario)
+                ->limit(30)
+                ->get();
             $pagina = $pagina + $page;
-            
-        }else{
-            $usuarios = User::where('id', '<' , $idUsuario)
-            ->orderBy('id', 'desc')
-            ->limit(30)
-            ->get()
-            ->reverse();
-            $usuarios= $usuarios->values();
+        } else {
+            $usuarios = User::where('id', '<', $idUsuario)
+                ->orderBy('id', 'desc')
+                ->limit(30)
+                ->get()
+                ->reverse();
+            $usuarios = $usuarios->values();
             $pagina = $page - $pagina;
         }
- 
 
-        return Inertia::render('Usuarios/Index',
-         [
-            'usuarios' =>$usuarios,
-            'totalUsuarios' =>  $usuariosAll,
-            'pagina' => $pagina
-        ]);
 
+        return Inertia::render(
+            'Usuarios/Index',
+            [
+                'usuarios' => $usuarios,
+                'totalUsuarios' =>  $usuariosAll,
+                'pagina' => $pagina
+            ]
+        );
     }
 
 
 
 
- 
+
     public function create()
     {
-        return Inertia::render('Usuarios/Crear', [
-        
-        ]);
-
+        return Inertia::render('Usuarios/Crear', []);
     }
 
     public function edit(User $usuario)
@@ -108,19 +107,19 @@ class UserController extends Controller
             'celular_empresa' => 'required|max:15',
             'indicativo_empresa' => 'required|max:20',
             'telefono_fijo_empresa' => 'required|max:15',
-            'email_facturacion_empresa' => 'required','email',
+            'email_facturacion_empresa' => 'required', 'email',
             'descripcion_actividad_economica' => 'required|max:30',
-          
-          
-         ]);
 
-         User::Create($validated);
 
-         return redirect(route('usuarios.index'));
+        ]);
+
+        User::Create($validated);
+
+        return redirect(route('usuarios.index'));
     }
 
 
- 
+
     public function update(Request $request, User $usuario)
     {
         $validated = $request->validate([
@@ -147,29 +146,51 @@ class UserController extends Controller
             'celular_empresa' => 'required|max:15',
             'indicativo_empresa' => 'required|max:20',
             'telefono_fijo_empresa' => 'required|max:15',
-            'email_facturacion_empresa' => 'required','email',
+            'email_facturacion_empresa' => 'required', 'email',
             'descripcion_actividad_economica' => 'required|max:30',
-          
-          
-         ]);
+
+
+        ]);
         $usuario->update($validated);
         return redirect(route('usuarios.index'));
     }
 
-   
+
     public function destroy(User $usuario)
     {
         $usuario->delete();
         return redirect(route('usuarios.index'));
     }
 
-    public function userValidate(Request $request)
+    public function userValidate($email)
     {
         $response = "";
-        $user = User::where('email', $request->email)->first();
-        if(is_null($user)){
+        $user = User::where('email', $email)->first();
+        if (is_null($user)) {
             $response = 'Failed';
-        }else{
+        } else {
+            //Guardar codigo de verificacion
+            $verification_code = rand(0000, 9999);
+            $user->verification_code = $verification_code;
+            $user->save();
+            //Enviar correo electronico con codigo
+            $mail = new VerificationCodeMailable($user);
+            Mail::to($user->email)->send($mail);
+            
+            $response = 'Success';
+        }
+        return json_encode($response);
+    }
+
+    public function codeValidate($email, $verification_code)
+    {
+        $user = User::where('email', $email)
+            ->where('verification_code', $verification_code)
+            ->first();
+
+        if (is_null($user)) {
+            $response = 'Failed';
+        } else {
             $response = 'Success';
         }
         return json_encode($response);
