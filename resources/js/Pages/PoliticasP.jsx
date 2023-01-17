@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Head } from "@inertiajs/inertia-react";
 import Header from "@/Components/Header/HeaderLite";
 import { FooterLite } from "@/Components/Footer/FooterLite";
+import Nav from "react-bootstrap/Nav";
 import "./PoliticasP.css";
 import "@fontsource/poppins";
 
 export const PoliticasP = (props) => {
+    const [key, setKey] = useState("home");
+
+    const print = (val) => {
+        setKey(val);
+    };
+
     return (
         <>
             <div className="container">
@@ -17,45 +24,55 @@ export const PoliticasP = (props) => {
                 <Header user={props}></Header>
                 <div className="container container-politicspri">
                     <div className="politicspri">
-                        <ul>
-                            <li>
-                                <a className="active politicspri-title-content">
-                                    Contenido
-                                </a>
-                            </li>
-                            <hr className="politicspri" />
-                            <li>
-                                <a className="active" href="#home">
-                                    | Inicio
-                                </a>
-                            </li>
-                            <hr className="politicspri" />
-                            <li>
-                                <a href="#Finalidad">
-                                    Finalidad del tratamiento de los datos
-                                    personales
-                                </a>
-                            </li>
-                            <hr className="politicspri" />
-                            <li>
-                                <a href="#Derechos">
-                                    Derechos de los titulares de los datos
-                                    personales
-                                </a>
-                            </li>
-                            <hr className="politicspri" />
-                            <li>
-                                <a href="#Transferencia">
-                                    Transferencia de Datos a Terceros Países
-                                </a>
-                            </li>
-                            <hr className="politicspri" />
-                            <li>
-                                <a href="#Termino">
-                                    Término de almacenamiento de la información
-                                </a>
-                            </li>
-                        </ul>
+                        <Nav
+                            className=""
+                            activeKey={key}
+                            onSelect={(selectedKey) => print(`${selectedKey}`)}
+                        >
+                            <ul>
+                                <li>
+                                    <p className="politicspri-title-cont">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;Contenido
+                                    </p>
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#home">
+                                        | Inicio
+                                    </Nav.Link>
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#Finalidad">
+                                        Finalidad del tratamiento de los datos
+                                        personales
+                                    </Nav.Link>
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link href="#Derechos">
+                                        Derechos de los titulares de los datos
+                                        personales
+                                    </Nav.Link>
+                                </li>
+                                <hr className="politicspri" />
+                                <li className="">
+                                    <Nav.Link href="#Transferencia">
+                                        Transferencia de Datos a Terceros Países
+                                    </Nav.Link>
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link
+                                        className="{activeLink ==='transferencia' ? 'active' : ' '}"
+                                        href="#Termino"
+                                    >
+                                        Término de almacenamiento de la
+                                        información
+                                    </Nav.Link>
+                                </li>
+                            </ul>
+                        </Nav>
                     </div>
                     <div className="politicspri-info">
                         <h2 id="home" className="text-center">
@@ -92,7 +109,11 @@ export const PoliticasP = (props) => {
                             protección de datos personales.{" "}
                         </p>
                         <br />
-                        <p>Responsable del tratamiento de datos:</p>
+                        <p>
+                            <strong>
+                                Responsable del tratamiento de datos:
+                            </strong>
+                        </p>
                         <br />
                         <p>
                             LICITACIONES.INFO S.A.S. <br />
@@ -108,6 +129,7 @@ export const PoliticasP = (props) => {
                             Finalidad del tratamiento de los datos personales
                         </span>
                         <br />
+                        <br />
                         <p>
                             Los datos personales proporcionados a
                             LICITACIONES.INFO S.A.S. mediante el formulario de
@@ -121,12 +143,14 @@ export const PoliticasP = (props) => {
                         <p>
                             El tratamiento de los datos personales del Titular
                             tendrá como finalidad exclusiva: <br />
-                            i) Proporcionarle información relacionada con las
+                            i)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            Proporcionarle información relacionada con las
                             oportunidades de negocio de su interés. <br />
-                            ii) Envío de información sobre actualizaciones,
-                            cambios y/o inconvenientes en nuestro servicio.{" "}
-                            <br />
-                            iii) Invitación a que conocer nuestro servicio.
+                            ii)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Envío
+                            de información sobre actualizaciones, cambios y/o
+                            inconvenientes en nuestro servicio. <br />
+                            iii)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Invitación
+                            a que conocer nuestro servicio.
                         </p>
                         <br />
                         <p>
@@ -167,6 +191,7 @@ export const PoliticasP = (props) => {
                         <span className="politicspri-subtitles" id="Derechos">
                             Derechos de los titulares de los datos personales
                         </span>
+                        <br />
                         <br />
                         <p>
                             Como titular de sus datos personales, usted podrá
@@ -225,6 +250,7 @@ export const PoliticasP = (props) => {
                             Transferencia de Datos a Terceros Países
                         </span>
                         <br />
+                        <br />
                         <p>
                             En armonía con nuestra estrategia de expansión
                             mundial, es posible que la obtención, uso y
@@ -241,6 +267,7 @@ export const PoliticasP = (props) => {
                         <span className="politicspri-subtitles" id="Termino">
                             Término de almacenamiento de la información
                         </span>
+                        <br />
                         <br />
                         <p>
                             La información personal suministrada mediante

@@ -4,14 +4,14 @@ import "@/Components/Footer/footer.css";
 
 export const Footer = () => {
     return (
-        <footer className="container">
+        <footer className="">
             <div className="">
                 <link
                     href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto&display=swap"
                     rel="stylesheet"
                 ></link>
 
-                <div className="container-flex">
+                <div className="container-flex ">
                     <div className="size-msj">
                         <span className="typography-msj font-bold">
                             Un mundo de <br />
@@ -79,10 +79,10 @@ export const Footer = () => {
                     </div>
                 </div>
 
-                <hr className="h-0.5 bg-white border-0 mx-11 mt-24 mb-10"></hr>
+                <hr className="h-0.5 bg-white border-0 mx-24 mt-2 mb-0"></hr>
 
-                <div className="sm:flex sm:items-center sm:justify-between mx-11 pb-10 text-footer margin-txt-footer">
-                    <span className="flex text-sm text-white sm:text-center">
+                <div className="sm:flex sm:items-center sm:justify-between mx-11 pt-10 pb-4 text-footer margin-txt-footer">
+                    <span className="flex text-sm text-white sm:text-center ml-24">
                         <a
                             target="_blank"
                             href="https://www.licitaciones.info/"
@@ -95,13 +95,13 @@ export const Footer = () => {
                         </span>
                     </span>
 
-                    <div className="flex mt-4 space-x-6 sm:justify-center sm:mt-0 items-center">
+                    <div className="mr-36 flex mt-4 space-x-6 sm:justify-center sm:mt-0 items-center">
                         <a
                             target="_blank"
                             href="https://www.facebook.com/licitacionesInfo/"
                         >
                             <svg
-                                className="w-5 h-5 facebook"
+                                className="w-6 h-6 facebook"
                                 fill="currentColor"
                                 viewBox="0 0 25 25"
                                 // aria-hidden="true"
@@ -120,7 +120,7 @@ export const Footer = () => {
                             href="https://www.youtube.com/@LicitacionesInfo"
                         >
                             <svg
-                                className="w-6 h-7 ml-1.5 mt-1.5 youtube"
+                                className="w-8 h-8 ml-1.5 mt-3.5 youtube"
                                 fill="currentColor"
                                 viewBox="0 0 25 25"
                                 // aria-hidden="true"
@@ -139,7 +139,7 @@ export const Footer = () => {
                             href="https://twitter.com/licitacionesinf?lang=es"
                         >
                             <svg
-                                className="w-5 h-5 twitter"
+                                className="w-6 h-6 twitter"
                                 fill="currentColor"
                                 viewBox="0 0 25 25"
                                 // aria-hidden="true"
