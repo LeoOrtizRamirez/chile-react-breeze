@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Head } from "@inertiajs/inertia-react";
 import { FooterLite } from "@/Components/Footer/FooterLite";
 import Header from "@/Components/Header/HeaderLite";
 import "@fontsource/poppins";
 import "./PoliticasP.css";
 import "../../css/estilos-terminos-condiciones.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+import Nav from "react-bootstrap/Nav";
 
 export const TerminosCondiciones = (props) => {
+    const [key, setKey] = useState("home");
+
+    const print = (val) => {
+        setKey(val);
+    };
+
+
+
     return (
         <>
             <div className="container">
@@ -19,125 +27,149 @@ export const TerminosCondiciones = (props) => {
                 <Header user={props}></Header>
                 <div className="container container-politicspri">
                     <div className="politicspri">
-                        <ul className="TerminosUl">
-                            <li>
-                                <a className="active politicspri-title-content">
-                                    Contenido
-                                </a>
-                            </li>
-                            <hr className="politicspri" />
-                            <li>
-                                <a className="active" href="#home">
-                                    | Inicio
-                                </a>
-                            </li>
-                            <hr className="politicspri" />
-                            <li>
-                                <a href="#definiciones">Definiciones</a>
-                            </li>
-                            <hr className="politicspri" />
-                            <li>
-                                <a href="#condiciones-generales">
-                                    Condiciones generales<br></br> de uso del servicio
-                                </a>
-                            </li>
-                            <hr className="politicspri" />
-                            <li>
-                                <a href="#niveles">
-                                    Niveles de servicio
-                                </a>
-                            </li>
-                            <hr className="politicspri" />
-                            <li>
-                                <a href="#registro">Registro</a>
-                            </li>
-                            <hr className="politicspri" />
-                            <li>
-                                <a href="#activacion">
-                                    Activación del servicio
-                                </a>
-                            </li>
-                            <hr className="politicspri" />
-                            <li>
-                                <a href="#soporte-usuario">
-                                    Soporte al usuario
-                                </a>
-                            </li>
-                            <hr className="politicspri" />
-                            <li>
-                                <a href="#planes-ofrecidos">
-                                    Planes ofrecidos
-                                </a>
-                            </li>
-                            <hr className="politicspri" />
-                            <li>
-                                <a href="#perfiles-negocio">
-                                    Perfiles de negocio
-                                </a>
-                            </li>
-                            <hr className="politicspri" />
-                            <li>
-                                <a href="#sistema-subcuentas">
-                                    Sistema de subcuentas
-                                </a>
-                            </li>
-                            <hr className="politicspri" />
-                            <li>
-                                <a href="#sistema-seguimiento">
-                                    Sistema de seguimiento
-                                </a>
-                            </li>
-                            <hr className="politicspri" />
-                            <li>
-                                <a href="#notificaciones-correo">
-                                    Notificaciones al correo <br></br> electrónico
-                                </a>
-                            </li>
-                            <hr className="politicspri" />
-                            <li>
-                                <a href="#contratos-especiales">
-                                    Contratos especiales
-                                </a>
-                            </li>
-                            <hr className="politicspri" />
-                            <li>
-                                <a href="#app-movil">
-                                    App móvil
-                                </a>
-                            </li>
-                            <hr className="politicspri" />
-                            <li>
-                                <a href="#autorizacion-informacion">
-                                    Autorización de uso de <br></br>nuestra información
-                                </a>
-                            </li>
-                            <hr className="politicspri" />
-                            <li>
-                                <a href="#limitacion-responsabilidad">
-                                    Limitación de la <br></br> responsabilidad
-                                </a>
-                            </li>
-                            <hr className="politicspri" />
-                            <li>
-                                <a href="#cancelacion-cuenta">
-                                    Cancelación de la cuenta
-                                </a>
-                            </li>
+                        <Nav
+                            className=""
+                            activeKey={key}
+                            onSelect={(selectedKey) => print(`${selectedKey}`)}
+                        >
 
-                            <hr className="politicspri" />
-                            <li>
-                                <a href="#desarrollo-aplicativos">
-                                    desarrollo aplicativos
-                                </a>
-                            </li>
+                            <ul className="TerminosUl">
+                                <li>
+                                    <p className="politicspri-title-cont">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;Contenido
+                                    </p>
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#home">
+                                        | Inicio
+                                    </Nav.Link>
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#definiciones">
+                                        Definiciones
+                                    </Nav.Link>
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#condiciones-generales">
+                                        Condiciones generales<br></br> de uso del servicio
+                                    </Nav.Link>
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#niveles">
+                                        Niveles de servicio
+                                    </Nav.Link>
 
-                            <hr className="politicspri" />
-                            <li>
-                                <a href="#aceptacion-condiciones">
-                                    Aceptación de estas condiciones
-                                </a>
-                            </li>
-                        </ul>
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#registro">
+                                        Registro
+                                    </Nav.Link>
+
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#activacion">
+                                        Activación del servicio
+                                    </Nav.Link>
+
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#soporte-usuario">
+                                        Soporte al usuario
+                                    </Nav.Link>
+
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#planes-ofrecidos">
+                                        Planes ofrecidos
+                                    </Nav.Link>
+
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#perfiles-negocio">
+                                        Perfiles de negocio
+                                    </Nav.Link>
+
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#sistema-subcuentas">
+                                        Sistema de subcuentas
+                                    </Nav.Link>
+
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#sistema-seguimiento">
+                                        Sistema de seguimiento
+                                    </Nav.Link>
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#notificaciones-correo">
+                                        Notificaciones al correo <br></br> electrónico
+                                    </Nav.Link>
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#contratos-especiales">
+                                        Contratos especiales
+                                    </Nav.Link>
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#app-movil">
+                                        App móvil
+                                    </Nav.Link>
+
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#autorizacion-informacion">
+                                        Autorización de uso de <br></br>nuestra información
+                                    </Nav.Link>
+
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#limitacion-responsabilidad">
+                                        Limitación de la <br></br> responsabilidad
+                                    </Nav.Link>
+
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#cancelacion-cuenta">
+                                        Cancelación de la cuenta
+                                    </Nav.Link>
+
+                                </li>
+
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#desarrollo-aplicativos">
+                                        Desarrollo aplicativos
+                                    </Nav.Link>
+
+                                </li>
+
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#aceptacion-condiciones">
+                                        Aceptación de estas condiciones
+                                    </Nav.Link>
+
+                                </li>
+                            </ul>
+                        </Nav>
                     </div>
                     <div className="politicspri-info">
 
