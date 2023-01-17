@@ -1,153 +1,182 @@
-import React from "react";
+import React, { useState } from "react";
 import { Head } from "@inertiajs/inertia-react";
 import { FooterLite } from "@/Components/Footer/FooterLite";
 import Header from "@/Components/Header/HeaderLite";
 import "@fontsource/poppins";
+import "./PoliticasP.css";
 import "../../css/estilos-terminos-condiciones.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+import Nav from "react-bootstrap/Nav";
 
 export const TerminosCondiciones = (props) => {
+    const [key, setKey] = useState("home");
+
+    const print = (val) => {
+        setKey(val);
+    };
+
+
+
     return (
         <>
-            <Head title="Terminos y condiciones" />
-            <Header user={props}></Header>
-            <link
-                href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto&display=swap"
-                rel="stylesheet"
-            ></link>
-            <div className="container-terminos container">
-                <div className="banner-izquierdo">
-                    
-                    <ul>
-                        <li>
-                            <a className="active banner-izquierdo-title-content">
-                                Contenido
-                            </a>
-                        </li>
-                        <hr className="banner-izquierdo" />
-                        <li>
-                            <a className="active" href="#home">
-                                | Inicio
-                            </a>
-                        </li>
-                        <hr className="banner-izquierdo" />
-                        <li>
-                            <a href="#definiciones">Definiciones</a>
-                        </li>
-                        <hr className="banner-izquierdo" />
-                        <li>
-                            <a href="#condiciones-generales">
-                            Condiciones generales<br></br> de uso del servicio
-                            </a>
-                        </li>
-                        <hr className="banner-izquierdo" />
-                        <li>
-                            <a href="#niveles">
-                            Niveles de servicio
-                            </a>
-                        </li>
-                        <hr className="banner-izquierdo" />
-                        <li>
-                            <a href="#registro">Registro</a>
-                        </li>
-                        <hr className="banner-izquierdo" />
-                        <li>
-                            <a href="#activacion">
-                            Activación del servicio
-                            </a>
-                        </li>
-                        <hr className="banner-izquierdo" />
-                        <li>
-                            <a href="#soporte-usuario">
-                            Soporte al usuario
-                            </a>
-                        </li>
-                        <hr className="banner-izquierdo" />
-                        <li>
-                            <a href="#planes-ofrecidos">
-                            Planes ofrecidos
-                            </a>
-                        </li>
-                        <hr className="banner-izquierdo" />
-                        <li>
-                            <a href="#perfiles-negocio">
-                            Perfiles de negocio
-                            </a>
-                        </li>
-                        <hr className="banner-izquierdo" />
-                        <li>
-                            <a href="#sistema-subcuentas">
-                            Sistema de subcuentas
-                            </a>
-                        </li>
-                        <hr className="banner-izquierdo" />
-                        <li>
-                            <a href="#sistema-seguimiento">
-                            Sistema de seguimiento
-                            </a>
-                        </li>
-                        <hr className="banner-izquierdo" />
-                        <li>
-                            <a href="#notificaciones-correo">
-                            Notificaciones al correo <br></br> electrónico
-                            </a>
-                        </li>
-                        <hr className="banner-izquierdo" />
-                        <li>
-                            <a href="#contratos-especiales">
-                            Contratos especiales
-                            </a>
-                        </li>
-                        <hr className="banner-izquierdo" />
-                        <li>
-                            <a href="#app-movil">
-                            App móvil
-                            </a>
-                        </li>
-                        <hr className="banner-izquierdo" />
-                        <li>
-                            <a href="#autorizacion-informacion">
-                            Autorización de uso de <br></br>nuestra información
-                            </a>
-                        </li>
-                        <hr className="banner-izquierdo" />
-                        <li>
-                            <a href="#limitacion-responsabilidad">
-                            Limitación de la <br></br> responsabilidad
-                            </a>
-                        </li>
-                        <hr className="banner-izquierdo" />
-                        <li>
-                            <a href="#cancelacion-cuenta">
-                            Cancelación de la cuenta
-                            </a>
-                        </li>
+            <div className="container">
+                <Head title="Terminos y condiciones" />
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto&display=swap"
+                    rel="stylesheet"
+                ></link>
+                <Header user={props}></Header>
+                <div className="container container-politicspri">
+                    <div className="politicspri">
+                        <Nav
+                            className=""
+                            activeKey={key}
+                            onSelect={(selectedKey) => print(`${selectedKey}`)}
+                        >
 
-                        <hr className="banner-izquierdo" />
-                        <li>
-                            <a href="#desarrollo-aplicativos">
-                            desarrollo aplicativos
-                            </a>
-                        </li>
+                            <ul className="TerminosUl">
+                                <li>
+                                    <p className="politicspri-title-cont">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;Contenido
+                                    </p>
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#home">
+                                        | Inicio
+                                    </Nav.Link>
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#definiciones">
+                                        Definiciones
+                                    </Nav.Link>
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#condiciones-generales">
+                                        Condiciones generales<br></br> de uso del servicio
+                                    </Nav.Link>
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#niveles">
+                                        Niveles de servicio
+                                    </Nav.Link>
 
-                        <hr className="banner-izquierdo" />
-                        <li>
-                            <a href="#aceptacion-condiciones">
-                            Aceptación de estas condiciones
-                            </a>
-                        </li>
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#registro">
+                                        Registro
+                                    </Nav.Link>
 
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#activacion">
+                                        Activación del servicio
+                                    </Nav.Link>
 
-                        
-                    </ul>
-                </div>
-                <div className="terminos-info">
-                    
-                <h2 id="home" className="policy-title">
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#soporte-usuario">
+                                        Soporte al usuario
+                                    </Nav.Link>
+
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#planes-ofrecidos">
+                                        Planes ofrecidos
+                                    </Nav.Link>
+
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#perfiles-negocio">
+                                        Perfiles de negocio
+                                    </Nav.Link>
+
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#sistema-subcuentas">
+                                        Sistema de subcuentas
+                                    </Nav.Link>
+
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#sistema-seguimiento">
+                                        Sistema de seguimiento
+                                    </Nav.Link>
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#notificaciones-correo">
+                                        Notificaciones al correo <br></br> electrónico
+                                    </Nav.Link>
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#contratos-especiales">
+                                        Contratos especiales
+                                    </Nav.Link>
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#app-movil">
+                                        App móvil
+                                    </Nav.Link>
+
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#autorizacion-informacion">
+                                        Autorización de uso de <br></br>nuestra información
+                                    </Nav.Link>
+
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#limitacion-responsabilidad">
+                                        Limitación de la <br></br> responsabilidad
+                                    </Nav.Link>
+
+                                </li>
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#cancelacion-cuenta">
+                                        Cancelación de la cuenta
+                                    </Nav.Link>
+
+                                </li>
+
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#desarrollo-aplicativos">
+                                        Desarrollo aplicativos
+                                    </Nav.Link>
+
+                                </li>
+
+                                <hr className="politicspri" />
+                                <li>
+                                    <Nav.Link className="" href="#aceptacion-condiciones">
+                                        Aceptación de estas condiciones
+                                    </Nav.Link>
+
+                                </li>
+                            </ul>
+                        </Nav>
+                    </div>
+                    <div className="politicspri-info">
+
+                        <h2 id="home" className="policy-title">
                             Contrato de software como servicio <span className="mark-word">Licitaciones.info</span>
                             <span className="d-block">Acuerdo nivel de servicio</span>
                         </h2>
-
                         <h3 className="policy-paragraph">LICITACIONES.INFO SAS proporciona a sus usuarios el procesamiento de datos y alojamiento de información sobre oportunidades de negocio con entidades públicas, descentralizadas y privadas en Colombia, Ecuador y Panamá por medio de las plataformas www.licitaciones.info, col.licitaciones.info, ecu.licitaciones.info y pan.licitaciones.info, proporcionando diversas herramientas y funcionalidades a las que se puede acceder desde cualquier lugar y en cualquier dispositivo </h3>
                         <h3 className="policy-paragraph">Todos los datos que transmitimos son únicamente informativos y no constituyen una oferta, ni una invitación para participar en un proceso de contratación.</h3>
                         <h3 className="policy-paragraph">A continuación, presentamos los términos y condiciones que rigen el contrato de software como servicio (SaaS) entre Licitaciones.info y cada uno de sus usuarios.Estas condiciones son revisadas y actualizadas periódicamente y pueden ser consultadas en cualquier momento a través de la página web www.licitaciones.info.</h3>
@@ -292,6 +321,9 @@ export const TerminosCondiciones = (props) => {
 
                         <h3 className="policy-paragraph">  Licitaciones.info SAS se reserva el derecho de modificar los términos y condiciones del contrato de servicio, por lo que es importante revisar las condiciones periódicamente. Si no son aceptadas las presentes condiciones y sus modificaciones, se recomienda suspender el uso del servicio. Se debe tener en cuenta que no existe ninguna responsabilidad de parte de licitaciones.info de rembolsar el valor cancelado ni de indemnizar a los usuarios de ninguna manera por la no aceptación de las condiciones de servicio.</h3>
                         <h3 className="policy-paragraph"> Si tiene alguna duda, con gusto la resolveremos. Encuentre nuestros medios de contacto  <a id="contacto" href="/contacto">aquí.</a>  </h3>
+                    </div>
+
+
 
                 </div>
             </div>

@@ -16,6 +16,11 @@ a.img-header {
     width: 187px;
 }
 
+.contenido_headerLite--margin-top{
+    padding-top: 78px;
+}
+
+
 .division-header {
     width: 3px;
     height: 12px;
