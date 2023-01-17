@@ -393,9 +393,9 @@ export const Funcionalidades = (props) => {
                             </div>
                         </div>
                     </div>
-                    <Footer />
                 </div>
             </div>
+            <Footer />
         </>
     );
 };

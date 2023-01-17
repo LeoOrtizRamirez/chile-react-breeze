@@ -1,24 +1,19 @@
 .container-politicspri {
-    width: 1280px;
-    /* width: auto; */
     display: flex;
     justify-content: center;
     margin: 0 auto;
-    /* border: solid red; */
 }
 
 .politicspri {
-    margin: 20px;
+    margin: 20px 0 0 0;
 }
 
 .politicspri ul {
-    list-style-type: none;
     margin: 0;
     padding: 25px;
     position: fixed;
     width: 290px;
     height: auto;
-    overflow: auto;
     border-radius: 17px;
     -webkit-border-radius: 17px;
     -moz-border-radius: 17px;
@@ -31,36 +26,12 @@
     opacity: 1;
 }
 
-.politicspri li a {
-    display: block;
-    color: #686868;
-    padding: 8px 25px 10px 20px;
-    margin-left: 15px;
-    text-decoration: none;
-}
-
-.politicspri li a.active {
-    color: #00a1c9;
-    font-family: "Roboto", sans-serif;
-    font-weight: bold;
-    font-size: 15px;
-}
-
-.politicspri li a:hover:not(.active) {
-    background-color: #6868680c;
-    color: #686868;
-    text-decoration: underline;
-}
-
 .politicspri-info {
     margin: 50px 20px 20px 350px;
-    width: 872;
-}
-
-.politicspri-text {
-    font-family: "Roboto", sans-serif;
-    font-size: 15px;
-    color: #686868;
+    margin: 50px 20px 20px 350px;
+    max-width: 100%;
+    max-height: calc(90vh - 140px);
+    overflow-y: scroll;
 }
 
 .politicspri hr {
@@ -79,13 +50,6 @@
     font-weight: bold;
 }
 
-.politicspri-title-content {
-    font-family: "Roboto", sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    color: #959595 !important;
-}
-
 .politicspri-subtitles {
     font-family: "Poppins", sans-serif;
     font-size: 18px;
@@ -98,4 +62,57 @@
     font-family: "Roboto", sans-serif;
     font-size: 15px;
     color: #686868;
+    padding-right: 20px;
+}
+
+/* Firefox */
+* {
+    scrollbar-width: auto;
+    scrollbar-color: #c2c2c2 #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #c2c2c2;
+    border-radius: 10px;
+    border: 3px solid #ffffff;
+}
+
+a.nav-link.active {
+    display: block;
+    color: #00a1c9 !important;
+    padding: 8px 25px 10px 20px;
+    margin-left: 15px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.politicspri a {
+    display: block;
+    color: #686868;
+    padding: 8px 25px 10px 20px;
+    margin-left: 15px;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.politicspri a:hover {
+    color: #686868;
+}
+
+.icon-up {
+    font-size: 7px;
+}
+
+.politicspri-title-cont {
+    color: #686868a2;
+    font-weight: bold;
 }

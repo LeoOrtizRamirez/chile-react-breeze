@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Head } from "@inertiajs/inertia-react";
 import Header from "@/Components/Header/HeaderLite";
 import { FooterLite } from "@/Components/Footer/FooterLite";
+import Nav from "react-bootstrap/Nav";
 import "./PoliticasC.css";
 import "@fontsource/poppins";
 
 export const PoliticasC = (props) => {
+    const [key, setKey] = useState("home");
+
+    const print = (val) => {
+        setKey(val);
+    };
     return (
         <>
             <div className="container">
@@ -17,51 +23,62 @@ export const PoliticasC = (props) => {
                 <Header user={props}></Header>
                 <div className="container container-politicscoo">
                     <div className="politicscoo">
-                        <ul>
-                            <li>
-                                <a className="active politicscoo-title-content">
-                                    Contenido
-                                </a>
-                            </li>
-                            <hr className="politicscoo" />
-                            <li>
-                                <a className="active" href="#home">
-                                    | Inicio
-                                </a>
-                            </li>
-                            <hr className="politicscoo" />
-                            <li>
-                                <a href="#Son">¿Qué son las cookies?</a>
-                            </li>
-                            <hr className="politicscoo" />
-                            <li>
-                                <a href="#Tipos">
-                                    ¿Qué tipo de cookies utilizamos?
-                                </a>
-                            </li>
-                            <hr className="politicscoo" />
-                            <li>
-                                <a href="#Desactivar">
-                                    ¿Cómo desactivar las cookies?
-                                </a>
-                            </li>
-                            <hr className="politicscoo" />
-                            <li>
-                                <a href="#Terceros">Cookies de terceros</a>
-                            </li>
-                            <hr className="politicscoo" />
-                            <li>
-                                <a href="#Advertencia">
-                                    Advertencia sobre eliminar cookies
-                                </a>
-                            </li>
-                            <hr className="politicscoo" />
-                            <li>
-                                <a href="#Quienes">
-                                    ¿Quién debe cumplir la ley de cookies?
-                                </a>
-                            </li>
-                        </ul>
+                        <Nav
+                            className=""
+                            activeKey={key}
+                            onSelect={(selectedKey) => print(`${selectedKey}`)}
+                        >
+                            <ul>
+                                <li>
+                                    <p className="politicscoo-title-cont">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;Contenido
+                                    </p>
+                                </li>
+                                <hr className="politicscoo" />
+                                <li>
+                                    <Nav.Link className="" href="#home">
+                                        | Inicio
+                                    </Nav.Link>
+                                </li>
+                                <hr className="politicscoo" />
+                                <li>
+                                    <Nav.Link href="#Son">
+                                        <span className=""></span>
+                                        ¿Qué son las cookies?
+                                    </Nav.Link>
+                                </li>
+                                <hr className="politicscoo" />
+                                <li>
+                                    <Nav.Link href="#Tipos">
+                                        ¿Qué tipo de cookies utilizamos?
+                                    </Nav.Link>
+                                </li>
+                                <hr className="politicscoo" />
+                                <li>
+                                    <Nav.Link href="#Desactivar">
+                                        ¿Cómo desactivar las cookies?
+                                    </Nav.Link>
+                                </li>
+                                <hr className="politicscoo" />
+                                <li>
+                                    <Nav.Link href="#Terceros">
+                                        Cookies de terceros
+                                    </Nav.Link>
+                                </li>
+                                <hr className="politicscoo" />
+                                <li>
+                                    <Nav.Link href="#Advertencia">
+                                        Advertencia sobre eliminar cookies
+                                    </Nav.Link>
+                                </li>
+                                <hr className="politicscoo" />
+                                <li>
+                                    <Nav.Link href="#Quienes">
+                                        ¿Quién debe cumplir la ley de cookies?
+                                    </Nav.Link>
+                                </li>
+                            </ul>
+                        </Nav>
                     </div>
                     <div className="politicscoo-info">
                         <h2 id="home" className="text-center">
@@ -93,6 +110,7 @@ export const PoliticasC = (props) => {
                             ¿Qué son las cookies?
                         </span>
                         <br />
+                        <br />
                         <p>
                             Una cookie es un fichero que se descarga en su
                             ordenador al acceder a determinadas páginas web. Las
@@ -108,10 +126,15 @@ export const PoliticasC = (props) => {
                             ¿Qué tipo de cookies utilizamos?
                         </span>
                         <br />
+                        <br />
                         <p>
                             En Licitaciones.info utilizamos los siguientes tipos
-                            de cookies: Cookies de análisis: Son aquéllas que
-                            bien tratadas por nosotros o por terceros, nos
+                            de cookies:
+                        </p>
+                        <br />
+                        <p>
+                            <strong>Cookies de análisis:</strong> Son aquéllas
+                            que bien tratadas por nosotros o por terceros, nos
                             permiten cuantificar el número de usuarios y así
                             realizar la medición y análisis estadístico de la
                             utilización que hacen los usuarios del servicio
@@ -121,53 +144,56 @@ export const PoliticasC = (props) => {
                         </p>
                         <br />
                         <p>
-                            Cookies técnicas: Son aquellas que permiten al
-                            usuario la navegación a través del área restringida
-                            y la utilización de sus diferentes funciones, como,
-                            por ejemplo, llevar a cambio el proceso de compra de
-                            un artículo.
+                            <strong>Cookies técnicas:</strong> Son aquellas que
+                            permiten al usuario la navegación a través del área
+                            restringida y la utilización de sus diferentes
+                            funciones, como, por ejemplo, llevar a cambio el
+                            proceso de compra de un artículo.
                         </p>
                         <br />
                         <p>
-                            Cookies de personalización: Son aquellas que
-                            permiten al usuario acceder al servicio con algunas
-                            características de carácter general predefinidas en
-                            función de una serie de criterios en el terminal del
-                            usuario como por ejemplo serian el idioma o el tipo
-                            de navegador a través del cual se conecta al
-                            servicio.
+                            <strong>Cookies de personalización:</strong> Son
+                            aquellas que permiten al usuario acceder al servicio
+                            con algunas características de carácter general
+                            predefinidas en función de una serie de criterios en
+                            el terminal del usuario como por ejemplo serian el
+                            idioma o el tipo de navegador a través del cual se
+                            conecta al servicio.
                         </p>
                         <br />
                         <p>
-                            Cookies publicitarias: Son aquellas que, bien
-                            tratadas por esta web o por terceros, permiten
-                            gestionar de la forma más eficaz posible la oferta
-                            de los espacios publicitarios que hay en la página
-                            web, adecuando el contenido del anuncio al contenido
-                            del servicio solicitado o al uso que realice de
-                            nuestra página web. Para ello podemos analizar sus
-                            hábitos de navegación en Internet y podemos
-                            mostrarle publicidad relacionada con su perfil de
-                            navegación.
+                            <strong>Cookies publicitarias:</strong> Son aquellas
+                            que, bien tratadas por esta web o por terceros,
+                            permiten gestionar de la forma más eficaz posible la
+                            oferta de los espacios publicitarios que hay en la
+                            página web, adecuando el contenido del anuncio al
+                            contenido del servicio solicitado o al uso que
+                            realice de nuestra página web. Para ello podemos
+                            analizar sus hábitos de navegación en Internet y
+                            podemos mostrarle publicidad relacionada con su
+                            perfil de navegación.
                         </p>
                         <br />
                         <p>
-                            Cookies de publicidad comportamental: Son aquellas
-                            que permiten la gestión, de la forma más eficaz
-                            posible, de los espacios publicitarios que, en su
-                            caso, el editor haya incluido en una página web,
-                            aplicación o plataforma desde la que presta el
-                            servicio solicitado. Este tipo de cookies almacenan
-                            información del comportamiento de los visitantes
-                            obtenida a través de la observación continuada de
-                            sus hábitos de navegación, lo que permite
-                            desarrollar un perfil específico para mostrar avisos
-                            publicitarios en función del mismo.
+                            <strong>
+                                Cookies de publicidad comportamental:
+                            </strong>{" "}
+                            Son aquellas que permiten la gestión, de la forma
+                            más eficaz posible, de los espacios publicitarios
+                            que, en su caso, el editor haya incluido en una
+                            página web, aplicación o plataforma desde la que
+                            presta el servicio solicitado. Este tipo de cookies
+                            almacenan información del comportamiento de los
+                            visitantes obtenida a través de la observación
+                            continuada de sus hábitos de navegación, lo que
+                            permite desarrollar un perfil específico para
+                            mostrar avisos publicitarios en función del mismo.
                         </p>
                         <br />
                         <span className="politicscoo-subtitles" id="Desactivar">
                             ¿Cómo desactivar las cookies?
                         </span>
+                        <br />
                         <br />
                         <p>
                             Puede usted permitir, bloquear o eliminar las
@@ -181,42 +207,43 @@ export const PoliticasC = (props) => {
                             para aceptar, instalar o desactivar las cookies:
                         </p>
                         <br />
-                        <a
+                        <Nav.Link
                             className="politicscoo-link"
                             target="_blank"
                             href="https://support.google.com/accounts/search?q=cookies"
                         >
                             Configurar cookies en Google Chrome{" "}
-                        </a>
+                        </Nav.Link>
                         <br />
-                        <a
+                        <Nav.Link
                             className="politicscoo-link"
                             target="_blank"
                             href="https://support.microsoft.com/es-es/windows/eliminar-y-administrar-cookies-168dab11-0753-043d-7c16-ede5947fc64d"
                         >
                             Configurar cookies en Microsoft Internet Explorer{" "}
-                        </a>
+                        </Nav.Link>
                         <br />
-                        <a
+                        <Nav.Link
                             className="politicscoo-link"
                             target="_blank"
                             href="https://support.mozilla.org/es/kb/Borrar%20cookies#search"
                         >
                             Configurar cookies en Mozilla Firefox{" "}
-                        </a>
+                        </Nav.Link>
                         <br />
-                        <a
+                        <Nav.Link
                             className="politicscoo-link"
                             target="_blank"
                             href="https://support.apple.com/es-co/guide/safari/sfri11471/mac"
                         >
                             Configurar cookies en Safari (Apple){" "}
-                        </a>
+                        </Nav.Link>
                         <br />
                         <br />
                         <span className="politicscoo-subtitles" id="Terceros">
                             Cookies de terceros
                         </span>
+                        <br />
                         <br />
                         <p>
                             Utilizamos servicios de terceros para recopilar
@@ -252,6 +279,7 @@ export const PoliticasC = (props) => {
                             Advertencia sobre eliminar cookies
                         </span>
                         <br />
+                        <br />
                         <p>
                             Usted puede eliminar y bloquear todas las cookies de
                             este sitio, pero parte del sitio no funcionará o la
@@ -267,6 +295,7 @@ export const PoliticasC = (props) => {
                         <span className="politicscoo-subtitles" id="Quienes">
                             ¿Quién debe cumplir la ley de cookies?
                         </span>
+                        <br />
                         <br />
                         <p>
                             Tanto las empresas como los profesionales que tengan
