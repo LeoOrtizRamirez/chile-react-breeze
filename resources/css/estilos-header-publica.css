@@ -63,15 +63,37 @@ span.icon-login {
 }
 
 .logo-header {
-    width: 170px;
+    width: 230px;
 }
 
 
 
-.div-iniciar-secion {
-    right: 0;
+span.ancho {
+    width: 30vh;
 }
 
 .container-header{
     width: 1280px;
+}
+
+
+.container-headerPublica {
+ 
+    justify-content: center;
+    height: 78px;
+    align-items: center;
+    display: flex;
+
+
+}
+
+.division-header {
+    width: 3px;
+    height: 12px;
+    background: #4a4040;
+    margin-left: 10px;
+    border-radius: 3px;
+    margin-top: 0;
+    margin-bottom: 0;
+    border: 0;
 }
