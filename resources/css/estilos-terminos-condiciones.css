@@ -128,17 +128,16 @@
 }
 
 
-/*sdasd*/
 .container-terminos {
     width: 1280px;
     display: flex;
     justify-content: center;
     margin: 0 auto;
-    box-shadow: 0px 0px 20px #68686814;
+   /*  box-shadow: 0px 0px 20px #68686814; */
 }
 
 .terminos-info {
-    margin: 20px 20px 20px 40px;
+    margin: 80px 20px 20px 250px;
     width: 872px;
 }
 
@@ -146,7 +145,10 @@
 
 .banner-izquierdo {
     margin: 20px;
-    margin-left: 10px;
+    margin-top: 120px;
+    /* margin-left: 10px; */
+    position: fixed;
+    left: 6%;
 }
 
 .banner-izquierdo ul {
@@ -155,7 +157,7 @@
     padding: 25px 0px;
     position: initial;
     width: 247px;
-    height: 605px;
+    height: 400px;
     overflow: auto;
     border-radius: 17px;
     overflow-x: clip;

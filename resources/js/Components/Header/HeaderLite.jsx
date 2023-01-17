@@ -61,12 +61,11 @@ const HeaderLite = (props) => {
     return (
 
 
-        <div className="container container-headerLite ">
+        <div className="container-headerLite">
             <div className="flex justify-between items-center py-2">
                 <a href="/" className="flex items-center img-header">
                     <ApplicationLogoLici />
                 </a>
-
                 <div className="flex md:order-2 div-iniciar-secion">
                     <ul className="mb-2 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 ">
 
@@ -91,6 +90,7 @@ const HeaderLite = (props) => {
                                     Regístrate gratis
                                     </a>
                                 </li>
+                                <hr class="division-header"></hr>
                                 <li>
                                     <a href="/contacto" className="flex  items-center ml-4 text-contactanos" onClick={handleShow}>
                                         <span className="mr-2 icon-contacto"></span>

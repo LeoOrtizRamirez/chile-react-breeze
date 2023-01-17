@@ -1,5 +1,11 @@
+.container-headerPublica{
+    width: auto;
+}
+
+
 .contactenos,.contactenos__button{
-    display:flex;align-items:center
+    display: flex;
+    align-items:center
 }
 .contactenos__button{
     margin-left:20px;margin-right:20px;border-radius:30px;background:#fff;padding:10px 16px;border:0;color:#686868;font-size:.88rem;font-weight:700;font-family:Poppins;opacity:1;justify-content:center
@@ -747,6 +753,16 @@ body {
    /*max-width: 350px; */
     height: 2px !important;
     background: gray;
+    border-radius: 3px;
+    margin-top: 0;
+    margin-bottom: 0;
+    border: 0;
+}
+.division-header {
+    width: 3px;
+    height: 12px;
+    background: #4a4040;
+    margin-left: 10px;
     border-radius: 3px;
     margin-top: 0;
     margin-bottom: 0;
