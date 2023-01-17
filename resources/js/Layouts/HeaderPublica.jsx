@@ -4,8 +4,6 @@ import ChileLogo from "@/Components/ChileLogo";
 import "../../css/estilos-header-publica.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import TextInput from '@/Components/TextInput';
-import InputError from '@/Components/InputError';
-
 import Modal from 'react-bootstrap/Modal';
 import "../../css/font-unicolor.css";
 import './Header.css';
@@ -228,8 +226,8 @@ export default function Example(props) {
     }, [countDown]); */
 
     return (
-        <div className="customers-list container container-header">
-            <div className="flex justify-between	items-center py-2">
+        <div className="customers-list container-headerPublica">
+            <div className="flex justify-between items-center py-2 px-4">
                 <a href="/" className="flex items-center">
                     <ApplicationLogoLici />
                 </a>
@@ -276,6 +274,7 @@ export default function Example(props) {
                                         Probar 30 días gratis
                                     </a>
                                 </li>
+                                <hr class="division-header"></hr>
                                 <li>
                                     <a href="#" className="flex ml-4 ">
                                         <ChileLogo />
@@ -289,10 +288,7 @@ export default function Example(props) {
 
 
                     </ul>
-                    <button data-collapse-toggle="navbar-sticky" type="button" className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
-                        <span className="sr-only">Open main menu</span>
-                        <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>
-                    </button>
+                   
                 </div>
 
                 <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
@@ -599,6 +595,9 @@ export default function Example(props) {
                 </Modal.Footer>
             </Modal>
         </div>
+
+                            
+
 
     );
 }
