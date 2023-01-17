@@ -227,10 +227,12 @@ export default function Example(props) {
 
     return (
         <div className="customers-list container-headerPublica">
-            <div className="flex justify-between items-center py-2 px-4">
+            <div className="flex items-center">
                 <a href="/" className="flex items-center">
                     <ApplicationLogoLici />
                 </a>
+                
+                <div className="flex md:order-2"><span className="ancho"></span></div>
 
                 <div className="flex md:order-2 div-iniciar-secion">
                     <ul className="mb-2 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 ">
@@ -246,7 +248,7 @@ export default function Example(props) {
                                         }
                                     </a>
                                 </li>
-
+                                <hr class="division-header"></hr>
                                 <li>
                                     <a href="#" className="flex ml-4 ">
                                         <ChileLogo />
@@ -290,6 +292,8 @@ export default function Example(props) {
                     </ul>
                    
                 </div>
+
+                
 
                 <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
                     <ul className="mb-2 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
