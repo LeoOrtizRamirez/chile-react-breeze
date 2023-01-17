@@ -1,24 +1,19 @@
 .container-politicscoo {
-    width: 1280px;
-    /* width: auto; */
     display: flex;
     justify-content: center;
     margin: 0 auto;
-    /* border: solid red; */
 }
 
 .politicscoo {
-    margin: 20px;
+    margin: 20px 0 0 0;
 }
 
 .politicscoo ul {
-    list-style-type: none;
     margin: 0;
     padding: 25px;
     position: fixed;
     width: 290px;
     height: auto;
-    overflow: auto;
     border-radius: 17px;
     -webkit-border-radius: 17px;
     -moz-border-radius: 17px;
@@ -31,36 +26,12 @@
     opacity: 1;
 }
 
-.politicscoo li a {
-    display: block;
-    color: #686868;
-    padding: 8px 25px 10px 20px;
-    margin-left: 15px;
-    text-decoration: none;
-}
-
-.politicscoo li a.active {
-    color: #00a1c9;
-    font-family: "Roboto", sans-serif;
-    font-weight: bold;
-    font-size: 15px;
-}
-
-.politicscoo li a:hover:not(.active) {
-    background-color: #6868680c;
-    color: #686868;
-    text-decoration: underline;
-}
-
 .politicscoo-info {
     margin: 50px 20px 20px 350px;
-    width: 872;
-}
-
-.politicscoo-text {
-    font-family: "Roboto", sans-serif;
-    font-size: 15px;
-    color: #686868;
+    margin: 50px 20px 20px 350px;
+    max-width: 100%;
+    max-height: calc(90vh - 140px);
+    overflow-y: scroll;
 }
 
 .politicscoo hr {
@@ -79,13 +50,6 @@
     font-weight: bold;
 }
 
-.politicscoo-title-content {
-    font-family: "Roboto", sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    color: #959595 !important;
-}
-
 .politicscoo-subtitles {
     font-family: "Poppins", sans-serif;
     font-size: 18px;
@@ -98,9 +62,61 @@
     font-family: "Roboto", sans-serif;
     font-size: 15px;
     color: #686868;
+    padding-right: 20px;
 }
 
 .politicscoo-link {
     color: #00a1c9;
-    text-decoration: underline;
+}
+
+/* Firefox */
+* {
+    scrollbar-width: auto;
+    scrollbar-color: #c2c2c2 #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #c2c2c2;
+    border-radius: 10px;
+    border: 3px solid #ffffff;
+}
+
+a.nav-link.active {
+    display: block;
+    color: #00a1c9 !important;
+    padding: 8px 25px 10px 20px;
+    margin-left: 15px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.politicscoo a {
+    display: block;
+    color: #686868;
+    padding: 8px 25px 10px 20px;
+    margin-left: 15px;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.politicscoo a:hover {
+    color: #686868;
+}
+
+.icon-up {
+    font-size: 7px;
+}
+
+.politicscoo-title-cont {
+    color: #686868a2;
+    font-weight: bold;
 }
