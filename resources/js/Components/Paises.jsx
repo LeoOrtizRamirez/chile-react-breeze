@@ -25,11 +25,19 @@ export const Paises = (props) => {
 
     const changeCountry = (country) => {
         props.addCountry(country)
+        console.log(country.selected = true)
+        const oldSelected = Countries.filter(function (el) {
+            if (el.selected) {
+                el.selected = false
+                return el
+            }
+        });
+        country.selected = true 
     }
 
     return (
         <>
-            <div className="modal-body2 scrollable">
+            <div className=" scrollable">
                 <div className="modal-filter">
                     <div className="modal-filter__search">
                         <div className="form-group">
@@ -48,7 +56,7 @@ export const Paises = (props) => {
                         <div className="modal-filter__list scrollable-custom">
                             {Countries.map((Country, index) => (
                                 <div>
-                                    <div className="result result--pinned dashed dashed" onClick={() => changeCountry(Country)}>
+                                    <div className={`${Country.selected ? "result-selected" : "result"} result--pinned dashed dashed`} onClick={() => changeCountry(Country)}>
                                         <img src={Country.image} alt=""
                                             className="result__bandera-icono-listado" />
                                         <span className="result__nombre">{Country.title}</span>
