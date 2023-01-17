@@ -56,12 +56,12 @@ class DailyScrapping extends Command
         $fin = new DateTime('now', new DateTimeZone('America/Bogota'));
 
 
-        //$fecha_inicio = $inicio->format('Y-m-d');
-        //$fecha_fin = $fin->format('Y-m-d');
+        $fecha_inicio = $inicio->format('Y-m-d');
+        $fecha_fin = $fin->format('Y-m-d');
 
 
-        $fecha_inicio = "2023-01-10";
-        $fecha_fin = "2023-01-10";
+        //$fecha_inicio = "2023-01-10";
+        //$fecha_fin = "2023-01-10";
 
         $url = 'https://www.mercadopublico.cl/BuscarLicitacion/Home/Buscar/';
 
