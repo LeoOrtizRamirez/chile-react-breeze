@@ -162,11 +162,15 @@ const PasswordSecurity = (props, onHandleChange) => {
                         required
                         style={{ width: 100 + "%;" }}
                     />
-                    <span
-                        className="contenido__password-div-icon icon-show"
-                        onClick={handleTogglePasswordIcon}
-                        ref={refPasswordIcon}
-                    />
+                    {props.errorIcon == true ?
+                        <span className="contenido__password-div-icon icon-alert error-icon"></span>
+                    :
+                        <span
+                            className="contenido__password-div-icon icon-show"
+                            onClick={handleTogglePasswordIcon}
+                            ref={refPasswordIcon}
+                        />
+                    }
                 </div>
             </div>
             <div className="contenido__nivel">

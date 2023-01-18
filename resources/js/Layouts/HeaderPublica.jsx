@@ -29,6 +29,7 @@ export default function Example(props) {
     const [inputCodeClass, setInputCodeClass] = useState("contenido__validacion-input")
 
     let refPasswordIcon = useRef();
+    let refInputPassword = useRef();
 
     /*Modal*/
     const [show, setShow] = useState(false);
@@ -70,19 +71,19 @@ export default function Example(props) {
     };
 
     const handleTogglePasswordIcon = (e) => {
-        let input_password = document.querySelector("password")[0] //PENDIENTE REVISAR COMO SE IMPLEMENTA POR MEDIO DE REFERENCIA
         if (refPasswordIcon.current.className == "form-input-section__container-span icon-show") {
             refPasswordIcon.current.className = "form-input-section__container-span icon-hide"
-            input_password.type = "text"
-            input_password.placeholder = "Ingresa tu contraseña"
+            refInputPassword.current.type = "text"
+            refInputPassword.current.placeholder = "Ingresa tu contraseña"
         } else {
             refPasswordIcon.current.className = "form-input-section__container-span icon-show"
-            input_password.type = "password"
-            input_password.placeholder = "Contraseña1234"
+            refInputPassword.current.type = "password"
+            refInputPassword.current.placeholder = "Contraseña1234"
         }
     }
 
     const onHandleChange = (event) => {
+        console.log(event)
         setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
     };
 
@@ -183,7 +184,7 @@ export default function Example(props) {
         var input2 = document.getElementById("input2")
         var input3 = document.getElementById("input3")
         var input4 = document.getElementById("input4")
-        if(e.target.value != ""){
+        if (e.target.value != "") {
             switch (e.target.name) {
                 case "input1":
                     input2.focus()
@@ -200,30 +201,6 @@ export default function Example(props) {
         }
     }
 
-    /* useEffect(() => {
-        let sampleInterval = setInterval(() => {
-            console.log(mins)
-            console.log(secs)
-            if(mins<=2 ){
-                setTimeColor("c-red")
-            }
-            if (secs > 0) {
-                setSeconds(secs - 1);
-            }
-            if (secs === 0) {
-                if (mins === 0) {
-                    clearInterval(sampleInterval);
-                    setVerificationCodeExpire(true)
-                } else {
-                    setMinutes(mins - 1);
-                    setSeconds(59);
-                }
-            }
-        }, 1000);
-        return () => {
-            clearInterval(sampleInterval);
-        };
-    }, [countDown]); */
 
     return (
         <div className="customers-list container-headerPublica">
@@ -231,7 +208,7 @@ export default function Example(props) {
                 <a href="/" className="flex items-center">
                     <ApplicationLogoLici />
                 </a>
-                
+
                 <div className="flex md:order-2"><span className="ancho"></span></div>
 
                 <div className="flex md:order-2 div-iniciar-secion">
@@ -290,10 +267,10 @@ export default function Example(props) {
 
 
                     </ul>
-                   
+
                 </div>
 
-                
+
 
                 <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
                     <ul className="mb-2 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
@@ -373,15 +350,16 @@ export default function Example(props) {
                                     <p className="form-input-section__title"><span
                                         className="icon-lock form-input-section__title-span"></span><strong>Contraseña:</strong></p>
                                     <div className="form-input-section__container">
-                                        <TextInput
+                                        <input
                                             id="password"
                                             type="password"
                                             name="password"
+                                            ref={refInputPassword}
                                             placeholder="Ingresa tu contraseña"
                                             value={data.password}
                                             className={inputClass}
                                             autoComplete="current-password"
-                                            handleChange={onHandleChange}
+                                            onChange={onHandleChange}
                                         />
                                         {!validForm ?
                                             <span className="form-input-section__container-span form-input-section__container-span form-input-section__container-span--modifier icon-alert"></span>
@@ -560,7 +538,7 @@ export default function Example(props) {
                                                     onKeyUp={e => nextInput(e)}
                                                 />
                                                 <input
-                                                    id="input4" 
+                                                    id="input4"
                                                     name="input4"
                                                     maxlength="1"
                                                     required="required"
@@ -600,7 +578,7 @@ export default function Example(props) {
             </Modal>
         </div>
 
-                            
+
 
 
     );
