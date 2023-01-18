@@ -20,6 +20,7 @@ const RecuperarContrasena = () => {
     });
 
     let refPasswordConfirmar = useRef()
+    let refPasswordIcon = useRef()
     const [valid, setValid] = useState(false)
     const [errorIconStatus, setErrorIconStatus] = useState(false)
     const [passwordEquals, setPasswordEquals] = useState(true)
@@ -68,6 +69,18 @@ const RecuperarContrasena = () => {
         });
         */
     };
+
+    const handleTogglePasswordIcon = (e) => {
+        if (refPasswordIcon.current.className == "content__confirmar-div-icon icon-show") {
+            refPasswordIcon.current.className = "content__confirmar-div-icon icon-hide"
+            refPasswordConfirmar.current.type = "text"
+            refPasswordConfirmar.current.placeholder = "Ingresa tu contraseña"
+        } else {
+            refPasswordIcon.current.className = "content__confirmar-div-icon icon-show"
+            refPasswordConfirmar.current.type = "password"
+            refPasswordConfirmar.current.placeholder = "Contraseña1234"
+        }
+    }
 
     return (
         <>
@@ -125,7 +138,12 @@ const RecuperarContrasena = () => {
                                                             value={data.password2}
                                                             onChange={onHandleChange}
                                                             onClick = {cleanPasswordConfirmar}
-                                                        /><span className="content__confirmar-div-icon icon-show"></span>
+                                                        />
+                                                        <span 
+                                                            className="content__confirmar-div-icon icon-show"
+                                                            ref={refPasswordIcon}
+                                                            onClick={handleTogglePasswordIcon}
+                                                        ></span>
                                                     </div>
                                                 </div>
                                             </div>
