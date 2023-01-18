@@ -5,7 +5,6 @@ import "./PasswordSecurity.css";
 import TextInput from "@/Components/TextInput";
 
 const PasswordSecurity = (props, onHandleChange) => {
-    console.log(props)
     const [securityColor, setSecurityColor] = useState("gray");
     const [securityName, setSecurityName] = useState("no ingresada");
 

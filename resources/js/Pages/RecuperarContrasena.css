@@ -452,7 +452,7 @@ button {
     margin-right: unset !important; 
 }
 
-.contenido__password-div .error-input{
+.error-input{
     font-size: 1.25rem;
     font-family: Roboto;
     border: 2px solid #c9003d;
@@ -460,8 +460,32 @@ button {
 }
 
 .error-input::placeholder{
-    font-size: 1rem;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    font-family: Roboto !important;
+    color: #c9003d !important;
+}
+
+
+.content__body-alerta {
+    text-align: center;
+}
+
+.content__alerta-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 42px;
+    margin-bottom: 32px;
+}
+
+.content__alerta-div-text {
+    font-size: 1.75rem;
     font-weight: 700;
-    font-family: Roboto;
+    font-family: Poppins;
+    color: #959595;
+}
+
+.content__alerta-div-text--modifier {
     color: #c9003d;
 }

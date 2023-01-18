@@ -9,32 +9,65 @@ import "@fontsource/poppins";
 
 import PasswordSecurity from '@/Components/PasswordSecurity';
 
-const RecuperarContrasena = () => {
+import { Head, Link, useForm } from '@inertiajs/inertia-react';
 
-    const [valid, setValid] = useState(false)
-    const [errorIconStatus, setErrorIconStatus] = useState(false)
+const RecuperarContrasena = () => {
+    const { data, setData, post, processing, errors, reset, } = useForm({
+        email: '',
+        password: '',
+        password2: '',
+        remember: '',
+    });
 
     let refPasswordConfirmar = useRef()
+    const [valid, setValid] = useState(false)
+    const [errorIconStatus, setErrorIconStatus] = useState(false)
+    const [passwordEquals, setPasswordEquals] = useState(true)
 
+    
     const onHandleChange = (event) => {
         if (event.target.value != "") {
             setValid(true)
             setErrorIconStatus(true)
             if (event.target.value.length > 5) {
                 setErrorIconStatus(false)
-                event.target.classList.remove("error-input");
+                event.target.classList.remove("error-input")
             }
         } else {
             setValid(false)
             setErrorIconStatus(true)
-            event.target.classList.add("error-input");
+            event.target.classList.add("error-input")
         }
-        //setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
+        setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value)
     };
 
     const passwordValidate = (e) => {
-        console.log(refPasswordConfirmar.current)
+        if (data.password == data.password2) {
+            refPasswordConfirmar.current.classList.remove("error-input")
+        } else {
+            setPasswordEquals(false)
+            console.log(refPasswordConfirmar.current)
+            refPasswordConfirmar.current.classList.add("error-input")
+        }
     }
+
+    const cleanPasswordConfirmar = () => {
+        setPasswordEquals(true)
+        refPasswordConfirmar.current.classList.remove("error-input")
+    }
+
+    const submit = (e) => {
+        console.log(e)
+        /*
+        e.preventDefault();
+        post(route('login'), {
+            onError: () => {
+                setInputClass("form-input-section__container-input form-input-section__container-inputError")
+                setValidForm(false)
+            }
+        });
+        */
+    };
 
     return (
         <>
@@ -61,7 +94,7 @@ const RecuperarContrasena = () => {
                                             que tu contraseña debe estar compuesta por: <span className="content__div-text--modifier">mínimo
                                                 de 6 caracteres.</span></span>
                                     </div>
-                                    <form action="" className="content__body-form">
+                                    <form onSubmit={submit} className="content__body-form">
                                         <div id="input_password" className="contenido">
                                             <div htmlFor="" className="contenido__password-titulo"><span
                                                 className="contenido__password-titulo-icon"></span><span>Nueva
@@ -86,9 +119,12 @@ const RecuperarContrasena = () => {
                                                             type="password"
                                                             placeholder="Ingresa de nuevo tu contraseña"
                                                             id="passwordConfirmar"
-                                                            name="password"
+                                                            name="password2"
                                                             autoComplete="off"
                                                             className="content__confirmar-div-input"
+                                                            value={data.password2}
+                                                            onChange={onHandleChange}
+                                                            onClick = {cleanPasswordConfirmar}
                                                         /><span className="content__confirmar-div-icon icon-show"></span>
                                                     </div>
                                                 </div>
@@ -98,13 +134,26 @@ const RecuperarContrasena = () => {
                                             </div>
                                         </div>
                                     </form>
-                                    <div className="content__body-button">
-                                        <button
-                                            disabled={!valid}
-                                            className="content__button-confirmar"
-                                            onClick={passwordValidate}
-                                        >Recuperar contraseña</button>
-                                    </div>
+
+
+                                    {passwordEquals ?
+                                        <div className="content__body-button">
+                                            <button
+                                                disabled={!valid}
+                                                className="content__button-confirmar"
+                                                onClick={passwordValidate}
+                                            >Recuperar contraseña</button>
+                                        </div>
+                                        :
+                                        <div className="content__body-alerta">
+                                            <div className="content__alerta-div">
+                                                <span className="content__alerta-div-text"> Las contraseñas <span className="content__alerta-div-text--modifier">no coinciden</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    }
+
+
                                 </div>
                                 <hr className="linea__divisoria" />
                                 <div className="content__footer">
