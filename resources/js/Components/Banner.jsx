@@ -37,7 +37,7 @@ const Banner = (props) => {
     return (
         <>
             <section id="banner-videos-paises">
-                <div className="banner-video-paises"><video muted="muted" autoplay="autoplay" loop="loop" src="/public/video/video_inicio_cl.mp4" type="webm" className="banner-video-paises__video"></video>
+                <div className="banner-video-paises"><video muted="muted" autoPlay="autoplay" loop="loop" src="/public/video/video_inicio_cl.mp4" type="webm" className="banner-video-paises__video"></video>
                     <div className="banner-video-paises__content-banner container">
                         <div className="row">
                             <div className="col-12 banner-video-paises__title"><h2>Licitaciones en Chile</h2>

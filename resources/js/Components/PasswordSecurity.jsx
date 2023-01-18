@@ -5,6 +5,7 @@ import './PasswordSecurity.css'
 import TextInput from '@/Components/TextInput';
 
 const PasswordSecurity = (props, onHandleChange) => {
+    console.log(props)
     const [securityColor, setSecurityColor] = useState("gray");
     const [securityName, setSecurityName] = useState("no ingresada");
 
@@ -140,11 +141,16 @@ const PasswordSecurity = (props, onHandleChange) => {
                         required
                         style={{ width: 100 + '%;' }}
                     />
-                    <span 
-                        className="contenido__password-div-icon icon-show" 
-                        onClick={handleTogglePasswordIcon}
-                        ref={refPasswordIcon}
-                    />
+
+                    {props.errorIcon == true ?
+                        <span className="contenido__password-div-icon icon-alert error-icon"></span>
+                    :
+                        <span
+                            className="contenido__password-div-icon icon-show"
+                            onClick={handleTogglePasswordIcon}
+                            ref={refPasswordIcon}
+                        />
+                    }
                 </div>
             </div>
             <div className="contenido__nivel">
