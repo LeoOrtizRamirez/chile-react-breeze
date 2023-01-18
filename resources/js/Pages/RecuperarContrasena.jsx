@@ -24,7 +24,7 @@ const RecuperarContrasena = () => {
     const [errorIconStatus, setErrorIconStatus] = useState(false)
     const [passwordEquals, setPasswordEquals] = useState(true)
 
-    
+
     const onHandleChange = (event) => {
         if (event.target.value != "") {
             setValid(true)
@@ -73,7 +73,7 @@ const RecuperarContrasena = () => {
         <>
             <div id="recuperar-contrasena-view">
                 <section className="recuperar-contrasena--section"><video autoPlay="autoplay" muted="muted" loop="loop"
-                    src="/video/Mapa contraseña.webm"></video>
+                    src="/public/video/Mapa contraseña.webm"></video>
                     <div id="contenido-video" className="contenido row">
                         <div className="contenido__video col-md-6 col-12">
                             <h2 className="contenido__video-texto">
@@ -84,7 +84,7 @@ const RecuperarContrasena = () => {
                             <div className="content">
                                 <div className="content__header d-none d-md-block">
                                     <a href="/">
-                                        <img src="/images/logo-licitaciones.svg" alt="Licitaciones.info" className="content__header-img" />
+                                        <img src="/public/images/logo-licitaciones.svg" alt="Licitaciones.info" className="content__header-img" />
                                     </a>
                                 </div>
                                 <div className="content__body">
