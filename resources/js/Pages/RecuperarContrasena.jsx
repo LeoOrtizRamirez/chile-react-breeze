@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 
 import './RecuperarContrasena.css'
-/* import './Auth/Register.css'; */
 
 import "../../css/font-unicolor.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,14 +10,13 @@ import PasswordSecurity from '@/Components/PasswordSecurity';
 
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
 
-const RecuperarContrasena = () => {
-    const { data, setData, post, processing, errors, reset, } = useForm({
-        email: '',
+const RecuperarContrasena = (props) => {
+    const { data, setData, post, get, processing, errors, reset, } = useForm({
+        email: props.email,
         password: '',
         password2: '',
         remember: '',
     });
-
     let refPasswordConfirmar = useRef()
     let refPasswordIcon = useRef()
     const [valid, setValid] = useState(false)
@@ -59,15 +57,20 @@ const RecuperarContrasena = () => {
 
     const submit = (e) => {
         console.log(e)
-        /*
         e.preventDefault();
-        post(route('login'), {
-            onError: () => {
-                setInputClass("form-input-section__container-input form-input-section__container-inputError")
-                setValidForm(false)
-            }
-        });
-        */
+        if (data.password == data.password2) {
+            refPasswordConfirmar.current.classList.remove("error-input")
+            get(route('actualizarContrasena'), {
+                onError: () => {
+                    setInputClass("form-input-section__container-input form-input-section__container-inputError")
+                    setValidForm(false)
+                }
+            });
+        } else {
+            setPasswordEquals(false)
+            console.log(refPasswordConfirmar.current)
+            refPasswordConfirmar.current.classList.add("error-input")
+        }
     };
 
     const handleTogglePasswordIcon = (e) => {
@@ -137,9 +140,9 @@ const RecuperarContrasena = () => {
                                                             className="content__confirmar-div-input"
                                                             value={data.password2}
                                                             onChange={onHandleChange}
-                                                            onClick = {cleanPasswordConfirmar}
+                                                            onClick={cleanPasswordConfirmar}
                                                         />
-                                                        <span 
+                                                        <span
                                                             className="content__confirmar-div-icon icon-show"
                                                             ref={refPasswordIcon}
                                                             onClick={handleTogglePasswordIcon}
@@ -151,25 +154,29 @@ const RecuperarContrasena = () => {
 
                                             </div>
                                         </div>
+
+
+                                        {passwordEquals ?
+                                            <div className="content__body-button">
+                                                <button
+                                                    type='submit'
+                                                    disabled={!valid}
+                                                    className="content__button-confirmar"
+                                                >Recuperar contraseña</button>
+                                            </div>
+                                            :
+                                            <div className="content__body-alerta">
+                                                <div className="content__alerta-div">
+                                                    <span className="content__alerta-div-text"> Las contraseñas <span className="content__alerta-div-text--modifier">no coinciden</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        }
+
                                     </form>
 
 
-                                    {passwordEquals ?
-                                        <div className="content__body-button">
-                                            <button
-                                                disabled={!valid}
-                                                className="content__button-confirmar"
-                                                onClick={passwordValidate}
-                                            >Recuperar contraseña</button>
-                                        </div>
-                                        :
-                                        <div className="content__body-alerta">
-                                            <div className="content__alerta-div">
-                                                <span className="content__alerta-div-text"> Las contraseñas <span className="content__alerta-div-text--modifier">no coinciden</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    }
+
 
 
                                 </div>
