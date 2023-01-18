@@ -1,9 +1,9 @@
-#privacyPolicyModal div[id^=privacyPolicyModal].modal-content {
-    background: 0 0
+#privacyPolicyModal div[id^="privacyPolicyModal"].modal-content {
+    background: 0 0;
 }
 
-#privacyPolicyModal div[id^=privacyPolicyModal].modal-body {
-    padding: 0
+#privacyPolicyModal div[id^="privacyPolicyModal"].modal-body {
+    padding: 0;
 }
 
 #privacyPolicyModal #closeModal {
@@ -13,54 +13,98 @@
     z-index: 10;
     width: 40px;
     height: 40px;
-    padding: 0
+    padding: 0;
 }
 
 #privacyPolicyModal .container {
     margin: 0;
-    max-width: 100%
+    max-width: 100%;
 }
 
 #privacyPolicyModal #PrivacyPolicyScrollSpyMain,
 #privacyPolicyModal #TermsOfServicePolicyScrollSpyMain {
     display: flex;
-    flex-wrap: nowrap
+    flex-wrap: nowrap;
 }
 
 #privacyPolicyModal #PrivacyPolicyScrollSpyMain .ScrollSpyNavBarMain,
 #privacyPolicyModal #TermsOfServicePolicyScrollSpyMain .ScrollSpyNavBarMain {
     flex: 1;
     max-width: 20%;
-    margin-right: 10px
+    margin-right: 10px;
 }
 
-#privacyPolicyModal #PrivacyPolicyScrollSpyMain .ScrollSpyNavBarMain nav#PrivacyPolicyScrollSpyNavBar,
-#privacyPolicyModal #PrivacyPolicyScrollSpyMain .ScrollSpyNavBarMain nav#TermsOfServicePolicyScrollSpyNavBar,
-#privacyPolicyModal #TermsOfServicePolicyScrollSpyMain .ScrollSpyNavBarMain nav#PrivacyPolicyScrollSpyNavBar,
-#privacyPolicyModal #TermsOfServicePolicyScrollSpyMain .ScrollSpyNavBarMain nav#TermsOfServicePolicyScrollSpyNavBar {
+#privacyPolicyModal
+    #PrivacyPolicyScrollSpyMain
+    .ScrollSpyNavBarMain
+    nav#PrivacyPolicyScrollSpyNavBar,
+#privacyPolicyModal
+    #PrivacyPolicyScrollSpyMain
+    .ScrollSpyNavBarMain
+    nav#TermsOfServicePolicyScrollSpyNavBar,
+#privacyPolicyModal
+    #TermsOfServicePolicyScrollSpyMain
+    .ScrollSpyNavBarMain
+    nav#PrivacyPolicyScrollSpyNavBar,
+#privacyPolicyModal
+    #TermsOfServicePolicyScrollSpyMain
+    .ScrollSpyNavBarMain
+    nav#TermsOfServicePolicyScrollSpyNavBar {
     box-shadow: none;
     display: block;
     height: 100%;
     margin: 0;
     position: relative;
     top: 0;
-    max-width: 100%
+    max-width: 100%;
 }
 
-#privacyPolicyModal #PrivacyPolicyScrollSpyMain .ScrollSpyNavBarMain nav#PrivacyPolicyScrollSpyNavBar .navbar-brand,
-#privacyPolicyModal #PrivacyPolicyScrollSpyMain .ScrollSpyNavBarMain nav#TermsOfServicePolicyScrollSpyNavBar .navbar-brand,
-#privacyPolicyModal #TermsOfServicePolicyScrollSpyMain .ScrollSpyNavBarMain nav#PrivacyPolicyScrollSpyNavBar .navbar-brand,
-#privacyPolicyModal #TermsOfServicePolicyScrollSpyMain .ScrollSpyNavBarMain nav#TermsOfServicePolicyScrollSpyNavBar .navbar-brand {
-    color: #00a1c9 !important
+#privacyPolicyModal
+    #PrivacyPolicyScrollSpyMain
+    .ScrollSpyNavBarMain
+    nav#PrivacyPolicyScrollSpyNavBar
+    .navbar-brand,
+#privacyPolicyModal
+    #PrivacyPolicyScrollSpyMain
+    .ScrollSpyNavBarMain
+    nav#TermsOfServicePolicyScrollSpyNavBar
+    .navbar-brand,
+#privacyPolicyModal
+    #TermsOfServicePolicyScrollSpyMain
+    .ScrollSpyNavBarMain
+    nav#PrivacyPolicyScrollSpyNavBar
+    .navbar-brand,
+#privacyPolicyModal
+    #TermsOfServicePolicyScrollSpyMain
+    .ScrollSpyNavBarMain
+    nav#TermsOfServicePolicyScrollSpyNavBar
+    .navbar-brand {
+    color: #00a1c9 !important;
 }
 
-#privacyPolicyModal #PrivacyPolicyScrollSpyMain .ScrollSpyNavBarMain nav#PrivacyPolicyScrollSpyNavBar .scrollSpyNav,
-#privacyPolicyModal #PrivacyPolicyScrollSpyMain .ScrollSpyNavBarMain nav#TermsOfServicePolicyScrollSpyNavBar .scrollSpyNav,
-#privacyPolicyModal #TermsOfServicePolicyScrollSpyMain .ScrollSpyNavBarMain nav#PrivacyPolicyScrollSpyNavBar .scrollSpyNav,
-#privacyPolicyModal #TermsOfServicePolicyScrollSpyMain .ScrollSpyNavBarMain nav#TermsOfServicePolicyScrollSpyNavBar .scrollSpyNav {
+#privacyPolicyModal
+    #PrivacyPolicyScrollSpyMain
+    .ScrollSpyNavBarMain
+    nav#PrivacyPolicyScrollSpyNavBar
+    .scrollSpyNav,
+#privacyPolicyModal
+    #PrivacyPolicyScrollSpyMain
+    .ScrollSpyNavBarMain
+    nav#TermsOfServicePolicyScrollSpyNavBar
+    .scrollSpyNav,
+#privacyPolicyModal
+    #TermsOfServicePolicyScrollSpyMain
+    .ScrollSpyNavBarMain
+    nav#PrivacyPolicyScrollSpyNavBar
+    .scrollSpyNav,
+#privacyPolicyModal
+    #TermsOfServicePolicyScrollSpyMain
+    .ScrollSpyNavBarMain
+    nav#TermsOfServicePolicyScrollSpyNavBar
+    .scrollSpyNav {
     margin-top: 20px;
     max-height: 65vh;
-    overflow-y: auto
+    overflow-y: auto;
 }
 
 #privacyPolicyModal #PrivacyPolicyScrollSpyMain .ScrollSpyContentMain,
@@ -69,62 +113,72 @@
     flex: 1;
     border-radius: 23px;
     padding: 10px 20px;
-    max-width: 80%
+    max-width: 80%;
 }
 
-#privacyPolicyModal #PrivacyPolicyScrollSpyMain .ScrollSpyContentMain #PrivacyPolicyScrollSpyContent,
-#privacyPolicyModal #PrivacyPolicyScrollSpyMain .ScrollSpyContentMain #TermsOfServicePolicyScrollSpyContent,
-#privacyPolicyModal #TermsOfServicePolicyScrollSpyMain .ScrollSpyContentMain #PrivacyPolicyScrollSpyContent,
-#privacyPolicyModal #TermsOfServicePolicyScrollSpyMain .ScrollSpyContentMain #TermsOfServicePolicyScrollSpyContent {
+#privacyPolicyModal
+    #PrivacyPolicyScrollSpyMain
+    .ScrollSpyContentMain
+    #PrivacyPolicyScrollSpyContent,
+#privacyPolicyModal
+    #PrivacyPolicyScrollSpyMain
+    .ScrollSpyContentMain
+    #TermsOfServicePolicyScrollSpyContent,
+#privacyPolicyModal
+    #TermsOfServicePolicyScrollSpyMain
+    .ScrollSpyContentMain
+    #PrivacyPolicyScrollSpyContent,
+#privacyPolicyModal
+    #TermsOfServicePolicyScrollSpyMain
+    .ScrollSpyContentMain
+    #TermsOfServicePolicyScrollSpyContent {
     background: #fff;
     border-radius: 23px;
     padding: 0 40px;
-    max-height: 80vh
+    max-height: 80vh;
 }
 
-@media(max-width:1420px) {
+@media (max-width: 1420px) {
     #privacyPolicyModal .ScrollSpyNavBarMain {
-        display: none
+        display: none;
     }
 
     #privacyPolicyModal .ScrollSpyContentMain {
         flex: 0 0 100% !important;
-        max-width: 100% !important
+        max-width: 100% !important;
     }
-
 }
 
-@media(max-width:992px) {
+@media (max-width: 992px) {
     #privacyPolicyModal #closeModal {
         right: 6px;
-        top: 6px
+        top: 6px;
     }
 
     #privacyPolicyModal #PrivacyPolicyScrollSpyContent,
     #privacyPolicyModal #TermsOfServicePolicyScrollSpyContent {
-        overflow-y: auto
+        overflow-y: auto;
     }
-
 }
 
 .color__gris-sup-der {
     border-top: 2px solid #ececec !important;
-    border-right: 2px solid #ececec !important
+    border-right: 2px solid #ececec !important;
 }
 
 .color__gris-inf-der {
     border-bottom: 2px solid #ececec !important;
-    border-right: 2px solid #ececec !important
+    border-right: 2px solid #ececec !important;
 }
 
 .color__gris-inf-izq {
-    border-bottom: 2px solid #ececec ;
+    border-bottom: 2px solid #ececec;
     border-left: 2px solid #ececec;
 }
 
 .color__gris-sup-izq {
     border-top: 2px solid #ececec !important;
-    border-left: 2px solid #ececec !important
+    border-left: 2px solid #ececec !important;
 }
 
 .contenido {
@@ -132,19 +186,19 @@
     justify-content: center;
     padding: 25px 0;
     flex-direction: column;
-    align-items: start
+    align-items: start;
 }
 
 .contenido .content-inputs {
     display: flex;
     width: 100%;
-    align-items: center
+    align-items: center;
 }
 
 .contenido__password {
     width: 100%;
     max-width: 490px;
-    margin-right: 25px
+    margin-right: 15px;
 }
 
 .contenido__password-titulo {
@@ -155,18 +209,18 @@
     margin-left: 25px;
     margin-bottom: 14px;
     display: flex;
-    align-items: center
+    align-items: center;
 }
 
 .contenido__password-titulo-icon {
     font-size: 1.2rem;
-    margin-right: 10px
+    margin-right: 10px;
 }
 
 .contenido__password-div {
     position: relative;
     display: flex;
-    align-items: center
+    align-items: center;
 }
 
 .contenido__password-div-input {
@@ -178,23 +232,24 @@
     font-size: 1rem;
     font-weight: 400;
     font-family: Roboto;
-    color: #959595
+    color: #959595;
+    width: 275px;
 }
 
 .contenido__password-div-input:focus,
 .contenido__password-div-input:focus-visible {
-    outline: none
+    outline: none;
 }
 
 .contenido__password-div-icon {
     color: #686868;
     font-size: 1.2rem;
     position: absolute;
-    right: 20px
+    right: 20px;
 }
 
 .contenido__password-div .icon-hide {
-    font-size: 1.63rem
+    font-size: 1.63rem;
 }
 
 .contenido__password-div .error-input {
@@ -202,30 +257,30 @@
     font-weight: 700;
     font-family: Roboto;
     border: 2px solid #c9003d;
-    color: #c9003d
+    color: #c9003d;
 }
 
 .contenido__password-div .error-input::-moz-placeholder {
     color: #c9003d;
     font-size: 1.38rem;
     font-weight: 700;
-    font-family: Roboto
+    font-family: Roboto;
 }
 
 .contenido__password-div .error-input::placeholder {
     color: #c9003d;
     font-size: 1.38rem;
     font-weight: 700;
-    font-family: Roboto
+    font-family: Roboto;
 }
 
 .contenido__password-div .error-input--modifier {
-    border: none
+    border: none;
 }
 
 .contenido__password-div .error-icon {
     font-size: 1.75rem;
-    color: #c9003d
+    color: #c9003d;
 }
 
 .contenido__circulo {
@@ -236,7 +291,7 @@
     justify-content: center;
     align-items: center;
     margin-left: 2px;
-    position: relative
+    position: relative;
 }
 
 .contenido__circulo-esquina__sup-der {
@@ -247,7 +302,7 @@
     right: 2px;
     top: 2px;
     border-top: 2px solid #ececec;
-    border-right: 2px solid #ececec
+    border-right: 2px solid #ececec;
 }
 
 .contenido__circulo-esquina__inf-der {
@@ -258,7 +313,7 @@
     right: 2px;
     bottom: 2px;
     border-bottom: 2px solid #ececec;
-    border-right: 2px solid #ececec
+    border-right: 2px solid #ececec;
 }
 
 .contenido__circulo-esquina__inf-izq {
@@ -269,7 +324,7 @@
     left: 2px;
     bottom: 2px;
     border-bottom: 2px solid #ececec;
-    border-left: 2px solid #ececec
+    border-left: 2px solid #ececec;
 }
 
 .contenido__circulo-esquina__sup-izq {
@@ -280,17 +335,17 @@
     left: 2px;
     top: 2px;
     border-top: 2px solid #ececec;
-    border-left: 2px solid #ececec
+    border-left: 2px solid #ececec;
 }
 
 .contenido__nivel {
     width: auto;
-    max-width: 230px
+    max-width: 230px;
 }
 
 .contenido__nivel-iconos {
     display: flex;
-    align-items: center
+    align-items: center;
 }
 
 .contenido__iconos-seguridad {
@@ -300,37 +355,37 @@
     align-items: center;
     position: relative;
     border: 2px solid #d4d4d4;
-    border-radius: 37px
+    border-radius: 37px;
 }
 
 .contenido__seguridad-icon {
     font-size: 18px;
-    color: #ececec
+    color: #ececec;
 }
 
 .contenido__seguridad-text {
-    font-size: .7rem;
+    font-size: 0.7rem;
     font-weight: 700;
     font-family: Poppins;
     color: #959595;
-    margin: 0 15px
+    margin: 0 15px;
 }
 
 .contenido__seguridad-text--modifier {
-    font-size: .75rem;
+    font-size: 0.75rem;
     font-weight: 700;
-    font-family: Poppins
+    font-family: Poppins;
 }
 
 .informacion {
     background-color: #fff;
     width: 100%;
-    max-width: 365px
+    max-width: 365px;
 }
 
 .informacion__opcional,
 .informacion__requisito {
-    padding: 15px 0 35px
+    padding: 15px 0 35px;
 }
 
 .informacion__opcional-titulo,
@@ -341,7 +396,7 @@
     color: #686868;
     display: flex;
     justify-content: center;
-    margin-bottom: -15px
+    margin-bottom: -15px;
 }
 
 .informacion__opcional-texto,
@@ -349,18 +404,18 @@
     display: flex;
     align-items: center;
     justify-content: start;
-    padding: 0 25px
+    padding: 0 25px;
 }
 
 .informacion__opcional-texto .icon-success,
 .informacion__requisito-texto .icon-success {
-    font-size: 16px;
-    color: #73c914
+    font-size: 15px;
+    color: #73c914;
 }
 
 .informacion__texto-icon {
-    font-size: 16px;
-    color: #686868
+    font-size: 15px;
+    color: #686868;
 }
 
 .informacion__texto-info {
@@ -368,7 +423,7 @@
     font-weight: 400;
     font-family: Poppins;
     color: #686868;
-    margin-left: 10px
+    margin-left: 10px;
 }
 
 .informacion__linea {
@@ -377,53 +432,52 @@
     height: 3px;
     background-color: #ececec;
     margin-top: -15px;
-    border: 0
+    border: 0;
 }
 
-@media(max-width:767px) {
+@media (max-width: 767px) {
     #input_password.contenido {
         width: 100%;
-        justify-content: space-between
+        justify-content: space-between;
     }
 
     #input_password .contenido__password {
-        max-width: 60%
+        max-width: 60%;
     }
 
     #input_password .contenido__nivel {
         width: auto;
-        max-width: none
+        max-width: none;
     }
-
 }
 
 .modal-usuario {
-    padding-left: 0 !important
+    padding-left: 0 !important;
 }
 
 .modal-usuario .modal-body2 {
-    padding: 8px 12px 8px 0
+    padding: 8px 12px 8px 0;
 }
 
 .modal-usuario .modal-header {
     padding-right: 0 !important;
-    position: relative
+    position: relative;
 }
 
 .modal-usuario .modal-header .modal-title {
-    padding-top: 26px
+    padding-top: 26px;
 }
 
 .botonera__cerrar {
     width: 60px;
-    height: 60px
+    height: 60px;
 }
 
 .botonera__cerrar,
 .btn-close {
     border-radius: 30px;
     border: 0;
-    color: #686868
+    color: #686868;
 }
 
 .btn-close {
@@ -431,25 +485,25 @@
     height: 50px;
     position: absolute;
     top: 11px;
-    right: 11px
+    right: 11px;
 }
 
 .btn-close:hover {
     background-color: #c9003d;
-    color: #fff
+    color: #fff;
 }
 
 .btn-close:focus {
-    outline: none
+    outline: none;
 }
 
 .modal-usuario .modal-filter {
     color: #686868;
-    font-size: 20px
+    font-size: 20px;
 }
 
 .modal-usuario .modal-filter__search {
-    margin-bottom: 44px
+    margin-bottom: 44px;
 }
 
 .modal-usuario .modal-filter__search .form-group .input-container {
@@ -457,20 +511,28 @@
     position: relative;
     width: 90%;
     display: flex;
-    align-items: center
+    align-items: center;
 }
 
-.modal-usuario .modal-filter__search .form-group .input-container .input-icono-lupa {
-    left: 16px;
+.modal-usuario
+    .modal-filter__search
+    .form-group
+    .input-container
+    .input-icono-lupa {
+    left: 15px;
     color: #9c9b9b !important;
-    font-size: 22px
+    font-size: 22px;
 }
 
-.modal-usuario .modal-filter__search .form-group .input-container .input-icono-buscar {
+.modal-usuario
+    .modal-filter__search
+    .form-group
+    .input-container
+    .input-icono-buscar {
     right: 10px;
     color: #686868 !important;
     transform: rotate(270deg);
-    font-size: 10px
+    font-size: 10px;
 }
 
 .modal-usuario .modal-filter__search .form-group .input-container input {
@@ -485,29 +547,49 @@
     height: 50px;
     appearance: none;
     -webkit-appearance: none;
-    -moz-appearance: none
+    -moz-appearance: none;
 }
 
-.modal-usuario .modal-filter__search .form-group .input-container input::-moz-placeholder {
-    color: #9c9b9b
+.modal-usuario
+    .modal-filter__search
+    .form-group
+    .input-container
+    input::-moz-placeholder {
+    color: #9c9b9b;
 }
 
-.modal-usuario .modal-filter__search .form-group .input-container input::placeholder {
-    color: #9c9b9b
+.modal-usuario
+    .modal-filter__search
+    .form-group
+    .input-container
+    input::placeholder {
+    color: #9c9b9b;
 }
 
-.modal-usuario .modal-filter__search .form-group .input-container span[class^=icon-] {
+.modal-usuario
+    .modal-filter__search
+    .form-group
+    .input-container
+    span[class^="icon-"] {
     color: #686868;
     cursor: pointer;
-    position: absolute
+    position: absolute;
 }
 
-.modal-usuario .modal-filter__search .form-group .input-container span.icon-Buscar-click {
-    color: #00a1c9 !important
+.modal-usuario
+    .modal-filter__search
+    .form-group
+    .input-container
+    span.icon-Buscar-click {
+    color: #00a1c9 !important;
 }
 
-.modal-usuario .modal-filter__search .form-group .input-container span.icon-Cancelar {
-    color: #c9003d !important
+.modal-usuario
+    .modal-filter__search
+    .form-group
+    .input-container
+    span.icon-Cancelar {
+    color: #c9003d !important;
 }
 
 .modal-usuario .modal-filter__list {
@@ -517,15 +599,15 @@
     padding: 0 30px 0 50px;
     size: 7px;
     scrollbar-width: thin;
-    scrollbar-color: #9c9b9b #eee
+    scrollbar-color: #9c9b9b #eee;
 }
 
 .modal-usuario .modal-filter__list.scrollable {
-    overflow-y: scroll
+    overflow-y: scroll;
 }
 
 .modal-usuario .modal-filter__list:not(.scrollable) {
-    padding: 0
+    padding: 0;
 }
 
 .modal-usuario .modal-filter__list .result {
@@ -535,22 +617,27 @@
     justify-content: space-between;
     margin-bottom: 10px;
     padding: 0 28px 22px;
-    position: relative
+    position: relative;
 }
 
 .modal-usuario .modal-filter__list .result__nombre {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: 80%
+    max-width: 80%;
 }
 
 .modal-usuario .modal-filter__list .result.dashed {
-    background-image: linear-gradient(90deg, #e1e1e1 0, #e1e1e1 50%, transparent 0);
+    background-image: linear-gradient(
+        90deg,
+        #e1e1e1 0,
+        #e1e1e1 50%,
+        transparent 0
+    );
     background-size: 16px 2px;
     background-position: bottom;
     background-repeat: repeat-x;
-    display: flex
+    display: flex;
 }
 
 .modal-usuario .modal-filter__list .result:before {
@@ -560,19 +647,19 @@
     height: 18px;
     position: absolute;
     left: -22px;
-    width: 18px
+    width: 18px;
 }
 
 .modal-usuario .modal-filter__list .result.selected:before {
     background-color: #00a1c9;
-    border: none
+    border: none;
 }
 
 .modal-usuario .modal-filter__list .result--pinned img.pinned-icon {
     position: absolute;
     right: -14px;
     height: 28px;
-    width: 28px
+    width: 28px;
 }
 
 .modal-usuario .modal-filter__list .result__bandera-icono-listado {
@@ -580,52 +667,54 @@
     left: 42px;
     height: 35px;
     width: 35px;
-    right: 0
+    right: 0;
 }
 
 .modal-usuario .modal-filter__no-results {
     margin: auto;
-    width: 80%
+    width: 80%;
 }
 
 .modal-usuario .modal-filter__no-results p.main-title {
     font-family: Poppins;
     font-size: 22px;
     margin-bottom: 30px;
-    text-align: center
+    text-align: center;
 }
 
 .modal-usuario .modal-filter__no-results p.main-title span {
-    color: #c9003d
+    color: #c9003d;
 }
 
 .modal-usuario .modal-filter__no-results .subtitle-content {
-    position: relative
+    position: relative;
 }
 
 .modal-usuario .modal-filter__no-results .subtitle-content p.subtitle {
     margin: 0;
-    text-align: center
+    text-align: center;
 }
 
 .modal-usuario .modal-filter__no-results .subtitle-content span.icon-Bombillo {
     color: #ffc107;
     font-size: 30px;
     position: absolute;
-    left: -32px
+    left: -32px;
 }
 
 .modal-usuario .modal-filter__no-results img {
     margin-top: 46px;
     max-width: 90%;
-    margin-left: 20px
+    margin-left: 20px;
 }
 
 .modal-usuario.modal-usuario--publicview .modal-filter__list .result__nombre {
-    padding-left: 54px
+    padding-left: 54px;
 }
 
-.modal-usuario.modal-usuario--publicview .modal-filter__list .result.selected:before {
+.modal-usuario.modal-usuario--publicview
+    .modal-filter__list
+    .result.selected:before {
     background-color: #fff;
     border: none;
     content: "";
@@ -633,98 +722,99 @@
     width: 11px;
     box-shadow: 0 0 0 7px #73c914;
     margin: 0;
-    left: -18px
+    left: -18px;
 }
 
-@media(min-width:992px) {
+@media (min-width: 992px) {
     .modal-usuario .modal-body2 {
-        padding: 45px 55px 28px
+        padding: 45px 55px 28px;
     }
 
     .modal-usuario .modal-header .modal-title {
-        display: none
+        display: none;
     }
 
     .modal-usuario .modal-filter__search {
-        margin-bottom: 34px
+        margin-bottom: 34px;
     }
 
     .modal-usuario .modal-filter__search .form-group .input-container {
-        width: 85%
+        width: 85%;
     }
 
     .modal-usuario .modal-filter__list {
-        padding: 0 50px
+        padding: 0 50px;
     }
 
     .modal-usuario .modal-filter__list .result {
-        padding: 20px 40px
+        padding: 20px 40px;
     }
-
 }
 
-@media(max-width:992px) {
+@media (max-width: 992px) {
     .modal-usuario .modal-filter__search .form-group .input-container {
-        width: 60%
+        width: 60%;
     }
-
 }
 
 hr {
-    border: none
+    border: none;
 }
 
 #modalIndicativos .modal-lg,
 #modalZonasHorarias .modal-lg {
-    max-width: 680px !important
+    max-width: 680px !important;
 }
 
-@media(max-width:480px) {
-
+@media (max-width: 480px) {
     #modalIndicativos .modal-filter__no-results .subtitle-content,
     #modalZonasHorarias .modal-filter__no-results .subtitle-content {
         flex-direction: column;
-        justify-content: center
+        justify-content: center;
     }
 
-    #modalIndicativos .modal-filter__no-results .subtitle-content span.icon-Bombillo,
-    #modalZonasHorarias .modal-filter__no-results .subtitle-content span.icon-Bombillo {
+    #modalIndicativos
+        .modal-filter__no-results
+        .subtitle-content
+        span.icon-Bombillo,
+    #modalZonasHorarias
+        .modal-filter__no-results
+        .subtitle-content
+        span.icon-Bombillo {
         position: relative !important;
-        left: 0 !important
+        left: 0 !important;
     }
 
     #modalIndicativos .modal-filter__no-results .subtitle-content p.subtitle,
     #modalZonasHorarias .modal-filter__no-results .subtitle-content p.subtitle {
         margin-left: 0 !important;
-        text-align: center !important
+        text-align: center !important;
     }
-
 }
 
 #modalZonasHorarias.modal-usuario .modal-filter__list .result {
-    padding: 0 0 22px 28px !important
+    padding: 0 0 22px 28px !important;
 }
 
-@media(min-width:600px) {
+@media (min-width: 600px) {
     #modalZonasHorarias.modal-usuario__list .result {
-        padding: 0 28px 22px !important
+        padding: 0 28px 22px !important;
     }
-
 }
 
 ::-webkit-scrollbar {
     background: #e8f2ff;
-    width: 0
+    width: 0;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #0043e8
+    background: #0043e8;
 }
 
 .contactenos,
 .contactenos__button {
     display: flex;
-    align-items: center
+    align-items: center;
 }
 
 .contactenos__button {
@@ -732,62 +822,59 @@ hr {
     margin-right: 20px;
     border-radius: 30px;
     background: #fff;
-    padding: 10px 16px;
+    padding: 10px 15px;
     border: 0;
     color: #686868;
-    font-size: .88rem;
+    font-size: 0.88rem;
     font-weight: 700;
     font-family: Poppins;
     opacity: 1;
-    justify-content: center
+    justify-content: center;
 }
 
 .contactenos__button:hover {
-    background: hsla(0, 1%, 61%, .1)
+    background: hsla(0, 1%, 61%, 0.1);
 }
 
 .contactenos__button:focus {
-    outline: none
+    outline: none;
 }
 
 .contactenos__button-icon {
     color: #00a1c9;
-    margin-right: 10px
+    margin-right: 10px;
 }
 
 .contactenos__button-olvidaste:hover,
 .contactenos__button-registro:hover {
     background: #686868;
-    color: #fff
+    color: #fff;
 }
 
 .contactenos__button-olvidaste:hover .contenedor__icon,
 .contactenos__button-registro:hover .contenedor__icon {
-    color: #fff
+    color: #fff;
 }
 
-@media(max-width:992px) {
+@media (max-width: 992px) {
     .contactenos__button {
         margin-left: 0;
-        margin-right: 0
+        margin-right: 0;
     }
 
     .contactenos__button-icon {
-        display: block
+        display: block;
     }
-
 }
 
-@media(max-width:767px) {
-
+@media (max-width: 767px) {
     .contactenos__button-olvidaste,
     .contactenos__button-registro {
         background: #fff;
         border: 1px solid;
         margin-top: 27px;
-        padding: 8px 12px
+        padding: 8px 12px;
     }
-
 }
 
 .titulo[data-v-725c1930] {
@@ -796,44 +883,44 @@ hr {
     font-family: Poppins;
     margin-bottom: 15px;
     display: flex;
-    justify-content: center
+    justify-content: center;
 }
 
 .titulo__inicio[data-v-725c1930] {
     text-align: center;
-    max-width: 295px
+    max-width: 295px;
 }
 
 .titulo__inicio-texto[data-v-725c1930] {
-    color: #686868 !important
+    color: #686868 !important;
 }
 
 .titulo__inicio-texto--modifier[data-v-725c1930] {
-    color: #00a1c9
+    color: #00a1c9;
 }
 
 .titulo__reenviado[data-v-725c1930] {
     text-align: center;
-    padding: 0 90px
+    padding: 0 90px;
 }
 
 .titulo__reenviado-texto[data-v-725c1930] {
-    color: #686868
+    color: #686868;
 }
 
 .titulo__reenviado-texto--modifier[data-v-725c1930] {
-    color: #ffc107
+    color: #ffc107;
 }
 
 .informacion[data-v-725c1930] {
-    padding: 30px 0
+    padding: 30px 0;
 }
 
 .informacion__correo[data-v-725c1930] {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 30px
+    margin-bottom: 30px;
 }
 
 .informacion__correo-span[data-v-725c1930] {
@@ -846,7 +933,7 @@ hr {
     font-weight: 400;
     font-family: Roboto;
     color: #686868;
-    padding: 2px 15px 2px 2px
+    padding: 2px 15px 2px 2px;
 }
 
 .informacion__correo-span--modifier[data-v-725c1930] {
@@ -861,12 +948,12 @@ hr {
     border-radius: 34px;
     width: 42px;
     height: 42px;
-    margin-right: 27px
+    margin-right: 27px;
 }
 
 .informacion__correo-icono[data-v-725c1930] {
     font-size: 28px;
-    color: #686868
+    color: #686868;
 }
 
 .informacion__texto[data-v-725c1930] {
@@ -876,30 +963,30 @@ hr {
     color: #686868;
     padding-bottom: 25px;
     margin: 0 auto;
-    max-width: 380px
+    max-width: 380px;
 }
 
 .informacion__texto-span--modifier[data-v-725c1930] {
     font-size: 1.13rem;
     font-weight: 700;
     font-family: Roboto;
-    color: #00a1c9
+    color: #00a1c9;
 }
 
 .informacion__texto-span-rojo--modifier[data-v-725c1930] {
     font-size: 1.13rem;
     font-weight: 700;
     font-family: Roboto;
-    color: #c9003d !important
+    color: #c9003d !important;
 }
 
 .informacion__codigo[data-v-725c1930] {
-    margin-bottom: 25px
+    margin-bottom: 25px;
 }
 
 .informacion__verificar[data-v-725c1930] {
     display: flex;
-    justify-content: center
+    justify-content: center;
 }
 
 .informacion__verificar-button[data-v-725c1930] {
@@ -910,26 +997,26 @@ hr {
     border-radius: 39px;
     color: #73c914;
     border: 2.5px solid #73c914;
-    background: #fff
+    background: #fff;
 }
 
 .informacion__verificar-button[data-v-725c1930]:hover {
     color: #fff;
-    background: #73c914
+    background: #73c914;
 }
 
 .informacion__verificar-button[data-v-725c1930]:focus,
 .informacion__verificar-button[data-v-725c1930]:focus-visible {
-    outline: none !important
+    outline: none !important;
 }
 
 .informacion__verificar-button[data-v-725c1930]:active {
     background: #73c914 !important;
-    outline: none
+    outline: none;
 }
 
 .informacion__verificar-button[data-v-725c1930]:disabled {
-    opacity: .2
+    opacity: 0.2;
 }
 
 .informacion__advertencia[data-v-725c1930] {
@@ -939,18 +1026,18 @@ hr {
     color: #686868;
     max-width: 350px;
     margin: 0 auto;
-    padding-bottom: 35px
+    padding-bottom: 35px;
 }
 
 .informacion__advertencia-span--modifier[data-v-725c1930] {
-    font-weight: 700
+    font-weight: 700;
 }
 
 .informacion__reenviar[data-v-725c1930] {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 35px 0
+    padding: 35px 0;
 }
 
 .informacion__reenviar-boton[data-v-725c1930] {
@@ -961,48 +1048,47 @@ hr {
     color: #ffc107;
     font-size: 1.1rem;
     font-weight: 700;
-    font-family: Poppins
+    font-family: Poppins;
 }
 
 .informacion__reenviar-boton[data-v-725c1930]:hover {
     background: #ffc107;
-    color: #fff
+    color: #fff;
 }
 
 .informacion__reenviar-boton[data-v-725c1930]:focus,
 .informacion__reenviar-boton[data-v-725c1930]:focus-visible {
-    outline: none !important
+    outline: none !important;
 }
 
 .informacion__reenviar-boton[data-v-725c1930]:active {
     background: #ffc107;
-    outline: none
+    outline: none;
 }
 
-@media(max-width:767px) {
+@media (max-width: 767px) {
     #modal-correo-recuperacion .botonera button[data-v-725c1930] {
         height: 38px;
-        width: 38px
+        width: 38px;
     }
-
 }
 
 .informacion__division {
     width: 100%;
     max-width: 660px;
-    height: 3px
+    height: 3px;
 }
 
-header[id^=modal-olvidaste].modal-header {
-    padding: 0
+header[id^="modal-olvidaste"].modal-header {
+    padding: 0;
 }
 
-header[id^=modal-olvidaste].modal-header .botonera {
+header[id^="modal-olvidaste"].modal-header .botonera {
     position: relative;
-    width: 100%
+    width: 100%;
 }
 
-header[id^=modal-olvidaste].modal-header .botonera button {
+header[id^="modal-olvidaste"].modal-header .botonera button {
     border: 0;
     border-radius: 30px;
     color: #686868;
@@ -1010,38 +1096,38 @@ header[id^=modal-olvidaste].modal-header .botonera button {
     top: 6px;
     position: absolute;
     width: 45px;
-    z-index: 1
+    z-index: 1;
 }
 
-header[id^=modal-olvidaste].modal-header .botonera button:focus {
-    outline: none
+header[id^="modal-olvidaste"].modal-header .botonera button:focus {
+    outline: none;
 }
 
-header[id^=modal-olvidaste].modal-header .botonera__regresar {
-    left: 6px
+header[id^="modal-olvidaste"].modal-header .botonera__regresar {
+    left: 6px;
 }
 
-header[id^=modal-olvidaste].modal-header .botonera__regresar:hover {
+header[id^="modal-olvidaste"].modal-header .botonera__regresar:hover {
     background: #00a1c9;
-    color: #fff
+    color: #fff;
 }
 
-header[id^=modal-olvidaste].modal-header .botonera__cerrar {
-    right: 6px
+header[id^="modal-olvidaste"].modal-header .botonera__cerrar {
+    right: 6px;
 }
 
-header[id^=modal-olvidaste].modal-header .botonera__cerrar:hover {
+header[id^="modal-olvidaste"].modal-header .botonera__cerrar:hover {
     background: #c9003d;
-    color: #fff
+    color: #fff;
 }
 
-div[id^=modal-olvidaste].modal-body {
-    padding: 44px 53px 0 44px
+div[id^="modal-olvidaste"].modal-body {
+    padding: 44px 53px 0 44px;
 }
 
-div[id^=modal-olvidaste].modal-body .titulo {
+div[id^="modal-olvidaste"].modal-body .titulo {
     align-items: center;
-    border-bottom: 2px solid hsla(0, 1%, 61%, .15);
+    border-bottom: 2px solid hsla(0, 1%, 61%, 0.15);
     display: flex;
     font-family: Poppins;
     font-size: 1.25rem;
@@ -1049,51 +1135,51 @@ div[id^=modal-olvidaste].modal-body .titulo {
     justify-content: center;
     margin: auto;
     padding-bottom: 10px;
-    width: 80%
+    width: 80%;
 }
 
-div[id^=modal-olvidaste].modal-body .titulo__icono {
+div[id^="modal-olvidaste"].modal-body .titulo__icono {
     color: #00a1c9;
-    margin-right: 22px
+    margin-right: 22px;
 }
 
-div[id^=modal-olvidaste].modal-body .titulo__texto {
-    color: #686868 !important
+div[id^="modal-olvidaste"].modal-body .titulo__texto {
+    color: #686868 !important;
 }
 
-div[id^=modal-olvidaste].modal-body .titulo__texto--modifier {
-    color: #00a1c9
+div[id^="modal-olvidaste"].modal-body .titulo__texto--modifier {
+    color: #00a1c9;
 }
 
-div[id^=modal-olvidaste].modal-body .informacion {
-    margin-top: 27px
+div[id^="modal-olvidaste"].modal-body .informacion {
+    margin-top: 27px;
 }
 
-div[id^=modal-olvidaste].modal-body .informacion__texto-span {
+div[id^="modal-olvidaste"].modal-body .informacion__texto-span {
     font-family: Roboto;
     font-size: 1.125rem;
     color: #686868;
     text-align: left;
-    margin: 0
+    margin: 0;
 }
 
-div[id^=modal-olvidaste].modal-body .informacion__texto-span--modifier {
+div[id^="modal-olvidaste"].modal-body .informacion__texto-span--modifier {
     font-family: Roboto;
     font-size: 1.125rem;
     font-weight: 700;
     color: #00a1c9 !important;
     text-decoration: underline !important;
-    cursor: pointer
+    cursor: pointer;
 }
 
-div[id^=modal-olvidaste].modal-body .informacion__correo {
+div[id^="modal-olvidaste"].modal-body .informacion__correo {
     display: flex;
     justify-content: center;
     margin-top: 35px;
-    position: relative
+    position: relative;
 }
 
-div[id^=modal-olvidaste].modal-body .informacion__correo-input {
+div[id^="modal-olvidaste"].modal-body .informacion__correo-input {
     background: #fff;
     border: 2px solid #d4d4d4;
     border-radius: 34px;
@@ -1101,24 +1187,24 @@ div[id^=modal-olvidaste].modal-body .informacion__correo-input {
     font-family: Roboto;
     font-size: 1.0625rem;
     padding: 15px 25px;
-    width: 100%
+    width: 100%;
 }
 
-div[id^=modal-olvidaste].modal-body .informacion__correo-input:focus {
-    outline: none
+div[id^="modal-olvidaste"].modal-body .informacion__correo-input:focus {
+    outline: none;
 }
 
-div[id^=modal-olvidaste].modal-body .informacion__correo .error {
-    border: 2px solid #c9003d
+div[id^="modal-olvidaste"].modal-body .informacion__correo .error {
+    border: 2px solid #c9003d;
 }
 
-div[id^=modal-olvidaste].modal-body .informacion__boton {
+div[id^="modal-olvidaste"].modal-body .informacion__boton {
     display: flex;
     justify-content: center;
-    margin-top: 27px
+    margin-top: 27px;
 }
 
-div[id^=modal-olvidaste].modal-body .informacion__boton-button {
+div[id^="modal-olvidaste"].modal-body .informacion__boton-button {
     border-radius: 39px;
     border: 3px solid #73c914;
     background: #fff;
@@ -1126,58 +1212,60 @@ div[id^=modal-olvidaste].modal-body .informacion__boton-button {
     font-family: Poppins;
     font-size: 1.0625rem;
     font-weight: 700;
-    padding: 13px 34px
+    padding: 13px 34px;
 }
 
-div[id^=modal-olvidaste].modal-body .informacion__boton-button:hover {
+div[id^="modal-olvidaste"].modal-body .informacion__boton-button:hover {
     background: #73c914;
-    color: #fff
+    color: #fff;
 }
 
-div[id^=modal-olvidaste].modal-body .informacion__boton-button:focus {
-    outline: none
+div[id^="modal-olvidaste"].modal-body .informacion__boton-button:focus {
+    outline: none;
 }
 
-div[id^=modal-olvidaste].modal-body .informacion__boton-button:disabled {
-    opacity: .2
+div[id^="modal-olvidaste"].modal-body .informacion__boton-button:disabled {
+    opacity: 0.2;
 }
 
-div[id^=modal-olvidaste].modal-body .informacion .mensaje__error {
-    padding: 0 45px
+div[id^="modal-olvidaste"].modal-body .informacion .mensaje__error {
+    padding: 0 45px;
 }
 
-footer[id^=modal-olvidaste].modal-footer {
-    padding: 0 53px 20px
+footer[id^="modal-olvidaste"].modal-footer {
+    padding: 0 53px 20px;
 }
 
-footer[id^=modal-olvidaste].modal-footer .contacto {
-    border-top: 2px solid hsla(0, 1%, 61%, .15);
+footer[id^="modal-olvidaste"].modal-footer .contacto {
+    border-top: 2px solid hsla(0, 1%, 61%, 0.15);
     margin-top: 31px;
     padding: 27px 0;
-    width: 100%
+    width: 100%;
 }
 
-footer[id^=modal-olvidaste].modal-footer .contacto__texto {
+footer[id^="modal-olvidaste"].modal-footer .contacto__texto {
     display: flex;
     justify-content: center;
-    margin-bottom: 32px
+    margin-bottom: 32px;
 }
 
-footer[id^=modal-olvidaste].modal-footer .contacto__texto-informacion {
+footer[id^="modal-olvidaste"].modal-footer .contacto__texto-informacion {
     font-family: Roboto;
     font-size: 1.125rem;
     letter-spacing: 0;
     color: #686868;
     text-align: left;
-    margin: 0
+    margin: 0;
 }
 
-footer[id^=modal-olvidaste].modal-footer .contacto__boton {
+footer[id^="modal-olvidaste"].modal-footer .contacto__boton {
     display: flex;
-    justify-content: center
+    justify-content: center;
 }
 
-footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button {
+footer[id^="modal-olvidaste"].modal-footer
+    .contacto__boton
+    .contactenos__button {
     margin-left: 0;
     margin-right: 0;
     border-radius: 47px;
@@ -1185,70 +1273,73 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button {
     border: 2px solid #686868;
     font-family: Poppins;
     font-size: 1.0625rem;
-    font-weight: 700
+    font-weight: 700;
 }
 
-footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-icon {
+footer[id^="modal-olvidaste"].modal-footer
+    .contacto__boton
+    .contactenos__button-icon {
     color: #00a1c9;
-    margin-right: 10px
+    margin-right: 10px;
 }
 
-footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-text {
-    display: block
+footer[id^="modal-olvidaste"].modal-footer
+    .contacto__boton
+    .contactenos__button-text {
+    display: block;
 }
 
-@media(max-width:767px) {
+@media (max-width: 767px) {
     #modal-olvidaste .modal-content {
-        border: 0
+        border: 0;
     }
 
-    div[id^=modal-olvidaste].modal-body {
-        padding: 50px 44px 0
+    div[id^="modal-olvidaste"].modal-body {
+        padding: 50px 44px 0;
     }
 
-    div[id^=modal-olvidaste].modal-body .informacion__boton-button {
-        border: 2px solid #73c914
+    div[id^="modal-olvidaste"].modal-body .informacion__boton-button {
+        border: 2px solid #73c914;
     }
 
-    div[id^=modal-olvidaste].modal-body .informacion .mensaje__error {
-        padding: 0
+    div[id^="modal-olvidaste"].modal-body .informacion .mensaje__error {
+        padding: 0;
     }
 
-    div[id^=modal-olvidaste].modal-body .informacion__texto-span {
-        text-align: justify
+    div[id^="modal-olvidaste"].modal-body .informacion__texto-span {
+        text-align: justify;
     }
 
-    div[id^=modal-olvidaste].modal-body .informacion__texto-span--modifier {
-        color: #686868
+    div[id^="modal-olvidaste"].modal-body .informacion__texto-span--modifier {
+        color: #686868;
     }
 
-    div[id^=modal-olvidaste].modal-body .informacion__correo .error {
+    div[id^="modal-olvidaste"].modal-body .informacion__correo .error {
         color: #c9003d;
-        font-weight: 700
+        font-weight: 700;
     }
 
-    header[id^=modal-olvidaste].modal-header .botonera button {
+    header[id^="modal-olvidaste"].modal-header .botonera button {
         height: 38px;
         top: 9px;
-        width: 38px
+        width: 38px;
     }
 
-    header[id^=modal-olvidaste].modal-header .botonera__regresar {
-        left: 13px
+    header[id^="modal-olvidaste"].modal-header .botonera__regresar {
+        left: 13px;
     }
 
-    header[id^=modal-olvidaste].modal-header .botonera__cerrar {
-        right: 11px
+    header[id^="modal-olvidaste"].modal-header .botonera__cerrar {
+        right: 11px;
     }
 
-    footer[id^=modal-olvidaste].modal-footer {
-        padding: 0 44px 20px
+    footer[id^="modal-olvidaste"].modal-footer {
+        padding: 0 44px 20px;
     }
 
-    footer[id^=modal-olvidaste].modal-footer .contacto__boton button {
-        border-width: 2px
+    footer[id^="modal-olvidaste"].modal-footer .contacto__boton button {
+        border-width: 2px;
     }
-
 }
 
 #loginModal .modal__header-button {
@@ -1261,32 +1352,32 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     right: 7px;
     top: 7px;
     width: 38px;
-    z-index: 10
+    z-index: 10;
 }
 
 #loginModal .modal__header-button:hover {
     color: #fff;
     background-color: #c9003d;
-    border: none
+    border: none;
 }
 
 #loginModal .modal__header-button:focus {
-    outline: 0
+    outline: 0;
 }
 
 #loginModal .login {
     display: flex;
-    flex-direction: row
+    flex-direction: row;
 }
 
 #loginModal .login__welcome {
-    border-right: 2px solid hsla(0, 1%, 61%, .15);
-    display: flex
+    border-right: 2px solid hsla(0, 1%, 61%, 0.15);
+    display: flex;
 }
 
 #loginModal .login__welcome-content {
     margin: auto;
-    padding: 0 84px
+    padding: 0 84px;
 }
 
 #loginModal .login__welcome-content-titulo {
@@ -1295,15 +1386,15 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     font-weight: 700;
     letter-spacing: 0;
     color: #959595;
-    line-height: 42px
+    line-height: 42px;
 }
 
 #loginModal .login__welcome-content-titulo span {
-    display: block
+    display: block;
 }
 
 #loginModal .login__welcome-content-titulo--modifier {
-    color: #00a1c9
+    color: #00a1c9;
 }
 
 #loginModal .login__welcome-content-texto {
@@ -1311,12 +1402,12 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     font-size: 1.0625rem;
     color: #686868;
     text-align: left;
-    margin: 0
+    margin: 0;
 }
 
 #loginModal .login__errors {
     margin: 28px 0;
-    padding: 0 54px
+    padding: 0 54px;
 }
 
 #loginModal .login__errors-div-title-p {
@@ -1325,13 +1416,13 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     font-size: 1.0625rem;
     letter-spacing: 0;
     color: #686868;
-    font-weight: 700
+    font-weight: 700;
 }
 
 #loginModal .login__errors-div-title-p--modifier {
     font-family: Roboto;
-    font-size: .875rem;
-    font-weight: 400
+    font-size: 0.875rem;
+    font-weight: 400;
 }
 
 #loginModal .login__errors-div-title-p-span {
@@ -1340,15 +1431,15 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     font-size: 1.0625rem;
     letter-spacing: 0;
     color: #c9003d;
-    font-weight: 700
+    font-weight: 700;
 }
 
 #loginModal .login__inputEmail {
-    margin-bottom: 61px
+    margin-bottom: 61px;
 }
 
 #loginModal .login__inputPassword {
-    margin-bottom: 33px
+    margin-bottom: 33px;
 }
 
 #loginModal .login__season {
@@ -1357,7 +1448,7 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     flex-direction: row;
     margin: 18px 0 28px;
     justify-content: space-between;
-    font-size: 13px
+    font-size: 13px;
 }
 
 #loginModal .login__infoLLink {
@@ -1366,18 +1457,18 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     font-family: Roboto;
     margin: 0;
     text-decoration: underline !important;
-    text-align: left
+    text-align: left;
 }
 
 #loginModal .login__infoLLink--modifier {
     color: #686868 !important;
     cursor: pointer;
-    text-decoration: none !important
+    text-decoration: none !important;
 }
 
 #loginModal .login__infoLLink--modifier:hover {
     border: none;
-    font-weight: 700
+    font-weight: 700;
 }
 
 #loginModal .heightDivider {
@@ -1385,11 +1476,11 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     height: 604px;
     background: #ececec;
     border: 0;
-    margin: 0 90px 70px 79px
+    margin: 0 90px 70px 79px;
 }
 
 #loginModal .form-input-section {
-    margin-top: 28px
+    margin-top: 28px;
 }
 
 #loginModal .form-input-section__title {
@@ -1397,62 +1488,62 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     font-size: 1rem;
     color: #686868;
     text-align: left;
-    margin-bottom: 10px
+    margin-bottom: 10px;
 }
 
 #loginModal .form-input-section__title-span {
-    margin: 0 6px 0 20px
+    margin: 0 6px 0 20px;
 }
 
 #loginModal .form-input-section__container {
-    position: relative
+    position: relative;
 }
 
 #loginModal .form-input-section__container-input {
     font-family: Roboto;
-    font-size: .875rem;
+    font-size: 0.875rem;
     color: #686868;
     overflow: visible;
     min-width: 292px;
     border: 2px solid #d4d4d4;
     border-radius: 34px;
     opacity: 1;
-    padding: 12px 20px
+    padding: 12px 20px;
 }
 
 #loginModal .form-input-section__container-input::-moz-placeholder {
     color: 9c9b9b;
-    font-size: .875rem;
-    font-family: Roboto
+    font-size: 0.875rem;
+    font-family: Roboto;
 }
 
 #loginModal .form-input-section__container-input::placeholder {
     color: 9c9b9b;
-    font-size: .875rem;
-    font-family: Roboto
+    font-size: 0.875rem;
+    font-family: Roboto;
 }
 
 #loginModal .form-input-section__container-input:focus {
-    outline: none
+    outline: none;
 }
 
 #loginModal .form-input-section__container-inputError {
     border: 3px solid #c9003d;
-    color: #c9003d
+    color: #c9003d;
 }
 
 #loginModal .form-input-section__container-inputError::-moz-placeholder {
     color: #c9003d;
     font-weight: 700;
     font-family: Roboto;
-    font-size: .875rem
+    font-size: 0.875rem;
 }
 
 #loginModal .form-input-section__container-inputError::placeholder {
     color: #c9003d;
     font-weight: 700;
     font-family: Roboto;
-    font-size: .875rem
+    font-size: 0.875rem;
 }
 
 #loginModal .form-input-section__container-span {
@@ -1461,14 +1552,14 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     font-size: 1.125rem;
     top: 14px;
     right: 11px;
-    color: #9c9b9b
+    color: #9c9b9b;
 }
 
 #loginModal .form-input-section__container-span--modifier {
     color: #c9003d;
     font-weight: 700;
     right: 26px;
-    top: 16px
+    top: 16px;
 }
 
 #loginModal .blockCheck {
@@ -1476,44 +1567,44 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     position: relative;
     padding-left: 32px;
     cursor: pointer;
-    margin: 0
+    margin: 0;
 }
 
 #loginModal .blockCheck *,
 #loginModal .blockCheck :after,
 #loginModal .blockCheck :before {
-    box-sizing: content-box !important
+    box-sizing: content-box !important;
 }
 
 #loginModal .blockCheck input {
     position: absolute;
     z-index: -1;
-    opacity: 0
+    opacity: 0;
 }
 
 #loginModal .blockCheck span {
     font-family: Roboto;
-    font-size: .875rem;
+    font-size: 0.875rem;
     text-align: left;
     letter-spacing: 0;
     color: #686868;
     opacity: 1;
-    position: relative
+    position: relative;
 }
 
-#loginModal .blockCheck input[type=checkbox]~.b-input {
+#loginModal .blockCheck input[type="checkbox"] ~ .b-input {
     position: absolute;
     top: 0;
     left: 0;
     height: 18px;
     width: 18px;
     background: #fff;
-    transition: background .25s;
+    transition: background 0.25s;
     border: 2px solid #9c9b9b;
-    border-radius: 5px
+    border-radius: 5px;
 }
 
-#loginModal .blockCheck input[type=checkbox]~.b-input:after {
+#loginModal .blockCheck input[type="checkbox"] ~ .b-input:after {
     content: "";
     position: absolute;
     display: none;
@@ -1523,22 +1614,22 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     height: 11px;
     border: 2px solid #fff;
     border-width: 0 2px 2px 0;
-    transition: background .25s;
-    transform: rotate(45deg)
+    transition: background 0.25s;
+    transform: rotate(45deg);
 }
 
-#loginModal .blockCheck input:checked~.b-input:after {
-    display: block
+#loginModal .blockCheck input:checked ~ .b-input:after {
+    display: block;
 }
 
-#loginModal .blockCheck input[type=checkbox]:checked~.b-input {
+#loginModal .blockCheck input[type="checkbox"]:checked ~ .b-input {
     background: #73c914;
-    border-color: #73c914
+    border-color: #73c914;
 }
 
 #loginModal .blockBtn {
     display: flex;
-    justify-content: center
+    justify-content: center;
 }
 
 #loginModal .blockBtn__content {
@@ -1553,170 +1644,231 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     font-size: 1rem;
     color: #00a1c9;
     font-weight: 700;
-    padding: 11px 22px
+    padding: 11px 22px;
 }
 
 #loginModal .blockBtn__content:hover {
     background: #00a1c9;
-    color: #fff
+    color: #fff;
 }
 
 #loginModal .blockBtn__content:focus,
 #loginModal .blockBtn__content:focus-visible {
-    outline: none
+    outline: none;
 }
 
-#loginModal input[name=pixel_driver] {
-    display: none
+#loginModal input[name="pixel_driver"] {
+    display: none;
 }
 
-@media(max-width:992px) {
+@media (max-width: 992px) {
     #loginModal .modal-dialog {
         max-width: 565px;
-        margin: auto
+        margin: auto;
     }
 
-    #loginModal [id^=loginModal].modal-body {
-        padding: 53px 0
+    #loginModal [id^="loginModal"].modal-body {
+        padding: 53px 0;
     }
 
-    #loginModal [id^=loginModal].modal-body .login {
-        flex-direction: column
+    #loginModal [id^="loginModal"].modal-body .login {
+        flex-direction: column;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__welcome {
-        border: none
+    #loginModal [id^="loginModal"].modal-body .login__welcome {
+        border: none;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__welcome-content {
-        padding: 0
+    #loginModal [id^="loginModal"].modal-body .login__welcome-content {
+        padding: 0;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__welcome-content-titulo {
+    #loginModal [id^="loginModal"].modal-body .login__welcome-content-titulo {
         font-size: 2rem;
         margin-bottom: 2px;
-        text-align: center
+        text-align: center;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__welcome-content-titulo span {
-        display: inline-block
+    #loginModal
+        [id^="loginModal"].modal-body
+        .login__welcome-content-titulo
+        span {
+        display: inline-block;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__welcome-content-titulo span:first-child {
-        margin-right: 8px
+    #loginModal
+        [id^="loginModal"].modal-body
+        .login__welcome-content-titulo
+        span:first-child {
+        margin-right: 8px;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__welcome-content-texto {
-        font-size: 1.25rem
+    #loginModal [id^="loginModal"].modal-body .login__welcome-content-texto {
+        font-size: 1.25rem;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__errors {
+    #loginModal [id^="loginModal"].modal-body .login__errors {
         margin-top: 56px;
         margin-bottom: 0;
-        padding: 0 71px
+        padding: 0 71px;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__errors-div-title-p,
-    #loginModal [id^=loginModal].modal-body .login__errors-div-title-p span {
-        font-size: 1.5625rem
+    #loginModal [id^="loginModal"].modal-body .login__errors-div-title-p,
+    #loginModal [id^="loginModal"].modal-body .login__errors-div-title-p span {
+        font-size: 1.5625rem;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__errors-div-title-p--modifier {
-        font-size: 1.1875rem
+    #loginModal
+        [id^="loginModal"].modal-body
+        .login__errors-div-title-p--modifier {
+        font-size: 1.1875rem;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__errors .login__season {
+    #loginModal [id^="loginModal"].modal-body .login__errors .login__season {
         margin-bottom: 53px;
         margin-top: 29px;
-        padding: 0 20px
+        padding: 0 20px;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__errors .login__season a.login__infoLLink {
-        display: none
+    #loginModal
+        [id^="loginModal"].modal-body
+        .login__errors
+        .login__season
+        a.login__infoLLink {
+        display: none;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__errors .login__season .blockCheck span {
+    #loginModal
+        [id^="loginModal"].modal-body
+        .login__errors
+        .login__season
+        .blockCheck
+        span {
         font-size: 1.1875rem;
         margin-left: 10px;
-        top: 2px
+        top: 2px;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__errors .login__season .blockCheck .b-input {
+    #loginModal
+        [id^="loginModal"].modal-body
+        .login__errors
+        .login__season
+        .blockCheck
+        .b-input {
         height: 28px;
-        width: 28px
+        width: 28px;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__errors .login__season .blockCheck .b-input:after {
+    #loginModal
+        [id^="loginModal"].modal-body
+        .login__errors
+        .login__season
+        .blockCheck
+        .b-input:after {
         top: 5px;
-        left: 10px
+        left: 10px;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__errors .form-input-section {
-        margin-top: 41px
+    #loginModal
+        [id^="loginModal"].modal-body
+        .login__errors
+        .form-input-section {
+        margin-top: 41px;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__errors .form-input-section__title {
-        font-size: 1.3125rem
+    #loginModal
+        [id^="loginModal"].modal-body
+        .login__errors
+        .form-input-section__title {
+        font-size: 1.3125rem;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__errors .form-input-section__title-span {
-        margin: 0 9px 0 20px
+    #loginModal
+        [id^="loginModal"].modal-body
+        .login__errors
+        .form-input-section__title-span {
+        margin: 0 9px 0 20px;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__errors .form-input-section__container-span {
-        top: 18px
+    #loginModal
+        [id^="loginModal"].modal-body
+        .login__errors
+        .form-input-section__container-span {
+        top: 18px;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__errors .form-input-section:first-child {
-        margin: 0
+    #loginModal
+        [id^="loginModal"].modal-body
+        .login__errors
+        .form-input-section:first-child {
+        margin: 0;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__errors .form-input-section input {
+    #loginModal
+        [id^="loginModal"].modal-body
+        .login__errors
+        .form-input-section
+        input {
         font-size: 1.1875rem;
-        width: 100%
+        width: 100%;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__errors .form-input-section input::-moz-placeholder {
-        font-size: 1.1875rem
+    #loginModal
+        [id^="loginModal"].modal-body
+        .login__errors
+        .form-input-section
+        input::-moz-placeholder {
+        font-size: 1.1875rem;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__errors .form-input-section input::placeholder {
-        font-size: 1.1875rem
+    #loginModal
+        [id^="loginModal"].modal-body
+        .login__errors
+        .form-input-section
+        input::placeholder {
+        font-size: 1.1875rem;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__errors .blockBtn {
+    #loginModal [id^="loginModal"].modal-body .login__errors .blockBtn {
         align-items: center;
-        flex-direction: column
+        flex-direction: column;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__errors .blockBtn__content {
-        font-size: 1.3125rem
+    #loginModal
+        [id^="loginModal"].modal-body
+        .login__errors
+        .blockBtn__content {
+        font-size: 1.3125rem;
     }
 
-    #loginModal [id^=loginModal].modal-body .login__errors .blockBtn .login__infoLLink--mobile {
+    #loginModal
+        [id^="loginModal"].modal-body
+        .login__errors
+        .blockBtn
+        .login__infoLLink--mobile {
         display: block !important;
         font-size: 1.1875rem;
-        margin-top: 28px
+        margin-top: 28px;
     }
 
-    #loginModal [id^=loginModal].modal-body .on-error-form .login__welcome {
-        display: none
+    #loginModal [id^="loginModal"].modal-body .on-error-form .login__welcome {
+        display: none;
     }
 
-    #loginModal [id^=loginModal].modal-body .on-error-form .login__errors {
-        margin-top: 0
+    #loginModal [id^="loginModal"].modal-body .on-error-form .login__errors {
+        margin-top: 0;
     }
 }
 
-@media(max-width:420px) {
-    #loginModal [id^=loginModal].modal-body .login__errors {
-        padding: 0 14px
+@media (max-width: 420px) {
+    #loginModal [id^="loginModal"].modal-body .login__errors {
+        padding: 0 14px;
     }
 }
 
 .contenedor[data-v-e8d0ead6] {
     display: flex;
-    align-items: center
+    align-items: center;
 }
 
 .contenedor__button[data-v-e8d0ead6] {
@@ -1726,24 +1878,24 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     padding: 11px 18px;
     border: 0;
     color: #00a1c9;
-    font-size: .88rem;
+    font-size: 0.88rem;
     font-weight: 700;
     font-family: Poppins;
     display: flex;
     justify-content: center;
-    align-items: center
+    align-items: center;
 }
 
 .contenedor__button[data-v-e8d0ead6]:hover {
-    background: rgba(0, 161, 201, .1)
+    background: rgba(0, 161, 201, 0.1);
 }
 
 .contenedor__button[data-v-e8d0ead6]:focus {
-    outline: none
+    outline: none;
 }
 
 .contenedor__icon[data-v-e8d0ead6] {
-    margin-right: 10px
+    margin-right: 10px;
 }
 
 .contenedor__button-ya-registrado[data-v-e8d0ead6] {
@@ -1754,20 +1906,20 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     border: 4px solid #00a1c9;
     font-size: 1.63rem;
     font-weight: 700;
-    font-family: Poppins
+    font-family: Poppins;
 }
 
 .contenedor__button-ya-registrado[data-v-e8d0ead6]:hover {
     background: #00a1c9;
-    color: #fff
+    color: #fff;
 }
 
 .contenedor__button-ya-registrado:hover .contenedor__icon[data-v-e8d0ead6] {
-    color: #fff
+    color: #fff;
 }
 
 .content[data-v-e8d0ead6] {
-    margin-right: 15px
+    margin-right: 15px;
 }
 
 .content__button[data-v-e8d0ead6] {
@@ -1776,111 +1928,111 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     padding: 10px 18px;
     border: 0;
     color: #686868;
-    font-size: .88rem;
+    font-size: 0.88rem;
     font-weight: 700;
     font-family: Poppins;
     display: flex;
     align-items: center;
-    justify-content: center
+    justify-content: center;
 }
 
 .content__button[data-v-e8d0ead6]:hover {
-    background: hsla(0, 1%, 61%, .1)
+    background: hsla(0, 1%, 61%, 0.1);
 }
 
 .content__photo[data-v-e8d0ead6] {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: hsla(0, 0%, 60%, .1);
+    background: hsla(0, 0%, 60%, 0.1);
     height: 2.5rem;
     width: 2.5rem;
     border-radius: 30px;
     text-align: center;
     position: absolute;
-    left: 0
+    left: 0;
 }
 
 .content__hola[data-v-e8d0ead6] {
     margin-left: 45px;
-    color: #00a1c9
+    color: #00a1c9;
 }
 
 .content__name[data-v-e8d0ead6] {
-    margin-right: 17.5px
+    margin-right: 17.5px;
 }
 
 .content__down[data-v-e8d0ead6] {
-    font-size: 7px
+    font-size: 7px;
 }
 
 .contenido__contratos[data-v-e8d0ead6] {
-    display: block
+    display: block;
 }
 
 .contenido__contratos-icon[data-v-e8d0ead6] {
     font-size: 1rem;
-    margin-right: 19.9px
+    margin-right: 19.9px;
 }
 
 .contenido__contratos-text[data-v-e8d0ead6] {
-    font-size: .88rem
+    font-size: 0.88rem;
 }
 
 .contenido__contratos-right[data-v-e8d0ead6] {
-    font-size: .5rem;
+    font-size: 0.5rem;
     margin-left: 32px;
-    transform: rotate(270deg)
+    transform: rotate(270deg);
 }
 
 .contenido__logout[data-v-e8d0ead6] {
-    display: block
+    display: block;
 }
 
 .contenido__logout-icon[data-v-e8d0ead6] {
     font-size: 1rem;
-    margin-right: 19.9px
+    margin-right: 19.9px;
 }
 
 .contenido__logout-text[data-v-e8d0ead6] {
-    font-size: .88rem
+    font-size: 0.88rem;
 }
 
 .contenido__logout-right[data-v-e8d0ead6] {
-    font-size: .5rem;
+    font-size: 0.5rem;
     margin-left: 32px;
-    visibility: hidden
+    visibility: hidden;
 }
 
-@media(max-width:992px) {
+@media (max-width: 992px) {
     .contenedor__button[data-v-e8d0ead6] {
         padding: 11px 10px;
-        margin-right: 10px
+        margin-right: 10px;
     }
 
     .contenedor__button[data-v-e8d0ead6]:hover {
         background-color: #00a1c9;
-        color: #fff
+        color: #fff;
     }
 
     .contenedor__icon[data-v-e8d0ead6] {
-        display: none
+        display: none;
     }
 }
 
-@media(max-width:600px) {
+@media (max-width: 600px) {
     .contenedor__button[data-v-e8d0ead6] {
         padding: 8px 12px;
-        margin-right: 5px
+        margin-right: 5px;
     }
 }
 
-#modalYaRegistrado div[id^=modalYaRegistrado].modal-body {
-    padding: 44px 70px
+#modalYaRegistrado div[id^="modalYaRegistrado"].modal-body {
+    padding: 44px 70px;
 }
 
 #modalYaRegistrado .headerYaRegistrado {
-    position: relative
+    position: relative;
 }
 
 #modalYaRegistrado .headerYaRegistrado__btn {
@@ -1888,7 +2040,7 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     width: 45px;
     height: 45px;
     top: 10px;
-    right: 10px
+    right: 10px;
 }
 
 #modalYaRegistrado .titulo {
@@ -1897,25 +2049,25 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     font-family: Poppins;
     display: flex;
     justify-content: center;
-    align-items: center
+    align-items: center;
 }
 
 #modalYaRegistrado .titulo__icono {
     color: #c9003d;
     font-weight: 700;
-    margin-right: 10px
+    margin-right: 10px;
 }
 
 #modalYaRegistrado .titulo__texto {
-    color: #686868
+    color: #686868;
 }
 
 #modalYaRegistrado .titulo__texto--modifier {
-    color: #c9003d
+    color: #c9003d;
 }
 
 #modalYaRegistrado .informacion {
-    padding: 27px 0
+    padding: 27px 0;
 }
 
 #modalYaRegistrado .informacion__texto {
@@ -1925,74 +2077,74 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     font-family: Roboto;
     line-height: 1.6;
     margin: 0;
-    text-align: justify
+    text-align: justify;
 }
 
 #modalYaRegistrado .boton {
     display: flex;
-    justify-content: center
+    justify-content: center;
 }
 
 #modalYaRegistrado .boton .contenedor__button {
     border-color: #686868;
     border-width: 2px;
     color: #686868;
-    font-size: 1.0625rem
+    font-size: 1.0625rem;
 }
 
 #modalYaRegistrado .boton .contenedor__button:hover {
     border-color: #00a1c9;
-    color: #fff
+    color: #fff;
 }
 
 #modalYaRegistrado .boton .contenedor__button:hover .icon-login {
-    color: #fff
+    color: #fff;
 }
 
 #modalYaRegistrado .boton .contenedor__icon {
-    color: #00a1c9
+    color: #00a1c9;
 }
 
-@media(max-width:576px) {
+@media (max-width: 576px) {
     #modalYaRegistrado .modal-dialog {
         margin: auto;
-        max-width: 90%
+        max-width: 90%;
     }
 }
 
-@media(max-width:360px) {
-    #modalYaRegistrado div[id^=modalYaRegistrado].modal-body {
-        padding: 44px 30px
+@media (max-width: 360px) {
+    #modalYaRegistrado div[id^="modalYaRegistrado"].modal-body {
+        padding: 44px 30px;
     }
 }
 
 #register-container .error {
     color: #c9003d;
     background: #c9003d;
-    border: 1px solid #c9003d
+    border: 1px solid #c9003d;
 }
 
 #register-container .bloque {
     display: flex;
     flex-direction: row;
     width: 100%;
-    justify-content: center
+    justify-content: center;
 }
 
 #register-container .bloque__info {
     margin: 0;
-    padding: 70px 90px
+    padding: 70px 90px;
 }
 
 #register-container .bloque__info-container {
     margin: auto;
-    max-width: 424px
+    max-width: 424px;
 }
 
 #register-container .bloque__info-header {
     max-width: 278px;
     padding: 0 0 28px;
-    margin: auto
+    margin: auto;
 }
 
 #register-container .bloque__info-header-title span {
@@ -2001,17 +2153,17 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     font-weight: 700;
     font-size: 2.5rem;
     margin: 0;
-    padding: 0
+    padding: 0;
 }
 
 #register-container .bloque__info-header-title-text {
     color: #959595;
     text-align: left;
-    line-height: 40px
+    line-height: 40px;
 }
 
 #register-container .bloque__info-header-title-text--modifier {
-    color: #73c914
+    color: #73c914;
 }
 
 #register-container .bloque__info-header-title-img {
@@ -2022,77 +2174,90 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
 
 #register-container .bloque__info-header-cuenta {
     margin-top: 15px;
-    text-align: left
+    text-align: left;
+    width: 400px;
 }
 
 #register-container .bloque__info-header-cuenta span {
-    font-size: 1.0625rem;
-    font-family: Roboto
+    font-size: 16px;
+    /* font-family: Roboto; */
 }
 
-#register-container .bloque__info-header-cuenta-text {
-    font-weight: 400;
+.bloque__info-header-cuenta-text {
     color: #686868;
     text-align: left;
-    margin: 0
+    margin: 0;
+    font-family: Poppins;
+    font-size: 13px;
 }
 
-#register-container .bloque__info-header-cuenta-text--modifier {
+.bloque__info-header-cuenta-text--modifier {
     font-weight: 700;
     color: #00a1c9 !important;
     text-decoration: underline !important;
-    cursor: pointer
+    cursor: pointer;
 }
 
 #register-container .bloque__info-contenido {
-    border-top: 2px solid hsla(0, 1%, 61%, .15);
+    border-top: 2px solid hsla(0, 1%, 61%, 0.15);
     font-size: 1rem;
     font-weight: 400;
     font-family: Roboto;
     color: #686868;
     display: flex;
     flex-direction: column;
-    padding: 0 9px 31px
+    padding: 0 9px 31px;
 }
 
 #register-container .bloque__info-contenido-div {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 30px
+    margin-top: 30px;
+    width: 424px;
+    justify-content: space-between;
 }
 
 #register-container .bloque__info-contenido-img {
     border-radius: 14px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .11);
-    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .11);
-    -moz-box-shadow: 0 0 10px rgba(0, 0, 0, .11);
-    height: 46px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.11);
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.11);
+    -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.11);
+    height: 50px;
     padding: 10px;
-    width: 46px
+    width: 50px;
 }
 
 #register-container .bloque__info-contenido-img--modifier {
-    height: 20px;
-    width: 25px
+    height: 25px;
+    width: 25px;
+    margin-left: 2px;
 }
 
 #register-container .bloque__info-contenido-text {
-    margin-left: 16px;
+    margin-left: 15px;
     text-align: justify;
-    line-height: 1.6
+    line-height: 1.6;
+    width: 350px;
+}
+
+#register-container .bloque__info-contenido-text-span {
+    font-size: 0.875rem;
+    font-family: Poppins;
+    font-size: 15px;
 }
 
 #register-container .bloque__info-contenido-text-span--modifier {
-    font-size: .875rem;
+    font-size: 0.875rem;
     font-weight: 700;
-    font-family: Poppins
+    font-family: Poppins;
+    font-size: 15px;
 }
 
 #register-container .bloque__registro {
-    box-shadow: 0 0 20px hsla(0, 0%, 41%, .3);
-    -webkit-box-shadow: 0 0 20px hsla(0, 0%, 41%, .3);
-    -moz-box-shadow: 0 0 20px hsla(0, 0%, 41%, .3)
+    box-shadow: 0 0 20px hsla(0, 0%, 41%, 0.3);
+    -webkit-box-shadow: 0 0 20px hsla(0, 0%, 41%, 0.3);
+    -moz-box-shadow: 0 0 20px hsla(0, 0%, 41%, 0.3);
 }
 
 #register-container .bloque__registro-form {
@@ -2101,18 +2266,18 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     background-color: #fff;
     display: flex;
     flex-direction: column;
-    align-items: flex-start
+    align-items: flex-start;
 }
 
 #register-container .bloque__registro-form-div {
     margin-top: 20px;
-    width: 100%
+    width: 437px;
 }
 
 #register-container .bloque__registro-form-text {
     margin-top: 20px;
-    padding: 0 24px;
-    width: 100%
+    padding: 0 4px;
+    width: 437px;
 }
 
 #register-container .bloque__registro-form-title {
@@ -2124,24 +2289,24 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     margin: 0 0 14px;
     padding-left: 25px;
     display: flex;
-    align-items: center
+    align-items: center;
 }
 
 #register-container .bloque__registro-form-title-span {
     margin-right: 10px;
-    font-size: 1.2rem
+    font-size: 1.2rem;
 }
 
 #register-container .bloque__registro-form-title-label {
     font-size: 1.0625rem;
-    margin-bottom: 0
+    margin-bottom: 0;
 }
 
 #register-container .bloque__registro-form-beneficios {
     justify-content: center;
     width: 100%;
     padding: 50px 0;
-    display: none
+    display: none;
 }
 
 #register-container .bloque__registro-form-beneficios a {
@@ -2149,60 +2314,53 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     font-size: 1.5rem;
     font-weight: 700;
     font-family: Roboto;
-    text-decoration: underline
+    text-decoration: underline;
 }
 
 #register-container .bloque__registro-form-container {
-    position: relative
+    position: relative;
 }
 
 #register-container .bloque__registro-form-container-input {
     font-size: 1rem;
     font-weight: 400;
-    font-family: Roboto;
+    /* font-family: Roboto; */
     color: #686868;
     width: 100%;
     border: 2px solid #d4d4d4;
     border-radius: 34px;
     opacity: 1;
-    padding: 13px 25px
-}
-
-#register-container .bloque__registro-form-container-input::-moz-placeholder {
-    color: #9c9b9b;
-    font-size: 1rem;
-    font-weight: 400;
-    font-family: Roboto
+    padding: 13px 25px;
 }
 
 #register-container .bloque__registro-form-container-input::placeholder {
     color: #9c9b9b;
-    font-size: 1rem;
+    font-size: 14px;
     font-weight: 400;
-    font-family: Roboto
 }
 
 #register-container .bloque__registro-form-container-input:focus {
-    outline: none
+    outline: none;
 }
 
 #register-container .bloque__registro-form-container-inputError {
     border: 3px solid #c9003d;
-    color: #c9003d
+    color: #c9003d;
 }
 
-#register-container .bloque__registro-form-container-inputError::-moz-placeholder {
+#register-container
+    .bloque__registro-form-container-inputError::-moz-placeholder {
     color: #c9003d;
     font-size: 1rem;
     font-weight: 700;
-    font-family: Roboto
+    font-family: Roboto;
 }
 
 #register-container .bloque__registro-form-container-inputError::placeholder {
     color: #c9003d;
     font-size: 1rem;
     font-weight: 700;
-    font-family: Roboto
+    font-family: Roboto;
 }
 
 #register-container .bloque__registro-form-container-span {
@@ -2210,7 +2368,7 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     right: 20px;
     top: 23px;
     font-size: 1.25rem;
-    color: #9c9b9b
+    color: #9c9b9b;
 }
 
 #register-container .bloque__registro-form-container-span--modifier {
@@ -2219,7 +2377,7 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     top: 23px;
     font-size: 1.25rem;
     color: #c9003d;
-    font-weight: 700
+    font-weight: 700;
 }
 
 #register-container .bloque__registro-form-telefono {
@@ -2229,7 +2387,7 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     display: flex;
     flex-direction: row;
     justify-content: start;
-    align-items: center
+    align-items: center;
 }
 
 #register-container .bloque__registro-form-telefono-linea {
@@ -2239,86 +2397,88 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     border-radius: 3px;
     margin-top: 0;
     margin-bottom: 0;
-    border: 0
+    border: 0;
 }
 
 #register-container .bloque__registro-form-telefono-button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 16px;
+    padding: 0 15px;
     width: 100%;
-    max-width: 126px
+    max-width: 126px;
 }
 
 #register-container .bloque__registro-form-telefono-img {
-    width: 31px
+    width: 31px;
 }
 
 #register-container .bloque__registro-form-telefono-icono {
     font-size: 1rem;
-    color: #686868
+    color: #686868;
 }
 
 #register-container .bloque__registro-form-telefono-label {
     font-size: 1rem;
-    font-weight: 700;
-    font-family: Roboto;
+    /* font-weight: 700; */
+    /* font-family: Roboto; */
     color: #686868;
-    margin-bottom: 0
+    margin-bottom: 0;
 }
 
 #register-container .bloque__registro-form-telefono-flecha {
     border: transparent;
     background: 0 0;
     color: #686868;
-    font-size: .5rem
+    font-size: 0.5rem;
 }
 
 #register-container .bloque__registro-form-telefono-div {
     position: relative;
     width: 100%;
-    max-width: 475px
+    max-width: 475px;
 }
 
-#register-container .bloque__registro-form-telefono input[type=text]::-webkit-inner-spin-button {
-    -webkit-appearance: none
+#register-container
+    .bloque__registro-form-telefono
+    input[type="text"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
 }
 
 #register-container .bloque__registro-form-telefono-input {
-    font-size: 1rem;
+    font-size: 14px;
     font-weight: 400;
-    font-family: Roboto;
+    /* font-family: Roboto; */
     color: #686868;
     width: 100%;
     border-radius: 34px;
     opacity: 1;
     padding: 13px 25px;
-    border: none
+    border: none;
 }
 
 #register-container .bloque__registro-form-telefono-input:focus,
 #register-container .bloque__registro-form-telefono-input:focus-visible {
-    outline: none
+    outline: none;
 }
 
 #register-container .bloque__registro-form-telefono-input::-moz-placeholder {
-    color: #9c9b9b
+    color: #9c9b9b;
 }
 
 #register-container .bloque__registro-form-telefono-input::placeholder {
-    color: #9c9b9b
+    color: #9c9b9b;
 }
 
 #register-container .bloque__registro-form-registrarse {
     display: flex;
     justify-content: center;
     margin: 25px 0 0;
-    width: 100%
+    width: 100%;
 }
 
 #register-container .bloque__registro-form-registrarse .disabled {
-    opacity: .3
+    opacity: 0.3;
 }
 
 #register-container .bloque__registro-form-button {
@@ -2330,17 +2490,17 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     font-size: 1.0625rem;
     font-weight: 700;
     font-family: Poppins;
-    padding: 14px 34px
+    padding: 14px 34px;
 }
 
 #register-container .bloque__registro-form-button:focus {
-    outline: none
+    outline: none;
 }
 
 #register-container .bloque__registro-form-button:hover {
     background: #73c914;
     color: #fff;
-    border-color: #73c914
+    border-color: #73c914;
 }
 
 #register-container .checkbox-contain {
@@ -2351,45 +2511,48 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     width: 100%;
     line-height: 1;
     color: #686868;
-    font-size: .8125rem;
+    font-size: 0.8125rem;
     font-weight: 400;
-    font-family: Roboto;
-    line-height: 20px
+    /* font-family: Roboto; */
+    line-height: 20px;
 }
 
 #register-container .checkbox-contain *,
 #register-container .checkbox-contain :after,
 #register-container .checkbox-contain :before {
-    box-sizing: content-box !important
+    box-sizing: content-box !important;
 }
 
 #register-container .checkbox-contain input {
     position: absolute;
     z-index: -1;
-    opacity: 0
+    opacity: 0;
 }
 
 #register-container .checkbox-contain a {
-    font-size: .8125rem;
+    font-size: 0.8125rem;
     font-weight: 700;
-    font-family: Roboto;
+    /* font-family: Roboto; */
     text-decoration: underline;
-    color: #00a1c9
+    color: #00a1c9;
 }
 
-#register-container .checkbox-contain input[type=checkbox]~.checkbox-input {
+#register-container .checkbox-contain input[type="checkbox"] ~ .checkbox-input {
     position: absolute;
     left: 0;
     height: 18px;
     width: 18px;
     background: #fff;
-    transition: background .25s;
+    transition: background 0.25s;
     border: 2px solid #9c9b9b;
     border-radius: 6px;
-    top: calc(50% - 18px)
+    top: calc(50% - 18px);
 }
 
-#register-container .checkbox-contain input[type=checkbox]~.checkbox-input:after {
+#register-container
+    .checkbox-contain
+    input[type="checkbox"]
+    ~ .checkbox-input:after {
     content: "";
     position: absolute;
     display: none;
@@ -2398,30 +2561,48 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     height: 8px;
     border: solid #fff;
     border-width: 0 4px 4px 0;
-    transition: background .25s;
+    transition: background 0.25s;
     transform: rotate(45deg);
-    top: 0
+    top: 0;
 }
 
-#register-container .checkbox-contain input[type=checkbox]:disabled~.checkbox-input:after {
-    border-color: #fff
+#register-container
+    .checkbox-contain
+    input[type="checkbox"]:disabled
+    ~ .checkbox-input:after {
+    border-color: #fff;
 }
 
-#register-container .checkbox-contain input:checked~.checkbox-input:after {
-    display: block
+#register-container .checkbox-contain input:checked ~ .checkbox-input:after {
+    display: block;
 }
 
-#register-container .checkbox-contain input[type=checkbox]:focus~.checkbox-input,
-#register-container .checkbox-contain:hover input[type=checkbox]:not([disabled])~.checkbox-input {
+#register-container
+    .checkbox-contain
+    input[type="checkbox"]:focus
+    ~ .checkbox-input,
+#register-container
+    .checkbox-contain:hover
+    input[type="checkbox"]:not([disabled])
+    ~ .checkbox-input {
     background: #fff;
-    border-color: #9c9b9b
+    border-color: #9c9b9b;
 }
 
-#register-container .checkbox-contain input[type=checkbox]:checked:focus~.checkbox-input,
-#register-container .checkbox-contain input[type=checkbox]:checked~.checkbox-input,
-#register-container .checkbox-contain:hover input[type=checkbox]:not([disabled]):checked~.checkbox-input {
+#register-container
+    .checkbox-contain
+    input[type="checkbox"]:checked:focus
+    ~ .checkbox-input,
+#register-container
+    .checkbox-contain
+    input[type="checkbox"]:checked
+    ~ .checkbox-input,
+#register-container
+    .checkbox-contain:hover
+    input[type="checkbox"]:not([disabled]):checked
+    ~ .checkbox-input {
     background: #73c914;
-    border-color: #73c914
+    border-color: #73c914;
 }
 
 #register-container .is-danger {
@@ -2429,25 +2610,25 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     font-weight: 700;
     font-family: Roboto;
     border: 2px solid #c9003d;
-    color: #c9003d
+    color: #c9003d;
 }
 
 #register-container .is-danger::-moz-placeholder {
     color: #c9003d;
     font-size: 1rem;
     font-weight: 700;
-    font-family: Roboto
+    font-family: Roboto;
 }
 
 #register-container .is-danger::placeholder {
     color: #c9003d;
     font-size: 1rem;
     font-weight: 700;
-    font-family: Roboto
+    font-family: Roboto;
 }
 
 #register-container .is-danger--modifier {
-    border: none
+    border: none;
 }
 
 #register-container .icon-alert {
@@ -2455,176 +2636,187 @@ footer[id^=modal-olvidaste].modal-footer .contacto__boton .contactenos__button-t
     color: #c9003d;
     position: absolute;
     top: 14px;
-    right: 15px
+    right: 15px;
 }
 
 #register-container .icon-alert--modifier {
     top: 12px;
-    right: 12px
+    right: 12px;
 }
 
-@media(max-width:1320px) {
+@media (max-width: 1320px) {
     #register-container .bloque__registro-form {
-        padding: 22px 70px 42px
+        padding: 22px 70px 42px;
     }
 }
 
-@media(max-width:1120px) {
+@media (max-width: 1120px) {
     #register-container .bloque__registro-form {
-        padding: 22px 40px 42px
+        padding: 22px 40px 42px;
     }
 }
 
-@media(max-width:992px) {
+@media (max-width: 992px) {
     #register-container .bloque {
         flex-direction: column;
-        margin: 0
+        margin: 0;
     }
 
     #register-container .bloque__info {
         max-width: 100%;
         padding: 50px 80px;
-        width: 100%
+        width: 100%;
     }
 
     #register-container .bloque__info-container {
-        max-width: none
+        max-width: none;
     }
 
     #register-container .bloque__info-header {
-        padding: 0
+        padding: 0;
     }
 
     #register-container .bloque__info-contenido,
     #register-container .bloque__info-division {
-        display: none
+        display: none;
     }
 
     #register-container .bloque__registro {
         width: 100%;
         max-width: 100%;
-        box-shadow: 0 0 30px -20px rgba(0, 0, 0, .75)
+        box-shadow: 0 0 30px -20px rgba(0, 0, 0, 0.75);
     }
 
     #register-container .bloque__registro-form {
-        padding: 60px 0
+        padding: 60px 0;
     }
 
     #register-container .bloque__registro-form-telefono {
-        width: 100%
+        width: 100%;
     }
 
     #register-container .bloque__registro-form-telefono-input {
-        padding: 15px 48px 15px 25px
+        padding: 15px 48px 15px 25px;
     }
 
     #register-container .bloque__registro-form hr {
-        margin: 0
+        margin: 0;
     }
 
     #register-container .bloque__registro-form-beneficios {
-        display: flex
+        display: flex;
     }
 }
 
-@media(max-width:800px) {
+@media (max-width: 800px) {
     #register-container .bloque__info {
-        padding: 50px 80px
+        padding: 50px 80px;
     }
 
     #register-container .bloque__registro-form {
-        padding: 60px 80px
+        padding: 60px 80px;
     }
 }
 
-@media(max-width:605px) {
+@media (max-width: 605px) {
     #register-container .bloque__info {
-        padding: 50px
+        padding: 50px;
     }
 
     #register-container .bloque__info-header {
-        padding: 0 20px
+        padding: 0 20px;
     }
 
     #register-container .bloque__registro-form {
-        padding: 60px 20px
+        padding: 60px 20px;
     }
 }
 
-@media(max-width:400px) {
+@media (max-width: 400px) {
     #register-container .bloque__info-header {
-        padding: 0
+        padding: 0;
     }
 
     #register-container .bloque__info-header-title-text {
         display: flex;
-        flex-direction: column
+        flex-direction: column;
     }
 
     #register-container .bloque__registro-form {
-        padding: 0
+        padding: 0;
     }
 }
 
 #inputPaswordUserRegisterComponent {
-    padding: 0 !important
+    padding: 0 !important;
 }
 
 #inputPaswordUserRegisterComponent .contenido__password-titulo {
-    font-size: 1.0625rem !important
+    font-size: 1.0625rem !important;
 }
 
-@media(max-width:992px) {
+@media (max-width: 992px) {
     #inputPaswordUserRegisterComponent {
-        justify-content: space-between
+        justify-content: space-between;
     }
 
     #inputPaswordUserRegisterComponent .contenido__password {
         flex: 1;
         max-width: none;
-        width: auto
+        width: auto;
     }
 
-    #inputPaswordUserRegisterComponent .contenido__password .error-input::-moz-placeholder {
-        font-size: 1rem
+    #inputPaswordUserRegisterComponent
+        .contenido__password
+        .error-input::-moz-placeholder {
+        font-size: 1rem;
     }
 
-    #inputPaswordUserRegisterComponent .contenido__password .error-input::placeholder {
-        font-size: 1rem
+    #inputPaswordUserRegisterComponent
+        .contenido__password
+        .error-input::placeholder {
+        font-size: 1rem;
     }
 }
 
-@media(max-width:605px) {
+@media (max-width: 605px) {
     #inputPaswordUserRegisterComponent .contenido__password {
-        flex: 1
+        flex: 1;
     }
 
     #inputPaswordUserRegisterComponent .contenido__nivel {
-        width: auto
+        width: auto;
     }
 
     #inputPaswordUserRegisterComponent .contenido__nivel-icon,
     #inputPaswordUserRegisterComponent .contenido__nivel-label {
-        display: none
+        display: none;
     }
 
     #inputPaswordUserRegisterComponent .contenido__password-titulo {
-        margin-bottom: 14px
+        margin-bottom: 14px;
     }
 
-    #inputPaswordUserRegisterComponent #tooltip-informacion .contenido__iconos-seguridad {
-        width: auto
+    #inputPaswordUserRegisterComponent
+        #tooltip-informacion
+        .contenido__iconos-seguridad {
+        width: auto;
     }
 
-    #inputPaswordUserRegisterComponent #tooltip-informacion .contenido__iconos-seguridad .contenido__circulo {
-        margin: 0
+    #inputPaswordUserRegisterComponent
+        #tooltip-informacion
+        .contenido__iconos-seguridad
+        .contenido__circulo {
+        margin: 0;
     }
 
-    #inputPaswordUserRegisterComponent #tooltip-informacion .contenido__seguridad-text {
-        display: none
+    #inputPaswordUserRegisterComponent
+        #tooltip-informacion
+        .contenido__seguridad-text {
+        display: none;
     }
 }
 
-.text-probar{
+.text-probar {
     display: none;
 }

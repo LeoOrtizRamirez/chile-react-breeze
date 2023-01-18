@@ -1,141 +1,194 @@
-import { useEffect, useState } from 'react';
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/inertia-react';
+import { useEffect, useState } from "react";
+// import GuestLayout from '@/Layouts/GuestLayout';
+// import InputError from '@/Components/InputError';
+// import InputLabel from '@/Components/InputLabel';
+// import PrimaryButton from '@/Components/PrimaryButton';
+import TextInput from "@/Components/TextInput";
+import { Head, useForm } from "@inertiajs/inertia-react";
 import Header from "@/Components/Header/HeaderLite";
 
-import './Register.css';
+import "./Register.css";
 import "@fontsource/poppins";
 
-import Modal from 'react-bootstrap/Modal';
-import { Paises } from '@/Components/Paises';
-import PasswordSecurity from '@/Components/PasswordSecurity';
+import Modal from "react-bootstrap/Modal";
+import { Paises } from "@/Components/Paises";
+import PasswordSecurity from "@/Components/PasswordSecurity";
 
 export default function Register(props) {
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
     });
-    const [disabledBtnRegister, setDisableddisabledBtnRegister] = useState(true);
+    const [disabledBtnRegister, setDisableddisabledBtnRegister] =
+        useState(true);
     const [disabledClass, setDisabledClass] = useState("disabled");
     const [showModalPaises, setShowModalPaises] = useState(false);
-    const [Country, SetCountry] = useState(
-        { "image": "", "title": "", "indicative": "+0", "fixed": null },
-    )
+    const [Country, SetCountry] = useState({
+        image: "",
+        title: "",
+        indicative: "+0",
+        fixed: null,
+    });
 
     useEffect(() => {
         return () => {
-            reset('password', 'password_confirmation');
+            reset("password", "password_confirmation");
         };
     }, []);
 
     const onHandleChange = (event) => {
-        setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
+        setData(
+            event.target.name,
+            event.target.type === "checkbox"
+                ? event.target.checked
+                : event.target.value
+        );
     };
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('register'));
+        post(route("register"));
     };
 
     const handleCloseModalPaises = () => setShowModalPaises(false);
     const handleShowModalPaises = () => setShowModalPaises(true);
 
     const addCountry = (country) => {
-        SetCountry(country)
-        setShowModalPaises(false)
-    }
+        SetCountry(country);
+        setShowModalPaises(false);
+    };
 
     const handleInputChange = (event) => {
         if (event.target.name == "terms") {
             if (event.target.checked) {
-                setDisableddisabledBtnRegister(false)
-                setDisabledClass("")
+                setDisableddisabledBtnRegister(false);
+                setDisabledClass("");
             } else {
-                setDisableddisabledBtnRegister(true)
-                setDisabledClass("disabled")
+                setDisableddisabledBtnRegister(true);
+                setDisabledClass("disabled");
             }
         }
 
         setData({
-            ...data,//Hace una pseudo copia de data
-            [event.target.name]: event.target.value
-        })
-
-    }
+            ...data, //Hace una pseudo copia de data
+            [event.target.name]: event.target.value,
+        });
+    };
 
     return (
         <>
             <Head title="Register" />
             <Header user={props}></Header>
-            <div id="register-container" className='container'>
+            <div id="register-container" className="container">
                 <div className="bloque row">
                     <div className="bloque__info col-lg-6">
                         <div className="bloque__info-container">
                             <div className="bloque__info-header">
                                 <div className="bloque__info-header-title">
-                                    <span className="bloque__info-header-title-text">Crea una <img
-                                        src="/public/icons/multicolor/crear cuenta.svg" alt="Crea una cuenta gratis"
-                                        className="bloque__info-header-title-img" />
-                                        <span
-                                            className="bloque__info-header-title-text--modifier">cuenta gratis</span></span>
+                                    <span className="bloque__info-header-title-text">
+                                        Crea una{" "}
+                                        <img
+                                            src="/public/icons/multicolor/crear cuenta.svg"
+                                            alt="Crea una cuenta gratis"
+                                            className="bloque__info-header-title-img"
+                                        />
+                                        <span className="bloque__info-header-title-text--modifier">
+                                            cuenta gratis
+                                        </span>
+                                    </span>
                                 </div>
                                 <div className="bloque__info-header-cuenta">
-                                    <span className="bloque__info-header-cuenta-text"> ¿Ya tienes una cuenta?
-                                        <a href={route('login')}>
-                                            <span className="bloque__info-header-cuenta-text--modifier">Inicia sesión</span>
+                                    <span className="bloque__info-header-cuenta-text">
+                                        {" "}
+                                        ¿Ya tienes una cuenta?&nbsp;&nbsp;&nbsp;
+                                        <a href={route("login")}>
+                                            <span className="bloque__info-header-cuenta-text--modifier">
+                                                Inicia sesión
+                                            </span>
                                         </a>
                                     </span>
-
                                 </div>
                             </div>
                             <div className="bloque__info-contenido">
                                 <div className="bloque__info-contenido-div">
                                     <div className="bloque__info-contenido-img">
-                                        <img src="/public/icons/multicolor/servicio.svg" alt="Servicio"
-                                            className="bloque__info-contenido-img--modifier" />
+                                        <img
+                                            src="/public/icons/multicolor/servicio.svg"
+                                            alt="Servicio"
+                                            className="bloque__info-contenido-img--modifier"
+                                        />
                                     </div>
                                     <div className="bloque__info-contenido-text">
-                                        <span className="bloque__info-contenido-text-span"> Al crear tu
-                                            cuenta tendrás <span className="bloque__info-contenido-text-span--modifier">30 días de servicio
-                                            </span> sin ningún costo. </span>
+                                        <span className="bloque__info-contenido-text-span">
+                                            {" "}
+                                            Al crear tu cuenta tendrás{" "}
+                                            <span className="bloque__info-contenido-text-span--modifier">
+                                                30 días de servicio
+                                            </span>{" "}
+                                            sin ningún costo.{" "}
+                                        </span>
                                     </div>
                                 </div>
                                 <div className="bloque__info-contenido-div">
                                     <div className="bloque__info-contenido-img">
-                                        <img src="/public/icons/multicolor/licitaciones.svg" alt=""
-                                            className="bloque__info-contenido-img--modifier" />
+                                        <img
+                                            src="/public/icons/multicolor/licitaciones.svg"
+                                            alt=""
+                                            className="bloque__info-contenido-img--modifier"
+                                        />
                                     </div>
                                     <div className="bloque__info-contenido-text">
-                                        <span className="bloque__info-contenido-text-span"> Te damos acceso
-                                            a <span className="bloque__info-contenido-text-span--modifier">todas las Licitaciones </span> y
-                                            contrataciones del estado en Colombia, Ecuador y Panamá. </span>
+                                        <span className="bloque__info-contenido-text-span">
+                                            {" "}
+                                            Te damos acceso a{" "}
+                                            <span className="bloque__info-contenido-text-span--modifier">
+                                                todas las Licitaciones{" "}
+                                            </span>{" "}
+                                            y contrataciones del estado en
+                                            Colombia, Ecuador y Panamá.{" "}
+                                        </span>
                                     </div>
                                 </div>
                                 <div className="bloque__info-contenido-div">
                                     <div className="bloque__info-contenido-img">
-                                        <img src="/public/icons/multicolor/notificaciones.svg" alt=""
-                                            className="bloque__info-contenido-img--modifier" />
+                                        <img
+                                            src="/public/icons/multicolor/notificaciones.svg"
+                                            alt=""
+                                            className="bloque__info-contenido-img--modifier"
+                                        />
                                     </div>
                                     <div className="bloque__info-contenido-text">
-                                        <span className="bloque__info-contenido-text-span"> Te enviamos <span className="bloque__info-contenido-text-span--modifier">notificaciones diarias </span> con la
-                                            información de tu interés. </span>
+                                        <span className="bloque__info-contenido-text-span">
+                                            {" "}
+                                            Te enviamos{" "}
+                                            <span className="bloque__info-contenido-text-span--modifier">
+                                                notificaciones diarias{" "}
+                                            </span>{" "}
+                                            con la información de tu interés.{" "}
+                                        </span>
                                     </div>
                                 </div>
                                 <div className="bloque__info-contenido-div">
                                     <div className="bloque__info-contenido-img">
-                                        <img src="/public/icons/multicolor/funcionalidades.svg" alt=""
-                                            className="bloque__info-contenido-img--modifier" />
+                                        <img
+                                            src="/public/icons/multicolor/funcionalidades.svg"
+                                            alt=""
+                                            className="bloque__info-contenido-img--modifier"
+                                        />
                                     </div>
                                     <div className="bloque__info-contenido-text">
-                                        <span className="bloque__info-contenido-text-span"> Utiliza todas
-                                            las <span className="bloque__info-contenido-text-span--modifier">funcionalidades </span> para
-                                            ahorrar tiempo y dinero en la búsqueda de oportunidades de negocio. </span>
+                                        <span className="bloque__info-contenido-text-span">
+                                            {" "}
+                                            Utiliza todas las{" "}
+                                            <span className="bloque__info-contenido-text-span--modifier">
+                                                funcionalidades{" "}
+                                            </span>{" "}
+                                            para ahorrar tiempo y dinero en la
+                                            búsqueda de oportunidades de
+                                            negocio.{" "}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -147,11 +200,16 @@ export default function Register(props) {
                                 <div className="bloque__registro-form-div">
                                     <div className="bloque__registro-form-title">
                                         <span className="icon-datos bloque__registro-form-title-span"></span>
-                                        <label htmlFor="" className="bloque__registro-form-title-label">Nombre:</label>
+                                        <label
+                                            htmlFor=""
+                                            className="bloque__registro-form-title-label"
+                                        >
+                                            Nombre:
+                                        </label>
                                     </div>
                                     <div className="bloque__registro-form-container">
                                         <TextInput
-                                            placeholder="Ingresa tu nombre y apellido"
+                                            placeholder="Ingresa tu nombre completo"
                                             id="name"
                                             name="name"
                                             value={data.name}
@@ -167,7 +225,12 @@ export default function Register(props) {
                                 <div className="bloque__registro-form-div">
                                     <div className="bloque__registro-form-title">
                                         <span className="icon-mail bloque__registro-form-title-span"></span>
-                                        <label htmlFor="" className="bloque__registro-form-title-label">Correo electrónico:</label>
+                                        <label
+                                            htmlFor=""
+                                            className="bloque__registro-form-title-label"
+                                        >
+                                            Correo electrónico:
+                                        </label>
                                     </div>
                                     <div className="bloque__registro-form-container">
                                         <TextInput
@@ -185,56 +248,106 @@ export default function Register(props) {
                                     </div>
                                 </div>
                                 <div className="bloque__registro-form-div">
-                                    <div id="inputPaswordUserRegisterComponent" className="contenido InputPassword"
-                                        name="password" type="password">
-                                        <div htmlFor="" className="contenido__password-titulo"><span
-                                            className="contenido__password-titulo-icon icon-lock"></span><span
-                                            >Contraseña:</span>
+                                    <div
+                                        id="inputPaswordUserRegisterComponent"
+                                        className="contenido InputPassword"
+                                        name="password"
+                                        type="password"
+                                    >
+                                        <div
+                                            htmlFor=""
+                                            className="contenido__password-titulo"
+                                        >
+                                            <span className="contenido__password-titulo-icon icon-lock"></span>
+                                            <span>Contraseña:</span>
                                         </div>
                                         <div className="content-inputs">
-                                            <PasswordSecurity onHandleChange={onHandleChange} />
+                                            <PasswordSecurity
+                                                onHandleChange={onHandleChange}
+                                            />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="bloque__registro-form-div">
-                                    <div className="bloque__registro-form-title"><span
-                                        className="icon-phone bloque__registro-form-title-span"></span><label htmlFor=""
-                                            className="bloque__registro-form-title-label">Telefono:</label>
+                                    <div className="bloque__registro-form-title">
+                                        <span className="icon-phone bloque__registro-form-title-span"></span>
+                                        <label
+                                            htmlFor=""
+                                            className="bloque__registro-form-title-label"
+                                        >
+                                            Telefono:
+                                        </label>
                                     </div>
                                     <div className="bloque__registro-form-telefono">
-                                        <div className="bloque__registro-form-telefono-button" onClick={handleShowModalPaises}>
-                                            {Country.image == "" ?
+                                        <div
+                                            className="bloque__registro-form-telefono-button"
+                                            onClick={handleShowModalPaises}
+                                        >
+                                            {Country.image == "" ? (
                                                 <span className="icon-earth bloque__registro-form-telefono-icono"></span>
-                                                :
-                                                <img src={Country.image} alt="imagen bandera seleccionada" className="contactenos_form--campo-indicativo-bandera" />
-                                            }
-                                            <label htmlFor="" className="bloque__registro-form-telefono-label">{Country.indicative}</label>
+                                            ) : (
+                                                <img
+                                                    src={Country.image}
+                                                    alt="imagen bandera seleccionada"
+                                                    className="contactenos_form--campo-indicativo-bandera"
+                                                />
+                                            )}
+                                            <label
+                                                htmlFor=""
+                                                className="bloque__registro-form-telefono-label"
+                                            >
+                                                {Country.indicative}
+                                            </label>
                                             <span className="icon-down bloque__registro-form-telefono-flecha"></span>
                                         </div>
                                         <hr className="bloque__registro-form-telefono-linea" />
                                         <div className="bloque__registro-form-telefono-div">
-                                            <input id="tel" name="tel" type="text"
-                                                placeholder="Ingresa tu número" className="bloque__registro-form-telefono-input"
-                                                aria-required="true" aria-invalid="false" /><span className=""></span>
+                                            <input
+                                                id="tel"
+                                                name="tel"
+                                                type="text"
+                                                placeholder="Ingresa tu número"
+                                                className="bloque__registro-form-telefono-input"
+                                                aria-required="true"
+                                                aria-invalid="false"
+                                            />
+                                            <span className=""></span>
                                         </div>
                                     </div>
                                 </div>
-                                <Modal show={showModalPaises} onHide={handleCloseModalPaises}>
-                                    <Modal.Header closeButton>
-                                    </Modal.Header>
-                                    <Modal.Body><Paises addCountry={addCountry} /></Modal.Body>
-                                    <Modal.Footer>
-                                    </Modal.Footer>
+                                <Modal
+                                    show={showModalPaises}
+                                    onHide={handleCloseModalPaises}
+                                >
+                                    <Modal.Header closeButton></Modal.Header>
+                                    <Modal.Body>
+                                        <Paises addCountry={addCountry} />
+                                    </Modal.Body>
+                                    <Modal.Footer></Modal.Footer>
                                 </Modal>
-                                <div className="bloque__registro-form-text"><label className="checkbox-contain"><span> Acepto <a
-                                    href="#">términos,
-                                    condiciones</a></span><span><a href="#"> y las políticas de privacidad</a> de
-                                        Licitaciones.info S.A.S. </span>
-                                    <input type="checkbox" name="terms" onChange={handleInputChange} />
-                                    <div className="checkbox-input">
-
-                                    </div>
-                                </label>
+                                <div className="bloque__registro-form-text">
+                                    <label className="checkbox-contain">
+                                        <span>
+                                            {" "}
+                                            Acepto&nbsp;&nbsp;{" "}
+                                            <a href="#">
+                                                términos, condiciones
+                                            </a>
+                                        </span>
+                                        <span>
+                                            <a href="#">
+                                                {" "}
+                                                y las políticas de privacidad
+                                            </a>{" "}
+                                            de Licitaciones.info S.A.S.{" "}
+                                        </span>
+                                        <input
+                                            type="checkbox"
+                                            name="terms"
+                                            onChange={handleInputChange}
+                                        />
+                                        <div className="checkbox-input"></div>
+                                    </label>
                                 </div>
                                 <div className="bloque__registro-form-registrarse">
                                     <button
@@ -243,17 +356,21 @@ export default function Register(props) {
                                         name="submit"
                                         disabled={disabledBtnRegister}
                                         className={`bloque__registro-form-button ${disabledClass}`}
-                                    > Registrarme </button>
+                                    >
+                                        {" "}
+                                        Registrarme{" "}
+                                    </button>
                                 </div>
-                                <div className="bloque__registro-form-beneficios"><a> Conoce los beneficios al registrarse </a>
+                                <div className="bloque__registro-form-beneficios">
+                                    <a>
+                                        {" "}
+                                        Conoce los beneficios al registrarse{" "}
+                                    </a>
                                 </div>
                             </div>
-                            <div>
-                            </div>
-                            <div>
-                            </div>
-                            <div>
-                            </div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
                         </form>
                     </div>
                 </div>
