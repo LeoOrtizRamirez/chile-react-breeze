@@ -7,6 +7,7 @@ use App\Models\User;
 use Inertia\Inertia;
 use PhpParser\Node\Stmt\Return_;
 use Redirect;
+use Illuminate\Support\Facades\Hash;
 
 use App\Mail\VerificationCodeMailable;
 use Illuminate\Support\Facades\Mail;
@@ -109,8 +110,6 @@ class UserController extends Controller
             'telefono_fijo_empresa' => 'required|max:15',
             'email_facturacion_empresa' => 'required', 'email',
             'descripcion_actividad_economica' => 'required|max:30',
-
-
         ]);
 
         User::Create($validated);
@@ -194,5 +193,19 @@ class UserController extends Controller
             $response = 'Success';
         }
         return json_encode($response);
+    }
+
+    public function actualizarContrasena(Request $request){
+        $response = "";
+        $user = User::where('email', $request->email)->first();
+        if($user){
+            $user->password = Hash::make($request->password);
+            $user->save();
+            $response = "Se actualizó la contraseña";
+        }else{
+            $response = "El usuario no existe";
+        }
+        return redirect(route('welcome'));
+        
     }
 }
