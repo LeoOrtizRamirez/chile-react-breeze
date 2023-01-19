@@ -5,6 +5,9 @@ import './RecuperarContrasena.css'
 import "../../css/font-unicolor.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fontsource/poppins";
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
+import '../../css/estilos-alertas.css'
 
 import PasswordSecurity from '@/Components/PasswordSecurity';
 
@@ -23,7 +26,7 @@ const RecuperarContrasena = (props) => {
     const [valid, setValid] = useState(false)
     const [errorIconStatus, setErrorIconStatus] = useState(false)
     const [passwordEquals, setPasswordEquals] = useState(true)
-
+    const [showAlert, setShowAlert] = useState(true);
 
     const onHandleChange = (event) => {
         if (event.target.value != "") {
@@ -197,6 +200,18 @@ const RecuperarContrasena = (props) => {
                     </div>
                 </section>
             </div>
+
+            {/* {showAlert &&
+                <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
+                    <Alert.Heading>
+                    <span className="circle">
+                        <span className="icon-alert"></span>
+                    </span>
+                        Minimo 6 caracteres
+                    </Alert.Heading>
+                </Alert>
+            } */}
+
         </>
     )
 }
