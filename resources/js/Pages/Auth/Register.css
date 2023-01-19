@@ -184,9 +184,9 @@
 .contenido {
     display: flex;
     justify-content: center;
-    padding: 25px 0;
+    padding: 24px 0;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
 }
 
 .contenido .content-inputs {
@@ -403,8 +403,8 @@
 .informacion__requisito-texto {
     display: flex;
     align-items: center;
-    justify-content: start;
-    padding: 0 25px;
+    justify-content: flex-start;
+    padding: 0 24px;
 }
 
 .informacion__opcional-texto .icon-success,
@@ -2386,7 +2386,7 @@ footer[id^="modal-olvidaste"].modal-footer
     border-radius: 37px;
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
 }
 
