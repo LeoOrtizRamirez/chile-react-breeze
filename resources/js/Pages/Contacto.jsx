@@ -56,13 +56,6 @@ export default function Contacto(props) {
         setShow(false)
     }
 
-    const numberValid = (e) =>{
-        console.log(e)
-        if (e.keyCode < 45 || e.keyCode > 57){
-            e.returnValue = false
-        }
-    }
-
     return (
         <>
             <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Poppins" />
@@ -174,8 +167,8 @@ export default function Contacto(props) {
                                                                                         e.preventDefault()
                                                                                     }
                                                                                 }
-                                                                                
-                                                                             }}
+                                                                             }
+                                                                            }
                                                                             />
                                                                         <span className=""></span>
                                                                     </div>
