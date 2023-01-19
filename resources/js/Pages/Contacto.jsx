@@ -194,7 +194,7 @@ export default function Contacto(props) {
 
                                                             <div className="contactenos_form--campo contactenos_form--campo-terminos">
                                                                 <label className="checkbox_container">
-                                                                    <span> He leido y acepto <a href="/politica-de-privacidad" target="_blank">la política de tratamiento de datos.</a>
+                                                                    <span> He leido y acepto <a href="/politicasp" target="_blank">la política de tratamiento de datos.</a>
                                                                     </span>
                                                                     <input type="checkbox" />
                                                                     <div className="checkbox-input">
