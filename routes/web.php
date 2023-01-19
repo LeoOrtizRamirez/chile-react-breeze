@@ -10,6 +10,7 @@ use App\Http\Controllers\PlaneController;
 use App\Http\Controllers\ScrappingController;
 use App\Http\Controllers\MailController;
 use App\Models\Contrato;
+use Illuminate\Http\Request;
 
 
 Route::get('/', function () { 
@@ -23,7 +24,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
         'contratos' => $contratosAll
     ]);
-});
+})->name('welcome');
 
 Route::get('/nosotros', function () { 
     return Inertia::render('Nosotros');
@@ -33,11 +34,6 @@ Route::get('/nosotros', function () {
 Route::get('/contacto', function () { 
     return Inertia::render('Contacto');
 })->name('contacto');
-
-
-Route::get('/recuperar-contrasena', function () { 
-    return Inertia::render('RecuperarContrasena');
-})->name('recuperar-contrasena');
 
 
 Route::get('/funcionalidades', function () { 
@@ -124,3 +120,12 @@ Route::get('/scrapping', [ScrappingController::class, 'scrapping'])->name('scrap
 Route::get('/user-validate/{email}', [UserController::class, 'userValidate'])->name('user-validate');
 Route::get('/code-validate/{email}/{verification_code}/', [UserController::class, 'codeValidate'])->name('code-validate');
 Route::get('/verification-code', [MailController::class, 'sendVerificationCode'])->name('verification-code');
+
+Route::get('/recuperar-contrasena', function (Request $request) { 
+    return Inertia::render('RecuperarContrasena',[
+        'email' => $request->email,
+        'token' => $request->token,
+    ]);
+})->name('recuperar-contrasena');
+
+Route::get('/actualizar-contrasena', [UserController::class, 'actualizarContrasena'])->name('actualizarContrasena');
