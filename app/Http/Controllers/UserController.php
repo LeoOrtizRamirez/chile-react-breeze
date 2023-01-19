@@ -8,9 +8,13 @@ use Inertia\Inertia;
 use PhpParser\Node\Stmt\Return_;
 use Redirect;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 use App\Mail\VerificationCodeMailable;
+use App\Models\PasswordReset;
+use Illuminate\Auth\Passwords\DatabaseTokenRepository;
 use Illuminate\Support\Facades\Mail;
+use DB;
 
 class UserController extends Controller
 {
@@ -175,7 +179,7 @@ class UserController extends Controller
             //Enviar correo electronico con codigo
             $mail = new VerificationCodeMailable($user);
             Mail::to($user->email)->send($mail);
-            
+
             $response = 'Success';
         }
         return json_encode($response);
@@ -190,22 +194,40 @@ class UserController extends Controller
         if (is_null($user)) {
             $response = 'Failed';
         } else {
-            $response = 'Success';
+            //Guardar token
+            $token = hash_hmac('sha256', Str::random(40), true);
+            $password_reset = PasswordReset::where('email', $user->email)->first();
+            if ($password_reset) {
+                $password_reset->delete();
+            }
+            $password_reset = new PasswordReset;
+            $password_reset->token = Hash::make($token);
+            $password_reset->email = $user->email;
+            $password_reset->save();
+            $response = $token;
         }
         return json_encode($response);
     }
 
-    public function actualizarContrasena(Request $request){
+    public function actualizarContrasena(Request $request)
+    {
         $response = "";
-        $user = User::where('email', $request->email)->first();
-        if($user){
-            $user->password = Hash::make($request->password);
-            $user->save();
-            $response = "Se actualizó la contraseña";
-        }else{
-            $response = "El usuario no existe";
+
+        //Validar token
+        $password_reset = PasswordReset::where('email', $request->email)/* ->where('token', Hash::make($request->token)) */->first();
+        if ($password_reset) {
+            $user = User::where('email', $request->email)->first();
+            if ($user) {
+                $user->password = Hash::make($request->password);
+                $user->save();
+                $response = redirect(route('welcome'));
+            } else {
+                $response = json_encode("El usuario no existe");
+            }
+        } else {
+            $response = json_encode("La solicitud de cambio de contraseña no existe");
         }
-        return redirect(route('welcome'));
-        
+
+        return $response;
     }
 }

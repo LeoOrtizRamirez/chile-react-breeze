@@ -43,7 +43,8 @@ return new class extends Migration
             $table->integer('estado')->nullable();
             $table->string('origen',30)->nullable();
             $table->string('password');
-
+            $table->string('verification_code',4)->nullable();
+            
             //Datos empresa
 
             $table->string('nombre_empresa',50)->nullable();
