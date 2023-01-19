@@ -13,6 +13,7 @@ import { Head, Link, useForm } from '@inertiajs/inertia-react';
 const RecuperarContrasena = (props) => {
     const { data, setData, post, get, processing, errors, reset, } = useForm({
         email: props.email,
+        token: props.token,
         password: '',
         password2: '',
         remember: '',
