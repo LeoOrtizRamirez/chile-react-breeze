@@ -56,6 +56,13 @@ export default function Contacto(props) {
         setShow(false)
     }
 
+    const numberValid = (e) =>{
+        console.log(e)
+        if (e.keyCode < 45 || e.keyCode > 57){
+            e.returnValue = false
+        }
+    }
+
     return (
         <>
             <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Poppins" />
@@ -154,11 +161,23 @@ export default function Contacto(props) {
                                                                     </div>
                                                                     <hr data-v-74a0c684="" className="linea__divisoria" style={{ width: 4 + 'px', height: 18 + 'px' }} />
                                                                     <div className="contactenos_form--campo-input-container">
-                                                                        <input id="tel" name="tel" type="number" placeholder="Ingresa tu número"
-                                                                            className="contactenos_form--campo-telefono-input contactenos_form--campo-input" aria-required="true"
-                                                                            aria-invalid="false" />
-                                                                        <span className="">
-                                                                        </span>
+                                                                        <input 
+                                                                            id="tel" 
+                                                                            name="tel" 
+                                                                            type="text" 
+                                                                            placeholder="Ingresa tu número"
+                                                                            className="contactenos_form--campo-telefono-input contactenos_form--campo-input"
+                                                                            onKeyDown={function (e) {
+                                                                                console.log(e.keyCode)
+                                                                                if(e.keyCode != 8){
+                                                                                    if (e.keyCode < '48' || e.keyCode > '57') {
+                                                                                        e.preventDefault()
+                                                                                    }
+                                                                                }
+                                                                                
+                                                                             }}
+                                                                            />
+                                                                        <span className=""></span>
                                                                     </div>
                                                                 </div>
 
