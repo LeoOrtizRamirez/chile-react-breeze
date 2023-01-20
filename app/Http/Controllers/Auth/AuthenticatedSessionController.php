@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
+
 class AuthenticatedSessionController extends Controller
 {
     /**
@@ -37,7 +40,13 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect("/contratos");
+        //return Redirect::route('contratos.index');
+
+        //return redirect()->intended(RouteServiceProvider::HOME);
+
+        return Redirect::intended();
+
+        //return Redirect::to(URL::previous());
     }
 
     /**

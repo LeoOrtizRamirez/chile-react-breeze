@@ -113,12 +113,11 @@ export default function Example(props) {
 
         fetch('/code-validate/' + data.email + '/' + verificationCode)
             .then((response) => response.json())
-            .then((data) => {
-
-                if (data == 'Success') {
+            .then((response) => {
+                if (response != 'Fallo') {
                     setEmailValid(true)
                     console.log('successs')
-                    const url = location.protocol + '//' + location.host + "/recuperar-contrasena"
+                    const url = location.protocol + '//' + location.host + "/recuperar-contrasena?token=" + response + "&email=" + data.email
                     window.location.href = url
                 } else {
                     console.log('fallo')

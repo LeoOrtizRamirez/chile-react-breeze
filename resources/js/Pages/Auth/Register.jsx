@@ -1,18 +1,17 @@
+import React from "react";
 import { useEffect, useState } from "react";
-// import GuestLayout from '@/Layouts/GuestLayout';
-// import InputError from '@/Components/InputError';
-// import InputLabel from '@/Components/InputLabel';
-// import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from "@/Components/TextInput";
 import { Head, useForm } from "@inertiajs/inertia-react";
-import Header from "@/Components/Header/HeaderLite";
-
-import "./Register.css";
-import "@fontsource/poppins";
-
 import Modal from "react-bootstrap/Modal";
+//
 import { Paises } from "@/Components/Paises";
+import TextInput from "@/Components/TextInput";
 import PasswordSecurity from "@/Components/PasswordSecurity";
+import Header from "@/Components/Header/HeaderLite";
+import ModalTC from "@/Components/Modals/ModalTC";
+import ModalPP from "@/Components/Modals/ModalPP";
+//
+import "@fontsource/poppins";
+import "./Register.css";
 
 export default function Register(props) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -76,6 +75,14 @@ export default function Register(props) {
             [event.target.name]: event.target.value,
         });
     };
+
+    const [showTC, setShowTC] = useState(false);
+    const handleCloseTC = () => setShowTC(false);
+    const handleShowTC = () => setShowTC(true);
+
+    const [showPP, setShowPP] = useState(false);
+    const handleClosePP = () => setShowPP(false);
+    const handleShowPP = () => setShowPP(true);
 
     return (
         <>
@@ -330,15 +337,25 @@ export default function Register(props) {
                                         <span>
                                             {" "}
                                             Acepto&nbsp;&nbsp;{" "}
-                                            <a href="#">
+                                            <a onClick={handleShowTC}>
                                                 términos, condiciones
                                             </a>
+                                            <ModalTC
+                                                showTC={showTC}
+                                                handleCloseTC={handleCloseTC}
+                                            ></ModalTC>
                                         </span>
                                         <span>
-                                            <a href="#">
-                                                {" "}
-                                                y las políticas de privacidad
+                                            &nbsp;&nbsp;y las &nbsp;&nbsp;
+                                        </span>
+                                        <span>
+                                            <a onClick={handleShowPP}>
+                                                políticas de privacidad
                                             </a>{" "}
+                                            <ModalPP
+                                                showPP={showPP}
+                                                handleClosePP={handleClosePP}
+                                            ></ModalPP>
                                             de Licitaciones.info S.A.S.{" "}
                                         </span>
                                         <input
@@ -348,6 +365,7 @@ export default function Register(props) {
                                         />
                                         <div className="checkbox-input"></div>
                                     </label>
+                                    <div></div>
                                 </div>
                                 <div className="bloque__registro-form-registrarse">
                                     <button
