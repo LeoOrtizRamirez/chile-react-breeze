@@ -13,7 +13,7 @@ const Banner = (props) => {
     const [saludo, setSaludo] = useState("")
     const [saludoIcon, setSaludoIcon] = useState("")
 
-    const contratosFiltrados = '/contratos?fecha_publicacion=' + new Date().toISOString().slice(0, 10)
+    const contratosFiltrados = 'https://licitacioneschile.info/contratos?fecha_publicacion=' + new Date().toISOString().slice(0, 10)
 
     async function check() {
         setDate(new Date().toLocaleTimeString())
