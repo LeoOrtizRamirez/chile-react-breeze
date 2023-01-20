@@ -44,11 +44,8 @@
 }
 
 .text-probar:hover {
-    color: white;
-    font-size: 12px;
+    color: white !important;
     text-align: left;
-    font-weight: bold;
-    text-decoration: inherit;
     background-color: #73C914;
     border: 1px solid;
 }

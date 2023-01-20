@@ -30,6 +30,12 @@ Route::get('/nosotros', function () {
     return Inertia::render('Nosotros');
 })->name('nosotros');
 
+Route::get('/404', function () { 
+    return Inertia::render('Errors/Page404');
+})->name('404');
+
+
+
 
 Route::get('/contacto', function () { 
     return Inertia::render('Contacto');
