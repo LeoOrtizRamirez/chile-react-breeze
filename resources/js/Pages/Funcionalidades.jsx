@@ -12,7 +12,6 @@ import "@fontsource/poppins";
 export const Funcionalidades = (props) => {
     return (
         <>
-            <div className="container">
                 <Head title="Funcionalidades" />
                 <Header user={props}>
                     <link
@@ -394,7 +393,7 @@ export const Funcionalidades = (props) => {
                         </div>
                     </div>
                 </div>
-            </div>
+            
             <Footer />
         </>
     );
