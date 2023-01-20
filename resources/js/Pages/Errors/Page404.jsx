@@ -15,7 +15,7 @@ const Page404 = (props) => {
         <div class="row">
           <div class="col-sm">
             <h5 class="seccion__404-titulo">Error 404</h5>
-            <h3 class="seccion__404-subtitulo">No hemos podido encontrar la página <br/>que estás buscando</h3> 
+            <h3 class="seccion__404-subtitulo">No hemos podido<br/> encontrar la página <br/> que estás buscando</h3> 
             <p class="seccion__404-mensaje">Gracias por tu paciencia, es posible que el <br/> enlace sea antiguo o haya sido removido.</p>
           </div>
           <div class="col-sm">

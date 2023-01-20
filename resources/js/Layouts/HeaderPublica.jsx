@@ -298,7 +298,15 @@ export default function Example(props) {
                                             <hr class="division-header header-publica"></hr>
 
                                             <Nav.Link >
-                                                <ChileLogo />
+                                                {/* <ChileLogo /> */}
+
+                                              
+
+                                                <a href='#' className="flex  items-center texto-logo-chile">
+                                                <img src="/public/images/logo-chile-redondo.jpg" width="30px" alt="Logo Chile Redondo" />
+                                                    <span className="ml-2">Chile</span>
+                                                </a>
+                                                
                                             </Nav.Link>
                                         </>
                                     )}
