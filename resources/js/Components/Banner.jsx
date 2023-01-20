@@ -70,14 +70,14 @@ const Banner = (props) => {
                                             </div>
                                         </li>
                                         <li className="fraja-fuentes__item">
-                                            <a href={contratosFiltrados} target="_blank" className="fraja-fuentes__contador">
+                                            <a href={contratosFiltrados} className="fraja-fuentes__contador">
                                                 <span>Chile Compra : </span>
                                                 <span className="fraja-fuentes__item--claro">{props.procesos} procesos </span>
                                                 <i className="icon-up"></i>
                                             </a>
                                         </li>
                                         <li className="fraja-fuentes__item">
-                                            <a href="#" target="_blank" className="fraja-fuentes__contador">
+                                            <a href="#" className="fraja-fuentes__contador">
                                                 <span>No Centralizados : </span>
                                                 <span className="fraja-fuentes__item--claro">0 procesos </span>
                                                 <i className="icon-up"></i>
