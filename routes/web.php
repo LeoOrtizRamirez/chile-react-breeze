@@ -11,7 +11,9 @@ use App\Http\Controllers\ScrappingController;
 use App\Http\Controllers\MailController;
 use App\Models\Contrato;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
+URL::forceScheme('https');
 
 Route::get('/', function () { 
     $contratosAll = Contrato::where('fecha_publicacion', date('Y-m-d'))
