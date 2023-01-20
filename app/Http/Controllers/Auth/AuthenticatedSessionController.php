@@ -38,19 +38,11 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request)
     {
         $request->authenticate();
-
         $request->session()->regenerate();
 
-        //return Redirect::route('contratos.index');
-
-        //return redirect()->intended(RouteServiceProvider::HOME);
-
-        //dd(Redirect::back());
-
-        
+        $url_intended = str_replace("http","https",session()->all()['url']['intended']);
+        session()->put('url.intended', $url_intended);
         return Redirect::intended();
-
-        //return Redirect::to(URL::previous());
     }
 
     /**
