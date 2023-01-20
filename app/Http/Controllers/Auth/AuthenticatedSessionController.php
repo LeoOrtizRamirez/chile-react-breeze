@@ -40,9 +40,19 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
 
-        $url_intended = str_replace("http","https",session()->all()['url']['intended']);
-        session()->put('url.intended', $url_intended);
-        return Redirect::intended();
+        $url_intended = str_replace("http", "https", session()->all()['url']['intended']);
+        $find   = '/contratos?fecha_publicacion=';
+        $contain = strpos($url_intended, $find);
+
+        if($contain === true){
+            session()->put('url.intended', $url_intended);
+            return Redirect::intended();
+        }else{
+            return Redirect::route('contratos.index');
+        }
+
+        
+        
     }
 
     /**
