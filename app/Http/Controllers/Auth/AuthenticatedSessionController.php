@@ -13,6 +13,8 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 
+
+
 class AuthenticatedSessionController extends Controller
 {
     /**
@@ -36,6 +38,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
+        URL::forceScheme('https');
         $request->authenticate();
 
         $request->session()->regenerate();
@@ -44,6 +47,7 @@ class AuthenticatedSessionController extends Controller
 
         //return redirect()->intended(RouteServiceProvider::HOME);
 
+        dd(Redirect::intended());
         return Redirect::intended();
 
         //return Redirect::to(URL::previous());
