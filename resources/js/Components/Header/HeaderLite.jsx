@@ -7,7 +7,9 @@ import TextInput from '@/Components/TextInput';
 import "../../../css/font-unicolor.css";
 import './HeaderLite.css';
 import '../../Layouts/Header.css';
-
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 import { useForm } from '@inertiajs/inertia-react';
 
 const HeaderLite = (props) => {
@@ -17,6 +19,7 @@ const HeaderLite = (props) => {
         password: '',
         remember: '',
     });
+
 
     const [inputClass, setInputClass] = useState("form-input-section__container-input")
     const [validForm, setValidForm] = useState(true)
@@ -59,162 +62,192 @@ const HeaderLite = (props) => {
 
 
     return (
+        <>
+            <div className="contenido_headerLite--margin-top">
+                <Navbar collapseOnSelect expand="lg" bg="white" variant="dark" className="container-headerPublica">
+                    <Container>
+                        <Navbar.Brand href="#home">
 
-        <div className="contenido_headerLite--margin-top">
-            <div className="container-headerLite">
-                <div className="flex justify-between items-center py-2">
-                    <a href="/" className="flex items-center img-header">
-                        <ApplicationLogoLici />
-                    </a>
-                    <div className="flex md:order-2 div-iniciar-secion">
-                        <ul className="mb-2 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 ">
+                            <a href="/" className="flex items-center">
+                                <ApplicationLogoLici />
+                            </a>
 
-                            {props.user.auth.user ? (
-                                <>
-                                    <li>
-                                        <a href={route("dashboard")} className="flex  items-center menu-header mx-1"> Dashboard</a>
-                                    </li>
-                                </>
-                            ) : (
-                                <>
+                        </Navbar.Brand>
+                        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
-                                    <li>
-                                        <a href='#' className="flex  items-center ml-4 text-iniciar" onClick={handleShow}>
-                                            <span className="mr-2 icon-login"></span>
-                                            Iniciar sesión
-                                        </a>
-                                    </li>
+                        <Navbar.Collapse id="responsive-navbar-nav">
+                            <Nav className="me-auto"
+                            >
+                                <Nav.Link className="menu-header" >
+                                </Nav.Link>
+                                <Nav.Link className="menu-header">
+                                </Nav.Link>
+                                <Nav.Link className="menu-header">
+                                </Nav.Link>
+                                <Nav.Link className="menu-header">
+                                </Nav.Link>
+                            </Nav>
+                            <Nav>
+                                <ul className="mb-2 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 ">
 
-                                    <li>
-                                        <a href={route("register")} className="flex  ml-4 text-probar ">
-                                            Regístrate gratis
-                                        </a>
-                                    </li>
-                                    <hr class="division-header"></hr>
-                                    <li>
-                                        <a href="/contacto" className="flex  items-center ml-4 text-contactanos" onClick={handleShow}>
-                                            <span className="mr-2 icon-contacto"></span>
-                                            Contáctanos
-                                        </a>
-                                    </li>
+                                    {props.user.auth.user ? (
+                                        <>
+                                            <Nav.Link href="#deets">
+                                                <li>
+                                                    <a href={route("dashboard")} className="flex  items-center menu-header mx-1">
+                                                        {props.user.auth.user.nombre_completo ?
+                                                            props.user.auth.user.nombre_completo
+                                                            :
+                                                            Dashboard
+                                                        }
+                                                    </a>
+                                                </li>
+                                            </Nav.Link>
 
-                                </>
-                            )}
+                                            <hr class="division-header header-publica"></hr>
+
+                                            <Nav.Link >
+                                                <li>
+                                                    <a href="#" className="flex ml-4 ">
+                                                        <ChileLogo />
+                                                    </a>
+                                                </li>
+                                            </Nav.Link>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Nav.Link >
+                                                <li>
+                                                    <a href='#' className="flex  items-center ml-4 text-iniciar" onClick={handleShow}>
+                                                        <span className="mr-2 icon-login"></span>
+                                                        Iniciar sesión
+                                                    </a>
+                                                </li>
+                                            </Nav.Link>
+
+                                            <Nav.Link href={route("register")} className="flex  ml-4 text-probar " >
+                                                Regístrate gratis
+                                            </Nav.Link>
+
+                                            <hr class="division-header header-lite"></hr>
+
+                                            <Nav.Link href="/contacto" className="flex  items-center ml-4 text-contactanos" >
 
 
+                                                <span className="mr-2 icon-contacto"></span>
+                                                Contáctanos
 
-
-                        </ul>
-                        <button data-collapse-toggle="navbar-sticky" type="button" className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
-                            <span className="sr-only">Open main menu</span>
-                            <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>
-                        </button>
-                    </div>
-
-
-                </div>
-                <Modal show={show} onHide={handleClose} id="loginModal" className="modal-dialog-centered">
-                    <Modal.Header closeButton>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <div className="login">
-                            <div className="login__welcome">
-                                <div className="login__welcome-content">
-                                    <p className="login__welcome-content-titulo">
-                                        <span className="login__welcome-content-titulo login__welcome-content-titulo">¡Hola!</span>
-                                        <span className="login__welcome-content-titulo login__welcome-content-titulo--modifier">Bienvenido</span>
-                                    </p>
-                                    <p className="login__welcome-content-texto"> ¿Aún no tienes cuenta? <a className="login__infoLLink"> Regístrate gratis </a>
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="login__errors">
-                                <form onSubmit={submit}>
-                                    {!validForm &&
-                                        <div className="login__errors-div">
-                                            <p className="login__errors-div-title-p">
-                                                <strong>Datos de ingreso</strong>
-                                                <span className="login__errors-div-title-p-span">
-                                                    <strong> incorrectos</strong>
-                                                </span>
-                                            </p>
-                                            <p className="login__errors-div-title-p login__errors-div-title-p--modifier"> Dirección de correo electrónico o
-                                                contraseña incorrectos. Si no tienes una cuenta, regístrate gratis. </p>
-                                            <div>
-                                                <hr className="widthDivider" />
-                                            </div>
-                                        </div>
-                                    }
-                                    <div className="form-input-section blockEmail">
-                                        <p className="form-input-section__title">
-                                            <span className="icon-mail form-input-section__title-span"></span>
-                                            <strong>Correo electrónico:</strong>
-                                        </p>
-                                        <div className="form-input-section__container">
-                                            <TextInput
-                                                id="email"
-                                                type="email"
-                                                name="email"
-                                                value={data.email}
-                                                className={inputClass}
-                                                autoComplete="username"
-                                                isFocused={true}
-                                                placeholder="Ingresa tu correo electrónico"
-                                                handleChange={onHandleChange}
-                                            />
-                                            {!validForm &&
-                                                <span className="form-input-section__container-span form-input-section__container-span form-input-section__container-span--modifier icon-alert"></span>
-                                            }
-                                        </div>
-                                    </div>
-                                    <div className="form-input-section blockPass">
-                                        <p className="form-input-section__title"><span
-                                            className="icon-lock form-input-section__title-span"></span><strong>Contraseña:</strong></p>
-                                        <div className="form-input-section__container">
-                                            <TextInput
-                                                id="password"
-                                                type="password"
-                                                name="password"
-                                                placeholder="Ingresa tu contraseña"
-                                                value={data.password}
-                                                className={inputClass}
-                                                autoComplete="current-password"
-                                                handleChange={onHandleChange}
-                                            />
-                                            {!validForm ?
-                                                <span className="form-input-section__container-span form-input-section__container-span form-input-section__container-span--modifier icon-alert"></span>
-                                                :
-                                                <span
-                                                    className={`form-input-section__container-span icon-show`}
-                                                    ref={refPasswordIcon}
-                                                    onClick={handleTogglePasswordIcon}
-                                                ></span>
-                                            }
-
-                                        </div>
-                                    </div>
-                                    <div className="login__season">
-                                        <div><label className="blockCheck"><span style={{ fontWeight: 'normal' }}> No cerrar sesión </span>
-                                            <input type="checkbox" id="checkbox" name="checkbox-1" value="accepted" unchecked-value="not_accepted" />
-                                            <div className="b-input">
-                                            </div>
-                                        </label>
-                                        </div><a className="login__infoLLink login__infoLLink--modifier"> ¿Olvidaste tu contraseña? </a>
-                                    </div>
-                                    <div className="blockBtn">
-                                        <button type="submit" className="blockBtn__content" processing={processing}> Iniciar sesión </button>
-                                        <a className="d-none login__infoLLink--mobile login__infoLLink--modifier"> ¿Olvidaste tu contraseña? </a>
-                                    </div>
-                                    <input type="hidden" name="_token" value="wSHAkDvlYF9Y2pLYuYrummdIKaqHwbHqBxrCSL9o" />
-                                </form>
+                                            </Nav.Link>
+                                        </>
+                                    )}
+                                </ul>
+                            </Nav>
+                        </Navbar.Collapse>
+                    </Container>
+                </Navbar>
+            </div>
+            <Modal show={show} onHide={handleClose} id="loginModal" className="modal-dialog-centered">
+                <Modal.Header closeButton>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="login">
+                        <div className="login__welcome">
+                            <div className="login__welcome-content">
+                                <p className="login__welcome-content-titulo">
+                                    <span className="login__welcome-content-titulo login__welcome-content-titulo">¡Hola!</span>
+                                    <span className="login__welcome-content-titulo login__welcome-content-titulo--modifier">Bienvenido</span>
+                                </p>
+                                <p className="login__welcome-content-texto"> ¿Aún no tienes cuenta? <a className="login__infoLLink"> Regístrate gratis </a>
+                                </p>
                             </div>
                         </div>
-                    </Modal.Body>
-                    <Modal.Footer>
-                    </Modal.Footer>
-                </Modal>
-            </div>
-        </div>
+                        <div className="login__errors">
+                            <form onSubmit={submit}>
+                                {!validForm &&
+                                    <div className="login__errors-div">
+                                        <p className="login__errors-div-title-p">
+                                            <strong>Datos de ingreso</strong>
+                                            <span className="login__errors-div-title-p-span">
+                                                <strong> incorrectos</strong>
+                                            </span>
+                                        </p>
+                                        <p className="login__errors-div-title-p login__errors-div-title-p--modifier"> Dirección de correo electrónico o
+                                            contraseña incorrectos. Si no tienes una cuenta, regístrate gratis. </p>
+                                        <div>
+                                            <hr className="widthDivider" />
+                                        </div>
+                                    </div>
+                                }
+                                <div className="form-input-section blockEmail">
+                                    <p className="form-input-section__title">
+                                        <span className="icon-mail form-input-section__title-span"></span>
+                                        <strong>Correo electrónico:</strong>
+                                    </p>
+                                    <div className="form-input-section__container">
+                                        <TextInput
+                                            id="email"
+                                            type="email"
+                                            name="email"
+                                            value={data.email}
+                                            className={inputClass}
+                                            autoComplete="username"
+                                            isFocused={true}
+                                            placeholder="Ingresa tu correo electrónico"
+                                            handleChange={onHandleChange}
+                                        />
+                                        {!validForm &&
+                                            <span className="form-input-section__container-span form-input-section__container-span form-input-section__container-span--modifier icon-alert"></span>
+                                        }
+                                    </div>
+                                </div>
+                                <div className="form-input-section blockPass">
+                                    <p className="form-input-section__title"><span
+                                        className="icon-lock form-input-section__title-span"></span><strong>Contraseña:</strong></p>
+                                    <div className="form-input-section__container">
+                                        <TextInput
+                                            id="password"
+                                            type="password"
+                                            name="password"
+                                            placeholder="Ingresa tu contraseña"
+                                            value={data.password}
+                                            className={inputClass}
+                                            autoComplete="current-password"
+                                            handleChange={onHandleChange}
+                                        />
+                                        {!validForm ?
+                                            <span className="form-input-section__container-span form-input-section__container-span form-input-section__container-span--modifier icon-alert"></span>
+                                            :
+                                            <span
+                                                className={`form-input-section__container-span icon-show`}
+                                                ref={refPasswordIcon}
+                                                onClick={handleTogglePasswordIcon}
+                                            ></span>
+                                        }
+
+                                    </div>
+                                </div>
+                                <div className="login__season">
+                                    <div><label className="blockCheck"><span style={{ fontWeight: 'normal' }}> No cerrar sesión </span>
+                                        <input type="checkbox" id="checkbox" name="checkbox-1" value="accepted" unchecked-value="not_accepted" />
+                                        <div className="b-input">
+                                        </div>
+                                    </label>
+                                    </div><a className="login__infoLLink login__infoLLink--modifier"> ¿Olvidaste tu contraseña? </a>
+                                </div>
+                                <div className="blockBtn">
+                                    <button type="submit" className="blockBtn__content" processing={processing}> Iniciar sesión </button>
+                                    <a className="d-none login__infoLLink--mobile login__infoLLink--modifier"> ¿Olvidaste tu contraseña? </a>
+                                </div>
+                                <input type="hidden" name="_token" value="wSHAkDvlYF9Y2pLYuYrummdIKaqHwbHqBxrCSL9o" />
+                            </form>
+                        </div>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                </Modal.Footer>
+            </Modal>
+
+        </>
     )
 }
 
