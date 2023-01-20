@@ -16,10 +16,12 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         
-        URL::forceScheme('https');
+        //URL::forceScheme('https');
         //dd($request);
         if (! $request->expectsJson()) {
+            //return redirect()->secure('/login');
             return route('login');
+            return redirect('https://licitacioneschile.info/login');
         }
     }
 }
