@@ -13,7 +13,7 @@ const Banner = (props) => {
     const [saludo, setSaludo] = useState("")
     const [saludoIcon, setSaludoIcon] = useState("")
 
-    const contratosFiltrados = 'https://licitacioneschile.info/contratos?fecha_publicacion=' + new Date().toISOString().slice(0, 10)
+    const contratosFiltrados = '/contratos?fecha_publicacion=' + new Date().toISOString().slice(0, 10)
 
     async function check() {
         setDate(new Date().toLocaleTimeString())
@@ -46,7 +46,7 @@ const Banner = (props) => {
                             </div>
                             <BotonRegistrarse 
                             texto={"Regístrate y obtén ¡30 días gratis!"} 
-                            textoHover={"Regístrate y obtén 30 días de servicio"}
+                            textoHover={"Registrarme 30 días de servicio gratis"}
                             color={"white"}
                             colorHover={"#73c914"}
                              />
