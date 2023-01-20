@@ -43,9 +43,11 @@ class AuthenticatedSessionController extends Controller
         $url_intended = str_replace("http", "https", session()->all()['url']['intended']);
 
         if (str_contains($url_intended, '/contratos?fecha_publicacion=')) {
+            dd("si");
             session()->put('url.intended', $url_intended);
             return Redirect::intended();
         } else {
+            dd("no");
             return Redirect::route('contratos.index');
         }
 
