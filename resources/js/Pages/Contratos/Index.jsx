@@ -71,8 +71,7 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
             primerElemento = contratos[0].id
         }
         
-        var idUsuarioNext = ultimoElemento;
-    
+        var idUsuarioNext = ultimoElemento
         const itemsPagina = 30;
         const totalElementos = totalContratos;
         const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;

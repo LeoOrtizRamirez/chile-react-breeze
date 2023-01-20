@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -43,7 +44,9 @@ class AuthenticatedSessionController extends Controller
 
         //return redirect()->intended(RouteServiceProvider::HOME);
 
-        return Redirect::intended();
+        //return Redirect::intended();
+
+        return Redirect::to(URL::previous());
     }
 
     /**
