@@ -1,0 +1,26 @@
+.seccion__404-titulo {
+    font-size: 14px;
+    font-weight: 700;
+    font-family: Poppins;
+    color: #c9003d;
+    margin-bottom: 0;
+}
+.seccion__404-subtitulo {
+    font-size: 40px;
+    font-weight: 700;
+    font-family: Poppins;
+    color: #686868;
+    margin-bottom: 30px;
+}
+
+.seccion__404-mensaje {
+    font-size: 20px;
+    font-weight: 400;
+    font-family: Roboto;
+    color: #686868;
+    text-align: justify;
+}
+
+.container.body {
+    padding: 5% 0%;
+}
