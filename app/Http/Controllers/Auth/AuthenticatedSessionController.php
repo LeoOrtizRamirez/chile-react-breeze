@@ -41,7 +41,9 @@ class AuthenticatedSessionController extends Controller
 
         //return Redirect::route('contratos.index');
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        //return redirect()->intended(RouteServiceProvider::HOME);
+
+        return Redirect::intended();
     }
 
     /**
