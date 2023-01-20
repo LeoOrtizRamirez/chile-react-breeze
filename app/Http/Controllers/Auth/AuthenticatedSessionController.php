@@ -23,7 +23,6 @@ class AuthenticatedSessionController extends Controller
      */
     public function create()
     {
-        URL::forceScheme('https');
         return Inertia::render('Auth/Login', [
             'canResetPassword' => Route::has('password.request'),
             'status' => session('status'),
@@ -38,7 +37,6 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        URL::forceScheme('https');
         $request->authenticate();
 
         $request->session()->regenerate();
@@ -47,7 +45,9 @@ class AuthenticatedSessionController extends Controller
 
         //return redirect()->intended(RouteServiceProvider::HOME);
 
-        //dd(URL::intented());
+        //dd(Redirect::back());
+
+        
         return Redirect::intended();
 
         //return Redirect::to(URL::previous());
