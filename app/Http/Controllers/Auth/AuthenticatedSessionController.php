@@ -46,11 +46,8 @@ class AuthenticatedSessionController extends Controller
             dd("si");
             session()->put('url.intended', $url_intended);
             return Redirect::intended();
-        } else {
-            dd("no");
-            return Redirect::route('contratos.index');
         }
-
+        return Redirect::route('contratos.index');
         
         
     }
