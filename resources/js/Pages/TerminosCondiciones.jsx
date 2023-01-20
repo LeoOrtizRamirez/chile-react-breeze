@@ -8,6 +8,9 @@ import "../../css/estilos-terminos-condiciones.css";
 import Nav from "react-bootstrap/Nav";
 
 export const TerminosCondiciones = (props) => {
+
+
+    
     const [key, setKey] = useState("home");
 
     const print = (val) => {
