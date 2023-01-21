@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
-use Illuminate\Support\Facades\URL;
 
 class Authenticate extends Middleware
 {
@@ -15,13 +14,8 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        
-        //URL::forceScheme('https');
-        //dd($request);
         if (! $request->expectsJson()) {
-            //return redirect()->secure('/login');
             return route('login');
-            return redirect('https://licitacioneschile.info/login');
         }
     }
 }

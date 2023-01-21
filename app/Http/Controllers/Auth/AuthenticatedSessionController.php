@@ -40,9 +40,13 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
 
-        $url_intended = str_replace("http","https",session()->all()['url']['intended']);
-        session()->put('url.intended', $url_intended);
-        return Redirect::intended();
+        if(isset($request->session()->all()['url']['intended'])){
+            $url_intended = str_replace("http", "https", $request->session()->all()['url']['intended']);
+            session()->put('url.intended', $url_intended);
+            return Redirect::intended();
+        }else{
+            return Redirect::route('contratos.index');
+        }
     }
 
     /**
