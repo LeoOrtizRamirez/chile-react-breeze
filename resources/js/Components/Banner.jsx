@@ -55,7 +55,11 @@ const Banner = (props) => {
                                     <ul className="row">
                                         <li className="fraja-fuentes__item">
                                             <div className="fraja-fuentes__item-hour">
-                                                <i className={saludoIcon}></i>
+                                                {saludoIcon == "bi bi-cloud-sun-fill c-blue-ligth" ?
+                                                    <img src="/icons/multicolor/afternoon.svg" alt="icono-buenas-tardes"/>
+                                                :
+                                                    <i className={saludoIcon}></i>
+                                                }
                                                 <span className="fraja-fuentes__item-saludo">
                                                     {saludo}
                                                 </span>
