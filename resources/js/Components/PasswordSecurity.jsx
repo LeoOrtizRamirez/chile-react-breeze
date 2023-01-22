@@ -14,9 +14,9 @@ const PasswordSecurity = (props, onHandleChange) => {
     const [securityMuyFuerte, setsecurityMuyFuerte] = useState(false);
 
     let refPasswordIcon = useRef();
+    let refPasswordInput = useRef();
 
     const checkSecurity = (words) => {
-        format();
         words = String(words).trim();
         const regxs = {
             lower: /^[a-z?]+$/,
@@ -104,15 +104,6 @@ const PasswordSecurity = (props, onHandleChange) => {
         }
     };
 
-    const format = () => {
-        /*
-        setsecurityMinima(false)
-        setsecurityMedia(false)
-        setsecurityFuerte(false)
-        setsecurityMuyFuerte(false)
-        */
-    };
-
     const handleInputChange = (event) => {
         checkSecurity(event.target.value);
         props.onHandleChange(event);
@@ -125,22 +116,24 @@ const PasswordSecurity = (props, onHandleChange) => {
     };
 
     const handleTogglePasswordIcon = (e) => {
-        let input_password = document.querySelector(
-            ".contenido__password-div input[name='password']"
-        ); //PENDIENTE REVISAR COMO SE IMPLEMENTA POR MEDIO DE REFERENCIA
-        if (
-            refPasswordIcon.current.className ==
-            "contenido__password-div-icon icon-show"
-        ) {
-            refPasswordIcon.current.className =
-                "contenido__password-div-icon icon-hide";
-            input_password.type = "text";
-            input_password.placeholder = "Ingresa tu contraseña";
-        } else {
-            refPasswordIcon.current.className =
-                "contenido__password-div-icon icon-show";
-            input_password.type = "password";
-            input_password.placeholder = "Contraseña1234";
+        if (refPasswordIcon.current.className == "contenido__password-div-icon icon-show") {
+            refPasswordIcon.current.className = "contenido__password-div-icon icon-hide";
+            refPasswordInput.current.type = "text";
+            refPasswordInput.current.placeholder = "Ingresa tu contraseña";
+        } else if(refPasswordIcon.current.className == "contenido__password-div-icon icon-hide"){
+            refPasswordIcon.current.className = "contenido__password-div-icon icon-show";
+            refPasswordInput.current.type = "password";
+            refPasswordInput.current.placeholder = "Contraseña1234";
+        }else{
+            if(refPasswordInput.current.type == "text"){
+                refPasswordInput.current.type = "password";
+                refPasswordInput.current.placeholder = "Contraseña1234";
+            }else{
+                refPasswordInput.current.type = "text";
+                refPasswordInput.current.placeholder = "Ingresa tu contraseña";
+            }
+            
+            
         }
     };
 
@@ -148,22 +141,23 @@ const PasswordSecurity = (props, onHandleChange) => {
         <>
             <div className="contenido__password">
                 <div className="contenido__password-div">
-                    <TextInput
+                    <input
                         placeholder="Ingresa tu contraseña"
-                        id="passwordNueva"
                         type="password"
                         name="password"
-                        /* value={data.password} */
-                        className="contenido__password-div-input"
-                        autocomplete="off"
-                        icon="icon-lock"
+                        className={`contenido__password-div-input ${props.errorIconStatus && "error-input"}`}
                         autoComplete="new-password"
-                        handleChange={handleInputChange}
+                        onChange={handleInputChange}
                         required
-                        style={{ width: 100 + "%;" }}
+                        ref={refPasswordInput}
                     />
-                    {props.errorIcon == true ?
-                        <span className="contenido__password-div-icon icon-alert error-icon"></span>
+                    {props.errorIconStatus ?
+                        <span 
+                            className="contenido__password-div-icon icon-alert error-icon"
+                            onClick={handleTogglePasswordIcon}
+                            ref={refPasswordIcon}
+                        >
+                        </span>
                     :
                         <span
                             className="contenido__password-div-icon icon-show"
