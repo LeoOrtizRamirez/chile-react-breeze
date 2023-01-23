@@ -5,24 +5,20 @@ import './RecuperarContrasena.css'
 import "../../css/font-unicolor.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fontsource/poppins";
-/* import Alert from 'react-bootstrap/Alert';
-import Button from 'react-bootstrap/Button'; */
-import '../../css/estilos-alertas.css'
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Toast from 'react-bootstrap/Toast';
+import ToastContainer from 'react-bootstrap/ToastContainer';
+import '../../css/estilos-toast.css'
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
 import PasswordSecurity from '@/Components/PasswordSecurity';
 
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
-import Alertas from '@/Components/Alertas';
 
 const RecuperarContrasena = (props) => {
-    const notify = () => {
-        toast.error("La contraseña debe tener mínimo 6 carácteres!", {
-          position: toast.POSITION.BOTTOM_LEFT
-        });
-      };
+    const [showToast, setShowToast] = useState(false);
+    const [positionToast, setPositionToast] = useState('bottom-start');
     const { data, setData, post, get, processing, errors, reset, } = useForm({
         email: props.email,
         token: props.token,
@@ -35,7 +31,6 @@ const RecuperarContrasena = (props) => {
     const [valid, setValid] = useState(false)
     const [errorIconStatus, setErrorIconStatus] = useState(false)
     const [passwordEquals, setPasswordEquals] = useState(true)
-    const [showAlert, setShowAlert] = useState(true);
 
     const onHandleChange = (event) => {
         if (event.target.value != "") {
@@ -70,8 +65,8 @@ const RecuperarContrasena = (props) => {
 
     const submit = (e) => {
         e.preventDefault();
-        if(data.password.length < 6){
-            notify()
+        if (data.password.length < 6) {
+            setShowToast(true)
         }
         if (data.password == data.password2) {
             refPasswordConfirmar.current.classList.remove("error-input")
@@ -102,7 +97,33 @@ const RecuperarContrasena = (props) => {
 
     return (
         <>
-            <ToastContainer />
+            <ToastContainer className="p-3" position={positionToast}>
+                <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
+                    <Toast.Body>
+                        <Row className="align-items-center">
+                            <Col md={1}>
+                                <span className='toast-border'></span>
+                            </Col>
+                            <Col md={2}>
+                                <span className='toast-icon toast-danger'>
+                                    <span className='icon-error'></span>
+                                </span>
+                            </Col>
+
+                            <Col md={8}>
+                                <p>La contraseña debe tener mínimo 6 carácteres.</p>
+                            </Col>
+                            <Col md={1} className="d-flex">
+                                <button
+                                    type="button"
+                                    class="icon-close m-auto"
+                                    onClick={() => setShowToast(false)}
+                                />
+                            </Col>
+                        </Row>
+                    </Toast.Body>
+                </Toast>
+            </ToastContainer>
             <div id="recuperar-contrasena-view">
                 <section className="recuperar-contrasena--section"><video autoPlay="autoplay" muted="muted" loop="loop"
                     src="/public/video/Mapa contraseña.webm"></video>
@@ -166,12 +187,8 @@ const RecuperarContrasena = (props) => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="content__form-nivel">
-
-                                            </div>
+                                            <div className="content__form-nivel"></div>
                                         </div>
-
-
                                         {passwordEquals ?
                                             <div className="content__body-button">
                                                 <button
@@ -190,11 +207,6 @@ const RecuperarContrasena = (props) => {
                                         }
 
                                     </form>
-
-
-
-
-
                                 </div>
                                 <hr className="linea__divisoria" />
                                 <div className="content__footer">
@@ -212,21 +224,6 @@ const RecuperarContrasena = (props) => {
                     </div>
                 </section>
             </div>
-
-            {/* {showAlert &&
-                <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
-                    <Alert.Heading>
-                    <span className="circle">
-                        <span className="icon-alert"></span>
-                    </span>
-                        Minimo 6 caracteres
-                    </Alert.Heading>
-                </Alert>
-            } */}
-
-            
-
-
         </>
     )
 }

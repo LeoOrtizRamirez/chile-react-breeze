@@ -11,7 +11,7 @@ export const Footer = () => {
                     rel="stylesheet"
                 ></link>
 
-                <div className="container-flex ">
+                <div className="container container-flex ">
                     <div className="size-msj">
                         <span className="typography-msj font-bold">
                             Un mundo de <br />
@@ -24,73 +24,68 @@ export const Footer = () => {
                         <h2 className="typography-support-politics font-bold">
                             Soporte
                         </h2>
-                        <ul className="text-footer support-text">
-                            <li className="support-text">
+                        <ul className="">
+                            <li className="text-footer">
                                 <a
                                     href="mailto:servicioalciente@licitaciones.info?Subject=Interesado%20en%20recibir%20mas%20informacion"
-                                    className="no-underline hover:underline"
+                                    className=""
                                 >
+                                    {" "}
                                     servicioalcliente@licitaciones.info
                                 </a>
                             </li>
-                            <li className="">
-                                <a
-                                    href="tel:+576015086155"
-                                    className="no-underline hover:underline"
-                                >
+                            <li className="text-footer">
+                                <a href="tel:+576015086155" className="">
                                     +57 601 5086155
                                 </a>
                             </li>
-                            <li className="">
-                                <a
-                                    href="tel:+573103708276"
-                                    className="no-underline hover:underline"
-                                >
-                                    +57 310 370 82 76
+                            <li className="text-footer">
+                                <a href="tel:+573103708276" className="">
+                                    +57 310 370 8276
                                 </a>
                             </li>
-                            <li className="">
+                            <li className="text-footer">
                                 <a
                                     href="https://www.google.com/maps/place/Licitaciones.Info/@5.0508836,-75.484211,15z/data=!4m5!3m4!1s0x0:0x6150198db5afae40!8m2!3d5.0508836!4d-75.484211"
-                                    className="no-underline hover:underline"
+                                    className=""
                                 >
                                     Cra 23 # 70a - 44
                                 </a>
                             </li>
-                            <li className="">
+                            <li className="text-footer">
                                 <span>Manizales, Colombia</span>
                             </li>
                         </ul>
                     </div>
 
-                    <div className="size-politics text-footer">
+                    <div className="size-politics">
                         <h2 className="typography-support-politics font-bold">
                             Políticas
                         </h2>
                         <ul>
-                            <li>
+                            <li className="text-footer">
                                 <a
                                     // target="_blank"
                                     href={route("politicasp")}
-                                    className="no-underline hover:underline support-text"
+                                    className=""
                                 >
                                     Política de privacidad
                                 </a>
                             </li>
-                            <li>
+                            <li className="text-footer">
                                 <a
                                     // target="_blank"
                                     href="/terminos-condiciones"
-                                    className="no-underline hover:underline support-text"
+                                    className=""
                                 >
                                     Términos y condiciones
                                 </a>
                             </li>
-                            <li>
+                            <li className="text-footer">
                                 <a
                                     // target="_blank"
                                     href={route("politicasc")}
-                                    className="no-underline hover:underline support-text"
+                                    className=""
                                 >
                                     Política de cookies
                                 </a>

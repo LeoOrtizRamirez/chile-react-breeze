@@ -53,7 +53,7 @@ export const ModalTC = ({ showTC, handleCloseTC }) => {
                     href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto&display=swap"
                     rel="stylesheet"
                 ></link>
-                <MDBContainer className="container">
+                <MDBContainer className="modal-tc">
                     <MDBRow>
                         <div className="container-termcond">
                             <div className="termcond">
@@ -84,8 +84,8 @@ export const ModalTC = ({ showTC, handleCloseTC }) => {
                                             <strong>
                                                 &gt;&nbsp;&nbsp;&nbsp;
                                             </strong>
-                                            Condiciones generales <br /> de
-                                            uso del servicio
+                                            Condiciones generales <br /> de uso
+                                            del servicio
                                         </MDBScrollspyLink>
                                         <hr />
                                         <MDBScrollspyLink targetRef={niveles}>

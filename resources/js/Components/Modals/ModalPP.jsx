@@ -39,7 +39,7 @@ export const ModalPP = ({ showPP, handleClosePP }) => {
                     href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto&display=swap"
                     rel="stylesheet"
                 ></link>
-                <MDBContainer className="container">
+                <MDBContainer className="modal-pp">
                     <MDBRow>
                         <div className="container-politicspri">
                             <div className="politicspri">
