@@ -135,7 +135,7 @@ const Index = ({ auth, planes }) => {
                                                     plan.id
                                                 )}
                                             >
-                                                <img src="/icons/multicolor/toggle-on.svg" alt="" className="m-auto" />
+                                                <img src="/public/icons/multicolor/toggle-on.svg" alt="" className="m-auto" />
                                             </Link>
                                         ) : (
                                             <Link
@@ -144,7 +144,7 @@ const Index = ({ auth, planes }) => {
                                                     plan.id
                                                 )}
                                             >
-                                                <img src="/icons/multicolor/toggle-off.svg" alt="" className="m-auto" />
+                                                <img src="/public/icons/multicolor/toggle-off.svg" alt="" className="m-auto" />
                                             </Link>
                                         )}
                                     </td>
