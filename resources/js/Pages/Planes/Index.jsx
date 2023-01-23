@@ -81,16 +81,14 @@ const Index = ({ auth, planes }) => {
                                 </span>
                             </a>
 
-
+                            {openCreateModal && (
+                                <CreateModal
+                                    openCreateModal={openCreateModal}
+                                    handleSearch={handleSearch}
+                                />
+                            )}
                         </div>
-
                     </div>
-                    {openCreateModal && (
-                        <CreateModal
-                            openCreateModal={openCreateModal}
-                            handleSearch={handleSearch}
-                        />
-                    )}
                     <table className="w-full bg-white border tabla ">
                         <thead
                             className="cabecera-tabla "
@@ -140,11 +138,8 @@ const Index = ({ auth, planes }) => {
                                                     "planes.status",
                                                     plan.id
                                                 )}
-                                                className="btn btn-danger btn-sm"
                                             >
-                                                <span className="text-white iconos-tamano-margen align-middle">
-                                                    cancel
-                                                </span>
+                                                <img src="/icons/multicolor/toggle-on.svg" alt="" className="m-auto"/>
                                             </Link>
                                         ) : (
                                             <Link
@@ -152,11 +147,8 @@ const Index = ({ auth, planes }) => {
                                                     "planes.status",
                                                     plan.id
                                                 )}
-                                                className="btn btn-success btn-sm"
                                             >
-                                                <span className="text-white material-symbols-outlined iconos-tamano-margen align-middle">
-                                                    check
-                                                </span>
+                                                <img src="/icons/multicolor/toggle-off.svg" alt="" className="m-auto"/>
                                             </Link>
                                         )}
                                     </td>
