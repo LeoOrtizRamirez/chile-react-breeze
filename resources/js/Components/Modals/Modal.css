@@ -1,0 +1,3 @@
+.fade.modal-backdrop.show {
+    --bs-backdrop-bg: gray !important;
+}

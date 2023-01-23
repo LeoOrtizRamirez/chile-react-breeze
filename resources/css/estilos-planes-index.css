@@ -106,7 +106,7 @@ ul.lista-opciones.margen-nav > li {
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: #00a1c9;
+    color: #00a1c9 !important;
     font-weight: bold;
     font-size: 22px;
     justify-content: space-between;
