@@ -24,20 +24,40 @@ export const Footer = () => {
                         <h2 className="typography-support-politics font-bold">
                             Soporte
                         </h2>
-                        <ul>
+                        <ul className="text-footer support-text">
                             <li className="support-text">
-                                <span>servicioalcliente@licitaciones.info</span>
+                                <a
+                                    href="mailto:servicioalciente@licitaciones.info?Subject=Interesado%20en%20recibir%20mas%20informacion"
+                                    className="no-underline hover:underline"
+                                >
+                                    servicioalcliente@licitaciones.info
+                                </a>
                             </li>
-                            <li className="support-text">
-                                <span>+57 601 5086155</span>
+                            <li className="">
+                                <a
+                                    href="tel:+576015086155"
+                                    className="no-underline hover:underline"
+                                >
+                                    +57 601 5086155
+                                </a>
                             </li>
-                            <li className="support-text">
-                                <span>+57 310 370 82 76</span>
+                            <li className="">
+                                <a
+                                    href="tel:+573103708276"
+                                    className="no-underline hover:underline"
+                                >
+                                    +57 310 370 82 76
+                                </a>
                             </li>
-                            <li className="support-text">
-                                <span>Cra 23 # 70a - 44</span>
+                            <li className="">
+                                <a
+                                    href="https://www.google.com/maps/place/Licitaciones.Info/@5.0508836,-75.484211,15z/data=!4m5!3m4!1s0x0:0x6150198db5afae40!8m2!3d5.0508836!4d-75.484211"
+                                    className="no-underline hover:underline"
+                                >
+                                    Cra 23 # 70a - 44
+                                </a>
                             </li>
-                            <li className="support-text">
+                            <li className="">
                                 <span>Manizales, Colombia</span>
                             </li>
                         </ul>
@@ -50,7 +70,7 @@ export const Footer = () => {
                         <ul>
                             <li>
                                 <a
-                                    target="_blank"
+                                    // target="_blank"
                                     href={route("politicasp")}
                                     className="no-underline hover:underline support-text"
                                 >
@@ -59,7 +79,7 @@ export const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    target="_blank"
+                                    // target="_blank"
                                     href="/terminos-condiciones"
                                     className="no-underline hover:underline support-text"
                                 >
@@ -68,7 +88,7 @@ export const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    target="_blank"
+                                    // target="_blank"
                                     href={route("politicasc")}
                                     className="no-underline hover:underline support-text"
                                 >

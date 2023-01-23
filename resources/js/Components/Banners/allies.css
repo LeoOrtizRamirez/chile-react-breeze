@@ -11,7 +11,5 @@
 img {
     object-fit: scale-down;
     width: 75%;
-    /* height: 80%; */
-    justify-content: center;
-    margin-left: 10px;
+    margin-left: 13px;
 }
