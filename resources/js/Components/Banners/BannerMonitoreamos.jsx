@@ -26,7 +26,7 @@ export const BannerMonitoreamos = () => {
                 <div>
                     <BotonRegistrarse
                         texto={"Regístrate y obtén ¡30 días gratis!"}
-                        textoHover={"Regístrate y obtén 30 días de servicio"}
+                        textoHover={"Registrarme 30 días de servicio gratis"}
                         color={"white"}
                         colorHover={"#73c914"}
                     />
