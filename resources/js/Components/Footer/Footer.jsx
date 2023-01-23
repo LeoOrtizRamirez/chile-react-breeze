@@ -11,7 +11,7 @@ export const Footer = () => {
                     rel="stylesheet"
                 ></link>
 
-                <div className="container-flex ">
+                <div className="container container-flex ">
                     <div className="size-msj">
                         <span className="typography-msj font-bold">
                             Un mundo de <br />
