@@ -5,8 +5,8 @@ import './RecuperarContrasena.css'
 import "../../css/font-unicolor.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fontsource/poppins";
-import Alert from 'react-bootstrap/Alert';
-import Button from 'react-bootstrap/Button';
+/* import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button'; */
 import '../../css/estilos-alertas.css'
 
 import { ToastContainer, toast } from 'react-toastify';
