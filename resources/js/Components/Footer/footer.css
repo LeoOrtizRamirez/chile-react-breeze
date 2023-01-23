@@ -7,7 +7,7 @@ footer {
         rgba(0, 161, 201, 1) 100%
     );
     height: 420px;
-    width: 100vw;
+    width: auto;
 }
 
 .container {
@@ -63,11 +63,19 @@ footer {
     text-align: left;
 }
 
-.text-footer a, .support-text span {
+.text-footer a,
+span {
     font-family: "Roboto", sans-serif;
     color: white;
     font-size: 14px;
     text-align: left;
+    line-height: 35px;
+    text-decoration: none;
+}
+
+.text-footer:hover a {
+    color: white;
+    text-decoration: underline;
 }
 
 .margin-text-lici {
