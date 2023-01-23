@@ -84,7 +84,7 @@ export const ModalTC = ({ showTC, handleCloseTC }) => {
                                             <strong>
                                                 &gt;&nbsp;&nbsp;&nbsp;
                                             </strong>
-                                            Condiciones generales<br></br> de
+                                            Condiciones generales <br /> de
                                             uso del servicio
                                         </MDBScrollspyLink>
                                         <hr />
