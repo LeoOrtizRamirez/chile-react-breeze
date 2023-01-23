@@ -39,17 +39,17 @@ export const BannerMonitoreamos = () => {
                             href="https://www.mercadopublico.cl/Home"
                             target="_blank"
                         >
-                            <Allies rutaImagen="/public/images/banerMonitoreamos/1.png" />
+                            <Allies rutaImagen="/images/banerMonitoreamos/1.png" />
                         </a>
                     </div>
                     <div className="grid-item2">
                         <a href="https://www.mop.gob.cl/" target="_blank">
-                        <Allies rutaImagen="/public/images/banerMonitoreamos/2.png" />
+                        <Allies rutaImagen="/images/banerMonitoreamos/2.png" />
                         </a>
                     </div>
                     <div className="grid-item1">
                         <a href="https://www.correos.cl/" target="_blank">
-                        <Allies rutaImagen="/public/images/banerMonitoreamos/3.png" />
+                        <Allies rutaImagen="/images/banerMonitoreamos/3.png" />
                         </a>
                     </div>
                     <div className="grid-item2">
@@ -57,17 +57,17 @@ export const BannerMonitoreamos = () => {
                             href="https://www.enami.cl/Pages/default.aspx"
                             target="_blank"
                         >
-                            <Allies rutaImagen="/public/images/banerMonitoreamos/4.png" />
+                            <Allies rutaImagen="/images/banerMonitoreamos/4.png" />
                         </a>
                     </div>
                     <div className="grid-item1">
                         <a href="https://www.efe.cl/" target="_blank">
-                        <Allies rutaImagen="/public/images/banerMonitoreamos/5.png" />
+                        <Allies rutaImagen="/images/banerMonitoreamos/5.png" />
                         </a>
                     </div>
                     <div className="grid-item1">
                         <a href="https://www.electricas.cl/" target="_blank">
-                        <Allies rutaImagen="/public/images/banerMonitoreamos/6.png" />
+                        <Allies rutaImagen="/images/banerMonitoreamos/6.png" />
                         </a>
                     </div>
                     <div className="grid-item2">
@@ -75,7 +75,7 @@ export const BannerMonitoreamos = () => {
                             href="https://www.portalminero.com/wp/informacion-de-negocios/"
                             target="_blank"
                         >
-                            <Allies rutaImagen="/public/images/banerMonitoreamos/7.png" />
+                            <Allies rutaImagen="/images/banerMonitoreamos/7.png" />
                         </a>
                     </div>
                     <div className="grid-item1">
@@ -83,7 +83,7 @@ export const BannerMonitoreamos = () => {
                             href="https://www.bcentral.cl/inicio"
                             target="_blank"
                         >
-                            <Allies rutaImagen="/public/images/banerMonitoreamos/8.png" />
+                            <Allies rutaImagen="/images/banerMonitoreamos/8.png" />
                         </a>
                     </div>
                     <div className="grid-item2">
@@ -91,12 +91,12 @@ export const BannerMonitoreamos = () => {
                             href="https://www.integra.cl/landing/"
                             target="_blank"
                         >
-                            <Allies rutaImagen="/public/images/banerMonitoreamos/9.png" />
+                            <Allies rutaImagen="/images/banerMonitoreamos/9.png" />
                         </a>
                     </div>
                     <div className="grid-item1">
                         <a href="https://www.buildbim.cl/" target="_blank">
-                        <Allies rutaImagen="/public/images/banerMonitoreamos/10.png" />
+                        <Allies rutaImagen="/images/banerMonitoreamos/10.png" />
                         </a>
                     </div>
                     <div className="grid-item1">
@@ -104,7 +104,7 @@ export const BannerMonitoreamos = () => {
                             href="https://www.corfo.cl/sites/cpp/homecorfo"
                             target="_blank"
                         >
-                            <Allies rutaImagen="/public/images/banerMonitoreamos/11.png" />
+                            <Allies rutaImagen="/images/banerMonitoreamos/11.png" />
                         </a>
                     </div>
                     <div className="grid-item2">
@@ -112,27 +112,27 @@ export const BannerMonitoreamos = () => {
                             href="http://www.fiscaliadechile.cl/Fiscalia/index.do"
                             target="_blank"
                         >
-                            <Allies rutaImagen="/public/images/banerMonitoreamos/12.png" />
+                            <Allies rutaImagen="/images/banerMonitoreamos/12.png" />
                         </a>
                     </div>
                     <div className="grid-item1">
                         <a href="https://www.ctg.com/" target="_blank">
-                        <Allies rutaImagen="/public/images/banerMonitoreamos/13.png" />
+                        <Allies rutaImagen="/images/banerMonitoreamos/13.png" />
                         </a>
                     </div>
                     <div className="grid-item2">
                         <a href="https://proexca.es/" target="_blank">
-                        <Allies rutaImagen="/public/images/banerMonitoreamos/14.png" />
+                        <Allies rutaImagen="/images/banerMonitoreamos/14.png" />
                         </a>
                     </div>
                     <div className="grid-item1">
                         <a href="https://www.undp.org/es" target="_blank">
-                        <Allies rutaImagen="/public/images/banerMonitoreamos/15-1.png" />
+                        <Allies rutaImagen="/images/banerMonitoreamos/15-1.png" />
                         </a>
                     </div>
                     <div className="grid-item1">
                         <a href="https://www.codelco.com/" target="_blank">
-                        <Allies rutaImagen="/public/images/banerMonitoreamos/16.png" />
+                        <Allies rutaImagen="/images/banerMonitoreamos/16.png" />
                         </a>
                     </div>
                     <div className="grid-item2">
@@ -140,17 +140,17 @@ export const BannerMonitoreamos = () => {
                             href="https://www.scotiabankcolpatria.com/"
                             target="_blank"
                         >
-                            <Allies rutaImagen="/public/images/banerMonitoreamos/17-1.png" />
+                            <Allies rutaImagen="/images/banerMonitoreamos/17-1.png" />
                         </a>
                     </div>
                     <div className="grid-item1">
                         <a href="https://www.econssachile.cl/" target="_blank">
-                        <Allies rutaImagen="/public/images/banerMonitoreamos/18.png" />
+                        <Allies rutaImagen="/images/banerMonitoreamos/18.png" />
                         </a>
                     </div>
                     <div className="grid-item2">
                         <a href="https://www.conadi.gob.cl/" target="_blank">
-                        <Allies rutaImagen="/public/images/banerMonitoreamos/19.png" />
+                        <Allies rutaImagen="/images/banerMonitoreamos/19.png" />
                         </a>
                     </div>
                     <div className="div-text-end">

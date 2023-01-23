@@ -1,5 +1,5 @@
 .container-monitor-size {
-    display: flex;
+display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     background-color: #dff3f862;
@@ -8,8 +8,7 @@
     -moz-border-radius: 25px;
     -ms-border-radius: 25px;
     -o-border-radius: 25px;
-    /* width: 1233px; */
-    height: 430px;
+    height: 475px;
     margin-top: 20px;
 }
 
@@ -46,8 +45,8 @@
     -moz-border-radius: 25px;
     -ms-border-radius: 25px;
     -o-border-radius: 25px;
-    height: 75px;
-    width: 75px;
+    height: 95px;
+    width: 95px;
     box-shadow: 0 0 0.25em 0.25em rgb(139 139 139 / 25%);
 }
 
@@ -55,8 +54,7 @@
     display: grid;
     grid-template-rows: 80px 80px 80px 80px;
     grid-template-columns: 80px 80px 80px 80px 80px;
-    gap: 20px 15px;
-    justify-items: center;
+    gap: 30px 33px;
     align-items: center;
     margin-top: 10px;
 }
@@ -91,9 +89,10 @@
     -moz-border-radius: 25px;
     -ms-border-radius: 25px;
     -o-border-radius: 25px;
-    height: 75px;
-    width: 75px;
-    box-shadow: 0 0 0.25em 0.25em rgba(139, 139, 139, 0.25);
+    height: 95px;
+    width: 95px;
+    box-shadow: 0 0 0.25em 0.25em rgb(139 139 139 / 25%);
+    margin-top: 16px;
 }
 
 .text-end-grid {
