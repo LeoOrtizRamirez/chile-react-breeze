@@ -1,4 +1,4 @@
-.content {
+.functionalities {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,10 +9,10 @@
 .container-functionalities {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     margin: 24px;
-    width: 1230px;
+    width: 97vw;
     height: 543px;
     border-radius: 25px;
     -webkit-border-radius: 25px;
@@ -30,16 +30,16 @@
 
 .container-functionalities-text {
     display: flex;
-    align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin-left: 50px;
+    margin-left: 150px;
 }
 
 .img-pantallas {
     width: 986px;
     height: 543px;
     overflow: hidden;
+    border-radius: 25px;
 }
 
 .img-pantallas img {
@@ -92,15 +92,12 @@
 
 .container-segment {
     display: grid;
-    grid-template-columns: repeat(2, 512px);
-    grid-template-rows: 390px repeat(2, 240px);
+    grid-template-columns: repeat(2, 650px);
+    grid-template-rows: 530px repeat(2, 240px);
     grid-column-gap: 50px;
-    /* grid-row-gap: 50px; */
     background-color: white;
-    width: 1230px;
-    /* align-items: center; */
+    align-items: center;
     justify-content: center;
-    /* border: solid red; */
 }
 
 .container-div {
@@ -181,10 +178,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    width: 1230px;
+    width: 97vw;
     background-color: #dadada2f;
     border-radius: 25px;
+    justify-content: space-evenly;
+    margin: 24px;
 }
 
 .workteam {
@@ -231,6 +229,7 @@
     flex-direction: row;
     justify-content: space-evenly;
     width: 1200px;
+    margin-bottom: 50px;
 }
 
 .workteam-psn {
@@ -265,7 +264,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex start;
-    width: 1230px;
+    /* width: 1230px; */
     background-color: white;
 }
 
@@ -351,11 +350,13 @@
 .container-chance {
     display: flex;
     flex-direction: row;
-    width: 1230px;
     height: 750px;
     background-color: #dadada2f;
     border-radius: 25px;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 75vw;
+    margin: 24px;
 }
 
 .change-flex {
@@ -408,19 +409,18 @@
 }
 
 .container-btn {
-    width: 1230px;
-    margin: 20px 0;
     height: 315px;
+    border-radius: 25px;
+    width: 75vw;
+    margin-bottom: 71px;
 }
 
 .container-baner-btn {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     text-align: center;
     position: relative;
-    bottom: 250px;
+    bottom: 290px;
+    width: 75vw;
+    margin: 24px;
 }
 
 .btn-flex {
