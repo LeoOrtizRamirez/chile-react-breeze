@@ -36,7 +36,7 @@ export const Funcionalidades = (props) => {
                             <BotonRegistrarse
                                 texto={"Regístrate y obtén ¡30 días gratis!"}
                                 textoHover={
-                                    "Regístrate y obtén 30 días de servicio"
+                                    "Registrarme 30 días de servicio gratis"
                                 }
                                 color={"white"}
                                 colorHover={"#00A1C9"}
@@ -375,7 +375,7 @@ export const Funcionalidades = (props) => {
                                             "Regístrate y obtén ¡30 días gratis!"
                                         }
                                         textoHover={
-                                            "Regístrate y obtén 30 días de servicio"
+                                            "Registrarme 30 días de servicio gratis"
                                         }
                                         color={"white"}
                                         colorHover={"#00A1C9"}

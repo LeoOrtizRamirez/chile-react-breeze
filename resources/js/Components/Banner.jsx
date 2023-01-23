@@ -46,7 +46,7 @@ const Banner = (props) => {
                             </div>
                             <BotonRegistrarse 
                             texto={"Regístrate y obtén ¡30 días gratis!"} 
-                            textoHover={"Registrarme 30 días de servicio gratis"}
+                            textoHover={"Regístrate y obtén 30 días de servicio"}
                             color={"white"}
                             colorHover={"#73c914"}
                              />

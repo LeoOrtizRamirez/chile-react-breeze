@@ -37,7 +37,7 @@ export default function Welcome(props) {
                         <div className="contenta-b">
                             <BotonRegistrarse
                                 texto={"Regístrate y obtén ¡30 días gratis!"}
-                                textoHover={"Regístrate y obtén 30 días de servicio"}
+                                textoHover={"Registrarme 30 días de servicio gratis"}
                                 color={"white"}
                                 colorHover={"#00A1C9"}
                             />
