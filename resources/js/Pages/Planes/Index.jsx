@@ -81,14 +81,16 @@ const Index = ({ auth, planes }) => {
                                 </span>
                             </a>
 
-                            {openCreateModal && (
-                                <CreateModal
-                                    openCreateModal={openCreateModal}
-                                    handleSearch={handleSearch}
-                                />
-                            )}
+
                         </div>
+
                     </div>
+                    {openCreateModal && (
+                        <CreateModal
+                            openCreateModal={openCreateModal}
+                            handleSearch={handleSearch}
+                        />
+                    )}
                     <table className="w-full bg-white border tabla ">
                         <thead
                             className="cabecera-tabla "
