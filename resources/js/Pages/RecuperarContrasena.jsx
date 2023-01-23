@@ -17,7 +17,7 @@ import PasswordSecurity from '@/Components/PasswordSecurity';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
 
 const RecuperarContrasena = (props) => {
-    const [showToast, setShowToast] = useState(true);
+    const [showToast, setShowToast] = useState(false);
     const [positionToast, setPositionToast] = useState('bottom-start');
     const { data, setData, post, get, processing, errors, reset, } = useForm({
         email: props.email,
@@ -98,7 +98,7 @@ const RecuperarContrasena = (props) => {
     return (
         <>
             <ToastContainer className="p-3" position={positionToast}>
-                <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} /* autohide */>
+                <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
                     <Toast.Body>
                         <Row className="align-items-center">
                             <Col md={1}>
