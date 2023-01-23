@@ -762,3 +762,12 @@ body {
 #ModalContacto .modal-header{
     padding: 0px !important;
 }
+
+/*Recuperar contraseña Modals*/
+.fade.modal-backdrop.show:nth-child(5) {
+    z-index: 1234;
+}
+
+.fade.modal-dialog-centered.modal.show {
+    z-index: 1234;
+}
