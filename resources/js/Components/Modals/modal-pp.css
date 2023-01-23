@@ -164,10 +164,6 @@
     color: rgb(255, 230, 230);
 }
 
-.container {
-    max-width: 100vw;
-}
-
 .modal-content-pp {
     background: #68686800 0% 0% no-repeat padding-box !important;
     opacity: 1;
@@ -180,7 +176,7 @@
     -o-border-radius: 0% !important;
 }
 
-.modal-pptc {
+.modal-pp {
     /* Occupy the 100% of the screen width */
     width: 100vw;
     max-width: 100vw;
