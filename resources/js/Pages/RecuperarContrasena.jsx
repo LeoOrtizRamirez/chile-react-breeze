@@ -9,11 +9,20 @@ import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import '../../css/estilos-alertas.css'
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import PasswordSecurity from '@/Components/PasswordSecurity';
 
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
+import Alertas from '@/Components/Alertas';
 
 const RecuperarContrasena = (props) => {
+    const notify = () => {
+        toast.error("La contraseña debe tener mínimo 6 carácteres!", {
+          position: toast.POSITION.BOTTOM_LEFT
+        });
+      };
     const { data, setData, post, get, processing, errors, reset, } = useForm({
         email: props.email,
         token: props.token,
@@ -60,8 +69,10 @@ const RecuperarContrasena = (props) => {
     }
 
     const submit = (e) => {
-        console.log(e)
         e.preventDefault();
+        if(data.password.length < 6){
+            notify()
+        }
         if (data.password == data.password2) {
             refPasswordConfirmar.current.classList.remove("error-input")
             get(route('actualizarContrasena'), {
@@ -91,6 +102,7 @@ const RecuperarContrasena = (props) => {
 
     return (
         <>
+            <ToastContainer />
             <div id="recuperar-contrasena-view">
                 <section className="recuperar-contrasena--section"><video autoPlay="autoplay" muted="muted" loop="loop"
                     src="/public/video/Mapa contraseña.webm"></video>
@@ -211,6 +223,9 @@ const RecuperarContrasena = (props) => {
                     </Alert.Heading>
                 </Alert>
             } */}
+
+            
+
 
         </>
     )
