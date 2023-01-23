@@ -304,7 +304,7 @@ export default function Example(props) {
 
                                                 <a href='#' className="flex  items-center texto-logo-chile">
                                                 <img src="/public/images/logo-chile-redondo.jpg" width="30px" alt="Logo Chile Redondo" className="img-logo-chile" />
-                                                    <span className="ml-2">Chile</span>
+                                                    <span className="ml-2 texto-chile-menu" >Chile</span>
                                                 </a>
                                                 
                                             </Nav.Link>
