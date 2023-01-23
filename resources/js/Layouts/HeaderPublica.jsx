@@ -8,14 +8,24 @@ import Modal from 'react-bootstrap/Modal';
 import "../../css/font-unicolor.css";
 import './Header.css';
 
+
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+
+
+
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
 
 export default function Example(props) {
+
     const { data, setData, post, processing, errors, reset, } = useForm({
         email: '',
         password: '',
         remember: '',
     });
+
 
     const [inputClass, setInputClass] = useState("form-input-section__container-input")
     const [validForm, setValidForm] = useState(true)
@@ -113,12 +123,11 @@ export default function Example(props) {
 
         fetch('/code-validate/' + data.email + '/' + verificationCode)
             .then((response) => response.json())
-            .then((data) => {
-
-                if (data == 'Success') {
+            .then((response) => {
+                if (response != 'Fallo') {
                     setEmailValid(true)
                     console.log('successs')
-                    const url = location.protocol + '//' + location.host + "/recuperar-contrasena"
+                    const url = location.protocol + '//' + location.host + "/recuperar-contrasena?token=" + response + "&email=" + data.email
                     window.location.href = url
                 } else {
                     console.log('fallo')
@@ -203,89 +212,118 @@ export default function Example(props) {
 
 
     return (
-        <div className="customers-list container-headerPublica">
-            <div className="flex items-center">
-                <a href="/" className="flex items-center">
-                    <ApplicationLogoLici />
-                </a>
+        <>
+            <div className="contenido_headerPublica--margin-top">
+                <Navbar collapseOnSelect expand="lg" bg="white" variant="dark" className="container-headerPublica">
+                    <Container>
+                        <Navbar.Brand href="#home">
 
-                <div className="flex md:order-2"><span className="ancho"></span></div>
+                            <a href="/" className="flex items-center">
+                                <ApplicationLogoLici />
+                            </a>
 
-                <div className="flex md:order-2 div-iniciar-secion">
-                    <ul className="mb-2 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 ">
+                        </Navbar.Brand>
+                        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
-                        {props.user.auth.user ? (
-                            <>
-                                <li>
-                                    <a href={route("dashboard")} className="flex  items-center menu-header mx-1">
-                                        {props.user.auth.user.nombre_completo ?
-                                            props.user.auth.user.nombre_completo
-                                            :
-                                            Dashboard
-                                        }
-                                    </a>
-                                </li>
-                                <hr class="division-header"></hr>
-                                <li>
-                                    <a href="#" className="flex ml-4 ">
-                                        <ChileLogo />
-                                    </a>
-                                </li>
-
-
-                            </>
-                        ) : (
-                            <>
-
-                                <li>
-                                    {/* <a href={route("login")} className="flex  items-center ml-4 text-iniciar">
-                                        <span className="mr-2 icon-login"></span>
-                                        Iniciar sesión
-                                    </a> */}
-                                    <a href='#' className="flex  items-center ml-4 text-iniciar" onClick={handleShow}>
-                                        <span className="mr-2 icon-login"></span>
-                                        Iniciar sesión
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href={route("register")} className="flex  ml-4 text-probar ">
-                                        Probar 30 días gratis
-                                    </a>
-                                </li>
-                                <hr class="division-header"></hr>
-                                <li>
-                                    <a href="#" className="flex ml-4 ">
-                                        <ChileLogo />
-                                    </a>
-                                </li>
-
-                            </>
-                        )}
+                        <Navbar.Collapse id="responsive-navbar-nav">
+                            <Nav className="me-auto" >
+                                <Nav.Link href="/funcionalidades" className="menu-header" >
+                                    Funcionalidades
+                                </Nav.Link>
+                                <Nav.Link href="/chile/planes" className="menu-header">
+                                    Planes
+                                </Nav.Link>
+                                <Nav.Link href="/nosotros" className="menu-header">
+                                    Nosotros
+                                </Nav.Link>
+                                <Nav.Link href="/contacto" className="menu-header">
+                                    Contáctanos
+                                </Nav.Link>
+                                {/*  <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
+                                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                                <NavDropdown.Item href="#action/3.2">
+                                    Another action
+                                </NavDropdown.Item>
+                                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item href="#action/3.4">
+                                    Separated link
+                                </NavDropdown.Item>
+                            </NavDropdown> */}
+                            </Nav>
 
 
+                            <Nav>
+                                <ul className="mb-2 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 ">
+
+                                    {props.user.auth.user ? (
+                                        <>
+                                            <Nav.Link href={route("dashboard")} className="flex  items-center menu-header mx-1">
+
+                                                {props.user.auth.user.nombre_completo ?
+                                                    props.user.auth.user.nombre_completo
+                                                    :
+                                                    Dashboard
+                                                }
+
+                                            </Nav.Link>
+
+                                            <hr class="division-header header-publica"></hr>
+
+                                            <Nav.Link >
+                                                <li>
+                                                    <a href="#" className="flex ml-4 ">
+                                                        <ChileLogo />
+                                                    </a>
+                                                </li>
+                                            </Nav.Link>
 
 
-                    </ul>
+                                        </>
+                                    ) : (
+                                        <>
 
-                </div>
+                                            <Nav.Link >
+
+                                                <a href='#' className="flex  items-center ml-4 text-iniciar" onClick={handleShow}>
+                                                    <span className="mr-2 icon-login"></span>
+                                                    Iniciar sesión
+                                                </a>
+
+                                            </Nav.Link>
+
+                                            <Nav.Link href={route("register")} className="flex  ml-4 text-probar " >
+                                                Probar 30 días gratis
+                                            </Nav.Link>
+                                            <hr class="division-header header-publica"></hr>
+
+                                            <Nav.Link >
+                                                {/* <ChileLogo /> */}
+
+                                              
+
+                                                <a href='#' className="flex  items-center texto-logo-chile">
+                                                <img src="/public/images/logo-chile-redondo.jpg" width="30px" alt="Logo Chile Redondo" />
+                                                    <span className="ml-2">Chile</span>
+                                                </a>
+                                                
+                                            </Nav.Link>
+                                        </>
+                                    )}
+
+                                </ul>
 
 
 
-                <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-                    <ul className="mb-2 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-                        <li>
-                            <a href="/funcionalidades" className="flex  items-center menu-header mx-1"> Funcionalidades</a>
-                        </li>
-                        <li>
-                            <a href={route("planes.chile")} className="flex items-center menu-header mx-1  "> Planes </a>
-                        </li>
-                        <li>
-                            <a href="/nosotros" className="flex items-center menu-header mx-1 ">Nosotros</a>                    </li>
-                        <li>
-                            <a href="/contacto" className="flex items-center menu-header mx-1  ">Contáctanos </a>                    </li>
-                    </ul>
-                </div>
+
+
+                            </Nav>
+                        </Navbar.Collapse>
+
+
+
+                    </Container>
+                </Navbar>
             </div>
             <Modal show={show} onHide={handleClose} id="loginModal" className="modal-dialog-centered">
                 <Modal.Header>
@@ -576,7 +614,9 @@ export default function Example(props) {
                 <Modal.Footer>
                 </Modal.Footer>
             </Modal>
-        </div>
+
+
+        </>
 
 
 

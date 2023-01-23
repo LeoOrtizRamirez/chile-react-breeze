@@ -12,7 +12,6 @@ use App\Http\Controllers\MailController;
 use App\Models\Contrato;
 use Illuminate\Http\Request;
 
-
 Route::get('/', function () { 
     $contratosAll = Contrato::where('fecha_publicacion', date('Y-m-d'))
         ->count();
@@ -30,7 +29,9 @@ Route::get('/nosotros', function () {
     return Inertia::render('Nosotros');
 })->name('nosotros');
 
-
+Route::get('/404', function () { 
+    return Inertia::render('Errors/Page404');
+})->name('404');
 Route::get('/contacto', function () { 
     return Inertia::render('Contacto');
 })->name('contacto');

@@ -18,11 +18,6 @@ import { TypeH1 } from "react-bootstrap-icons";
 const Index = ({ auth, contratos, totalContratos, pagina }) => {
     const { data, setData, post, get, processing, reset, errors } = useForm({});
 
-
-    console.log(contratos)
-
-
-
     // Inicio Ordenar tabla por columna
     $("th").click(function () {
         var table = $(this).parents("table").eq(0);
@@ -69,10 +64,14 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
     var idContrato = 0;
 
         // Inicio Paginador
-        const ultimoElemento = contratos[contratos.length - 1].id
-        var idUsuarioNext = ultimoElemento;
-        const primerElemento = contratos[0].id
-
+        var ultimoElemento = 0
+        var primerElemento = 0
+        if(contratos.length > 0){
+            ultimoElemento = contratos[(contratos.length) - 1].id
+            primerElemento = contratos[0].id
+        }
+        
+        var idUsuarioNext = ultimoElemento
         const itemsPagina = 30;
         const totalElementos = totalContratos;
         const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;
@@ -84,7 +83,6 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const fecha_publicacion = urlParams.get('fecha_publicacion')
-        console.log(fecha_publicacion);
 
         if(fecha_publicacion != null){
             url_fecha_publicacion = "fecha_publicacion="+fecha_publicacion
@@ -127,7 +125,6 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
 
     const submit = (e) => {
         e.preventDefault();
-        //console.log(data)
         post(route("contratos.store"), { onSuccess: () => reset() });
     };
 

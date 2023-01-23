@@ -46,7 +46,7 @@ const Banner = (props) => {
                             </div>
                             <BotonRegistrarse 
                             texto={"Regístrate y obtén ¡30 días gratis!"} 
-                            textoHover={"Regístrate y obtén 30 días de servicio"}
+                            textoHover={"Registrarme 30 días de servicio gratis"}
                             color={"white"}
                             colorHover={"#73c914"}
                              />
@@ -55,7 +55,11 @@ const Banner = (props) => {
                                     <ul className="row">
                                         <li className="fraja-fuentes__item">
                                             <div className="fraja-fuentes__item-hour">
-                                                <i className={saludoIcon}></i>
+                                                {saludoIcon == "bi bi-cloud-sun-fill c-blue-ligth" ?
+                                                    <img src="/public/icons/multicolor/afternoon.svg" alt="icono-buenas-tardes"/>
+                                                :
+                                                    <i className={saludoIcon}></i>
+                                                }
                                                 <span className="fraja-fuentes__item-saludo">
                                                     {saludo}
                                                 </span>
@@ -70,14 +74,14 @@ const Banner = (props) => {
                                             </div>
                                         </li>
                                         <li className="fraja-fuentes__item">
-                                            <a href={contratosFiltrados} target="_blank" className="fraja-fuentes__contador">
+                                            <a href={contratosFiltrados} className="fraja-fuentes__contador">
                                                 <span>Chile Compra : </span>
                                                 <span className="fraja-fuentes__item--claro">{props.procesos} procesos </span>
                                                 <i className="icon-up"></i>
                                             </a>
                                         </li>
                                         <li className="fraja-fuentes__item">
-                                            <a href="#" target="_blank" className="fraja-fuentes__contador">
+                                            <a href="#" className="fraja-fuentes__contador">
                                                 <span>No Centralizados : </span>
                                                 <span className="fraja-fuentes__item--claro">0 procesos </span>
                                                 <i className="icon-up"></i>

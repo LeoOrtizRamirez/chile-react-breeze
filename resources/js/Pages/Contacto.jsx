@@ -154,11 +154,23 @@ export default function Contacto(props) {
                                                                     </div>
                                                                     <hr data-v-74a0c684="" className="linea__divisoria" style={{ width: 4 + 'px', height: 18 + 'px' }} />
                                                                     <div className="contactenos_form--campo-input-container">
-                                                                        <input id="tel" name="tel" type="number" placeholder="Ingresa tu número"
-                                                                            className="contactenos_form--campo-telefono-input contactenos_form--campo-input" aria-required="true"
-                                                                            aria-invalid="false" />
-                                                                        <span className="">
-                                                                        </span>
+                                                                        <input 
+                                                                            id="tel" 
+                                                                            name="tel" 
+                                                                            type="text" 
+                                                                            placeholder="Ingresa tu número"
+                                                                            className="contactenos_form--campo-telefono-input contactenos_form--campo-input"
+                                                                            onKeyDown={function (e) {
+                                                                                console.log(e.keyCode)
+                                                                                if(e.keyCode != 8){
+                                                                                    if (e.keyCode < '48' || e.keyCode > '57') {
+                                                                                        e.preventDefault()
+                                                                                    }
+                                                                                }
+                                                                             }
+                                                                            }
+                                                                            />
+                                                                        <span className=""></span>
                                                                     </div>
                                                                 </div>
 
@@ -194,7 +206,7 @@ export default function Contacto(props) {
 
                                                             <div className="contactenos_form--campo contactenos_form--campo-terminos">
                                                                 <label className="checkbox_container">
-                                                                    <span> He leido y acepto <a href="/politica-de-privacidad" target="_blank">la política de tratamiento de datos.</a>
+                                                                    <span> He leido y acepto <a href="/politicasp" target="_blank">la política de tratamiento de datos.</a>
                                                                     </span>
                                                                     <input type="checkbox" />
                                                                     <div className="checkbox-input">

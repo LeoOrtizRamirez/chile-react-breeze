@@ -13,7 +13,7 @@
 }
 
 .text-iniciar {
-    color : #00A1C9;
+    color: #00A1C9;
     font-size: 12px;
     text-align: left;
     font-weight: bold;
@@ -21,40 +21,52 @@
     border-radius: 50px;
     padding: 7px 16px;
     font-family: Poppins;
-    
-}
-
-.text-iniciar:hover {
-    background-color: #dff3f8;
-    color : #00A1C9;
 
 }
 
-.text-probar {
-    color : #73C914;
+
+.texto-logo-chile {
+    color: #686868;
     font-size: 12px;
     text-align: left;
     font-weight: bold;
     text-decoration: inherit;
     border-radius: 50px;
     padding: 7px 16px;
+    font-family: Poppins;
+}
+.texto-logo-chile:hover {
+    color: #686868;
+}
+
+.text-iniciar:hover {
+    background-color: #dff3f8;
+    color: #00A1C9;
+
+}
+
+.text-probar {
+    color: #73C914 !important;
+    font-size: 12px !important;
+    text-align: left;
+    font-weight: bold !important;
+    text-decoration: inherit !important;
+    border-radius: 50px;
+    padding: 7px 16px !important;
     border-color: #73C914;
     border: 1px solid;
     font-family: Poppins;
 }
 
 .text-probar:hover {
-    color : white;
-    font-size: 12px;
+    color: white !important;
     text-align: left;
-    font-weight: bold;
-    text-decoration: inherit;
     background-color: #73C914;
     border: 1px solid;
 }
 
 
-.mr-5{
+.mr-5 {
     margin-right: 5%;
 }
 
@@ -67,24 +79,12 @@ span.icon-login {
 }
 
 
-
 span.ancho {
     width: 30vh;
 }
 
-.container-header{
+.container-header {
     width: 1280px;
-}
-
-
-.container-headerPublica {
- 
-    justify-content: center;
-    height: 78px;
-    align-items: center;
-    display: flex;
-
-
 }
 
 .division-header {
@@ -96,4 +96,80 @@ span.ancho {
     margin-top: 0;
     margin-bottom: 0;
     border: 0;
+}
+
+
+/*estilos header React*/
+
+
+
+/*PC */
+@media only screen and (min-width: 700px) {
+    .container {
+        width: 100% !important;
+    }
+
+    .collapse {
+        visibility: inherit;
+    }
+
+    .container-headerPublica {
+        padding: 0px 100px;
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: 0px 0px 20px #00000029;
+        opacity: 1;
+        width: 100% !important;
+        height: 78px;
+        z-index: 20;
+        position: fixed !important;
+        top: 0;
+        left: 0;
+
+    }
+
+    .contenido_headerPublica--margin-top {
+        padding-top: 78px;
+    }
+
+
+}
+
+
+/*Mobile */
+@media only screen and (max-width: 700px) {
+    .collapse.show {
+        visibility: inherit;
+    }
+
+    hr.division-header.header-publica {
+        display: none;
+    }
+
+    .text-probar {
+        display: inline;
+    }
+
+    .text-iniciar {
+        margin-left: 0px;
+    }
+
+
+}
+
+.menu-header {
+    color: #686868 !important;
+    font-size: 12px !important;
+    text-align: left;
+    font-weight: bold !important;
+    text-decoration: inherit;
+    font-family: Poppins;
+}
+
+
+
+
+.navbar-toggler-icon {
+
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+
 }

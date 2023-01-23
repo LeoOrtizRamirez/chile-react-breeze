@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
+
+
 class AuthenticatedSessionController extends Controller
 {
     /**
@@ -34,10 +38,15 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request)
     {
         $request->authenticate();
-
         $request->session()->regenerate();
 
-        return redirect("/contratos");
+        if(isset($request->session()->all()['url']['intended'])){
+            $url_intended = str_replace("http", "https", $request->session()->all()['url']['intended']);
+            session()->put('url.intended', $url_intended);
+            return Redirect::intended();
+        }else{
+            return Redirect::route('contratos.index');
+        }
     }
 
     /**
