@@ -13,6 +13,7 @@ import { BannerMonitoreamos } from "../Components/Banners/BannerMonitoreamos";
 
 import Header from "@/Layouts/HeaderPublica";
 export default function Welcome(props) {
+    console.log(props.contratos)
     {/* INICIO BANNER */}
     const [date, setDate] = useState(new Date().toLocaleTimeString())
     const [printdate, setPrintDate] = useState(new Date().toLocaleTimeString())
@@ -100,7 +101,7 @@ export default function Welcome(props) {
                                         <li className="fraja-fuentes__item">
                                             <a /* href={contratosFiltrados} */ className="fraja-fuentes__contador" onClick={loginBanner}>
                                                 <span>Chile Compra : </span>
-                                                <span className="fraja-fuentes__item--claro">{props.procesos} procesos </span>
+                                                <span className="fraja-fuentes__item--claro">{props.contratos} procesos </span>
                                                 <i className="icon-up"></i>
                                             </a>
                                         </li>
