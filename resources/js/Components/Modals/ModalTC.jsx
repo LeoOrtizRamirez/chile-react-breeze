@@ -241,14 +241,14 @@ export const ModalTC = ({ showTC, handleCloseTC }) => {
                                 id="element"
                                 ref={containerRef}
                             >
-                                <button
-                                    type="button"
-                                    class="btn-tc"
-                                    onClick={handleCloseTC}
-                                >
-                                    <span className="x-tc">x</span>
-                                </button>
                                 <MDBCol>
+                                    <button
+                                        type="button"
+                                        class="btn-tc"
+                                        onClick={handleCloseTC}
+                                    >
+                                        <span className="x-tc">x</span>
+                                    </button>
                                     <section ref={home} id="section-1">
                                         <br />
                                         <h2 className="text-center">
