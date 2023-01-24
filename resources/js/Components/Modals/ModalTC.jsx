@@ -40,7 +40,7 @@ export const ModalTC = ({ showTC, handleCloseTC }) => {
     return (
         <Modal
             fullscreen
-            dialogClassName="modal-tc"
+            dialogClassName=""
             contentClassName="modal-content-tc"
             centered
             show={showTC}
