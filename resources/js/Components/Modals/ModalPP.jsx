@@ -33,7 +33,7 @@ export const ModalPP = ({ showPP, handleClosePP }) => {
             onHide={handleClosePP}
         >
             <Modal.Header></Modal.Header>
-            <Modal.Body>
+            <Modal.Body className="modal-header-pp">
                 <Head title="Politicas de privacidad" />
                 <link
                     href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto&display=swap"

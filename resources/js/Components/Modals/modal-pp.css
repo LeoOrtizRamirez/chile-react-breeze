@@ -1,7 +1,11 @@
+.modal-header-pp {
+    overflow: hidden !important;
+}
+
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
     color: white;
-    background-color: white;
+    background-color: white !important;
 }
 
 .container-politicspri {
@@ -35,6 +39,7 @@
 
 .politicspri-info {
     margin: 20px 0px 20px 320px;
+    overflow: hidden;
     overflow-y: scroll;
     padding: 25px 45px;
     border-radius: 17px;
@@ -126,11 +131,10 @@
 .btn-pp {
     width: 33px;
     height: 33px;
-    position: fixed;
-    right: 74px;
-    top: 41px;
+    position: absolute;
+    left: 93.5vw;
     background-color: #e9e9e9;
-    color: rgb(53, 53, 53);
+    color: #353535;
     border: none;
     padding: 5px;
     font-size: 31px;
@@ -179,7 +183,7 @@
 .modal-pp {
     /* Occupy the 100% of the screen width */
     width: 100vw !important;
-    max-width: 100vw !important;
+    max-width: 95vw !important;
 }
 
 /* ===== Scrollbar CSS ===== */
@@ -211,6 +215,7 @@ a.nav-link.active {
     margin-left: 15px;
     text-decoration: none;
     font-weight: 600;
+    background-color: white !important;
 }
 
 .icon-up {
