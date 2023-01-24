@@ -17,7 +17,7 @@ a.img-header {
 }
 
 .contenido_headerLite--margin-top{
-    padding-top: 78px;
+ /*    padding-top: 78px; */
 }
 
 
@@ -46,14 +46,14 @@ a.img-header {
     background-color: #dff3f8;
     color: #00A1C9;
 }
-.text-contactanos{
-    color: #686868;
-    font-size: 14px;
+.text-contactanos {
+    color: #686868 !important;
+    font-size: 14px !important;
     text-align: left;
-    font-weight: bold;
-    text-decoration: inherit;
+    font-weight: 700 !important;
+    text-decoration: inherit !important;
     border-radius: 50px;
-    padding: 7px 16px;
+    padding: 7px 16px !important;
     font-family: Poppins;
 }
 
@@ -65,22 +65,21 @@ span.icon-contacto {
 }
 
 .text-probar {
-    color: #73C914;
-    font-size: 12px;
+    color: #73c914 !important;
+    font-size: 12px !important;
     text-align: left;
-    font-weight: bold;
-    text-decoration: inherit;
+    font-weight: 700 !important;
+    text-decoration: inherit !important;
     border-radius: 50px;
-    padding: 7px 16px;
-    border-color: #73C914;
+    padding: 7px 16px !important;
+    border-color: #73c914;
     border: 1px solid;
     font-family: Poppins;
 }
+
 .text-probar:hover {
-    color: white;
-    font-size: 12px;
+    color: white !important;
     text-align: left;
-    font-weight: bold;
     text-decoration: inherit;
     background-color: #73C914;
     border: 1px solid;

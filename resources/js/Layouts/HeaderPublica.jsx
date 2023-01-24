@@ -24,8 +24,8 @@ export default function Example(props) {
         email: '',
         password: '',
         remember: '',
+        url_modal: props.url,
     });
-
 
     const [inputClass, setInputClass] = useState("form-input-section__container-input")
     const [validForm, setValidForm] = useState(true)
@@ -42,7 +42,20 @@ export default function Example(props) {
     let refInputPassword = useRef();
 
     /*Modal*/
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(props.setShow);
+
+
+    useEffect(() => {
+        setShow(props.setShow)
+
+        setData({
+            email: data.email,
+            password: data.password,
+            remember: data.remember,
+            url_modal: props.url,
+        })
+    }, [props.setShow])
+
     const handleShow = () => setShow(true);
     const handleClose = () => {
         setShow(false);
@@ -52,6 +65,7 @@ export default function Example(props) {
         })
         setInputClass("form-input-section__container-input")
         setValidForm(true)
+        props.closeModal(false)
     }
 
     /*Modal Recupera contraseña*/
@@ -93,7 +107,6 @@ export default function Example(props) {
     }
 
     const onHandleChange = (event) => {
-        console.log(event)
         setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
     };
 
@@ -126,11 +139,9 @@ export default function Example(props) {
             .then((response) => {
                 if (response != 'Fallo') {
                     setEmailValid(true)
-                    console.log('successs')
                     const url = location.protocol + '//' + location.host + "/recuperar-contrasena?token=" + response + "&email=" + data.email
                     window.location.href = url
                 } else {
-                    console.log('fallo')
                     setValidVerificationCode(true)
                     setEmailValid(false)
                     setInputEmailValid("error")
@@ -268,7 +279,7 @@ export default function Example(props) {
 
                                             </Nav.Link>
 
-                                            <hr class="division-header header-publica"></hr>
+                                            <hr className="division-header header-publica"></hr>
 
                                             <Nav.Link >
                                                 <li>
@@ -295,18 +306,18 @@ export default function Example(props) {
                                             <Nav.Link href={route("register")} className="flex  ml-4 text-probar " >
                                                 Probar 30 días gratis
                                             </Nav.Link>
-                                            <hr class="division-header header-publica"></hr>
+                                            <hr className="division-header header-publica"></hr>
 
                                             <Nav.Link >
                                                 {/* <ChileLogo /> */}
 
-                                              
+
 
                                                 <a href='#' className="flex  items-center texto-logo-chile">
-                                                <img src="/public/images/logo-chile-redondo.jpg" width="30px" alt="Logo Chile Redondo" />
-                                                    <span className="ml-2">Chile</span>
+                                                    <img src="/public/images/logo-chile-redondo.jpg" width="30px" alt="Logo Chile Redondo" className="img-logo-chile" />
+                                                    <span className="ml-2 texto-chile-menu" >Chile</span>
                                                 </a>
-                                                
+
                                             </Nav.Link>
                                         </>
                                     )}

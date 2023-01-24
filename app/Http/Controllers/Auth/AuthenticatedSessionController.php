@@ -40,6 +40,11 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
 
+        if(isset($request->url_modal) && $request->url_modal != ""){
+            session()->put('url.intended', $request->url_modal);
+            return Redirect::intended();
+        }
+
         if(isset($request->session()->all()['url']['intended'])){
             $url_intended = str_replace("http", "https", $request->session()->all()['url']['intended']);
             session()->put('url.intended', $url_intended);
