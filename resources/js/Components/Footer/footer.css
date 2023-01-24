@@ -63,8 +63,7 @@ footer {
     text-align: left;
 }
 
-.text-footer a,
-span {
+.text-footer {
     font-family: "Roboto", sans-serif;
     color: white;
     font-size: 14px;

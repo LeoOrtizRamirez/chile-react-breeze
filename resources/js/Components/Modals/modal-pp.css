@@ -178,8 +178,8 @@
 
 .modal-pp {
     /* Occupy the 100% of the screen width */
-    width: 100vw;
-    max-width: 100vw;
+    width: 100vw !important;
+    max-width: 100vw !important;
 }
 
 /* ===== Scrollbar CSS ===== */

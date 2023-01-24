@@ -26,7 +26,7 @@ export const ModalPP = ({ showPP, handleClosePP }) => {
     return (
         <Modal
             fullscreen
-            dialogClassName="modal-pp"
+            dialogClassName=""
             contentClassName="modal-content-pp"
             centered
             show={showPP}
