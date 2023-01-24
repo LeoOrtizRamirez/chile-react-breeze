@@ -47,7 +47,7 @@ export const ModalTC = ({ showTC, handleCloseTC }) => {
             onHide={handleCloseTC}
         >
             <Modal.Header></Modal.Header>
-            <Modal.Body>
+            <Modal.Body className="modal-header-tc">
                 <Head title="Terminos y Condiciones" />
                 <link
                     href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto&display=swap"
