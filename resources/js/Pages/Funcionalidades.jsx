@@ -12,7 +12,7 @@ import "@fontsource/poppins";
 export const Funcionalidades = (props) => {
     return (
         <>
-            <Head title="Funcionalidades" />
+            <Head  title="Funcionalidades" />
             <Header user={props}>
                 <link
                     href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto&display=swap"
