@@ -4,7 +4,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { useForm, Head } from "@inertiajs/inertia-react";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 //const MenuOpciones = lazy(() => import("@/Layouts/AuthenticatedLayout"));
-import "../../../css/estilos-contratos-index.css";
+import './Index.css'
 import Compartir from "../../Components/Acciones/Compartir";
 import Eliminar from "../../Components/Acciones/Eliminar";
 import Enviar from "../../Components/Acciones/Enviar";
@@ -14,6 +14,7 @@ import Visualizar from "../../Components/Acciones/Visualizar";
 import Paginador from "@/Components/PaginadorContratos";
 import $ from "jquery";
 import { TypeH1 } from "react-bootstrap-icons";
+import "@fontsource/poppins";
 
 const Index = ({ auth, contratos, totalContratos, pagina }) => {
     const { data, setData, post, get, processing, reset, errors } = useForm({});
