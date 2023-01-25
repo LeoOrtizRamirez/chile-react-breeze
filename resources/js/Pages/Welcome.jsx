@@ -56,7 +56,7 @@ export default function Welcome(props) {
     {/* FIN BANNER */}
     return (
         <>
-            <Head title="Welcome" />
+            <Head title="Home" />
             <Header user={props} setShow={openLoginModal} url={contratosFiltrados} closeModal={closeModal}></Header>
             {/* <Banner procesos={props.contratos}></Banner> */}
             {/* INICIO BANNER */}
