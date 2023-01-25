@@ -13,7 +13,6 @@ import { BannerMonitoreamos } from "../Components/Banners/BannerMonitoreamos";
 
 import Header from "@/Layouts/HeaderPublica";
 export default function Welcome(props) {
-    console.log(props.contratos)
     {/* INICIO BANNER */}
     const [date, setDate] = useState(new Date().toLocaleTimeString())
     const [printdate, setPrintDate] = useState(new Date().toLocaleTimeString())
