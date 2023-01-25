@@ -15,7 +15,7 @@
 }
 
 .termcond {
-    margin: 20px 0 0 0;
+    margin: 0;
 }
 
 .termcond-index {
@@ -52,7 +52,7 @@ a.nav-link.active {
 }
 
 .termcond-info {
-    margin: 20px 0px 20px 320px;
+    margin: 0px 0px 20px 320px;
     overflow-y: scroll;
     padding: 25px 45px;
     border-radius: 17px;
