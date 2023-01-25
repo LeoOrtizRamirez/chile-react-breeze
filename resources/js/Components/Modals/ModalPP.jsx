@@ -9,10 +9,8 @@ import {
     MDBScrollspy,
     MDBScrollspyLink,
 } from "mdb-react-ui-kit";
-
 import "@/Components/Modals/modal-pp.css";
 import "@fontsource/poppins";
-//
 
 export const ModalPP = ({ showPP, handleClosePP }) => {
     const home = useRef(null);
@@ -110,7 +108,9 @@ export const ModalPP = ({ showPP, handleClosePP }) => {
                                         <h2 className="text-center">
                                             <span
                                                 className="politicspri-title"
-                                                style={{ color: "#686868b6" }}
+                                                style={{
+                                                    color: "#686868b6",
+                                                }}
                                             >
                                                 Política de protección de &nbsp;
                                             </span>
