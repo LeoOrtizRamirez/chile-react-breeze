@@ -15,6 +15,7 @@ use App\Models\PasswordReset;
 use Illuminate\Auth\Passwords\DatabaseTokenRepository;
 use Illuminate\Support\Facades\Mail;
 use DB;
+use Exception;
 
 class UserController extends Controller
 {
@@ -178,8 +179,11 @@ class UserController extends Controller
             $user->save();
             //Enviar correo electronico con codigo
             $mail = new VerificationCodeMailable($user);
-            Mail::to($user->email)->send($mail);
-
+            try{
+                Mail::to($user->email)->send($mail);
+            }catch(Exception $e){
+                print_r($e->getMessage());
+            }
             $response = 'Success';
         }
         return json_encode($response);
