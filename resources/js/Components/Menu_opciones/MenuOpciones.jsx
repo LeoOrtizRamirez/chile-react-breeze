@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../../../css/estilos-menu-opciones.css";
 
+import './MenuOpciones.css'
 import { BsArrowLeftShort, BsSearch, BsChevronDown } from "react-icons/bs";
 const App = () => {
     const [open, setOpen] = useState(true);
@@ -45,9 +46,8 @@ const App = () => {
     return (
         <div className="contenedor-opciones">
             <div
-                className={` ${
-                    open ? "w-30" : "w-20 "
-                } h-screen p-10 relative lista-opciones`}
+                className={` ${open ? "w-30" : "w-20 "
+                    } h-screen p-10 relative lista-opciones`}
             >
                 {/*<BsArrowLeftShort className={`z-10 bg-white text-dark-purple text-3xl rounded-full absolute -right-3 top-9 border Oborder-dark-purple cursor-pointer ${!open && "rotate-180"}`}
                     onClick={() => setOpen(!open)} />*/}
@@ -56,9 +56,8 @@ const App = () => {
                         <>
                             <li
                                 key={index}
-                                className={`text-center rounded-md p-1 cursor-pointer hover:bg-light-white text-gray-500 text-sm items-center gap-x-4 ${
-                                    index === 0 && "bg-light-white"
-                                }`}
+                                className={`text-center rounded-md p-1 cursor-pointer hover:bg-light-white text-gray-500 text-sm items-center gap-x-4 ${index === 0 && "bg-light-white"
+                                    }`}
                             >
                                 {Menu.submenu && open ? (
                                     <>
@@ -69,9 +68,8 @@ const App = () => {
                                             }}
                                         ></i>
                                         <p
-                                            className={`${
-                                                !open && "hidden"
-                                            } origin-left`}
+                                            className={`${!open && "hidden"
+                                                } origin-left`}
                                         >
                                             {Menu.title}
                                         </p>
@@ -83,9 +81,8 @@ const App = () => {
                                         <a href={Menu.href}>
                                             <i className={Menu.icon}></i>
                                             <p
-                                                className={`${
-                                                    !open && "hidden"
-                                                } origin-left`}
+                                                className={`${!open && "hidden"
+                                                    } origin-left`}
                                             >
                                                 {Menu.title}
                                             </p>
@@ -97,19 +94,31 @@ const App = () => {
                             <hr />
 
                             {Menu.submenu && subMenuOpen && open && (
-                                <ul className="submenu z-10">
-                                    {Menu.submenuItems.map(
-                                        (submenuItem, index) => (
-                                            <li
-                                                key={index}
-                                                className="text-gray-500 text-sm flex items-center gap-x-4 cursor-pointer p-2 px-5 hover:bg-light-white rounded-md"
-                                            >
-                                                <a href={submenuItem.href}>
-                                                    {submenuItem.title}
-                                                </a>
-                                            </li>
-                                        )
-                                    )}
+                                <ul className="submenu">
+                                    <div aria-labelledby="item_menu-carpetas" className="dropdown-menu dropdown-menu-right dropdown-menu-new show"
+                                        x-placement="right-start" >
+                                        <span className="angle_dropdown_menu" ></span>
+                                        <div className="drop-perfiles drop-carpetas position-relative">
+                                            <span className="icon-Contraer-campana-click ">
+                                                <i class="bi bi-chevron-double-left" onClick={() => setSubMenuOpen(false)}/>
+                                            </span>
+                                            <div className="item-checkbox-menu item-checkbox-menu-subtitle"><label className="submenu-title">Administración</label>
+                                            </div>
+                                            <div className="body-all-perfiles">
+                                                <div className="contenedor_carpetas">
+                                                    {Menu.submenuItems.map(
+                                                        (submenuItem, index) => (
+                                                            <div>
+                                                                <a className="submenu-item" href={submenuItem.href}>
+                                                                    {submenuItem.title}
+                                                                </a>
+                                                            </div>
+                                                        )
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </ul>
                             )}
                         </>
