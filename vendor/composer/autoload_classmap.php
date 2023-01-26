@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Console\\Commands\\DailyScrapping' => $baseDir . '/app/Console/Commands/DailyScrapping.php',
     'App\\Console\\Commands\\scrapping' => $baseDir . '/app/Console/Commands/scrapping.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Events\\PostCreated' => $baseDir . '/app/Events/PostCreated.php',
@@ -21,9 +22,11 @@ return array(
     'App\\Http\\Controllers\\Auth\\VerifyEmailController' => $baseDir . '/app/Http/Controllers/Auth/VerifyEmailController.php',
     'App\\Http\\Controllers\\ContratoController' => $baseDir . '/app/Http/Controllers/ContratoController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
+    'App\\Http\\Controllers\\MailController' => $baseDir . '/app/Http/Controllers/MailController.php',
     'App\\Http\\Controllers\\PlaneController' => $baseDir . '/app/Http/Controllers/PlaneController.php',
     'App\\Http\\Controllers\\PostController' => $baseDir . '/app/Http/Controllers/PostController.php',
     'App\\Http\\Controllers\\ProfileController' => $baseDir . '/app/Http/Controllers/ProfileController.php',
+    'App\\Http\\Controllers\\ScrappingController' => $baseDir . '/app/Http/Controllers/ScrappingController.php',
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
@@ -39,6 +42,7 @@ return array(
     'App\\Http\\Requests\\Auth\\LoginRequest' => $baseDir . '/app/Http/Requests/Auth/LoginRequest.php',
     'App\\Http\\Requests\\ProfileUpdateRequest' => $baseDir . '/app/Http/Requests/ProfileUpdateRequest.php',
     'App\\Listeners\\SendPostCreatedNotifications' => $baseDir . '/app/Listeners/SendPostCreatedNotifications.php',
+    'App\\Mail\\VerificationCodeMailable' => $baseDir . '/app/Mail/VerificationCodeMailable.php',
     'App\\Models\\ClasificacionContrato' => $baseDir . '/app/Models/ClasificacionContrato.php',
     'App\\Models\\ContratistaContrato' => $baseDir . '/app/Models/ContratistaContrato.php',
     'App\\Models\\Contrato' => $baseDir . '/app/Models/Contrato.php',
@@ -48,6 +52,7 @@ return array(
     'App\\Models\\Fuente' => $baseDir . '/app/Models/Fuente.php',
     'App\\Models\\GrupoFiltroUsuario' => $baseDir . '/app/Models/GrupoFiltroUsuario.php',
     'App\\Models\\HtmlContrato' => $baseDir . '/app/Models/HtmlContrato.php',
+    'App\\Models\\PasswordReset' => $baseDir . '/app/Models/PasswordReset.php',
     'App\\Models\\Plane' => $baseDir . '/app/Models/Plane.php',
     'App\\Models\\Post' => $baseDir . '/app/Models/Post.php',
     'App\\Models\\SubCategoria' => $baseDir . '/app/Models/SubCategoria.php',

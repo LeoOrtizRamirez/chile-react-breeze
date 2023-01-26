@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link, Head } from "@inertiajs/inertia-react";
 
 import Banner from "@/Components/Banner";
@@ -13,7 +13,34 @@ import { BannerMonitoreamos } from "../Components/Banners/BannerMonitoreamos";
 
 import Header from "@/Layouts/HeaderPublica";
 export default function Welcome(props) {
-    {/* INICIO BANNER */}
+
+    const [contenedorAvisoCookies, setContenedorAvisoCookies] = useState(true)
+    const [contenedorFondoAvisoCookies, setContenedorFondoAvisoCookies] = useState(true)
+
+    useEffect(() => {
+        if (localStorage.getItem('cookies-aceptadas')) {
+            setContenedorAvisoCookies(false)
+            setContenedorFondoAvisoCookies(false)
+        }
+    }, [])
+
+    function AceptarCookies(e) {
+        setContenedorAvisoCookies(false)
+        setContenedorFondoAvisoCookies(false)
+        localStorage.setItem('cookies-aceptadas', true)
+    }
+
+
+
+
+
+
+
+
+
+
+
+    {/* INICIO BANNER */ }
     const [date, setDate] = useState(new Date().toLocaleTimeString())
     const [printdate, setPrintDate] = useState(new Date().toLocaleTimeString())
     const [hour, setHour] = useState("")
@@ -22,7 +49,7 @@ export default function Welcome(props) {
     const [contratosFiltrados, setContartosFiltrados] = useState('')
     const [openLoginModal, setOpenLoginModal] = useState(false)
 
-    
+
 
     async function check() {
         setDate(new Date().toLocaleTimeString())
@@ -53,7 +80,7 @@ export default function Welcome(props) {
         setOpenLoginModal(value)
     }
 
-    {/* FIN BANNER */}
+    {/* FIN BANNER */ }
     return (
         <>
             <Head title="Home" />
@@ -156,7 +183,29 @@ export default function Welcome(props) {
                 </div>
             </section>
 
-
+            {contenedorAvisoCookies &&
+                <div className="modal-dialog modal-md activo">
+                    <span tabindex="0"></span>
+                    <div id="ModalPopUpCookies___BV_modal_content_" tabindex="-1" className="modal-content">
+                        <div id="ModalPopUpCookies___BV_modal_body_" className="modal-body-aviso-cookies">
+                            <span className="block__title">Política de Cookies</span>
+                            <div className="block__info">
+                                <p className="block__info-p"> Utilizamos cookies propias y de terceros para obtener datos estadísticos de la navegación de nuestra familia de usuarios y mejorar nuestros servicios. Si aceptas o continúas navegando, consideramos que aceptas su uso. Puedes cambiar la configuración u obtener <a href="#" className="block__info-a">más información aquí.</a>
+                                </p>
+                                <div >
+                                    <button className="block__info-btn" onClick={AceptarCookies}> Aceptar </button>
+                                </div>
+                                <div >
+                                    <button className="block__info-btn block__info-btn--modifier" onClick={AceptarCookies}> Rechazar </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            {contenedorFondoAvisoCookies &&
+                <div className="fondo-aviso-cookies activo"></div>
+            }
 
             <Footer />
 

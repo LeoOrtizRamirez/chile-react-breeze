@@ -551,6 +551,7 @@ class ComposerStaticInitd850ee28bc4416402cd272608e34d70d
     );
 
     public static $classMap = array (
+        'App\\Console\\Commands\\DailyScrapping' => __DIR__ . '/../..' . '/app/Console/Commands/DailyScrapping.php',
         'App\\Console\\Commands\\scrapping' => __DIR__ . '/../..' . '/app/Console/Commands/scrapping.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Events\\PostCreated' => __DIR__ . '/../..' . '/app/Events/PostCreated.php',
@@ -566,9 +567,11 @@ class ComposerStaticInitd850ee28bc4416402cd272608e34d70d
         'App\\Http\\Controllers\\Auth\\VerifyEmailController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerifyEmailController.php',
         'App\\Http\\Controllers\\ContratoController' => __DIR__ . '/../..' . '/app/Http/Controllers/ContratoController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\MailController' => __DIR__ . '/../..' . '/app/Http/Controllers/MailController.php',
         'App\\Http\\Controllers\\PlaneController' => __DIR__ . '/../..' . '/app/Http/Controllers/PlaneController.php',
         'App\\Http\\Controllers\\PostController' => __DIR__ . '/../..' . '/app/Http/Controllers/PostController.php',
         'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
+        'App\\Http\\Controllers\\ScrappingController' => __DIR__ . '/../..' . '/app/Http/Controllers/ScrappingController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
@@ -584,6 +587,7 @@ class ComposerStaticInitd850ee28bc4416402cd272608e34d70d
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
         'App\\Http\\Requests\\ProfileUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProfileUpdateRequest.php',
         'App\\Listeners\\SendPostCreatedNotifications' => __DIR__ . '/../..' . '/app/Listeners/SendPostCreatedNotifications.php',
+        'App\\Mail\\VerificationCodeMailable' => __DIR__ . '/../..' . '/app/Mail/VerificationCodeMailable.php',
         'App\\Models\\ClasificacionContrato' => __DIR__ . '/../..' . '/app/Models/ClasificacionContrato.php',
         'App\\Models\\ContratistaContrato' => __DIR__ . '/../..' . '/app/Models/ContratistaContrato.php',
         'App\\Models\\Contrato' => __DIR__ . '/../..' . '/app/Models/Contrato.php',
@@ -593,6 +597,7 @@ class ComposerStaticInitd850ee28bc4416402cd272608e34d70d
         'App\\Models\\Fuente' => __DIR__ . '/../..' . '/app/Models/Fuente.php',
         'App\\Models\\GrupoFiltroUsuario' => __DIR__ . '/../..' . '/app/Models/GrupoFiltroUsuario.php',
         'App\\Models\\HtmlContrato' => __DIR__ . '/../..' . '/app/Models/HtmlContrato.php',
+        'App\\Models\\PasswordReset' => __DIR__ . '/../..' . '/app/Models/PasswordReset.php',
         'App\\Models\\Plane' => __DIR__ . '/../..' . '/app/Models/Plane.php',
         'App\\Models\\Post' => __DIR__ . '/../..' . '/app/Models/Post.php',
         'App\\Models\\SubCategoria' => __DIR__ . '/../..' . '/app/Models/SubCategoria.php',

@@ -1,3 +1,5 @@
+estilosheaderpublica
+
 .img-logo-chile{
     width: 30px !important;
     margin-left: 0px !important;
@@ -163,18 +165,6 @@ span.ancho {
 
 
 }
-
-.menu-header {
-    color: #686868 !important;
-    font-size: 12px !important;
-    text-align: left;
-    font-weight: bold !important;
-    text-decoration: inherit;
-    font-family: Poppins;
-}
-
-
-
 
 .navbar-toggler-icon {
 
