@@ -25,7 +25,7 @@ const PopUpPoliticaCookies = () => {
                         <div id="ModalPopUpCookies___BV_modal_body_" className="modal-body-aviso-cookies">
                             <span className="block__title">Política de Cookies</span>
                             <div className="block__info">
-                                <p className="block__info-p"> Utilizamos cookies propias y de terceros para obtener datos estadísticos de la navegación de nuestra familia de usuarios y mejorar nuestros servicios. Si aceptas o continúas navegando, consideramos que aceptas su uso. Puedes cambiar la configuración u obtener <a href="#" className="block__info-a">más información aquí.</a>
+                                <p className="block__info-p"> Utilizamos cookies propias y de terceros para obtener datos estadísticos de la navegación de nuestra familia de usuarios y mejorar nuestros servicios. Si aceptas o continúas navegando, consideramos que aceptas su uso. Puedes cambiar la configuración u obtener <a href="/politicasc" target="_blank" className="block__info-a">más información aquí.</a>
                                 </p>
                                 <div >
                                     <button className="block__info-btn" onClick={AceptarCookies}> Aceptar </button>
