@@ -28,32 +28,40 @@ export const Footer = () => {
                             <li className="text-footer">
                                 <a
                                     href="mailto:servicioalciente@licitaciones.info?Subject=Interesado%20en%20recibir%20mas%20informacion"
-                                    className=""
+                                    className="text-footer"
                                 >
                                     {" "}
                                     servicioalcliente@licitaciones.info
                                 </a>
                             </li>
                             <li className="text-footer">
-                                <a href="tel:+576015086155" className="">
+                                <a
+                                    href="tel:+576015086155"
+                                    className="text-footer"
+                                >
                                     +57 601 5086155
                                 </a>
                             </li>
                             <li className="text-footer">
-                                <a href="tel:+573103708276" className="">
+                                <a
+                                    href="tel:+573103708276"
+                                    className="text-footer"
+                                >
                                     +57 310 370 8276
                                 </a>
                             </li>
                             <li className="text-footer">
                                 <a
                                     href="https://www.google.com/maps/place/Licitaciones.Info/@5.0508836,-75.484211,15z/data=!4m5!3m4!1s0x0:0x6150198db5afae40!8m2!3d5.0508836!4d-75.484211"
-                                    className=""
+                                    className="text-footer"
                                 >
                                     Cra 23 # 70a - 44
                                 </a>
                             </li>
                             <li className="text-footer">
-                                <span>Manizales, Colombia</span>
+                                <span className="text-footer">
+                                    Manizales, Colombia
+                                </span>
                             </li>
                         </ul>
                     </div>
@@ -67,7 +75,7 @@ export const Footer = () => {
                                 <a
                                     // target="_blank"
                                     href={route("politicasp")}
-                                    className=""
+                                    className="text-footer"
                                 >
                                     Política de privacidad
                                 </a>
@@ -76,7 +84,7 @@ export const Footer = () => {
                                 <a
                                     // target="_blank"
                                     href="/terminos-condiciones"
-                                    className=""
+                                    className="text-footer"
                                 >
                                     Términos y condiciones
                                 </a>
@@ -85,7 +93,7 @@ export const Footer = () => {
                                 <a
                                     // target="_blank"
                                     href={route("politicasc")}
-                                    className=""
+                                    className="text-footer"
                                 >
                                     Política de cookies
                                 </a>
@@ -96,7 +104,7 @@ export const Footer = () => {
 
                 <hr className="h-0.5 bg-white border-0 mx-24 mt-2 mb-0"></hr>
 
-                <div className="sm:flex sm:items-center sm:justify-between mx-11 pt-10 pb-4 text-footer margin-txt-footer">
+                <div className="sm:flex sm:items-center sm:justify-between mx-11 pt-10 pb-4 margin-txt-footer">
                     <span className="flex text-sm text-white sm:text-center ml-24">
                         <a
                             target="_blank"
@@ -116,7 +124,7 @@ export const Footer = () => {
                             href="https://www.facebook.com/licitacionesInfo/"
                         >
                             <svg
-                                className="w-6 h-6 facebook"
+                                className="w-6 h-6 facebook text-footer"
                                 fill="currentColor"
                                 viewBox="0 0 25 25"
                                 // aria-hidden="true"
@@ -135,7 +143,7 @@ export const Footer = () => {
                             href="https://www.youtube.com/@LicitacionesInfo"
                         >
                             <svg
-                                className="w-8 h-8 ml-1.5 mt-3.5 youtube"
+                                className="w-8 h-8 ml-1.5 mt-3.5 youtube text-footer"
                                 fill="currentColor"
                                 viewBox="0 0 25 25"
                                 // aria-hidden="true"
@@ -154,7 +162,7 @@ export const Footer = () => {
                             href="https://twitter.com/licitacionesinf?lang=es"
                         >
                             <svg
-                                className="w-6 h-6 twitter"
+                                className="w-6 h-6 twitter text-footer"
                                 fill="currentColor"
                                 viewBox="0 0 25 25"
                                 // aria-hidden="true"

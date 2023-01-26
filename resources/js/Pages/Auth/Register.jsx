@@ -97,7 +97,7 @@ export default function Register(props) {
                                     <span className="bloque__info-header-title-text">
                                         Crea una{" "}
                                         <img
-                                            src="/icons/multicolor/crear cuenta.svg"
+                                            src="/public/icons/multicolor/crear cuenta.svg"
                                             alt="Crea una cuenta gratis"
                                             className="bloque__info-header-title-img"
                                         />
@@ -122,7 +122,7 @@ export default function Register(props) {
                                 <div className="bloque__info-contenido-div">
                                     <div className="bloque__info-contenido-img">
                                         <img
-                                            src="/icons/multicolor/servicio.svg"
+                                            src="/public/icons/multicolor/servicio.svg"
                                             alt="Servicio"
                                             className="bloque__info-contenido-img--modifier"
                                         />
@@ -141,7 +141,7 @@ export default function Register(props) {
                                 <div className="bloque__info-contenido-div">
                                     <div className="bloque__info-contenido-img">
                                         <img
-                                            src="/icons/multicolor/licitaciones.svg"
+                                            src="/public/icons/multicolor/licitaciones.svg"
                                             alt=""
                                             className="bloque__info-contenido-img--modifier"
                                         />
@@ -161,7 +161,7 @@ export default function Register(props) {
                                 <div className="bloque__info-contenido-div">
                                     <div className="bloque__info-contenido-img">
                                         <img
-                                            src="/icons/multicolor/notificaciones.svg"
+                                            src="/public/icons/multicolor/notificaciones.svg"
                                             alt=""
                                             className="bloque__info-contenido-img--modifier"
                                         />
@@ -180,7 +180,7 @@ export default function Register(props) {
                                 <div className="bloque__info-contenido-div">
                                     <div className="bloque__info-contenido-img">
                                         <img
-                                            src="/icons/multicolor/funcionalidades.svg"
+                                            src="/public/icons/multicolor/funcionalidades.svg"
                                             alt=""
                                             className="bloque__info-contenido-img--modifier"
                                         />

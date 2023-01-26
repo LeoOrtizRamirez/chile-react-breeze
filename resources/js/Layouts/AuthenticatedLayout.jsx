@@ -14,7 +14,7 @@ export default function Authenticated({ auth, header, children }) {
     return (
         <div className="min-h-screen bg-gray-100 margen-nav">
             <nav className="border-b border-gray-100">
-                <div className="mx-auto px-4 sm:px-6 lg:px-8 margen-izquierda">
+                <div className="mx-auto sm:px-6 lg:px-8 margen-izquierda">
                     <div className="encabezado">
                         <div className="flex justify-between">
                             <div className="flex">

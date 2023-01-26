@@ -5,7 +5,7 @@ const Paginador = (props) => {
     return (
         <div className="">
             <div
-                className="flex items-center justify-between px-4 sm:px-6"
+                className="flex items-center justify-between sm:px-6"
                 data-v-01f1da49=""
             >
                 <div className="flex flex-1 justify-between sm:hidden">

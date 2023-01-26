@@ -40,14 +40,14 @@ export const ModalTC = ({ showTC, handleCloseTC }) => {
     return (
         <Modal
             fullscreen
-            dialogClassName="modal-tc"
+            dialogClassName=""
             contentClassName="modal-content-tc"
             centered
             show={showTC}
             onHide={handleCloseTC}
         >
             <Modal.Header></Modal.Header>
-            <Modal.Body>
+            <Modal.Body className="modal-header-tc">
                 <Head title="Terminos y Condiciones" />
                 <link
                     href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto&display=swap"
@@ -57,183 +57,198 @@ export const ModalTC = ({ showTC, handleCloseTC }) => {
                     <MDBRow>
                         <div className="container-termcond">
                             <div className="termcond">
-                                <MDBCol className="termcond-index">
-                                    <MDBScrollspy container={containerRef}>
-                                        <p className="termcond-title-cont">
-                                            &nbsp;&nbsp;&nbsp;&nbsp;Contenido
-                                        </p>
-                                        <MDBScrollspyLink targetRef={home}>
-                                            <strong>
-                                                &gt;&nbsp;&nbsp;&nbsp;
-                                            </strong>
-                                            | Inicio
-                                        </MDBScrollspyLink>
-                                        <hr />
-                                        <MDBScrollspyLink
-                                            targetRef={definiciones}
-                                        >
-                                            <strong>
-                                                &gt;&nbsp;&nbsp;&nbsp;
-                                            </strong>
-                                            Definiciones
-                                        </MDBScrollspyLink>
-                                        <hr />
-                                        <MDBScrollspyLink
-                                            targetRef={condicionesgenerales}
-                                        >
-                                            <strong>
-                                                &gt;&nbsp;&nbsp;&nbsp;
-                                            </strong>
-                                            Condiciones generales <br /> de uso
-                                            del servicio
-                                        </MDBScrollspyLink>
-                                        <hr />
-                                        <MDBScrollspyLink targetRef={niveles}>
-                                            <strong>
-                                                &gt;&nbsp;&nbsp;&nbsp;
-                                            </strong>
-                                            Niveles de servicio
-                                        </MDBScrollspyLink>
-                                        <hr />
-                                        <MDBScrollspyLink targetRef={registro}>
-                                            <strong>
-                                                &gt;&nbsp;&nbsp;&nbsp;
-                                            </strong>
-                                            Registro
-                                        </MDBScrollspyLink>
-                                        <hr />
-                                        <MDBScrollspyLink
-                                            targetRef={activacion}
-                                        >
-                                            <strong>
-                                                &gt;&nbsp;&nbsp;&nbsp;
-                                            </strong>
-                                            Activación del servicio
-                                        </MDBScrollspyLink>
-                                        <hr />
-                                        <MDBScrollspyLink
-                                            targetRef={soporteusuario}
-                                        >
-                                            <strong>
-                                                &gt;&nbsp;&nbsp;&nbsp;
-                                            </strong>
-                                            Soporte al usuario
-                                        </MDBScrollspyLink>
-                                        <hr />
+                                <MDBCol>
+                                    <div className="termcond-index">
+                                        <MDBScrollspy container={containerRef}>
+                                            <p className="termcond-title-cont">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;Contenido
+                                            </p>
+                                            <MDBScrollspyLink targetRef={home}>
+                                                <strong>
+                                                    &gt;&nbsp;&nbsp;&nbsp;
+                                                </strong>
+                                                | Inicio
+                                            </MDBScrollspyLink>
+                                            <hr />
+                                            <MDBScrollspyLink
+                                                targetRef={definiciones}
+                                            >
+                                                <strong>
+                                                    &gt;&nbsp;&nbsp;&nbsp;
+                                                </strong>
+                                                Definiciones
+                                            </MDBScrollspyLink>
+                                            <hr />
+                                            <MDBScrollspyLink
+                                                targetRef={condicionesgenerales}
+                                            >
+                                                <strong>
+                                                    &gt;&nbsp;&nbsp;&nbsp;
+                                                </strong>
+                                                Condiciones generales <br /> de
+                                                uso del servicio
+                                            </MDBScrollspyLink>
+                                            <hr />
+                                            <MDBScrollspyLink
+                                                targetRef={niveles}
+                                            >
+                                                <strong>
+                                                    &gt;&nbsp;&nbsp;&nbsp;
+                                                </strong>
+                                                Niveles de servicio
+                                            </MDBScrollspyLink>
+                                            <hr />
+                                            <MDBScrollspyLink
+                                                targetRef={registro}
+                                            >
+                                                <strong>
+                                                    &gt;&nbsp;&nbsp;&nbsp;
+                                                </strong>
+                                                Registro
+                                            </MDBScrollspyLink>
+                                            <hr />
+                                            <MDBScrollspyLink
+                                                targetRef={activacion}
+                                            >
+                                                <strong>
+                                                    &gt;&nbsp;&nbsp;&nbsp;
+                                                </strong>
+                                                Activación del servicio
+                                            </MDBScrollspyLink>
+                                            <hr />
+                                            <MDBScrollspyLink
+                                                targetRef={soporteusuario}
+                                            >
+                                                <strong>
+                                                    &gt;&nbsp;&nbsp;&nbsp;
+                                                </strong>
+                                                Soporte al usuario
+                                            </MDBScrollspyLink>
+                                            <hr />
 
-                                        <MDBScrollspyLink
-                                            targetRef={planesofrecidos}
-                                        >
-                                            <strong>
-                                                &gt;&nbsp;&nbsp;&nbsp;
-                                            </strong>
-                                            Planes ofrecidos
-                                        </MDBScrollspyLink>
-                                        <hr />
+                                            <MDBScrollspyLink
+                                                targetRef={planesofrecidos}
+                                            >
+                                                <strong>
+                                                    &gt;&nbsp;&nbsp;&nbsp;
+                                                </strong>
+                                                Planes ofrecidos
+                                            </MDBScrollspyLink>
+                                            <hr />
 
-                                        <MDBScrollspyLink
-                                            targetRef={perfilesnegocio}
-                                        >
-                                            <strong>
-                                                &gt;&nbsp;&nbsp;&nbsp;
-                                            </strong>
-                                            Perfiles de negocio
-                                        </MDBScrollspyLink>
-                                        <hr />
-                                        <MDBScrollspyLink
-                                            targetRef={sistemasubcuentas}
-                                        >
-                                            <strong>
-                                                &gt;&nbsp;&nbsp;&nbsp;
-                                            </strong>
-                                            Sistema de subcuentas
-                                        </MDBScrollspyLink>
-                                        <hr />
-                                        <MDBScrollspyLink
-                                            targetRef={sistemaseguimiento}
-                                        >
-                                            <strong>
-                                                &gt;&nbsp;&nbsp;&nbsp;
-                                            </strong>
-                                            Sistema de seguimiento
-                                        </MDBScrollspyLink>
-                                        <hr />
-                                        <MDBScrollspyLink
-                                            targetRef={notificacionescorreo}
-                                        >
-                                            <strong>
-                                                &gt;&nbsp;&nbsp;&nbsp;
-                                            </strong>
-                                            Notificaciones al correo <br></br>
-                                            electrónico
-                                        </MDBScrollspyLink>
-                                        <hr />
-                                        <MDBScrollspyLink
-                                            targetRef={contratosespeciales}
-                                        >
-                                            <strong>
-                                                &gt;&nbsp;&nbsp;&nbsp;
-                                            </strong>
-                                            Contratos especiales
-                                        </MDBScrollspyLink>
-                                        <hr />
-                                        <MDBScrollspyLink targetRef={appmovil}>
-                                            <strong>
-                                                &gt;&nbsp;&nbsp;&nbsp;
-                                            </strong>
-                                            App móvil
-                                        </MDBScrollspyLink>
-                                        <hr />
-                                        <MDBScrollspyLink
-                                            targetRef={autorizacioninformacion}
-                                        >
-                                            <strong>
-                                                &gt;&nbsp;&nbsp;&nbsp;
-                                            </strong>
-                                            Autorización de uso de <br></br>
-                                            nuestra información
-                                        </MDBScrollspyLink>
-                                        <hr />
-                                        <MDBScrollspyLink
-                                            targetRef={
-                                                limitacionresponsabilidad
-                                            }
-                                        >
-                                            <strong>
-                                                &gt;&nbsp;&nbsp;&nbsp;
-                                            </strong>
-                                            Limitación de la <br></br>
-                                            responsabilidad
-                                        </MDBScrollspyLink>
-                                        <hr />
-                                        <MDBScrollspyLink
-                                            targetRef={cancelacioncuenta}
-                                        >
-                                            <strong>
-                                                &gt;&nbsp;&nbsp;&nbsp;
-                                            </strong>
-                                            Cancelación de la cuenta
-                                        </MDBScrollspyLink>
-                                        <hr />
-                                        <MDBScrollspyLink
-                                            targetRef={desarrolloaplicativos}
-                                        >
-                                            <strong>
-                                                &gt;&nbsp;&nbsp;&nbsp;
-                                            </strong>
-                                            Desarrollo aplicativos
-                                        </MDBScrollspyLink>
-                                        <hr />
-                                        <MDBScrollspyLink
-                                            targetRef={aceptacioncondiciones}
-                                        >
-                                            <strong>
-                                                &gt;&nbsp;&nbsp;&nbsp;
-                                            </strong>
-                                            Aceptación de estas condiciones
-                                        </MDBScrollspyLink>
-                                        <hr />
-                                    </MDBScrollspy>
+                                            <MDBScrollspyLink
+                                                targetRef={perfilesnegocio}
+                                            >
+                                                <strong>
+                                                    &gt;&nbsp;&nbsp;&nbsp;
+                                                </strong>
+                                                Perfiles de negocio
+                                            </MDBScrollspyLink>
+                                            <hr />
+                                            <MDBScrollspyLink
+                                                targetRef={sistemasubcuentas}
+                                            >
+                                                <strong>
+                                                    &gt;&nbsp;&nbsp;&nbsp;
+                                                </strong>
+                                                Sistema de subcuentas
+                                            </MDBScrollspyLink>
+                                            <hr />
+                                            <MDBScrollspyLink
+                                                targetRef={sistemaseguimiento}
+                                            >
+                                                <strong>
+                                                    &gt;&nbsp;&nbsp;&nbsp;
+                                                </strong>
+                                                Sistema de seguimiento
+                                            </MDBScrollspyLink>
+                                            <hr />
+                                            <MDBScrollspyLink
+                                                targetRef={notificacionescorreo}
+                                            >
+                                                <strong>
+                                                    &gt;&nbsp;&nbsp;&nbsp;
+                                                </strong>
+                                                Notificaciones al correo{" "}
+                                                <br></br>
+                                                electrónico
+                                            </MDBScrollspyLink>
+                                            <hr />
+                                            <MDBScrollspyLink
+                                                targetRef={contratosespeciales}
+                                            >
+                                                <strong>
+                                                    &gt;&nbsp;&nbsp;&nbsp;
+                                                </strong>
+                                                Contratos especiales
+                                            </MDBScrollspyLink>
+                                            <hr />
+                                            <MDBScrollspyLink
+                                                targetRef={appmovil}
+                                            >
+                                                <strong>
+                                                    &gt;&nbsp;&nbsp;&nbsp;
+                                                </strong>
+                                                App móvil
+                                            </MDBScrollspyLink>
+                                            <hr />
+                                            <MDBScrollspyLink
+                                                targetRef={
+                                                    autorizacioninformacion
+                                                }
+                                            >
+                                                <strong>
+                                                    &gt;&nbsp;&nbsp;&nbsp;
+                                                </strong>
+                                                Autorización de uso de <br></br>
+                                                nuestra información
+                                            </MDBScrollspyLink>
+                                            <hr />
+                                            <MDBScrollspyLink
+                                                targetRef={
+                                                    limitacionresponsabilidad
+                                                }
+                                            >
+                                                <strong>
+                                                    &gt;&nbsp;&nbsp;&nbsp;
+                                                </strong>
+                                                Limitación de la <br></br>
+                                                responsabilidad
+                                            </MDBScrollspyLink>
+                                            <hr />
+                                            <MDBScrollspyLink
+                                                targetRef={cancelacioncuenta}
+                                            >
+                                                <strong>
+                                                    &gt;&nbsp;&nbsp;&nbsp;
+                                                </strong>
+                                                Cancelación de la cuenta
+                                            </MDBScrollspyLink>
+                                            <hr />
+                                            <MDBScrollspyLink
+                                                targetRef={
+                                                    desarrolloaplicativos
+                                                }
+                                            >
+                                                <strong>
+                                                    &gt;&nbsp;&nbsp;&nbsp;
+                                                </strong>
+                                                Desarrollo aplicativos
+                                            </MDBScrollspyLink>
+                                            <hr />
+                                            <MDBScrollspyLink
+                                                targetRef={
+                                                    aceptacioncondiciones
+                                                }
+                                            >
+                                                <strong>
+                                                    &gt;&nbsp;&nbsp;&nbsp;
+                                                </strong>
+                                                Aceptación de estas condiciones
+                                            </MDBScrollspyLink>
+                                            <hr />
+                                        </MDBScrollspy>
+                                    </div>
                                 </MDBCol>
                             </div>
                             <div
@@ -241,14 +256,14 @@ export const ModalTC = ({ showTC, handleCloseTC }) => {
                                 id="element"
                                 ref={containerRef}
                             >
-                                <button
-                                    type="button"
-                                    class="btn-tc"
-                                    onClick={handleCloseTC}
-                                >
-                                    <span className="x-tc">x</span>
-                                </button>
                                 <MDBCol>
+                                    <button
+                                        type="button"
+                                        class="btn-tc"
+                                        onClick={handleCloseTC}
+                                    >
+                                        <span className="x-tc">x</span>
+                                    </button>
                                     <section ref={home} id="section-1">
                                         <br />
                                         <h2 className="text-center">
@@ -256,13 +271,21 @@ export const ModalTC = ({ showTC, handleCloseTC }) => {
                                                 className="termcond-title"
                                                 style={{ color: "#686868b6" }}
                                             >
-                                                Política de protección de &nbsp;
+                                                Contrato de software como
+                                                servicio &nbsp;
                                             </span>
                                             <span
                                                 className="termcond-title"
                                                 style={{ color: "#00a1c9" }}
                                             >
-                                                datos personales
+                                                Licitaciones.info
+                                            </span>
+                                            <br />
+                                            <span
+                                                className="termcond-title"
+                                                style={{ color: "#686868b6" }}
+                                            >
+                                                Acuerdo nivel de servicio
                                             </span>
                                         </h2>
                                         <hr />
