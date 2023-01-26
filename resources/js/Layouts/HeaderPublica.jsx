@@ -7,7 +7,6 @@ import TextInput from '@/Components/TextInput';
 import Modal from 'react-bootstrap/Modal';
 import "../../css/font-unicolor.css";
 import './Header.css';
-import "./script.js";
 
 
 import Container from 'react-bootstrap/Container';
@@ -239,11 +238,18 @@ export default function Example(props) {
 
                         <Navbar.Collapse id="responsive-navbar-nav">
                             <Nav className="me-auto" >
-
-                                <a href="/funcionalidades" class="menu-header nav-header-publica">Funcionalidades</a>
-                                <a href="/chile/planes" class="menu-header nav-header-publica">Planes</a>
-                                <a href="/nosotros" class="menu-header nav-header-publica">Nosotros</a>
-                                <a href="/contacto" class="menu-header nav-header-publica">Contáctanos</a>
+                                <Nav.Link href="/funcionalidades" className="menu-header" >
+                                    Funcionalidades
+                                </Nav.Link>
+                                <Nav.Link href="/chile/planes" className="menu-header">
+                                    Planes
+                                </Nav.Link>
+                                <Nav.Link href="/nosotros" className="menu-header">
+                                    Nosotros
+                                </Nav.Link>
+                                <Nav.Link href="/contacto" className="menu-header">
+                                    Contáctanos
+                                </Nav.Link>
                                 {/*  <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.2">
