@@ -2,6 +2,10 @@
     width: auto;
 }
 
+.nav-header-publica {
+    padding: 0.5rem 0.5rem;
+}
+
 
 .contactenos,.contactenos__button{
     display: flex;
