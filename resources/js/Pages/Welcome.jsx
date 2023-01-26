@@ -15,30 +15,17 @@ import Header from "@/Layouts/HeaderPublica";
 export default function Welcome(props) {
 
     const [contenedorAvisoCookies, setContenedorAvisoCookies] = useState(true)
-    const [contenedorFondoAvisoCookies, setContenedorFondoAvisoCookies] = useState(true)
 
     useEffect(() => {
         if (localStorage.getItem('cookies-aceptadas')) {
             setContenedorAvisoCookies(false)
-            setContenedorFondoAvisoCookies(false)
         }
     }, [])
 
     function AceptarCookies(e) {
         setContenedorAvisoCookies(false)
-        setContenedorFondoAvisoCookies(false)
         localStorage.setItem('cookies-aceptadas', true)
     }
-
-
-
-
-
-
-
-
-
-
 
     {/* INICIO BANNER */ }
     const [date, setDate] = useState(new Date().toLocaleTimeString())
@@ -203,10 +190,7 @@ export default function Welcome(props) {
                     </div>
                 </div>
             }
-            {contenedorFondoAvisoCookies &&
-                <div className="fondo-aviso-cookies activo"></div>
-            }
-
+        
             <Footer />
 
         </>
