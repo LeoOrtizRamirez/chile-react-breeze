@@ -20,9 +20,9 @@ export default function Authenticated({ auth, header, children }) {
                             <div className="flex">
                                 <div className="shrink-0 flex items-center margen-logo">
                                     <Link
-                                        href={route("contratos.index")}
+                                        href={route("welcome")}
                                         active={route().current(
-                                            "contratos.index"
+                                            "welcome"
                                         )}
                                         className=""
                                     >
