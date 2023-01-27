@@ -17,13 +17,14 @@ import Header from "@/Layouts/HeaderPublica";
 
 
 export default function Welcome(props) {
+
     {/* INICIO BANNER */ }
     const [date, setDate] = useState(new Date().toLocaleTimeString())
     const [printdate, setPrintDate] = useState(new Date().toLocaleTimeString())
     const [hour, setHour] = useState("")
     const [saludo, setSaludo] = useState("")
     const [saludoIcon, setSaludoIcon] = useState("")
-    const [contratosFiltrados, setContratosFiltrados] = useState('')
+    const [contratosFiltrados, setContartosFiltrados] = useState('')
     const [openLoginModal, setOpenLoginModal] = useState(false)
 
 
@@ -49,12 +50,8 @@ export default function Welcome(props) {
     }, 1000);
 
     const loginBanner = () => {
-        if(props.auth.user == null){
-            setOpenLoginModal(true)
-            setContratosFiltrados('/contratos?fecha_publicacion=' + new Date().toISOString().slice(0, 10))
-        }else{
-            window.location.href = '/contratos'
-        }
+        setOpenLoginModal(true)
+        setContartosFiltrados('/contratos?fecha_publicacion=' + new Date().toISOString().slice(0, 10))
     }
 
     const closeModal = (value) => {
