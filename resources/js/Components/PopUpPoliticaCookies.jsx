@@ -21,7 +21,7 @@ const PopUpPoliticaCookies = () => {
             {contenedorAvisoCookies &&
                 <div className="modal-dialog modal-md activo">
                     <span tabindex="0"></span>
-                    <div id="ModalPopUpCookies___BV_modal_content_" tabindex="-1" className="modal-content">
+                    <div id="ModalPopUpCookies___BV_modal_content_ modal-content" tabindex="-1">
                         <div id="ModalPopUpCookies___BV_modal_body_" className="modal-body-aviso-cookies">
                             <span className="block__title">Política de Cookies</span>
                             <div className="block__info">
