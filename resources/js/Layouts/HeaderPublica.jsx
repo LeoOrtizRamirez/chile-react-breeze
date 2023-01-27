@@ -581,7 +581,7 @@ export default function Example(props) {
                                 <span className="informacion__correo-span">
                                     <div className="informacion__correo-span--modifier">L
 
-                                    </div> lortizr@uniremingtonmanizales.edu.co
+                                    </div> {data.email}
                                 </span>
                             </div>
                             {!verificationCodeExpire ?
