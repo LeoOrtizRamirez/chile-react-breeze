@@ -95,27 +95,24 @@ const App = () => {
 
                             {Menu.submenu && subMenuOpen && open && (
                                 <ul className="submenu">
-                                    <div aria-labelledby="item_menu-carpetas" className="dropdown-menu dropdown-menu-right dropdown-menu-new show"
-                                        x-placement="right-start" >
-                                        <span className="angle_dropdown_menu" ></span>
-                                        <div className="drop-perfiles drop-carpetas position-relative">
-                                            <span className="icon-Contraer-campana-click ">
-                                                <i class="bi bi-chevron-double-left" onClick={() => setSubMenuOpen(false)}/>
-                                            </span>
-                                            <div className="item-checkbox-menu item-checkbox-menu-subtitle"><label className="submenu-title">Administración</label>
-                                            </div>
-                                            <div className="body-all-perfiles">
-                                                <div className="contenedor_carpetas">
-                                                    {Menu.submenuItems.map(
-                                                        (submenuItem, index) => (
-                                                            <div>
-                                                                <a className="submenu-item" href={submenuItem.href}>
-                                                                    {submenuItem.title}
-                                                                </a>
-                                                            </div>
-                                                        )
-                                                    )}
-                                                </div>
+                                    <span className="angle_dropdown_menu" ></span>
+                                    <div className="drop-perfiles drop-carpetas position-relative">
+                                        <span className="icon-Contraer-campana-click ">
+                                            <i class="bi bi-chevron-double-left" onClick={() => setSubMenuOpen(false)} />
+                                        </span>
+                                        <div className="item-checkbox-menu item-checkbox-menu-subtitle"><label className="submenu-title">Administración</label>
+                                        </div>
+                                        <div className="body-all-perfiles">
+                                            <div className="contenedor_carpetas">
+                                                {Menu.submenuItems.map(
+                                                    (submenuItem, index) => (
+                                                        <div>
+                                                            <a className="submenu-item" href={submenuItem.href}>
+                                                                {submenuItem.title}
+                                                            </a>
+                                                        </div>
+                                                    )
+                                                )}
                                             </div>
                                         </div>
                                     </div>
