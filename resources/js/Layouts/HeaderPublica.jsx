@@ -265,8 +265,8 @@ export default function Example(props) {
                                         <>
                                             <Nav.Link href={route("dashboard")} className="flex  items-center menu-header mx-1">
 
-                                                {props.user.auth.user.nombre_completo ?
-                                                    props.user.auth.user.nombre_completo
+                                                {props.user.auth.user.name ?
+                                                    props.user.auth.user.name
                                                     :
                                                     "Dashboard"
                                                 }
