@@ -51,6 +51,13 @@ Route::get('/politicasc', function () {
 Route::get('/terminos-condiciones', function () { 
     return Inertia::render('TerminosCondiciones');
 });
+
+Route::get('/terminos-condiciones2', function () { 
+    return Inertia::render('TerminosCondiciones2');
+});
+
+
+
 Route::get('/politicasp', function () { 
     return Inertia::render('PoliticasP');
 })->name('politicasp');
