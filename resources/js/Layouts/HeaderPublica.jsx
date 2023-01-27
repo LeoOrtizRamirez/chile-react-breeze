@@ -268,7 +268,7 @@ export default function Example(props) {
                                                 {props.user.auth.user.nombre_completo ?
                                                     props.user.auth.user.nombre_completo
                                                     :
-                                                    Dashboard
+                                                    "Dashboard"
                                                 }
 
                                             </Nav.Link>
