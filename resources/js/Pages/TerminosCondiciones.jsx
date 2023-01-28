@@ -44,15 +44,6 @@ export const TerminosCondiciones2 = (props) => {
 
 
 
-    /* pendiente*/
-    const [key, setKey] = useState("home");
-
-    const print = (val) => {
-        setKey(val);
-    };
-    /* pendiente*/
-
-
     return (
         <>
 
