@@ -1,3 +1,13 @@
+a.nav-link.active {
+    display: block;
+    color: #00a1c9 !important;
+    text-decoration: none;
+    font-weight: 600;
+    background-color: white !important;
+    margin: 0 !important;
+}
+
+
 .container-politicspri {
     display: flex;
     justify-content: center;
