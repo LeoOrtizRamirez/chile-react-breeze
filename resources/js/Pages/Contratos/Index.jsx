@@ -208,7 +208,9 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
                                             <div className="iconos-horizontal width-columna-acciones">
                                                 <div>
                                                     <Pdf />
-                                                    <Enviar />
+                                                    <Enviar
+                                                       url={contrato.link} 
+                                                    />
                                                     <Favoritos />
                                                 </div>
                                                 <div className="">
