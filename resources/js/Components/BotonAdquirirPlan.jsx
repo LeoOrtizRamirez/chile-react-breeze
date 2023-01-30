@@ -1,5 +1,5 @@
 import React from 'react'
-import "../../css/estilos-boton-registrarse.css";
+import "../../css/estilos-boton-adquirir-plan.css";
 const BotonAdquirirPlan = (props) => {
     return (
         <div className="col-12">

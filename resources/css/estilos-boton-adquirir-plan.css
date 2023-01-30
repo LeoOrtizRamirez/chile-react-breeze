@@ -5,7 +5,7 @@
 span.cta-button-text {
     color: #686868;
 }
-.cta-button-register {
+.cta-button {
     border-radius: 50px;
     color: #686868;
     display: inline-block;
@@ -14,22 +14,25 @@ span.cta-button-text {
     padding: 16px 59px 16px 30px;
     position: relative;
 }
-.cta-button-register.shadow-button-register {
-    box-shadow: 0 0 10px hsl(0deg 0% 41% / 21%);
+.cta-button.shadow-button {
+    box-shadow: 0 0 10pxhsla (0, 0%, 41%, 0.21);
 }
-.cta-button-register.border-button {
+.cta-button.border-button {
     border: 2px solid #686868;
 }
-.cta-button-register .cta-content-register {
+.cta-button .cta-content {
     align-items: center;
     display: flex;
 }
-.cta-button-icon-content-register,
-.cta-button-text-register {
+.cta-button-icon-content,
+.cta-button-text {
     display: inline-block;
 }
-
-.cta-button-icon-content-register {
+.cta-button-text {
+    margin-right: 21px;
+    transition: transform 0.2s ease-in-out, opacity 0.1s ease-in-out;
+}
+.cta-button-icon-content {
     align-items: center;
     border-radius: 50px;
     color: #fff;
@@ -41,57 +44,57 @@ span.cta-button-text {
     right: 6px;
     transition: all 0.2s ease-in-out;
 }
-.cta-button-icon-content-register .cta-button-icon-content-register-hidden-text {
+.cta-button-icon-content .cta-button-icon-content-hidden-text {
     visibility: hidden;
     opacity: 0;
     transition: all 0.3s ease-in 0.2s, visibility 1ms;
 }
-.cta-button-icon-content-register .icon-Right {
+.cta-button-icon-content .icon-Right {
     position: absolute;
     right: 13px;
     transition: visibility 0.2s ease-in, opacity 0.2s ease-out;
 }
 
-.cta-button-icon-content-register .icon-Right-2 {
+.cta-button-icon-content .icon-Right-2 {
     position: absolute;
     right: 13px;
     transition: visibility 0.2s ease-in, opacity 0.2s ease-out;
 }
-.cta-button-register.info .cta-button-icon-content-register {
+.cta-button.info .cta-button-icon-content {
     background-color: #00a1c9;
 }
-.cta-button-register.success {
+.cta-button.success {
     background-color: blue;
 }
 
 /*color icono*/
-.cta-button-icon-content-register {
+.cta-button-icon-content {
     background-color: #73c914;
 }
-.cta-button-register:hover {
+.cta-button:hover {
     text-decoration: none;
 }
-.cta-button-register:hover.border-button {
+.cta-button:hover.border-button {
     border-color: transparent;
     cursor: pointer;
 }
-.cta-button-register:hover .cta-button-text-register {
+.cta-button:hover .cta-button-text {
     opacity: 0;
     transform: translateX(6px);
 }
-.cta-button-register:hover .cta-button-icon-content-register {
+.cta-button:hover .cta-button-icon-content {
     border-radius: 50px;
     height: 100%;
     right: 0;
     width: 100%;
 }
-.cta-button-register:hover
-    .cta-button-icon-content-register
-    .cta-button-icon-content-register-hidden-text {
+.cta-button:hover
+    .cta-button-icon-content
+    .cta-button-icon-content-hidden-text {
     visibility: visible;
     opacity: 1;
 }
-.cta-button-register:hover .cta-button-icon-content-register .icon-Right {
+.cta-button:hover .cta-button-icon-content .icon-Right {
     visibility: hidden;
     opacity: 0;
 }
