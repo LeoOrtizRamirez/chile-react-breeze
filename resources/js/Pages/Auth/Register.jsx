@@ -20,14 +20,31 @@ export default function Register(props) {
         password: "",
         password_confirmation: "",
     });
+
+    const [inputClass, setInputClass] = useState(
+        "bloque__registro-form-container-input"
+    );
+
+    const [inputClassPrefTel, setInputClassPrefTel] = useState(
+        "bloque__registro-form-telefono"
+    );
+
+    const [inputClassTel, setInputClassTel] = useState(
+        "bloque__registro-form-telefono-input"
+    );
+
+    const [errorIconStatus, setIconStatus] = useState(false);
+
+    const [validForm, setValidForm] = useState(true);
+
     const [disabledBtnRegister, setDisableddisabledBtnRegister] =
         useState(true);
     const [disabledClass, setDisabledClass] = useState("disabled");
     const [showModalPaises, setShowModalPaises] = useState(false);
     const [Country, SetCountry] = useState({
-        image: "",
-        title: "",
-        indicative: "+0",
+        image: "/images/banderas/listado_nombres/CHL.svg",
+        title: "Chile",
+        indicative: "+56",
         fixed: null,
     });
 
@@ -49,6 +66,17 @@ export default function Register(props) {
     const submit = (e) => {
         e.preventDefault();
         post(route("register"));
+        if (errors) {
+            setInputClass("form-container-input-errors");
+            setInputClassPrefTel("bloque__registro-form-telefono-errors");
+            setInputClassTel(
+                "form-container-input-errors bloque__registro-form-telefono-input-errors"
+            );
+            setIconStatus(
+                "form-container-input-errors bloque__registro-form-telefono-input-errors"
+            );
+            setValidForm(false);
+        }
     };
 
     const handleCloseModalPaises = () => setShowModalPaises(false);
@@ -97,7 +125,7 @@ export default function Register(props) {
                                     <span className="bloque__info-header-title-text">
                                         Crea una{" "}
                                         <img
-                                            src="/public/icons/multicolor/crear cuenta.svg"
+                                            src="/icons/multicolor/crear cuenta.svg"
                                             alt="Crea una cuenta gratis"
                                             className="bloque__info-header-title-img"
                                         />
@@ -122,7 +150,7 @@ export default function Register(props) {
                                 <div className="bloque__info-contenido-div">
                                     <div className="bloque__info-contenido-img">
                                         <img
-                                            src="/public/icons/multicolor/servicio.svg"
+                                            src="/icons/multicolor/servicio.svg"
                                             alt="Servicio"
                                             className="bloque__info-contenido-img--modifier"
                                         />
@@ -141,7 +169,7 @@ export default function Register(props) {
                                 <div className="bloque__info-contenido-div">
                                     <div className="bloque__info-contenido-img">
                                         <img
-                                            src="/public/icons/multicolor/licitaciones.svg"
+                                            src="/icons/multicolor/licitaciones.svg"
                                             alt=""
                                             className="bloque__info-contenido-img--modifier"
                                         />
@@ -161,7 +189,7 @@ export default function Register(props) {
                                 <div className="bloque__info-contenido-div">
                                     <div className="bloque__info-contenido-img">
                                         <img
-                                            src="/public/icons/multicolor/notificaciones.svg"
+                                            src="/icons/multicolor/notificaciones.svg"
                                             alt=""
                                             className="bloque__info-contenido-img--modifier"
                                         />
@@ -180,7 +208,7 @@ export default function Register(props) {
                                 <div className="bloque__info-contenido-div">
                                     <div className="bloque__info-contenido-img">
                                         <img
-                                            src="/public/icons/multicolor/funcionalidades.svg"
+                                            src="/icons/multicolor/funcionalidades.svg"
                                             alt=""
                                             className="bloque__info-contenido-img--modifier"
                                         />
@@ -216,17 +244,20 @@ export default function Register(props) {
                                     </div>
                                     <div className="bloque__registro-form-container">
                                         <TextInput
-                                            placeholder="Ingresa tu nombre completo"
+                                            type="text"
                                             id="name"
                                             name="name"
+                                            placeholder="Ingresa tu nombre completo"
                                             value={data.name}
-                                            className="bloque__registro-form-container-input"
+                                            className={inputClass}
                                             autoComplete="name"
                                             isFocused={true}
                                             handleChange={onHandleChange}
-                                            required
+                                            // required
                                         />
-                                        <span className=""></span>
+                                        {!validForm && (
+                                            <span className="icon-alert"></span>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="bloque__registro-form-div">
@@ -246,12 +277,14 @@ export default function Register(props) {
                                             type="email"
                                             name="email"
                                             value={data.email}
-                                            className="bloque__registro-form-container-input"
+                                            className={inputClass}
                                             autoComplete="username"
                                             handleChange={onHandleChange}
-                                            required
+                                            // required
                                         />
-                                        <span className=""></span>
+                                        {!validForm && (
+                                            <span className="icon-alert"></span>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="bloque__registro-form-div">
@@ -271,6 +304,10 @@ export default function Register(props) {
                                         <div className="content-inputs">
                                             <PasswordSecurity
                                                 onHandleChange={onHandleChange}
+                                                errorIcon="contenido__password-div-icon icon-alert error-icon"
+                                                errorIconStatus={
+                                                    errorIconStatus
+                                                }
                                             />
                                         </div>
                                     </div>
@@ -285,7 +322,7 @@ export default function Register(props) {
                                             Telefono:
                                         </label>
                                     </div>
-                                    <div className="bloque__registro-form-telefono">
+                                    <div className={inputClassPrefTel}>
                                         <div
                                             className="bloque__registro-form-telefono-button"
                                             onClick={handleShowModalPaises}
@@ -314,11 +351,14 @@ export default function Register(props) {
                                                 name="tel"
                                                 type="text"
                                                 placeholder="Ingresa tu número"
-                                                className="bloque__registro-form-telefono-input"
+                                                className={inputClassTel}
                                                 aria-required="true"
                                                 aria-invalid="false"
+                                                maxlength="10"
                                             />
-                                            <span className=""></span>
+                                            {!validForm && (
+                                                <span className="icon-alert"></span>
+                                            )}
                                         </div>
                                     </div>
                                 </div>

@@ -1,15 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 
 export default function TextInput({
-    type = 'text',
+    type,
+    id,
     name,
+    placeholder,
     value,
     className,
     autoComplete,
     required,
     isFocused,
     handleChange,
-    placeholder,
 }) {
     const input = useRef();
 
@@ -20,19 +21,20 @@ export default function TextInput({
     }, []);
 
     return (
-            <input
-                placeholder={placeholder}
-                type={type}
-                name={name}
-                value={value}
-                className={
-                    `border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm ` +
-                    className
-                }
-                ref={input}
-                autoComplete={autoComplete}
-                required={required}
-                onChange={(e) => handleChange(e)}
-            />
+        <input
+            type={type}
+            id={id}
+            name={name}
+            placeholder={placeholder}
+            value={value}
+            className={
+                `border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm ` +
+                className
+            }
+            autoComplete={autoComplete}
+            required={required}
+            onChange={(e) => handleChange(e)}
+            ref={input}
+        />
     );
 }

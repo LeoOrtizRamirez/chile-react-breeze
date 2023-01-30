@@ -1,13 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 
 import "./PasswordSecurity.css";
-
-import TextInput from "@/Components/TextInput";
 
 const PasswordSecurity = (props, onHandleChange) => {
     const [securityColor, setSecurityColor] = useState("gray");
     const [securityName, setSecurityName] = useState("no ingresada");
-
     const [securityMinima, setsecurityMinima] = useState(false);
     const [securityMedia, setsecurityMedia] = useState(false);
     const [securityFuerte, setsecurityFuerte] = useState(false);
@@ -116,24 +113,30 @@ const PasswordSecurity = (props, onHandleChange) => {
     };
 
     const handleTogglePasswordIcon = (e) => {
-        if (refPasswordIcon.current.className == "contenido__password-div-icon icon-show") {
-            refPasswordIcon.current.className = "contenido__password-div-icon icon-hide";
+        if (
+            refPasswordIcon.current.className ==
+            "contenido__password-div-icon icon-show"
+        ) {
+            refPasswordIcon.current.className =
+                "contenido__password-div-icon icon-hide";
             refPasswordInput.current.type = "text";
             refPasswordInput.current.placeholder = "Ingresa tu contraseña";
-        } else if(refPasswordIcon.current.className == "contenido__password-div-icon icon-hide"){
-            refPasswordIcon.current.className = "contenido__password-div-icon icon-show";
+        } else if (
+            refPasswordIcon.current.className ==
+            "contenido__password-div-icon icon-hide"
+        ) {
+            refPasswordIcon.current.className =
+                "contenido__password-div-icon icon-show";
             refPasswordInput.current.type = "password";
             refPasswordInput.current.placeholder = "Contraseña1234";
-        }else{
-            if(refPasswordInput.current.type == "text"){
+        } else {
+            if (refPasswordInput.current.type == "text") {
                 refPasswordInput.current.type = "password";
                 refPasswordInput.current.placeholder = "Contraseña1234";
-            }else{
+            } else {
                 refPasswordInput.current.type = "text";
                 refPasswordInput.current.placeholder = "Ingresa tu contraseña";
             }
-            
-            
         }
     };
 
@@ -145,26 +148,28 @@ const PasswordSecurity = (props, onHandleChange) => {
                         placeholder="Ingresa tu contraseña"
                         type="password"
                         name="password"
-                        className={`contenido__password-div-input ${props.errorIconStatus && "error-input"}`}
+                        className={`contenido__password-div-input ${
+                            props.errorIconStatus && "error-input"
+                        }`}
                         autoComplete="new-password"
                         onChange={handleInputChange}
-                        required
+                        // required
                         ref={refPasswordInput}
                     />
-                    {props.errorIconStatus ?
-                        <span 
+                    {props.errorIconStatus ? (
+                        <span
                             className="contenido__password-div-icon icon-alert error-icon"
+                            // className={classInputPass}
                             onClick={handleTogglePasswordIcon}
                             ref={refPasswordIcon}
-                        >
-                        </span>
-                    :
+                        ></span>
+                    ) : (
                         <span
                             className="contenido__password-div-icon icon-show"
                             onClick={handleTogglePasswordIcon}
                             ref={refPasswordIcon}
                         />
-                    }
+                    )}
                 </div>
             </div>
             <div className="contenido__nivel">

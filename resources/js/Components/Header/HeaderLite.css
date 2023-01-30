@@ -1,7 +1,7 @@
 /*HEADER MOVERLO A LA HOJA DE ESTILO*/
 .container-headerLite {
     padding: 0px 100px;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
+    background: #ffffff 0% 0% no-repeat padding-box;
     box-shadow: 0px 0px 20px #00000029;
     opacity: 1;
     width: 100%;
@@ -16,11 +16,6 @@ a.img-header {
     width: 187px;
 }
 
-.contenido_headerLite--margin-top{
- /*    padding-top: 78px; */
-}
-
-
 .division-header {
     width: 3px;
     height: 12px;
@@ -33,7 +28,7 @@ a.img-header {
 }
 
 .text-iniciar {
-    color: #00A1C9;
+    color: #00a1c9;
     font-size: 14px;
     text-align: left;
     font-weight: bold;
@@ -44,7 +39,7 @@ a.img-header {
 }
 .text-iniciar:hover {
     background-color: #dff3f8;
-    color: #00A1C9;
+    color: #00a1c9;
 }
 .text-contactanos {
     color: #686868 !important;
@@ -57,11 +52,11 @@ a.img-header {
     font-family: Poppins;
 }
 
-.text-contactanos:hover{
+.text-contactanos:hover {
     color: #686868;
 }
 span.icon-contacto {
-    color: #00A1C9;
+    color: #00a1c9;
 }
 
 .text-probar {
@@ -81,15 +76,12 @@ span.icon-contacto {
     color: white !important;
     text-align: left;
     text-decoration: inherit;
-    background-color: #73C914;
+    background-color: #73c914;
     border: 1px solid;
 }
 /*fin header*/
 
-
 /*estilos header React*/
-
-
 
 /*PC */
 @media only screen and (min-width: 700px) {
@@ -103,7 +95,7 @@ span.icon-contacto {
 
     .container-headerPublica {
         padding: 0px 100px;
-        background: #FFFFFF 0% 0% no-repeat padding-box;
+        background: #ffffff 0% 0% no-repeat padding-box;
         box-shadow: 0px 0px 20px #00000029;
         opacity: 1;
         width: 100% !important;
@@ -112,19 +104,12 @@ span.icon-contacto {
         position: fixed;
         top: 0;
         left: 0;
-
     }
 
     .contenido_headerPublica--margin-top {
         padding-top: 78px;
     }
-
-
-
-
-
 }
-
 
 /*Mobile */
 @media only screen and (max-width: 700px) {
@@ -139,9 +124,6 @@ span.icon-contacto {
     .text-probar {
         display: inline;
     }
-
-
-
 }
 
 .menu-header {
@@ -153,11 +135,6 @@ span.icon-contacto {
     font-family: Poppins;
 }
 
-
-
-
 .navbar-toggler-icon {
-
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
-
 }
