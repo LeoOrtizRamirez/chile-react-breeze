@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link, Head } from "@inertiajs/inertia-react";
 
 import Banner from "@/Components/Banner";
@@ -9,11 +9,16 @@ import BotonAsesor from '@/Components/BotonHablarAsesor';
 import CarouselImagenes from '@/Components/CarouselImagenes';
 
 import { BannerMonitoreamos } from "../Components/Banners/BannerMonitoreamos";
-
+import PopUpPoliticaCookies from '@/Components/PopUpPoliticaCookies';
 
 import Header from "@/Layouts/HeaderPublica";
+
+
+
+
 export default function Welcome(props) {
-    {/* INICIO BANNER */}
+
+    {/* INICIO BANNER */ }
     const [date, setDate] = useState(new Date().toLocaleTimeString())
     const [printdate, setPrintDate] = useState(new Date().toLocaleTimeString())
     const [hour, setHour] = useState("")
@@ -22,7 +27,7 @@ export default function Welcome(props) {
     const [contratosFiltrados, setContartosFiltrados] = useState('')
     const [openLoginModal, setOpenLoginModal] = useState(false)
 
-    
+
 
     async function check() {
         setDate(new Date().toLocaleTimeString())
@@ -53,7 +58,7 @@ export default function Welcome(props) {
         setOpenLoginModal(value)
     }
 
-    {/* FIN BANNER */}
+    {/* FIN BANNER */ }
     return (
         <>
             <Head title="Home" />
@@ -156,8 +161,7 @@ export default function Welcome(props) {
                 </div>
             </section>
 
-
-
+            <PopUpPoliticaCookies />
             <Footer />
 
         </>

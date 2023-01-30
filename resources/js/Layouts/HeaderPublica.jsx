@@ -7,6 +7,7 @@ import TextInput from '@/Components/TextInput';
 import Modal from 'react-bootstrap/Modal';
 import "../../css/font-unicolor.css";
 import './Header.css';
+import "./script.js";
 
 
 import Container from 'react-bootstrap/Container';
@@ -17,6 +18,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
+import { Display } from "react-bootstrap-icons";
 
 export default function Example(props) {
 
@@ -37,6 +39,7 @@ export default function Example(props) {
     const [verificationCode3, setVerificationCode3] = useState("")
     const [verificationCode4, setVerificationCode4] = useState("")
     const [inputCodeClass, setInputCodeClass] = useState("contenido__validacion-input")
+    const [userMenu, setUserMenu] = useState(false)
 
     let refPasswordIcon = useRef();
     let refInputPassword = useRef();
@@ -221,6 +224,13 @@ export default function Example(props) {
         }
     }
 
+    const logout = () => {
+        event.preventDefault(); 
+        var token = document.querySelector('meta[name="csrf-token"]').content
+        document.getElementById('token').value = token
+        document.getElementById('logout-form').submit()
+    }
+
 
     return (
         <>
@@ -238,18 +248,11 @@ export default function Example(props) {
 
                         <Navbar.Collapse id="responsive-navbar-nav">
                             <Nav className="me-auto" >
-                                <Nav.Link href="/funcionalidades" className="menu-header" >
-                                    Funcionalidades
-                                </Nav.Link>
-                                <Nav.Link href="/chile/planes" className="menu-header">
-                                    Planes
-                                </Nav.Link>
-                                <Nav.Link href="/nosotros" className="menu-header">
-                                    Nosotros
-                                </Nav.Link>
-                                <Nav.Link href="/contacto" className="menu-header">
-                                    Contáctanos
-                                </Nav.Link>
+
+                                <a href="/funcionalidades" class="menu-header nav-header-publica">Funcionalidades</a>
+                                <a href="/chile/planes" class="menu-header nav-header-publica">Planes</a>
+                                <a href="/nosotros" class="menu-header nav-header-publica">Nosotros</a>
+                                <a href="/contacto" class="menu-header nav-header-publica">Contáctanos</a>
                                 {/*  <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.2">
@@ -269,15 +272,58 @@ export default function Example(props) {
 
                                     {props.user.auth.user ? (
                                         <>
-                                            <Nav.Link href={route("dashboard")} className="flex  items-center menu-header mx-1">
+                                            {/* <Nav.Link href={route("dashboard")} className="flex  items-center menu-header mx-1"> */}
 
-                                                {props.user.auth.user.nombre_completo ?
-                                                    props.user.auth.user.nombre_completo
-                                                    :
-                                                    Dashboard
-                                                }
+                                            <button type="button" onClick={() => setUserMenu(!userMenu)}>
+                                                <div className="dropdown content">
+                                                    <button className="content__button">
+                                                        <span className="content__photo">
+                                                            <span className="content__photo--modifier icon-datos"></span>
+                                                        </span>
+                                                        <span className="content__hola">¡Hola! &nbsp;</span>
+                                                        <span className="content__name">
+                                                            {props.user.auth.user.name ?
+                                                                props.user.auth.user.name
+                                                                :
+                                                                "Dashboard"
+                                                            }
+                                                        </span>
+                                                        <span className={`content__down ${userMenu ? "icon-up" : "icon-down"}`}></span>
+                                                    </button>
+                                                </div>
+                                            </button>
+                                            {userMenu &&
+                                                <ul role="menu" tabindex="-1" className="dropdown-menu dropdown-user-list show" aria-labelledby="__BVID__38__BV_toggle_">
+                                                    <div className="contenido">
+                                                        <span className="angle_dropdown"></span>
+                                                        <li role="presentation" className="contenido__contratos">
+                                                            <a href={route("dashboard")} className="td-none c-unset m-unset">
+                                                                <button role="menuitem" type="button" className="submenu-item">
+                                                                    <span className="contenido__contratos-icon icon-Contratos"></span>
+                                                                    <span className="contenido__contratos-text">Ir a contratos</span>
+                                                                    <span className="contenido__contratos-right icon-down"></span>
+                                                                </button>
+                                                            </a>
+                                                        </li>
+                                                        <hr className="linea__divisoria" />
+                                                        <li role="presentation" className="contenido__logout">
+                                                            <a href={ route('logout') } onClick={logout} className="td-none c-unset m-unset">
+                                                                <button role="menuitem" type="submit" className="submenu-item">
+                                                                    <span className="contenido__logout-icon icon-logout"></span>
+                                                                    <span className="contenido__logout-text">Cerrar sesión</span>
+                                                                    <span className="contenido__logout-right icon-down"></span>
+                                                                </button>
+                                                            </a>
 
-                                            </Nav.Link>
+                                                            <form id="logout-form" action={ route('logout') } method="POST" style={{display: "none"}}>
+                                                                <input type="hidden" name="_token" id='token'/>
+                                                            </form>
+                                                        </li>
+                                                    </div>
+                                                </ul>
+                                            }
+
+                                            {/* </Nav.Link> */}
 
                                             <hr className="division-header header-publica"></hr>
 
@@ -535,7 +581,7 @@ export default function Example(props) {
                                 <span className="informacion__correo-span">
                                     <div className="informacion__correo-span--modifier">L
 
-                                    </div> lortizr@uniremingtonmanizales.edu.co
+                                    </div> {data.email}
                                 </span>
                             </div>
                             {!verificationCodeExpire ?

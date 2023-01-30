@@ -251,19 +251,15 @@ export const ModalTC = ({ showTC, handleCloseTC }) => {
                                     </div>
                                 </MDBCol>
                             </div>
-                            <div
-                                className="termcond-info"
-                                id="element"
-                                ref={containerRef}
-                            >
+
+
+                            <div className="termcond-info"id="element"ref={containerRef} >
                                 <MDBCol>
-                                    <button
-                                        type="button"
-                                        class="btn-tc"
-                                        onClick={handleCloseTC}
-                                    >
+                                    <button type="button"class="btn-tc" onClick={handleCloseTC} >
                                         <span className="x-tc">x</span>
                                     </button>
+
+
                                     <section ref={home} id="section-1">
                                         <br />
                                         <h2 className="text-center">
@@ -1417,12 +1413,10 @@ export const ModalTC = ({ showTC, handleCloseTC }) => {
                                             de servicio.
                                         </p>
                                         <p>
-                                            Si tiene alguna duda, con gusto la
-                                            resolveremos. Encuentre nuestros
-                                            medios
-                                            <a id="contacto" href="/contacto">
-                                                aquí.
-                                            </a>
+                                        Si tiene alguna duda, con gusto la resolveremos. Encuentre nuestros medios de contacto  <a id="contacto" href="/contacto">aquí.</a>
+                                                
+
+
                                         </p>
                                     </section>
                                     <br />
