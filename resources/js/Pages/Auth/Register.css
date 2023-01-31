@@ -193,6 +193,7 @@
     display: flex;
     width: 100%;
     align-items: center;
+    /* border: red solid 1px; */
 }
 
 .contenido__password {
@@ -229,10 +230,9 @@
     padding: 15px 48px 15px 25px;
     background: #fff;
     border: 2px solid #d4d4d4;
-    font-size: 1rem;
+    font-size: 14px;
     font-weight: 400;
-    font-family: Roboto;
-    color: #959595;
+    color: #9c9b9b;
     width: 275px;
 }
 
@@ -253,25 +253,28 @@
 }
 
 .contenido__password-div .error-input {
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 700;
-    font-family: Roboto;
+    /* font-family: Roboto; */
     border: 2px solid #c9003d;
     color: #c9003d;
-}
-
-.contenido__password-div .error-input::-moz-placeholder {
-    color: #c9003d;
-    font-size: 1.38rem;
+    font-size: 1rem;
     font-weight: 700;
-    font-family: Roboto;
+    font-family: Poppins;
 }
 
 .contenido__password-div .error-input::placeholder {
     color: #c9003d;
-    font-size: 1.38rem;
+    font-size: 1rem;
     font-weight: 700;
-    font-family: Roboto;
+    font-family: Poppins;
+}
+
+.contenido__password-div .error-input::-moz-placeholder {
+    color: #c9003d;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: Poppins;
 }
 
 .contenido__password-div .error-input--modifier {
@@ -279,7 +282,7 @@
 }
 
 .contenido__password-div .error-icon {
-    font-size: 1.75rem;
+    font-size: 1.2rem;
     color: #c9003d;
 }
 
@@ -466,35 +469,6 @@
 
 .modal-usuario .modal-header .modal-title {
     padding-top: 26px;
-}
-
-.botonera__cerrar {
-    width: 60px;
-    height: 60px;
-}
-
-.botonera__cerrar,
-.btn-close {
-    border-radius: 30px;
-    border: 0;
-    color: #686868;
-}
-
-.btn-close {
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    top: 11px;
-    right: 11px;
-}
-
-.btn-close:hover {
-    background-color: #c9003d;
-    color: #fff;
-}
-
-.btn-close:focus {
-    outline: none;
 }
 
 .modal-usuario .modal-filter {
@@ -2556,9 +2530,9 @@ footer[id^="modal-olvidaste"].modal-footer
     content: "";
     position: absolute;
     display: none;
-    left: 3px;
-    width: 9px;
-    height: 8px;
+    left: 5px;
+    width: 5px;
+    height: 10px;
     border: solid #fff;
     border-width: 0 4px 4px 0;
     transition: background 0.25s;
@@ -2632,7 +2606,7 @@ footer[id^="modal-olvidaste"].modal-footer
 }
 
 #register-container .icon-alert {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     color: #c9003d;
     position: absolute;
     top: 14px;
@@ -2819,4 +2793,63 @@ footer[id^="modal-olvidaste"].modal-footer
 
 .text-probar {
     display: none;
+}
+
+.form-container-input-errors {
+    font-size: 1rem;
+    font-weight: 400;
+    font-family: Poppins;
+    color: #c9003d;
+    width: 100%;
+    border: 2px solid #c9003d;
+    border-radius: 34px;
+    opacity: 1;
+    padding: 13px 25px;
+}
+
+.form-container-input-errors::-moz-placeholder {
+    color: #c9003d;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: Poppins;
+}
+
+.form-container-input-errors::placeholder {
+    color: #c9003d;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: Poppins;
+}
+
+.bloque__registro-form-telefono-errors {
+    width: 100%;
+    border-radius: 37px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.bloque__registro-form-telefono-input-errors {
+    font-size: 14px;
+    font-weight: 400;
+    font-family: Poppins;
+    color: #c9003d;
+    width: 100%;
+    border-radius: 34px;
+    opacity: 1;
+    padding: 13px 25px;
+}
+
+.bloque__registro-form-telefono-input-errors:focus,
+.bloque__registro-form-telefono-input-errors:focus-visible {
+    outline: none;
+}
+
+.bloque__registro-form-telefono-input-errors::-moz-placeholder {
+    color: #c9003d;
+}
+
+.bloque__registro-form-telefono-input-errors::placeholder {
+    color: #c9003d;
 }

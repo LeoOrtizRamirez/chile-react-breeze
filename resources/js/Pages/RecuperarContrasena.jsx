@@ -116,7 +116,7 @@ const RecuperarContrasena = (props) => {
                             <Col md={1} className="d-flex">
                                 <button
                                     type="button"
-                                    class="icon-close m-auto"
+                                    className="icon-close m-auto"
                                     onClick={() => setShowToast(false)}
                                 />
                             </Col>

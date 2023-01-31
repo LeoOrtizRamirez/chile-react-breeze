@@ -48,7 +48,7 @@ const CreateModal = props => {
             */}
             {props.openCreateModal && (
             <>
-                <div class="fade modal-backdrop show"></div>
+                <div className="fade modal-backdrop show"></div>
                 <div className="modal fade show" id="modalCreate" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style={{ display: 'block' }}>
                     <div className="modal-dialog">
                         <div className="modal-content">
