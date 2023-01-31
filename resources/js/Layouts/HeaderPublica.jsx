@@ -12,7 +12,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { useForm } from "@inertiajs/inertia-react";
 import ModalLoginSesion from "@/Components/Modals/ModalLoginSesion";
 
-export default function Example(props) {
+export default function HeaderPublica(props) {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
         password: "",
@@ -29,29 +29,33 @@ export default function Example(props) {
         document.getElementById("logout-form").submit();
     };
 
-    const [showLS, setShowLS] = useState(props.setShowLS);
-    useEffect(() => {
-        setShowLS(props.setShowLS);
-
-        setData({
-            email: data.email,
-            password: data.password,
-            remember: data.remember,
-            url_modal: props.url,
-        });
-    }, [props.setShowLS]);
-
+    const [showLS, setShowLS] = useState(false);
     const handleShowLS = () => setShowLS(true);
-    const handleCloseLS = () => {
-        setShowLS(false);
-        setData({
-            email: "",
-            password: "",
-        });
-        setInputClass("form-input-section__container-input");
-        setValidForm(true);
-        props.closeModal(false);
-    };
+    const handleCloseLS = () => setShowLS(false);
+
+    // const [showLS, setShowLS] = useState(props.setShowLS);
+    // useEffect(() => {
+    //     setShowLS(props.setShowLS);
+
+    //     setData({
+    //         email: data.email,
+    //         password: data.password,
+    //         remember: data.remember,
+    //         url_modal: props.url,
+    //     });
+    // }, [props.setShowLS]);
+
+    // const handleShowLS = () => setShowLS(true);
+    // const handleCloseLS = () => {
+    //     setShowLS(false);
+    //     setData({
+    //         email: "",
+    //         password: "",
+    //     });
+    //     setInputClass("form-input-section__container-input");
+    //     setValidForm(true);
+    //     props.closeModal(false);
+    // };
 
     return (
         <>

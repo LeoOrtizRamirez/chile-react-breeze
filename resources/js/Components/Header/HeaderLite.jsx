@@ -15,6 +15,30 @@ const HeaderLite = (props) => {
     const handleCloseLS = () => setShowLS(false);
     const handleShowLS = () => setShowLS(true);
 
+    // const [showLS, setShowLS] = useState(props.setShowLS);
+    // useEffect(() => {
+    //     setShowLS(props.setShowLS);
+
+    //     setData({
+    //         email: data.email,
+    //         password: data.password,
+    //         remember: data.remember,
+    //         url_modal: props.url,
+    //     });
+    // }, [props.setShowLS]);
+
+    // const handleShowLS = () => setShowLS(true);
+    // const handleCloseLS = () => {
+    //     setShowLS(false);
+    //     setData({
+    //         email: "",
+    //         password: "",
+    //     });
+    //     setInputClass("form-input-section__container-input");
+    //     setValidForm(true);
+    //     props.closeModal(false);
+    // };
+
     return (
         <>
             <div className="contenido_headerLite--margin-top">
@@ -45,54 +69,51 @@ const HeaderLite = (props) => {
                                     {props.user.auth.user ? (
                                         <>
                                             {/* <Nav.Link href="#deets"> */}
-                                                <li>
-                                                    <a
-                                                        href={route(
-                                                            "dashboard"
-                                                        )}
-                                                        className="flex  items-center menu-header mx-1"
-                                                    >
-                                                        {props.user.auth.user
-                                                            .nombre_completo
-                                                            ? props.user.auth
-                                                                  .user
-                                                                  .nombre_completo
-                                                            : Dashboard}
-                                                    </a>
-                                                </li>
+                                            <li>
+                                                <a
+                                                    href={route("dashboard")}
+                                                    className="flex  items-center menu-header mx-1"
+                                                >
+                                                    {props.user.auth.user
+                                                        .nombre_completo
+                                                        ? props.user.auth.user
+                                                              .nombre_completo
+                                                        : Dashboard}
+                                                </a>
+                                            </li>
                                             {/* </Nav.Link> */}
 
                                             <hr className="division-header header-publica"></hr>
 
                                             {/* <Nav.Link> */}
-                                                <li>
-                                                    <a
-                                                        href="#"
-                                                        className="flex ml-4 "
-                                                    >
-                                                        <ChileLogo />
-                                                    </a>
-                                                </li>
+                                            <li>
+                                                <a
+                                                    href="#"
+                                                    className="flex ml-4 "
+                                                >
+                                                    <ChileLogo />
+                                                </a>
+                                            </li>
                                             {/* </Nav.Link> */}
                                         </>
                                     ) : (
                                         <>
                                             {/* <Nav.Link> */}
-                                                <li>
-                                                    <a
-                                                        className="flex  items-center ml-4 text-iniciar"
-                                                        onClick={handleShowLS}
-                                                    >
-                                                        <span className="mr-2 icon-login"></span>
-                                                        Iniciar sesión
-                                                    </a>
-                                                    <ModalLoginSesion
-                                                        showLS={showLS}
-                                                        handleCloseLS={
-                                                            handleCloseLS
-                                                        }
-                                                    ></ModalLoginSesion>
-                                                </li>
+                                            <li>
+                                                <a
+                                                    className="flex  items-center ml-4 text-iniciar"
+                                                    onClick={handleShowLS}
+                                                >
+                                                    <span className="mr-2 icon-login"></span>
+                                                    Iniciar sesión
+                                                </a>
+                                                <ModalLoginSesion
+                                                    showLS={showLS}
+                                                    handleCloseLS={
+                                                        handleCloseLS
+                                                    }
+                                                ></ModalLoginSesion>
+                                            </li>
                                             {/* </Nav.Link> */}
 
                                             <Nav.Link
