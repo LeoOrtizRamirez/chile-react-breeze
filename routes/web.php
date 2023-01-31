@@ -11,6 +11,7 @@ use App\Http\Controllers\ScrappingController;
 use App\Http\Controllers\MailController;
 use App\Models\Contrato;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ActividadEconomicaController;
 
 Route::get('/', function () { 
     $contratosAll = Contrato::where('fecha_publicacion', date('Y-m-d'))
@@ -137,3 +138,7 @@ Route::get('/recuperar-contrasena', function (Request $request) {
 })->name('recuperar-contrasena');
 
 Route::get('/actualizar-contrasena', [UserController::class, 'actualizarContrasena'])->name('actualizarContrasena');
+
+Route::resource('actividades-economicas', ActividadEconomicaController::class)
+->only(['index','create', 'store', 'edit', 'update', 'destroy'])
+->middleware(['auth','verified']);
