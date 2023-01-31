@@ -44,7 +44,7 @@ const HeaderLite = (props) => {
                                 <ul className="mb-2 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 ">
                                     {props.user.auth.user ? (
                                         <>
-                                            <Nav.Link href="#deets">
+                                            {/* <Nav.Link href="#deets"> */}
                                                 <li>
                                                     <a
                                                         href={route(
@@ -60,11 +60,11 @@ const HeaderLite = (props) => {
                                                             : Dashboard}
                                                     </a>
                                                 </li>
-                                            </Nav.Link>
+                                            {/* </Nav.Link> */}
 
                                             <hr className="division-header header-publica"></hr>
 
-                                            <Nav.Link>
+                                            {/* <Nav.Link> */}
                                                 <li>
                                                     <a
                                                         href="#"
@@ -73,11 +73,11 @@ const HeaderLite = (props) => {
                                                         <ChileLogo />
                                                     </a>
                                                 </li>
-                                            </Nav.Link>
+                                            {/* </Nav.Link> */}
                                         </>
                                     ) : (
                                         <>
-                                            <Nav.Link>
+                                            {/* <Nav.Link> */}
                                                 <li>
                                                     <a
                                                         className="flex  items-center ml-4 text-iniciar"
@@ -93,7 +93,7 @@ const HeaderLite = (props) => {
                                                         }
                                                     ></ModalLoginSesion>
                                                 </li>
-                                            </Nav.Link>
+                                            {/* </Nav.Link> */}
 
                                             <Nav.Link
                                                 href={route("register")}
@@ -119,7 +119,6 @@ const HeaderLite = (props) => {
                     </Container>
                 </Navbar>
             </div>
-            <ModalLoginSesion></ModalLoginSesion>
         </>
     );
 };

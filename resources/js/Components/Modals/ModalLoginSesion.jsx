@@ -249,6 +249,7 @@ export const ModalLoginSesion = ({ showLS, handleCloseLS, props }) => {
                                     <a
                                         className="login__infoLLink"
                                         href={route("register")}
+                                        onClick={()=>console.log('click')}
                                     >
                                         {" "}
                                         Regístrate gratis{" "}

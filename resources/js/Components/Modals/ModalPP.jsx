@@ -97,7 +97,7 @@ export const ModalPP = ({ showPP, handleClosePP }) => {
                             >
                                 <button
                                     type="button"
-                                    class="btn-pp"
+                                    className="btn-pp"
                                     onClick={handleClosePP}
                                 >
                                     <span className="x-pp">x</span>

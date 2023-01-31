@@ -32,7 +32,7 @@ class UserSeeder extends Seeder
         ]);
         User::factory()->create([
             'name' => 'Steven',
-            'nombre_completo' => 'Steven ...',
+            'nombre_completo' => 'Steven',
             'identificacion' => '10650523423',
             'idplan' => null,
             'fecha_vencimiento' => '2024-01-02',

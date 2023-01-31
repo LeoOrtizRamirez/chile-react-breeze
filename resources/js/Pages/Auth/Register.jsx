@@ -55,6 +55,30 @@ export default function Register(props) {
         };
     }, []);
 
+    const [showLS, setShowLS] = useState(props.setShowLS);
+    useEffect(() => {
+        setShowLS(props.setShowLS);
+
+        setData({
+            email: data.email,
+            password: data.password,
+            remember: data.remember,
+            url_modal: props.url,
+        });
+    }, [props.setShowLS]);
+
+    const handleShowLS = () => setShowLS(true);
+    const handleCloseLS = () => {
+        setShowLS(false);
+        setData({
+            email: "",
+            password: "",
+        });
+        setInputClass("form-input-section__container-input");
+        setValidForm(true);
+        props.closeModal(false);
+    };
+
     const onHandleChange = (event) => {
         setData(
             event.target.name,
@@ -113,9 +137,9 @@ export default function Register(props) {
     const handleClosePP = () => setShowPP(false);
     const handleShowPP = () => setShowPP(true);
 
-    const [showLS, setShowLS] = useState(false);
-    const handleCloseLS = () => setShowLS(false);
-    const handleShowLS = () => setShowLS(true);
+    // const [showLS, setShowLS] = useState(false);
+    // const handleCloseLS = () => setShowLS(false);
+    // const handleShowLS = () => setShowLS(true);
 
     return (
         <>
