@@ -9,6 +9,7 @@ import PasswordSecurity from "@/Components/PasswordSecurity";
 import Header from "@/Components/Header/HeaderLite";
 import ModalTC from "@/Components/Modals/ModalTC";
 import ModalPP from "@/Components/Modals/ModalPP";
+import ModalLoginSesion from "@/Components/Modals/ModalLoginSesion";
 //
 import "@fontsource/poppins";
 import "./Register.css";
@@ -112,6 +113,10 @@ export default function Register(props) {
     const handleClosePP = () => setShowPP(false);
     const handleShowPP = () => setShowPP(true);
 
+    const [showLS, setShowLS] = useState(false);
+    const handleCloseLS = () => setShowLS(false);
+    const handleShowLS = () => setShowLS(true);
+
     return (
         <>
             <Head title="Register" />
@@ -138,11 +143,15 @@ export default function Register(props) {
                                     <span className="bloque__info-header-cuenta-text">
                                         {" "}
                                         ¿Ya tienes una cuenta?&nbsp;&nbsp;&nbsp;
-                                        <a href={route("login")}>
+                                        <a onClick={handleShowLS}>
                                             <span className="bloque__info-header-cuenta-text--modifier">
                                                 Inicia sesión
                                             </span>
                                         </a>
+                                        <ModalLoginSesion
+                                            showLS={showLS}
+                                            handleCloseLS={handleCloseLS}
+                                        ></ModalLoginSesion>
                                     </span>
                                 </div>
                             </div>
@@ -354,7 +363,7 @@ export default function Register(props) {
                                                 className={inputClassTel}
                                                 aria-required="true"
                                                 aria-invalid="false"
-                                                maxlength="10"
+                                                maxLength="10"
                                             />
                                             {!validForm && (
                                                 <span className="icon-alert"></span>
