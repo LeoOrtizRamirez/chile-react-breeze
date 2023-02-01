@@ -14,6 +14,7 @@ const App = () => {
             submenuItems: [
                 { title: "Usuarios", href: "/usuarios" },
                 { title: "Planes", href: "/planes" },
+                { title: "Actividades económicas", href: "/actividades-economicas" },
             ],
         },
         {
