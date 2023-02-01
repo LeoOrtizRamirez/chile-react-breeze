@@ -11,14 +11,14 @@ const Page404 = (props) => {
       <Head title="Welcome" />
       <Header user={props}></Header>
 
-      <div class="container body">
-        <div class="row">
-          <div class="col-sm">
-            <h5 class="seccion__404-titulo">Error 404</h5>
-            <h3 class="seccion__404-subtitulo">No hemos podido<br/> encontrar la página <br/> que estás buscando</h3> 
-            <p class="seccion__404-mensaje">Gracias por tu paciencia, es posible que el <br/> enlace sea antiguo o haya sido removido.</p>
+      <div className="container body">
+        <div className="row">
+          <div className="col-sm">
+            <h5 className="seccion__404-titulo">Error 404</h5>
+            <h3 className="seccion__404-subtitulo">No hemos podido<br/> encontrar la página <br/> que estás buscando</h3> 
+            <p className="seccion__404-mensaje">Gracias por tu paciencia, es posible que el <br/> enlace sea antiguo o haya sido removido.</p>
           </div>
-          <div class="col-sm">
+          <div className="col-sm">
             <center>
                 <img src="https://www.licitaciones.info/img/error-404.webp" alt="Error 404"/>
 

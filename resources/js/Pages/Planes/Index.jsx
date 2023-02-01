@@ -75,7 +75,7 @@ const Index = ({ auth, planes }) => {
                                     setOpenCreateModal(true);
                                 }}
                             >
-                                <i class="bi bi-plus-lg"></i> Crear 
+                                <i className="bi bi-plus-lg"></i> Crear 
                             </a>
                             {openCreateModal && (
                                 <CreateModal

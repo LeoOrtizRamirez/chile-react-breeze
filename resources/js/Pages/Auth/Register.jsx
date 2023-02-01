@@ -9,6 +9,7 @@ import PasswordSecurity from "@/Components/PasswordSecurity";
 import Header from "@/Components/Header/HeaderLite";
 import ModalTC from "@/Components/Modals/ModalTC";
 import ModalPP from "@/Components/Modals/ModalPP";
+import ModalLoginSesion from "@/Components/Modals/ModalLoginSesion";
 //
 import "@fontsource/poppins";
 import "./Register.css";
@@ -20,14 +21,31 @@ export default function Register(props) {
         password: "",
         password_confirmation: "",
     });
+
+    const [inputClass, setInputClass] = useState(
+        "bloque__registro-form-container-input"
+    );
+
+    const [inputClassPrefTel, setInputClassPrefTel] = useState(
+        "bloque__registro-form-telefono"
+    );
+
+    const [inputClassTel, setInputClassTel] = useState(
+        "bloque__registro-form-telefono-input"
+    );
+
+    const [errorIconStatus, setIconStatus] = useState(false);
+
+    const [validForm, setValidForm] = useState(true);
+
     const [disabledBtnRegister, setDisableddisabledBtnRegister] =
         useState(true);
     const [disabledClass, setDisabledClass] = useState("disabled");
     const [showModalPaises, setShowModalPaises] = useState(false);
     const [Country, SetCountry] = useState({
-        image: "",
-        title: "",
-        indicative: "+0",
+        image: "/public/images/banderas/listado_nombres/CHL.svg",
+        title: "Chile",
+        indicative: "+56",
         fixed: null,
     });
 
@@ -36,6 +54,30 @@ export default function Register(props) {
             reset("password", "password_confirmation");
         };
     }, []);
+
+    const [showLS, setShowLS] = useState(props.setShowLS);
+    useEffect(() => {
+        setShowLS(props.setShowLS);
+
+        setData({
+            email: data.email,
+            password: data.password,
+            remember: data.remember,
+            url_modal: props.url,
+        });
+    }, [props.setShowLS]);
+
+    const handleShowLS = () => setShowLS(true);
+    const handleCloseLS = () => {
+        setShowLS(false);
+        setData({
+            email: "",
+            password: "",
+        });
+        setInputClass("form-input-section__container-input");
+        setValidForm(true);
+        props.closeModal(false);
+    };
 
     const onHandleChange = (event) => {
         setData(
@@ -49,6 +91,17 @@ export default function Register(props) {
     const submit = (e) => {
         e.preventDefault();
         post(route("register"));
+        if (errors) {
+            setInputClass("form-container-input-errors");
+            setInputClassPrefTel("bloque__registro-form-telefono-errors");
+            setInputClassTel(
+                "form-container-input-errors bloque__registro-form-telefono-input-errors"
+            );
+            setIconStatus(
+                "form-container-input-errors bloque__registro-form-telefono-input-errors"
+            );
+            setValidForm(false);
+        }
     };
 
     const handleCloseModalPaises = () => setShowModalPaises(false);
@@ -84,6 +137,10 @@ export default function Register(props) {
     const handleClosePP = () => setShowPP(false);
     const handleShowPP = () => setShowPP(true);
 
+    // const [showLS, setShowLS] = useState(false);
+    // const handleCloseLS = () => setShowLS(false);
+    // const handleShowLS = () => setShowLS(true);
+
     return (
         <>
             <Head title="Register" />
@@ -110,11 +167,15 @@ export default function Register(props) {
                                     <span className="bloque__info-header-cuenta-text">
                                         {" "}
                                         ¿Ya tienes una cuenta?&nbsp;&nbsp;&nbsp;
-                                        <a href={route("login")}>
+                                        <a onClick={handleShowLS}>
                                             <span className="bloque__info-header-cuenta-text--modifier">
                                                 Inicia sesión
                                             </span>
                                         </a>
+                                        <ModalLoginSesion
+                                            showLS={showLS}
+                                            handleCloseLS={handleCloseLS}
+                                        ></ModalLoginSesion>
                                     </span>
                                 </div>
                             </div>
@@ -216,17 +277,20 @@ export default function Register(props) {
                                     </div>
                                     <div className="bloque__registro-form-container">
                                         <TextInput
-                                            placeholder="Ingresa tu nombre completo"
+                                            type="text"
                                             id="name"
                                             name="name"
+                                            placeholder="Ingresa tu nombre completo"
                                             value={data.name}
-                                            className="bloque__registro-form-container-input"
+                                            className={inputClass}
                                             autoComplete="name"
                                             isFocused={true}
                                             handleChange={onHandleChange}
-                                            required
+                                            // required
                                         />
-                                        <span className=""></span>
+                                        {!validForm && (
+                                            <span className="icon-alert"></span>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="bloque__registro-form-div">
@@ -246,12 +310,14 @@ export default function Register(props) {
                                             type="email"
                                             name="email"
                                             value={data.email}
-                                            className="bloque__registro-form-container-input"
+                                            className={inputClass}
                                             autoComplete="username"
                                             handleChange={onHandleChange}
-                                            required
+                                            // required
                                         />
-                                        <span className=""></span>
+                                        {!validForm && (
+                                            <span className="icon-alert"></span>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="bloque__registro-form-div">
@@ -271,6 +337,10 @@ export default function Register(props) {
                                         <div className="content-inputs">
                                             <PasswordSecurity
                                                 onHandleChange={onHandleChange}
+                                                errorIcon="contenido__password-div-icon icon-alert error-icon"
+                                                errorIconStatus={
+                                                    errorIconStatus
+                                                }
                                             />
                                         </div>
                                     </div>
@@ -285,7 +355,7 @@ export default function Register(props) {
                                             Telefono:
                                         </label>
                                     </div>
-                                    <div className="bloque__registro-form-telefono">
+                                    <div className={inputClassPrefTel}>
                                         <div
                                             className="bloque__registro-form-telefono-button"
                                             onClick={handleShowModalPaises}
@@ -314,11 +384,14 @@ export default function Register(props) {
                                                 name="tel"
                                                 type="text"
                                                 placeholder="Ingresa tu número"
-                                                className="bloque__registro-form-telefono-input"
+                                                className={inputClassTel}
                                                 aria-required="true"
                                                 aria-invalid="false"
+                                                maxLength="10"
                                             />
-                                            <span className=""></span>
+                                            {!validForm && (
+                                                <span className="icon-alert"></span>
+                                            )}
                                         </div>
                                     </div>
                                 </div>

@@ -255,7 +255,7 @@ export const ModalTC = ({ showTC, handleCloseTC }) => {
 
                             <div className="termcond-info"id="element"ref={containerRef} >
                                 <MDBCol>
-                                    <button type="button"class="btn-tc" onClick={handleCloseTC} >
+                                    <button type="button"className="btn-tc" onClick={handleCloseTC} >
                                         <span className="x-tc">x</span>
                                     </button>
 

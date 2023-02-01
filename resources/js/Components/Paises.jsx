@@ -12,7 +12,7 @@ export const Paises = (props) => {
         const input_filter = document.getElementById("searchIndicador").value;
         const pattern = new RegExp(input_filter, "i");
         const filteredCountries = fakeCountries.filter(function (el) {
-            if (pattern.test(el.title)) {
+            if (pattern.test(el.title) || pattern.test(el.indicative)) {
                 return el;
             }
         });
@@ -33,7 +33,7 @@ export const Paises = (props) => {
 
     return (
         <>
-            <div className=" scrollable">
+            <div className="scrollable">
                 <div className="modal-filter">
                     <div className="modal-filter__search">
                         <div className="form-group">
@@ -52,7 +52,6 @@ export const Paises = (props) => {
                             </div>
                         </div>
                     </div>
-                    <span className="subtitle-country">Mas comunes</span>
                     {Countries[0] != undefined ? (
                         <div className="modal-filter__list scrollable-custom">
                             {Countries.map((Country, index) => (
@@ -78,7 +77,7 @@ export const Paises = (props) => {
                                         </span>
                                         {Country.fixed && (
                                             <img
-                                                src="/public/images/banderas/listado_nombres/fijado.svg"
+                                                src="/images/banderas/listado_nombres/fijado.svg"
                                                 alt="Fijado"
                                                 className="pinned-icon"
                                             />
@@ -99,7 +98,7 @@ export const Paises = (props) => {
                                 </p>
                             </div>
                             <img
-                                src="/public/images/sin-resultados-busqueda.webp"
+                                src="/images/sin-resultados-busqueda.webp"
                                 alt="Sin resultados"
                             />
                         </div>

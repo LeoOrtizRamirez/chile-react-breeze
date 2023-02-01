@@ -99,7 +99,7 @@ const App = () => {
                                     <span className="angle_dropdown_menu" ></span>
                                     <div className="drop-perfiles drop-carpetas position-relative">
                                         <span className="icon-Contraer-campana-click ">
-                                            <i class="bi bi-chevron-double-left" onClick={() => setSubMenuOpen(false)} />
+                                            <i className="bi bi-chevron-double-left" onClick={() => setSubMenuOpen(false)} />
                                         </span>
                                         <div className="item-checkbox-menu item-checkbox-menu-subtitle"><label className="submenu-title">Administración</label>
                                         </div>
