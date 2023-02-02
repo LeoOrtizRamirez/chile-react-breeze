@@ -27,7 +27,7 @@ const Index = ({ auth, actividades_economicas }) => {
     const handleShowModalActividadEconomica = () => setShowModalActividadEconomica(true);
 
     const getSegmento = (parent) => {
-        setSectores(fakeSectores);
+        //setSectores(fakeSectores);
         const input_filter = parent
         const pattern = new RegExp(input_filter, "i");
         const FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
@@ -41,9 +41,8 @@ const Index = ({ auth, actividades_economicas }) => {
     }
 
     const getActividadEconomica = (parent) => {
-        setSectores(fakeSectores);
-        const input_filter = parent
-        const pattern = new RegExp(input_filter, "i");
+        //setSectores(fakeSectores);
+        const pattern = new RegExp(parent, "i");
         const FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
             if (pattern.test(el.id_padre_sub_categoria)) {
                 return el;
@@ -58,6 +57,16 @@ const Index = ({ auth, actividades_economicas }) => {
         setInputActividadEconomica(actividad_economica)
     }
 
+    const filterActividadEconomica = (e) =>{
+        const pattern = new RegExp(e.target.value, "i");
+        const FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
+            if (pattern.test(el.nombre)) {
+                return el;
+            }
+        });
+        setSectores(FilteredActividadesEcomomicas);
+        setShowActividadEconomica(!showActividadEconomica)
+    }
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Actividades económicas" />
@@ -71,7 +80,13 @@ const Index = ({ auth, actividades_economicas }) => {
                         <div className="tree_categorias tree_1">
                             <div className="tree_categorias__busqueda mb-3 mb-md-4">
                                 <div className="mx-auto">
-                                    <input type="text" placeholder="Busca por actividad económica" autoComplete="off" className="form-control m-auto" />
+                                    <input 
+                                        type="text" 
+                                        placeholder="Busca por actividad económica" 
+                                        autoComplete="off" 
+                                        className="form-control m-auto" 
+                                        onChange={filterActividadEconomica}
+                                    />
                                     <i className="icon-Cancelar"></i>
                                     <button type="button" className="icon-Buscar-click"><i className="bi bi-search"></i></button>
 
@@ -156,6 +171,7 @@ const Index = ({ auth, actividades_economicas }) => {
                                         <button type="buttom" className="btn btnRadius btn-new-red ml-2">Eliminar</button>
                             </Modal.Footer>
                         </Modal>
+
                         <div className="botones">
                             <Nav.Link href={route("actividades-economicas.create")} className="flex  ml-4 text-probar " >
                                 <i className="bi bi-plus-square-fill"></i>
