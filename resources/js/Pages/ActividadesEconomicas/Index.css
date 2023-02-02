@@ -364,3 +364,27 @@ body{
     display: flex;
     justify-content: center;
 }
+
+.btn-new-blue {
+    color: #00a1c9 !important;
+    border: 1px solid #00a1c9 !important;
+}
+
+.btnRadius {
+    border-radius: 40px !important;
+}
+
+.btn-new-blue:hover {
+    background: #00a1c9!important;
+    color: #fff!important;
+}
+
+.btn-new-red {
+    color: #dc3545 !important;
+    border: 1px solid #dc3545 !important;
+}
+
+.btn-new-red:hover {
+    background: #dc3545!important;
+    color: #fff!important;
+}

@@ -18,7 +18,7 @@ class SubCategoriaController extends Controller
             ->with('parent', 'childs')
             ->get();
 
-        return Inertia::render('SubCategorias/Index', [
+        return Inertia::render('ActividadesEconomicas/Index', [
             'actividades_economicas' => $actividades_economicas,
         ]);
     }
@@ -35,7 +35,7 @@ class SubCategoriaController extends Controller
             ->where('id_padre_sub_categoria', null)
             ->orderBy('updated_at', 'DESC')
             ->get();
-        return Inertia::render('SubCategorias/Crear', [
+        return Inertia::render('ActividadesEconomicas/Crear', [
             'actividades_economicas' => $actividades_economicas,
             'solo_sectores' => $sectores,
         ]);
@@ -88,7 +88,7 @@ class SubCategoriaController extends Controller
             ->orderBy('updated_at', 'DESC')
             ->get();
 
-        return Inertia::render('SubCategorias/Editar', [
+        return Inertia::render('ActividadesEconomicas/Editar', [
             'actividades_economicas' => $actividades_economicas,
             'solo_sectores' => $sectores,
             'ae_actual' => $ae_actual,

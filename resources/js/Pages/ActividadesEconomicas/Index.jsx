@@ -6,7 +6,7 @@ import './Index.css';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Nav from 'react-bootstrap/Nav';
-import { useEffect } from "react";
+import Modal from "react-bootstrap/Modal";
 
 const Index = ({ auth, actividades_economicas }) => {
     const [fakeSectores, setFakeSectores] = useState(actividades_economicas);
@@ -15,13 +15,16 @@ const Index = ({ auth, actividades_economicas }) => {
     const [showActividadEconomica, setShowActividadEconomica] = useState(false);
     const [selectedSegmento, setSelectedSegmento] = useState(0);
     const [selectedActividadEconomica, setSelectedActividadEconomica] = useState(0);
-    const [inputActividadEconomica, setInputActividadEconomica] = useState(0);
-
-
-
+    const [inputActividadEconomica, setInputActividadEconomica] = useState({
+        id: 0,
+        nombre: "",
+    });
     const [segmentos, setSegmentos] = useState([]);
     const [actividadesEconomicas, setActividadesEconomicas] = useState([]);
+    const [showModalActividadEconomica, setShowModalActividadEconomica] = useState(false);
 
+    const handleCloseModalActividadEconomica = () => setShowModalActividadEconomica(false);
+    const handleShowModalActividadEconomica = () => setShowModalActividadEconomica(true);
 
     const getSegmento = (parent) => {
         setSectores(fakeSectores);
@@ -51,8 +54,8 @@ const Index = ({ auth, actividades_economicas }) => {
         setSelectedActividadEconomica(parent)
     }
 
-    const checked = (id) => {
-        setInputActividadEconomica(id)
+    const checked = (actividad_economica) => {
+        setInputActividadEconomica(actividad_economica)
     }
 
     return (
@@ -68,7 +71,7 @@ const Index = ({ auth, actividades_economicas }) => {
                         <div className="tree_categorias tree_1">
                             <div className="tree_categorias__busqueda mb-3 mb-md-4">
                                 <div className="mx-auto">
-                                    <input type="text" placeholder="Busca por actividad económica" autocomplete="off" className="form-control m-auto" />
+                                    <input type="text" placeholder="Busca por actividad económica" autoComplete="off" className="form-control m-auto" />
                                     <i className="icon-Cancelar"></i>
                                     <button type="button" className="icon-Buscar-click"><i className="bi bi-search"></i></button>
 
@@ -104,12 +107,12 @@ const Index = ({ auth, actividades_economicas }) => {
                                                                         <ul className="tree-children">
                                                                             {actividadesEconomicas.map((childs) => (
                                                                                 <li className="tree-node draggable">
-                                                                                    <div className="tree-content actividad-economica" onClick={() => checked(childs.id)}>
+                                                                                    <div className="tree-content actividad-economica" onClick={() => checked(childs)}>
                                                                                         <input
                                                                                             type="radio"
                                                                                             name="actividad_economica"
-                                                                                            onClick={() => checked(childs.id)}
-                                                                                            checked={childs.id == inputActividadEconomica ? "checked" : ""}
+                                                                                            onClick={() => checked(childs)}
+                                                                                            checked={childs.id == inputActividadEconomica.id ? "checked" : ""}
                                                                                         />
                                                                                         <span className="tree-anchor children">
                                                                                             <span className="tree-division tree-division1">
@@ -122,9 +125,6 @@ const Index = ({ auth, actividades_economicas }) => {
                                                                         </ul>
                                                                     }
                                                                 </li>
-
-
-
                                                             ))}
 
                                                         </ul>
@@ -138,20 +138,36 @@ const Index = ({ auth, actividades_economicas }) => {
                                 </div>
                             </div>
                         </div>
+                        <Modal
+                            show={showModalActividadEconomica}
+                            onHide={handleCloseModalActividadEconomica}
+                            id="removeActividadEconomica"
+                            className="modal-dialog-centered"
+                        >
+                            <Modal.Header id="removeActividadEconomicaHeader">
+                                <h5 class="modal-title">Eliminar</h5>
+                                <button type="button" class="btn-close btn-close-white" onClick={handleCloseModalActividadEconomica}></button>
+                            </Modal.Header>
+                            <Modal.Body id="removeActividadEconomicaBody">
+                                <p>Desea eliminar la actividad económica ({inputActividadEconomica.id}) {inputActividadEconomica.nombre}?</p>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                        <button type="submit" className="btn btnRadius btn-new-blue mr-2" onClick={handleCloseModalActividadEconomica}>Cancelar</button>
+                                        <button type="buttom" className="btn btnRadius btn-new-red ml-2">Eliminar</button>
+                            </Modal.Footer>
+                        </Modal>
                         <div className="botones">
                             <Nav.Link href={route("actividades-economicas.create")} className="flex  ml-4 text-probar " >
-                            <i class="bi bi-plus-square-fill"></i>
+                                <i className="bi bi-plus-square-fill"></i>
                             </Nav.Link>
-                            <Nav.Link href={route("actividades-economicas.edit", inputActividadEconomica)} className="flex  ml-4 text-probar " >
-                            <i class="bi bi-pencil-fill"></i>
+                            <Nav.Link href={route("actividades-economicas.edit", inputActividadEconomica.id)} className="flex  ml-4 text-probar " >
+                                <i className="bi bi-pencil-fill"></i>
                             </Nav.Link>
-                            <Nav.Link href={route("register")} className="flex  ml-4 text-probar " >
-                                <i class="bi bi-trash3"></i>
+                            <Nav.Link onClick={handleShowModalActividadEconomica} className="flex  ml-4 text-probar " >
+                                <i className="bi bi-trash3"></i>
                             </Nav.Link>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </AuthenticatedLayout >
