@@ -18,7 +18,7 @@ class SubCategoriaController extends Controller
             ->with('parent', 'childs')
             ->get();
 
-        return Inertia::render('SubCategorias/Index', [
+        return Inertia::render('ActividadesEconomicas/Index', [
             'actividades_economicas' => $actividades_economicas,
         ]);
     }
@@ -35,7 +35,7 @@ class SubCategoriaController extends Controller
             ->where('id_padre_sub_categoria', null)
             ->orderBy('updated_at', 'DESC')
             ->get();
-        return Inertia::render('SubCategorias/Crear', [
+        return Inertia::render('ActividadesEconomicas/Crear', [
             'actividades_economicas' => $actividades_economicas,
             'solo_sectores' => $sectores,
         ]);
@@ -44,34 +44,28 @@ class SubCategoriaController extends Controller
 
     public function store(Request $request)
     {
-        $subcategoria = new SubCategoria();
-
-        $exists = SubCategoria::find(intval($request->codigo));
-
-        if($exists) {
-            dd("here");
-            return redirect(route('actividad-economica.index'));
-        }
-
-        $subcategoria->id = intval($request->codigo);
+        //Cuando no se cumple hace break
+        $request->validate([
+            'id' => 'required|unique:'.SubCategoria::class,
+            'nombre' => 'required',
+            'tipo_categoria' => 'required',
+        ]); 
+        $subcategoria = new SubCategoria;
+        $subcategoria->id = intval($request->id);
         $subcategoria->nombre = $request->nombre;
         $subcategoria->tipo_categoria = $request->tipo_categoria;
-
-
         if(isset($request->sector) && $request->sector != "") {
             $subcategoria->id_padre_sub_categoria = intval($request->sector);
         }
-
         if(isset($request->segmento) && $request->segmento != "") {
             $subcategoria->id_padre_sub_categoria = intval($request->segmento);
         }
-        
         try {
             $subcategoria->save();
         } catch (Exception $e) {
-            dd($e->getMessage());
+            return json_encode($e->getMessage());
         }
-        return redirect(route('actividad-economica.index'));
+        return redirect(route('actividades-economicas.index'));
     }
 
 
@@ -81,10 +75,23 @@ class SubCategoriaController extends Controller
     }
 
 
-    public function edit(SubCategoria $actividad_economica)
+    public function edit($id)
     {
-        return Inertia::render('SubCategorias/Editar', [
-            'actividad_economica' => $actividad_economica,
+        $ae_actual = SubCategoria::where('id', $id)->with('parent', 'childs')->first();
+        $actividades_economicas = SubCategoria::where('tipo_categoria', 1)
+            ->orderBy('updated_at', 'DESC')
+            ->with('parent', 'childs')
+            ->get();
+
+        $sectores = SubCategoria::where('tipo_categoria', 1)
+            ->where('id_padre_sub_categoria', null)
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+
+        return Inertia::render('ActividadesEconomicas/Editar', [
+            'actividades_economicas' => $actividades_economicas,
+            'solo_sectores' => $sectores,
+            'ae_actual' => $ae_actual,
         ]);
     }
 
