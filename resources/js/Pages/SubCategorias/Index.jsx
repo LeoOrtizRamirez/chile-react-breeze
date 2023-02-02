@@ -24,9 +24,7 @@ const Index = ({ auth, actividades_economicas }) => {
 
 
     const getSegmento = (parent) => {
-        console.log(sectores)
         setSectores(fakeSectores);
-        console.log(sectores)
         const input_filter = parent
         const pattern = new RegExp(input_filter, "i");
         const FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
@@ -37,7 +35,6 @@ const Index = ({ auth, actividades_economicas }) => {
         setSegmentos(FilteredActividadesEcomomicas);
         setShowSegmento(!showSegmento)
         setSelectedSegmento(parent)
-        console.log("here" + selectedSegmento)
     }
 
     const getActividadEconomica = (parent) => {
@@ -145,7 +142,7 @@ const Index = ({ auth, actividades_economicas }) => {
                             <Nav.Link href={route("actividades-economicas.create")} className="flex  ml-4 text-probar " >
                             <i class="bi bi-plus-square-fill"></i>
                             </Nav.Link>
-                            <Nav.Link href={route("register")} className="flex  ml-4 text-probar " >
+                            <Nav.Link href={route("actividades-economicas.edit", inputActividadEconomica)} className="flex  ml-4 text-probar " >
                             <i class="bi bi-pencil-fill"></i>
                             </Nav.Link>
                             <Nav.Link href={route("register")} className="flex  ml-4 text-probar " >
