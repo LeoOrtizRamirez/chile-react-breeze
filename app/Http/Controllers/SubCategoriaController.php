@@ -75,10 +75,23 @@ class SubCategoriaController extends Controller
     }
 
 
-    public function edit(SubCategoria $actividad_economica)
+    public function edit($id)
     {
+        $ae_actual = SubCategoria::where('id', $id)->with('parent', 'childs')->first();
+        $actividades_economicas = SubCategoria::where('tipo_categoria', 1)
+            ->orderBy('updated_at', 'DESC')
+            ->with('parent', 'childs')
+            ->get();
+
+        $sectores = SubCategoria::where('tipo_categoria', 1)
+            ->where('id_padre_sub_categoria', null)
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+
         return Inertia::render('SubCategorias/Editar', [
-            'actividad_economica' => $actividad_economica,
+            'actividades_economicas' => $actividades_economicas,
+            'solo_sectores' => $sectores,
+            'ae_actual' => $ae_actual,
         ]);
     }
 
