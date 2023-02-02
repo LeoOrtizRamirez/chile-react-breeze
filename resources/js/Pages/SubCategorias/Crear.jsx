@@ -8,7 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
     const { data, setData, post, processing, reset, errors } = useForm({
-        codigo: "",
+        id: "",
         nombre: "",
         sector: "",
         segmento: "",
@@ -100,9 +100,9 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
                                 </div>
                                 <div className="col-12 col-sm-8">
                                     <input
-                                        value={data.codigo}
+                                        value={data.id}
                                         onChange={(e) =>
-                                            setData("codigo", e.target.value)
+                                            setData("id", e.target.value)
                                         }
                                         type="number"
                                         placeholder="Código de verificación"

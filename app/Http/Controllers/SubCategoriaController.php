@@ -44,34 +44,28 @@ class SubCategoriaController extends Controller
 
     public function store(Request $request)
     {
-        $subcategoria = new SubCategoria();
-
-        $exists = SubCategoria::find(intval($request->codigo));
-
-        if($exists) {
-            dd("here");
-            return redirect(route('actividad-economica.index'));
-        }
-
-        $subcategoria->id = intval($request->codigo);
+        //Cuando no se cumple hace break
+        $request->validate([
+            'id' => 'required|unique:'.SubCategoria::class,
+            'nombre' => 'required',
+            'tipo_categoria' => 'required',
+        ]); 
+        $subcategoria = new SubCategoria;
+        $subcategoria->id = intval($request->id);
         $subcategoria->nombre = $request->nombre;
         $subcategoria->tipo_categoria = $request->tipo_categoria;
-
-
         if(isset($request->sector) && $request->sector != "") {
             $subcategoria->id_padre_sub_categoria = intval($request->sector);
         }
-
         if(isset($request->segmento) && $request->segmento != "") {
             $subcategoria->id_padre_sub_categoria = intval($request->segmento);
         }
-        
         try {
             $subcategoria->save();
         } catch (Exception $e) {
-            dd($e->getMessage());
+            return json_encode($e->getMessage());
         }
-        return redirect(route('actividad-economica.index'));
+        return redirect(route('actividades-economicas.index'));
     }
 
 
