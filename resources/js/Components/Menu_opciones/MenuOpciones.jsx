@@ -15,6 +15,7 @@ const App = () => {
                 { title: "Usuarios", href: "/usuarios" },
                 { title: "Planes", href: "/planes" },
                 { title: "Actividades económicas", href: "/actividades-economicas" },
+                { title: "Zona Administrativa", href: "/zona-administrativa" },
             ],
         },
         {

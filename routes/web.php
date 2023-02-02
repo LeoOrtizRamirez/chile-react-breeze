@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PlaneController;
 use App\Http\Controllers\ScrappingController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\ZonaAdministrativaController;
 use App\Models\Contrato;
 use Illuminate\Http\Request;
 use App\Http\Controllers\SubCategoriaController;
@@ -142,3 +143,9 @@ Route::get('/actualizar-contrasena', [UserController::class, 'actualizarContrase
 Route::resource('actividades-economicas', SubCategoriaController::class)
 ->only(['index','create', 'store', 'edit', 'update', 'destroy'])
 ->middleware(['auth','verified']);
+
+/* Route::resource('zona-administrativa', SubCategoriaController::class)
+->only(['index','create', 'store', 'edit', 'update', 'destroy'])
+->middleware(['auth','verified']); */
+
+Route::get('/zona-administrativa', [SubCategoriaController::class, 'indexZA'])->name('indexZA');
