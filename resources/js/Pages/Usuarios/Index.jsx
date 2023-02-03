@@ -53,7 +53,7 @@ function setIcon(element, asc) {
 }
 // Fin Ordenar tabla por columna
 
-const Index = ({ auth, usuarios, totalUsuarios, pagina }) => {
+const Index = ({ auth, usuarios, totalUsuarios, pagina, numElementosPagina,totalElemetosPaginados }) => {
     const { data, setData, post, get, processing, reset, errors } = useForm({});
 
     //Modal delete users
@@ -321,10 +321,10 @@ const Index = ({ auth, usuarios, totalUsuarios, pagina }) => {
                     <Paginador
                         nextHandler={nextHandler}
                         prevHandler={prevHandler}
-                        currentPage={currentPage}
+                        currentPage={totalElemetosPaginados}
                         itemsPagina={itemsPagina}
                         totalElementos={totalElementos}
-                        totalPaginas={totalPaginas}
+                        totalPaginas={numElementosPagina}
                     ></Paginador>
                 </div>
             </div>
