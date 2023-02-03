@@ -148,4 +148,4 @@ Route::resource('actividades-economicas', SubCategoriaController::class)
 ->only(['index','create', 'store', 'edit', 'update', 'destroy'])
 ->middleware(['auth','verified']); */
 
-Route::get('/zona-administrativa', [SubCategoriaController::class, 'indexZA'])->name('indexZA');
+Route::get('/localizacion', [SubCategoriaController::class, 'indexLocalizacion'])->name('indexLocalizacion');

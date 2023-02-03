@@ -60,18 +60,18 @@ const Index = ({ auth, actividades_economicas }) => {
 
     return (
         <AuthenticatedLayout auth={auth}>
-            <Head title="Actividades económicas" />
+            <Head title="Localizacion" />
             <div className="contenedor-planes">
                 <div className="posicion-opciones-planes">
                     <MenuOpciones />
                 </div>
                 <div className="bg-white overflow-auto w-full text-center margen-superior">
-                    <h2 className="name_section_app">Zona Administrativa</h2>
+                    <h2 className="name_section_app">Localización</h2>
                     <div className="container mt-4">
                         <div className="tree_categorias tree_1">
                             <div className="tree_categorias__busqueda mb-3 mb-md-4">
                                 <div className="mx-auto">
-                                    <input type="text" placeholder="Busca por actividad económica" autocomplete="off" className="form-control m-auto" />
+                                    <input type="text" placeholder="Buscar localización en Chile" autocomplete="off" className="form-control m-auto" />
                                     <i className="icon-Cancelar"></i>
                                     <button type="button" className="icon-Buscar-click"><i className="bi bi-search"></i></button>
 
@@ -95,7 +95,7 @@ const Index = ({ auth, actividades_economicas }) => {
                                                                 <li data-id="20504" className="tree-node has-child expanded draggable">
                                                                     <div className="tree-content segmento" onClick={() => getActividadEconomica(segmento.id)}>
                                                                         <i className="tree-arrow expanded has-child ltr"></i>
-                                                                        {/* <i className="tree-checkbox"></i> */}
+                                                                        <i className="tree-checkbox"></i>
                                                                         <span className="tree-anchor">
                                                                             <span className="tree-division tree-division1">
                                                                                 <span className="tree-division__title my-auto">{segmento.nombre}</span>

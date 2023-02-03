@@ -23,15 +23,17 @@ class SubCategoriaController extends Controller
         ]);
     }
 
-    public function indexZA()
+    public function indexLocalizacion()
     {
-        $actividades_economicas = SubCategoria::where('tipo_categoria', 1)
+        $localizacion = SubCategoria::where('tipo_categoria', 3)
             ->orderBy('updated_at', 'DESC')
             ->with('parent', 'childs')
             ->get();
 
-        return Inertia::render('ZonaAdministrativa/Index', [
-            'actividades_economicas' => $actividades_economicas,
+       /*   dd($localizacion)   ; */
+
+        return Inertia::render('Localizacion/Index', [
+            'actividades_economicas' => $localizacion,
         ]);
     }
 
