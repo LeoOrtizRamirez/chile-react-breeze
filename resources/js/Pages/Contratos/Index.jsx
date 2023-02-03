@@ -91,13 +91,13 @@ const Index = ({ auth, contratos, totalContratos, pagina, numElementosPagina,tot
         primerElemento = contratos[0].id
     }
 
-    var idUsuarioNext = ultimoElemento
+   /*  var idUsuarioNext = ultimoElemento
     const itemsPagina = 30;
     const totalElementos = totalContratos;
     const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;
     const currentPage = pagina;
 
-    var url_fecha_publicacion = ""
+    var url_fecha_publicacion = "" */
 
 
     const queryString = window.location.search;
@@ -121,7 +121,7 @@ const Index = ({ auth, contratos, totalContratos, pagina, numElementosPagina,tot
     // FIN Paginador
 
 
-    const queryString = window.location.search;
+  /*   const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const fecha_publicacion = urlParams.get('fecha_publicacion')
 
@@ -130,7 +130,7 @@ const Index = ({ auth, contratos, totalContratos, pagina, numElementosPagina,tot
     }
 
     const nextHandler = () => {
-       /*  if (pagina >= totalPaginas) return; */
+       
         get("/contratos/" + idUsuarioNext + "/" + pagina + "/next?" + url_fecha_publicacion), { onSuccess: () => reset() };
     };
 
@@ -138,7 +138,7 @@ const Index = ({ auth, contratos, totalContratos, pagina, numElementosPagina,tot
         if (pagina == 1) return;
         get("/contratos/" + primerElemento + "/" + pagina + "/prev?" + url_fecha_publicacion), { onSuccess: () => reset() };
     };
-
+ */
     // FIN Paginador
 
 
