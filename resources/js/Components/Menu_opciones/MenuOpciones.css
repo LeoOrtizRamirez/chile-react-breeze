@@ -82,3 +82,7 @@
     z-index: 3;
     color: #00a1c9;
 }
+
+.submenu-item:hover {
+    text-decoration: underline !important;
+}

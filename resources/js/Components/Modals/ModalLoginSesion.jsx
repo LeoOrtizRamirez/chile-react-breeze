@@ -4,14 +4,15 @@ import TextInput from "@/Components/TextInput";
 import "@/Components/Modals/modal-login-sesion.css";
 import { useForm } from "@inertiajs/inertia-react";
 
-export const ModalLoginSesion = ({ showLS, handleCloseLS, props }) => {
+export const ModalLoginSesion = (props) => {
     const { data, setData, post, processing } = useForm({
         email: "",
         password: "",
         remember: "",
-        // url_modal: props.url,
+        url_modal: props.url,
     });
-
+    /*Modal*/
+    const [show, setShow] = useState(props.showLS);
     const [validForm, setValidForm] = useState(true);
     const [inputClass, setInputClass] = useState(
         "form-input-section__container-input"
@@ -209,11 +210,35 @@ export const ModalLoginSesion = ({ showLS, handleCloseLS, props }) => {
         }
     };
 
+
+    useEffect(() => {
+        setShow(props.showLS)
+
+        setData({
+            email: data.email,
+            password: data.password,
+            remember: data.remember,
+            url_modal: props.url,
+        })
+    }, [props.showLS])
+
+    const handleShow = () => setShow(true);
+    const handleClose = () => {
+        setShow(false);
+        setData({
+            email: '',
+            password: '',
+        })
+        setInputClass("form-input-section__container-input")
+        setValidForm(true)
+        props.handleCloseLS(false)
+    }
+
     return (
         <>
             <Modal
-                show={showLS}
-                onHide={handleCloseLS}
+                show={show}
+                onHide={handleClose}
                 id="loginSesionModal"
                 className="modal-dialog-centered"
             >
@@ -225,7 +250,7 @@ export const ModalLoginSesion = ({ showLS, handleCloseLS, props }) => {
                     <div className="botonera">
                         <button
                             className="botonera__cerrar"
-                            onClick={handleCloseLS}
+                            onClick={handleClose}
                         >
                             <span className="botonera__cerrar-icon icon-close"></span>
                         </button>
