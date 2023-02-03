@@ -8,6 +8,8 @@ import BotonRegistrarse from '@/Components/BotonRegistrarse';
 import BotonAsesor from '@/Components/BotonHablarAsesor';
 import CarouselImagenes from '@/Components/CarouselImagenes';
 
+import ModalLoginSesion from "@/Components/Modals/ModalLoginSesion";
+
 import { BannerMonitoreamos } from "../Components/Banners/BannerMonitoreamos";
 import PopUpPoliticaCookies from '@/Components/PopUpPoliticaCookies';
 
@@ -24,7 +26,7 @@ export default function Welcome(props) {
     const [hour, setHour] = useState("")
     const [saludo, setSaludo] = useState("")
     const [saludoIcon, setSaludoIcon] = useState("")
-    const [contratosFiltrados, setContartosFiltrados] = useState('')
+    const [contratosFiltrados, setContratosFiltrados] = useState('')
     const [openLoginModal, setOpenLoginModal] = useState(false)
 
 
@@ -50,8 +52,12 @@ export default function Welcome(props) {
     }, 1000);
 
     const loginBanner = () => {
-        setOpenLoginModal(true)
-        setContartosFiltrados('/contratos?fecha_publicacion=' + new Date().toISOString().slice(0, 10))
+        if (props.auth.user == null) {
+            setOpenLoginModal(true)
+            setContratosFiltrados('/contratos?fecha_publicacion=' + new Date().toISOString().slice(0, 10))
+        } else {
+            window.location.href = '/contratos?fecha_publicacion=' + new Date().toISOString().slice(0, 10)
+        }
     }
 
     const closeModal = (value) => {
@@ -62,7 +68,7 @@ export default function Welcome(props) {
     return (
         <>
             <Head title="Home" />
-            <Header user={props} setShow={openLoginModal} url={contratosFiltrados} closeModal={closeModal}></Header>
+            <Header user={props} /* setShow={openLoginModal} url={contratosFiltrados} closeModal={closeModal} */></Header>
             {/* <Banner procesos={props.contratos}></Banner> */}
             {/* INICIO BANNER */}
             <section id="banner-videos-paises">
@@ -103,6 +109,11 @@ export default function Welcome(props) {
                                             </div>
                                         </li>
                                         <li className="fraja-fuentes__item">
+                                            <ModalLoginSesion
+                                                showLS={openLoginModal}
+                                                handleCloseLS={closeModal}
+                                                url={contratosFiltrados}
+                                            ></ModalLoginSesion>
                                             <a /* href={contratosFiltrados} */ className="fraja-fuentes__contador" onClick={loginBanner}>
                                                 <span>Chile Compra : </span>
                                                 <span className="fraja-fuentes__item--claro">{props.contratos} procesos </span>
