@@ -16,6 +16,8 @@ class ContratoController extends Controller
     public function index(Request $request)
     {
         $pagina = 1;
+        $numElementosPagina = 30;
+        $totalElemetosPaginados = 1;
 
         if(request()->has("fecha_publicacion")){
             $contratosAll = Contrato::where('fecha_publicacion', request("fecha_publicacion"))
@@ -52,7 +54,9 @@ class ContratoController extends Controller
          [
             'contratos' => $contratos,
             'totalContratos' =>  $contratosAll,
-            'pagina' => $pagina
+            'pagina' => $pagina,
+            'numElementosPagina' => $numElementosPagina,
+            'totalElemetosPaginados' => $totalElemetosPaginados
         ]);
 
 
@@ -61,6 +65,8 @@ class ContratoController extends Controller
     public function paginador($idContrato,$page,$estado)
     {
         $pagina = 1;
+        $numElementosPagina = 30;
+        $totalElemetosPaginados = 1;
 
         
         if(request()->has("fecha_publicacion")){
@@ -73,6 +79,9 @@ class ContratoController extends Controller
                 ->limit(30)
                 ->get();
                 $pagina = $pagina + $page;
+                $numElementosPagina =  $numElementosPagina * ($page+1);
+                $totalElemetosPaginados = ($numElementosPagina -30) + 1;
+               
             }else{
                 $contratos = Contrato::with('fuente')
                 ->orderBy('id', 'desc')
@@ -82,6 +91,8 @@ class ContratoController extends Controller
                 ->reverse();
                 $contratos= $contratos->values();
                 $pagina = $page - $pagina;
+                $numElementosPagina = ($numElementosPagina * ($page-1));
+                $totalElemetosPaginados = ($numElementosPagina -30) + 1 ;
             }
         }else{
             $contratosAll = Contrato::all()
@@ -91,7 +102,10 @@ class ContratoController extends Controller
                 ->where('id', '>' , $idContrato)
                 ->limit(30)
                 ->get();
+                $numElementosPagina =  $numElementosPagina * ($page+1);
                 $pagina = $pagina + $page;
+                $totalElemetosPaginados = ($numElementosPagina -30) + 1;
+                
             }else{
                 $contratos = Contrato::with('fuente')
                 ->orderBy('id', 'desc')
@@ -101,6 +115,9 @@ class ContratoController extends Controller
                 ->reverse();
                 $contratos= $contratos->values();
                 $pagina = $page - $pagina;
+                $numElementosPagina = ($numElementosPagina * ($page-1));
+                $totalElemetosPaginados = ($numElementosPagina -30) + 1 ;
+
             }
         }
         
@@ -126,7 +143,9 @@ class ContratoController extends Controller
          [
             'contratos' => $contratos,
             'totalContratos' =>  $contratosAll,
-            'pagina' => $pagina
+            'pagina' => $pagina,
+            'numElementosPagina' => $numElementosPagina,
+            'totalElemetosPaginados' => $totalElemetosPaginados
         ]);
 
     }
