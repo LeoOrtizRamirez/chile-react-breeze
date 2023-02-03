@@ -15,8 +15,9 @@ import Paginador from "@/Components/PaginadorContratos";
 import $ from "jquery";
 import { TypeH1 } from "react-bootstrap-icons";
 import "@fontsource/poppins";
+import axios from "axios";
 
-const Index = ({ auth, contratos, totalContratos, pagina }) => {
+const Index = ({ auth, contratos, totalContratos, pagina, numElementosPagina,totalElemetosPaginados }) => {
     const { data, setData, post, get, processing, reset, errors } = useForm({});
 
     // Inicio Ordenar tabla por columna
@@ -64,47 +65,43 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
 
     var idContrato = 0;
 
-        // Inicio Paginador
-        var ultimoElemento = 0
-        var primerElemento = 0
-        if(contratos.length > 0){
-            ultimoElemento = contratos[(contratos.length) - 1].id
-            primerElemento = contratos[0].id
-        }
-        
-        var idUsuarioNext = ultimoElemento
-        const itemsPagina = 30;
-        const totalElementos = totalContratos;
-        const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;
-        const currentPage = pagina;
+    // Inicio Paginador
+    var ultimoElemento = 0
+    var primerElemento = 0
 
-        var url_fecha_publicacion = ""
+    if (contratos.length > 0) {
+        ultimoElemento = contratos[(contratos.length) - 1].id
+        primerElemento = contratos[0].id
+    }
 
-        
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const fecha_publicacion = urlParams.get('fecha_publicacion')
+    var idUsuarioNext = ultimoElemento
+    const itemsPagina = 30;
+    const totalElementos = totalContratos;
+    const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;
+    const currentPage = pagina;
 
-        if(fecha_publicacion != null){
-            url_fecha_publicacion = "fecha_publicacion="+fecha_publicacion
-        }
-
-        const nextHandler = () => {
-            if (pagina >= totalPaginas) return;
-            get("/contratos/"+ idUsuarioNext + "/"+ pagina + "/next?"+url_fecha_publicacion), { onSuccess: () => reset() };
-        };
-
-        const prevHandler = () => {
-            if (pagina == 1) return;
-            get("/contratos/"+ primerElemento + "/"+ pagina + "/prev?"+url_fecha_publicacion), { onSuccess: () => reset() };
-        };
-
-        // FIN Paginador
+    var url_fecha_publicacion = ""
 
 
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const fecha_publicacion = urlParams.get('fecha_publicacion')
 
+    if (fecha_publicacion != null) {
+        url_fecha_publicacion = "fecha_publicacion=" + fecha_publicacion
+    }
 
+    const nextHandler = () => {
+       /*  if (pagina >= totalPaginas) return; */
+        get("/contratos/" + idUsuarioNext + "/" + pagina + "/next?" + url_fecha_publicacion), { onSuccess: () => reset() };
+    };
 
+    const prevHandler = () => {
+        if (pagina == 1) return;
+        get("/contratos/" + primerElemento + "/" + pagina + "/prev?" + url_fecha_publicacion), { onSuccess: () => reset() };
+    };
+
+    // FIN Paginador
 
 
     // Inicio Filtro rapido
@@ -130,9 +127,10 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
     };
 
     return (
+
         <AuthenticatedLayout auth={auth}>
             <link rel="shortcut icon" href="#"></link>
-            
+
             <div>
                 <div className="contenedor-filtros">
                     <div className="">
@@ -168,10 +166,10 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
                     <Paginador
                         nextHandler={nextHandler}
                         prevHandler={prevHandler}
-                        currentPage={currentPage}
+                        currentPage={totalElemetosPaginados}
                         itemsPagina={itemsPagina}
                         totalElementos={totalElementos}
-                        totalPaginas={totalPaginas}
+                        totalPaginas={numElementosPagina}
                     ></Paginador>
                 </div>
                 <div className="contenedor-contratos">
@@ -209,7 +207,7 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
                                                 <div>
                                                     <Pdf />
                                                     <Enviar
-                                                       url={contrato.link} 
+                                                        url={contrato.link}
                                                     />
                                                     <Favoritos />
                                                 </div>
@@ -221,9 +219,9 @@ const Index = ({ auth, contratos, totalContratos, pagina }) => {
                                             </div>
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
-                                        <span className="circulo">
+                                            <span className="circulo">
                                                 {contrato.fuente.alias_portal}
-                                            
+
                                             </span>
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
