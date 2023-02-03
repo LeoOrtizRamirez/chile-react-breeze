@@ -263,3 +263,16 @@ p {
     padding-right: 2rem!important;
     padding-left: 2rem!important;
 }
+
+a.text-primary, a.text-primary:hover {
+    color: #00a1e0 !important;
+    cursor: pointer;
+}
+
+.showmore {
+    max-height: 150px;
+    width: 200px;
+    /* border: 1px solid #ddd; */
+    /* background: #f1f1f1; */
+    overflow-y: scroll;
+}
