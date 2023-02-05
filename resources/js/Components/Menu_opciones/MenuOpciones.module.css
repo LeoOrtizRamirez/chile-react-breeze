@@ -1,5 +1,15 @@
-.submenu{
-    min-width: 372px;
+p {
+    font-size: 12px;
+    margin: 0px;
+}
+
+.iconos-tamano {
+    font-size: 25px !important;
+    color: rgb(161, 161, 161);
+}
+
+.submenu {
+    background-color: #fff;
     position: absolute;
     transform: translate3d(75px, 52px, 0px);
     top: 0px;
@@ -12,13 +22,17 @@
     padding: 0;
     border-radius: 9px;
     border: 0;
-    -webkit-box-shadow: 0 2px 3px 5px rgb(52 45 45 / 10%);
     box-shadow: 0 2px 3px 5px rgb(52 45 45 / 10%);
 }
 
+.lista-opciones ul, li {
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
-
-.angle_dropdown_menu:before {
+.angleDropdownMenu:before {
     content: "";
     position: absolute;
     top: 0.8px;
@@ -34,7 +48,7 @@
     display: inline-block;
 }
 
-.item-checkbox-menu-subtitle {
+.itemCheckboxMenuSubtitle {
     margin: 2px 0;
     padding: 7px 80px 7px 56px!important;
     color: #686868;
@@ -42,38 +56,35 @@
     font-size: 15px!important;
 }
 
-.item-checkbox-menu.item-icon-menu {
-    padding: 14px 68px 14px 110px;
-    z-index: 0;
-}
-
-.body-all-perfiles:before {
-    margin-bottom: 10px;
-}
-
-.body-all-perfiles:before {
+.bodyAllPerfiles:before {
     background: #f0f0f0;
     width: 85%;
     height: 2px;
     content: "";
     display: block;
     margin-left: 20px;
+    margin-bottom: 10px;
 }
 
-.contenedor_carpetas{
+.contenedorCarpetas{
     padding-left: 30px;
     padding-bottom: 20px;
 }
-.submenu-title{
+.submenuTitle{
     color: #686868;
     font-weight: 900;
+    font-family: Nunito,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji";
 }
-.submenu-item{
+.submenuItem{
     font-size: 13px;
-    color: #686868
+    color: #686868;
+    font-family: Nunito,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji";
+}
+.submenuItem:hover {
+    text-decoration: underline!important;
 }
 
-.icon-Contraer-campana-click {
+.iconContraerCampanaClick {
     position: absolute;
     right: 8px;
     top: 10px;
@@ -81,8 +92,4 @@
     cursor: pointer;
     z-index: 3;
     color: #00a1c9;
-}
-
-.submenu-item:hover {
-    text-decoration: underline !important;
 }
