@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Link, useForm, Head } from "@inertiajs/inertia-react";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
@@ -97,17 +97,18 @@ const Index = ({ auth, actividades_economicas }) => {
             .then((data) => {
                 setToastMessage(data.message)
                 setShowToast(true)
+                setShowModalActividadEconomica(false)
             })
     }
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Actividades económicas" />
             <ToastContainer position='bottom-start'>
-                <Toast onClose={() => setShowToast(false)} show={showToast} delay={300000} autohide>
+                <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
                     <div className="vue-notification-toast error"><span className='toast-icon toast-danger'>
                         <span className='icon-error'></span>
                     </span>
-                        <p className="title">Debes seleccionar minimo 1 actividad económica</p>
+                        <p className="title">{toastMessage}</p>
                         <button
                             type="button"
                             className="icon-close m-auto"
