@@ -793,7 +793,7 @@ const editar = ({ usuario }) => {
                                     disabled={processing}
                                 >
                                     Cancelar
-                                </SecondaryButton >
+                                </SecondaryButton>
                             </div>
                         </div>
                     </form>
