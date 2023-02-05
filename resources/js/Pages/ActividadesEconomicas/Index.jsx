@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { useForm, Head } from "@inertiajs/inertia-react";
+import { Link, useForm, Head } from "@inertiajs/inertia-react";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 import './Index.css';
 
@@ -8,7 +8,18 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Nav from 'react-bootstrap/Nav';
 import Modal from "react-bootstrap/Modal";
 
+/*Toast*/
+import Toast from 'react-bootstrap/Toast';
+import ToastContainer from 'react-bootstrap/ToastContainer';
+import '../../../css/estilos-toast.css'
+import "../../../css/font-unicolor.css";
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+/*Toast*/
+
 const Index = ({ auth, actividades_economicas }) => {
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
     const [fakeSectores, setFakeSectores] = useState(actividades_economicas);
     const [sectores, setSectores] = useState(actividades_economicas);
     const [showSegmento, setShowSegmento] = useState(false);
@@ -22,9 +33,23 @@ const Index = ({ auth, actividades_economicas }) => {
     const [segmentos, setSegmentos] = useState([]);
     const [actividadesEconomicas, setActividadesEconomicas] = useState([]);
     const [showModalActividadEconomica, setShowModalActividadEconomica] = useState(false);
-
     const handleCloseModalActividadEconomica = () => setShowModalActividadEconomica(false);
-    const handleShowModalActividadEconomica = () => setShowModalActividadEconomica(true);
+    const handleShowModalActividadEconomica = () => {
+        if (inputActividadEconomica.id != 0) {
+            setShowModalActividadEconomica(true)
+        } else {
+            setToastMessage("Debes seleccionar una Actividad Ecónomica")
+            setShowToast(true)
+        }
+    };
+    const editActividadEconomica = () => {
+        if (inputActividadEconomica.id != 0) {
+            window.location.replace('/actividades-economicas/' + inputActividadEconomica.id + '/edit')
+        } else {
+            setToastMessage("Debes seleccionar una Actividad Ecónomica")
+            setShowToast(true)
+        }
+    }
 
     const getSegmento = (parent) => {
         //setSectores(fakeSectores);
@@ -57,7 +82,7 @@ const Index = ({ auth, actividades_economicas }) => {
         setInputActividadEconomica(actividad_economica)
     }
 
-    const filterActividadEconomica = (e) =>{
+    const filterActividadEconomica = (e) => {
         const pattern = new RegExp(e.target.value, "i");
         const FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
             if (pattern.test(el.nombre)) {
@@ -67,9 +92,45 @@ const Index = ({ auth, actividades_economicas }) => {
         setSectores(FilteredActividadesEcomomicas);
         setShowActividadEconomica(!showActividadEconomica)
     }
+
+    const deleteActividadEconomica = () => {
+        fetch('/actividades-economicas/'+inputActividadEconomica.id+'/delete')
+            .then((response) => response.json())
+            .then((data) => {
+                setToastMessage(data.message)
+                setShowToast(true)
+            })
+    }
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Actividades económicas" />
+            <ToastContainer className="p-3" position='bottom-start'>
+                <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
+                    <Toast.Body>
+                        <Row className="align-items-center">
+                            <Col md={1}>
+                                <span className='toast-border'></span>
+                            </Col>
+                            <Col md={2}>
+                                <span className='toast-icon toast-danger'>
+                                    <span className='icon-error'></span>
+                                </span>
+                            </Col>
+
+                            <Col md={8}>
+                                <p>{toastMessage}</p>
+                            </Col>
+                            <Col md={1} className="d-flex">
+                                <button
+                                    type="button"
+                                    className="icon-close m-auto"
+                                    onClick={() => setShowToast(false)}
+                                />
+                            </Col>
+                        </Row>
+                    </Toast.Body>
+                </Toast>
+            </ToastContainer>
             <div className="contenedor-planes">
                 <div className="posicion-opciones-planes">
                     <MenuOpciones />
@@ -80,11 +141,11 @@ const Index = ({ auth, actividades_economicas }) => {
                         <div className="tree_categorias tree_1">
                             <div className="tree_categorias__busqueda mb-3 mb-md-4">
                                 <div className="mx-auto">
-                                    <input 
-                                        type="text" 
-                                        placeholder="Busca por actividad económica" 
-                                        autoComplete="off" 
-                                        className="form-control m-auto" 
+                                    <input
+                                        type="text"
+                                        placeholder="Busca por actividad económica"
+                                        autoComplete="off"
+                                        className="form-control m-auto"
                                         onChange={filterActividadEconomica}
                                     />
                                     <i className="icon-Cancelar"></i>
@@ -167,8 +228,11 @@ const Index = ({ auth, actividades_economicas }) => {
                                 <p>Desea eliminar la actividad económica ({inputActividadEconomica.id}) {inputActividadEconomica.nombre}?</p>
                             </Modal.Body>
                             <Modal.Footer>
-                                        <button type="submit" className="btn btnRadius btn-new-blue mr-2" onClick={handleCloseModalActividadEconomica}>Cancelar</button>
-                                        <button type="buttom" className="btn btnRadius btn-new-red ml-2">Eliminar</button>
+                                <button type="submit" className="btn btnRadius btn-new-blue mr-2" onClick={handleCloseModalActividadEconomica}>Cancelar</button>
+                                <button
+                                    onClick={deleteActividadEconomica}
+                                    className="btn btnRadius btn-new-red ml-2">
+                                    Eliminar</button>
                             </Modal.Footer>
                         </Modal>
 
@@ -176,7 +240,7 @@ const Index = ({ auth, actividades_economicas }) => {
                             <Nav.Link href={route("actividades-economicas.create")} className="flex  ml-4 text-probar " >
                                 <i className="bi bi-plus-square-fill"></i>
                             </Nav.Link>
-                            <Nav.Link href={route("actividades-economicas.edit", inputActividadEconomica.id)} className="flex  ml-4 text-probar " >
+                            <Nav.Link onClick={editActividadEconomica} className="flex  ml-4 text-probar " >
                                 <i className="bi bi-pencil-fill"></i>
                             </Nav.Link>
                             <Nav.Link onClick={handleShowModalActividadEconomica} className="flex  ml-4 text-probar " >

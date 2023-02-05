@@ -114,7 +114,9 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
                                 <div className="col-4"></div>
                                 <div className="col-4">
                                     <button type="submit" className="btn btnRadius btn-new-blue mr-2">Crear</button>
-                                    <button type="buttom" className="btn btnRadius btn-new-red ml-2">Cancelar</button>
+                                    <a href={route("actividades-economicas.index")} className="btn btnRadius btn-new-red ml-2">
+                                        Cancelar
+                                    </a>
                                 </div>
                                 <div className="col-4"></div>
                             </div>
