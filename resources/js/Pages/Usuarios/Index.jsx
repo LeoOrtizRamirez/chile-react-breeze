@@ -114,10 +114,10 @@ const Index = ({ auth, usuarios, totalUsuarios, pagina, numElementosPagina,total
             <Head title="Usuarios" />
 
             <div className="contenedor-usuarios">
-                <div className="posicion-opciones-usuarios">
+                <div className="contenedor-opciones-usuarios">
                     <MenuOpciones />
                 </div>
-                <div className="alto-tabla bg-white overflow-auto ">
+                <div className="alto-tabla bg-white overflow-scroll ">
                     <div className="usuarios">
                         <div className="contenedor-botones">
                             <a

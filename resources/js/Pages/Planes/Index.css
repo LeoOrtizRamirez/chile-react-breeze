@@ -83,7 +83,7 @@ ul.lista-opciones.margen-nav > li {
     height: 16vh !important;
 }
 
-.contenedor-opciones {
+/* .contenedor-opciones {
     margin-top: -115px;
     margin-left: 10px;
     margin-right: 10px;
@@ -94,7 +94,7 @@ ul.lista-opciones.margen-nav > li {
     -ms-border-radius: 25px;
     -o-border-radius: 25px;
     height: 100vh;
-}
+} */
 
 .p-10 {
     padding: 10px 10px 0px 10px;
@@ -162,3 +162,4 @@ ul.lista-opciones.margen-nav > li {
     margin-bottom: 16px;
     cursor: pointer;
 }
+

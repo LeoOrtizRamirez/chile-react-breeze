@@ -4,7 +4,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { useForm, Head } from "@inertiajs/inertia-react";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 //const MenuOpciones = lazy(() => import("@/Layouts/AuthenticatedLayout"));
-import './Index.css'
+import "./Index.css";
 import Compartir from "../../Components/Acciones/Compartir";
 import Eliminar from "../../Components/Acciones/Eliminar";
 import Enviar from "../../Components/Acciones/Enviar";
@@ -13,11 +13,18 @@ import Pdf from "../../Components/Acciones/Pdf";
 import Visualizar from "../../Components/Acciones/Visualizar";
 import Paginador from "@/Components/PaginadorContratos";
 import $ from "jquery";
-import { TypeH1 } from "react-bootstrap-icons";
+// import { TypeH1 } from "react-bootstrap-icons";
 import "@fontsource/poppins";
-import axios from "axios";
+// import axios from "axios";
 
-const Index = ({ auth, contratos, totalContratos, pagina, numElementosPagina,totalElemetosPaginados }) => {
+const Index = ({
+    auth,
+    contratos,
+    totalContratos,
+    pagina,
+    numElementosPagina,
+    totalElemetosPaginados,
+}) => {
     const { data, setData, post, get, processing, reset, errors } = useForm({});
     const [showLess, setShowLess] = useState(true);
     const [showMoreSelected, setShowMoreSelected] = useState(0);
@@ -68,30 +75,28 @@ const Index = ({ auth, contratos, totalContratos, pagina, numElementosPagina,tot
     var idContrato = 0;
 
     // Inicio Paginador
-    var ultimoElemento = 0
-    var primerElemento = 0
-
+    var ultimoElemento = 0;
+    var primerElemento = 0;
 
     if (contratos.length > 0) {
-        ultimoElemento = contratos[(contratos.length) - 1].id
-        primerElemento = contratos[0].id
+        ultimoElemento = contratos[contratos.length - 1].id;
+        primerElemento = contratos[0].id;
     }
 
-    var idUsuarioNext = ultimoElemento
+    var idUsuarioNext = ultimoElemento;
     const itemsPagina = 30;
     const totalElementos = totalContratos;
     const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;
     const currentPage = pagina;
 
-    var url_fecha_publicacion = ""
-
+    var url_fecha_publicacion = "";
 
     if (contratos.length > 0) {
-        ultimoElemento = contratos[(contratos.length) - 1].id
-        primerElemento = contratos[0].id
+        ultimoElemento = contratos[contratos.length - 1].id;
+        primerElemento = contratos[0].id;
     }
 
-   /*  var idUsuarioNext = ultimoElemento
+    /*  var idUsuarioNext = ultimoElemento
     const itemsPagina = 30;
     const totalElementos = totalContratos;
     const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;
@@ -99,29 +104,43 @@ const Index = ({ auth, contratos, totalContratos, pagina, numElementosPagina,tot
 
     var url_fecha_publicacion = "" */
 
-
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const fecha_publicacion = urlParams.get('fecha_publicacion')
+    const fecha_publicacion = urlParams.get("fecha_publicacion");
 
     if (fecha_publicacion != null) {
-        url_fecha_publicacion = "fecha_publicacion=" + fecha_publicacion
+        url_fecha_publicacion = "fecha_publicacion=" + fecha_publicacion;
     }
 
     const nextHandler = () => {
         if (pagina >= totalPaginas) return;
-        get("/contratos/" + idUsuarioNext + "/" + pagina + "/next?" + url_fecha_publicacion), { onSuccess: () => reset() };
+        get(
+            "/contratos/" +
+                idUsuarioNext +
+                "/" +
+                pagina +
+                "/next?" +
+                url_fecha_publicacion
+        ),
+            { onSuccess: () => reset() };
     };
 
     const prevHandler = () => {
         if (pagina == 1) return;
-        get("/contratos/" + primerElemento + "/" + pagina + "/prev?" + url_fecha_publicacion), { onSuccess: () => reset() };
+        get(
+            "/contratos/" +
+                primerElemento +
+                "/" +
+                pagina +
+                "/prev?" +
+                url_fecha_publicacion
+        ),
+            { onSuccess: () => reset() };
     };
 
     // FIN Paginador
 
-
-  /*   const queryString = window.location.search;
+    /*   const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const fecha_publicacion = urlParams.get('fecha_publicacion')
 
@@ -140,7 +159,6 @@ const Index = ({ auth, contratos, totalContratos, pagina, numElementosPagina,tot
     };
  */
     // FIN Paginador
-
 
     // Inicio Filtro rapido
     const busquedaRapida = (event) => {
@@ -165,12 +183,10 @@ const Index = ({ auth, contratos, totalContratos, pagina, numElementosPagina,tot
     };
 
     const getData = (data) => {
-        setShowMoreSelected(data.id)
-    }
-
+        setShowMoreSelected(data.id);
+    };
 
     return (
-
         <AuthenticatedLayout auth={auth}>
             <link rel="shortcut icon" href="#"></link>
 
@@ -216,7 +232,9 @@ const Index = ({ auth, contratos, totalContratos, pagina, numElementosPagina,tot
                     ></Paginador>
                 </div>
                 <div className="contenedor-contratos">
-                    <MenuOpciones />
+                    <div className="contenedor-opciones-usuarios">
+                        <MenuOpciones />
+                    </div>
                     <div className="alto-tabla bg-white overflow-auto ">
                         <table
                             id="tabla"
@@ -264,7 +282,6 @@ const Index = ({ auth, contratos, totalContratos, pagina, numElementosPagina,tot
                                         <td className="border border-gray-200 text-left margen-textos">
                                             <span className="circulo">
                                                 {contrato.fuente.alias_portal}
-
                                             </span>
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
@@ -273,33 +290,46 @@ const Index = ({ auth, contratos, totalContratos, pagina, numElementosPagina,tot
                                             </span>
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
-                                            {showLess &&
+                                            {showLess && (
                                                 <>
-                                                    {showMoreSelected != contrato.id &&
+                                                    {showMoreSelected !=
+                                                        contrato.id && (
                                                         <span className="data-text">
-                                                            {contrato.objeto.substr(0, 40)}
+                                                            {contrato.objeto.substr(
+                                                                0,
+                                                                40
+                                                            )}
                                                             ...{" "}
-                                                            <a className="text-primary" onClick={() => getData(contrato)}>
+                                                            <a
+                                                                className="text-primary"
+                                                                onClick={() =>
+                                                                    getData(
+                                                                        contrato
+                                                                    )
+                                                                }
+                                                            >
                                                                 Ver más
                                                             </a>
                                                         </span>
-                                                    }
+                                                    )}
                                                 </>
-                                            }
+                                            )}
 
-                                            {showMoreSelected == contrato.id &&
+                                            {showMoreSelected ==
+                                                contrato.id && (
                                                 <div className="showmore">
                                                     <span className="data-text">
                                                         {contrato.objeto}
                                                     </span>
                                                 </div>
-                                            }
+                                            )}
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos width-columna-menor">
                                             {contrato.valor > 0
-                                                ? "$" + contrato.valor.toLocaleString(
-                                                    "ch-CH"
-                                                )
+                                                ? "$" +
+                                                  contrato.valor.toLocaleString(
+                                                      "ch-CH"
+                                                  )
                                                 : contrato.valor_texto}
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
