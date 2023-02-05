@@ -7,6 +7,7 @@ import MenuOpciones from "@/Components/Menu_opciones/MenuOpciones";
 import { useForm, usePage, Head } from "@inertiajs/inertia-react";
 import "./Editar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import paises from "../../../../public/data/paises.json";
 
 const editar = ({ usuario }) => {
     const { auth } = usePage().props;
@@ -66,7 +67,7 @@ const editar = ({ usuario }) => {
                     - -
                 </div>
                 <div className="content-menu-form">
-                    <div className="content-menu">
+                    <div className="content-menu-edit">
                         <MenuOpciones />
                     </div>
                     <form onSubmit={submit} className="was-validated">
@@ -187,6 +188,21 @@ const editar = ({ usuario }) => {
                                         País:
                                     </label>
                                     <br />
+                                    {/* <select
+                                        // onChange={(e) => handlePais(e)}
+                                        className="is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                    >
+                                        <option>{data.pais}</option>
+                                        {paises.map((getPais, index) => (
+                                            <option
+                                                autoFocus
+                                                value={getPais.title}
+                                                key={index}
+                                            >
+                                                {getPais.title}
+                                            </option>
+                                        ))}
+                                    </select> */}
                                     <input
                                         required
                                         value={data.pais}
@@ -753,7 +769,7 @@ const editar = ({ usuario }) => {
                         mb-2"
                                     disabled={processing}
                                 >
-                                    Crear Usuario
+                                    Actualizar Usuario
                                 </PrimaryButton>
                                 <SecondaryButton
                                     className="mt-4 
@@ -777,7 +793,7 @@ const editar = ({ usuario }) => {
                                     disabled={processing}
                                 >
                                     Cancelar
-                                </SecondaryButton>
+                                </SecondaryButton >
                             </div>
                         </div>
                     </form>

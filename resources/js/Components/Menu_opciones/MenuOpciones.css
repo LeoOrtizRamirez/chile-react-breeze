@@ -1,3 +1,8 @@
+/* 
+font-family: "Poppins", sans-serif;
+font-family: "Roboto", sans-serif; 
+*/
+
 .submenu {
     min-width: 372px;
     position: absolute;
@@ -100,21 +105,47 @@
     text-decoration: underline !important;
 }
 
-.menu-opciones-separador {
-    width: 70px;
-    margin-left: -16px !important;
-}
-
 .opciones-menu-text {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     text-decoration: none !important;
     color: rgb(121, 121, 121);
+    font-family: "Roboto", sans-serif;
 }
 
 .opciones-menu-text:hover {
-    font-size: 13px;
-    font-weight: 500;
+    /* font-weight: 500; */
     text-decoration: none !important;
     color: rgb(121, 121, 121);
+}
+
+/* p {
+    font-size: 12px;
+    margin: 0px;
+} */
+
+.iconos-tamano {
+    font-size: 25px !important;
+    color: rgb(161, 161, 161);
+}
+
+.submenu {
+    position: absolute;
+    transform: translate3d(50px, 45px, 0px);
+    background: white;
+    min-width: 200px;
+    border-radius: 10px;
+    padding: 15px 15px 15px 15px;
+    -webkit-transform: translate3d(50px, 45px, 0px);
+    -moz-transform: translate3d(50px, 45px, 0px);
+    -ms-transform: translate3d(50px, 45px, 0px);
+    -o-transform: translate3d(50px, 45px, 0px);
+}
+
+.lista-opciones ul,
+li {
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }

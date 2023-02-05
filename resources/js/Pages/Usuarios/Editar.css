@@ -3,6 +3,18 @@ html {
     overflow: hidden !important;
 }
 
+ul.lista-opciones.margen-nav {
+    height: 100vh;
+}
+
+ul.lista-opciones.margen-nav > li {
+    height: 16vh !important;
+}
+
+.p-10 {
+    padding: 0px 10px 0px 10px;
+}
+
 .titulo {
     display: flex;
     align-items: center;
@@ -27,11 +39,13 @@ html {
 
 .content-menu-form {
     display: flex;
+    flex-direction: row;
 }
 
-.content-menu {
-    width: 135px;
+.content-menu-edit {
     margin-top: -50px;
+    width: 130px;
+    height: 100vh;
 }
 
 .content-form {
@@ -86,4 +100,12 @@ html {
 .usuarios-regresar:hover {
     background-color: #00a1c9;
     color: white;
+}
+
+hr {
+    margin: unset !important;
+}
+
+p {
+    margin-bottom: unset !important;
 }

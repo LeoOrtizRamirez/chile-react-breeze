@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import TextInput from "@/Components/TextInput";
-import "@/Components/Modals/modal-login-sesion.css";
+import "@/Components/Modals/ModalLoginSesion.css";
 import { useForm } from "@inertiajs/inertia-react";
 
 export const ModalLoginSesion = (props) => {

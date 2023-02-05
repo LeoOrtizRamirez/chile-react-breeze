@@ -215,19 +215,6 @@ ul.lista-opciones.margen-nav > li {
     height: 16vh !important;
 }
 
-.contenedor-opciones {
-    margin-top: -115px;
-    margin-left: 10px;
-    margin-right: 10px;
-    background-color: white;
-    border-radius: 25px;
-    -webkit-border-radius: 25px;
-    -moz-border-radius: 25px;
-    -ms-border-radius: 25px;
-    -o-border-radius: 25px;
-    height: 100vh;
-}
-
 .p-10 {
     padding: 0px 10px 0px 10px;
 }
@@ -276,3 +263,20 @@ a.text-primary, a.text-primary:hover {
     /* background: #f1f1f1; */
     overflow-y: scroll;
 }
+
+.contenedor-opciones-usuarios {
+    margin-top: -12px;
+    width: 130px;
+    height: 100vh;
+}
+
+
+
+
+
+
+
+
+
+
+
