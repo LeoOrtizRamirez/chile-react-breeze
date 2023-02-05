@@ -62,9 +62,9 @@ class scrapping extends Command
             'pagina' => 1,
         ]);
         $num_paginas = $crawler->filter(".margin-bottom-xs .n-result")->text();
-        echo (int) str_replace(".", "", $num_paginas) ."\n";
-        $num_paginas = round(( str_replace(".", "", $num_paginas)  / 10) + 1);
-        echo $num_paginas ."\n";
+        echo (int) str_replace(".", "", $num_paginas) . "\n";
+        $num_paginas = round((str_replace(".", "", $num_paginas)  / 10) + 1);
+        echo $num_paginas . "\n";
         //Fin total de páginas
 
         $pagina = 1;
@@ -90,13 +90,13 @@ class scrapping extends Command
                 $id_licit  = $this->textValidation($node->filter(".lic-bloq-header .id-licitacion"));
                 $codigo_proceso = str_replace($dato_buscado, $dato_remplazo, $id_licit);
                 //Fin construccion codigo_proceso
-                
+
                 $estado_proceso  = $this->textValidation($node->filter(".lic-block-body .col-md-12 a"));
                 $objeto  = $this->textValidation($node->filter(".lic-block-body .col-md-12 p.text-weight-light"));
                 $valor_texto  = $this->textValidation($node->filter("div:nth-child(3) > div.monto-dis.col-md-4 span:last-child"));
                 $valor = null;
-                if(str_replace('.','',$valor_texto)){
-                    $valor = (int) str_replace('.','',$valor_texto);
+                if (str_replace('.', '', $valor_texto)) {
+                    $valor = (int) str_replace('.', '', $valor_texto);
                 }
 
 
@@ -111,7 +111,7 @@ class scrapping extends Command
                 $date = str_replace('/', '-', $fecha_cierre);
                 $fecha_cierre = date('Y-m-d', strtotime($date));
                 //Fin
-                
+
                 $entidad_contratante  = $this->textValidation($node->filter("div > div.lic-bloq-footer > div > div:nth-child(1) > p"));
                 $cant_compras_efectuadas  = $this->textValidation($node->filter("div > div.lic-bloq-footer > div > div:nth-child(2) > span"));
                 $cant_rec_no_oportuno  = $this->textValidation($node->filter("div > div.lic-bloq-footer > div > div:nth-child(3) > span"));
@@ -126,9 +126,9 @@ class scrapping extends Command
                 //Fin construccion url detalle
 
                 //Contratista
-                $contratista_nombre = $this->textValidation($node->filter(".lic-bloq-footer .col-md-4:nth-child(1)"));     
+                $contratista_nombre = $this->textValidation($node->filter(".lic-bloq-footer .col-md-4:nth-child(1)"));
 
-                
+
                 $model = new Contrato;
                 $model->entidad_contratante = $entidad_contratante;
                 $model->codigo_proceso = $codigo_proceso;
@@ -146,12 +146,12 @@ class scrapping extends Command
                 $model->fecha_last_update_seguimiento = now();
                 $model->fecha_publicacion = $fecha_publicacion;
                 $model->fecha_vencimiento = $fecha_cierre;
-                $model->estado_proceso = $estado_proceso;
+                $model->estado_proceso = "";
                 $model->id_fuente_contract = 1; //FUENTE MP
 
-                if($this->buscarContrato($model)){
+                if ($this->buscarContrato($model)) {
                     echo "El contrato ya existe...\n";
-                }else{
+                } else {
                     $model->save();
                     echo "Guardando Concurso\n";
                     $this->guardarDetalle($model, $contratista_nombre);
@@ -166,9 +166,7 @@ class scrapping extends Command
                         $contratista->save();
                     }
                     */
-                    
                 }
-                
             });
             $pagina++;
         }
@@ -176,20 +174,22 @@ class scrapping extends Command
         //return redirect()->route('contratos')->with('info', 'Se realizó la búsqueda con éxito');
     }
 
-    function buscarContrato($model){
+    function buscarContrato($model)
+    {
         $contrato =  Contrato::where('link', $model->link)->first();
-        if($contrato){
+        if ($contrato) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    function buscarContratistaContrato($nombre){
+    function buscarContratistaContrato($nombre)
+    {
         $contrato =  ContratistaContrato::where('nombre', $nombre)->first();
-        if($contrato){
+        if ($contrato) {
             return $contrato->id;
-        }else{
+        } else {
             return false;
         }
     }
@@ -199,7 +199,32 @@ class scrapping extends Command
         $crawlerDetalle = $this->getClient()->request('GET', $model->link);
         $model->modalidad = $this->textValidation($crawlerDetalle->filter('#lblFicha1Tipo'));
         $model->ubicacion = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
-        $model->estado_proceso = $this->textValidation($crawlerDetalle->filter('#lblFicha1Estado'));
+
+        $estado_proceso = $this->textValidation($crawlerDetalle->filter('#imgEstado'), '#imgEstado', 'src');
+
+        switch ($estado_proceso) {
+            case '../../Includes/images/FichaLight/iconos_estados/publicadas.png':
+                $model->estado_proceso =  "Publicada";
+                break;
+            case '../../Includes/images/FichaLight/iconos_estados/cerrada.png':
+                $model->estado_proceso =  "Cerrada";
+                break;
+            case '../../Includes/images/FichaLight/iconos_estados/desierta.png':
+                $model->estado_proceso =  "Desierta";
+                break;
+            case '../../Includes/images/FichaLight/iconos_estados/adjudicada.png':
+                $model->estado_proceso =  "Adjudicada";
+                break;
+            case '../../Includes/images/FichaLight/iconos_estados/revocada.png':
+                $model->estado_proceso =  "Revocada";
+                break;
+            case '../../Includes/images/FichaLight/iconos_estados/suspendida.png':
+                $model->estado_proceso =  "Suspendida";
+                break;
+            default:
+                # code...
+                break;
+        }
         $model->save();
         echo "Guardando Detalle del Concurso\n";
 
@@ -224,7 +249,6 @@ class scrapping extends Command
         $clasificacion_contrato->id_sub_categoria = $subcategoria->id;
         $clasificacion_contrato->save();
         echo "Guardando ClasificacionContrato\n\n";
-        
     }
 
     public function getClient()

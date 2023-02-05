@@ -58,7 +58,7 @@ const Paginador = (props) => {
                                 {props.currentPage}
                             </span>{" "}
                             -{" "}
-                            <span className="font-black">
+                            <span className="font-black" id="TotalPaginasPaginador">
                                 {props.totalPaginas}
                             </span>{" "}
                             de{" "}

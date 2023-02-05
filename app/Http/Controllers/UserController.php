@@ -24,6 +24,8 @@ class UserController extends Controller
     {
 
         $pagina = 1;
+        $numElementosPagina = 30;
+        $totalElemetosPaginados = 1;
         $usuariosAll = User::all()->count();
 
         $usuarios = User::take(30)
@@ -32,7 +34,9 @@ class UserController extends Controller
         return Inertia::render('Usuarios/Index', [
             'usuarios' => $usuarios,
             'totalUsuarios' =>  $usuariosAll,
-            'pagina' => $pagina
+            'pagina' => $pagina,
+            'numElementosPagina' => $numElementosPagina,
+            'totalElemetosPaginados' => $totalElemetosPaginados
 
         ]);
     }
@@ -41,21 +45,27 @@ class UserController extends Controller
     public function paginador($idUsuario, $page, $estado)
     {
         $pagina = 1;
+        $numElementosPagina = 30;
+        $totalElemetosPaginados = 1;
         $usuariosAll = User::all()->count();
 
         if ($estado == "next") {
             $usuarios = User::where('id', '>', $idUsuario)
                 ->limit(30)
                 ->get();
-            $pagina = $pagina + $page;
+                $pagina = $pagina + $page;
+                $numElementosPagina =  $numElementosPagina * ($page+1);
+                $totalElemetosPaginados = ($numElementosPagina -30) + 1;
         } else {
             $usuarios = User::where('id', '<', $idUsuario)
                 ->orderBy('id', 'desc')
                 ->limit(30)
                 ->get()
                 ->reverse();
-            $usuarios = $usuarios->values();
-            $pagina = $page - $pagina;
+                $usuarios= $usuarios->values();
+                $pagina = $page - $pagina;
+                $numElementosPagina = ($numElementosPagina * ($page-1));
+                $totalElemetosPaginados = ($numElementosPagina -30) + 1 ;
         }
 
 
@@ -64,7 +74,9 @@ class UserController extends Controller
             [
                 'usuarios' => $usuarios,
                 'totalUsuarios' =>  $usuariosAll,
-                'pagina' => $pagina
+                'pagina' => $pagina,
+                'numElementosPagina' => $numElementosPagina,
+                'totalElemetosPaginados' => $totalElemetosPaginados
             ]
         );
     }

@@ -96,6 +96,10 @@
     color: #00a1c9;
 }
 
+.submenu-item:hover {
+    text-decoration: underline !important;
+}
+
 .menu-opciones-separador {
     width: 70px;
     margin-left: -16px !important;
