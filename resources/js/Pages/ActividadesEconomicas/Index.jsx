@@ -13,8 +13,6 @@ import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import '../../../css/estilos-toast.css'
 import "../../../css/font-unicolor.css";
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 /*Toast*/
 
 const Index = ({ auth, actividades_economicas }) => {
@@ -94,7 +92,7 @@ const Index = ({ auth, actividades_economicas }) => {
     }
 
     const deleteActividadEconomica = () => {
-        fetch('/actividades-economicas/'+inputActividadEconomica.id+'/delete')
+        fetch('/actividades-economicas/' + inputActividadEconomica.id + '/delete')
             .then((response) => response.json())
             .then((data) => {
                 setToastMessage(data.message)
@@ -104,31 +102,18 @@ const Index = ({ auth, actividades_economicas }) => {
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Actividades económicas" />
-            <ToastContainer className="p-3" position='bottom-start'>
-                <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
-                    <Toast.Body>
-                        <Row className="align-items-center">
-                            <Col md={1}>
-                                <span className='toast-border'></span>
-                            </Col>
-                            <Col md={2}>
-                                <span className='toast-icon toast-danger'>
-                                    <span className='icon-error'></span>
-                                </span>
-                            </Col>
-
-                            <Col md={8}>
-                                <p>{toastMessage}</p>
-                            </Col>
-                            <Col md={1} className="d-flex">
-                                <button
-                                    type="button"
-                                    className="icon-close m-auto"
-                                    onClick={() => setShowToast(false)}
-                                />
-                            </Col>
-                        </Row>
-                    </Toast.Body>
+            <ToastContainer position='bottom-start'>
+                <Toast onClose={() => setShowToast(false)} show={showToast} delay={300000} autohide>
+                    <div className="vue-notification-toast error"><span className='toast-icon toast-danger'>
+                        <span className='icon-error'></span>
+                    </span>
+                        <p className="title">Debes seleccionar minimo 1 actividad económica</p>
+                        <button
+                            type="button"
+                            className="icon-close m-auto"
+                            onClick={() => setShowToast(false)}
+                        />
+                    </div>
                 </Toast>
             </ToastContainer>
             <div className="contenedor-planes">
@@ -221,8 +206,8 @@ const Index = ({ auth, actividades_economicas }) => {
                             className="modal-dialog-centered"
                         >
                             <Modal.Header id="removeActividadEconomicaHeader">
-                                <h5 class="modal-title">Eliminar</h5>
-                                <button type="button" class="btn-close btn-close-white" onClick={handleCloseModalActividadEconomica}></button>
+                                <h5 className="modal-title">Eliminar</h5>
+                                <button type="button" className="btn-close btn-close-white" onClick={handleCloseModalActividadEconomica}></button>
                             </Modal.Header>
                             <Modal.Body id="removeActividadEconomicaBody">
                                 <p>Desea eliminar la actividad económica ({inputActividadEconomica.id}) {inputActividadEconomica.nombre}?</p>

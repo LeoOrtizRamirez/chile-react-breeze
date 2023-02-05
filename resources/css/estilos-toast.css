@@ -1,21 +1,7 @@
-.toast-border {
-    background-color: #C9003D;
-    padding: 20px 3px;
-    border-radius: 5px;
-    margin-left: 8px;
-}
-
-.toast-border-close{
-    background-color: #959595;
-    padding-right: 2px;
-    border-radius: 5px;
-    margin-left: 8px;
-    font-size: 10px;
-}
-
 .toast-icon{
     padding: 10px 18px;
     border-radius: 50%;
+    margin-left: 10px;
 }
 
 .toast-danger{
@@ -26,20 +12,12 @@
     color: #C9003D;
 }
 
-p{
-    margin-bottom: 0px !important;
-    font-size: 18px;
-    font-family: Roboto;
-    color: #686868;
-    margin-right: 2px;
-}
-
-.toast-body{
-    padding-right: 0px !important;
-}
-
 .toast{
-    --bs-toast-max-width: 421px;
+    --bs-toast-max-width: 500px;
+}
+
+.toast-container{
+    margin-left: 20px;
 }
 
 .icon-close{
@@ -60,4 +38,125 @@ p{
     box-shadow: 0px 0px 30px #68686863;
     border-radius: 11px;
     border: none;
+}
+
+button.icon-close.m-auto {
+    padding-right: 10px;
+}
+
+.vue-notification-toast {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background: #f7c7c7;
+    -webkit-box-shadow: 0 0 8px 4px rgba(0, 0, 0, .431373);
+    -ms-box-shadow: 0 0 8px 4px rgba(0, 0, 0, .431373);
+    -o-box-shadow: 0 0 8px 4px rgba(0, 0, 0, .431373);
+    box-shadow: 0 0 8px 4px rgba(0, 0, 0, .431373);
+    border-radius: 5px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 5px 0;
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content
+}
+
+.vue-notification-toast span.icon-notification {
+    font-size: 30px;
+    margin-left: 12px
+}
+
+.vue-notification-toast p {
+    color: #686868;
+    font-size: 16px;
+    margin: 0 20px;
+    text-align: center;
+    width: 100%; font-weight: bold;
+}
+
+.vue-notification-toast span.close-icon {
+    color: #9c9b9b;
+    cursor: pointer;
+    font-size: 22px;
+    margin-right: 16px
+}
+
+.vue-notification-toast button.btn-deshacer {
+    background-color: #fff;
+    border: 1px solid #686868;
+    border-radius: 30px;
+    color: #686868;
+    font-size: 14px;
+    margin-right: 20px;
+    padding: 5px 24px;
+    cursor: pointer;
+    outline: none
+}
+
+.vue-notification-toast.info {
+    background-color: #fff !important;
+    border-left: 7px solid #00a1c9 !important
+}
+
+.vue-notification-toast.info p>b,
+.vue-notification-toast.info span.icon-notification {
+    color: #00a1c9
+}
+
+.vue-notification-toast.success {
+    background-color: #fff !important;
+    border-left: 7px solid #73c914 !important
+}
+
+.vue-notification-toast.success p>b,
+.vue-notification-toast.success span.icon-notification {
+    color: #73c914
+}
+
+.vue-notification-toast.warn {
+    background-color: #fff !important;
+    border-left: 7px solid #ffc107 !important
+}
+
+.vue-notification-toast.warn p>b,
+.vue-notification-toast.warn span.icon-notification {
+    color: #ffc107
+}
+
+.vue-notification-toast.delete,
+.vue-notification-toast.error {
+    background-color: #fff !important;
+    border-left: 7px solid #c9003d !important;
+    width: 100%;
+}
+
+
+@media (max-width:586px) {
+    .vue-notification-toast {
+        -webkit-box-shadow: 0 0 8px 0 rgba(0, 0, 0, .431373) !important;
+        -ms-box-shadow: 0 0 8px 0 rgba(0, 0, 0, .431373) !important;
+        -o-box-shadow: 0 0 8px 0 rgba(0, 0, 0, .431373) !important;
+        box-shadow: 0 0 8px 0 rgba(0, 0, 0, .431373) !important
+    }
+}
+
+@media (max-width:416px) {
+    .vue-notification-toast p {
+        margin: 0 10px !important;
+        word-break: break-all
+    }
+}
+
+@media (max-width:400px) {
+    .vue-notification-toast p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 196px
+    }
 }
