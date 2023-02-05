@@ -1,3 +1,8 @@
+html {
+    background-color: #d3d0d02e !important;
+    overflow: hidden !important;
+}
+
 .titulo {
     display: flex;
     align-items: center;
@@ -6,6 +11,7 @@
     color: #00a1c9;
     font-weight: bold;
     font-size: 22px;
+    margin-top: 15px;
 }
 
 .separacion {
@@ -16,7 +22,7 @@
     color: #bdbdbd;
     font-weight: bold;
     font-size: 22px;
-    margin-bottom: 40px;
+    margin-bottom: 15px;
 }
 
 .content-menu-form {
@@ -24,8 +30,8 @@
 }
 
 .content-menu {
-    /* border: solid red 1px; */
-    width: 10vw;
+    width: 135px;
+    margin-top: -50px;
 }
 
 .content-form {
@@ -53,4 +59,32 @@
     width: 70vw;
     align-content: center;
     padding: 0 0 20px 0;
+}
+
+.container-create {
+    /* border: solid red 1px; */
+    width: 90vw;
+    height: 75vh;
+    overflow: scroll;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.usuarios-regresar {
+    position: absolute;
+    left: 220px;
+    font-size: 15px;
+    background-color: white;
+    padding: 5px 25px;
+    border-radius: 25px;
+    top: 100px;
+    text-decoration: none;
+    color: #00a1c9;
+    font-weight: bold;
+}
+
+.usuarios-regresar:hover {
+    background-color: #00a1c9;
+    color: white;
 }

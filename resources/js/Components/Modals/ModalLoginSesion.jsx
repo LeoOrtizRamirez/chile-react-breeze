@@ -210,29 +210,28 @@ export const ModalLoginSesion = (props) => {
         }
     };
 
-
     useEffect(() => {
-        setShow(props.showLS)
+        setShow(props.showLS);
 
         setData({
             email: data.email,
             password: data.password,
             remember: data.remember,
             url_modal: props.url,
-        })
-    }, [props.showLS])
+        });
+    }, [props.showLS]);
 
     const handleShow = () => setShow(true);
     const handleClose = () => {
         setShow(false);
         setData({
-            email: '',
-            password: '',
-        })
-        setInputClass("form-input-section__container-input")
-        setValidForm(true)
-        props.handleCloseLS(false)
-    }
+            email: "",
+            password: "",
+        });
+        setInputClass("form-input-section__container-input");
+        setValidForm(true);
+        props.handleCloseLS(false);
+    };
 
     return (
         <>
@@ -274,7 +273,7 @@ export const ModalLoginSesion = (props) => {
                                     <a
                                         className="login__infoLLink"
                                         href={route("register")}
-                                        onClick={()=>console.log('click')}
+                                        onClick={() => console.log("click")}
                                     >
                                         {" "}
                                         Regístrate gratis{" "}
