@@ -59,7 +59,7 @@ const Crear = ({ auth }) => {
                     - -
                 </div>
                 <div className="content-menu-form">
-                    <div className="content-menu">
+                    <div className="content-menu-create">
                         <MenuOpciones />
                     </div>
                     <form onSubmit={submit} className="was-validated">

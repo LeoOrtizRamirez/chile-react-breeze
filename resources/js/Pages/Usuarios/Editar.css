@@ -95,6 +95,7 @@ ul.lista-opciones.margen-nav > li {
     top: 100px;
     text-decoration: none;
     color: #00a1c9;
+    font-weight: bold;
 }
 
 .usuarios-regresar:hover {
