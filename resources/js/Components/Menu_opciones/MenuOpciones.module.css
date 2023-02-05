@@ -1,0 +1,146 @@
+/* 
+font-family: "Poppins", sans-serif;
+font-family: "Roboto", sans-serif; 
+*/
+
+.submenu {
+    min-width: 372px;
+    position: absolute;
+    transform: translate3d(75px, 52px, 0px);
+    top: 0px;
+    left: 0px;
+    will-change: transform;
+    z-index: 10;
+    margin-left: 55px;
+    margin-top: 20px;
+    min-width: 290px;
+    padding: 0;
+    border-radius: 9px;
+    border: 0;
+    box-shadow: 0 2px 3px 5px rgb(52 45 45 / 10%);
+}
+
+.contenedor-opciones {
+    margin-top: -115px !important;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: white;
+    border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
+    height: 100vh;
+}
+
+.angle_dropdown_menu:before {
+    content: "";
+    position: absolute;
+    top: 0.8px;
+    left: -12px;
+    border-top: 7px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 17px solid #fff;
+    height: 0;
+    width: 0;
+    -webkit-filter: drop-shadow(-4px 0 2px rgba(52, 45, 45, 0.1));
+    filter: drop-shadow(-4px 0 2px rgba(52, 45, 45, 0.1));
+    border-bottom-right-radius: 2px;
+    display: inline-block;
+}
+
+.itemCheckboxMenuSubtitle {
+    margin: 2px 0;
+    padding: 7px 80px 7px 56px !important;
+    color: #686868;
+    text-align: center;
+    font-size: 15px !important;
+}
+
+.bodyAllPerfiles:before {
+    background: #f0f0f0;
+    width: 85%;
+    height: 2px;
+    content: "";
+    display: block;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.contenedor_carpetas {
+    padding-left: 30px;
+    padding-bottom: 20px;
+}
+
+.submenu-title {
+    color: #686868;
+    font-weight: 900;
+    font-family: Nunito, ui-sans-serif, system-ui, -apple-system,
+        BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans,
+        sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol,
+        "Noto Color Emoji";
+}
+
+.submenu-item {
+    font-size: 13px;
+    color: #686868;
+}
+
+.iconContraerCampanaClick {
+    position: absolute;
+    right: 8px;
+    top: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 3;
+    color: #00a1c9;
+}
+
+.submenu-item:hover {
+    text-decoration: underline !important;
+}
+
+.opciones-menu-text {
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none !important;
+    color: rgb(121, 121, 121);
+    font-family: "Roboto", sans-serif;
+}
+
+.opciones-menu-text:hover {
+    /* font-weight: 500; */
+    text-decoration: none !important;
+    color: rgb(121, 121, 121);
+}
+
+/* p {
+    font-size: 12px;
+    margin: 0px;
+} */
+
+.iconos-tamano {
+    font-size: 25px !important;
+    color: rgb(161, 161, 161);
+}
+
+.submenu {
+    position: absolute;
+    transform: translate3d(50px, 45px, 0px);
+    background: white;
+    min-width: 200px;
+    border-radius: 10px;
+    padding: 15px 15px 15px 15px;
+    -webkit-transform: translate3d(50px, 45px, 0px);
+    -moz-transform: translate3d(50px, 45px, 0px);
+    -ms-transform: translate3d(50px, 45px, 0px);
+    -o-transform: translate3d(50px, 45px, 0px);
+}
+
+.lista-opciones ul,
+li {
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
