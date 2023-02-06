@@ -1,6 +1,6 @@
 import { useState } from "react";
 // import "../../../css/estilos-menu-opciones.css";
-
+import cssMO from "./MenuOpciones.module.css";
 import "./MenuOpciones.css";
 import { BsArrowLeftShort, BsSearch, BsChevronDown } from "react-icons/bs";
 const App = () => {
@@ -68,7 +68,7 @@ const App = () => {
                                 <li
                                     key={index}
                                     className={`text-center rounded-md p-1 cursor-pointer hover:bg-light-white text-gray-500 text-sm items-center gap-x-4 ${
-                                        index === 0 && "bg-light-white"
+                                        index === 0 ? "bg-light-white" : ""
                                     }`}
                                 >
                                     {Menu.submenu && open ? (
@@ -88,6 +88,8 @@ const App = () => {
                                             >
                                                 {Menu.title}
                                             </p>
+
+                                            {/*<BsChevronDown className={`${subMenuOpen && "rotate-180"}`} onClick={() => { setSubMenuOpen(!subMenuOpen) }} />*/}
                                         </>
                                     ) : (
                                         <>
@@ -105,14 +107,19 @@ const App = () => {
                                     )}
                                 </li>
 
-                                {/* <hr className="menu-opciones-separador" /> */}
                                 <hr />
 
                                 {Menu.submenu && subMenuOpen && open && (
-                                    <ul className="submenu">
-                                        <span className="angle_dropdown_menu"></span>
+                                    <ul className={cssMO.submenu}>
+                                        <span
+                                            className={cssMO.angleDropdownMenu}
+                                        ></span>
                                         <div className="drop-perfiles drop-carpetas position-relative">
-                                            <span className="icon-Contraer-campana-click ">
+                                            <span
+                                                className={
+                                                    cssMO.iconContraerCampanaClick
+                                                }
+                                            >
                                                 <i
                                                     className="bi bi-chevron-double-left"
                                                     onClick={() =>
@@ -120,13 +127,29 @@ const App = () => {
                                                     }
                                                 />
                                             </span>
-                                            <div className="item-checkbox-menu item-checkbox-menu-subtitle">
-                                                <label className="submenu-title">
+                                            <div
+                                                className={
+                                                    cssMO.itemCheckboxMenuSubtitle
+                                                }
+                                            >
+                                                <label
+                                                    className={
+                                                        cssMO.submenuTitle
+                                                    }
+                                                >
                                                     Administración
                                                 </label>
                                             </div>
-                                            <div className="body-all-perfiles">
-                                                <div className="contenedor_carpetas">
+                                            <div
+                                                className={
+                                                    cssMO.bodyAllPerfiles
+                                                }
+                                            >
+                                                <div
+                                                    className={
+                                                        cssMO.contenedorCarpetas
+                                                    }
+                                                >
                                                     {Menu.submenuItems.map(
                                                         (
                                                             submenuItem,
@@ -134,7 +157,9 @@ const App = () => {
                                                         ) => (
                                                             <div>
                                                                 <a
-                                                                    className="submenu-item"
+                                                                    className={
+                                                                        cssMO.submenuItem
+                                                                    }
                                                                     href={
                                                                         submenuItem.href
                                                                     }
