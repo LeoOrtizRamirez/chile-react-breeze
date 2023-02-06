@@ -71,15 +71,16 @@ export const ModalLoginSesion = (props) => {
 
         fetch("/code-validate/" + data.email + "/" + verificationCode)
             .then((response) => response.json())
-            .then((response) => {
-                if (response != "Fallo") {
+            .then((data) => {
+                console.log(data)
+                if (data != "Failed") {
                     setEmailValid(true);
                     const url =
                         location.protocol +
                         "//" +
                         location.host +
                         "/recuperar-contrasena?token=" +
-                        response +
+                        data +
                         "&email=" +
                         data.email;
                     window.location.href = url;
@@ -683,12 +684,12 @@ export const ModalLoginSesion = (props) => {
                                         </span>
                                     </div>
                                     <div className="informacion__reenviar">
-                                        <button
+                                        <a
                                             className="informacion__reenviar-boton"
                                             onClick={userValidate}
                                         >
                                             Reenviar de nuevo
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             )}

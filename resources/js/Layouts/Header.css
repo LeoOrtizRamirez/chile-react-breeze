@@ -216,7 +216,7 @@ header.css
     font-family:Roboto;
     font-size:1.125rem;
     font-weight:700;
-    color:#00a1c9!important;
+    color:#00a1c9;
 }
 .modal-body .informacion__correo{
     display:flex;justify-content:center;margin-top:35px;position:relative
@@ -783,7 +783,7 @@ body {
 }
 
 .c-red{
-    color: red;
+    color: red !important;
 }
 
 .linea__divisoria{
