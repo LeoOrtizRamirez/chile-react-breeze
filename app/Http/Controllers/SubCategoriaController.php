@@ -134,6 +134,20 @@ class SubCategoriaController extends Controller
         return redirect(route('actividad-economica.index'));
     }
 
+    public function delete($id)
+    {
+        $actividad_economica = SubCategoria::find($id);
+        try{
+            $actividad_economica->delete();
+            $response['type'] = 'Success';
+            $response['message'] = ('No puedes eliminar esta Actividad Económica');
+        }catch(Exception $e){
+            $response['type'] = 'Failed';
+            $response['message'] = ('No puedes eliminar esta Actividad Económica');
+        }
+        return json_encode($response);
+    }
+
 
     public function status($id)
     {

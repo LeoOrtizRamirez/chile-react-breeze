@@ -4,9 +4,19 @@ import { useForm, Head } from "@inertiajs/inertia-react";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 import './Crear.css';
 
+/*Toast*/
+import Toast from 'react-bootstrap/Toast';
+import ToastContainer from 'react-bootstrap/ToastContainer';
+import '../../../css/estilos-toast.css'
+import "../../../css/font-unicolor.css";
+/*Toast*/
+
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useEffect } from "react";
 
 const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
     const { data, setData, post, processing, reset, errors } = useForm({
         id: "",
         nombre: "",
@@ -14,7 +24,19 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
         segmento: "",
         tipo_categoria: 1,
     });
+    console.log(errors)
+    useEffect(() => {
+        if (errors) {
+            var responses = Object.values(errors)
+            var message = '';
+            {responses.map((response) => (
+                message += response
+            ))}
 
+            setToastMessage(message)
+            setShowToast(true)
+        }
+    }, [errors])
     const [fakeSectores, setFakeSectores] = useState(actividades_economicas);
     const [sectores, setSectores] = useState(solo_sectores);
     const [segmentos, setSegmentos] = useState([])
@@ -42,6 +64,20 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Actividades económicas" />
+            <ToastContainer position='bottom-start'>
+                <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
+                    <div className="vue-notification-toast error"><span className='toast-icon toast-danger'>
+                        <span className='icon-error'></span>
+                    </span>
+                        <p className="title">{toastMessage}</p>
+                        <button
+                            type="button"
+                            className="icon-close m-auto"
+                            onClick={() => setShowToast(false)}
+                        />
+                    </div>
+                </Toast>
+            </ToastContainer>
             <div className="contenedor-planes">
                 <div className="posicion-opciones-planes">
                     <MenuOpciones />
@@ -114,7 +150,9 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
                                 <div className="col-4"></div>
                                 <div className="col-4">
                                     <button type="submit" className="btn btnRadius btn-new-blue mr-2">Crear</button>
-                                    <button type="buttom" className="btn btnRadius btn-new-red ml-2">Cancelar</button>
+                                    <a href={route("actividades-economicas.index")} className="btn btnRadius btn-new-red ml-2">
+                                        Cancelar
+                                    </a>
                                 </div>
                                 <div className="col-4"></div>
                             </div>
