@@ -9,6 +9,8 @@ import "./Editar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import paises from "../../../../public/data/paises.json";
 
+import Form from "react-bootstrap/Form";
+
 const editar = ({ usuario }) => {
     const { auth } = usePage().props;
     const [editing, setEditing] = useState(false);
@@ -48,6 +50,16 @@ const editar = ({ usuario }) => {
         });
     };
 
+    const handlePais = (e) => {
+        setData("pais", e.target.value);
+        paises.find((pais) => pais.title === e.target.value);
+    };
+
+    const handleIndicativo = (e) => {
+        setData("indicativo", e.target.value);
+        paises.find((indicativo) => indicativo.indicative === e.target.value);
+    };
+
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Crear Usuario" />
@@ -70,18 +82,17 @@ const editar = ({ usuario }) => {
                     <div className="content-menu-edit">
                         <MenuOpciones />
                     </div>
-                    <form onSubmit={submit} className="was-validated">
+                    <Form onSubmit={submit} className="was-validated">
                         <div className="container-create">
                             <div className="content-form">
-                                <div className="w-full mx-2">
-                                    <label
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="identificacion"
                                     >
                                         Documento De Identidad:
-                                    </label>
-                                    <br />
-                                    <input
+                                    </Form.Label>
+                                    <Form.Control
                                         required
                                         value={data.identificacion}
                                         onChange={(e) =>
@@ -95,21 +106,16 @@ const editar = ({ usuario }) => {
                                         autoFocus
                                         className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.identificacion}
-                                        className="mt-2"
-                                    /> */}
-                                </div>
+                                </Form.Group>
 
-                                <div className="w-full mx-2">
-                                    <label
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="nombre_completo"
                                     >
                                         Nombre Completo:
-                                    </label>
-                                    <br />
-                                    <input
+                                    </Form.Label>
+                                    <Form.Control
                                         required
                                         value={data.nombre_completo}
                                         onChange={(e) =>
@@ -123,21 +129,16 @@ const editar = ({ usuario }) => {
                                         autoFocus
                                         className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.nombre_completo}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
-                                </div>
+                                </Form.Group>
 
-                                <div className="w-full mx-2">
-                                    <label
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="Estado"
                                     >
                                         Estado:
-                                    </label>
-                                    <br />
-                                    <input
+                                    </Form.Label>
+                                    <Form.Control
                                         required
                                         value={data.estado}
                                         onChange={(e) =>
@@ -148,23 +149,18 @@ const editar = ({ usuario }) => {
                                         autoFocus
                                         className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.estado}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
-                                </div>
+                                </Form.Group>
                             </div>
 
                             <div className="content-form">
-                                <div className="w-full mx-2">
-                                    <label
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="email"
                                     >
                                         Email:
-                                    </label>
-                                    <br />
-                                    <input
+                                    </Form.Label>
+                                    <Form.Control
                                         required
                                         value={data.email}
                                         onChange={(e) =>
@@ -175,21 +171,19 @@ const editar = ({ usuario }) => {
                                         autoFocus
                                         className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.email}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
-                                </div>
+                                </Form.Group>
                             </div>
 
                             <div className="content-form">
-                                <div className="w-full mx-2">
-                                    <label for="validationInput" htmlFor="pais">
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
+                                        for="validationInput"
+                                        htmlFor="pais"
+                                    >
                                         País:
-                                    </label>
-                                    <br />
-                                    {/* <select
-                                        // onChange={(e) => handlePais(e)}
+                                    </Form.Label>
+                                    <select
+                                        onChange={(e) => handlePais(e)}
                                         className="is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     >
                                         <option>{data.pais}</option>
@@ -202,60 +196,42 @@ const editar = ({ usuario }) => {
                                                 {getPais.title}
                                             </option>
                                         ))}
-                                    </select> */}
-                                    <input
-                                        required
-                                        value={data.pais}
-                                        onChange={(e) =>
-                                            setData("pais", e.target.value)
-                                        }
-                                        type="text"
-                                        placeholder="País"
-                                        autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
-                                    />
-                                    {/* <InputError
-                                        message={errors.pais}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
-                                </div>
+                                    </select>
+                                </Form.Group>
 
-                                <div className="w-full mx-2">
-                                    <label
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="indicativo"
                                     >
                                         Indicativo:
-                                    </label>
+                                    </Form.Label>
                                     <br />
-                                    <input
-                                        required
-                                        value={data.indicativo}
-                                        onChange={(e) =>
-                                            setData(
-                                                "indicativo",
-                                                e.target.value
-                                            )
-                                        }
-                                        type="text"
-                                        placeholder="Indicativo"
-                                        autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
-                                    />
-                                    {/* <InputError
-                                        message={errors.indicativo}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
-                                </div>
-                                <div className="w-full mx-2">
-                                    <label
+                                    <select
+                                        onChange={(e) => handleIndicativo(e)}
+                                        className="is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                    >
+                                        <option>{data.indicativo}</option>
+                                        {paises.map((getIndicativo, index) => (
+                                            <option
+                                                autoFocus
+                                                value={getIndicativo.indicative}
+                                                key={index}
+                                            >
+                                                {getIndicativo.indicative}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </Form.Group>
+
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="celular"
                                     >
                                         Celular:
-                                    </label>
-                                    <br />
-                                    <input
+                                    </Form.Label>
+                                    <Form.Control
                                         required
                                         value={data.celular}
                                         onChange={(e) =>
@@ -266,20 +242,15 @@ const editar = ({ usuario }) => {
                                         autoFocus
                                         className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.celular}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
-                                </div>
-                                <div className="w-full mx-2">
-                                    <label
+                                </Form.Group>
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="telefono_fijo"
                                     >
                                         Teléfono Fijo:
-                                    </label>
-                                    <br />
-                                    <input
+                                    </Form.Label>
+                                    <Form.Control
                                         required
                                         value={data.telefono_fijo}
                                         onChange={(e) =>
@@ -297,19 +268,18 @@ const editar = ({ usuario }) => {
                                         message={errors.telefono_fijo}
                                         className="mt-2 input-error-usuarios"
                                     /> */}
-                                </div>
+                                </Form.Group>
                             </div>
 
                             <div className="content-form">
-                                <div className="w-full mx-2">
-                                    <label
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="ciudad"
                                     >
                                         Ciudad:
-                                    </label>
-                                    <br />
-                                    <input
+                                    </Form.Label>
+                                    <Form.Control
                                         required
                                         value={data.ciudad}
                                         onChange={(e) =>
@@ -324,16 +294,15 @@ const editar = ({ usuario }) => {
                                         message={errors.ciudad}
                                         className="mt-2 input-error-usuarios"
                                     /> */}
-                                </div>
-                                <div className="w-full mx-2">
-                                    <label
+                                </Form.Group>
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="direccion"
                                     >
                                         Dirección:
-                                    </label>
-                                    <br />
-                                    <input
+                                    </Form.Label>
+                                    <Form.Control
                                         required
                                         value={data.direccion}
                                         onChange={(e) =>
@@ -348,19 +317,18 @@ const editar = ({ usuario }) => {
                                         message={errors.direccion}
                                         className="mt-2 input-error-usuarios"
                                     /> */}
-                                </div>
+                                </Form.Group>
                             </div>
 
                             <div className="content-form">
-                                <div className="w-full mx-2">
-                                    <label
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="idplan"
                                     >
                                         Id plan:
-                                    </label>
-                                    <br />
-                                    <input
+                                    </Form.Label>
+                                    <Form.Control
                                         required
                                         value={data.idplan}
                                         onChange={(e) =>
@@ -375,16 +343,15 @@ const editar = ({ usuario }) => {
                                         message={errors.idplan}
                                         className="mt-2 input-error-usuarios"
                                     /> */}
-                                </div>
-                                <div className="w-full mx-2">
-                                    <label
+                                </Form.Group>
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="fecha_vencimiento"
                                     >
                                         Fecha Fin Plan:
-                                    </label>
-                                    <br />
-                                    <input
+                                    </Form.Label>
+                                    <Form.Control
                                         required
                                         value={data.fecha_vencimiento}
                                         onChange={(e) =>
@@ -402,16 +369,15 @@ const editar = ({ usuario }) => {
                                         message={errors.fecha_vencimiento}
                                         className="mt-2 input-error-usuarios"
                                     /> */}
-                                </div>
-                                <div className="w-full mx-2">
-                                    <label
+                                </Form.Group>
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="origen"
                                     >
                                         Origen:
-                                    </label>
-                                    <br />
-                                    <input
+                                    </Form.Label>
+                                    <Form.Control
                                         required
                                         value={data.origen}
                                         onChange={(e) =>
@@ -426,19 +392,18 @@ const editar = ({ usuario }) => {
                                         message={errors.origen}
                                         className="mt-2 input-error-usuarios"
                                     /> */}
-                                </div>
+                                </Form.Group>
                             </div>
 
                             <div className="content-form">
-                                <div className="w-full mx-2">
-                                    <label
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="nit_empresa"
                                     >
                                         Nit Empresa:
-                                    </label>
-                                    <br />
-                                    <input
+                                    </Form.Label>
+                                    <Form.Control
                                         required
                                         value={data.nit_empresa}
                                         onChange={(e) =>
@@ -456,16 +421,15 @@ const editar = ({ usuario }) => {
                                         message={errors.nit_empresa}
                                         className="mt-2 input-error-usuarios"
                                     /> */}
-                                </div>
-                                <div className="w-full mx-2">
-                                    <label
+                                </Form.Group>
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="nombre_empresa"
                                     >
                                         Nombre Empresa:
-                                    </label>
-                                    <br />
-                                    <input
+                                    </Form.Label>
+                                    <Form.Control
                                         required
                                         value={data.nombre_empresa}
                                         onChange={(e) =>
@@ -483,19 +447,18 @@ const editar = ({ usuario }) => {
                                         message={errors.nombre_empresa}
                                         className="mt-2 input-error-usuarios"
                                     /> */}
-                                </div>
+                                </Form.Group>
                             </div>
 
                             <div className="content-form">
-                                <div className="w-full mx-2">
-                                    <label
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="email_facturacion_empresa"
                                     >
                                         Email Facturación Empresa:
-                                    </label>
-                                    <br />
-                                    <input
+                                    </Form.Label>
+                                    <Form.Control
                                         required
                                         value={data.email_facturacion_empresa}
                                         onChange={(e) =>
@@ -515,19 +478,18 @@ const editar = ({ usuario }) => {
                                         }
                                         className="mt-2 input-error-usuarios"
                                     /> */}
-                                </div>
+                                </Form.Group>
                             </div>
 
                             <div className="content-form">
-                                <div className="w-full mx-2">
-                                    <label
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="pais_empresa"
                                     >
                                         País Empresa:
-                                    </label>
-                                    <br />
-                                    <input
+                                    </Form.Label>
+                                    <Form.Control
                                         required
                                         value={data.pais_empresa}
                                         onChange={(e) =>
@@ -545,16 +507,15 @@ const editar = ({ usuario }) => {
                                         message={errors.pais_empresa}
                                         className="mt-2 input-error-usuarios"
                                     /> */}
-                                </div>
-                                <div className="w-full mx-2">
-                                    <label
+                                </Form.Group>
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="indicativo_empresa"
                                     >
                                         Indicativo Empresa:
-                                    </label>
-                                    <br />
-                                    <input
+                                    </Form.Label>
+                                    <Form.Control
                                         required
                                         value={data.indicativo_empresa}
                                         onChange={(e) =>
@@ -572,16 +533,15 @@ const editar = ({ usuario }) => {
                                         message={errors.indicativo_empresa}
                                         className="mt-2 input-error-usuarios"
                                     /> */}
-                                </div>
-                                <div className="w-full mx-2">
-                                    <label
+                                </Form.Group>
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="celular_empresa"
                                     >
                                         Celular Empresa:
-                                    </label>
-                                    <br />
-                                    <input
+                                    </Form.Label>
+                                    <Form.Control
                                         required
                                         value={data.celular_empresa}
                                         onChange={(e) =>
@@ -599,16 +559,15 @@ const editar = ({ usuario }) => {
                                         message={errors.celular_empresa}
                                         className="mt-2 input-error-usuarios"
                                     /> */}
-                                </div>
-                                <div className="w-full mx-2">
-                                    <label
+                                </Form.Group>
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="telefono_fijo_empresa"
                                     >
                                         Teléfono Fijo Empresa:
-                                    </label>
-                                    <br />
-                                    <input
+                                    </Form.Label>
+                                    <Form.Control
                                         required
                                         value={data.telefono_fijo_empresa}
                                         onChange={(e) =>
@@ -626,19 +585,18 @@ const editar = ({ usuario }) => {
                                         message={errors.telefono_fijo_empresa}
                                         className="mt-2 input-error-usuarios"
                                     /> */}
-                                </div>
+                                </Form.Group>
                             </div>
 
                             <div className="content-form">
-                                <div className="w-full mx-2">
-                                    <label
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="ciudad_empresa"
                                     >
                                         Ciudad Empresa:
-                                    </label>
-                                    <br />
-                                    <input
+                                    </Form.Label>
+                                    <Form.Control
                                         required
                                         value={data.ciudad_empresa}
                                         onChange={(e) =>
@@ -656,16 +614,15 @@ const editar = ({ usuario }) => {
                                         message={errors.ciudad_empresa}
                                         className="mt-2 input-error-usuarios"
                                     /> */}
-                                </div>
-                                <div className="w-full mx-2">
-                                    <label
+                                </Form.Group>
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="direccion_empresa"
                                     >
                                         Dirección Empresa:
-                                    </label>
-                                    <br />
-                                    <input
+                                    </Form.Label>
+                                    <Form.Control
                                         required
                                         value={data.direccion_empresa}
                                         onChange={(e) =>
@@ -683,19 +640,18 @@ const editar = ({ usuario }) => {
                                         message={errors.direccion_empresa}
                                         className="mt-2 input-error-usuarios"
                                     /> */}
-                                </div>
+                                </Form.Group>
                             </div>
 
                             <div className="content-form">
-                                <div className="w-full mx-2">
-                                    <label
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="descripcion_actividad_economica"
                                     >
                                         Descripción Actividad Económica
-                                    </label>
-                                    <br />
-                                    <input
+                                    </Form.Label>
+                                    <Form.Control
                                         required
                                         value={
                                             data.descripcion_actividad_economica
@@ -717,19 +673,18 @@ const editar = ({ usuario }) => {
                                         }
                                         className="mt-2 input-error-usuarios"
                                     /> */}
-                                </div>
+                                </Form.Group>
                             </div>
 
                             <div className="content-form">
-                                <div className="w-full mx-2">
-                                    <label
+                                <Form.Group className="w-full mx-2">
+                                    <Form.Label
                                         for="validationInput"
                                         htmlFor="password"
                                     >
                                         Contraseña:
-                                    </label>
-                                    <br />
-                                    <input
+                                    </Form.Label>
+                                    <Form.Control
                                         required
                                         value={data.password}
                                         onChange={(e) =>
@@ -744,7 +699,7 @@ const editar = ({ usuario }) => {
                                         message={errors.password}
                                         className="mt-2 input-error-usuarios"
                                     /> */}
-                                </div>
+                                </Form.Group>
                             </div>
 
                             <div className="content-form-btn">
@@ -796,7 +751,7 @@ const editar = ({ usuario }) => {
                                 </SecondaryButton>
                             </div>
                         </div>
-                    </form>
+                    </Form>
                 </div>
             </div>
         </AuthenticatedLayout>
