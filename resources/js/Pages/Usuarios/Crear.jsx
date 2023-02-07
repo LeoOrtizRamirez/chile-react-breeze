@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { useForm, Head } from "@inertiajs/inertia-react";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import MenuOpciones from "@/Components/Menu_opciones/MenuOpciones";
+import { useForm, Head } from "@inertiajs/inertia-react";
+import Form from "react-bootstrap/Form";
+import paises from "../../../../public/data/paises.json";
 import "./Crear.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-import paises from "../../../../public/data/paises.json";
-
-import Form from "react-bootstrap/Form";
 
 const Crear = ({ auth }) => {
     const { data, setData, post, processing, reset, errors } = useForm({
@@ -57,9 +55,22 @@ const Crear = ({ auth }) => {
         paises.find((pais) => pais.title === e.target.value);
     };
 
+    const handlePaisEmpresa = (e) => {
+        setData("pais_empresa", e.target.value);
+        paises.find((pais_empresa) => pais_empresa.title === e.target.value);
+    };
+
     const handleIndicativo = (e) => {
         setData("indicativo", e.target.value);
         paises.find((indicativo) => indicativo.indicative === e.target.value);
+    };
+
+    const handleIndicativoEmpresa = (e) => {
+        setData("indicativo_empresa", e.target.value);
+        paises.find(
+            (indicativo_empresa) =>
+                indicativo_empresa.indicative === e.target.value
+        );
     };
 
     return (
@@ -134,10 +145,6 @@ const Crear = ({ auth }) => {
                                         autoFocus
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.nombre_completo}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
 
                                 <Form.Group className="w-full mx-2">
@@ -158,10 +165,6 @@ const Crear = ({ auth }) => {
                                         autoFocus
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.estado}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
                             </div>
 
@@ -184,10 +187,6 @@ const Crear = ({ auth }) => {
                                         autoFocus
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.email}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
                             </div>
 
@@ -226,6 +225,7 @@ const Crear = ({ auth }) => {
                                         Indicativo:
                                     </Form.Label>
                                     <Form.Select
+                                        required
                                         onChange={(e) => handleIndicativo(e)}
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     >
@@ -241,6 +241,7 @@ const Crear = ({ auth }) => {
                                         ))}
                                     </Form.Select>
                                 </Form.Group>
+
                                 <Form.Group className="w-full mx-2">
                                     <Form.Label
                                         for="validationInput"
@@ -259,11 +260,8 @@ const Crear = ({ auth }) => {
                                         autoFocus
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.celular}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
+
                                 <Form.Group className="w-full mx-2">
                                     <Form.Label
                                         for="validationInput"
@@ -285,10 +283,6 @@ const Crear = ({ auth }) => {
                                         autoFocus
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.telefono_fijo}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
                             </div>
 
@@ -311,11 +305,8 @@ const Crear = ({ auth }) => {
                                         autoFocus
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.ciudad}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
+
                                 <Form.Group className="w-full mx-2">
                                     <Form.Label
                                         for="validationInput"
@@ -334,10 +325,6 @@ const Crear = ({ auth }) => {
                                         autoFocus
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.direccion}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
                             </div>
 
@@ -352,6 +339,8 @@ const Crear = ({ auth }) => {
                                     <Form.Control
                                         required
                                         value={data.idplan}
+                                        // value="1"
+                                        // disabled
                                         onChange={(e) =>
                                             setData("idplan", e.target.value)
                                         }
@@ -360,11 +349,8 @@ const Crear = ({ auth }) => {
                                         autoFocus
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.idplan}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
+
                                 <Form.Group className="w-full mx-2">
                                     <Form.Label
                                         for="validationInput"
@@ -386,11 +372,8 @@ const Crear = ({ auth }) => {
                                         autoFocus
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.fecha_vencimiento}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
+
                                 <Form.Group className="w-full mx-2">
                                     <Form.Label
                                         for="validationInput"
@@ -409,10 +392,6 @@ const Crear = ({ auth }) => {
                                         autoFocus
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.origen}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
                             </div>
 
@@ -438,11 +417,8 @@ const Crear = ({ auth }) => {
                                         autoFocus
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.nit_empresa}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
+
                                 <Form.Group className="w-full mx-2">
                                     <Form.Label
                                         for="validationInput"
@@ -464,10 +440,6 @@ const Crear = ({ auth }) => {
                                         autoFocus
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.nombre_empresa}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
                             </div>
 
@@ -493,12 +465,6 @@ const Crear = ({ auth }) => {
                                         autoFocus
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={
-                                            errors.email_facturacion_empresa
-                                        }
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
                             </div>
 
@@ -508,53 +474,62 @@ const Crear = ({ auth }) => {
                                         for="validationInput"
                                         htmlFor="pais_empresa"
                                     >
-                                        País Empresa:
+                                        País:
                                     </Form.Label>
-                                    <Form.Control
+                                    <Form.Select
                                         required
-                                        value={data.pais_empresa}
-                                        onChange={(e) =>
-                                            setData(
-                                                "pais_empresa",
-                                                e.target.value
-                                            )
-                                        }
-                                        type="text"
-                                        placeholder="País Empresa"
-                                        autoFocus
+                                        onChange={(e) => handlePaisEmpresa(e)}
+                                        placeholder="Selecione su pais"
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
-                                    />
-                                    {/* <InputError
-                                        message={errors.pais_empresa}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
+                                    >
+                                        <option>{data.pais_empresa}</option>
+                                        {paises.map((getPaisEmpresa, index) => (
+                                            <option
+                                                autoFocus
+                                                value={getPaisEmpresa.title}
+                                                key={index}
+                                            >
+                                                {getPaisEmpresa.title}
+                                            </option>
+                                        ))}
+                                    </Form.Select>
                                 </Form.Group>
+
                                 <Form.Group className="w-full mx-2">
                                     <Form.Label
                                         for="validationInput"
                                         htmlFor="indicativo_empresa"
                                     >
-                                        Indicativo Empresa:
+                                        Indicativo:
                                     </Form.Label>
-                                    <Form.Control
+                                    <Form.Select
                                         required
-                                        value={data.indicativo_empresa}
                                         onChange={(e) =>
-                                            setData(
-                                                "indicativo_empresa",
-                                                e.target.value
-                                            )
+                                            handleIndicativoEmpresa(e)
                                         }
-                                        type="text"
-                                        placeholder="Indicativo Empresa"
-                                        autoFocus
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
-                                    />
-                                    {/* <InputError
-                                        message={errors.indicativo_empresa}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
+                                    >
+                                        <option>
+                                            {data.indicativo_empresa}
+                                        </option>
+                                        {paises.map(
+                                            (getIndicativoEmpresa, index) => (
+                                                <option
+                                                    autoFocus
+                                                    value={
+                                                        getIndicativoEmpresa.indicative
+                                                    }
+                                                    key={index}
+                                                >
+                                                    {
+                                                        getIndicativoEmpresa.indicative
+                                                    }
+                                                </option>
+                                            )
+                                        )}
+                                    </Form.Select>
                                 </Form.Group>
+
                                 <Form.Group className="w-full mx-2">
                                     <Form.Label
                                         for="validationInput"
@@ -576,11 +551,8 @@ const Crear = ({ auth }) => {
                                         autoFocus
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.celular_empresa}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
+
                                 <Form.Group className="w-full mx-2">
                                     <Form.Label
                                         for="validationInput"
@@ -602,10 +574,6 @@ const Crear = ({ auth }) => {
                                         autoFocus
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.telefono_fijo_empresa}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
                             </div>
 
@@ -631,11 +599,8 @@ const Crear = ({ auth }) => {
                                         autoFocus
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.ciudad_empresa}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
+
                                 <Form.Group className="w-full mx-2">
                                     <Form.Label
                                         for="validationInput"
@@ -657,10 +622,6 @@ const Crear = ({ auth }) => {
                                         autoFocus
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.direccion_empresa}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
                             </div>
 
@@ -688,12 +649,6 @@ const Crear = ({ auth }) => {
                                         autoFocus
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={
-                                            errors.descripcion_actividad_economica
-                                        }
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
                             </div>
 
@@ -716,10 +671,6 @@ const Crear = ({ auth }) => {
                                         autoFocus
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.password}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
                             </div>
 
@@ -747,6 +698,7 @@ const Crear = ({ auth }) => {
                                 >
                                     Crear Usuario
                                 </PrimaryButton>
+
                                 <SecondaryButton
                                     className="mt-4 
                         text-black 

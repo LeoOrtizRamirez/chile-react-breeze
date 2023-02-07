@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-// import InputError from "@/Components/InputError";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import MenuOpciones from "@/Components/Menu_opciones/MenuOpciones";
 import { useForm, usePage, Head } from "@inertiajs/inertia-react";
-import "./Editar.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import paises from "../../../../public/data/paises.json";
-
 import Form from "react-bootstrap/Form";
+import paises from "../../../../public/data/paises.json";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./Editar.css";
 
 const editar = ({ usuario }) => {
     const { auth } = usePage().props;
@@ -55,9 +53,22 @@ const editar = ({ usuario }) => {
         paises.find((pais) => pais.title === e.target.value);
     };
 
+    const handlePaisEmpresa = (e) => {
+        setData("pais_empresa", e.target.value);
+        paises.find((pais_empresa) => pais_empresa.title === e.target.value);
+    };
+
     const handleIndicativo = (e) => {
         setData("indicativo", e.target.value);
         paises.find((indicativo) => indicativo.indicative === e.target.value);
+    };
+
+    const handleIndicativoEmpresa = (e) => {
+        setData("indicativo_empresa", e.target.value);
+        paises.find(
+            (indicativo_empresa) =>
+                indicativo_empresa.indicative === e.target.value
+        );
     };
 
     return (
@@ -104,7 +115,7 @@ const editar = ({ usuario }) => {
                                         type="text"
                                         placeholder="Documento De Identidad"
                                         autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
                                 </Form.Group>
 
@@ -116,6 +127,7 @@ const editar = ({ usuario }) => {
                                         Nombre Completo:
                                     </Form.Label>
                                     <Form.Control
+                                        id="nombre_completo"
                                         required
                                         value={data.nombre_completo}
                                         onChange={(e) =>
@@ -127,7 +139,7 @@ const editar = ({ usuario }) => {
                                         type="text"
                                         placeholder="Nombre Completo"
                                         autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
                                 </Form.Group>
 
@@ -147,7 +159,7 @@ const editar = ({ usuario }) => {
                                         type="number"
                                         placeholder="Estado"
                                         autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
                                 </Form.Group>
                             </div>
@@ -169,7 +181,7 @@ const editar = ({ usuario }) => {
                                         type="email"
                                         placeholder="Email"
                                         autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
                                 </Form.Group>
                             </div>
@@ -182,9 +194,11 @@ const editar = ({ usuario }) => {
                                     >
                                         País:
                                     </Form.Label>
-                                    <select
+                                    <Form.Select
+                                        required
                                         onChange={(e) => handlePais(e)}
-                                        className="is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                        placeholder="Selecione su pais"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     >
                                         <option>{data.pais}</option>
                                         {paises.map((getPais, index) => (
@@ -196,7 +210,7 @@ const editar = ({ usuario }) => {
                                                 {getPais.title}
                                             </option>
                                         ))}
-                                    </select>
+                                    </Form.Select>
                                 </Form.Group>
 
                                 <Form.Group className="w-full mx-2">
@@ -206,10 +220,10 @@ const editar = ({ usuario }) => {
                                     >
                                         Indicativo:
                                     </Form.Label>
-                                    <br />
-                                    <select
+                                    <Form.Select
+                                        require
                                         onChange={(e) => handleIndicativo(e)}
-                                        className="is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     >
                                         <option>{data.indicativo}</option>
                                         {paises.map((getIndicativo, index) => (
@@ -221,7 +235,7 @@ const editar = ({ usuario }) => {
                                                 {getIndicativo.indicative}
                                             </option>
                                         ))}
-                                    </select>
+                                    </Form.Select>
                                 </Form.Group>
 
                                 <Form.Group className="w-full mx-2">
@@ -240,9 +254,10 @@ const editar = ({ usuario }) => {
                                         type="text"
                                         placeholder="Celular"
                                         autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
                                 </Form.Group>
+
                                 <Form.Group className="w-full mx-2">
                                     <Form.Label
                                         for="validationInput"
@@ -262,12 +277,8 @@ const editar = ({ usuario }) => {
                                         type="text"
                                         placeholder="Teléfono Fijo"
                                         autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.telefono_fijo}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
                             </div>
 
@@ -288,13 +299,10 @@ const editar = ({ usuario }) => {
                                         type="text"
                                         placeholder="Ciudad"
                                         autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.ciudad}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
+
                                 <Form.Group className="w-full mx-2">
                                     <Form.Label
                                         for="validationInput"
@@ -311,12 +319,8 @@ const editar = ({ usuario }) => {
                                         type="text"
                                         placeholder="Dirección"
                                         autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.direccion}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
                             </div>
 
@@ -331,19 +335,18 @@ const editar = ({ usuario }) => {
                                     <Form.Control
                                         required
                                         value={data.idplan}
+                                        // value="1"
+                                        // disabled
                                         onChange={(e) =>
                                             setData("idplan", e.target.value)
                                         }
                                         type="number"
                                         placeholder="Id plan"
                                         autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.idplan}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
+
                                 <Form.Group className="w-full mx-2">
                                     <Form.Label
                                         for="validationInput"
@@ -363,13 +366,10 @@ const editar = ({ usuario }) => {
                                         type="date"
                                         placeholder=""
                                         autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.fecha_vencimiento}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
+
                                 <Form.Group className="w-full mx-2">
                                     <Form.Label
                                         for="validationInput"
@@ -386,12 +386,8 @@ const editar = ({ usuario }) => {
                                         type="text"
                                         placeholder="Origen"
                                         autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.origen}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
                             </div>
 
@@ -415,13 +411,10 @@ const editar = ({ usuario }) => {
                                         type="text"
                                         placeholder="Nit Empresa"
                                         autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.nit_empresa}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
+
                                 <Form.Group className="w-full mx-2">
                                     <Form.Label
                                         for="validationInput"
@@ -441,12 +434,8 @@ const editar = ({ usuario }) => {
                                         type="text"
                                         placeholder="Nombre Empresa"
                                         autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.nombre_empresa}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
                             </div>
 
@@ -470,14 +459,8 @@ const editar = ({ usuario }) => {
                                         type="email"
                                         placeholder="Email Facturación Empresa"
                                         autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={
-                                            errors.email_facturacion_empresa
-                                        }
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
                             </div>
 
@@ -487,53 +470,62 @@ const editar = ({ usuario }) => {
                                         for="validationInput"
                                         htmlFor="pais_empresa"
                                     >
-                                        País Empresa:
+                                        País:
                                     </Form.Label>
-                                    <Form.Control
+                                    <Form.Select
                                         required
-                                        value={data.pais_empresa}
-                                        onChange={(e) =>
-                                            setData(
-                                                "pais_empresa",
-                                                e.target.value
-                                            )
-                                        }
-                                        type="text"
-                                        placeholder="País Empresa"
-                                        autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
-                                    />
-                                    {/* <InputError
-                                        message={errors.pais_empresa}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
+                                        onChange={(e) => handlePaisEmpresa(e)}
+                                        placeholder="Selecione su pais"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                    >
+                                        <option>{data.pais_empresa}</option>
+                                        {paises.map((getPaisEmpresa, index) => (
+                                            <option
+                                                autoFocus
+                                                value={getPaisEmpresa.title}
+                                                key={index}
+                                            >
+                                                {getPaisEmpresa.title}
+                                            </option>
+                                        ))}
+                                    </Form.Select>
                                 </Form.Group>
+
                                 <Form.Group className="w-full mx-2">
                                     <Form.Label
                                         for="validationInput"
                                         htmlFor="indicativo_empresa"
                                     >
-                                        Indicativo Empresa:
+                                        Indicativo:
                                     </Form.Label>
-                                    <Form.Control
-                                        required
-                                        value={data.indicativo_empresa}
+                                    <Form.Select
+                                        require
                                         onChange={(e) =>
-                                            setData(
-                                                "indicativo_empresa",
-                                                e.target.value
-                                            )
+                                            handleIndicativoEmpresa(e)
                                         }
-                                        type="text"
-                                        placeholder="Indicativo Empresa"
-                                        autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
-                                    />
-                                    {/* <InputError
-                                        message={errors.indicativo_empresa}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                    >
+                                        <option>
+                                            {data.indicativo_empresa}
+                                        </option>
+                                        {paises.map(
+                                            (getIndicativoEmpresa, index) => (
+                                                <option
+                                                    autoFocus
+                                                    value={
+                                                        getIndicativoEmpresa.indicative
+                                                    }
+                                                    key={index}
+                                                >
+                                                    {
+                                                        getIndicativoEmpresa.indicative
+                                                    }
+                                                </option>
+                                            )
+                                        )}
+                                    </Form.Select>
                                 </Form.Group>
+
                                 <Form.Group className="w-full mx-2">
                                     <Form.Label
                                         for="validationInput"
@@ -553,13 +545,10 @@ const editar = ({ usuario }) => {
                                         type="text"
                                         placeholder="Celular Empresa"
                                         autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.celular_empresa}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
+
                                 <Form.Group className="w-full mx-2">
                                     <Form.Label
                                         for="validationInput"
@@ -579,12 +568,8 @@ const editar = ({ usuario }) => {
                                         type="text"
                                         placeholder="Teléfono Fijo Empresa"
                                         autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.telefono_fijo_empresa}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
                             </div>
 
@@ -608,13 +593,10 @@ const editar = ({ usuario }) => {
                                         type="text"
                                         placeholder="Ciudad Empresa"
                                         autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.ciudad_empresa}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
+
                                 <Form.Group className="w-full mx-2">
                                     <Form.Label
                                         for="validationInput"
@@ -634,12 +616,8 @@ const editar = ({ usuario }) => {
                                         type="text"
                                         placeholder="Dirección Empresa"
                                         autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.direccion_empresa}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
                             </div>
 
@@ -665,14 +643,8 @@ const editar = ({ usuario }) => {
                                         type="text"
                                         placeholder="Descripción Actividad Económica"
                                         autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={
-                                            errors.descripcion_actividad_economica
-                                        }
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
                             </div>
 
@@ -693,12 +665,8 @@ const editar = ({ usuario }) => {
                                         type="password"
                                         placeholder="Contraseña"
                                         autoFocus
-                                        className="form-control is-invalid mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
+                                        className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     />
-                                    {/* <InputError
-                                        message={errors.password}
-                                        className="mt-2 input-error-usuarios"
-                                    /> */}
                                 </Form.Group>
                             </div>
 
