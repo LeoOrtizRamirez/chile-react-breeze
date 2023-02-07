@@ -126,7 +126,7 @@ const RecuperarContrasena = (props) => {
             </ToastContainer>
             <div id="recuperar-contrasena-view">
                 <section className="recuperar-contrasena--section"><video autoPlay="autoplay" muted="muted" loop="loop"
-                    src="/public/video/Mapa contraseña.webm"></video>
+                    src="/public/video/contrasena.webm"></video>
                     <div id="contenido-video" className="contenido row">
                         <div className="contenido__video col-md-6 col-12">
                             <h2 className="contenido__video-texto">
@@ -213,10 +213,10 @@ const RecuperarContrasena = (props) => {
                                     <span className="content__footer-text"> Si necesitas ayuda ponte en contacto
                                         con nuestro equipo de soporte técnico. </span>
                                     <div className="contactenos">
-                                        <button className="contactenos__button">
+                                        <a className="contactenos__button">
                                             <span className="contactenos__button-icon icon-contacto"></span>
                                             <span className="contactenos__button-text">Contáctanos</span>
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

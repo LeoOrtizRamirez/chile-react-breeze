@@ -428,6 +428,8 @@ button {
     font-family: Poppins;
     opacity: 1;
     justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .contactenos__button:hover {
