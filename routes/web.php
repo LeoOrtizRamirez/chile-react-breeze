@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PlaneController;
-use App\Http\Controllers\ScrappingController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\ZonaAdministrativaController;
 use App\Models\Contrato;
@@ -123,8 +122,6 @@ Route::controller(UserController::class)->group(function(){
     Route::get('/usuarios/{idUsuario}/{pagina}/{estado}', [UserController::class, 'paginador']);
 
 });
-
-Route::get('/scrapping', [ScrappingController::class, 'scrapping'])->name('scrapping');
 
 
 Route::get('/user-validate/{email}', [UserController::class, 'userValidate'])->name('user-validate');
