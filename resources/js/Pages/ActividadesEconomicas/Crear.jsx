@@ -24,15 +24,13 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
         segmento: "",
         tipo_categoria: 1,
     });
-    console.log(errors)
     useEffect(() => {
-        if (errors) {
+        if (Object.entries(errors).length > 0) {
             var responses = Object.values(errors)
             var message = '';
             {responses.map((response) => (
                 message += response
             ))}
-
             setToastMessage(message)
             setShowToast(true)
         }

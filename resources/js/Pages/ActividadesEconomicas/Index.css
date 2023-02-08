@@ -389,3 +389,8 @@ body {
     background: #dc3545 !important;
     color: #fff !important;
 }
+
+.infinite-scroll{
+    overflow: auto;
+    height: 35em;
+}
