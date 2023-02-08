@@ -2241,6 +2241,7 @@ footer[id^="modal-olvidaste"].modal-footer
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    /* padding-top: 100px; */
 }
 
 #register-container .bloque__registro-form-div {
@@ -2298,10 +2299,8 @@ footer[id^="modal-olvidaste"].modal-footer
 #register-container .bloque__registro-form-container-input {
     font-size: 1rem;
     font-weight: 400;
-    /* font-family: Roboto; */
     color: #686868;
     width: 100%;
-    border: 2px solid #d4d4d4;
     border-radius: 34px;
     opacity: 1;
     padding: 13px 25px;
@@ -2355,7 +2354,7 @@ footer[id^="modal-olvidaste"].modal-footer
 }
 
 #register-container .bloque__registro-form-telefono {
-    border: 2px solid #d4d4d4;
+    /* border: 2px solid #d4d4d4; */
     width: 100%;
     border-radius: 37px;
     display: flex;
@@ -2428,7 +2427,7 @@ footer[id^="modal-olvidaste"].modal-footer
     border-radius: 34px;
     opacity: 1;
     padding: 13px 25px;
-    border: none;
+    /* border: none; */
 }
 
 #register-container .bloque__registro-form-telefono-input:focus,
