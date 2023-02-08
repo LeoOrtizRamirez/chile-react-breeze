@@ -4,12 +4,13 @@ import { Head, useForm } from "@inertiajs/inertia-react";
 import Modal from "react-bootstrap/Modal";
 //
 import { Paises } from "@/Components/Paises";
-import TextInput from "@/Components/TextInput";
 import PasswordSecurity from "@/Components/PasswordSecurity";
 import Header from "@/Components/Header/HeaderLite";
 import ModalTC from "@/Components/Modals/ModalTC";
 import ModalPP from "@/Components/Modals/ModalPP";
 import ModalLoginSesion from "@/Components/Modals/ModalLoginSesion";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 //
 import "@fontsource/poppins";
 import "./Register.css";
@@ -22,21 +23,7 @@ export default function Register(props) {
         password_confirmation: "",
     });
 
-    const [inputClass, setInputClass] = useState(
-        "bloque__registro-form-container-input"
-    );
-
-    const [inputClassPrefTel, setInputClassPrefTel] = useState(
-        "bloque__registro-form-telefono"
-    );
-
-    const [inputClassTel, setInputClassTel] = useState(
-        "bloque__registro-form-telefono-input"
-    );
-
     const [errorIconStatus, setIconStatus] = useState(false);
-
-    const [validForm, setValidForm] = useState(true);
 
     const [disabledBtnRegister, setDisableddisabledBtnRegister] =
         useState(true);
@@ -80,6 +67,7 @@ export default function Register(props) {
     };
 
     const onHandleChange = (event) => {
+        console.log(event.target);
         setData(
             event.target.name,
             event.target.type === "checkbox"
@@ -88,20 +76,27 @@ export default function Register(props) {
         );
     };
 
-    const submit = (e) => {
-        e.preventDefault();
-        post(route("register"));
-        if (errors) {
-            setInputClass("form-container-input-errors");
-            setInputClassPrefTel("bloque__registro-form-telefono-errors");
-            setInputClassTel(
-                "form-container-input-errors bloque__registro-form-telefono-input-errors"
+    const handlePhone = (object) => {
+        if (object.target.value.length > object.target.maxLength) {
+            object.target.value = object.target.value.slice(
+                0,
+                object.target.maxLength
             );
-            setIconStatus(
-                "form-container-input-errors bloque__registro-form-telefono-input-errors"
-            );
-            setValidForm(false);
+            this.setState({ phone: object.target.value });
         }
+    };
+
+    const [validated, setValidated] = useState(false);
+
+    const handleSubmit = (event) => {
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        setValidated(true);
+        event.preventDefault();
+        post(route("register"));
     };
 
     const handleCloseModalPaises = () => setShowModalPaises(false);
@@ -263,77 +258,82 @@ export default function Register(props) {
                         </div>
                     </div>
                     <div className="bloque__registro col-lg-6">
-                        <form id="form" name="form" onSubmit={submit}>
+                        <Form
+                            id="form"
+                            name="form"
+                            noValidate
+                            validated={validated}
+                            onSubmit={handleSubmit}
+                        >
                             <div className="bloque__registro-form">
-                                <div className="bloque__registro-form-div">
+                                <Form.Group className="bloque__registro-form-div">
                                     <div className="bloque__registro-form-title">
                                         <span className="icon-datos bloque__registro-form-title-span"></span>
-                                        <label
+                                        <Form.Label
                                             htmlFor=""
+                                            for="validationInput"
                                             className="bloque__registro-form-title-label"
                                         >
                                             Nombre:
-                                        </label>
+                                        </Form.Label>
                                     </div>
                                     <div className="bloque__registro-form-container">
-                                        <TextInput
+                                        <Form.Control
                                             type="text"
                                             id="name"
                                             name="name"
                                             placeholder="Ingresa tu nombre completo"
                                             value={data.name}
-                                            className={inputClass}
+                                            className="bloque__registro-form-container-input"
                                             autoComplete="name"
                                             isFocused={true}
-                                            handleChange={onHandleChange}
-                                            // required
+                                            onChange={(e) => onHandleChange(e)}
+                                            required
                                         />
-                                        {!validForm && (
-                                            <span className="icon-alert"></span>
-                                        )}
                                     </div>
-                                </div>
-                                <div className="bloque__registro-form-div">
+                                </Form.Group>
+
+                                <Form.Group className="bloque__registro-form-div">
                                     <div className="bloque__registro-form-title">
                                         <span className="icon-mail bloque__registro-form-title-span"></span>
-                                        <label
+                                        <Form.Label
                                             htmlFor=""
+                                            for="validationInput"
                                             className="bloque__registro-form-title-label"
                                         >
                                             Correo electrónico:
-                                        </label>
+                                        </Form.Label>
                                     </div>
                                     <div className="bloque__registro-form-container">
-                                        <TextInput
-                                            placeholder="Ingresa tu correo electrónico"
-                                            id="email"
+                                        <Form.Control
                                             type="email"
+                                            id="email"
                                             name="email"
+                                            placeholder="Ingresa tu correo electrónico"
                                             value={data.email}
-                                            className={inputClass}
+                                            className="bloque__registro-form-container-input"
                                             autoComplete="username"
-                                            handleChange={onHandleChange}
-                                            // required
+                                            onChange={(e) => onHandleChange(e)}
+                                            required
                                         />
-                                        {!validForm && (
-                                            <span className="icon-alert"></span>
-                                        )}
                                     </div>
-                                </div>
-                                <div className="bloque__registro-form-div">
+                                </Form.Group>
+
+                                <Form.Group className="bloque__registro-form-div">
                                     <div
                                         id="inputPaswordUserRegisterComponent"
                                         className="contenido InputPassword"
                                         name="password"
                                         type="password"
                                     >
-                                        <div
+                                        <Form.Label
                                             htmlFor=""
+                                            for="validationInput"
                                             className="contenido__password-titulo"
                                         >
                                             <span className="contenido__password-titulo-icon icon-lock"></span>
                                             <span>Contraseña:</span>
-                                        </div>
+                                        </Form.Label>
                                         <div className="content-inputs">
                                             <PasswordSecurity
                                                 onHandleChange={onHandleChange}
@@ -344,18 +344,19 @@ export default function Register(props) {
                                             />
                                         </div>
                                     </div>
-                                </div>
-                                <div className="bloque__registro-form-div">
+                                </Form.Group>
+
+                                <Form.Group className="bloque__registro-form-div">
                                     <div className="bloque__registro-form-title">
                                         <span className="icon-phone bloque__registro-form-title-span"></span>
-                                        <label
+                                        <Form.Label
                                             htmlFor=""
                                             className="bloque__registro-form-title-label"
                                         >
                                             Telefono:
-                                        </label>
+                                        </Form.Label>
                                     </div>
-                                    <div className={inputClassPrefTel}>
+                                    <div className="bloque__registro-form-telefono">
                                         <div
                                             className="bloque__registro-form-telefono-button"
                                             onClick={handleShowModalPaises}
@@ -379,22 +380,22 @@ export default function Register(props) {
                                         </div>
                                         <hr className="bloque__registro-form-telefono-linea" />
                                         <div className="bloque__registro-form-telefono-div">
-                                            <input
+                                            <Form.Control
                                                 id="tel"
                                                 name="tel"
-                                                type="text"
+                                                type="number"
                                                 placeholder="Ingresa tu número"
-                                                className={inputClassTel}
+                                                className="bloque__registro-form-telefono-input"
                                                 aria-required="true"
                                                 aria-invalid="false"
+                                                onChange={handlePhone}
                                                 maxLength="10"
+                                                required
                                             />
-                                            {!validForm && (
-                                                <span className="icon-alert"></span>
-                                            )}
                                         </div>
                                     </div>
-                                </div>
+                                </Form.Group>
+
                                 <Modal
                                     show={showModalPaises}
                                     onHide={handleCloseModalPaises}
@@ -405,7 +406,8 @@ export default function Register(props) {
                                     </Modal.Body>
                                     <Modal.Footer></Modal.Footer>
                                 </Modal>
-                                <div className="bloque__registro-form-text">
+
+                                <Form.Group className="bloque__registro-form-text">
                                     <label className="checkbox-contain">
                                         <span>
                                             {" "}
@@ -439,9 +441,10 @@ export default function Register(props) {
                                         <div className="checkbox-input"></div>
                                     </label>
                                     <div></div>
-                                </div>
-                                <div className="bloque__registro-form-registrarse">
-                                    <button
+                                </Form.Group>
+
+                                <Form.Group className="bloque__registro-form-registrarse">
+                                    <Button
                                         id="submit"
                                         type="submit"
                                         name="submit"
@@ -450,19 +453,10 @@ export default function Register(props) {
                                     >
                                         {" "}
                                         Registrarme{" "}
-                                    </button>
-                                </div>
-                                <div className="bloque__registro-form-beneficios">
-                                    <a>
-                                        {" "}
-                                        Conoce los beneficios al registrarse{" "}
-                                    </a>
-                                </div>
+                                    </Button>
+                                </Form.Group>
                             </div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </form>
+                        </Form>
                     </div>
                 </div>
             </div>
