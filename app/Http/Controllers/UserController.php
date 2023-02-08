@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public function index()
     {
-
+        $usuariosTotales = User::all();
         $pagina = 1;
         $numElementosPagina = 30;
         $totalElemetosPaginados = 1;
@@ -31,12 +31,17 @@ class UserController extends Controller
         $usuarios = User::take(30)
             ->get();
 
+      
+
+       /*  dd( $Totalusuarios); */
+
         return Inertia::render('Usuarios/Index', [
             'usuarios' => $usuarios,
             'totalUsuarios' =>  $usuariosAll,
             'pagina' => $pagina,
             'numElementosPagina' => $numElementosPagina,
-            'totalElemetosPaginados' => $totalElemetosPaginados
+            'totalElemetosPaginados' => $totalElemetosPaginados,
+            'usuariosTotales' => $usuariosTotales
 
         ]);
     }
@@ -44,6 +49,7 @@ class UserController extends Controller
 
     public function paginador($idUsuario, $page, $estado)
     {
+        $usuariosTotales = User::all();
         $pagina = 1;
         $numElementosPagina = 30;
         $totalElemetosPaginados = 1;
@@ -76,7 +82,8 @@ class UserController extends Controller
                 'totalUsuarios' =>  $usuariosAll,
                 'pagina' => $pagina,
                 'numElementosPagina' => $numElementosPagina,
-                'totalElemetosPaginados' => $totalElemetosPaginados
+                'totalElemetosPaginados' => $totalElemetosPaginados,
+                'usuariosTotales' => $usuariosTotales
             ]
         );
     }

@@ -7,7 +7,6 @@ import Paginador from "@/Components/PaginadorContratos";
 import "../../../css/estilos-usuarios-index.css";
 import DeleteModal from "@/Components/Modals/DeleteModalUsers";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import $ from "jquery";
 
 // Inicio Ordenar tabla por columna
@@ -53,7 +52,7 @@ function setIcon(element, asc) {
 }
 // Fin Ordenar tabla por columna
 
-const Index = ({ auth, usuarios, totalUsuarios, pagina, numElementosPagina,totalElemetosPaginados }) => {
+const Index = ({ auth, usuarios, totalUsuarios, pagina, numElementosPagina, totalElemetosPaginados, usuariosTotales }) => {
     const { data, setData, post, get, processing, reset, errors } = useForm({});
 
     //Modal delete users
@@ -77,11 +76,11 @@ const Index = ({ auth, usuarios, totalUsuarios, pagina, numElementosPagina,total
     var idUsuarioNext = ultimoElemento;
     const primerElemento = usuarios[0].id;
 
-    console.log(usuarios);
-    console.log("Usuarios.leng " + usuarios.length);
-    console.log("ultimo elemeto: " + ultimoElemento);
-    console.log("IDUSUARIO:" + idUsuarioNext);
-    console.log("primerElemento: " + primerElemento);
+    /*   console.log(usuarios);
+      console.log("Usuarios.leng " + usuarios.length);
+      console.log("ultimo elemeto: " + ultimoElemento);
+      console.log("IDUSUARIO:" + idUsuarioNext);
+      console.log("primerElemento: " + primerElemento); */
 
     const idUsuarioPrev = usuarios[0].id;
     const itemsPagina = 30;
@@ -91,6 +90,7 @@ const Index = ({ auth, usuarios, totalUsuarios, pagina, numElementosPagina,total
 
     const nextHandler = () => {
         if (pagina >= totalPaginas) return;
+        console.log(usuarios)
         get("/usuarios/" + idUsuarioNext + "/" + pagina + "/next"),
             { onSuccess: () => reset() };
     };
@@ -109,17 +109,69 @@ const Index = ({ auth, usuarios, totalUsuarios, pagina, numElementosPagina,total
         post(route("usuarios.store"), { onSuccess: () => reset() });
     };
 
+
+    //Inicio Buscador
+
+    const [usuariosBuscador, setusuariosBuscador] = useState([]);
+    const [tablaUsuariosBuscador, setTablaUsuariosBuscador] = useState([]);
+    const [busqueda, setBusqueda] = useState("");
+
+    const peticionGet = () => {
+        setusuariosBuscador(usuarios);
+        setTablaUsuariosBuscador(usuariosTotales);
+    }
+
+    const handleChange = e => {
+        setBusqueda(e.target.value);
+        filtrar(e.target.value);
+    }
+
+    const filtrar = (terminoBusqueda) => {
+        var resultadosBusqueda = tablaUsuariosBuscador.filter((elemento) => {
+            if (elemento.name.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+                || elemento.email.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+                || elemento.celular.toString().includes(terminoBusqueda.toLowerCase())
+                || elemento.identificacion.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+            ) {
+                return elemento;
+            }
+        });
+        setusuariosBuscador(resultadosBusqueda);
+    }
+
+    useEffect(() => {
+        peticionGet();
+    }, [])
+
+    /* Fin Buscador*/
+
+
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Usuarios" />
 
+
             <div className="contenedor-usuarios">
+
                 <div className="contenedor-opciones-usuarios">
                     <MenuOpciones />
                 </div>
                 <div className="alto-tabla bg-white overflow-scroll ">
                     <div className="usuarios">
                         <div className="contenedor-botones">
+
+                            <div className="">
+                                <input
+                                    className="buscador_rapido"
+                                    id="buscar"
+                                    type="text"
+                                    placeholder="Búsqueda rápida"
+                                    onChange={handleChange}
+                                />
+                                <span className="material-symbols-outlined posicion-color">
+                                    search
+                                </span>
+                            </div>
                             <a
                                 className="autorenew"
                                 href="javascript:location.reload()"
@@ -175,7 +227,7 @@ const Index = ({ auth, usuarios, totalUsuarios, pagina, numElementosPagina,total
                             </tr>
                         </thead>
                         <tbody>
-                            {usuarios.map((usuario) => (
+                            {usuariosBuscador.map((usuario) => (
                                 <tr key={usuario.id}>
                                     <td className="border border-gray-200 text-left px-4 ">
                                         <div className="iconos-horizontal">
@@ -201,7 +253,7 @@ const Index = ({ auth, usuarios, totalUsuarios, pagina, numElementosPagina,total
 
                                                 {openDeleteUserModal &&
                                                     openDeleteUserModalId ==
-                                                        usuario.id && (
+                                                    usuario.id && (
                                                         <DeleteModal
                                                             usuario={usuario}
                                                             openDeleteModal={
