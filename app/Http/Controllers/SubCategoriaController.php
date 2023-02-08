@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SubCategoria;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use Inertia\Inertia;
 
 class SubCategoriaController extends Controller
@@ -30,7 +31,7 @@ class SubCategoriaController extends Controller
             ->with('parent', 'childs')
             ->get();
 
-       /*   dd($localizacion)   ; */
+        /*   dd($localizacion)   ; */
 
         return Inertia::render('Localizacion/Index', [
             'actividades_economicas' => $localizacion,
@@ -60,18 +61,18 @@ class SubCategoriaController extends Controller
     {
         //Cuando no se cumple hace break
         $request->validate([
-            'id' => 'required|unique:'.SubCategoria::class,
+            'id' => 'required|unique:' . SubCategoria::class,
             'nombre' => 'required',
             'tipo_categoria' => 'required',
-        ]); 
+        ]);
         $subcategoria = new SubCategoria;
         $subcategoria->id = intval($request->id);
         $subcategoria->nombre = $request->nombre;
         $subcategoria->tipo_categoria = $request->tipo_categoria;
-        if(isset($request->sector) && $request->sector != "") {
+        if (isset($request->sector) && $request->sector != "") {
             $subcategoria->id_padre_sub_categoria = intval($request->sector);
         }
-        if(isset($request->segmento) && $request->segmento != "") {
+        if (isset($request->segmento) && $request->segmento != "") {
             $subcategoria->id_padre_sub_categoria = intval($request->segmento);
         }
         try {
@@ -137,11 +138,11 @@ class SubCategoriaController extends Controller
     public function delete($id)
     {
         $actividad_economica = SubCategoria::find($id);
-        try{
+        try {
             $actividad_economica->delete();
             $response['type'] = 'Success';
             $response['message'] = ('No puedes eliminar esta Actividad Económica');
-        }catch(Exception $e){
+        } catch (Exception $e) {
             $response['type'] = 'Failed';
             $response['message'] = ('No puedes eliminar esta Actividad Económica');
         }
@@ -160,5 +161,34 @@ class SubCategoriaController extends Controller
         }
         $actividades_economicas->save();
         return redirect(route('actividad-economica.index'));
+    }
+
+
+    function paginate()
+    {
+        $actividades_economicas = SubCategoria::where('tipo_categoria', 1)
+            ->orderBy('nombre', 'ASC')
+            ->with('parent', 'childs')
+            ->paginate(20);
+        //dd($actividades_economicas);
+        return json_encode($actividades_economicas);
+    }
+
+    function filterPaginate()
+    {
+        $nombre = "";
+        if(request()->has("actividad_economica")){
+            $nombre = request("actividad_economica");
+        }
+        $actividades_economicas = SubCategoria::where('tipo_categoria', 1)
+            ->where(function ($query) use ($nombre) {
+                if (!is_null($nombre) && $nombre != "") {
+                    $query->where('nombre', 'like', '%' . $nombre . '%');
+                }
+            })
+            ->orderBy('nombre', 'ASC')
+            ->with('parent', 'childs')
+            ->paginate(20);
+        return json_encode($actividades_economicas);
     }
 }

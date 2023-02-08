@@ -145,6 +145,8 @@ Route::resource('actividades-economicas', SubCategoriaController::class)
 ->middleware(['auth','verified']);
 
 Route::get('/actividades-economicas/{id}/delete', [SubCategoriaController::class, 'delete']);
+Route::get('/actividades-economicas/paginate', [SubCategoriaController::class, 'paginate']);
+Route::get('/actividades-economicas/filter/paginate', [SubCategoriaController::class, 'filterPaginate']);
 
 /* Route::resource('zona-administrativa', SubCategoriaController::class)
 ->only(['index','create', 'store', 'edit', 'update', 'destroy'])
