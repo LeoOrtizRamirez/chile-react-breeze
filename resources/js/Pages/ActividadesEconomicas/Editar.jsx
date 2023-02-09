@@ -4,31 +4,42 @@ import { useForm, Head } from "@inertiajs/inertia-react";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 import './Editar.css';
 
+/*Toast*/
+import Toast from 'react-bootstrap/Toast';
+import ToastContainer from 'react-bootstrap/ToastContainer';
+import '../../../css/estilos-toast.css'
+import "../../../css/font-unicolor.css";
+/*Toast*/
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect } from "react";
 
 const Editar = ({ auth, actividades_economicas, solo_sectores, ae_actual }) => {
-    const { data, setData, post, processing, reset, errors } = useForm({
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
+    const { data, setData, patch, processing, reset, errors } = useForm({
         id: ae_actual.id,
         nombre: ae_actual.nombre,
-        sector: "",
-        segmento: "",
+        sector: ae_actual.parent.id_padre_sub_categoria,
+        segmento: ae_actual.id_padre_sub_categoria,
         tipo_categoria: 1,
+        new_id: ae_actual.id,
     });
 
-    useEffect(()=>{
-        console.log(ae_actual.id)
-        if(ae_actual.id_padre_sub_categoria == null){
-            console.log("if")
-            setData("sector", ae_actual.id)
-            console.log("uf")
-        }else{
-            console.log("else")
-            setData("sector", 123)
-            console.log(data)
-            setData("segmento", ae_actual.id)
-            console.log(data)
+    useEffect(() => {
+        if (Object.entries(errors).length > 0) {
+            var responses = Object.values(errors)
+            var message = '';
+            {responses.map((response) => (
+                message += response
+            ))}
+            setToastMessage(message)
+            setShowToast(true)
         }
+    }, [errors])
+
+    useEffect(() => {
+        getSegmentos(data.sector)
     },[])
 
     const [fakeSectores, setFakeSectores] = useState(actividades_economicas);
@@ -48,7 +59,7 @@ const Editar = ({ auth, actividades_economicas, solo_sectores, ae_actual }) => {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("actividades-economicas.store"), { onSuccess: () => reset() });
+        patch(route("actividades-economicas.update", data.id), { onSuccess: () => reset() });
     };
 
 
@@ -56,6 +67,20 @@ const Editar = ({ auth, actividades_economicas, solo_sectores, ae_actual }) => {
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Actividades económicas" />
+            <ToastContainer position='bottom-start'>
+                <Toast onClose={() => setShowToast(false)} show={showToast} delay={300000} autohide>
+                    <div className="notification-toast error"><span className='toast-icon toast-danger'>
+                        <span className='icon-error'></span>
+                    </span>
+                        <p className="title">{toastMessage}</p>
+                        <button
+                            type="button"
+                            className="icon-close m-auto"
+                            onClick={() => setShowToast(false)}
+                        />
+                    </div>
+                </Toast>
+            </ToastContainer>
             <div className="contenedor-planes">
                 <div className="posicion-opciones-planes">
                     <MenuOpciones />
@@ -72,7 +97,7 @@ const Editar = ({ auth, actividades_economicas, solo_sectores, ae_actual }) => {
                                     <select name="sector" className="sector" id="" onChange={(e) => getSegmentos(e.target.value)} value={data.sector}>
                                         <option value="">Selecciona un Sector</option>
                                         {sectores.map((sector) => (
-                                            <option value={sector.id}>{sector.nombre}</option>
+                                            <option key={sector.id} value={sector.id}>{sector.nombre}</option>
                                         ))}
 
                                     </select>
@@ -86,7 +111,7 @@ const Editar = ({ auth, actividades_economicas, solo_sectores, ae_actual }) => {
                                     <select name="segmento" className="segmento" id="" onChange={(e) => setData("segmento", e.target.value)} value={data.segmento}>
                                         <option value="">Selecciona un Segmento</option>
                                         {segmentos.map((segmento) => (
-                                            <option value={segmento.id}>{segmento.nombre}</option>
+                                            <option key={segmento.id} value={segmento.id}>{segmento.nombre}</option>
                                         ))}
 
                                     </select>
@@ -114,9 +139,9 @@ const Editar = ({ auth, actividades_economicas, solo_sectores, ae_actual }) => {
                                 </div>
                                 <div className="col-12 col-sm-8">
                                     <input
-                                        value={data.id}
+                                        value={data.new_id}
                                         onChange={(e) =>
-                                            setData("id", e.target.value)
+                                            setData("new_id", e.target.value)
                                         }
                                         type="number"
                                         placeholder="Código de verificación"

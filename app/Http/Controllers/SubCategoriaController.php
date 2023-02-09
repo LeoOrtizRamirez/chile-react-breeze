@@ -111,21 +111,34 @@ class SubCategoriaController extends Controller
     }
 
 
-    public function update(Request $request, SubCategoria $actividad_economica)
-    {
-        //$this->authorize('update', $actividades_economicas);
-        $validated = $request->validate([
-            'nombre' => 'max:255',
-            'dias' => 'required',
-            'tiempo' => 'required',
-            'valor' => 'required',
-            'descripcion' => 'max:255',
-            'periodo' => 'required',
-            'valor_cuenta_adicional' => 'integer',
-        ]);
+    public function update(Request $request, SubCategoria $actividad_economica){
+        $id = $request->id;
+        if($request->id != $request->new_id){
 
-        $actividad_economica->update($validated);
-        return redirect(route('actividad-economica.index'));
+            $request->validate([
+                'id' => 'required|unique:' . SubCategoria::class,
+                'nombre' => 'required',
+                'tipo_categoria' => 'required',
+            ]);
+            $id = $request->new_id;
+        }
+        
+        $subcategoria = SubCategoria::find($request->id);
+        $subcategoria->id = $id;
+        $subcategoria->nombre = $request->nombre;
+        $subcategoria->tipo_categoria = $request->tipo_categoria;
+        if (isset($request->sector) && $request->sector != "") {
+            $subcategoria->id_padre_sub_categoria = intval($request->sector);
+        }
+        if (isset($request->segmento) && $request->segmento != "") {
+            $subcategoria->id_padre_sub_categoria = intval($request->segmento);
+        }
+        try {
+            $subcategoria->save();
+        } catch (Exception $e) {
+            return json_encode($e->getMessage());
+        }
+        return redirect(route('actividades-economicas.index'));
     }
 
 
