@@ -116,11 +116,11 @@ const Index = ({
         if (pagina >= totalPaginas) return;
         get(
             "/contratos/" +
-                idUsuarioNext +
-                "/" +
-                pagina +
-                "/next?" +
-                url_fecha_publicacion
+            idUsuarioNext +
+            "/" +
+            pagina +
+            "/next?" +
+            url_fecha_publicacion
         ),
             { onSuccess: () => reset() };
     };
@@ -129,11 +129,11 @@ const Index = ({
         if (pagina == 1) return;
         get(
             "/contratos/" +
-                primerElemento +
-                "/" +
-                pagina +
-                "/prev?" +
-                url_fecha_publicacion
+            primerElemento +
+            "/" +
+            pagina +
+            "/prev?" +
+            url_fecha_publicacion
         ),
             { onSuccess: () => reset() };
     };
@@ -185,6 +185,12 @@ const Index = ({
     const getData = (data) => {
         setShowMoreSelected(data.id);
     };
+
+    const hideData = () => {
+        setShowMoreSelected(0);
+    };
+
+    
 
     return (
         <AuthenticatedLayout auth={auth}>
@@ -294,42 +300,48 @@ const Index = ({
                                                 <>
                                                     {showMoreSelected !=
                                                         contrato.id && (
-                                                        <span className="data-text">
-                                                            {contrato.objeto.substr(
-                                                                0,
-                                                                40
-                                                            )}
-                                                            ...{" "}
-                                                            <a
-                                                                className="text-primary"
-                                                                onClick={() =>
-                                                                    getData(
-                                                                        contrato
-                                                                    )
-                                                                }
-                                                            >
-                                                                Ver más
-                                                            </a>
-                                                        </span>
-                                                    )}
+                                                            <span className="data-text">
+                                                                {contrato.objeto.substr(
+                                                                    0,
+                                                                    40
+                                                                )}
+                                                                ...{" "}
+                                                                <a
+                                                                    className="text-primary"
+                                                                    onClick={() =>
+                                                                        getData(
+                                                                            contrato
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    Ver más
+                                                                </a>
+                                                            </span>
+                                                        )}
                                                 </>
                                             )}
 
                                             {showMoreSelected ==
                                                 contrato.id && (
-                                                <div className="showmore">
-                                                    <span className="data-text">
-                                                        {contrato.objeto}
-                                                    </span>
-                                                </div>
-                                            )}
+                                                    <div className="showmore">
+                                                        <span className="data-text">
+                                                            {contrato.objeto}
+                                                            <a
+                                                                className="text-primary"
+                                                                onClick={() => hideData()}
+                                                            >
+                                                                Ver menos
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                )}
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos width-columna-menor">
                                             {contrato.valor > 0
                                                 ? "$" +
-                                                  contrato.valor.toLocaleString(
-                                                      "ch-CH"
-                                                  )
+                                                contrato.valor.toLocaleString(
+                                                    "ch-CH"
+                                                )
                                                 : contrato.valor_texto}
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
