@@ -199,7 +199,7 @@ class scrapping extends Command
         $crawlerDetalle = $this->getClient()->request('GET', $model->link);
         $model->modalidad = $this->textValidation($crawlerDetalle->filter('#lblFicha1Tipo'));
         $model->ubicacion = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
-
+        sleep(1);
         $estado_proceso = $this->textValidation($crawlerDetalle->filter('#imgEstado'), '#imgEstado', 'src');
 
         switch ($estado_proceso) {
