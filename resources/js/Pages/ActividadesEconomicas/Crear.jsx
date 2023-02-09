@@ -63,8 +63,8 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
         <AuthenticatedLayout auth={auth}>
             <Head title="Actividades económicas" />
             <ToastContainer position='bottom-start'>
-                <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
-                    <div className="vue-notification-toast error"><span className='toast-icon toast-danger'>
+                <Toast onClose={() => setShowToast(false)} show={showToast} delay={300000} autohide>
+                    <div className="notification-toast error"><span className='toast-icon toast-danger'>
                         <span className='icon-error'></span>
                     </span>
                         <p className="title">{toastMessage}</p>
