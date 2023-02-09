@@ -15,7 +15,6 @@ import { useEffect } from "react";
 
 /*Form */
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import { useForm, Head } from "@inertiajs/inertia-react";
 /*Form */
 
@@ -33,7 +32,6 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
     const [sectores, setSectores] = useState(solo_sectores)
     const [segmentos, setSegmentos] = useState([])
 
-    const [disabledClass, setDisabledClass] = useState("disabled")
     const [validated, setValidated] = useState(false)
     const handleSubmit = (event) => {
         const form = event.currentTarget;
@@ -45,17 +43,6 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
             event.preventDefault();
             post(route("actividades-economicas.store"), { onSuccess: () => reset() });
         }
-
-    };
-
-    const onHandleChange = (event) => {
-        console.log(event.target);
-        setData(
-            event.target.name,
-            event.target.type === "checkbox"
-                ? event.target.checked
-                : event.target.value
-        );
     };
 
     useEffect(() => {
@@ -85,13 +72,6 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
         setSegmentos(FilteredActividadesEcomomicas);
     }
 
-    const submit = (e) => {
-        e.preventDefault();
-        post(route("actividades-economicas.store"), { onSuccess: () => reset() });
-    };
-
-
-
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Actividades económicas" />
@@ -116,7 +96,6 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
                 <div className="bg-white overflow-auto w-full text-center margen-superior">
                     <h2 className="name_section_app">Crear Actividad económica</h2>
                     <div className="container mt-4">
-
                         <Form
                             id="form"
                             name="form"
