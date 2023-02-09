@@ -4,16 +4,32 @@
     margin-left: 10px;
 }
 
+.success .toast-icon{
+    padding: 10px 13px;
+}
+
 .toast-danger{
     background-color: #F8DFE7;
+}
+
+.toast-success{
+    background-color: #CBEBA7;
 }
 
 .toast-danger .icon-error{
     color: #C9003D;
 }
 
+.toast-success .icon-success{
+    color: #73c914;
+}
+
+.toast-success .icon-check{
+    color: #73c914;
+}
+
 .toast{
-    --bs-toast-max-width: 500px;
+    --bs-toast-max-width: 500px !important;
 }
 
 .toast-container{
@@ -44,7 +60,7 @@ button.icon-close.m-auto {
     padding-right: 10px;
 }
 
-.vue-notification-toast {
+.notification-toast {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
@@ -61,17 +77,15 @@ button.icon-close.m-auto {
     -ms-flex-pack: justify;
     justify-content: space-between;
     padding: 5px 0;
-    width: -webkit-max-content;
-    width: -moz-max-content;
-    width: max-content
+    width: 100%;
 }
 
-.vue-notification-toast span.icon-notification {
+.notification-toast span.icon-notification {
     font-size: 30px;
     margin-left: 12px
 }
 
-.vue-notification-toast p {
+.notification-toast p {
     color: #686868;
     font-size: 16px;
     margin: 0 20px;
@@ -79,14 +93,14 @@ button.icon-close.m-auto {
     width: 100%; font-weight: bold;
 }
 
-.vue-notification-toast span.close-icon {
+.notification-toast span.close-icon {
     color: #9c9b9b;
     cursor: pointer;
     font-size: 22px;
     margin-right: 16px
 }
 
-.vue-notification-toast button.btn-deshacer {
+.notification-toast button.btn-deshacer {
     background-color: #fff;
     border: 1px solid #686868;
     border-radius: 30px;
@@ -98,38 +112,38 @@ button.icon-close.m-auto {
     outline: none
 }
 
-.vue-notification-toast.info {
+.notification-toast.info {
     background-color: #fff !important;
     border-left: 7px solid #00a1c9 !important
 }
 
-.vue-notification-toast.info p>b,
-.vue-notification-toast.info span.icon-notification {
+.notification-toast.info p>b,
+.notification-toast.info span.icon-notification {
     color: #00a1c9
 }
 
-.vue-notification-toast.success {
+.notification-toast.success {
     background-color: #fff !important;
     border-left: 7px solid #73c914 !important
 }
 
-.vue-notification-toast.success p>b,
-.vue-notification-toast.success span.icon-notification {
+.notification-toast.success p>b,
+.notification-toast.success span.icon-notification {
     color: #73c914
 }
 
-.vue-notification-toast.warn {
+.notification-toast.warn {
     background-color: #fff !important;
     border-left: 7px solid #ffc107 !important
 }
 
-.vue-notification-toast.warn p>b,
-.vue-notification-toast.warn span.icon-notification {
+.notification-toast.warn p>b,
+.notification-toast.warn span.icon-notification {
     color: #ffc107
 }
 
-.vue-notification-toast.delete,
-.vue-notification-toast.error {
+.notification-toast.delete,
+.notification-toast.error {
     background-color: #fff !important;
     border-left: 7px solid #c9003d !important;
     width: 100%;
@@ -137,7 +151,7 @@ button.icon-close.m-auto {
 
 
 @media (max-width:586px) {
-    .vue-notification-toast {
+    .notification-toast {
         -webkit-box-shadow: 0 0 8px 0 rgba(0, 0, 0, .431373) !important;
         -ms-box-shadow: 0 0 8px 0 rgba(0, 0, 0, .431373) !important;
         -o-box-shadow: 0 0 8px 0 rgba(0, 0, 0, .431373) !important;
@@ -146,14 +160,14 @@ button.icon-close.m-auto {
 }
 
 @media (max-width:416px) {
-    .vue-notification-toast p {
+    .notification-toast p {
         margin: 0 10px !important;
         word-break: break-all
     }
 }
 
 @media (max-width:400px) {
-    .vue-notification-toast p {
+    .notification-toast p {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;

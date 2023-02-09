@@ -141,9 +141,9 @@ class SubCategoriaController extends Controller
         try {
             $actividad_economica->delete();
             $response['type'] = 'Success';
-            $response['message'] = ('No puedes eliminar esta Actividad Económica');
+            $response['message'] = ('Se ha eliminado la Actividad Económica');
         } catch (Exception $e) {
-            $response['type'] = 'Failed';
+            $response['type'] = 'Error';
             $response['message'] = ('No puedes eliminar esta Actividad Económica');
         }
         return json_encode($response);

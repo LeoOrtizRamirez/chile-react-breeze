@@ -16,8 +16,9 @@ import "../../../css/font-unicolor.css";
 /*Toast*/
 
 const Index = ({ auth, actividades_economicas }) => {
-    const [showToast, setShowToast] = useState(true);
+    const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
+    const [toastIcon, setToastIcon] = useState("");
     const [fakeSectores, setFakeSectores] = useState(actividades_economicas);
     const [sectores, setSectores] = useState(actividades_economicas);
     const [showSegmento, setShowSegmento] = useState(false);
@@ -37,6 +38,7 @@ const Index = ({ auth, actividades_economicas }) => {
             setShowModalActividadEconomica(true)
         } else {
             setToastMessage("Debes seleccionar una Actividad Ecónomica")
+            setToastIcon('icon-error')
             setShowToast(true)
         }
     };
@@ -45,6 +47,7 @@ const Index = ({ auth, actividades_economicas }) => {
             window.location.replace('/actividades-economicas/' + inputActividadEconomica.id + '/edit')
         } else {
             setToastMessage("Debes seleccionar una Actividad Ecónomica")
+            setToastIcon('icon-error')
             setShowToast(true)
         }
     }
@@ -91,10 +94,19 @@ const Index = ({ auth, actividades_economicas }) => {
         setShowActividadEconomica(!showActividadEconomica)
     }
 
+
     const deleteActividadEconomica = () => {
+
         fetch('/actividades-economicas/' + inputActividadEconomica.id + '/delete')
             .then((response) => response.json())
             .then((data) => {
+                if (data.type == "Success") {
+                    setToastIcon('icon-check')
+                    var new_data = actividadesEconomicas.filter(ae => ae.id != inputActividadEconomica.id);
+                    setActividadesEconomicas(new_data)
+                } else {
+                    setToastIcon('icon-error')
+                }
                 setToastMessage(data.message)
                 setShowToast(true)
                 setShowModalActividadEconomica(false)
@@ -105,9 +117,10 @@ const Index = ({ auth, actividades_economicas }) => {
             <Head title="Actividades económicas" />
             <ToastContainer position='bottom-start'>
                 <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
-                    <div className="vue-notification-toast error"><span className='toast-icon toast-danger'>
-                        <span className='icon-error'></span>
-                    </span>
+                    <div className={`notification-toast ${toastIcon == "icon-error" ? "error" : "success"}`}>
+                        <span className={`toast-icon ${toastIcon == "icon-error" ? "toast-danger" : "toast-success"}`}>
+                            <span className={toastIcon}></span>
+                        </span>
                         <p className="title">{toastMessage}</p>
                         <button
                             type="button"
