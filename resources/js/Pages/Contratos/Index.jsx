@@ -356,9 +356,9 @@ const Index = ({
                                     <tr key={contrato.id} className="tr-users">
                                         <td className="border border-gray-200 text-left">
 
-                               /* {contratos.map((contrato) => (
+                              {/*   {contratos.map((contrato) => (
                                     <tr key={contrato.id} className="tr">
-                                        <td className="border border-gray-200 text-left mw-90">*/
+                                        <td className="border border-gray-200 text-left mw-90"> */}
                                             <div className="iconos-horizontal width-columna-acciones">
                                                 <div>
                                                     <Pdf />
