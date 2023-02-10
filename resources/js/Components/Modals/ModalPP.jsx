@@ -9,7 +9,7 @@ import {
     MDBScrollspy,
     MDBScrollspyLink,
 } from "mdb-react-ui-kit";
-import "@/Components/Modals/modal-pp.css";
+import "@/Components/Modals/ModalPP.css";
 import "@fontsource/poppins";
 
 export const ModalPP = ({ showPP, handleClosePP }) => {
@@ -29,6 +29,7 @@ export const ModalPP = ({ showPP, handleClosePP }) => {
             centered
             show={showPP}
             onHide={handleClosePP}
+            id="modalPP"
         >
             <Modal.Header></Modal.Header>
             <Modal.Body className="modal-header-pp">
