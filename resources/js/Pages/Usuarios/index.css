@@ -1,5 +1,6 @@
 html {
     background-color: #b5b5b525;
+    overflow: hidden;
 }
 
 table tr th {
@@ -23,9 +24,17 @@ table tr th {
     content: " ↓";
 }
 
+/* Estilos pagina --------------------------------------------------------------*/
+
 .contenedor-usuarios {
     display: flex;
-    flex-direction: row;
+    height: 90vh;
+}
+
+.contenedor-informacion-usuarios {
+    margin-top: 15px;
+    margin-left: 10px;
+    border-radius: 15px;
 }
 
 .usuarios {
@@ -39,7 +48,7 @@ table tr th {
     font-size: 22px;
     justify-content: space-between;
     height: 40px;
-    margin-bottom: -5px;
+    margin: 15px 0 5px 0;
 }
 
 .contenedor-botones {
@@ -56,7 +65,7 @@ table tr th {
 }
 
 .margen-titulo {
-    margin-left: 1300px;
+    margin-left: 500px;
 }
 
 .tabla {
@@ -64,8 +73,6 @@ table tr th {
 }
 
 .cabecera-tabla {
-    position: sticky;
-    top: -1px;
     text-align: center;
 }
 
@@ -82,7 +89,7 @@ table tr th {
     align-items: center;
     justify-content: center;
     color: white;
-    padding-bottom: 2px;
+    padding-bottom: 10px;
     margin: 3px;
 }
 
@@ -95,7 +102,7 @@ table tr th {
     align-items: center;
     justify-content: center;
     color: white;
-    padding-top: 7px;
+    padding-top: 5px;
     margin: 3px;
 }
 
@@ -113,7 +120,7 @@ table tr th {
 }
 
 .margen-textos {
-    padding: 7px;
+    padding: 10px;
 }
 
 .autorenew {
@@ -148,18 +155,6 @@ table tr th {
     font-size: 22px;
 }
 
-.separacion {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #bdbdbd;
-    font-weight: bold;
-    font-size: 22px;
-    margin-bottom: 40px;
-}
-
-/*estilos modal eliminar*/
 button.btn.btn-danger.btn-sm.usuarios {
     background-color: unset;
     background-image: unset;
@@ -168,24 +163,6 @@ button.btn.btn-danger.btn-sm.usuarios {
 
 button.btn.btn-danger {
     background-color: red;
-}
-
-.color-negro {
-    color: black;
-}
-
-.modal-header,
-.btn-info {
-    background: #00a1c9 !important;
-    color: #fff;
-}
-
-.posicion-opciones-planes {
-    margin-top: 58px;
-}
-
-ul {
-    padding-left: 0px !important;
 }
 
 a {
@@ -197,50 +174,10 @@ a {
     width: 110px;
 }
 
-/* p {
-    margin-bottom: 0px !important;
-} */
-
-.modal-header,
-.btn-info {
-    background: #1383ac;
-    color: #fff;
-}
-
-input.btn.btn-info {
-    background: #1383ac;
-    border-color: #1383ac;
-    color: #fff;
-}
-
-th {
-    font-size: 12px;
-}
-
-.name_section_app {
-    text-align: center;
-    display: block;
-    max-width: 410px;
-    margin: 0 auto;
-    color: #00a1c9;
-    font-family: Nexa-bold, sans-serif;
-    font-size: 24px;
-    font-weight: bold;
-    padding-bottom: 5px;
-    border: 0;
-    background-image: linear-gradient(
-        90deg,
-        #e1e1e1 0,
-        #e1e1e1 50%,
-        transparent 0
-    );
-    background-size: 16px 2px;
-    background-position: bottom;
-    background-repeat: repeat-x;
-}
+/* Estilos que afectan el menu de opciones */
 
 ul.lista-opciones.margen-nav {
-    height: 100vh;
+    height: 97vh;
 }
 
 ul.lista-opciones.margen-nav > li {
@@ -248,11 +185,14 @@ ul.lista-opciones.margen-nav > li {
 }
 
 .contenedor-opciones-usuarios {
-    margin-top: 56px !important;
-    height: 100vh;
+    margin-top: 46px !important;
 }
 
+.p-10 {
+    padding: 35px 10px 0px 10px;
+}
 
+/* fin */
 
 .buscador_rapido {
     margin: 8px 25px 15px 22px;
