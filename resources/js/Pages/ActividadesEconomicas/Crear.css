@@ -161,7 +161,7 @@ ul.lista-opciones.margen-nav>li {
     cursor: pointer;
 }
 
-select.sector, select.segmento, input.actividad-economica{
+.sector, .segmento, input.actividad-economica{
     width: 100%;
     border-radius: 22px !important;
 }

@@ -187,6 +187,7 @@ const Index = ({
         setShowMoreSelected(data.id);
     };
 
+
     //Inicio Buscador rapido
 
     const [usuariosBuscador, setusuariosBuscador] = useState([]);
@@ -228,6 +229,43 @@ const Index = ({
     /* Fin Buscador*/
 
 
+
+
+    const hideData = () => {
+        setShowMoreSelected(0);
+    };
+
+
+    const [fakeScrollContentWidth, setFakeScrollContentWidth] = useState(0)
+    const [fakeScrollContainerWidth, setFakeScrollContainertWidth] = useState(0)
+    useEffect(() => {
+        var fake_contenido_tabla = document.getElementById('div1')
+        var contenido_tabla = document.getElementById('tabla')
+
+        var fake_contenedor_tabla = document.getElementById('wrapper1')
+        var contenedor_tabla = document.getElementById('scroll-table')
+
+
+        console.log("fake_contenido_tabla", fake_contenido_tabla.offsetWidth)
+        console.log("contenido_tabla", contenido_tabla.offsetWidth)
+
+        console.log("fake_contenedor_tabla", fake_contenedor_tabla.offsetWidth)
+        console.log("contenedor_tabla", contenedor_tabla.offsetWidth)
+
+
+
+        setFakeScrollContentWidth(contenido_tabla.offsetWidth)
+        setFakeScrollContainertWidth(contenedor_tabla.offsetWidth)
+        var wrapper1 = document.getElementById('wrapper1');
+        var wrapper2 = document.querySelector('#scroll-table');
+
+        wrapper1.onscroll = function () {
+            wrapper2.scrollLeft = wrapper1.scrollLeft;
+        };
+        wrapper2.onscroll = function () {
+            wrapper1.scrollLeft = wrapper2.scrollLeft;
+        };
+    })
 
 
 
@@ -280,7 +318,14 @@ const Index = ({
                     <div className="contenedor-opciones-usuarios">
                         <MenuOpciones />
                     </div>
-                    <div className="alto-tabla bg-white overflow-auto ">
+
+                    <div className="alto-tabla bg-white overflow-auto " id="scroll-table">
+
+                        <div id="wrapper1" style={{ width: fakeScrollContainerWidth > 0 ? fakeScrollContainerWidth : 0 + 'px' }}>
+                            <div id="div1" style={{ width: fakeScrollContentWidth > 0 ? fakeScrollContentWidth : 0 + 'px' }} >
+                            </div>
+                        </div>
+
                         <table
                             id="tabla"
                             className="w-full bg-white border tabla table-hover"
@@ -306,9 +351,14 @@ const Index = ({
                             </thead>
 
                             <tbody>
+
                                 {usuariosBuscador.map((contrato) => (
                                     <tr key={contrato.id} className="tr-users">
                                         <td className="border border-gray-200 text-left">
+
+                               /* {contratos.map((contrato) => (
+                                    <tr key={contrato.id} className="tr">
+                                        <td className="border border-gray-200 text-left mw-90">*/
                                             <div className="iconos-horizontal width-columna-acciones">
                                                 <div>
                                                     <Pdf />
@@ -334,7 +384,7 @@ const Index = ({
                                                 {contrato.entidad_contratante}
                                             </span>
                                         </td>
-                                        <td className="border border-gray-200 text-left margen-textos">
+                                        <td className="border border-gray-200 text-left margen-textos mw-200">
                                             {showLess && (
                                                 <>
                                                     {showMoreSelected !=
@@ -365,6 +415,13 @@ const Index = ({
                                                     <div className="showmore">
                                                         <span className="data-text">
                                                             {contrato.objeto}
+
+                                                            <a
+                                                                className="text-primary"
+                                                                onClick={() => hideData()}
+                                                            >
+                                                                Ver menos
+                                                            </a>
                                                         </span>
                                                     </div>
                                                 )}
@@ -377,7 +434,7 @@ const Index = ({
                                                 )
                                                 : contrato.valor_texto}
                                         </td>
-                                        <td className="border border-gray-200 text-left margen-textos">
+                                        <td className="border border-gray-200 text-left margen-textos mw-200">
                                             <span className="data-text ">
                                                 {contrato.modalidad}
                                             </span>
@@ -402,7 +459,7 @@ const Index = ({
                                                 {contrato.ubicacion}
                                             </span>
                                         </td>
-                                        <td className="border border-gray-200 text-left margen-textos">
+                                        <td className="border border-gray-200 text-left margen-textos mw-200">
                                             <span className="data-text ">
                                                 {contrato.contratista}
                                             </span>

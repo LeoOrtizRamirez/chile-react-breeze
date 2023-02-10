@@ -26,6 +26,7 @@ table tr th {
 .tabla {
     font-size: 13px;
     text-align: center;
+    margin-top: 20px;
 }
 
 .alto-tabla {
@@ -174,7 +175,7 @@ a {
     margin: 0px auto;
 }
 
-.circulo > span {
+.circulo>span {
     font-size: 13px;
     font-weight: bold;
 }
@@ -211,7 +212,7 @@ ul.lista-opciones.margen-nav {
     height: 100vh;
 }
 
-ul.lista-opciones.margen-nav > li {
+ul.lista-opciones.margen-nav>li {
     height: 16vh !important;
 }
 
@@ -225,7 +226,15 @@ a {
     text-decoration: none !important;
 }
 
-h1, h2, h3, h4, h4, h5, h6, span, p {
+h1,
+h2,
+h3,
+h4,
+h4,
+h5,
+h6,
+span,
+p {
     font-family: 'Poppins';
 }
 
@@ -247,18 +256,19 @@ p {
 }
 
 .px-4 {
-    padding-right: 2rem!important;
-    padding-left: 2rem!important;
+    padding-right: 2rem !important;
+    padding-left: 2rem !important;
 }
 
-a.text-primary, a.text-primary:hover {
+a.text-primary,
+a.text-primary:hover {
     color: #00a1e0 !important;
     cursor: pointer;
 }
 
 .showmore {
     max-height: 150px;
-    width: 200px;
+    width: 100%;
     /* border: 1px solid #ddd; */
     /* background: #f1f1f1; */
     overflow-y: scroll;
@@ -280,3 +290,34 @@ a.text-primary, a.text-primary:hover {
 
 
 
+
+
+
+#wrapper1 {
+    width: 700px;
+    border: none 0px RED;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+div#wrapper1 {
+    position: fixed;
+}
+
+#wrapper1 {
+    height: 20px;
+    background-color: #f3f4f6;
+}
+
+
+#div1 {
+    height: 20px;
+}
+
+.mw-200 {
+    min-width: 200px;
+}
+
+.mw-90 {
+    min-width: 90px;
+}

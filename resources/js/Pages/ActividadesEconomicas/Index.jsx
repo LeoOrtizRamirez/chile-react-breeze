@@ -15,96 +15,10 @@ import '../../../css/estilos-toast.css'
 import "../../../css/font-unicolor.css";
 /*Toast*/
 
-/*InfiniteScroll */
-import InfiniteScroll from "react-infinite-scroll-component";
-import { Table } from "react-bootstrap";
-/*InfiniteScroll */
-
 const Index = ({ auth, actividades_economicas }) => {
-
-    /*InfiniteScroll */
-    const [characters, setCharacters] = useState([])
-    const [infoPage, setInfoPage] = useState({
-        count: '',
-        pages: '',
-        next: '',
-        prev: ''
-    })
-    const [hasMore, setHasMore] = useState(true)
-
-    const GetList = (page) => {
-        console.log(page)
-        if (page === null) {
-            setHasMore(false)
-        } else {
-            fetch(page)
-                .then((response) => response.json())
-                .then((data) => {
-                    var newData = {}
-                    var next_page = ""
-                    var expression = /filter/;
-                    if (page.search(expression) >= 0) {
-                        var pos_act_econ_parametter = page.indexOf('&')
-                        var url = page.substring(pos_act_econ_parametter+1, page.length)
-                        newData = data.data
-                        next_page = data.next_page_url+'&'+url
-                    } else {
-                        newData = characters.concat(data.data)
-                        next_page = data.next_page_url
-                    }
-
-                    setCharacters(newData)
-                    setInfoPage({
-                        count: data.total,
-                        pages: data.to,
-                        next: next_page,
-                        prev: data.prev_page_url
-                    })
-                })
-        }
-
-    }
-
-    useEffect(() => {
-        GetList('/actividades-economicas/paginate/?page=1')
-    }, [])
-
-    const filterActividadEconomica = (e) => {
-        if (e.target.value == "") {
-            /* setCharacters([]) */
-            GetList('/actividades-economicas/paginate/?page=1')
-        } else {
-            GetList('/actividades-economicas/filter/paginate/?page=1&actividad_economica=' + e.target.value)
-            /* fetch('/actividades-economicas/filter/paginate/?actividad_economica=' + e.target.value)
-                .then((response) => response.json())
-                .then((filter) => {
-                    var next_page = ""
-                    console.log(filter)
-                    if(filter.next_page_url === null){
-                        setHasMore(false)
-                        next_page = null
-                        
-                    }else{
-                        setHasMore(true)
-                        next_page = filter.next_page_url+'&actividad_economica='+e.target.value
-                        console.log(next_page)
-                    }
-                    setCharacters(filter.data)
-                    setInfoPage(null)
-                    console.log(infoPage)
-                    setInfoPage({
-                        count: filter.total,
-                        pages: filter.to,
-                        next: next_page,
-                        prev: filter.prev_page_url
-                    })
-                }) */
-        }
-    }
-    /*InfiniteScroll */
-
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
+    const [toastIcon, setToastIcon] = useState("");
     const [fakeSectores, setFakeSectores] = useState(actividades_economicas);
     const [sectores, setSectores] = useState(actividades_economicas);
     const [showSegmento, setShowSegmento] = useState(false);
@@ -124,6 +38,7 @@ const Index = ({ auth, actividades_economicas }) => {
             setShowModalActividadEconomica(true)
         } else {
             setToastMessage("Debes seleccionar una Actividad Ecónomica")
+            setToastIcon('icon-error')
             setShowToast(true)
         }
     };
@@ -132,6 +47,7 @@ const Index = ({ auth, actividades_economicas }) => {
             window.location.replace('/actividades-economicas/' + inputActividadEconomica.id + '/edit')
         } else {
             setToastMessage("Debes seleccionar una Actividad Ecónomica")
+            setToastIcon('icon-error')
             setShowToast(true)
         }
     }
@@ -167,7 +83,7 @@ const Index = ({ auth, actividades_economicas }) => {
         setInputActividadEconomica(actividad_economica)
     }
 
-    /* const filterActividadEconomica = (e) => {
+    const filterActividadEconomica = (e) => {
         const pattern = new RegExp(e.target.value, "i");
         const FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
             if (pattern.test(el.nombre)) {
@@ -176,14 +92,21 @@ const Index = ({ auth, actividades_economicas }) => {
         });
         setSectores(FilteredActividadesEcomomicas);
         setShowActividadEconomica(!showActividadEconomica)
-    } */
-
+    }
 
 
     const deleteActividadEconomica = () => {
+
         fetch('/actividades-economicas/' + inputActividadEconomica.id + '/delete')
             .then((response) => response.json())
             .then((data) => {
+                if (data.type == "Success") {
+                    setToastIcon('icon-check')
+                    var new_data = actividadesEconomicas.filter(ae => ae.id != inputActividadEconomica.id);
+                    setActividadesEconomicas(new_data)
+                } else {
+                    setToastIcon('icon-error')
+                }
                 setToastMessage(data.message)
                 setShowToast(true)
                 setShowModalActividadEconomica(false)
@@ -194,9 +117,10 @@ const Index = ({ auth, actividades_economicas }) => {
             <Head title="Actividades económicas" />
             <ToastContainer position='bottom-start'>
                 <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
-                    <div className="vue-notification-toast error"><span className='toast-icon toast-danger'>
-                        <span className='icon-error'></span>
-                    </span>
+                    <div className={`notification-toast ${toastIcon == "icon-error" ? "error" : "success"}`}>
+                        <span className={`toast-icon ${toastIcon == "icon-error" ? "toast-danger" : "toast-success"}`}>
+                            <span className={toastIcon}></span>
+                        </span>
                         <p className="title">{toastMessage}</p>
                         <button
                             type="button"
@@ -212,101 +136,83 @@ const Index = ({ auth, actividades_economicas }) => {
                 </div>
                 <div className="bg-white overflow-auto w-full text-center margen-superior">
                     <h2 className="name_section_app">Actividad económica</h2>
-                    <div className="container mt-4 infinite-scroll" id="infiniteScroll">
-                        {infoPage !== null ? (
-                            <InfiniteScroll
-                                dataLength={characters.length}
-                                next={() => {
-                                    GetList(infoPage.next)
-                                }}
-                                hasMore={hasMore}
-                                loader={<h4>Loading...</h4>}
-                                scrollableTarget='infiniteScroll'
-                            >
+                    <div className="container mt-4">
+                        <div className="tree_categorias tree_1">
+                            <div className="tree_categorias__busqueda mb-3 mb-md-4">
+                                <div className="mx-auto">
+                                    <input
+                                        type="text"
+                                        placeholder="Busca por actividad económica"
+                                        autoComplete="off"
+                                        className="form-control m-auto"
+                                        onChange={filterActividadEconomica}
+                                    />
+                                    <i className="icon-Cancelar"></i>
+                                    <button type="button" className="icon-Buscar-click"><i className="bi bi-search"></i></button>
 
-                                <div className="tree_categorias tree_1">
-                                    <div className="tree_categorias__busqueda mb-3 mb-md-4">
-                                        <div className="mx-auto">
-                                            <input
-                                                type="text"
-                                                placeholder="Busca por actividad económica"
-                                                autoComplete="off"
-                                                className="form-control m-auto"
-                                                onChange={filterActividadEconomica}
-                                            />
-                                            <i className="icon-Cancelar"></i>
-                                            <button type="button" className="icon-Buscar-click"><i className="bi bi-search"></i></button>
-
-                                            {characters.map((sector) => (
+                                    {sectores.map((sector) => (
+                                        <>
+                                            {sector.id_padre_sub_categoria == null &&
                                                 <>
-                                                    {sector.id_padre_sub_categoria == null &&
-                                                        <>
-                                                            <div className="tree-content mt-3 sector" key={sector.id} onClick={() => getSegmento(sector.id)}>
-                                                                <i className={`tree-arrow has-child ${sector.childs.length > 0 ? "bi bi-chevron-down" : ""}`}></i>
-                                                                <span className="tree-anchor">
-                                                                    <span className="tree-division tree-division1">
-                                                                        <span className="tree-division__title my-auto">{sector.nombre}</span>
-                                                                    </span>
-                                                                </span>
-                                                            </div>
-                                                            {showSegmento && sector.id == selectedSegmento &&
-                                                                <ul className="tree-children">
-                                                                    {segmentos.map((segmento) => (
+                                                    <div className="tree-content mt-3 sector" key={sector.id} onClick={() => getSegmento(sector.id)}>
+                                                        <i className={`tree-arrow has-child ${sector.childs.length > 0 ? "bi bi-chevron-down" : ""}`}></i>
+                                                        <span className="tree-anchor">
+                                                            <span className="tree-division tree-division1">
+                                                                <span className="tree-division__title my-auto">{sector.nombre}</span>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                    {showSegmento && sector.id == selectedSegmento &&
+                                                        <ul className="tree-children">
+                                                            {segmentos.map((segmento) => (
 
 
-                                                                        <li data-id="20504" className="tree-node has-child expanded draggable">
-                                                                            <div className="tree-content segmento" onClick={() => getActividadEconomica(segmento.id)}>
-                                                                                <i className="tree-arrow expanded has-child ltr"></i>
-                                                                                {/* <i className="tree-checkbox"></i> */}
-                                                                                <span className="tree-anchor">
-                                                                                    <span className="tree-division tree-division1">
-                                                                                        <span className="tree-division__title my-auto">{segmento.nombre}</span>
-                                                                                    </span>
-                                                                                </span>
-                                                                            </div>
+                                                                <li data-id="20504" className="tree-node has-child expanded draggable">
+                                                                    <div className="tree-content segmento" onClick={() => getActividadEconomica(segmento.id)}>
+                                                                        <i className="tree-arrow expanded has-child ltr"></i>
+                                                                        {/* <i className="tree-checkbox"></i> */}
+                                                                        <span className="tree-anchor">
+                                                                            <span className="tree-division tree-division1">
+                                                                                <span className="tree-division__title my-auto">{segmento.nombre}</span>
+                                                                            </span>
+                                                                        </span>
+                                                                    </div>
 
-                                                                            {showActividadEconomica && selectedActividadEconomica == segmento.id &&
-                                                                                <ul className="tree-children">
-                                                                                    {actividadesEconomicas.map((childs) => (
-                                                                                        <li className="tree-node draggable">
-                                                                                            <div className="tree-content actividad-economica" onClick={() => checked(childs)}>
-                                                                                                <input
-                                                                                                    type="radio"
-                                                                                                    name="actividad_economica"
-                                                                                                    onClick={() => checked(childs)}
-                                                                                                    checked={childs.id == inputActividadEconomica.id ? "checked" : ""}
-                                                                                                />
-                                                                                                <span className="tree-anchor children">
-                                                                                                    <span className="tree-division tree-division1">
-                                                                                                        <span className="tree-division__title my-auto">{childs.nombre}</span>
-                                                                                                    </span>
-                                                                                                </span>
-                                                                                            </div>
-                                                                                        </li>
-                                                                                    ))}
-                                                                                </ul>
-                                                                            }
-                                                                        </li>
-                                                                    ))}
+                                                                    {showActividadEconomica && selectedActividadEconomica == segmento.id &&
+                                                                        <ul className="tree-children">
+                                                                            {actividadesEconomicas.map((childs) => (
+                                                                                <li className="tree-node draggable">
+                                                                                    <div className="tree-content actividad-economica" onClick={() => checked(childs)}>
+                                                                                        <input
+                                                                                            type="radio"
+                                                                                            name="actividad_economica"
+                                                                                            onClick={() => checked(childs)}
+                                                                                            checked={childs.id == inputActividadEconomica.id ? "checked" : ""}
+                                                                                        />
+                                                                                        <span className="tree-anchor children">
+                                                                                            <span className="tree-division tree-division1">
+                                                                                                <span className="tree-division__title my-auto">{childs.nombre}</span>
+                                                                                            </span>
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </li>
+                                                                            ))}
+                                                                        </ul>
+                                                                    }
+                                                                </li>
+                                                            ))}
 
-                                                                </ul>
-                                                            }
-                                                        </>
+                                                        </ul>
                                                     }
                                                 </>
+                                            }
+                                        </>
 
-                                            ))}
+                                    ))}
 
-                                        </div>
-                                    </div>
                                 </div>
-                            </InfiniteScroll>
-                        )
-                            :
-                            ""
-                        }
-
-
+                            </div>
+                        </div>
                         <Modal
                             show={showModalActividadEconomica}
                             onHide={handleCloseModalActividadEconomica}

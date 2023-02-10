@@ -212,6 +212,7 @@ class DailyScrapping extends Command
         $crawlerDetalle = $this->getClient()->request('GET', $model->link);
         $model->modalidad = $this->textValidation($crawlerDetalle->filter('#lblFicha1Tipo'));
         $model->ubicacion = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
+        sleep(1);
         $model->estado_proceso = $this->textValidation($crawlerDetalle->filter('#lblFicha1Estado'));
         $model->save();
         echo "Guardando Detalle del Concurso\n";
@@ -226,15 +227,22 @@ class DailyScrapping extends Command
         //Buscar o crear SubCategoria
 
         $actividad_economica = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblProducto'));
-        $subcategoria = new SubCategoria();
-        $subcategoria->nombre = $actividad_economica;
-        $subcategoria->tipo_categoria = 1;
-        $subcategoria->save();
-        echo "Guardando SubCategoria\n";
+        $find_subcategoria = SubCategoria::where('nombre', $actividad_economica)->first();
+        if($find_subcategoria){
+            $subcategoria_id = $find_subcategoria->id;
+            echo "Ya esta creada\n";
+        }else{
+            $subcategoria = new SubCategoria();
+            $subcategoria->nombre = $actividad_economica;
+            $subcategoria->tipo_categoria = 4; //Actividad Económica Scrapping
+            $subcategoria->save();
+            $subcategoria_id = $subcategoria->id;
+            echo "Guardando SubCategoria\n";
+        }
 
         $clasificacion_contrato = new ClasificacionContrato();
         $clasificacion_contrato->id_contrato = $model->id;
-        $clasificacion_contrato->id_sub_categoria = $subcategoria->id;
+        $clasificacion_contrato->id_sub_categoria = $subcategoria_id;
         $clasificacion_contrato->save();
         echo "Guardando ClasificacionContrato\n\n";
         
