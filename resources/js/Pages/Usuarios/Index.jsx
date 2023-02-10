@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { useForm, Head } from "@inertiajs/inertia-react";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
-/* import Paginador from "@/Components/Paginador"; */
 import Paginador from "@/Components/PaginadorContratos";
-import "../../../css/estilos-usuarios-index.css";
+import "./index.css";
 import DeleteModal from "@/Components/Modals/DeleteModalUsers";
 import "bootstrap/dist/css/bootstrap.min.css";
 import $ from "jquery";
@@ -52,7 +51,15 @@ function setIcon(element, asc) {
 }
 // Fin Ordenar tabla por columna
 
-const Index = ({ auth, usuarios, totalUsuarios, pagina, numElementosPagina, totalElemetosPaginados, usuariosTotales }) => {
+const Index = ({
+    auth,
+    usuarios,
+    totalUsuarios,
+    pagina,
+    numElementosPagina,
+    totalElemetosPaginados,
+    usuariosTotales,
+}) => {
     const { data, setData, post, get, processing, reset, errors } = useForm({});
 
     //Modal delete users
@@ -90,7 +97,7 @@ const Index = ({ auth, usuarios, totalUsuarios, pagina, numElementosPagina, tota
 
     const nextHandler = () => {
         if (pagina >= totalPaginas) return;
-        console.log(usuarios)
+        console.log(usuarios);
         get("/usuarios/" + idUsuarioNext + "/" + pagina + "/next"),
             { onSuccess: () => reset() };
     };
@@ -109,7 +116,6 @@ const Index = ({ auth, usuarios, totalUsuarios, pagina, numElementosPagina, tota
         post(route("usuarios.store"), { onSuccess: () => reset() });
     };
 
-
     //Inicio Buscador
 
     const [usuariosBuscador, setusuariosBuscador] = useState([]);
@@ -119,67 +125,79 @@ const Index = ({ auth, usuarios, totalUsuarios, pagina, numElementosPagina, tota
     const peticionGet = () => {
         setusuariosBuscador(usuarios);
         setTablaUsuariosBuscador(usuariosTotales);
-    }
+    };
 
-    const handleChange = e => {
+    const handleChange = (e) => {
         setBusqueda(e.target.value);
         filtrar(e.target.value);
-    }
+    };
 
     const filtrar = (terminoBusqueda) => {
         var resultadosBusqueda = tablaUsuariosBuscador.filter((elemento) => {
             var selectores = document.getElementsByClassName("tr-users").length;
 
-
-
-            if (elemento.name.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-                || elemento.email.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-                || elemento.celular.toString().includes(terminoBusqueda.toLowerCase())
-                || elemento.identificacion.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+            if (
+                elemento.name
+                    .toString()
+                    .toLowerCase()
+                    .includes(terminoBusqueda.toLowerCase()) ||
+                elemento.email
+                    .toString()
+                    .toLowerCase()
+                    .includes(terminoBusqueda.toLowerCase()) ||
+                elemento.celular
+                    .toString()
+                    .includes(terminoBusqueda.toLowerCase()) ||
+                elemento.identificacion
+                    .toString()
+                    .toLowerCase()
+                    .includes(terminoBusqueda.toLowerCase())
             ) {
-
                 if (terminoBusqueda == "") {
-                    document.querySelectorAll("span.font-black.numero-elementos-pagina")[0].style.color = "#6b7280"
-                    document.querySelectorAll("span.guion-paginador")[0].style.color = "#6b7280"
-                    document.querySelectorAll("#TotalPaginasPaginador")[0].textContent = 30;
+                    document.querySelectorAll(
+                        "span.font-black.numero-elementos-pagina"
+                    )[0].style.color = "#6b7280";
+                    document.querySelectorAll(
+                        "span.guion-paginador"
+                    )[0].style.color = "#6b7280";
+                    document.querySelectorAll(
+                        "#TotalPaginasPaginador"
+                    )[0].textContent = 30;
                     return elemento;
                 } else {
-                    document.querySelectorAll("span.font-black.numero-elementos-pagina")[0].style.color = "white"
-                    document.querySelectorAll("span.guion-paginador")[0].style.color = "white"
-                    document.querySelectorAll("#TotalPaginasPaginador")[0].textContent = selectores;
+                    document.querySelectorAll(
+                        "span.font-black.numero-elementos-pagina"
+                    )[0].style.color = "white";
+                    document.querySelectorAll(
+                        "span.guion-paginador"
+                    )[0].style.color = "white";
+                    document.querySelectorAll(
+                        "#TotalPaginasPaginador"
+                    )[0].textContent = selectores;
                     return elemento;
                 }
-
-
-
-
-     
             }
         });
         setusuariosBuscador(resultadosBusqueda);
-    }
+    };
 
     useEffect(() => {
         peticionGet();
-    }, [])
+    }, []);
 
     /* Fin Buscador*/
 
-
     return (
-        <AuthenticatedLayout auth={auth}>
+        <AuthenticatedLayout auth={auth} className="testindexusers">
             <Head title="Usuarios" />
 
-
             <div className="contenedor-usuarios">
-
                 <div className="contenedor-opciones-usuarios">
                     <MenuOpciones />
                 </div>
-                <div className="alto-tabla bg-white overflow-scroll ">
+                <div className="contenedor-informacion-usuarios bg-white overflow-scroll ">
                     <div className="usuarios">
                         <div className="contenedor-botones">
-
                             <div className="">
                                 <input
                                     className="buscador_rapido"
@@ -273,7 +291,7 @@ const Index = ({ auth, usuarios, totalUsuarios, pagina, numElementosPagina, tota
 
                                                 {openDeleteUserModal &&
                                                     openDeleteUserModalId ==
-                                                    usuario.id && (
+                                                        usuario.id && (
                                                         <DeleteModal
                                                             usuario={usuario}
                                                             openDeleteModal={
