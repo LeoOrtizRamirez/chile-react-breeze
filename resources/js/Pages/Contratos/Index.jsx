@@ -1,9 +1,7 @@
 import React, { useState, useEffect, Suspense, lazy } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-//const AuthenticatedLayout = lazy(() => import("@/Layouts/AuthenticatedLayout"));
 import { useForm, Head } from "@inertiajs/inertia-react";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
-//const MenuOpciones = lazy(() => import("@/Layouts/AuthenticatedLayout"));
 import "./Index.css";
 import Compartir from "../../Components/Acciones/Compartir";
 import Eliminar from "../../Components/Acciones/Eliminar";
@@ -13,9 +11,7 @@ import Pdf from "../../Components/Acciones/Pdf";
 import Visualizar from "../../Components/Acciones/Visualizar";
 import Paginador from "@/Components/PaginadorContratos";
 import $ from "jquery";
-// import { TypeH1 } from "react-bootstrap-icons";
 import "@fontsource/poppins";
-// import axios from "axios";
 
 const Index = ({
     auth,
@@ -24,7 +20,7 @@ const Index = ({
     pagina,
     numElementosPagina,
     totalElemetosPaginados,
-    usuariosTotales
+    usuariosTotales,
 }) => {
     const { data, setData, post, get, processing, reset, errors } = useForm({});
     const [showLess, setShowLess] = useState(true);
@@ -109,11 +105,11 @@ const Index = ({
         if (pagina >= totalPaginas) return;
         get(
             "/contratos/" +
-            idUsuarioNext +
-            "/" +
-            pagina +
-            "/next?" +
-            url_fecha_publicacion
+                idUsuarioNext +
+                "/" +
+                pagina +
+                "/next?" +
+                url_fecha_publicacion
         ),
             { onSuccess: () => reset() };
     };
@@ -122,11 +118,11 @@ const Index = ({
         if (pagina == 1) return;
         get(
             "/contratos/" +
-            primerElemento +
-            "/" +
-            pagina +
-            "/prev?" +
-            url_fecha_publicacion
+                primerElemento +
+                "/" +
+                pagina +
+                "/prev?" +
+                url_fecha_publicacion
         ),
             { onSuccess: () => reset() };
     };
@@ -161,29 +157,26 @@ const Index = ({
         setShowMoreSelected(0);
     };
 
-
-    const [fakeScrollContentWidth, setFakeScrollContentWidth] = useState(0)
-    const [fakeScrollContainerWidth, setFakeScrollContainertWidth] = useState(0)
+    const [fakeScrollContentWidth, setFakeScrollContentWidth] = useState(0);
+    const [fakeScrollContainerWidth, setFakeScrollContainertWidth] =
+        useState(0);
     useEffect(() => {
-        var fake_contenido_tabla = document.getElementById('div1')
-        var contenido_tabla = document.getElementById('tabla')
+        var fake_contenido_tabla = document.getElementById("div1");
+        var contenido_tabla = document.getElementById("tabla");
 
-        var fake_contenedor_tabla = document.getElementById('wrapper1')
-        var contenedor_tabla = document.getElementById('scroll-table')
+        var fake_contenedor_tabla = document.getElementById("wrapper1");
+        var contenedor_tabla = document.getElementById("scroll-table");
 
+        console.log("fake_contenido_tabla", fake_contenido_tabla.offsetWidth);
+        console.log("contenido_tabla", contenido_tabla.offsetWidth);
 
-        console.log("fake_contenido_tabla", fake_contenido_tabla.offsetWidth)
-        console.log("contenido_tabla", contenido_tabla.offsetWidth)
+        console.log("fake_contenedor_tabla", fake_contenedor_tabla.offsetWidth);
+        console.log("contenedor_tabla", contenedor_tabla.offsetWidth);
 
-        console.log("fake_contenedor_tabla", fake_contenedor_tabla.offsetWidth)
-        console.log("contenedor_tabla", contenedor_tabla.offsetWidth)
-
-
-
-        setFakeScrollContentWidth(contenido_tabla.offsetWidth)
-        setFakeScrollContainertWidth(contenedor_tabla.offsetWidth)
-        var wrapper1 = document.getElementById('wrapper1');
-        var wrapper2 = document.querySelector('#scroll-table');
+        setFakeScrollContentWidth(contenido_tabla.offsetWidth);
+        setFakeScrollContainertWidth(contenedor_tabla.offsetWidth);
+        var wrapper1 = document.getElementById("wrapper1");
+        var wrapper2 = document.querySelector("#scroll-table");
 
         wrapper1.onscroll = function () {
             wrapper2.scrollLeft = wrapper1.scrollLeft;
@@ -191,8 +184,7 @@ const Index = ({
         wrapper2.onscroll = function () {
             wrapper1.scrollLeft = wrapper2.scrollLeft;
         };
-    })
-
+    });
 
     //Inicio Buscador rapido
 
@@ -203,53 +195,72 @@ const Index = ({
     const peticionGet = () => {
         setusuariosBuscador(contratos);
         setTablaUsuariosBuscador(usuariosTotales);
-    }
+    };
 
-    const handleChange = e => {
+    const handleChange = (e) => {
         setBusqueda(e.target.value);
         filtrar(e.target.value);
-    }
+    };
 
     const filtrar = (terminoBusqueda) => {
         var resultadosBusqueda = tablaUsuariosBuscador.filter((elemento) => {
-        var selectores = document.getElementsByClassName("tr-users").length;
-          
+            var selectores = document.getElementsByClassName("tr-users").length;
+
             try {
-                if (elemento.entidad_contratante.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-                    || elemento.objeto.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-                    || elemento.modalidad.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-                    || elemento.ubicacion.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-
-                
+                if (
+                    elemento.entidad_contratante
+                        .toString()
+                        .toLowerCase()
+                        .includes(terminoBusqueda.toLowerCase()) ||
+                    elemento.objeto
+                        .toString()
+                        .toLowerCase()
+                        .includes(terminoBusqueda.toLowerCase()) ||
+                    elemento.modalidad
+                        .toString()
+                        .toLowerCase()
+                        .includes(terminoBusqueda.toLowerCase()) ||
+                    elemento.ubicacion
+                        .toString()
+                        .toLowerCase()
+                        .includes(terminoBusqueda.toLowerCase())
                 ) {
-
-
                     if (terminoBusqueda == "") {
-                        document.querySelectorAll("span.font-black.numero-elementos-pagina")[0].style.color = "#6b7280"
-                        document.querySelectorAll("span.guion-paginador")[0].style.color = "#6b7280"
-                        document.querySelectorAll("#TotalPaginasPaginador")[0].textContent = 30;
+                        document.querySelectorAll(
+                            "span.font-black.numero-elementos-pagina"
+                        )[0].style.color = "#6b7280";
+                        document.querySelectorAll(
+                            "span.guion-paginador"
+                        )[0].style.color = "#6b7280";
+                        document.querySelectorAll(
+                            "#TotalPaginasPaginador"
+                        )[0].textContent = 30;
                         return elemento;
                     } else {
-                        document.querySelectorAll("span.font-black.numero-elementos-pagina")[0].style.color = "white"
-                        document.querySelectorAll("span.guion-paginador")[0].style.color = "white"
-                        document.querySelectorAll("#TotalPaginasPaginador")[0].textContent = selectores;
+                        document.querySelectorAll(
+                            "span.font-black.numero-elementos-pagina"
+                        )[0].style.color = "white";
+                        document.querySelectorAll(
+                            "span.guion-paginador"
+                        )[0].style.color = "white";
+                        document.querySelectorAll(
+                            "#TotalPaginasPaginador"
+                        )[0].textContent = selectores;
                         return elemento;
                     }
-
                 }
             } catch (error) {
                 console.error(error);
             }
         });
         setusuariosBuscador(resultadosBusqueda);
-    }
+    };
 
     useEffect(() => {
         peticionGet();
-    }, [])
+    }, []);
 
     /* Fin Buscador*/
-
 
     return (
         <AuthenticatedLayout auth={auth}>
@@ -269,9 +280,10 @@ const Index = ({
                             search
                         </span>
                     </div>
+
                     <div className="">
                         <button className="buscador_avanzado mb-3">
-                            <span className="material-symbols-outlined margen-color">
+                            <span className="material-symbols-outlined">
                                 list
                             </span>
                             <span className="color-texto">
@@ -279,33 +291,57 @@ const Index = ({
                             </span>
                         </button>
                     </div>
+
                     <div className="input-filtro-estado">
-                        <span className="span-visualizar">Visualizar:</span>
+                        <span className="input-filtro-estado-span">
+                            Visualizar:
+                        </span>
                         <select className="input-visualizar">
                             <option value="">todos</option>
                             <option value="">Vistos recientemente</option>
                             <option value="">No Leidos</option>
                         </select>
                     </div>
-                    <Paginador
-                        nextHandler={nextHandler}
-                        prevHandler={prevHandler}
-                        currentPage={totalElemetosPaginados}
-                        itemsPagina={itemsPagina}
-                        totalElementos={totalElementos}
-                        totalPaginas={numElementosPagina}
-                    ></Paginador>
+
+                    <div>
+                        <Paginador
+                            nextHandler={nextHandler}
+                            prevHandler={prevHandler}
+                            currentPage={totalElemetosPaginados}
+                            itemsPagina={itemsPagina}
+                            totalElementos={totalElementos}
+                            totalPaginas={numElementosPagina}
+                        ></Paginador>
+                    </div>
                 </div>
+
                 <div className="contenedor-contratos">
                     <div className="contenedor-opciones-usuarios">
                         <MenuOpciones />
                     </div>
 
-                    <div className="alto-tabla bg-white overflow-auto " id="scroll-table">
-
-                        <div id="wrapper1" style={{ width: fakeScrollContainerWidth > 0 ? fakeScrollContainerWidth : 0 + 'px' }}>
-                            <div id="div1" style={{ width: fakeScrollContentWidth > 0 ? fakeScrollContentWidth : 0 + 'px' }} >
-                            </div>
+                    <div
+                        className="alto-tabla bg-white overflow-auto "
+                        id="scroll-table"
+                    >
+                        <div
+                            id="wrapper1"
+                            style={{
+                                width:
+                                    fakeScrollContainerWidth > 0
+                                        ? fakeScrollContainerWidth
+                                        : 0 + "px",
+                            }}
+                        >
+                            <div
+                                id="div1"
+                                style={{
+                                    width:
+                                        fakeScrollContentWidth > 0
+                                            ? fakeScrollContentWidth
+                                            : 0 + "px",
+                                }}
+                            ></div>
                         </div>
 
                         <table
@@ -366,48 +402,50 @@ const Index = ({
                                                 <>
                                                     {showMoreSelected !=
                                                         contrato.id && (
-                                                            <span className="data-text">
-                                                                {contrato.objeto.substr(
-                                                                    0,
-                                                                    40
-                                                                )}
-                                                                ...{" "}
-                                                                <a
-                                                                    className="text-primary"
-                                                                    onClick={() =>
-                                                                        getData(
-                                                                            contrato
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    Ver más
-                                                                </a>
-                                                            </span>
-                                                        )}
+                                                        <span className="data-text">
+                                                            {contrato.objeto.substr(
+                                                                0,
+                                                                40
+                                                            )}
+                                                            ...{" "}
+                                                            <a
+                                                                className="text-primary"
+                                                                onClick={() =>
+                                                                    getData(
+                                                                        contrato
+                                                                    )
+                                                                }
+                                                            >
+                                                                Ver más
+                                                            </a>
+                                                        </span>
+                                                    )}
                                                 </>
                                             )}
 
                                             {showMoreSelected ==
                                                 contrato.id && (
-                                                    <div className="showmore">
-                                                        <span className="data-text">
-                                                            {contrato.objeto}
-                                                            <a
-                                                                className="text-primary"
-                                                                onClick={() => hideData()}
-                                                            >
-                                                                Ver menos
-                                                            </a>
-                                                        </span>
-                                                    </div>
-                                                )}
+                                                <div className="showmore">
+                                                    <span className="data-text">
+                                                        {contrato.objeto}
+                                                        <a
+                                                            className="text-primary"
+                                                            onClick={() =>
+                                                                hideData()
+                                                            }
+                                                        >
+                                                            Ver menos
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            )}
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos width-columna-menor">
                                             {contrato.valor > 0
                                                 ? "$" +
-                                                contrato.valor.toLocaleString(
-                                                    "ch-CH"
-                                                )
+                                                  contrato.valor.toLocaleString(
+                                                      "ch-CH"
+                                                  )
                                                 : contrato.valor_texto}
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos mw-200">
