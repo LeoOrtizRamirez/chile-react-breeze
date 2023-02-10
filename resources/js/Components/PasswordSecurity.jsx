@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
-
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Popover from "react-bootstrap/Popover ";
 import "./PasswordSecurity.css";
+import PopoverBody from "react-bootstrap/PopoverBody";
 
 const PasswordSecurity = (props, onHandleChange) => {
     const [securityColor, setSecurityColor] = useState("gray");
@@ -101,15 +103,95 @@ const PasswordSecurity = (props, onHandleChange) => {
         }
     };
 
+    const [minCharacter, setMinCharacter] = useState(false);
+    const popoverSecurityMinCharacter = (words) => {
+        words = String(words).trim();
+        const regxs = {
+            lower: /^[a-z?]+$/,
+            upper: /^[A-Z]+$/,
+            number: /^[0-9]+$/,
+            upperLower: /^[A-Za-z]+$/,
+            upperNumber: /^[A-Z0-9]+$/,
+            lowerNumber: /^[a-z0-9]+$/,
+            upperLowerNumber: /^[A-Za-z0-9]+$/,
+        };
+        if (words.length >= 6) {
+            if (
+                regxs.lower.test(words) ||
+                regxs.upper.test(words) ||
+                regxs.number.test(words) ||
+                regxs.upperLower.test(words) ||
+                regxs.upperNumber.test(words) ||
+                regxs.lowerNumber.test(words) ||
+                regxs.upperLowerNumber.test(words)
+            ) {
+                setMinCharacter("green");
+            }
+        } else if (words.length == 0) {
+            setMinCharacter("gray");
+        }
+    };
+
+    const [capitalCharacter, setCapitalCharacter] = useState(false);
+    const popoverSecurityCapitalCharacter = (words) => {
+        words = String(words).trim();
+        const regxs = {
+            upper: /^(?=\w*[A-Z])/,
+        };
+        if (regxs.upper.test(words)) {
+            if (regxs.upper.test(words)) {
+                setCapitalCharacter("green");
+            }
+        } else if (words.length == 0) {
+            setCapitalCharacter("gray");
+        }
+    };
+
+    const [lowerCharacter, setLowerCharacter] = useState(false);
+    const popoverSecurityLowerCharacter = (words) => {
+        words = String(words).trim();
+        const regxs = {
+            lower: /^(?=\w*[a-z])/,
+        };
+        if (regxs.lower.test(words)) {
+            if (regxs.lower.test(words)) {
+                setLowerCharacter("green");
+            }
+        } else if (words.length == 0) {
+            setLowerCharacter("gray");
+        }
+    };
+
+    const [numberCharacter, setNumberCharacter] = useState(false);
+    const popoverSecurityNumberCharacter = (words) => {
+        words = String(words).trim();
+        const regxs = {
+            number: /^(?=\w*\d)/,
+        };
+        if (regxs.number.test(words)) {
+            if (regxs.number.test(words)) {
+                setNumberCharacter("green");
+            }
+        } else if (words.length == 0) {
+            setNumberCharacter("gray");
+        }
+    };
+
     const handleInputChange = (event) => {
         checkSecurity(event.target.value);
         props.onHandleChange(event);
-        /*
-        setData({
-            ...data,//Hace una pseudo copia de data
-            [event.target.name]: event.target.value
-        })
-        */
+
+        popoverSecurityMinCharacter(event.target.value);
+        props.onHandleChange(event);
+
+        popoverSecurityCapitalCharacter(event.target.value);
+        props.onHandleChange(event);
+
+        popoverSecurityLowerCharacter(event.target.value);
+        props.onHandleChange(event);
+
+        popoverSecurityNumberCharacter(event.target.value);
+        props.onHandleChange(event);
     };
 
     const handleTogglePasswordIcon = (e) => {
@@ -139,6 +221,52 @@ const PasswordSecurity = (props, onHandleChange) => {
             }
         }
     };
+
+    const popoverHoverFocus = (
+        <Popover
+            bsPrefix="popover"
+            id="popover-trigger-hover-focus"
+            title="Popover top"
+        >
+            <PopoverBody bsPrefix="popover-body">
+                <div className="contenido-popover-register">
+                    <div className="contenido__informacion-seguridad">
+                        <div className="title">
+                            <span>Requisito de contraseña</span>
+                        </div>
+                        <div className="espacio-opciones">
+                            <span
+                                className={`contenido__seguridad-icon icon-info c-${minCharacter}`}
+                            ></span>
+                            <p>Mínimo 6 caracteres</p>
+                        </div>
+                        <hr />
+                        <div className="title">
+                            <span>Puede ser más segura si contiene</span>
+                        </div>
+                        <div className="espacio-opciones">
+                            <span
+                                className={`contenido__seguridad-icon icon-info c-${capitalCharacter}`}
+                            ></span>
+                            <p>1 carácter en mayúscula</p>
+                        </div>
+                        <div className="espacio-opciones">
+                            <span
+                                className={`contenido__seguridad-icon icon-info c-${lowerCharacter}`}
+                            ></span>
+                            <p>1 carácter en minúscula</p>
+                        </div>
+                        <div className="espacio-opciones">
+                            <span
+                                className={`contenido__seguridad-icon icon-info c-${numberCharacter}`}
+                            ></span>
+                            <p>1 carácter numérico</p>
+                        </div>
+                    </div>
+                </div>
+            </PopoverBody>
+        </Popover>
+    );
 
     return (
         <>
@@ -172,70 +300,77 @@ const PasswordSecurity = (props, onHandleChange) => {
                     )}
                 </div>
             </div>
+
             <div className="contenido__nivel">
-                <div
-                    id="tooltip-informacion"
-                    className="contenido__nivel-iconos"
+                <OverlayTrigger
+                    trigger={["hover", "focus"]}
+                    placement="top"
+                    overlay={popoverHoverFocus}
                 >
-                    <div className="contenido__iconos-seguridad">
-                        <div className="contenido__circulo">
-                            <div
-                                className={`${
-                                    securityMinima &&
-                                    `bt-2-${securityColor} br-2-${securityColor} `
-                                } ${
-                                    securityMedia &&
-                                    `bt-2-${securityColor} br-2-${securityColor} `
-                                } ${
-                                    securityFuerte &&
-                                    `bt-2-${securityColor} br-2-${securityColor} `
-                                }  ${
-                                    securityMuyFuerte &&
-                                    `bt-2-${securityColor} br-2-${securityColor} `
-                                } contenido__circulo-esquina__sup-der`}
-                            ></div>
-                            <div
-                                className={`${
-                                    securityMedia &&
-                                    `bb-2-${securityColor} br-2-${securityColor} `
-                                } ${
-                                    securityFuerte &&
-                                    `bb-2-${securityColor} br-2-${securityColor} `
-                                } ${
-                                    securityMuyFuerte &&
-                                    `bb-2-${securityColor} br-2-${securityColor} `
-                                } contenido__circulo-esquina__inf-der`}
-                            ></div>
-                            <div
-                                className={`${
-                                    securityFuerte &&
-                                    `bb-2-${securityColor} bl-2-${securityColor} `
-                                } ${
-                                    securityMuyFuerte &&
-                                    `bb-2-${securityColor} bl-2-${securityColor} `
-                                } contenido__circulo-esquina__inf-izq securityColor__gris-inf-izq`}
-                            ></div>
-                            <div
-                                className={`${
-                                    securityMuyFuerte &&
-                                    `bt-2-${securityColor} bl-2-${securityColor} `
-                                } contenido__circulo-esquina__sup-izq securityColor__gris-sup-izq `}
-                            ></div>
-                            <span
-                                className={`contenido__seguridad-icon icon-shield c-${securityColor}`}
-                            ></span>
-                        </div>
-                        <span className="contenido__seguridad-text">
-                            {" "}
-                            Seguridad <br />
-                            <span
-                                className={`contenido__seguridad-text--modifier c-${securityColor}`}
-                            >
-                                {securityName}
+                    <div
+                        id="tooltip-informacion"
+                        className="contenido__nivel-iconos"
+                    >
+                        <div className="contenido__iconos-seguridad">
+                            <div className="contenido__circulo">
+                                <div
+                                    className={`${
+                                        securityMinima &&
+                                        `bt-2-${securityColor} br-2-${securityColor} `
+                                    } ${
+                                        securityMedia &&
+                                        `bt-2-${securityColor} br-2-${securityColor} `
+                                    } ${
+                                        securityFuerte &&
+                                        `bt-2-${securityColor} br-2-${securityColor} `
+                                    }  ${
+                                        securityMuyFuerte &&
+                                        `bt-2-${securityColor} br-2-${securityColor} `
+                                    } contenido__circulo-esquina__sup-der`}
+                                ></div>
+                                <div
+                                    className={`${
+                                        securityMedia &&
+                                        `bb-2-${securityColor} br-2-${securityColor} `
+                                    } ${
+                                        securityFuerte &&
+                                        `bb-2-${securityColor} br-2-${securityColor} `
+                                    } ${
+                                        securityMuyFuerte &&
+                                        `bb-2-${securityColor} br-2-${securityColor} `
+                                    } contenido__circulo-esquina__inf-der`}
+                                ></div>
+                                <div
+                                    className={`${
+                                        securityFuerte &&
+                                        `bb-2-${securityColor} bl-2-${securityColor} `
+                                    } ${
+                                        securityMuyFuerte &&
+                                        `bb-2-${securityColor} bl-2-${securityColor} `
+                                    } contenido__circulo-esquina__inf-izq securityColor__gris-inf-izq`}
+                                ></div>
+                                <div
+                                    className={`${
+                                        securityMuyFuerte &&
+                                        `bt-2-${securityColor} bl-2-${securityColor} `
+                                    } contenido__circulo-esquina__sup-izq securityColor__gris-sup-izq `}
+                                ></div>
+                                <span
+                                    className={`contenido__seguridad-icon icon-shield c-${securityColor}`}
+                                ></span>
+                            </div>
+                            <span className="contenido__seguridad-text">
+                                {" "}
+                                Seguridad <br />
+                                <span
+                                    className={`contenido__seguridad-text--modifier c-${securityColor}`}
+                                >
+                                    {securityName}
+                                </span>
                             </span>
-                        </span>
+                        </div>
                     </div>
-                </div>
+                </OverlayTrigger>
             </div>
         </>
     );
