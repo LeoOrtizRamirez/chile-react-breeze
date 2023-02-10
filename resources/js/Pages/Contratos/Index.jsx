@@ -24,6 +24,7 @@ const Index = ({
     pagina,
     numElementosPagina,
     totalElemetosPaginados,
+    usuariosTotales
 }) => {
     const { data, setData, post, get, processing, reset, errors } = useForm({});
     const [showLess, setShowLess] = useState(true);
@@ -116,11 +117,11 @@ const Index = ({
         if (pagina >= totalPaginas) return;
         get(
             "/contratos/" +
-                idUsuarioNext +
-                "/" +
-                pagina +
-                "/next?" +
-                url_fecha_publicacion
+            idUsuarioNext +
+            "/" +
+            pagina +
+            "/next?" +
+            url_fecha_publicacion
         ),
             { onSuccess: () => reset() };
     };
@@ -129,11 +130,11 @@ const Index = ({
         if (pagina == 1) return;
         get(
             "/contratos/" +
-                primerElemento +
-                "/" +
-                pagina +
-                "/prev?" +
-                url_fecha_publicacion
+            primerElemento +
+            "/" +
+            pagina +
+            "/prev?" +
+            url_fecha_publicacion
         ),
             { onSuccess: () => reset() };
     };
@@ -186,6 +187,50 @@ const Index = ({
         setShowMoreSelected(data.id);
     };
 
+    //Inicio Buscador rapido
+
+    const [usuariosBuscador, setusuariosBuscador] = useState([]);
+    const [tablaUsuariosBuscador, setTablaUsuariosBuscador] = useState([]);
+    const [busqueda, setBusqueda] = useState("");
+
+    const peticionGet = () => {
+        setusuariosBuscador(contratos);
+        setTablaUsuariosBuscador(usuariosTotales);
+    }
+
+    const handleChange = e => {
+        setBusqueda(e.target.value);
+        filtrar(e.target.value);
+    }
+
+    const filtrar = (terminoBusqueda) => {
+        var resultadosBusqueda = tablaUsuariosBuscador.filter((elemento) => {
+
+            try {
+                if (elemento.entidad_contratante.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())) {
+                    document.querySelectorAll("span.font-black.numero-elementos-pagina")[0].style.display="none"
+                    document.querySelectorAll("span.guion-paginador")[0].style.display="none"    
+                    var selectores = document.getElementsByClassName("tr-users").length;
+                    document.querySelectorAll("#TotalPaginasPaginador")[0].textContent=selectores;
+                    return elemento;
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        });
+        setusuariosBuscador(resultadosBusqueda);
+    }
+
+    useEffect(() => {
+        peticionGet();
+    }, [])
+
+    /* Fin Buscador*/
+
+
+
+
+
     return (
         <AuthenticatedLayout auth={auth}>
             <link rel="shortcut icon" href="#"></link>
@@ -198,7 +243,7 @@ const Index = ({
                             id="buscar"
                             type="text"
                             placeholder="Búsqueda rápida"
-                            onChange={busquedaRapida}
+                            onChange={handleChange}
                         />
                         <span className="material-symbols-outlined posicion-color">
                             search
@@ -261,8 +306,8 @@ const Index = ({
                             </thead>
 
                             <tbody>
-                                {contratos.map((contrato) => (
-                                    <tr key={contrato.id} className="tr">
+                                {usuariosBuscador.map((contrato) => (
+                                    <tr key={contrato.id} className="tr-users">
                                         <td className="border border-gray-200 text-left">
                                             <div className="iconos-horizontal width-columna-acciones">
                                                 <div>
@@ -294,42 +339,42 @@ const Index = ({
                                                 <>
                                                     {showMoreSelected !=
                                                         contrato.id && (
-                                                        <span className="data-text">
-                                                            {contrato.objeto.substr(
-                                                                0,
-                                                                40
-                                                            )}
-                                                            ...{" "}
-                                                            <a
-                                                                className="text-primary"
-                                                                onClick={() =>
-                                                                    getData(
-                                                                        contrato
-                                                                    )
-                                                                }
-                                                            >
-                                                                Ver más
-                                                            </a>
-                                                        </span>
-                                                    )}
+                                                            <span className="data-text">
+                                                                {contrato.objeto.substr(
+                                                                    0,
+                                                                    40
+                                                                )}
+                                                                ...{" "}
+                                                                <a
+                                                                    className="text-primary"
+                                                                    onClick={() =>
+                                                                        getData(
+                                                                            contrato
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    Ver más
+                                                                </a>
+                                                            </span>
+                                                        )}
                                                 </>
                                             )}
 
                                             {showMoreSelected ==
                                                 contrato.id && (
-                                                <div className="showmore">
-                                                    <span className="data-text">
-                                                        {contrato.objeto}
-                                                    </span>
-                                                </div>
-                                            )}
+                                                    <div className="showmore">
+                                                        <span className="data-text">
+                                                            {contrato.objeto}
+                                                        </span>
+                                                    </div>
+                                                )}
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos width-columna-menor">
                                             {contrato.valor > 0
                                                 ? "$" +
-                                                  contrato.valor.toLocaleString(
-                                                      "ch-CH"
-                                                  )
+                                                contrato.valor.toLocaleString(
+                                                    "ch-CH"
+                                                )
                                                 : contrato.valor_texto}
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos">
