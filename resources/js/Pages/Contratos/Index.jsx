@@ -24,6 +24,7 @@ const Index = ({
     pagina,
     numElementosPagina,
     totalElemetosPaginados,
+    usuariosTotales
 }) => {
     const { data, setData, post, get, processing, reset, errors } = useForm({});
     const [showLess, setShowLess] = useState(true);
@@ -96,14 +97,6 @@ const Index = ({
         primerElemento = contratos[0].id;
     }
 
-    /*  var idUsuarioNext = ultimoElemento
-    const itemsPagina = 30;
-    const totalElementos = totalContratos;
-    const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;
-    const currentPage = pagina;
-
-    var url_fecha_publicacion = "" */
-
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const fecha_publicacion = urlParams.get("fecha_publicacion");
@@ -137,28 +130,6 @@ const Index = ({
         ),
             { onSuccess: () => reset() };
     };
-
-    // FIN Paginador
-
-    /*   const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const fecha_publicacion = urlParams.get('fecha_publicacion')
-
-    if (fecha_publicacion != null) {
-        url_fecha_publicacion = "fecha_publicacion=" + fecha_publicacion
-    }
-
-    const nextHandler = () => {
-       
-        get("/contratos/" + idUsuarioNext + "/" + pagina + "/next?" + url_fecha_publicacion), { onSuccess: () => reset() };
-    };
-
-    const prevHandler = () => {
-        if (pagina == 1) return;
-        get("/contratos/" + primerElemento + "/" + pagina + "/prev?" + url_fecha_publicacion), { onSuccess: () => reset() };
-    };
- */
-    // FIN Paginador
 
     // Inicio Filtro rapido
     const busquedaRapida = (event) => {
@@ -223,6 +194,63 @@ const Index = ({
     })
 
 
+    //Inicio Buscador rapido
+
+    const [usuariosBuscador, setusuariosBuscador] = useState([]);
+    const [tablaUsuariosBuscador, setTablaUsuariosBuscador] = useState([]);
+    const [busqueda, setBusqueda] = useState("");
+
+    const peticionGet = () => {
+        setusuariosBuscador(contratos);
+        setTablaUsuariosBuscador(usuariosTotales);
+    }
+
+    const handleChange = e => {
+        setBusqueda(e.target.value);
+        filtrar(e.target.value);
+    }
+
+    const filtrar = (terminoBusqueda) => {
+        var resultadosBusqueda = tablaUsuariosBuscador.filter((elemento) => {
+        var selectores = document.getElementsByClassName("tr-users").length;
+          
+            try {
+                if (elemento.entidad_contratante.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+                    || elemento.objeto.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+                    || elemento.modalidad.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+                    || elemento.ubicacion.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+
+                
+                ) {
+
+
+                    if (terminoBusqueda == "") {
+                        document.querySelectorAll("span.font-black.numero-elementos-pagina")[0].style.color = "#6b7280"
+                        document.querySelectorAll("span.guion-paginador")[0].style.color = "#6b7280"
+                        document.querySelectorAll("#TotalPaginasPaginador")[0].textContent = 30;
+                        return elemento;
+                    } else {
+                        document.querySelectorAll("span.font-black.numero-elementos-pagina")[0].style.color = "white"
+                        document.querySelectorAll("span.guion-paginador")[0].style.color = "white"
+                        document.querySelectorAll("#TotalPaginasPaginador")[0].textContent = selectores;
+                        return elemento;
+                    }
+
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        });
+        setusuariosBuscador(resultadosBusqueda);
+    }
+
+    useEffect(() => {
+        peticionGet();
+    }, [])
+
+    /* Fin Buscador*/
+
+
     return (
         <AuthenticatedLayout auth={auth}>
             <link rel="shortcut icon" href="#"></link>
@@ -235,7 +263,7 @@ const Index = ({
                             id="buscar"
                             type="text"
                             placeholder="Búsqueda rápida"
-                            onChange={busquedaRapida}
+                            onChange={handleChange}
                         />
                         <span className="material-symbols-outlined posicion-color">
                             search
@@ -305,8 +333,8 @@ const Index = ({
                             </thead>
 
                             <tbody>
-                                {contratos.map((contrato) => (
-                                    <tr key={contrato.id} className="tr">
+                                {usuariosBuscador.map((contrato) => (
+                                    <tr key={contrato.id} className="tr-users">
                                         <td className="border border-gray-200 text-left mw-90">
                                             <div className="iconos-horizontal width-columna-acciones">
                                                 <div>
