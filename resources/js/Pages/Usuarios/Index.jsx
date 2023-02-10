@@ -128,16 +128,32 @@ const Index = ({ auth, usuarios, totalUsuarios, pagina, numElementosPagina, tota
 
     const filtrar = (terminoBusqueda) => {
         var resultadosBusqueda = tablaUsuariosBuscador.filter((elemento) => {
+            var selectores = document.getElementsByClassName("tr-users").length;
+
+
+
             if (elemento.name.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
                 || elemento.email.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
                 || elemento.celular.toString().includes(terminoBusqueda.toLowerCase())
                 || elemento.identificacion.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
             ) {
-                document.querySelectorAll("span.font-black.numero-elementos-pagina")[0].style.display="none"
-                document.querySelectorAll("span.guion-paginador")[0].style.display="none"    
-                var selectores = document.getElementsByClassName("tr-users").length;
-                document.querySelectorAll("#TotalPaginasPaginador")[0].textContent=selectores;
-                return elemento;
+
+                if (terminoBusqueda == "") {
+                    document.querySelectorAll("span.font-black.numero-elementos-pagina")[0].style.color = "#6b7280"
+                    document.querySelectorAll("span.guion-paginador")[0].style.color = "#6b7280"
+                    document.querySelectorAll("#TotalPaginasPaginador")[0].textContent = 30;
+                    return elemento;
+                } else {
+                    document.querySelectorAll("span.font-black.numero-elementos-pagina")[0].style.color = "white"
+                    document.querySelectorAll("span.guion-paginador")[0].style.color = "white"
+                    document.querySelectorAll("#TotalPaginasPaginador")[0].textContent = selectores;
+                    return elemento;
+                }
+
+
+
+
+     
             }
         });
         setusuariosBuscador(resultadosBusqueda);

@@ -212,17 +212,30 @@ const Index = ({
 
     const filtrar = (terminoBusqueda) => {
         var resultadosBusqueda = tablaUsuariosBuscador.filter((elemento) => {
-
+        var selectores = document.getElementsByClassName("tr-users").length;
+          
             try {
                 if (elemento.entidad_contratante.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
                     || elemento.objeto.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+                    || elemento.modalidad.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+                    || elemento.ubicacion.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+
                 
                 ) {
-                    document.querySelectorAll("span.font-black.numero-elementos-pagina")[0].style.display="none"
-                    document.querySelectorAll("span.guion-paginador")[0].style.display="none"    
-                    var selectores = document.getElementsByClassName("tr-users").length;
-                    document.querySelectorAll("#TotalPaginasPaginador")[0].textContent=selectores;
-                    return elemento;
+
+
+                    if (terminoBusqueda == "") {
+                        document.querySelectorAll("span.font-black.numero-elementos-pagina")[0].style.color = "#6b7280"
+                        document.querySelectorAll("span.guion-paginador")[0].style.color = "#6b7280"
+                        document.querySelectorAll("#TotalPaginasPaginador")[0].textContent = 30;
+                        return elemento;
+                    } else {
+                        document.querySelectorAll("span.font-black.numero-elementos-pagina")[0].style.color = "white"
+                        document.querySelectorAll("span.guion-paginador")[0].style.color = "white"
+                        document.querySelectorAll("#TotalPaginasPaginador")[0].textContent = selectores;
+                        return elemento;
+                    }
+
                 }
             } catch (error) {
                 console.error(error);
