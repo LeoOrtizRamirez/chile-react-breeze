@@ -15,6 +15,8 @@ class ContratoController extends Controller
     
     public function index(Request $request)
     {
+        $usuariosTotales = Contrato::with('fuente')
+        ->get();
         $pagina = 1;
         $numElementosPagina = 30;
         $totalElemetosPaginados = 1;
@@ -56,7 +58,8 @@ class ContratoController extends Controller
             'totalContratos' =>  $contratosAll,
             'pagina' => $pagina,
             'numElementosPagina' => $numElementosPagina,
-            'totalElemetosPaginados' => $totalElemetosPaginados
+            'totalElemetosPaginados' => $totalElemetosPaginados,
+            'usuariosTotales' => $usuariosTotales
         ]);
 
 
@@ -64,14 +67,15 @@ class ContratoController extends Controller
 
     public function paginador($idContrato,$page,$estado)
     {
+        $usuariosTotales = Contrato::with('fuente')
+        ->get();
         $pagina = 1;
         $numElementosPagina = 30;
         $totalElemetosPaginados = 1;
 
         
         if(request()->has("fecha_publicacion")){
-            $contratosAll = Contrato::where('fecha_publicacion', request("fecha_publicacion"))
-                ->count();
+            $contratosAll = Contrato::where('fecha_publicacion', request("fecha_publicacion"))->count();
             if($estado == "next"){
                 $contratos = Contrato::with('fuente')
                 ->where('fecha_publicacion', request("fecha_publicacion"))
@@ -95,8 +99,7 @@ class ContratoController extends Controller
                 $totalElemetosPaginados = ($numElementosPagina -30) + 1 ;
             }
         }else{
-            $contratosAll = Contrato::all()
-                ->count();
+            $contratosAll = Contrato::all()->count();
             if($estado == "next"){
                 $contratos = Contrato::with('fuente'/*, 'clasificaciones', 'contratistas'*/)
                 ->where('id', '>' , $idContrato)
@@ -120,11 +123,6 @@ class ContratoController extends Controller
 
             }
         }
-        
-
-
-
-        
 
         foreach ($contratos as $key => $value) {
             $contratista = ContratistaContrato::where('id_contrato', $value->id)->first();
@@ -145,7 +143,8 @@ class ContratoController extends Controller
             'totalContratos' =>  $contratosAll,
             'pagina' => $pagina,
             'numElementosPagina' => $numElementosPagina,
-            'totalElemetosPaginados' => $totalElemetosPaginados
+            'totalElemetosPaginados' => $totalElemetosPaginados,
+            'usuariosTotales' => $usuariosTotales
         ]);
 
     }

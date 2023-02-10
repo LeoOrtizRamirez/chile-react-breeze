@@ -24,6 +24,7 @@ const Index = ({
     pagina,
     numElementosPagina,
     totalElemetosPaginados,
+    usuariosTotales
 }) => {
     const { data, setData, post, get, processing, reset, errors } = useForm({});
     const [showLess, setShowLess] = useState(true);
@@ -186,6 +187,50 @@ const Index = ({
         setShowMoreSelected(data.id);
     };
 
+
+    //Inicio Buscador rapido
+
+    const [usuariosBuscador, setusuariosBuscador] = useState([]);
+    const [tablaUsuariosBuscador, setTablaUsuariosBuscador] = useState([]);
+    const [busqueda, setBusqueda] = useState("");
+
+    const peticionGet = () => {
+        setusuariosBuscador(contratos);
+        setTablaUsuariosBuscador(usuariosTotales);
+    }
+
+    const handleChange = e => {
+        setBusqueda(e.target.value);
+        filtrar(e.target.value);
+    }
+
+    const filtrar = (terminoBusqueda) => {
+        var resultadosBusqueda = tablaUsuariosBuscador.filter((elemento) => {
+
+            try {
+                if (elemento.entidad_contratante.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())) {
+                    document.querySelectorAll("span.font-black.numero-elementos-pagina")[0].style.display="none"
+                    document.querySelectorAll("span.guion-paginador")[0].style.display="none"    
+                    var selectores = document.getElementsByClassName("tr-users").length;
+                    document.querySelectorAll("#TotalPaginasPaginador")[0].textContent=selectores;
+                    return elemento;
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        });
+        setusuariosBuscador(resultadosBusqueda);
+    }
+
+    useEffect(() => {
+        peticionGet();
+    }, [])
+
+    /* Fin Buscador*/
+
+
+
+
     const hideData = () => {
         setShowMoreSelected(0);
     };
@@ -223,6 +268,7 @@ const Index = ({
     })
 
 
+
     return (
         <AuthenticatedLayout auth={auth}>
             <link rel="shortcut icon" href="#"></link>
@@ -235,7 +281,7 @@ const Index = ({
                             id="buscar"
                             type="text"
                             placeholder="Búsqueda rápida"
-                            onChange={busquedaRapida}
+                            onChange={handleChange}
                         />
                         <span className="material-symbols-outlined posicion-color">
                             search
@@ -305,9 +351,14 @@ const Index = ({
                             </thead>
 
                             <tbody>
-                                {contratos.map((contrato) => (
+
+                                {usuariosBuscador.map((contrato) => (
+                                    <tr key={contrato.id} className="tr-users">
+                                        <td className="border border-gray-200 text-left">
+
+                               /* {contratos.map((contrato) => (
                                     <tr key={contrato.id} className="tr">
-                                        <td className="border border-gray-200 text-left mw-90">
+                                        <td className="border border-gray-200 text-left mw-90">*/
                                             <div className="iconos-horizontal width-columna-acciones">
                                                 <div>
                                                     <Pdf />
@@ -364,6 +415,7 @@ const Index = ({
                                                     <div className="showmore">
                                                         <span className="data-text">
                                                             {contrato.objeto}
+
                                                             <a
                                                                 className="text-primary"
                                                                 onClick={() => hideData()}

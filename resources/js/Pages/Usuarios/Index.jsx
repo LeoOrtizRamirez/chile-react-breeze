@@ -133,6 +133,10 @@ const Index = ({ auth, usuarios, totalUsuarios, pagina, numElementosPagina, tota
                 || elemento.celular.toString().includes(terminoBusqueda.toLowerCase())
                 || elemento.identificacion.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
             ) {
+                document.querySelectorAll("span.font-black.numero-elementos-pagina")[0].style.display="none"
+                document.querySelectorAll("span.guion-paginador")[0].style.display="none"    
+                var selectores = document.getElementsByClassName("tr-users").length;
+                document.querySelectorAll("#TotalPaginasPaginador")[0].textContent=selectores;
                 return elemento;
             }
         });
@@ -228,7 +232,7 @@ const Index = ({ auth, usuarios, totalUsuarios, pagina, numElementosPagina, tota
                         </thead>
                         <tbody>
                             {usuariosBuscador.map((usuario) => (
-                                <tr key={usuario.id}>
+                                <tr key={usuario.id} className="tr-users">
                                     <td className="border border-gray-200 text-left px-4 ">
                                         <div className="iconos-horizontal">
                                             <div className="estilos-boton-eliminar">
