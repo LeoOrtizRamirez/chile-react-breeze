@@ -1,36 +1,43 @@
-.modal-filter span {
+#ModalPaises .modal-filter span {
     color: #686868;
-    font-size: 20px;
 }
 
-.modal-filter__search {
-    margin-top: 77px;
+#ModalPaises .modal-filter__search {
+    margin-top: 27px;
     margin-bottom: 44px;
     width: 460px;
 }
 
-.modal-filter__search .form-group .input-container {
-    margin: 15px;
+#ModalPaises .modal-filter__search .form-group .input-container {
+    margin-left: -20px;
     position: relative;
     width: 100%;
     display: flex;
     align-items: center;
 }
 
-.modal-filter__search .form-group .input-container .input-icono-lupa {
+#ModalPaises
+    .modal-filter__search
+    .form-group
+    .input-container
+    .input-icono-lupa {
     left: 16px;
     color: #9c9b9b !important;
     font-size: 22px;
 }
 
-.modal-filter__search .form-group .input-container .input-icono-buscar {
+#ModalPaises
+    .modal-filter__search
+    .form-group
+    .input-container
+    .input-icono-buscar {
     right: 10px;
     color: #686868 !important;
     transform: rotate(270deg);
     font-size: 10px;
 }
 
-.modal-filter__search .form-group .input-container input {
+#ModalPaises .modal-filter__search .form-group .input-container input {
     border: 1px solid #9c9b9b;
     border-radius: 37px;
     font-size: 20px;
@@ -45,32 +52,52 @@
     -moz-appearance: none;
 }
 
-.modal-filter__search .form-group .input-container input::-moz-placeholder {
+#ModalPaises
+    .modal-filter__search
+    .form-group
+    .input-container
+    input::-moz-placeholder {
     color: #9c9b9b;
 }
 
-.modal-filter__search .form-group .input-container input::placeholder {
+#ModalPaises
+    .modal-filter__search
+    .form-group
+    .input-container
+    input::placeholder {
     color: #9c9b9b;
 }
 
-.modal-filter__search .form-group .input-container span[class^="icon-"] {
+#ModalPaises
+    .modal-filter__search
+    .form-group
+    .input-container
+    span[class^="icon-"] {
     color: #686868;
     cursor: pointer;
     position: absolute;
 }
 
-.modal-filter__search .form-group .input-container span.icon-Buscar-click {
+#ModalPaises
+    .modal-filter__search
+    .form-group
+    .input-container
+    span.icon-Buscar-click {
     color: #00a1c9 !important;
 }
 
-.modal-filter__search .form-group .input-container span.icon-Cancelar {
+#ModalPaises
+    .modal-filter__search
+    .form-group
+    .input-container
+    span.icon-Cancelar {
     color: #c9003d !important;
 }
 
-.modal-filter__list {
+#ModalPaises .modal-filter__list {
     max-height: 67vh;
     min-height: 20vh;
-    width: 27vw !important;
+    width: 420px !important;
     overflow-x: hidden;
     padding: 0 30px 0 50px !important;
     size: 7px;
@@ -79,16 +106,16 @@
     margin-top: 20px;
 }
 
-.modal-filter__list.scrollable-custom {
+#ModalPaises .modal-filter__list.scrollable-custom {
     overflow-y: scroll;
 }
 
-.modal-filter__list:not(.scrollable) {
+#ModalPaises .modal-filter__list:not(.scrollable) {
     padding: 0;
 }
 
-.modal-filter__list .result,
-.modal-filter__list .result-selected {
+#ModalPaises .modal-filter__list .result,
+#ModalPaises .modal-filter__list .result-selected {
     align-items: center;
     border-radius: 10px;
     cursor: pointer;
@@ -97,15 +124,15 @@
     position: relative;
 }
 
-.modal-filter__list .result__nombre {
+#ModalPaises .modal-filter__list .result__nombre {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     max-width: 80%;
 }
 
-.modal-filter__list .result.dashed,
-.modal-filter__list .result-selected.dashed {
+#ModalPaises .modal-filter__list .result.dashed,
+#ModalPaises .modal-filter__list .result-selected.dashed {
     background-image: linear-gradient(
         90deg,
         #e1e1e1 0,
@@ -118,7 +145,7 @@
     display: flex;
 }
 
-.modal-filter__list .result:before {
+#ModalPaises .modal-filter__list .result:before {
     content: "";
     border-radius: 50%;
     border: 1px solid #686868;
@@ -128,7 +155,7 @@
     width: 18px;
 }
 
-.modal-filter__list .result-selected:before {
+#ModalPaises .modal-filter__list .result-selected:before {
     content: "";
     border-radius: 50%;
     border: 8px solid #44d444;
@@ -138,19 +165,19 @@
     width: 25px;
 }
 
-.modal-filter__list .result.selected:before {
+#ModalPaises .modal-filter__list .result.selected:before {
     background-color: #00a1c9;
     border: none;
 }
 
-.modal-filter__list .result--pinned img.pinned-icon {
+#ModalPaises .modal-filter__list .result--pinned img.pinned-icon {
     position: absolute;
     right: -14px;
     height: 28px;
     width: 28px;
 }
 
-.modal-filter__list .result__bandera-icono-listado {
+#ModalPaises .modal-filter__list .result__bandera-icono-listado {
     position: absolute;
     left: 42px;
     height: 35px;
@@ -158,56 +185,56 @@
     right: 0;
 }
 
-.modal-filter__no-results {
+#ModalPaises .modal-filter__no-results {
     margin: auto;
     width: 80%;
 }
 
-.modal-filter__no-results p.main-title {
+#ModalPaises .modal-filter__no-results p.main-title {
     font-family: Poppins;
     font-size: 22px;
     margin-bottom: 30px;
     text-align: center;
 }
 
-.modal-filter__no-results p.main-title span {
+#ModalPaises .modal-filter__no-results p.main-title span {
     color: #c9003d;
 }
 
-.modal-filter__no-results .subtitle-content {
+#ModalPaises .modal-filter__no-results .subtitle-content {
     position: relative;
 }
 
-.modal-filter__no-results .subtitle-content p.subtitle {
+#ModalPaises .modal-filter__no-results .subtitle-content p.subtitle {
     margin: 0;
     text-align: center;
 }
 
-.modal-filter__no-results .subtitle-content span.icon-Bombillo {
+#ModalPaises .modal-filter__no-results .subtitle-content span.icon-Bombillo {
     color: #ffc107;
     font-size: 30px;
     position: absolute;
     left: -32px;
 }
 
-.modal-filter__no-results img {
+#ModalPaises .modal-filter__no-results img {
     margin-top: 46px;
     max-width: 90%;
     margin-left: 20px;
 }
 
-.modal-filter__list .result__nombre {
+#ModalPaises .modal-filter__list .result__nombre {
     padding-left: 54px;
     font-family: Poppins;
     font-size: 18px;
 }
 
-span.result__ext {
+#ModalPaises span.result__ext {
     font-family: Poppins;
     font-size: 18px;
 }
 
-.modal-filter__list .result.selected:before {
+#ModalPaises .modal-filter__list .result.selected:before {
     background-color: #fff;
     border: none;
     content: "";
@@ -218,38 +245,38 @@ span.result__ext {
     left: -18px;
 }
 
-.card-body {
+#ModalPaises .card-body {
     padding: 0px 35px 35px 5px !important;
 }
 
-.modal-content {
+#ModalPaises .modal-content {
     border-radius: 29px !important;
     border: 0px !important;
 }
 
-.modal-footer {
+#ModalPaises .modal-footer {
     border-top: none !important;
     padding: 0px !important;
 }
 
-.modal-header {
+#ModalPaises .modal-header {
     border-bottom: 0px !important;
 }
 
-.modal-filter__list.scrollable-custom {
+#ModalPaises .modal-filter__list.scrollable-custom {
     padding: 0 50px !important;
 }
 
-.modal-filter {
+#ModalPaises .modal-filter {
     color: #686868;
     font-size: 20px;
 }
 
-.contactenos_form--campo-indicativo-bandera {
+#ModalPaises .contactenos_form--campo-indicativo-bandera {
     width: 25px;
 }
 
-.subtitle-country {
+#ModalPaises .subtitle-country {
     font-family: Poppins;
     font-size: 16px !important;
     color: #6868688f !important;
@@ -257,7 +284,7 @@ span.result__ext {
     margin-left: 20px;
 }
 
-.form-group__input::placeholder {
+#ModalPaises .form-group__input::placeholder {
     font-family: Poppins;
     font-size: 16px;
 }
@@ -272,7 +299,7 @@ span.result__ext {
     }
 }
 
-hr {
+#ModalPaises hr {
     border: none;
 }
 
