@@ -107,10 +107,10 @@ const PasswordSecurity = (props, onHandleChange) => {
     const popoverSecurityMinCharacter = (words) => {
         words = String(words).trim();
         const regxs = {
-            lower: /^(?=\w*[a-z])/,
-            upper: /^(?=\w*[A-Z])/,
-            number: /^(?=\w*\d)/,
-            especial: /^(?=\w*[\u0021-\u002b\u003c-\u0040])$/,
+            lower: /(?=\w*[a-z])/,
+            upper: /(?=\w*[A-Z])/,
+            number: /(?=\w*\d)/,
+            especial: /(?=\w*[\u0021-\u002b\u003c-\u0040])/,
         };
         if (words.length >= 6) {
             if (
@@ -130,7 +130,7 @@ const PasswordSecurity = (props, onHandleChange) => {
     const popoverSecurityCapitalCharacter = (words) => {
         words = String(words).trim();
         const regxs = {
-            upper: /^(?=\w*[A-Z])/,
+            upper: /(?=\w*[A-Z])/,
         };
         if (regxs.upper.test(words)) {
             if (regxs.upper.test(words)) {
@@ -145,7 +145,7 @@ const PasswordSecurity = (props, onHandleChange) => {
     const popoverSecurityLowerCharacter = (words) => {
         words = String(words).trim();
         const regxs = {
-            lower: /^(?=\w*[a-z])/,
+            lower: /(?=\w*[a-z])/,
         };
         if (regxs.lower.test(words)) {
             if (regxs.lower.test(words)) {
@@ -160,7 +160,7 @@ const PasswordSecurity = (props, onHandleChange) => {
     const popoverSecurityNumberCharacter = (words) => {
         words = String(words).trim();
         const regxs = {
-            number: /^(?=\w*\d)/,
+            number: /(?=\w*\d)/,
         };
         if (regxs.number.test(words)) {
             if (regxs.number.test(words)) {
