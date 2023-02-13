@@ -72,59 +72,6 @@
     border: solid white 10px;
 }
 
-/* Scrollbar info*/
-/* Firefox */
-#ModalTC .termcond-info {
-    scrollbar-width: auto;
-    scrollbar-color: #ffffff #c2ebff;
-}
-
-/* Chrome, Edge, and Safari */
-#ModalTC .termcond-info::-webkit-scrollbar {
-    width: 6px;
-}
-
-#ModalTC .termcond-info::-webkit-scrollbar-track {
-    background: #c2ebff;
-}
-
-#ModalTC .termcond-info::-webkit-scrollbar-thumb {
-    background-color: #ffffff;
-    border-radius: 0px;
-    border: 15px solid #bfbfbf;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    -ms-border-radius: 0px;
-    -o-border-radius: 0px;
-}
-
-/* Scrollbar info*/
-/* Firefox */
-#ModalTC .termcond-index {
-    scrollbar-width: auto;
-    scrollbar-color: #ffffff #c2ebff;
-}
-
-/* Chrome, Edge, and Safari */
-#ModalTC .termcond-index::-webkit-scrollbar {
-    width: 6px;
-}
-
-#ModalTC .termcond-index::-webkit-scrollbar-track {
-    background: #c2ebff;
-}
-
-#ModalTC .termcond-index::-webkit-scrollbar-thumb {
-    background-color: #ffffff;
-    border-radius: 0px;
-    border: 15px solid #bfbfbf;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    -ms-border-radius: 0px;
-    -o-border-radius: 0px;
-}
-/*Fin*/
-
 #ModalTC .termcond-info hr {
     margin: 25px 25px;
     color: rgba(94, 94, 94, 0.418);
@@ -250,3 +197,56 @@
     border-bottom: 0px !important;
     margin-top: -66px !important;
 }
+
+/* Scroll personalizado */
+
+/* Scrollbar info*/
+/* Firefox */
+#ModalTC .termcond-info {
+    scrollbar-width: auto !important;
+    scrollbar-color: #ffffff #c2ebff !important;
+}
+
+#ModalTC .termcond-index {
+    scrollbar-width: auto !important;
+    scrollbar-color: #ffffff #c2ebff !important;
+}
+
+/* Chrome, Edge, and Safari */
+#ModalTC .termcond-info::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+/* Chrome, Edge, and Safari */
+#ModalTC .termcond-index::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+#ModalTC .termcond-info::-webkit-scrollbar-track {
+    background: #c2ebff !important;
+}
+
+#ModalTC .termcond-index::-webkit-scrollbar-track {
+    background: #c2ebff !important;
+}
+
+#ModalTC .termcond-info::-webkit-scrollbar-thumb {
+    background-color: #ffffff !important;
+    border-radius: 0px !important;
+    border: 6px solid #bfbfbf !important;
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    -ms-border-radius: 0px !important;
+    -o-border-radius: 0px !important;
+}
+
+#ModalTC .termcond-index::-webkit-scrollbar-thumb {
+    background-color: #ffffff !important;
+    border-radius: 0px !important;
+    border: 6px solid #bfbfbf !important;
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    -ms-border-radius: 0px !important;
+    -o-border-radius: 0px !important;
+}
+/*Fin*/
