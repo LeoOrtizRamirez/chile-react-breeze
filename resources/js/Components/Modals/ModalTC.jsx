@@ -10,7 +10,7 @@ import {
     MDBScrollspyLink,
 } from "mdb-react-ui-kit";
 
-import "@/Components/Modals/modal-tc.css";
+import "@/Components/Modals/ModalTC.css";
 import "@fontsource/poppins";
 //
 
@@ -45,6 +45,7 @@ export const ModalTC = ({ showTC, handleCloseTC }) => {
             centered
             show={showTC}
             onHide={handleCloseTC}
+            id="ModalTC"
         >
             <Modal.Header></Modal.Header>
             <Modal.Body className="modal-header-tc">
@@ -252,13 +253,19 @@ export const ModalTC = ({ showTC, handleCloseTC }) => {
                                 </MDBCol>
                             </div>
 
-
-                            <div className="termcond-info"id="element"ref={containerRef} >
+                            <div
+                                className="termcond-info"
+                                id="element"
+                                ref={containerRef}
+                            >
                                 <MDBCol>
-                                    <button type="button"className="btn-tc" onClick={handleCloseTC} >
+                                    <button
+                                        type="button"
+                                        className="btn-tc"
+                                        onClick={handleCloseTC}
+                                    >
                                         <span className="x-tc">x</span>
                                     </button>
-
 
                                     <section ref={home} id="section-1">
                                         <br />
@@ -1413,10 +1420,12 @@ export const ModalTC = ({ showTC, handleCloseTC }) => {
                                             de servicio.
                                         </p>
                                         <p>
-                                        Si tiene alguna duda, con gusto la resolveremos. Encuentre nuestros medios de contacto  <a id="contacto" href="/contacto">aquí.</a>
-                                                
-
-
+                                            Si tiene alguna duda, con gusto la
+                                            resolveremos. Encuentre nuestros
+                                            medios de contacto{" "}
+                                            <a id="contacto" href="/contacto">
+                                                aquí.
+                                            </a>
                                         </p>
                                     </section>
                                     <br />

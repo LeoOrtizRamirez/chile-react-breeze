@@ -33,7 +33,7 @@ export const Paises = (props) => {
 
     return (
         <>
-            <div className="scrollable">
+            <div id="ModalPaises" className="scrollable">
                 <div className="modal-filter">
                     <div className="modal-filter__search">
                         <div className="form-group">
@@ -77,7 +77,7 @@ export const Paises = (props) => {
                                         </span>
                                         {Country.fixed && (
                                             <img
-                                                src="/images/banderas/listado_nombres/fijado.svg"
+                                                src="/public/images/banderas/listado_nombres/fijado.svg"
                                                 alt="Fijado"
                                                 className="pinned-icon"
                                             />
@@ -98,7 +98,7 @@ export const Paises = (props) => {
                                 </p>
                             </div>
                             <img
-                                src="/images/sin-resultados-busqueda.webp"
+                                src="/public/images/sin-resultados-busqueda.webp"
                                 alt="Sin resultados"
                             />
                         </div>

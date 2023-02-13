@@ -1,0 +1,220 @@
+html {
+    background-color: #b5b5b525;
+    overflow: hidden;
+}
+
+table tr th {
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: 12px;
+}
+
+.sorting {
+    background-color: #00a1c9;
+}
+
+.asc:after {
+    content: " ↑";
+}
+
+.desc:after {
+    content: " ↓";
+}
+
+/* Estilos pagina --------------------------------------------------------------*/
+
+.contenedor-usuarios {
+    display: flex;
+    height: 90vh;
+}
+
+.contenedor-informacion-usuarios {
+    margin-top: 15px;
+    margin-left: 10px;
+    border-radius: 15px;
+}
+
+.usuarios {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #00a1c9;
+    font-weight: bold;
+    font-size: 22px;
+    justify-content: space-between;
+    height: 40px;
+    margin: 15px 0 5px 0;
+}
+
+.contenedor-botones {
+    display: flex;
+    flex-direction: row;
+}
+
+.actualizar-color {
+    color: #00a1c9;
+}
+
+.material-symbols-outlined-color {
+    color: white;
+}
+
+.margen-titulo {
+    margin-left: 500px;
+}
+
+.tabla {
+    font-size: 13px;
+}
+
+.cabecera-tabla {
+    text-align: center;
+}
+
+.iconos-horizontal {
+    display: flex;
+}
+
+.estilos-boton-eliminar {
+    background-color: red;
+    width: 25px;
+    height: 30px;
+    border-radius: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding-bottom: 10px;
+    margin: 3px;
+}
+
+.estilos-boton-editar {
+    background-color: #00a1c9;
+    width: 25px;
+    height: 30px;
+    border-radius: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding-top: 5px;
+    margin: 3px;
+}
+
+.estilos-boton-email {
+    background-color: rgb(236, 236, 236);
+    width: 25px;
+    height: 30px;
+    border-radius: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(95, 95, 95);
+    padding-top: 3px;
+    margin: 3px;
+}
+
+.margen-textos {
+    padding: 10px;
+}
+
+.autorenew {
+    background-color: #ffffff;
+    width: 35px;
+    height: 35px;
+    border-bottom: solid 1px #b5b5b5;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    text-align: center;
+    padding: 5px;
+    color: black;
+}
+
+.add_circle {
+    background-color: rgb(58, 182, 0);
+    width: 35px;
+    height: 35px;
+    border-bottom: solid 1px #b5b5b5;
+    margin-bottom: 5px;
+    text-align: center;
+    padding: 5px;
+}
+
+.titulo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #00a1c9;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+button.btn.btn-danger.btn-sm.usuarios {
+    background-color: unset;
+    background-image: unset;
+    border: unset;
+}
+
+button.btn.btn-danger {
+    background-color: red;
+}
+
+a {
+    color: unset !important;
+    text-decoration: none !important;
+}
+
+.w-30 {
+    width: 110px;
+}
+
+/* Estilos que afectan el menu de opciones */
+
+ul.lista-opciones.margen-nav {
+    height: 97vh;
+}
+
+ul.lista-opciones.margen-nav > li {
+    height: 16vh !important;
+}
+
+.contenedor-opciones-usuarios {
+    margin-top: 46px !important;
+}
+
+.p-10 {
+    padding: 35px 10px 0px 10px;
+}
+
+/* fin */
+
+.buscador_rapido {
+    margin: 8px 25px 15px 22px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    border: 2px solid #e6e6e6;
+    padding: 0px 5px 0px 15px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    width: 350px;
+}
+
+.buscador_rapido::placeholder {
+    color: #8b8b8b;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.posicion-color {
+    position: absolute;
+    margin: 10px 0px 0px -57px;
+    width: 13px;
+    color: #00a1e0;
+}
