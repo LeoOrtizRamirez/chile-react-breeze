@@ -34,9 +34,74 @@ class SubCategoriaController extends Controller
         /*   dd($localizacion)   ; */
 
         return Inertia::render('Localizacion/Index', [
-            'actividades_economicas' => $localizacion,
+            'localizacion' => $localizacion,
         ]);
     }
+
+    public function createLocalizacion()
+    {
+        dd("vista Crear Localizacion");
+      /*   $actividades_economicas = SubCategoria::where('tipo_categoria', 1)
+            ->orderBy('updated_at', 'DESC')
+            ->with('parent', 'childs')
+            ->get();
+
+        $sectores = SubCategoria::where('tipo_categoria', 1)
+            ->where('id_padre_sub_categoria', null)
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+        return Inertia::render('ActividadesEconomicas/Crear', [
+            'actividades_economicas' => $actividades_economicas,
+            'solo_sectores' => $sectores,
+        ]); */
+    }
+
+
+    public function editLocalizacion($id)
+    {
+        dd("Vista Editar Localizacion");
+     /*    $ae_actual = SubCategoria::where('id', $id)->with('parent', 'childs')->first();
+        $actividades_economicas = SubCategoria::where('tipo_categoria', 1)
+            ->orderBy('updated_at', 'DESC')
+            ->with('parent', 'childs')
+            ->get();
+
+        $sectores = SubCategoria::where('tipo_categoria', 1)
+            ->where('id_padre_sub_categoria', null)
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+
+        return Inertia::render('ActividadesEconomicas/Editar', [
+            'actividades_economicas' => $actividades_economicas,
+            'solo_sectores' => $sectores,
+            'ae_actual' => $ae_actual,
+        ]); */
+    }
+
+
+    public function destroyLocalizacion(SubCategoria $localizacion)
+    {
+        $localizacion->deleteLocalizacion();
+        return redirect(route('indexLocalizacion'));
+    }
+
+
+    public function deleteLocalizacion($id)
+    {
+        dd("Vista eliminar Localizacion");
+       /*  $actividad_economica = SubCategoria::find($id);
+        try {
+            $actividad_economica->delete();
+            $response['type'] = 'Success';
+            $response['message'] = ('Se ha eliminado la Actividad Económica');
+        } catch (Exception $e) {
+            $response['type'] = 'Error';
+            $response['message'] = ('No puedes eliminar esta Actividad Económica');
+        }
+        return json_encode($response); */
+    }
+
+
 
 
     public function create()
@@ -55,6 +120,8 @@ class SubCategoriaController extends Controller
             'solo_sectores' => $sectores,
         ]);
     }
+
+    
 
 
     public function store(Request $request)
