@@ -145,8 +145,10 @@ Route::get('/actividades-economicas/{id}/delete', [SubCategoriaController::class
 Route::get('/actividades-economicas/paginate', [SubCategoriaController::class, 'paginate']);
 Route::get('/actividades-economicas/filter/paginate', [SubCategoriaController::class, 'filterPaginate']);
 
-/* Route::resource('zona-administrativa', SubCategoriaController::class)
-->only(['index','create', 'store', 'edit', 'update', 'destroy'])
-->middleware(['auth','verified']); */
 
-Route::get('/localizacion', [SubCategoriaController::class, 'indexLocalizacion'])->name('indexLocalizacion');
+Route::get('/localizacion', [SubCategoriaController::class, 'indexLocalizacion'])->middleware(['auth','verified'])->name('indexLocalizacion');
+Route::get('/localizacion/create', [SubCategoriaController::class, 'createLocalizacion'])->middleware(['auth','verified'])->name('createLocalizacion');
+Route::get('/localizacion/{localizacion}/edit', [SubCategoriaController::class, 'editLocalizacion'])->middleware(['auth','verified'])->name('editLocalizacion');
+Route::get('/localizacion/{localizacion}/delete', [SubCategoriaController::class, 'deleteLocalizacion'])->middleware(['auth','verified'])->name('deleteLocalizacion');
+Route::delete('/localizacion/{localizacion}', [SubCategoriaController::class, 'destroyLocalizacion'])->middleware(['auth','verified'])->name('destroyLocalizacion');
+
