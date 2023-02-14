@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover ";
+import Form from "react-bootstrap/Form";
 import "./PasswordSecurity.css";
 import PopoverBody from "react-bootstrap/PopoverBody";
 
@@ -266,32 +267,22 @@ const PasswordSecurity = (props, onHandleChange) => {
         <>
             <div className="contenido__password">
                 <div className="contenido__password-div">
-                    <input
+                    <Form.Control
                         placeholder="Ingresa tu contraseña"
                         type="password"
                         name="password"
-                        className={`contenido__password-div-input ${
-                            props.errorIconStatus && "error-input"
-                        }`}
+                        className="contenido__password-div-input"
                         autoComplete="new-password"
                         onChange={handleInputChange}
-                        // required
+                        required
+                        pattern="^\S{6,20}$"
                         ref={refPasswordInput}
                     />
-                    {props.errorIconStatus ? (
-                        <span
-                            className="contenido__password-div-icon icon-alert error-icon"
-                            // className={classInputPass}
-                            onClick={handleTogglePasswordIcon}
-                            ref={refPasswordIcon}
-                        ></span>
-                    ) : (
-                        <span
-                            className="contenido__password-div-icon icon-show"
-                            onClick={handleTogglePasswordIcon}
-                            ref={refPasswordIcon}
-                        />
-                    )}
+                    <span
+                        className="contenido__password-div-icon icon-show"
+                        onClick={handleTogglePasswordIcon}
+                        ref={refPasswordIcon}
+                    />
                 </div>
             </div>
 
