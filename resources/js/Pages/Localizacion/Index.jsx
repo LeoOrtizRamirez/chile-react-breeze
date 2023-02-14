@@ -25,7 +25,7 @@ const Index = ({ auth, localizacion }) => {
     const [showActividadEconomica, setShowActividadEconomica] = useState(false);
     const [selectedSegmento, setSelectedSegmento] = useState(0);
     const [selectedActividadEconomica, setSelectedActividadEconomica] = useState(0);
-    const [inputActividadEconomica, setInputActividadEconomica] = useState({
+    const [inputLocalizacion, setInputLocalizacion] = useState({
         id: 0,
         nombre: "",
     });
@@ -34,19 +34,19 @@ const Index = ({ auth, localizacion }) => {
     const [showModalActividadEconomica, setShowModalActividadEconomica] = useState(false);
     const handleCloseModalActividadEconomica = () => setShowModalActividadEconomica(false);
     const handleShowModalActividadEconomica = () => {
-        if (inputActividadEconomica.id != 0) {
+        if (inputLocalizacion.id != 0) {
             setShowModalActividadEconomica(true)
         } else {
-            setToastMessage("Debes seleccionar una Actividad Ecónomica")
+            setToastMessage("Debes seleccionar una Ciudad")
             setToastIcon('icon-error')
             setShowToast(true)
         }
     };
-    const editActividadEconomica = () => {
-        if (inputActividadEconomica.id != 0) {
-            window.location.replace('/localizacion/' + inputActividadEconomica.id + '/edit')
+    const editLocalizacion = () => {
+        if (inputLocalizacion.id != 0) {
+            window.location.replace('/localizacion/' + inputLocalizacion.id + '/edit')
         } else {
-            setToastMessage("Debes seleccionar una Actividad Ecónomica")
+            setToastMessage("Debes seleccionar una Ciudad")
             setToastIcon('icon-error')
             setShowToast(true)
         }
@@ -66,7 +66,7 @@ const Index = ({ auth, localizacion }) => {
         setSelectedSegmento(parent)
     }
 
-    const getActividadEconomica = (parent) => {
+    const getLocalizacion = (parent) => {
         //setSectores(fakeSectores);
         const pattern = new RegExp(parent, "i");
         const FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
@@ -81,13 +81,13 @@ const Index = ({ auth, localizacion }) => {
 
     const checked = (actividad_economica) => {
 
-        console.log(actividad_economica)
-        setInputActividadEconomica(actividad_economica)
-        console.log(inputActividadEconomica)
+    /*     console.log(actividad_economica) */
+        setInputLocalizacion(actividad_economica)
+        /* console.log(inputLocalizacion) */
         
     }
 
-    const filterActividadEconomica = (e) => {
+    const filterLocalizacion = (e) => {
         const pattern = new RegExp(e.target.value, "i");
         const FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
             if (pattern.test(el.nombre)) {
@@ -99,14 +99,14 @@ const Index = ({ auth, localizacion }) => {
     }
 
 
-    const deleteActividadEconomica = () => {
+    const deleteLocalizacion = () => {
 
-        fetch('/localizacion/' + inputActividadEconomica.id + '/delete')
+        fetch('/localizacion/' + inputLocalizacion.id + '/delete')
             .then((response) => response.json())
             .then((data) => {
                 if (data.type == "Success") {
                     setToastIcon('icon-check')
-                    var new_data = actividadesEconomicas.filter(ae => ae.id != inputActividadEconomica.id);
+                    var new_data = actividadesEconomicas.filter(ae => ae.id != inputLocalizacion.id);
                     setActividadesEconomicas(new_data)
                 } else {
                     setToastIcon('icon-error')
@@ -146,10 +146,10 @@ const Index = ({ auth, localizacion }) => {
                                 <div className="mx-auto">
                                     <input
                                         type="text"
-                                        placeholder="Buscar por actividad localización"
+                                        placeholder="Buscar localización en Chile"
                                         autoComplete="off"
                                         className="form-control m-auto"
-                                        onChange={filterActividadEconomica}
+                                        onChange={filterLocalizacion}
                                     />
                                     <i className="icon-Cancelar"></i>
                                     <button type="button" className="icon-Buscar-click"><i className="bi bi-search"></i></button>
@@ -173,14 +173,14 @@ const Index = ({ auth, localizacion }) => {
 
 
                                                                 <li data-id="20504" className="tree-node has-child expanded draggable">
-                                                                    <div className="tree-content segmento" onClick={() => getActividadEconomica(segmento.id)}>
+                                                                    <div className="tree-content segmento" onClick={() => getLocalizacion(segmento.id)}>
                                                                         <i className="tree-arrow expanded has-child ltr"></i>
                                                                         {/* <i className="tree-checkbox"></i> */}
                                                                         <input
                                                                             type="radio"
                                                                             name="actividad_economica"
                                                                             onClick={() => checked(segmento)}
-                                                                            checked={segmento.id == inputActividadEconomica.id ? "checked" : ""}
+                                                                            checked={segmento.id == inputLocalizacion.id ? "checked" : ""}
                                                                         />
 
                                                                         {/* {()=>console.log()} */}
@@ -200,7 +200,7 @@ const Index = ({ auth, localizacion }) => {
                                                                                             type="radio"
                                                                                             name="actividad_economica"
                                                                                             onClick={() => checked(childs)}
-                                                                                            checked={childs.id == inputActividadEconomica.id ? "checked" : ""}
+                                                                                            checked={childs.id == inputLocalizacion.id ? "checked" : ""}
                                                                                         /> */}
                                                                                         <span className="tree-anchor children">
                                                                                             <span className="tree-division tree-division1">
@@ -237,12 +237,12 @@ const Index = ({ auth, localizacion }) => {
                                 <button type="button" className="btn-close btn-close-white" onClick={handleCloseModalActividadEconomica}></button>
                             </Modal.Header>
                             <Modal.Body id="removeActividadEconomicaBody">
-                                <p>Desea eliminar la actividad económica ({inputActividadEconomica.id}) {inputActividadEconomica.nombre}?</p>
+                                <p>Desea eliminar la comuna {inputLocalizacion.nombre}?</p>
                             </Modal.Body>
                             <Modal.Footer>
                                 <button type="submit" className="btn btnRadius btn-new-blue mr-2" onClick={handleCloseModalActividadEconomica}>Cancelar</button>
                                 <button
-                                    onClick={deleteActividadEconomica}
+                                    onClick={deleteLocalizacion}
                                     className="btn btnRadius btn-new-red ml-2">
                                     Eliminar</button>
                             </Modal.Footer>
@@ -252,7 +252,7 @@ const Index = ({ auth, localizacion }) => {
                             <Nav.Link href={route("createLocalizacion")} className="flex  ml-4 text-probar " >
                                 <i className="bi bi-plus-square-fill"></i>
                             </Nav.Link>
-                            <Nav.Link onClick={editActividadEconomica} className="flex  ml-4 text-probar " >
+                            <Nav.Link onClick={editLocalizacion} className="flex  ml-4 text-probar " >
                                 <i className="bi bi-pencil-fill"></i>
                             </Nav.Link>
                             <Nav.Link onClick={handleShowModalActividadEconomica} className="flex  ml-4 text-probar " >
