@@ -20,6 +20,7 @@ export default function Register(props) {
         name: "",
         email: "",
         password: "",
+        phone: "",
         password_confirmation: "",
     });
 
@@ -30,9 +31,9 @@ export default function Register(props) {
     const [disabledClass, setDisabledClass] = useState("disabled");
     const [showModalPaises, setShowModalPaises] = useState(false);
     const [Country, SetCountry] = useState({
-        image: "/public/images/banderas/listado_nombres/CHL.svg",
-        title: "Chile",
-        indicative: "+56",
+        image: "",
+        title: null,
+        indicative: "+0",
         fixed: null,
     });
 
@@ -74,16 +75,6 @@ export default function Register(props) {
                 ? event.target.checked
                 : event.target.value
         );
-    };
-
-    const handlePhone = (object) => {
-        if (object.target.value.length > object.target.maxLength) {
-            object.target.value = object.target.value.slice(
-                0,
-                object.target.maxLength
-            );
-            this.setState({ phone: object.target.value });
-        }
     };
 
     const [validated, setValidated] = useState(false);
@@ -135,6 +126,11 @@ export default function Register(props) {
     // const [showLS, setShowLS] = useState(false);
     // const handleCloseLS = () => setShowLS(false);
     // const handleShowLS = () => setShowLS(true);
+
+    function limpiarNumero(obj) {
+        /* El evento "change" sólo saltará si son diferentes */
+        obj.value = obj.value.replace(/\D/g, "");
+    }
 
     return (
         <>
@@ -288,6 +284,7 @@ export default function Register(props) {
                                             autoComplete="name"
                                             isFocused={true}
                                             onChange={(e) => onHandleChange(e)}
+                                            pattern="^[A-Za-z]+$"
                                             required
                                         />
                                     </div>
@@ -336,6 +333,7 @@ export default function Register(props) {
                                         </Form.Label>
                                         <div className="content-inputs">
                                             <PasswordSecurity
+                                                required
                                                 onHandleChange={onHandleChange}
                                                 errorIcon="contenido__password-div-icon icon-alert error-icon"
                                                 errorIconStatus={
@@ -377,20 +375,20 @@ export default function Register(props) {
                                                 {Country.indicative}
                                             </label>
                                             <span className="icon-down bloque__registro-form-telefono-flecha"></span>
+                                            <hr className="bloque__registro-form-telefono-linea" />
                                         </div>
-                                        <hr className="bloque__registro-form-telefono-linea" />
                                         <div className="bloque__registro-form-telefono-div">
                                             <Form.Control
                                                 id="tel"
                                                 name="tel"
-                                                type="number"
+                                                type="text"
                                                 placeholder="Ingresa tu número"
                                                 className="bloque__registro-form-telefono-input"
                                                 aria-required="true"
                                                 aria-invalid="false"
-                                                onChange={handlePhone}
-                                                maxLength="10"
+                                                // onChange={handlePhone}
                                                 required
+                                                pattern="(?=\w*[0-9])\S{10,10}$"
                                             />
                                         </div>
                                     </div>

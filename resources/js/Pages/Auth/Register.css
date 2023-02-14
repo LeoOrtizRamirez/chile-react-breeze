@@ -229,7 +229,7 @@
     width: 100%;
     padding: 15px 48px 15px 25px;
     background: #fff;
-    border: 2px solid #d4d4d4;
+    border: 1px solid #d4d4d4;
     font-size: 14px;
     font-weight: 400;
     color: #9c9b9b;
@@ -251,13 +251,13 @@
 
 .contenido__password-div-icon {
     color: #686868;
-    font-size: 1.2rem;
+    font-size: 14px;
     position: absolute;
-    right: 20px;
+    right: 30px;
 }
 
 .contenido__password-div .icon-hide {
-    font-size: 1.63rem;
+    font-size: 18px;
 }
 
 .contenido__password-div .error-input {
@@ -2374,7 +2374,7 @@ footer[id^="modal-olvidaste"].modal-footer
 #register-container .bloque__registro-form-telefono-linea {
     width: 3px;
     height: 25px;
-    background: #ececec;
+    background: #000000;
     border-radius: 3px;
     margin-top: 0;
     margin-bottom: 0;
@@ -2388,6 +2388,8 @@ footer[id^="modal-olvidaste"].modal-footer
     padding: 0 15px;
     width: 100%;
     max-width: 126px;
+    position: absolute;
+    z-index: 1;
 }
 
 #register-container .bloque__registro-form-telefono-img {
@@ -2415,7 +2417,7 @@ footer[id^="modal-olvidaste"].modal-footer
 }
 
 #register-container .bloque__registro-form-telefono-div {
-    position: relative;
+    /* position: relative; */
     width: 100%;
     max-width: 475px;
 }
@@ -2427,15 +2429,14 @@ footer[id^="modal-olvidaste"].modal-footer
 }
 
 #register-container .bloque__registro-form-telefono-input {
+    text-align: center;
     font-size: 14px;
     font-weight: 400;
-    /* font-family: Roboto; */
-    color: #686868;
+    color: #000000;
     width: 100%;
     border-radius: 34px;
     opacity: 1;
     padding: 13px 25px;
-    /* border: none; */
 }
 
 #register-container .bloque__registro-form-telefono-input:focus,
@@ -2859,4 +2860,8 @@ footer[id^="modal-olvidaste"].modal-footer
 
 .bloque__registro-form-telefono-input-errors::placeholder {
     color: #c9003d;
+}
+
+#register-container .was-validated .form-control:invalid::placeholder {
+    color: #dc3545;
 }
