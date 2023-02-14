@@ -107,27 +107,21 @@ const PasswordSecurity = (props, onHandleChange) => {
     const popoverSecurityMinCharacter = (words) => {
         words = String(words).trim();
         const regxs = {
-            lower: /^[a-z?]+$/,
-            upper: /^[A-Z]+$/,
-            number: /^[0-9]+$/,
-            upperLower: /^[A-Za-z]+$/,
-            upperNumber: /^[A-Z0-9]+$/,
-            lowerNumber: /^[a-z0-9]+$/,
-            upperLowerNumber: /^[A-Za-z0-9]+$/,
+            lower: /(?=\w*[a-z])/,
+            upper: /(?=\w*[A-Z])/,
+            number: /(?=\w*\d)/,
+            especial: /(?=\w*[\u0021-\u002b\u003c-\u0040])/,
         };
         if (words.length >= 6) {
             if (
                 regxs.lower.test(words) ||
                 regxs.upper.test(words) ||
                 regxs.number.test(words) ||
-                regxs.upperLower.test(words) ||
-                regxs.upperNumber.test(words) ||
-                regxs.lowerNumber.test(words) ||
-                regxs.upperLowerNumber.test(words)
+                regxs.especial.test(words)
             ) {
                 setMinCharacter("green");
             }
-        } else if (words.length == 0) {
+        } else {
             setMinCharacter("gray");
         }
     };
@@ -136,13 +130,13 @@ const PasswordSecurity = (props, onHandleChange) => {
     const popoverSecurityCapitalCharacter = (words) => {
         words = String(words).trim();
         const regxs = {
-            upper: /^(?=\w*[A-Z])/,
+            upper: /(?=\w*[A-Z])/,
         };
         if (regxs.upper.test(words)) {
             if (regxs.upper.test(words)) {
                 setCapitalCharacter("green");
             }
-        } else if (words.length == 0) {
+        } else {
             setCapitalCharacter("gray");
         }
     };
@@ -151,13 +145,13 @@ const PasswordSecurity = (props, onHandleChange) => {
     const popoverSecurityLowerCharacter = (words) => {
         words = String(words).trim();
         const regxs = {
-            lower: /^(?=\w*[a-z])/,
+            lower: /(?=\w*[a-z])/,
         };
         if (regxs.lower.test(words)) {
             if (regxs.lower.test(words)) {
                 setLowerCharacter("green");
             }
-        } else if (words.length == 0) {
+        } else {
             setLowerCharacter("gray");
         }
     };
@@ -166,13 +160,13 @@ const PasswordSecurity = (props, onHandleChange) => {
     const popoverSecurityNumberCharacter = (words) => {
         words = String(words).trim();
         const regxs = {
-            number: /^(?=\w*\d)/,
+            number: /(?=\w*\d)/,
         };
         if (regxs.number.test(words)) {
             if (regxs.number.test(words)) {
                 setNumberCharacter("green");
             }
-        } else if (words.length == 0) {
+        } else {
             setNumberCharacter("gray");
         }
     };

@@ -72,7 +72,7 @@ export const ModalLoginSesion = (props) => {
         fetch("/code-validate/" + data.email + "/" + verificationCode)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
+                console.log(data);
                 if (data != "Failed") {
                     setEmailValid(true);
                     const url =

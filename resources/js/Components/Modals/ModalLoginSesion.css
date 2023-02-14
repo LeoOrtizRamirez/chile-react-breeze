@@ -802,7 +802,7 @@ font-family: "Roboto", sans-serif;
     border-radius: 30px;
     color: #686868;
     height: 45px;
-    top: 70px;
+    /* top: 70px; */
     position: absolute;
     width: 45px;
     z-index: 1;
