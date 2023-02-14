@@ -13,50 +13,27 @@ use Illuminate\Support\Facades\Redirect;
 class ContratoController extends Controller
 {
 
-    public function index()
-    {
-
-        $pagina = 1;
-        $numElementosPagina = 30;
-        $totalElemetosPaginados = 1;
-
+    public function index(){
         $buscador_rapido = request("buscador_rapido");
         $fecha_publicacion = request("fecha_publicacion");
 
-        $contratosAll =
-            Contrato::where(
-                function ($query) use ($buscador_rapido) {
-                    if (!is_null($buscador_rapido) && $buscador_rapido != "") {
-                        $query->where('entidad_contratante', 'like', '%' . $buscador_rapido . '%')
-                            ->orWhere('objeto', 'like', '%' . $buscador_rapido . '%')
-                            ->orWhere('modalidad', 'like', '%' . $buscador_rapido . '%')
-                            ->orWhere('ubicacion', 'like', '%' . $buscador_rapido . '%');
-                    }
-                }
-            )
-            ->where(function ($query) use ($fecha_publicacion) {
-                if (!is_null($fecha_publicacion) && $fecha_publicacion != "") {
-                    $query->where('fecha_publicacion', request("fecha_publicacion"));
-                }
-            })
-            ->count();
-
-        $contratos = Contrato::with('fuente'/*, 'clasificaciones', 'contratistas'*/)
-            ->where(function ($query) use ($buscador_rapido) {
-                if (!is_null($buscador_rapido) && $buscador_rapido != "") {
-                    $query->where('entidad_contratante', 'like', '%' . $buscador_rapido . '%')
-                        ->orWhere('objeto', 'like', '%' . $buscador_rapido . '%')
-                        ->orWhere('modalidad', 'like', '%' . $buscador_rapido . '%')
-                        ->orWhere('ubicacion', 'like', '%' . $buscador_rapido . '%');
-                }
-            })
-            ->where(function ($query) use ($fecha_publicacion) {
-                if (!is_null($fecha_publicacion) && $fecha_publicacion != "") {
-                    $query->where('fecha_publicacion', request("fecha_publicacion"));
-                }
-            })
-            ->take(30)
-            ->get();
+        $contratos = Contrato::with('fuente')
+        ->where(function ($query) use ($buscador_rapido) {
+            if (!is_null($buscador_rapido) && $buscador_rapido != "") {
+                $query->where('entidad_contratante', 'like', '%' . $buscador_rapido . '%')
+                    ->orWhere('objeto', 'like', '%' . $buscador_rapido . '%')
+                    ->orWhere('modalidad', 'like', '%' . $buscador_rapido . '%')
+                    ->orWhere('ubicacion', 'like', '%' . $buscador_rapido . '%');
+            }
+        })
+        ->where(function ($query) use ($fecha_publicacion) {
+            if (!is_null($fecha_publicacion) && $fecha_publicacion != "") {
+                $query->where('fecha_publicacion', request("fecha_publicacion"));
+            }
+        })
+        /* ->take(30)
+        ->get(); */
+        ->paginate(30);
 
         foreach ($contratos as $key => $value) {
             $contratista = ContratistaContrato::where('id_contrato', $value->id)->first();
@@ -70,26 +47,13 @@ class ContratoController extends Controller
                 $value->actividad_economica =  $sub_categoria->nombre;
             }
         }
-
-        if (request()->has("type")) {
-            $contratos = [
-                'contratos' => $contratos,
-                'totalContratos' =>  $contratosAll,
-                'pagina' => $pagina,
-                'numElementosPagina' => $numElementosPagina,
-                'totalElemetosPaginados' => $totalElemetosPaginados
-            ];
+        
+        if (request()->has("type") /* && request('type') == "fetch" */) {
+            //dd(request('type'));
             return json_encode($contratos);
         } else {
             return Inertia::render(
-                'Contratos/Index',
-                [
-                    'contratos' => $contratos,
-                    'totalContratos' =>  $contratosAll,
-                    'pagina' => $pagina,
-                    'numElementosPagina' => $numElementosPagina,
-                    'totalElemetosPaginados' => $totalElemetosPaginados
-                ]
+                'Contratos/Index',['contratos' => $contratos]
             );
         }
     }
@@ -209,13 +173,15 @@ class ContratoController extends Controller
                     $query->where('fecha_publicacion', request("fecha_publicacion"));
                 }
             })
-            ->take(30)
-            ->get();
+            /* ->take(30)
+            ->get(); */
+            ->paginate(30);
+        //dd($contratos);
 
 
         if ($estado == "prev") {
-            $contratos = $contratos->reverse();
-            $contratos = $contratos->values();
+            //$contratos = $contratos->reverse();
+            //$contratos = $contratos->values();
             $pagina = $page - $pagina;
             $numElementosPagina = ($numElementosPagina * ($page - 1));
             $totalElemetosPaginados = ($numElementosPagina - 30) + 1;
