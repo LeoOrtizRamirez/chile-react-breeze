@@ -151,4 +151,5 @@ Route::get('/localizacion/create', [SubCategoriaController::class, 'createLocali
 Route::get('/localizacion/{localizacion}/edit', [SubCategoriaController::class, 'editLocalizacion'])->middleware(['auth','verified'])->name('editLocalizacion');
 Route::get('/localizacion/{localizacion}/delete', [SubCategoriaController::class, 'deleteLocalizacion'])->middleware(['auth','verified'])->name('deleteLocalizacion');
 Route::delete('/localizacion/{localizacion}', [SubCategoriaController::class, 'destroyLocalizacion'])->middleware(['auth','verified'])->name('destroyLocalizacion');
-
+Route::post('/localizacion', [SubCategoriaController::class, 'storeLocalizacion'])->middleware(['auth','verified'])->name('storeLocalizacion');
+Route::put ('/localizacion/{localizacion}', [SubCategoriaController::class, 'updateLocalizacion'])->middleware(['auth','verified'])->name('updateLocalizacion');
