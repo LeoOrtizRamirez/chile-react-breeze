@@ -238,8 +238,6 @@ class SubCategoriaController extends Controller
 
 
     public function updateLocalizacion(Request $request, SubCategoria $actividad_economica){
-        dd("actualizando"); 
-
         $id = $request->id;
         if($request->id != $request->new_id){
 
