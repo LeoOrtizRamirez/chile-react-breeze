@@ -42,7 +42,7 @@ const Editar = ({ auth, actividades_economicas, solo_sectores, ae_actual }) => {
             event.preventDefault();
             patch(route("updateLocalizacion", data.id), { onSuccess: () => reset() });
         }
-        
+
     };
 
     const [fakeSectores, setFakeSectores] = useState(actividades_economicas);
@@ -64,9 +64,11 @@ const Editar = ({ auth, actividades_economicas, solo_sectores, ae_actual }) => {
         if (Object.entries(errors).length > 0) {
             var responses = Object.values(errors)
             var message = '';
-            {responses.map((response) => (
-                message += response
-            ))}
+            {
+                responses.map((response) => (
+                    message += response
+                ))
+            }
             setToastMessage(message)
             setShowToast(true)
         }
@@ -74,18 +76,18 @@ const Editar = ({ auth, actividades_economicas, solo_sectores, ae_actual }) => {
 
     useEffect(() => {
         getSegmentos(data.sector)
-    },[])
+    }, [])
 
     const submit = (e) => {
         e.preventDefault();
-        patch(route("actividades-economicas.update", data.id), { onSuccess: () => reset() });
+        patch(route("updateLocalizacion", data.id), { onSuccess: () => reset() });
     };
 
 
 
     return (
         <AuthenticatedLayout auth={auth}>
-            <Head title="Actividades económicas" />
+            <Head title="Localización" />
             <ToastContainer position='bottom-start'>
                 <Toast onClose={() => setShowToast(false)} show={showToast} delay={300000} autohide>
                     <div className="notification-toast error"><span className='toast-icon toast-danger'>
@@ -105,35 +107,17 @@ const Editar = ({ auth, actividades_economicas, solo_sectores, ae_actual }) => {
                     <MenuOpciones />
                 </div>
                 <div className="bg-white overflow-auto w-full text-center margen-superior">
-                    <h2 className="name_section_app">Editar Localización</h2>
+                    <h2 className="name_section_app">Edición comuna o ciudad</h2>
                     <div className="container mt-4">
 
-                    <Form
+                        <Form
                             id="form"
                             name="form"
                             noValidate
                             validated={validated}
                             onSubmit={handleSubmit}
                         >
-                           {/*  <Form.Group className="row">
-                                <div className="col-12 col-sm-4">
-                                    <Form.Label
-                                        htmlFor=""
-                                        for="validationInput"
-                                        className="bloque__registro-form-title-label"
-                                    >
-                                        Seleccione el sector
-                                    </Form.Label>
-                                </div>
-                                <div className="col-12 col-sm-8">
-                                    <Form.Select name="sector" className="sector" id="" onChange={(e) => getSegmentos(e.target.value)} value={data.sector}>
-                                        <option value="">Selecciona un Sector</option>
-                                        {sectores.map((sector) => (
-                                            <option key={sector.id} value={sector.id}>{sector.nombre}</option>
-                                        ))}
-                                    </Form.Select>
-                                </div>
-                            </Form.Group> */}
+
                             <Form.Group className="row mt-3">
                                 <div className="col-12 col-sm-4">
                                     <Form.Label
@@ -141,12 +125,12 @@ const Editar = ({ auth, actividades_economicas, solo_sectores, ae_actual }) => {
                                         for="validationInput"
                                         className="bloque__registro-form-title-label"
                                     >
-                                        Seleccione el Sector
+                                        Región
                                     </Form.Label>
                                 </div>
                                 <div className="col-12 col-sm-8">
                                     <Form.Select name="segmento" className="segmento" id="" onChange={(e) => setData("segmento", e.target.value)} value={data.segmento}>
-                                        <option value="">Selecciona un Segmento</option>
+                                        <option value="">Nombre de la comuna o ciudad</option>
                                         {segmentos.map((segmento) => (
                                             <option key={segmento.id} value={segmento.id}>{segmento.nombre}</option>
                                         ))}
@@ -160,13 +144,13 @@ const Editar = ({ auth, actividades_economicas, solo_sectores, ae_actual }) => {
                                         for="validationInput"
                                         className="bloque__registro-form-title-label"
                                     >
-                                        Nombre Localización
+                                        Nombre de la comuna o ciudad
                                     </Form.Label>
                                 </div>
                                 <div className="col-12 col-sm-8">
                                     <Form.Control
                                         type="text"
-                                        placeholder="Nombre Localización"
+                                        placeholder="Nombre de la comuna o ciudad"
                                         value={data.nombre}
                                         onChange={(e) =>
                                             setData("nombre", e.target.value)
@@ -176,29 +160,6 @@ const Editar = ({ auth, actividades_economicas, solo_sectores, ae_actual }) => {
                                     />
                                 </div>
                             </Form.Group>
-                         {/*    <Form.Group className="row mt-3">
-                                <div className="col-12 col-sm-4">
-                                    <Form.Label
-                                        htmlFor=""
-                                        for="validationInput"
-                                        className="bloque__registro-form-title-label"
-                                    >
-                                        Código de verificación
-                                    </Form.Label>
-                                </div>
-                                <div className="col-12 col-sm-8">
-                                    <Form.Control
-                                        type="number"
-                                        placeholder="Código de verificación"
-                                        value={data.id}
-                                        onChange={(e) =>
-                                            setData("id", e.target.value)
-                                        }
-                                        className="actividad-economica"
-                                        required
-                                    />
-                                </div>
-                            </Form.Group> */}
                             <Form.Group className="mt-4">
                                 <button type="submit" className={`btn btnRadius btn-new-blue mr-2`}>Editar</button>
                                 <a href={route("indexLocalizacion")} className="btn btnRadius btn-new-red ml-2">
@@ -206,81 +167,6 @@ const Editar = ({ auth, actividades_economicas, solo_sectores, ae_actual }) => {
                                 </a>
                             </Form.Group>
                         </Form>
-
-
-
-                        {/* <form onSubmit={submit}>
-                            <div className="row">
-                                <div className="col-12 col-sm-4">
-                                    <label htmlFor="">Seleccione el sector</label>
-                                </div>
-                                <div className="col-12 col-sm-8">
-                                    <select name="sector" className="sector" id="" onChange={(e) => getSegmentos(e.target.value)} value={data.sector}>
-                                        <option value="">Selecciona un Sector</option>
-                                        {sectores.map((sector) => (
-                                            <option key={sector.id} value={sector.id}>{sector.nombre}</option>
-                                        ))}
-
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="row mt-4">
-                                <div className="col-12 col-sm-4">
-                                    <label htmlFor="">Seleccione el segmento</label>
-                                </div>
-                                <div className="col-12 col-sm-8">
-                                    <select name="segmento" className="segmento" id="" onChange={(e) => setData("segmento", e.target.value)} value={data.segmento}>
-                                        <option value="">Selecciona un Segmento</option>
-                                        {segmentos.map((segmento) => (
-                                            <option key={segmento.id} value={segmento.id}>{segmento.nombre}</option>
-                                        ))}
-
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="row mt-4">
-                                <div className="col-12 col-sm-4">
-                                    <label htmlFor="">Nombre Actividad económica</label>
-                                </div>
-                                <div className="col-12 col-sm-8">
-                                    <input
-                                        value={data.nombre}
-                                        onChange={(e) =>
-                                            setData("nombre", e.target.value)
-                                        }
-                                        type="text"
-                                        placeholder="Nombre"
-                                        className="actividad-economica"
-                                    />
-                                </div>
-                            </div>
-                            <div className="row mt-4">
-                                <div className="col-12 col-sm-4">
-                                    <label htmlFor="">Código de verificación</label>
-                                </div>
-                                <div className="col-12 col-sm-8">
-                                    <input
-                                        value={data.new_id}
-                                        onChange={(e) =>
-                                            setData("new_id", e.target.value)
-                                        }
-                                        type="number"
-                                        placeholder="Código de verificación"
-                                        className="actividad-economica"
-                                    />
-                                </div>
-                            </div>
-                            <div className="row mt-4">
-                                <div className="col-4"></div>
-                                <div className="col-4">
-                                    <button type="submit" className="btn btnRadius btn-new-blue mr-2">Editar</button>
-                                    <a href={route("actividades-economicas.index")} className="btn btnRadius btn-new-red ml-2">
-                                        Cancelar
-                                    </a>
-                                </div>
-                                <div className="col-4"></div>
-                            </div>
-                        </form> */}
                     </div>
                 </div>
             </div>
