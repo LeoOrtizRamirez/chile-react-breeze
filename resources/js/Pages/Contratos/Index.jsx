@@ -20,11 +20,10 @@ const Index = ({
     pagina,
     numElementosPagina,
     totalElemetosPaginados,
-    usuariosTotales,
 }) => {
     const { data, setData, post, get, processing, reset, errors } = useForm({});
-    const [showLess, setShowLess] = useState(true);
-    const [showMoreSelected, setShowMoreSelected] = useState(0);
+
+    const [tableContratos, setTableContratos] = useState(contratos)
 
     // Inicio Ordenar tabla por columna
     $("th").click(function () {
@@ -69,86 +68,15 @@ const Index = ({
     }
     // Fin Ordenar tabla por columna
 
-    var idContrato = 0;
 
-    // Inicio Paginador
-    var ultimoElemento = 0;
-    var primerElemento = 0;
 
-    if (contratos.length > 0) {
-        ultimoElemento = contratos[contratos.length - 1].id;
-        primerElemento = contratos[0].id;
-    }
 
-    var idUsuarioNext = ultimoElemento;
-    const itemsPagina = 30;
-    const totalElementos = totalContratos;
-    const totalPaginas = parseInt(totalElementos / itemsPagina) + 1;
-    const currentPage = pagina;
 
-    var url_fecha_publicacion = "";
 
-    if (contratos.length > 0) {
-        ultimoElemento = contratos[contratos.length - 1].id;
-        primerElemento = contratos[0].id;
-    }
 
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const fecha_publicacion = urlParams.get("fecha_publicacion");
-
-    if (fecha_publicacion != null) {
-        url_fecha_publicacion = "fecha_publicacion=" + fecha_publicacion;
-    }
-
-    const nextHandler = () => {
-        if (pagina >= totalPaginas) return;
-        get(
-            "/contratos/" +
-                idUsuarioNext +
-                "/" +
-                pagina +
-                "/next?" +
-                url_fecha_publicacion
-        ),
-            { onSuccess: () => reset() };
-    };
-
-    const prevHandler = () => {
-        if (pagina == 1) return;
-        get(
-            "/contratos/" +
-                primerElemento +
-                "/" +
-                pagina +
-                "/prev?" +
-                url_fecha_publicacion
-        ),
-            { onSuccess: () => reset() };
-    };
-
-    // Inicio Filtro rapido
-    const busquedaRapida = (event) => {
-        const value = event.target.value;
-        const itemsFiltered = datos.filter(function (el) {
-            // debugger;
-            return (
-                el.entidad_contratante
-                    .toUpperCase()
-                    .indexOf(value.toUpperCase()) !== -1 ||
-                el.objeto.toUpperCase().indexOf(value.toUpperCase()) !== -1 ||
-                el.ubicacion.toUpperCase().indexOf(value.toUpperCase()) !== -1
-            );
-        });
-        setItems([...itemsFiltered].splice(0, itemsPagina));
-    };
-    // Fin Filtro rapido
-
-    const submit = (e) => {
-        e.preventDefault();
-        post(route("contratos.store"), { onSuccess: () => reset() });
-    };
-
+    /*Inicio - ver más, ver menos */
+    const [showLess, setShowLess] = useState(true);
+    const [showMoreSelected, setShowMoreSelected] = useState(0);
     const getData = (data) => {
         setShowMoreSelected(data.id);
     };
@@ -156,22 +84,18 @@ const Index = ({
     const hideData = () => {
         setShowMoreSelected(0);
     };
+    /*Fin - ver más, ver menos */
 
+    /*Inicio Scroll*/
     const [fakeScrollContentWidth, setFakeScrollContentWidth] = useState(0);
-    const [fakeScrollContainerWidth, setFakeScrollContainertWidth] =
-        useState(0);
+    const [fakeScrollContainerWidth, setFakeScrollContainertWidth] = useState(0);
+
     useEffect(() => {
         var fake_contenido_tabla = document.getElementById("div1");
         var contenido_tabla = document.getElementById("tabla");
 
         var fake_contenedor_tabla = document.getElementById("wrapper1");
         var contenedor_tabla = document.getElementById("scroll-table");
-
-        console.log("fake_contenido_tabla", fake_contenido_tabla.offsetWidth);
-        console.log("contenido_tabla", contenido_tabla.offsetWidth);
-
-        console.log("fake_contenedor_tabla", fake_contenedor_tabla.offsetWidth);
-        console.log("contenedor_tabla", contenedor_tabla.offsetWidth);
 
         setFakeScrollContentWidth(contenido_tabla.offsetWidth);
         setFakeScrollContainertWidth(contenedor_tabla.offsetWidth);
@@ -186,82 +110,141 @@ const Index = ({
         };
     });
 
+    /*Fin Scroll*/
+
+    const encodeQueryData = (data) => {
+        console.log(data)
+        const ret = [];
+        for (let d in data)
+          ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+        return ret.join('&');
+     }
+
+    const handleChange = (e) => {
+        var form = document.getElementById("form_busqueda_rapida")
+        let formData = new FormData(form);
+        let object = {};
+        formData.forEach(function (value, key) {
+            object[key] = value;
+        });
+        var json = JSON.stringify(object);
+        
+        setInputSearch(e.target.value);
+
+
+        const querystring = encodeQueryData(object);
+        console.log(querystring)
+        var params = urlFechaPublicacion ? urlFechaPublicacion : ""
+        /* fetch('/contratos/?buscador_rapido=' + inputSearch + '&' + params) */
+        fetch('/contratos/?' + querystring)
+        .then((response) => response.json())
+        .then((data) => {
+            setTableContratos(data.contratos)
+            setTotalRegistros(data.totalContratos)
+        })
+    };
+
     //Inicio Buscador rapido
 
     const [usuariosBuscador, setusuariosBuscador] = useState([]);
     const [tablaUsuariosBuscador, setTablaUsuariosBuscador] = useState([]);
-    const [busqueda, setBusqueda] = useState("");
 
-    const peticionGet = () => {
-        setusuariosBuscador(contratos);
-        setTablaUsuariosBuscador(usuariosTotales);
+    const itemsPagina = 30;
+    const [totalRegistros, setTotalRegistros] = useState(totalContratos)
+    const [totalPaginas, setTotalPaginas] = useState(totalElemetosPaginados)
+    const [primerRegistro, setPrimerRegistro] = useState(0)
+    const [ultimoRegistro, setUltimoRegistro] = useState(0)
+    const [urlFechaPublicacion, setUrlFechaPublicacion] = useState("")
+    const [inputSearch, setInputSearch] = useState("")
+    const [inputFechaPublicacion, setInputFechaPublicacion] = useState("")
+
+
+
+    /*Inicio - Paginador */
+    const nextHandler = () => {
+        if (pagina >= totalPaginas) return;
+        var params = inputSearch ? "&buscador_rapido=" + inputSearch : ""
+        get(
+            "/contratos/" +
+            ultimoRegistro +
+            "/" +
+            pagina +
+            "/next?" +
+            urlFechaPublicacion +
+            params
+        ),
+            { onSuccess: () => reset() };
     };
-
-    const handleChange = (e) => {
-        setBusqueda(e.target.value);
-        filtrar(e.target.value);
+    const prevHandler = () => {
+        if (pagina == 1) return;
+        var params = inputSearch ? "&buscador_rapido=" + inputSearch : ""
+        get(
+            "/contratos/" +
+            primerRegistro +
+            "/" +
+            pagina +
+            "/prev?" +
+            urlFechaPublicacion +
+            params
+        ),
+            { onSuccess: () => reset() };
     };
+    /*Fin - Paginador */
 
-    const filtrar = (terminoBusqueda) => {
-        var resultadosBusqueda = tablaUsuariosBuscador.filter((elemento) => {
-            var selectores = document.getElementsByClassName("tr-users").length;
-
-            try {
-                if (
-                    elemento.entidad_contratante
-                        .toString()
-                        .toLowerCase()
-                        .includes(terminoBusqueda.toLowerCase()) ||
-                    elemento.objeto
-                        .toString()
-                        .toLowerCase()
-                        .includes(terminoBusqueda.toLowerCase()) ||
-                    elemento.modalidad
-                        .toString()
-                        .toLowerCase()
-                        .includes(terminoBusqueda.toLowerCase()) ||
-                    elemento.ubicacion
-                        .toString()
-                        .toLowerCase()
-                        .includes(terminoBusqueda.toLowerCase())
-                ) {
-                    if (terminoBusqueda == "") {
-                        document.querySelectorAll(
-                            "span.font-black.numero-elementos-pagina"
-                        )[0].style.color = "#6b7280";
-                        document.querySelectorAll(
-                            "span.guion-paginador"
-                        )[0].style.color = "#6b7280";
-                        document.querySelectorAll(
-                            "#TotalPaginasPaginador"
-                        )[0].textContent = 30;
-                        return elemento;
-                    } else {
-                        document.querySelectorAll(
-                            "span.font-black.numero-elementos-pagina"
-                        )[0].style.color = "white";
-                        document.querySelectorAll(
-                            "span.guion-paginador"
-                        )[0].style.color = "white";
-                        document.querySelectorAll(
-                            "#TotalPaginasPaginador"
-                        )[0].textContent = selectores;
-                        return elemento;
-                    }
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        });
-        setusuariosBuscador(resultadosBusqueda);
-    };
 
     useEffect(() => {
-        peticionGet();
-    }, []);
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const fecha_publicacion = urlParams.get("fecha_publicacion");
+        
+        if (fecha_publicacion != null) {
+            setUrlFechaPublicacion("fecha_publicacion=" + fecha_publicacion)
+        }
+        const buscador_rapido = urlParams.get("buscador_rapido");
+        if (buscador_rapido != null) {
+            setInputSearch(buscador_rapido)
+        }
+    }, [])
+
+    useEffect(() => {
+        if (contratos.length > 0) {
+            setUltimoRegistro(contratos[contratos.length - 1].id)
+            setPrimerRegistro(contratos[0].id)
+        }
+        setTotalPaginas(parseInt(totalRegistros / itemsPagina) + 1)
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const fecha_publicacion = urlParams.get("fecha_publicacion");
+        
+        if (fecha_publicacion != null) {
+            setUrlFechaPublicacion("fecha_publicacion=" + fecha_publicacion)
+        }
+    }, [tableContratos]);
 
     /* Fin Buscador*/
 
+
+
+
+
+
+    // Inicio Filtro rapido
+    /* const busquedaRapida = (event) => {
+        const value = event.target.value;
+        const itemsFiltered = datos.filter(function (el) {
+            // debugger;
+            return (
+                el.entidad_contratante
+                    .toUpperCase()
+                    .indexOf(value.toUpperCase()) !== -1 ||
+                el.objeto.toUpperCase().indexOf(value.toUpperCase()) !== -1 ||
+                el.ubicacion.toUpperCase().indexOf(value.toUpperCase()) !== -1
+            );
+        });
+        setItems([...itemsFiltered].splice(0, itemsPagina));
+    }; */
+    // Fin Filtro rapido
     return (
         <AuthenticatedLayout auth={auth}>
             <link rel="shortcut icon" href="#"></link>
@@ -269,13 +252,26 @@ const Index = ({
             <div>
                 <div className="contenedor-filtros">
                     <div className="">
-                        <input
-                            className="buscador_rapido"
-                            id="buscar"
-                            type="text"
-                            placeholder="Búsqueda rápida"
-                            onChange={handleChange}
-                        />
+                        <form method="get" name="form_busqueda_rapida" id="form_busqueda_rapida">
+                            <input
+                                className="buscador_rapido"
+                                name="buscador_rapido"
+                                type="text"
+                                value={inputSearch}
+                                placeholder="Búsqueda rápida"
+                                onChange={handleChange}
+                            />
+                            <input
+                                name="fecha_publicacion"
+                                type="hidden"
+                                value={inputFechaPublicacion}
+                            />
+                            <input
+                                name="type"
+                                type="hidden"
+                                value="fetch"
+                            />
+                        </form>
                         <span className="material-symbols-outlined posicion-color">
                             search
                         </span>
@@ -309,7 +305,7 @@ const Index = ({
                             prevHandler={prevHandler}
                             currentPage={totalElemetosPaginados}
                             itemsPagina={itemsPagina}
-                            totalElementos={totalElementos}
+                            totalElementos={totalRegistros}
                             totalPaginas={numElementosPagina}
                         ></Paginador>
                     </div>
@@ -369,7 +365,7 @@ const Index = ({
                             </thead>
 
                             <tbody>
-                                {usuariosBuscador.map((contrato) => (
+                                {tableContratos.map((contrato) => (
                                     <tr key={contrato.id} className="tr-users">
                                         <td className="border border-gray-200 text-left mw-90">
                                             <div className="iconos-horizontal width-columna-acciones">
@@ -402,50 +398,50 @@ const Index = ({
                                                 <>
                                                     {showMoreSelected !=
                                                         contrato.id && (
-                                                        <span className="data-text">
-                                                            {contrato.objeto.substr(
-                                                                0,
-                                                                40
-                                                            )}
-                                                            ...{" "}
-                                                            <a
-                                                                className="text-primary"
-                                                                onClick={() =>
-                                                                    getData(
-                                                                        contrato
-                                                                    )
-                                                                }
-                                                            >
-                                                                Ver más
-                                                            </a>
-                                                        </span>
-                                                    )}
+                                                            <span className="data-text">
+                                                                {contrato.objeto.substr(
+                                                                    0,
+                                                                    40
+                                                                )}
+                                                                ...{" "}
+                                                                <a
+                                                                    className="text-primary"
+                                                                    onClick={() =>
+                                                                        getData(
+                                                                            contrato
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    Ver más
+                                                                </a>
+                                                            </span>
+                                                        )}
                                                 </>
                                             )}
 
                                             {showMoreSelected ==
                                                 contrato.id && (
-                                                <div className="showmore">
-                                                    <span className="data-text">
-                                                        {contrato.objeto}
-                                                        <a
-                                                            className="text-primary"
-                                                            onClick={() =>
-                                                                hideData()
-                                                            }
-                                                        >
-                                                            Ver menos
-                                                        </a>
-                                                    </span>
-                                                </div>
-                                            )}
+                                                    <div className="showmore">
+                                                        <span className="data-text">
+                                                            {contrato.objeto}
+                                                            <a
+                                                                className="text-primary"
+                                                                onClick={() =>
+                                                                    hideData()
+                                                                }
+                                                            >
+                                                                Ver menos
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                )}
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos width-columna-menor">
                                             {contrato.valor > 0
                                                 ? "$" +
-                                                  contrato.valor.toLocaleString(
-                                                      "ch-CH"
-                                                  )
+                                                contrato.valor.toLocaleString(
+                                                    "ch-CH"
+                                                )
                                                 : contrato.valor_texto}
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos mw-200">
