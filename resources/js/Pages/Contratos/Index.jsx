@@ -108,23 +108,23 @@ const Index = ({auth, contratos}) => {
     const [inputSearch, setInputSearch] = useState("")
     const [inputFechaPublicacion, setInputFechaPublicacion] = useState("")
 
-    const getUrlParams = () =>{//Obtener inputs de formulario y guardarlos en objeto
-        var form = document.getElementById("form_busqueda_rapida")
-        let formData = new FormData(form);
-        let object = {};
-        formData.forEach(function (value, key) {
-            object[key] = value;
-        });
-        const querystring = encodeQueryData(object);
-        return querystring
-    }
-    
-    const encodeQueryData = (data) => {//Convertir objeto en url
-        const ret = [];
-        for (let d in data)
-          ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
-        return ret.join('&');
-    }
+const getUrlParams = () =>{//Obtener inputs de formulario y guardarlos en objeto
+  var form = document.getElementById("form_busqueda_rapida")
+  let formData = new FormData(form);
+  let object = {};
+  formData.forEach(function (value, key) {
+  object[key] = value;
+ });
+ const querystring = encodeQueryData(object);
+  return querystring
+}
+
+const encodeQueryData = (data) => {//Convertir objeto en url
+ const ret = [];
+ for (let d in data)
+  ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+ return ret.join('&');
+}
 
     const pageChange = (url) => {//Peticiones por paginador
         if (url == null) return;
@@ -272,7 +272,6 @@ const Index = ({auth, contratos}) => {
                                 style={{ backgroundColor: "#00a1c9" }}
                             >
                                 <tr className="bg-paginador text-white uppercase leading-normal">
-                                    <th>id</th>
                                     <th>Acciones</th>
                                     <th>Portal</th>
                                     <th>Entidad</th>
@@ -291,7 +290,6 @@ const Index = ({auth, contratos}) => {
                             <tbody>
                                 {tableContratos.map((contrato) => (
                                     <tr key={contrato.id} className="tr-users">
-                                        <td>{contrato.id}</td>
                                         <td className="border border-gray-200 text-left mw-90">
                                             <div className="iconos-horizontal width-columna-acciones">
                                                 <div>
