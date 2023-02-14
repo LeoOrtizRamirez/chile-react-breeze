@@ -80,7 +80,11 @@ const Index = ({ auth, localizacion }) => {
     }
 
     const checked = (actividad_economica) => {
+
+        console.log(actividad_economica)
         setInputActividadEconomica(actividad_economica)
+        console.log(inputActividadEconomica)
+        
     }
 
     const filterActividadEconomica = (e) => {
@@ -163,6 +167,7 @@ const Index = ({ auth, localizacion }) => {
                                                         </span>
                                                     </div>
                                                     {showSegmento && sector.id == selectedSegmento &&
+
                                                         <ul className="tree-children">
                                                             {segmentos.map((segmento) => (
 
@@ -171,6 +176,14 @@ const Index = ({ auth, localizacion }) => {
                                                                     <div className="tree-content segmento" onClick={() => getActividadEconomica(segmento.id)}>
                                                                         <i className="tree-arrow expanded has-child ltr"></i>
                                                                         {/* <i className="tree-checkbox"></i> */}
+                                                                        <input
+                                                                            type="radio"
+                                                                            name="actividad_economica"
+                                                                            onClick={() => checked(segmento)}
+                                                                            checked={segmento.id == inputActividadEconomica.id ? "checked" : ""}
+                                                                        />
+
+                                                                        {/* {()=>console.log()} */}
                                                                         <span className="tree-anchor">
                                                                             <span className="tree-division tree-division1">
                                                                                 <span className="tree-division__title my-auto">{segmento.nombre}</span>
@@ -183,12 +196,12 @@ const Index = ({ auth, localizacion }) => {
                                                                             {actividadesEconomicas.map((childs) => (
                                                                                 <li className="tree-node draggable">
                                                                                     <div className="tree-content actividad-economica" onClick={() => checked(childs)}>
-                                                                                        <input
+                                                                                        {/* <input
                                                                                             type="radio"
                                                                                             name="actividad_economica"
                                                                                             onClick={() => checked(childs)}
                                                                                             checked={childs.id == inputActividadEconomica.id ? "checked" : ""}
-                                                                                        />
+                                                                                        /> */}
                                                                                         <span className="tree-anchor children">
                                                                                             <span className="tree-division tree-division1">
                                                                                                 <span className="tree-division__title my-auto">{childs.nombre}</span>
