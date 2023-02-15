@@ -149,7 +149,18 @@ const Index = ({ auth, actividades_economicas }) => {
                                     />
                                     <i className="icon-Cancelar"></i>
                                     <button type="button" className="icon-Buscar-click"><i className="bi bi-search"></i></button>
-
+                                    <br></br>
+                                    <div className="botones">
+                                        <Nav.Link href={route("actividades-economicas.create")} className="flex  ml-4 text-probar " >
+                                            <i className="bi bi-plus-square-fill"></i>
+                                        </Nav.Link>
+                                        <Nav.Link onClick={editActividadEconomica} className="flex  ml-4 text-probar " >
+                                            <i className="bi bi-pencil-fill"></i>
+                                        </Nav.Link>
+                                        <Nav.Link onClick={handleShowModalActividadEconomica} className="flex  ml-4 text-probar " >
+                                            <i className="bi bi-trash3"></i>
+                                        </Nav.Link>
+                                    </div>
                                     {sectores.map((sector) => (
                                         <>
                                             {sector.id_padre_sub_categoria == null &&
@@ -180,7 +191,7 @@ const Index = ({ auth, actividades_economicas }) => {
 
                                                                     {showActividadEconomica && selectedActividadEconomica == segmento.id &&
                                                                         <ul className="tree-children">
-                                                                            {actividadesEconomicas.map((childs) => (
+                                                                            {actividadesEconomicas.map((childs,index) => (
                                                                                 <li className="tree-node draggable">
                                                                                     <div className="tree-content actividad-economica" onClick={() => checked(childs)}>
                                                                                         <input
@@ -191,7 +202,14 @@ const Index = ({ auth, actividades_economicas }) => {
                                                                                         />
                                                                                         <span className="tree-anchor children">
                                                                                             <span className="tree-division tree-division1">
-                                                                                                <span className="tree-division__title my-auto">{childs.nombre}</span>
+                                                                                                {/*  <span className="tree-division__title my-auto">{childs.nombre}</span> */}
+                                                                                                <>
+                                                                                                    {index % 2 == 0 ? (
+                                                                                                        <span className="tree-division__title my-auto">{childs.nombre}</span>
+                                                                                                    ) : (
+                                                                                                        <span className="tree-division__title-gray my-auto">{childs.nombre}</span>
+                                                                                                    )}
+                                                                                                </>
                                                                                             </span>
                                                                                         </span>
                                                                                     </div>
@@ -235,17 +253,7 @@ const Index = ({ auth, actividades_economicas }) => {
                             </Modal.Footer>
                         </Modal>
 
-                        <div className="botones">
-                            <Nav.Link href={route("actividades-economicas.create")} className="flex  ml-4 text-probar " >
-                                <i className="bi bi-plus-square-fill"></i>
-                            </Nav.Link>
-                            <Nav.Link onClick={editActividadEconomica} className="flex  ml-4 text-probar " >
-                                <i className="bi bi-pencil-fill"></i>
-                            </Nav.Link>
-                            <Nav.Link onClick={handleShowModalActividadEconomica} className="flex  ml-4 text-probar " >
-                                <i className="bi bi-trash3"></i>
-                            </Nav.Link>
-                        </div>
+
                     </div>
                 </div>
             </div>
