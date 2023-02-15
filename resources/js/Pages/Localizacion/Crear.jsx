@@ -114,12 +114,12 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
                                         for="validationInput"
                                         className="bloque__registro-form-title-label"
                                     >
-                                        Seleccione el sector
+                                       Región
                                     </Form.Label>
                                 </div>
                                 <div className="col-12 col-sm-8">
                                     <Form.Select name="sector" className="sector" id="" onChange={getSegmentos}>
-                                        <option value="">Selecciona un Sector</option>
+                                        <option value="">Selecciona una región</option>
                                         {sectores.map((sector) => (
                                             <option value={sector.id}>{sector.nombre}</option>
                                         ))}
@@ -152,13 +152,13 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
                                         for="validationInput"
                                         className="bloque__registro-form-title-label"
                                     >
-                                        Nombre Localización
+                                       Nombre de la comuna o ciudad
                                     </Form.Label>
                                 </div>
                                 <div className="col-12 col-sm-8">
                                     <Form.Control
                                         type="text"
-                                        placeholder="Nombre de la localización"
+                                        placeholder="Nombre de la comuna o ciudad"
                                         value={data.nombre}
                                         onChange={(e) =>
                                             setData("nombre", e.target.value)

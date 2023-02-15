@@ -4,6 +4,7 @@ import { Link, useForm, Head } from "@inertiajs/inertia-react";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 import './Index.css';
 
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import Nav from 'react-bootstrap/Nav';
 import Modal from "react-bootstrap/Modal";
@@ -29,10 +30,15 @@ const Index = ({ auth, localizacion }) => {
         id: 0,
         nombre: "",
     });
+
+    /* var new_data = actividadesEconomicas.filter(ae => ae.id != inputActividadEconomica.id); */
+
+
     const [segmentos, setSegmentos] = useState([]);
     const [actividadesEconomicas, setActividadesEconomicas] = useState([]);
     const [showModalActividadEconomica, setShowModalActividadEconomica] = useState(false);
     const handleCloseModalActividadEconomica = () => setShowModalActividadEconomica(false);
+
     const handleShowModalActividadEconomica = () => {
         if (inputLocalizacion.id != 0) {
             setShowModalActividadEconomica(true)
@@ -42,6 +48,7 @@ const Index = ({ auth, localizacion }) => {
             setShowToast(true)
         }
     };
+
     const editLocalizacion = () => {
         if (inputLocalizacion.id != 0) {
             window.location.replace('/localizacion/' + inputLocalizacion.id + '/edit')
@@ -81,10 +88,10 @@ const Index = ({ auth, localizacion }) => {
 
     const checked = (actividad_economica) => {
 
-    /*     console.log(actividad_economica) */
+        /*     console.log(actividad_economica) */
         setInputLocalizacion(actividad_economica)
         /* console.log(inputLocalizacion) */
-        
+
     }
 
     const filterLocalizacion = (e) => {
@@ -106,8 +113,8 @@ const Index = ({ auth, localizacion }) => {
             .then((data) => {
                 if (data.type == "Success") {
                     setToastIcon('icon-check')
-                    var new_data = actividadesEconomicas.filter(ae => ae.id != inputLocalizacion.id);
-                    setActividadesEconomicas(new_data)
+                    var new_data = segmentos.filter(ae => ae.id != inputLocalizacion.id);
+                    setSegmentos(new_data)
                 } else {
                     setToastIcon('icon-error')
                 }
@@ -141,6 +148,8 @@ const Index = ({ auth, localizacion }) => {
                 <div className="bg-white overflow-auto w-full text-center margen-superior">
                     <h2 className="name_section_app">Localización</h2>
                     <div className="container mt-4">
+
+
                         <div className="tree_categorias tree_1">
                             <div className="tree_categorias__busqueda mb-3 mb-md-4">
                                 <div className="mx-auto">
@@ -153,11 +162,26 @@ const Index = ({ auth, localizacion }) => {
                                     />
                                     <i className="icon-Cancelar"></i>
                                     <button type="button" className="icon-Buscar-click"><i className="bi bi-search"></i></button>
+                                    <br></br>
+                                    <div className="botones">
+                                        <Nav.Link href={route("createLocalizacion")} className="flex  ml-4 text-probar " >
+                                            <i className="bi bi-plus-square-fill"></i>
+                                        </Nav.Link>
+                                        <Nav.Link onClick={editLocalizacion} className="flex  ml-4 text-probar " >
+                                            <i className="bi bi-pencil-fill"></i>
+                                        </Nav.Link>
+                                        <Nav.Link onClick={handleShowModalActividadEconomica} className="flex  ml-4 text-probar " >
+                                            <i className="bi bi-trash3"></i>
+                                        </Nav.Link>
+                                    </div>
+
 
                                     {sectores.map((sector) => (
                                         <>
+
                                             {sector.id_padre_sub_categoria == null &&
                                                 <>
+                                                    {/* {console.log(sector)} */}
                                                     <div className="tree-content mt-3 sector" key={sector.id} onClick={() => getSegmento(sector.id)}>
                                                         <i className={`tree-arrow has-child ${sector.childs.length > 0 ? "bi bi-chevron-down" : ""}`}></i>
                                                         <span className="tree-anchor">
@@ -169,13 +193,11 @@ const Index = ({ auth, localizacion }) => {
                                                     {showSegmento && sector.id == selectedSegmento &&
 
                                                         <ul className="tree-children">
-                                                            {segmentos.map((segmento) => (
-
+                                                            {segmentos.map((segmento, index) => (
 
                                                                 <li data-id="20504" className="tree-node has-child expanded draggable">
                                                                     <div className="tree-content segmento" onClick={() => getLocalizacion(segmento.id)}>
                                                                         <i className="tree-arrow expanded has-child ltr"></i>
-                                                                        {/* <i className="tree-checkbox"></i> */}
                                                                         <input
                                                                             type="radio"
                                                                             name="actividad_economica"
@@ -183,10 +205,16 @@ const Index = ({ auth, localizacion }) => {
                                                                             checked={segmento.id == inputLocalizacion.id ? "checked" : ""}
                                                                         />
 
-                                                                        {/* {()=>console.log()} */}
                                                                         <span className="tree-anchor">
                                                                             <span className="tree-division tree-division1">
-                                                                                <span className="tree-division__title my-auto">{segmento.nombre}</span>
+                                
+                                                                                <>
+                                                                                    {index % 2 == 0 ? (
+                                                                                        <span className="tree-division__title my-auto">{segmento.nombre}</span>
+                                                                                    ) : (
+                                                                                        <span className="tree-division__title-gray my-auto">{segmento.nombre}</span>
+                                                                                    )}
+                                                                                </>
                                                                             </span>
                                                                         </span>
                                                                     </div>
@@ -248,17 +276,7 @@ const Index = ({ auth, localizacion }) => {
                             </Modal.Footer>
                         </Modal>
 
-                        <div className="botones">
-                            <Nav.Link href={route("createLocalizacion")} className="flex  ml-4 text-probar " >
-                                <i className="bi bi-plus-square-fill"></i>
-                            </Nav.Link>
-                            <Nav.Link onClick={editLocalizacion} className="flex  ml-4 text-probar " >
-                                <i className="bi bi-pencil-fill"></i>
-                            </Nav.Link>
-                            <Nav.Link onClick={handleShowModalActividadEconomica} className="flex  ml-4 text-probar " >
-                                <i className="bi bi-trash3"></i>
-                            </Nav.Link>
-                        </div>
+
                     </div>
                 </div>
             </div>
