@@ -1,6 +1,5 @@
 import React, { useState, useEffect, Suspense, lazy } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { useForm, Head } from "@inertiajs/inertia-react";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 import "./Index.css";
 import Compartir from "../../Components/Acciones/Compartir";
@@ -13,17 +12,8 @@ import Paginador from "@/Components/PaginadorContratos";
 import $ from "jquery";
 import "@fontsource/poppins";
 
-const Index = ({
-    auth,
-    contratos,
-    totalContratos,
-    pagina,
-    numElementosPagina,
-    totalElemetosPaginados,
-}) => {
-    const { data, setData, post, get, processing, reset, errors } = useForm({});
-
-    const [tableContratos, setTableContratos] = useState(contratos)
+const Index = ({auth, contratos}) => {
+    const [tableContratos, setTableContratos] = useState(contratos.data)
 
     // Inicio Ordenar tabla por columna
     $("th").click(function () {
@@ -69,11 +59,6 @@ const Index = ({
     // Fin Ordenar tabla por columna
 
 
-
-
-
-
-
     /*Inicio - ver más, ver menos */
     const [showLess, setShowLess] = useState(true);
     const [showMoreSelected, setShowMoreSelected] = useState(0);
@@ -85,6 +70,7 @@ const Index = ({
         setShowMoreSelected(0);
     };
     /*Fin - ver más, ver menos */
+
 
     /*Inicio Scroll*/
     const [fakeScrollContentWidth, setFakeScrollContentWidth] = useState(0);
@@ -109,142 +95,80 @@ const Index = ({
             wrapper1.scrollLeft = wrapper2.scrollLeft;
         };
     });
-
     /*Fin Scroll*/
 
-    const encodeQueryData = (data) => {
-        console.log(data)
-        const ret = [];
-        for (let d in data)
-          ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
-        return ret.join('&');
-     }
 
-    const handleChange = (e) => {
-        var form = document.getElementById("form_busqueda_rapida")
-        let formData = new FormData(form);
-        let object = {};
-        formData.forEach(function (value, key) {
-            object[key] = value;
-        });
-        var json = JSON.stringify(object);
-        
-        setInputSearch(e.target.value);
+    /*Inicio Buscador rapido y paginador */
+    const [totalPaginas, setTotalPaginas] = useState(contratos.to)
+    const [currentPage, setCurrentPage] = useState(contratos.from)
+    const [totalElementos, setTotalElementos] = useState(contratos.total)
+    const [nextPage, setNextPage] = useState(contratos.next_page_url)
+    const [prevPage, setPrevPage] = useState(contratos.prev_page_url)
 
-
-        const querystring = encodeQueryData(object);
-        console.log(querystring)
-        var params = urlFechaPublicacion ? urlFechaPublicacion : ""
-        /* fetch('/contratos/?buscador_rapido=' + inputSearch + '&' + params) */
-        fetch('/contratos/?' + querystring)
-        .then((response) => response.json())
-        .then((data) => {
-            setTableContratos(data.contratos)
-            setTotalRegistros(data.totalContratos)
-        })
-    };
-
-    //Inicio Buscador rapido
-
-    const [usuariosBuscador, setusuariosBuscador] = useState([]);
-    const [tablaUsuariosBuscador, setTablaUsuariosBuscador] = useState([]);
-
-    const itemsPagina = 30;
-    const [totalRegistros, setTotalRegistros] = useState(totalContratos)
-    const [totalPaginas, setTotalPaginas] = useState(totalElemetosPaginados)
-    const [primerRegistro, setPrimerRegistro] = useState(0)
-    const [ultimoRegistro, setUltimoRegistro] = useState(0)
-    const [urlFechaPublicacion, setUrlFechaPublicacion] = useState("")
     const [inputSearch, setInputSearch] = useState("")
     const [inputFechaPublicacion, setInputFechaPublicacion] = useState("")
 
+const getUrlParams = () =>{//Obtener inputs de formulario y guardarlos en objeto
+  var form = document.getElementById("form_busqueda_rapida")
+  let formData = new FormData(form);
+  let object = {};
+  formData.forEach(function (value, key) {
+  object[key] = value;
+ });
+ const querystring = encodeQueryData(object);
+  return querystring
+}
 
+const encodeQueryData = (data) => {//Convertir objeto en url
+ const ret = [];
+ for (let d in data)
+  ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+ return ret.join('&');
+}
 
-    /*Inicio - Paginador */
-    const nextHandler = () => {
-        if (pagina >= totalPaginas) return;
-        var params = inputSearch ? "&buscador_rapido=" + inputSearch : ""
-        get(
-            "/contratos/" +
-            ultimoRegistro +
-            "/" +
-            pagina +
-            "/next?" +
-            urlFechaPublicacion +
-            params
-        ),
-            { onSuccess: () => reset() };
+    const pageChange = (url) => {//Peticiones por paginador
+        if (url == null) return;
+        const querystring = getUrlParams()
+        fetch(url + '&' + querystring)
+        .then((response) => response.json())
+        .then((data) => {
+            tableFormat(data)
+        })
     };
-    const prevHandler = () => {
-        if (pagina == 1) return;
-        var params = inputSearch ? "&buscador_rapido=" + inputSearch : ""
-        get(
-            "/contratos/" +
-            primerRegistro +
-            "/" +
-            pagina +
-            "/prev?" +
-            urlFechaPublicacion +
-            params
-        ),
-            { onSuccess: () => reset() };
+
+    const handleChangeInputSearch = (e) => {//Peticiones por input busqueda rapida
+        setInputSearch(e.target.value);
+        const querystring = getUrlParams()
+        fetch('/contratos/?' + querystring)
+        .then((response) => response.json())
+        .then((data) => {
+            tableFormat(data)
+        })
     };
-    /*Fin - Paginador */
 
+    const tableFormat = (data) =>{//Formatear valores del paginador
+        setTableContratos(data.data)
+        setTotalPaginas(data.to)
+        setCurrentPage(data.from)
+        setTotalElementos(data.total)
+        setNextPage(data.next_page_url)
+        setPrevPage(data.prev_page_url)
+    }
 
-    useEffect(() => {
+    useEffect(() => {//Al cargar la pagina, si hay parametros asignar valores al formulario
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const fecha_publicacion = urlParams.get("fecha_publicacion");
-        
         if (fecha_publicacion != null) {
-            setUrlFechaPublicacion("fecha_publicacion=" + fecha_publicacion)
+            setInputFechaPublicacion(fecha_publicacion)
         }
         const buscador_rapido = urlParams.get("buscador_rapido");
         if (buscador_rapido != null) {
             setInputSearch(buscador_rapido)
         }
     }, [])
+    /*Inicio Buscador rapido y paginador */
 
-    useEffect(() => {
-        if (contratos.length > 0) {
-            setUltimoRegistro(contratos[contratos.length - 1].id)
-            setPrimerRegistro(contratos[0].id)
-        }
-        setTotalPaginas(parseInt(totalRegistros / itemsPagina) + 1)
-
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const fecha_publicacion = urlParams.get("fecha_publicacion");
-        
-        if (fecha_publicacion != null) {
-            setUrlFechaPublicacion("fecha_publicacion=" + fecha_publicacion)
-        }
-    }, [tableContratos]);
-
-    /* Fin Buscador*/
-
-
-
-
-
-
-    // Inicio Filtro rapido
-    /* const busquedaRapida = (event) => {
-        const value = event.target.value;
-        const itemsFiltered = datos.filter(function (el) {
-            // debugger;
-            return (
-                el.entidad_contratante
-                    .toUpperCase()
-                    .indexOf(value.toUpperCase()) !== -1 ||
-                el.objeto.toUpperCase().indexOf(value.toUpperCase()) !== -1 ||
-                el.ubicacion.toUpperCase().indexOf(value.toUpperCase()) !== -1
-            );
-        });
-        setItems([...itemsFiltered].splice(0, itemsPagina));
-    }; */
-    // Fin Filtro rapido
     return (
         <AuthenticatedLayout auth={auth}>
             <link rel="shortcut icon" href="#"></link>
@@ -259,7 +183,7 @@ const Index = ({
                                 type="text"
                                 value={inputSearch}
                                 placeholder="Búsqueda rápida"
-                                onChange={handleChange}
+                                onChange={handleChangeInputSearch}
                             />
                             <input
                                 name="fecha_publicacion"
@@ -301,12 +225,11 @@ const Index = ({
 
                     <div>
                         <Paginador
-                            nextHandler={nextHandler}
-                            prevHandler={prevHandler}
-                            currentPage={totalElemetosPaginados}
-                            itemsPagina={itemsPagina}
-                            totalElementos={totalRegistros}
-                            totalPaginas={numElementosPagina}
+                            nextHandler={()=>pageChange(nextPage)}
+                            prevHandler={()=>pageChange(prevPage)}
+                            currentPage={currentPage}
+                            totalPaginas={totalPaginas}
+                            totalElementos={totalElementos}
                         ></Paginador>
                     </div>
                 </div>
