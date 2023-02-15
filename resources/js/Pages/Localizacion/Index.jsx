@@ -194,8 +194,7 @@ const Index = ({ auth, localizacion }) => {
 
                                                         <ul className="tree-children">
                                                             {segmentos.map((segmento, index) => (
-
-                                                                <li data-id="20504" className="tree-node has-child expanded draggable">
+                                                                <li data-id="20504" className="tree-node has-child expanded draggable" onClick={() => checked(segmento)}>
                                                                     <div className="tree-content segmento" onClick={() => getLocalizacion(segmento.id)}>
                                                                         <i className="tree-arrow expanded has-child ltr"></i>
                                                                         <input
