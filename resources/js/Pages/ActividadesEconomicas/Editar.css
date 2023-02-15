@@ -186,6 +186,8 @@ select.sector, select.segmento, input.actividad-economica{
 }
 
 .btn-new-red:hover {
-    background: #dc3545!important;
-    color: #fff!important;
+    background: #dc3545 !important;
+    color: #fff !important;
 }
+
+

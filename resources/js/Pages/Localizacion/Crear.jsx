@@ -38,8 +38,18 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
 
 
     const handleSubmit = (event) => {
+        console.log(event.target[0][0].innerText)
         const form = event.currentTarget;
         setValidated(true);
+
+        if (event.target[0][0].innerText == "Selecciona una región") {
+            event.preventDefault();
+            event.stopPropagation();
+            document.querySelectorAll("select.sector.form-select")[0].classList.add('failed');
+            return;
+        }
+
+
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
@@ -119,7 +129,7 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
                                 </div>
                                 <div className="col-12 col-sm-8">
                                     <Form.Select name="sector" className="sector" id="" onChange={getSegmentos}>
-                                        <option value="">Selecciona una región</option>
+                                        <option>Selecciona una región</option>
                                         {sectores.map((sector) => (
                                             <option value={sector.id}>{sector.nombre}</option>
                                         ))}
