@@ -38,11 +38,14 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
 
     const handleSubmit = (event) => {
 
+        const sector = document.querySelectorAll(".sector")[0].value;
+        const segmento = document.querySelectorAll(".segmento")[0].value;
+
         /*  select.sector.form-select */
         const form = event.currentTarget;
         setValidated(true);
 
-        if (event.target[1][0].innerText == "Selecciona un Segmento" || event.target[0][0].innerText == "Selecciona un Sector") {
+        if (segmento == "Selecciona un Segmento" || sector == "Selecciona un Sector") {
             event.preventDefault();
             event.stopPropagation();
             document.querySelectorAll("select.segmento.form-select")[0].classList.add('failed');
@@ -74,6 +77,8 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
     }, [errors])
 
     const getSegmentos = (e) => {
+        document.querySelectorAll("select.segmento.form-select")[0].classList.remove('failed');
+            document.querySelectorAll("select.sector.form-select")[0].classList.remove('failed');
         setData("sector", e.target.value)
         var parent = e.target.value
         const input_filter = parent
