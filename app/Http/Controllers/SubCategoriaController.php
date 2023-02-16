@@ -300,8 +300,6 @@ class SubCategoriaController extends Controller
     public function destroyLocalizacion(SubCategoria $localizacion)
     {
         $localizacion->deleteLocalizacion();
-
-        return("redireccion");
         return redirect(route('indexLocalizacion'));
     }
 

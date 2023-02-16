@@ -130,7 +130,7 @@ const Editar = ({ auth, actividades_economicas, solo_sectores, ae_actual }) => {
                                 </div>
                                 <div className="col-12 col-sm-8">
                                     <Form.Select name="segmento" className="segmento" id="" onChange={(e) => setData("segmento", e.target.value)} value={data.segmento}>
-                                        <option value="">Nombre de la comuna o ciudad</option>
+                                        <option value="">Selecciona una región</option>
                                         {segmentos.map((segmento) => (
                                             <option key={segmento.id} value={segmento.id}>{segmento.nombre}</option>
                                         ))}

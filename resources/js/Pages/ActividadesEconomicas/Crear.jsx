@@ -33,9 +33,23 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
     const [segmentos, setSegmentos] = useState([])
 
     const [validated, setValidated] = useState(false)
+
+
+
     const handleSubmit = (event) => {
+
+        /*  select.sector.form-select */
         const form = event.currentTarget;
         setValidated(true);
+
+        if (event.target[1][0].innerText == "Selecciona un Segmento" || event.target[0][0].innerText == "Selecciona un Sector") {
+            event.preventDefault();
+            event.stopPropagation();
+            document.querySelectorAll("select.segmento.form-select")[0].classList.add('failed');
+            document.querySelectorAll("select.sector.form-select")[0].classList.add('failed');
+            return;
+        }
+
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
@@ -109,13 +123,14 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
                                         htmlFor=""
                                         for="validationInput"
                                         className="bloque__registro-form-title-label"
+
                                     >
                                         Seleccione el sector
                                     </Form.Label>
                                 </div>
                                 <div className="col-12 col-sm-8">
                                     <Form.Select name="sector" className="sector" id="" onChange={getSegmentos}>
-                                        <option value="">Selecciona un Sector</option>
+                                        <option>Selecciona un Sector</option>
                                         {sectores.map((sector) => (
                                             <option value={sector.id}>{sector.nombre}</option>
                                         ))}
@@ -134,7 +149,7 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
                                 </div>
                                 <div className="col-12 col-sm-8">
                                     <Form.Select name="segmento" className="segmento" id="" onChange={(e) => setData("segmento", e.target.value)}>
-                                        <option value="">Selecciona un Segmento</option>
+                                        <option>Selecciona un Segmento</option>
                                         {segmentos.map((segmento) => (
                                             <option value={segmento.id}>{segmento.nombre}</option>
                                         ))}

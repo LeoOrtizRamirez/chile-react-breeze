@@ -198,10 +198,10 @@ ul.lista-opciones.margen-nav > li {
 
 .tree_categorias__busqueda button {
     position: absolute;
-    right: 382px;
+    right: 294px;
     top: 0px;
     background: none;
-    padding: 1px 2px;
+    padding: 12px 2px;
     font-size: 19px;
     color: #00a1c9;
     border: 0;
@@ -244,7 +244,7 @@ ul.lista-opciones.margen-nav > li {
     .tree-content .tree-division__title {
         background: #66c6de !important;
         display: inline-block;
-        font-size: 16px;
+        font-size: 17px;
         font-weight: bold;
         color: #fff !important;
         font-family: Nexa-bold, sans-serif;
@@ -253,6 +253,9 @@ ul.lista-opciones.margen-nav > li {
         width: 100%;
         padding: 4px 10px;
     }
+
+
+
     .tree-content.actividad-economica .tree-division__title {
         font-weight: 100;
     }
@@ -294,6 +297,17 @@ ul.lista-opciones.margen-nav > li {
     font-size: 14px;
     color: #000 !important;
     text-align: left;
+}
+
+.tree-anchor.children .tree-division__title-gray {
+    background: #8080804f !important;
+    font-size: 14px;
+    color: #000 !important;
+    text-align: left;
+    border-radius: 22px;
+    width: 100%;
+    padding: 4px 10px;
+
 }
 
 .tree-children .tree-content .tree-division {
