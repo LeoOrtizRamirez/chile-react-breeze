@@ -16,8 +16,6 @@ import "../../../css/font-unicolor.css";
 /*Toast*/
 
 const Index = ({ auth, actividades_economicas }) => {
-    //sector = id_padre_sub_categoria y id_abuelo_sub_categoria = null 
-    //segmento = 
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastIcon, setToastIcon] = useState("");
@@ -59,24 +57,14 @@ const Index = ({ auth, actividades_economicas }) => {
         }
     }
 
-    
-
     const getSegmento = (parent) => {
-        setSelectedSegmento(parent)
-
-        if(parent == selectedSegmento){
-            setShowSegmento(false)
-        }else{
-            setShowSegmento(true)
-        }
-        
-        /* if (showSegmento) {
-            const resultado = openActividadesEconomicas.filter(element => element != parent);//Se elimina el parent que ya esta en el array
+        if(openActividadesEconomicas.includes(parent)){
+            const resultado = openActividadesEconomicas.filter(element => element != parent);//Se elimina el parent que ya esta
             setOpenActividadesEconomicas(resultado)//Se guarda el array sin el parent anterior
-        } else {
+        }else{
             setOpenActividadesEconomicas([...openActividadesEconomicas, parent])//Se añade el nuevo parent
-        } */
-        setOpenActividadesEconomicas([...openActividadesEconomicas, parent])//Se añade el nuevo parent
+        }
+
         const pattern = new RegExp(parent, "i");
         const FilteredActividadesEcomomicas = sectores.filter(function (el) {
             if (pattern.test(el.id_padre_sub_categoria)) {
@@ -84,20 +72,14 @@ const Index = ({ auth, actividades_economicas }) => {
             }
         });
 
-
         FilteredActividadesEcomomicas.forEach(element => {
             if(!segmentos.includes(element)){//Si los segmentos no tienen la actividad economica la agrega 
                 segmentos.push(element)
+            }else{
+                const resultado = segmentos.filter(segmento => segmento.id_padre_sub_categoria != parent)
+                setSegmentos(resultado)
             }
         });
-
-
-        //console.log(segmentos)
-        /* setShowSegmento(!showSegmento) */
-        
-        console.log(sectores)
-        console.log(segmentos)
-        console.log(showSegmento)
     }
 
     const getActividadEconomica = (parent) => {
@@ -220,8 +202,8 @@ const Index = ({ auth, actividades_economicas }) => {
                                                         </span>
                                                     </div>
                                                     {/* {showSegmento && sector.id == selectedSegmento && */}
-                                                    {showSegmento && openActividadesEconomicas.includes(sector.id) &&
-                                                        <ul className="tree-children">
+                                                    {openActividadesEconomicas.includes(sector.id) &&
+                                                        <ul className="tree-children new-class">
                                                             {segmentos.map((segmento) => (
                                                                 <>
                                                                     {sector.id == segmento.id_padre_sub_categoria &&
