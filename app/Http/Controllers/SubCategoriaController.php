@@ -319,6 +319,126 @@ class SubCategoriaController extends Controller
         return json_encode($response);
     }
 
+    // Tipos de compras
+    
+    public function storeTiposCompras(Request $request){
+        $request->validate([
+            'id' => 'unique:' . SubCategoria::class,
+            'nombre' => 'required',
+            'tipo_categoria' => 'required',
+        ]);
+        $subcategoria = new SubCategoria;
+        $subcategoria->nombre = $request->nombre;
+        $subcategoria->tipo_categoria = $request->tipo_categoria;
+        if (isset($request->sector) && $request->sector != "") {
+            $subcategoria->id_padre_sub_categoria = intval($request->sector);
+        }
+        if (isset($request->segmento) && $request->segmento != "") {
+            $subcategoria->id_padre_sub_categoria = intval($request->segmento);
+        }
+        try {
+            $subcategoria->save();
+        } catch (Exception $e) {
+            return json_encode($e->getMessage());
+        }
+        return redirect(route('indexTiposCompras'));
+    }
+
+    public function indexTiposCompras() {
+        $tiposcompras = SubCategoria::where('tipo_categoria', 5)
+            ->orderBy('updated_at', 'DESC')
+            ->with('parent', 'childs')
+            ->get();
+        return Inertia::render('TiposCompras/Index', [
+            'tiposcompras' => $tiposcompras,
+        ]);
+    }
+
+    public function createTiposCompras() {
+        $tiposcompras = SubCategoria::where('tipo_categoria', 5)
+            ->orderBy('updated_at', 'DESC')
+            ->with('parent', 'childs')
+            ->get();
+
+        $sectores = SubCategoria::where('tipo_categoria', 5)
+            ->where('id_padre_sub_categoria', null)
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+
+        return Inertia::render('TiposCompras/Crear', [
+            'tiposcompras' => $tiposcompras,
+            'solo_sectores' => $sectores,
+        ]);
+    }
+
+    public function editTiposCompras($id) {
+        $ae_actual = SubCategoria::where('id', $id)->with('parent', 'childs')->first();
+        $tiposcompras = SubCategoria::where('tipo_categoria', 5)
+            ->orderBy('updated_at', 'DESC')
+            ->with('parent', 'childs')
+            ->get();
+
+        $sectores = SubCategoria::where('tipo_categoria', 5)
+            ->where('id_padre_sub_categoria', null)
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+
+        return Inertia::render('TiposCompras/Editar', [
+            'tiposcompras' => $tiposcompras,
+            'solo_sectores' => $sectores,
+            'ae_actual' => $ae_actual,
+        ]);
+    }
+
+    public function deleteTiposCompras($id) {
+        $tiposcompra = SubCategoria::find($id);
+        try {
+            $tiposcompra->delete();
+            $response['type'] = 'Success';
+            $response['message'] = ('Se ha eliminado la Comuna');
+        } catch (Exception $e) {
+            $response['type'] = 'Error';
+            $response['message'] = ('No puedes eliminar esta Comuna');
+        }
+        return json_encode($response);
+    }
+
+    public function destroyTiposCompras(SubCategoria $localizacion) {
+        $localizacion->deleteTiposCompras();
+
+        return("redireccion");
+        return redirect(route('indexTiposCompras'));
+    }
+
+    public function updateTiposCompras(Request $request, SubCategoria $tiposcompra){
+        $id = $request->id;
+        if($request->id != $request->new_id){
+
+            $request->validate([
+                'id' => 'required|unique:' . SubCategoria::class,
+                'nombre' => 'required',
+                'tipo_categoria' => 'required',
+            ]);
+            $id = $request->new_id;
+        }
+        
+        $subcategoria = SubCategoria::find($request->id);
+        $subcategoria->id = $id;
+        $subcategoria->nombre = $request->nombre;
+        $subcategoria->tipo_categoria = $request->tipo_categoria;
+        if (isset($request->sector) && $request->sector != "") {
+            $subcategoria->id_padre_sub_categoria = intval($request->sector);
+        }
+        if (isset($request->segmento) && $request->segmento != "") {
+            $subcategoria->id_padre_sub_categoria = intval($request->segmento);
+        }
+        try {
+            $subcategoria->save();
+        } catch (Exception $e) {
+            return json_encode($e->getMessage());
+        }
+        return redirect(route('indexTiposCompras'));
+    }
 
 }
 

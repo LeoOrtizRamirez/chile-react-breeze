@@ -19,6 +19,7 @@ const App = () => {
                     href: "/actividades-economicas",
                 },
                 { title: "Localización", href: "/localizacion" },
+                { title: "Tipos Compras", href: "/tiposcompras" },
             ],
         },
         {

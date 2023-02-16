@@ -153,3 +153,12 @@ Route::get('/localizacion/{localizacion}/delete', [SubCategoriaController::class
 Route::delete('/localizacion/{localizacion}', [SubCategoriaController::class, 'destroyLocalizacion'])->middleware(['auth','verified'])->name('destroyLocalizacion');
 Route::post('/localizacion', [SubCategoriaController::class, 'storeLocalizacion'])->middleware(['auth','verified'])->name('storeLocalizacion');
 Route::PATCH('/localizacion/{localizacion}', [SubCategoriaController::class, 'updateLocalizacion'])->middleware(['auth','verified'])->name('updateLocalizacion');
+
+// Tipos de compras
+Route::get('/tiposcompras', [SubCategoriaController::class, 'indexTiposCompras'])->middleware(['auth','verified'])->name('indexTiposCompras');
+Route::get('/tiposcompras/create', [SubCategoriaController::class, 'createTiposCompras'])->middleware(['auth','verified'])->name('createTiposCompras');
+Route::get('/tiposcompras/{tiposcompras}/edit', [SubCategoriaController::class, 'editTiposCompras'])->middleware(['auth','verified'])->name('editTiposCompras');
+Route::get('/tiposcompras/{tiposcompras}/delete', [SubCategoriaController::class, 'deleteTiposCompras'])->middleware(['auth','verified'])->name('deleteTiposCompras');
+Route::delete('/tiposcompras/{tiposcompras}', [SubCategoriaController::class, 'destroyTiposCompras'])->middleware(['auth','verified'])->name('destroyTiposCompras');
+Route::post('/tiposcompras', [SubCategoriaController::class, 'storeTiposCompras'])->middleware(['auth','verified'])->name('storeTiposCompras');
+Route::PATCH('/tiposcompras/{tiposcompras}', [SubCategoriaController::class, 'updateTiposCompras'])->middleware(['auth','verified'])->name('updateTiposCompras');
