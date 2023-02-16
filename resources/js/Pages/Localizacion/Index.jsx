@@ -115,6 +115,7 @@ const Index = ({ auth, localizacion }) => {
                     setToastIcon('icon-check')
                     var new_data = segmentos.filter(ae => ae.id != inputLocalizacion.id);
                     setSegmentos(new_data)
+                    setInputLocalizacion({id: 0, nombre: ''})
                 } else {
                     setToastIcon('icon-error')
                 }
