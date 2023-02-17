@@ -25,6 +25,11 @@ const Index = ({ auth, actividades_economicas }) => {
     const [showActividadEconomica, setShowActividadEconomica] = useState(false);
     const [selectedSegmento, setSelectedSegmento] = useState(0);
     const [selectedActividadEconomica, setSelectedActividadEconomica] = useState(0);
+
+    const [openSegmentos, setOpenSegmentos] = useState([]);
+    const [openActividadesEconomicas, setOpenActividadesEconomicas] = useState([]);
+
+
     const [inputActividadEconomica, setInputActividadEconomica] = useState({
         id: 0,
         nombre: "",
@@ -56,21 +61,68 @@ const Index = ({ auth, actividades_economicas }) => {
     }
 
     const getSegmento = (parent) => {
-        //setSectores(fakeSectores);
-        const input_filter = parent
-        const pattern = new RegExp(input_filter, "i");
-        const FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
+        if (openSegmentos.includes(parent)) {
+            //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY openSegmentos
+            setOpenSegmentos(openSegmentos.filter(element => element != parent))
+        } else {
+            //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY openSegmentos
+            setOpenSegmentos([...openSegmentos, parent])//Se añade el nuevo parent
+        }
+
+        //SE BUSCAN LOS SEGMENTOS QUE TENGAN EL id_padre_sub_categoria == AL SECTOR QUE SE LE DIO CLICK
+        const pattern = new RegExp(parent, "i");
+        const FilteredSegmentos = sectores.filter(function (el) {
             if (pattern.test(el.id_padre_sub_categoria)) {
                 return el;
             }
         });
-        setSegmentos(FilteredActividadesEcomomicas);
-        setShowSegmento(!showSegmento)
-        setSelectedSegmento(parent)
+
+        //EN LOS SEGMENTOS QUE SE ENCONTRARON
+        FilteredSegmentos.forEach(element => {
+            if (!segmentos.includes(element)) {
+                //SI NO EXISTE, SE AGREGA
+                segmentos.push(element)
+            } else {
+                //SI YA EXISTE, SE ELIMINA
+                const resultado = segmentos.filter(segmento => segmento.id_padre_sub_categoria != parent)
+                setSegmentos(resultado)
+            }
+        });
     }
 
     const getActividadEconomica = (parent) => {
-        //setSectores(fakeSectores);
+        if (openActividadesEconomicas.includes(parent)) {
+            //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY openActividadesEconomicas
+            setOpenActividadesEconomicas(openActividadesEconomicas.filter(element => element != parent))
+        } else {
+            //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY openActividadesEconomicas
+            setOpenActividadesEconomicas([...openActividadesEconomicas, parent])//Se añade el nuevo parent
+        }
+
+        //SE BUSCAN LOS SEGMENTOS QUE TENGAN EL id_padre_sub_categoria == AL SECTOR QUE SE LE DIO CLICK
+        const pattern = new RegExp(parent, "i");
+        const FilteredActividadesEcomomicas = sectores.filter(function (el) {
+            if (pattern.test(el.id_padre_sub_categoria)) {
+                return el;
+            }
+        });
+
+        //EN LOS SEGMENTOS QUE SE ENCONTRARON
+        FilteredActividadesEcomomicas.forEach(element => {
+            if (!actividadesEconomicas.includes(element)) {
+                //SI NO EXISTE, SE AGREGA
+                actividadesEconomicas.push(element)
+            } else {
+                //SI YA EXISTE, SE ELIMINA
+                const resultado = actividadesEconomicas.filter(segmento => segmento.id_padre_sub_categoria != parent)
+                setActividadesEconomicas(resultado)
+            }
+        });
+
+        console.log(actividadesEconomicas)
+
+
+        /*
         const pattern = new RegExp(parent, "i");
         const FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
             if (pattern.test(el.id_padre_sub_categoria)) {
@@ -80,6 +132,7 @@ const Index = ({ auth, actividades_economicas }) => {
         setActividadesEconomicas(FilteredActividadesEcomomicas);
         setShowActividadEconomica(!showActividadEconomica)
         setSelectedActividadEconomica(parent)
+        */
     }
 
     const checked = (actividad_economica) => {
@@ -88,13 +141,25 @@ const Index = ({ auth, actividades_economicas }) => {
 
     const filterActividadEconomica = (e) => {
         const pattern = new RegExp(e.target.value, "i");
+
+        //retorna actividades economicas segun criterio de busqueda
         const FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
             if (pattern.test(el.nombre)) {
                 return el;
             }
         });
-        setSectores(FilteredActividadesEcomomicas);
-        setShowActividadEconomica(!showActividadEconomica)
+
+        var sectores_filtrados = []
+        FilteredActividadesEcomomicas.forEach(element => {
+            setOpenSegmentos([...openSegmentos, element.id_padre_sub_categoria])
+
+            //Buscar sectores (solo los que tienen id_padre_sub_categoria != null) en actividades economicas filtradas (FilteredActividadesEcomomicas)
+            if (element.id_abuelo_sub_categoria != null) {//segmentos - actividades economicas
+                sectores_filtrados.push(sectores.filter(s => s.id == element.id_abuelo_sub_categoria)[0])
+            }
+        });
+        setSectores(sectores_filtrados)
+        setShowActividadEconomica(true)
     }
 
 
@@ -177,51 +242,59 @@ const Index = ({ auth, actividades_economicas }) => {
                                                             </span>
                                                         </span>
                                                     </div>
-                                                    {showSegmento && sector.id == selectedSegmento &&
-                                                        <ul className="tree-children">
+                                                    {/* {showSegmento && sector.id == selectedSegmento && */}
+                                                    {openSegmentos.includes(sector.id) &&
+                                                        <ul className="tree-children new-class">
                                                             {segmentos.map((segmento) => (
+                                                                <>
+                                                                    {sector.id == segmento.id_padre_sub_categoria &&
+                                                                        <li data-id="20504" className="tree-node has-child expanded draggable">
+                                                                            <div className="tree-content segmento" onClick={() => getActividadEconomica(segmento.id)}>
+                                                                                <i className="tree-arrow expanded has-child ltr"></i>
+                                                                                {/* <i className="tree-checkbox"></i> */}
+                                                                                <span className="tree-anchor">
+                                                                                    <span className="tree-division tree-division1">
+                                                                                        <span className="tree-division__title my-auto">{segmento.nombre}</span>
+                                                                                    </span>
+                                                                                </span>
+                                                                            </div>
 
-
-                                                                <li data-id="20504" className="tree-node has-child expanded draggable">
-                                                                    <div className="tree-content segmento" onClick={() => getActividadEconomica(segmento.id)}>
-                                                                        <i className="tree-arrow expanded has-child ltr"></i>
-                                                                        {/* <i className="tree-checkbox"></i> */}
-                                                                        <span className="tree-anchor">
-                                                                            <span className="tree-division tree-division1">
-                                                                                <span className="tree-division__title my-auto">{segmento.nombre}</span>
-                                                                            </span>
-                                                                        </span>
-                                                                    </div>
-
-                                                                    {showActividadEconomica && selectedActividadEconomica == segmento.id &&
-                                                                        <ul className="tree-children">
-                                                                            {actividadesEconomicas.map((childs,index) => (
-                                                                                <li className="tree-node draggable">
-                                                                                    <div className="tree-content actividad-economica" onClick={() => checked(childs)}>
-                                                                                        <input
-                                                                                            type="radio"
-                                                                                            name="actividad_economica"
-                                                                                            onClick={() => checked(childs)}
-                                                                                            checked={childs.id == inputActividadEconomica.id ? "checked" : ""}
-                                                                                        />
-                                                                                        <span className="tree-anchor children">
-                                                                                            <span className="tree-division tree-division1">
-                                                                                                {/*  <span className="tree-division__title my-auto">{childs.nombre}</span> */}
-                                                                                                <>
-                                                                                                    {index % 2 == 0 ? (
-                                                                                                        <span className="tree-division__title my-auto">{childs.nombre}</span>
-                                                                                                    ) : (
-                                                                                                        <span className="tree-division__title-gray my-auto">{childs.nombre}</span>
-                                                                                                    )}
-                                                                                                </>
-                                                                                            </span>
-                                                                                        </span>
-                                                                                    </div>
-                                                                                </li>
-                                                                            ))}
-                                                                        </ul>
+                                                                            {/* {showActividadEconomica && selectedActividadEconomica == segmento.id && */}
+                                                                            {openActividadesEconomicas.includes(segmento.id) &&
+                                                                                <ul className="tree-children">
+                                                                                    {actividadesEconomicas.map((childs, index) => (
+                                                                                        <>
+                                                                                            {segmento.id == childs.id_padre_sub_categoria &&
+                                                                                                <li className="tree-node draggable">
+                                                                                                    <div className="tree-content actividad-economica" onClick={() => checked(childs)}>
+                                                                                                        <input
+                                                                                                            type="radio"
+                                                                                                            name="actividad_economica"
+                                                                                                            onClick={() => checked(childs)}
+                                                                                                            checked={childs.id == inputActividadEconomica.id ? "checked" : ""}
+                                                                                                        />
+                                                                                                        <span className="tree-anchor children">
+                                                                                                            <span className="tree-division tree-division1">
+                                                                                                                {/*  <span className="tree-division__title my-auto">{childs.nombre}</span> */}
+                                                                                                                <>
+                                                                                                                    {index % 2 == 0 ? (
+                                                                                                                        <span className="tree-division__title my-auto">{childs.nombre}</span>
+                                                                                                                    ) : (
+                                                                                                                        <span className="tree-division__title-gray my-auto">{childs.nombre}</span>
+                                                                                                                    )}
+                                                                                                                </>
+                                                                                                            </span>
+                                                                                                        </span>
+                                                                                                    </div>
+                                                                                                </li>
+                                                                                            }
+                                                                                        </>
+                                                                                    ))}
+                                                                                </ul>
+                                                                            }
+                                                                        </li>
                                                                     }
-                                                                </li>
+                                                                </>
                                                             ))}
 
                                                         </ul>

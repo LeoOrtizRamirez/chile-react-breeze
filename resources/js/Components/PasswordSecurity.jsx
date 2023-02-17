@@ -25,7 +25,7 @@ const PasswordSecurity = (props, onHandleChange) => {
             upperLower: /^[A-Za-z]+$/,
             upperNumber: /^[A-Z0-9]+$/,
             lowerNumber: /^[a-z0-9]+$/,
-            upperLowerNumber: /^[A-Za-z0-9]+$/,
+            upperLowerNumber: /^[a-zA-Z0-9_~!@#$%^&*()-=/*-+.,:;]*$/,
         };
         if (words.length > 0 && words.length < 6) {
             if (
