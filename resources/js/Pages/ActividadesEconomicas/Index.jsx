@@ -47,9 +47,12 @@ const Index = ({ auth, actividades_economicas }) => {
             setShowToast(true)
         }
     };
+    console.log("Actividad economica")
+    console.log(inputActividadEconomica)
     const editActividadEconomica = () => {
         if (inputActividadEconomica.id != 0) {
-            window.location.replace('/actividades-economicas/' + inputActividadEconomica.id + '/edit')
+            console.log(inputActividadEconomica)
+           /*  window.location.replace('/actividades-economicas/' + inputActividadEconomica.id + '/edit') */
         } else {
             setToastMessage("Debes seleccionar una Actividad Ecónomica")
             setToastIcon('icon-error')
@@ -169,6 +172,7 @@ const Index = ({ auth, actividades_economicas }) => {
                     setToastIcon('icon-check')
                     var new_data = actividadesEconomicas.filter(ae => ae.id != inputActividadEconomica.id);
                     setActividadesEconomicas(new_data)
+                    setInputActividadEconomica({id: 0, nombre: ''})
                 } else {
                     setToastIcon('icon-error')
                 }
