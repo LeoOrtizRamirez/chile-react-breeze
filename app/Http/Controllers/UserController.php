@@ -103,10 +103,13 @@ class UserController extends Controller
 
     public function edit(User $usuario)
     {
+     
         $planes = Plane::all();
+        $planUsuario = Plane::find($usuario->idplan);
         return Inertia::render('Usuarios/Editar', [
             'usuario' => $usuario,
             'planesAll' => $planes,
+            'planUsuario' =>$planUsuario
         ]);
     }
 
@@ -187,8 +190,10 @@ class UserController extends Controller
 
     public function destroy(User $usuario)
     {
+       
         $usuario->delete();
         return redirect(route('usuarios.index'));
+    
     }
 
     public function userValidate($email)
