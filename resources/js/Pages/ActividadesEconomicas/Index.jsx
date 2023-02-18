@@ -47,12 +47,9 @@ const Index = ({ auth, actividades_economicas }) => {
             setShowToast(true)
         }
     };
-    console.log("Actividad economica")
-    console.log(inputActividadEconomica)
     const editActividadEconomica = () => {
         if (inputActividadEconomica.id != 0) {
-            console.log(inputActividadEconomica)
-           /*  window.location.replace('/actividades-economicas/' + inputActividadEconomica.id + '/edit') */
+            /*  window.location.replace('/actividades-economicas/' + inputActividadEconomica.id + '/edit') */
         } else {
             setToastMessage("Debes seleccionar una Actividad Ecónomica")
             setToastIcon('icon-error')
@@ -118,48 +115,85 @@ const Index = ({ auth, actividades_economicas }) => {
                 setActividadesEconomicas(resultado)
             }
         });
-
-        console.log(actividadesEconomicas)
-
-
-        /*
-        const pattern = new RegExp(parent, "i");
-        const FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
-            if (pattern.test(el.id_padre_sub_categoria)) {
-                return el;
-            }
-        });
-        setActividadesEconomicas(FilteredActividadesEcomomicas);
-        setShowActividadEconomica(!showActividadEconomica)
         setSelectedActividadEconomica(parent)
-        */
     }
 
     const checked = (actividad_economica) => {
         setInputActividadEconomica(actividad_economica)
     }
 
-    const filterActividadEconomica = (e) => {
-        const pattern = new RegExp(e.target.value, "i");
+    const inputSearchActividadEconomica = (e) => {
+        if(e.target.value == ""){
+            setSectores(fakeSectores)
+            setSegmentos([])
+            setActividadesEconomicas([])
+            setOpenSegmentos([])
+            setOpenActividadesEconomicas([])
+            return;
+        }
+        if (e.key === 'Enter') {
+            //SE BUSCAN LAS ACTIVIDADES ECONOMICAS QUE COINCIDAN CON EL NOMBRE QUE SE INGRESO
+            const pattern = new RegExp(e.target.value, "i");
+            const FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
+                if (pattern.test(el.nombre)) {
+                    return el;
+                }
+            });
 
-        //retorna actividades economicas segun criterio de busqueda
-        const FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
-            if (pattern.test(el.nombre)) {
-                return el;
-            }
-        });
+            var sectores_filtrados = []
+            var segmentos_filtrados = []
+            var actividades_economicas_filtrados = []
+            var open_actividades_economicas = []
+            var open_segmentos = []
 
-        var sectores_filtrados = []
-        FilteredActividadesEcomomicas.forEach(element => {
-            setOpenSegmentos([...openSegmentos, element.id_padre_sub_categoria])
+            FilteredActividadesEcomomicas.forEach(element => {
+                if(element.id_abuelo_sub_categoria != null && element.id_padre_sub_categoria != null){//ae
+                    actividades_economicas_filtrados.push(element)
+                    open_actividades_economicas.push(element.id_padre_sub_categoria)
 
-            //Buscar sectores (solo los que tienen id_padre_sub_categoria != null) en actividades economicas filtradas (FilteredActividadesEcomomicas)
-            if (element.id_abuelo_sub_categoria != null) {//segmentos - actividades economicas
-                sectores_filtrados.push(sectores.filter(s => s.id == element.id_abuelo_sub_categoria)[0])
-            }
-        });
-        setSectores(sectores_filtrados)
-        setShowActividadEconomica(true)
+                    //BUSCAMOS EL SEGMENTO DE LA ACTIVIDAD ECONOMICA
+                    segmentos_filtrados.push(fakeSectores.filter(fs => fs.id == element.id_padre_sub_categoria)[0])
+                    open_segmentos.push(element.id_abuelo_sub_categoria)
+                }
+                
+                if(element.id_abuelo_sub_categoria == null && element.id_padre_sub_categoria != null){//segmento
+                    if(!segmentos_filtrados.includes(element)){
+                        segmentos_filtrados.push(element)
+                    }
+                    if(!open_segmentos.includes(element.id_padre_sub_categoria)){
+                        open_segmentos.push(element.id_padre_sub_categoria)
+                    }
+                }
+                
+                if (element.id_abuelo_sub_categoria == null && element.id_padre_sub_categoria == null) {//sector
+                    sectores_filtrados.push(element)
+                }
+            });
+
+            //BUSCAR TODOS LOS SECTORES Y SEGMENTOS DE actividades_economicas_filtrados
+            var ae_sector = null
+            var ae_segmento = null
+            actividades_economicas_filtrados.forEach(ae => {
+                //OBTENER SECTOR DE LA ACTIVIDAD ECONOMICA
+                ae_sector = fakeSectores.filter(fs => fs.id == ae.id_abuelo_sub_categoria)[0]
+                ae_segmento = fakeSectores.filter(fs => fs.id == ae.id_padre_sub_categoria)[0]
+                //SI EL ae_sector NO ESTA INCLUIDO EN sectores
+                if(!sectores_filtrados.includes(ae_sector)){
+                    //BUSCAR SECTOR Y GUARDAR
+                    sectores_filtrados.push(fakeSectores.filter(sector => sector.id == ae.id_abuelo_sub_categoria)[0])
+                }
+                if(!segmentos_filtrados.includes(ae_segmento)){
+                    //BUSCAR SEGMENTO Y GUARDAR
+                    sectores_filtrados.push(fakeSectores.filter(sector => sector.id == ae.id_padre_sub_categoria)[0])
+                }
+            })
+
+            setSectores(sectores_filtrados)
+            setSegmentos(segmentos_filtrados)
+            setActividadesEconomicas(actividades_economicas_filtrados)
+            setOpenSegmentos(open_segmentos)
+            setOpenActividadesEconomicas(open_actividades_economicas)
+        }
     }
 
 
@@ -172,7 +206,7 @@ const Index = ({ auth, actividades_economicas }) => {
                     setToastIcon('icon-check')
                     var new_data = actividadesEconomicas.filter(ae => ae.id != inputActividadEconomica.id);
                     setActividadesEconomicas(new_data)
-                    setInputActividadEconomica({id: 0, nombre: ''})
+                    setInputActividadEconomica({ id: 0, nombre: '' })
                 } else {
                     setToastIcon('icon-error')
                 }
@@ -214,7 +248,7 @@ const Index = ({ auth, actividades_economicas }) => {
                                         placeholder="Busca por actividad económica"
                                         autoComplete="off"
                                         className="form-control m-auto"
-                                        onChange={filterActividadEconomica}
+                                        onKeyDown={inputSearchActividadEconomica}
                                     />
                                     <i className="icon-Cancelar"></i>
                                     <button type="button" className="icon-Buscar-click"><i className="bi bi-search"></i></button>
@@ -234,7 +268,7 @@ const Index = ({ auth, actividades_economicas }) => {
                                         <>
                                             {sector.id_padre_sub_categoria == null &&
                                                 <>
-                                                    <div className="tree-content mt-3 sector" key={sector.id} onClick={() => getSegmento(sector.id)}>
+                                                    <div id={sector.id} className="tree-content mt-3 sector" key={sector.id} onClick={() => getSegmento(sector.id)}>
                                                         <i className={`tree-arrow has-child ${sector.childs.length > 0 ? "bi bi-chevron-down" : ""}`}></i>
                                                         <span className="tree-anchor">
                                                             <span className="tree-division tree-division1">
@@ -270,7 +304,7 @@ const Index = ({ auth, actividades_economicas }) => {
                                                                                                         <input
                                                                                                             type="radio"
                                                                                                             name="actividad_economica"
-                                                                                                            onClick={() => checked(childs)}
+                                                                                                            onChange={() => checked(childs)}
                                                                                                             checked={childs.id == inputActividadEconomica.id ? "checked" : ""}
                                                                                                         />
                                                                                                         <span className="tree-anchor children">
