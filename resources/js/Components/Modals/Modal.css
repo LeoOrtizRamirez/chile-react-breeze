@@ -1,3 +1,20 @@
 .fade.modal-backdrop.show {
     --bs-backdrop-bg: gray !important;
 }
+
+
+#modal-header-delete-user{
+    background: #1383ac;
+    color: #fff;
+}
+
+h6.color-negro {
+    color: black;
+    font-weight: 100;
+    font-size: 12px;
+}
+
+.modal.fade.show {
+
+    background-color: #8080809c;
+}

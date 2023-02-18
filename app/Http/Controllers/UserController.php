@@ -16,7 +16,7 @@ use Illuminate\Auth\Passwords\DatabaseTokenRepository;
 use Illuminate\Support\Facades\Mail;
 use DB;
 use Exception;
-
+use App\Models\Plane;
 class UserController extends Controller
 {
 
@@ -94,13 +94,22 @@ class UserController extends Controller
 
     public function create()
     {
-        return Inertia::render('Usuarios/Crear', []);
+        $planes = Plane::all();
+        return Inertia::render('Usuarios/Crear', [
+            'planesAll' => $planes,
+
+        ]);
     }
 
     public function edit(User $usuario)
     {
+     
+        $planes = Plane::all();
+        $planUsuario = Plane::find($usuario->idplan);
         return Inertia::render('Usuarios/Editar', [
-            'usuario' => $usuario
+            'usuario' => $usuario,
+            'planesAll' => $planes,
+            'planUsuario' =>$planUsuario
         ]);
     }
 
@@ -133,7 +142,7 @@ class UserController extends Controller
             'indicativo_empresa' => 'required|max:20',
             'telefono_fijo_empresa' => 'required|max:15',
             'email_facturacion_empresa' => 'required', 'email',
-            'descripcion_actividad_economica' => 'required|max:30',
+            'descripcion_actividad_economica' => 'required',
         ]);
 
         User::Create($validated);
@@ -181,8 +190,10 @@ class UserController extends Controller
 
     public function destroy(User $usuario)
     {
+       
         $usuario->delete();
         return redirect(route('usuarios.index'));
+    
     }
 
     public function userValidate($email)

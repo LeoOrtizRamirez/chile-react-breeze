@@ -9,9 +9,11 @@ import paises from "../../../../public/data/paises.json";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Editar.css";
 
-const editar = ({ usuario }) => {
+const editar = ({ usuario,planesAll, planUsuario }) => {
     const { auth } = usePage().props;
     const [editing, setEditing] = useState(false);
+    const [planes, setPlanes] = useState(planesAll)
+
     const { data, setData, patch, processing, reset, errors } = useForm({
         nombre_completo: usuario.nombre_completo,
         identificacion: usuario.identificacion,
@@ -21,7 +23,8 @@ const editar = ({ usuario }) => {
         direccion: usuario.direccion,
         ciudad: usuario.ciudad,
         pais: usuario.pais,
-        idplan: usuario.idplan,
+        idplan: planUsuario.id,
+        nombrePlan: planUsuario.nombre,
         email: usuario.email,
         fecha_vencimiento: usuario.fecha_vencimiento,
         estado: usuario.estado,
@@ -37,8 +40,10 @@ const editar = ({ usuario }) => {
         telefono_fijo_empresa: usuario.telefono_fijo_empresa,
         email_facturacion_empresa: usuario.email_facturacion_empresa,
         descripcion_actividad_economica:
-            usuario.descripcion_actividad_economica,
+        usuario.descripcion_actividad_economica,
     });
+
+  
 
     const submit = (e) => {
         e.preventDefault();
@@ -52,6 +57,12 @@ const editar = ({ usuario }) => {
         setData("pais", e.target.value);
         paises.find((pais) => pais.title === e.target.value);
     };
+
+    const handleIdPlan = (e) => {
+        setData("idplan", e.target.value);
+        planes.find((plan) => plan.id === e.target.value);
+    };
+
 
     const handlePaisEmpresa = (e) => {
         setData("pais_empresa", e.target.value);
@@ -74,6 +85,7 @@ const editar = ({ usuario }) => {
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Crear Usuario" />
+            
             <div className="content">
                 <link
                     rel="stylesheet"
@@ -325,26 +337,27 @@ const editar = ({ usuario }) => {
                             </div>
 
                             <div className="content-form">
-                                <Form.Group className="w-full mx-2">
+                            <Form.Group className="w-full mx-2">
                                     <Form.Label
                                         for="validationInput"
                                         htmlFor="idplan"
                                     >
-                                        Id plan:
+                                        Seleccione un plan:
                                     </Form.Label>
-                                    <Form.Control
+                        
+                                    <Form.Select
                                         required
-                                        value={data.idplan}
-                                        // value="1"
-                                        // disabled
                                         onChange={(e) =>
                                             setData("idplan", e.target.value)
                                         }
-                                        type="number"
-                                        placeholder="Id plan"
-                                        autoFocus
+                                        placeholder="Selecione un plan"
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
-                                    />
+                                    >
+                                        <option value={data.idplan}>{data.nombrePlan}</option>
+                                        {planes.map((plan, index) => (
+                                            <option  key={index} autoFocus value={plan.id}>{plan.nombre}</option>
+                                        ))}
+                                    </Form.Select>
                                 </Form.Group>
 
                                 <Form.Group className="w-full mx-2">
