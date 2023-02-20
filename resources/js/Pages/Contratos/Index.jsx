@@ -12,8 +12,8 @@ import Paginador from "@/Components/PaginadorContratos";
 import $ from "jquery";
 import "@fontsource/poppins";
 
-const Index = ({auth, contratos}) => {
-    const [tableContratos, setTableContratos] = useState(contratos.data)
+const Index = ({ auth, contratos }) => {
+    const [tableContratos, setTableContratos] = useState(contratos.data);
 
     // Inicio Ordenar tabla por columna
     $("th").click(function () {
@@ -58,7 +58,6 @@ const Index = ({auth, contratos}) => {
     }
     // Fin Ordenar tabla por columna
 
-
     /*Inicio - ver más, ver menos */
     const [showLess, setShowLess] = useState(true);
     const [showMoreSelected, setShowMoreSelected] = useState(0);
@@ -71,10 +70,10 @@ const Index = ({auth, contratos}) => {
     };
     /*Fin - ver más, ver menos */
 
-
     /*Inicio Scroll*/
     const [fakeScrollContentWidth, setFakeScrollContentWidth] = useState(0);
-    const [fakeScrollContainerWidth, setFakeScrollContainertWidth] = useState(0);
+    const [fakeScrollContainerWidth, setFakeScrollContainertWidth] =
+        useState(0);
 
     useEffect(() => {
         var fake_contenido_tabla = document.getElementById("div1");
@@ -97,76 +96,81 @@ const Index = ({auth, contratos}) => {
     });
     /*Fin Scroll*/
 
-
     /*Inicio Buscador rapido y paginador */
-    const [totalPaginas, setTotalPaginas] = useState(contratos.to)
-    const [currentPage, setCurrentPage] = useState(contratos.from)
-    const [totalElementos, setTotalElementos] = useState(contratos.total)
-    const [nextPage, setNextPage] = useState(contratos.next_page_url)
-    const [prevPage, setPrevPage] = useState(contratos.prev_page_url)
+    const [totalPaginas, setTotalPaginas] = useState(contratos.to);
+    const [currentPage, setCurrentPage] = useState(contratos.from);
+    const [totalElementos, setTotalElementos] = useState(contratos.total);
+    const [nextPage, setNextPage] = useState(contratos.next_page_url);
+    const [prevPage, setPrevPage] = useState(contratos.prev_page_url);
 
-    const [inputSearch, setInputSearch] = useState("")
-    const [inputFechaPublicacion, setInputFechaPublicacion] = useState("")
+    const [inputSearch, setInputSearch] = useState("");
+    const [inputFechaPublicacion, setInputFechaPublicacion] = useState("");
 
-const getUrlParams = () =>{//Obtener inputs de formulario y guardarlos en objeto
-  var form = document.getElementById("form_busqueda_rapida")
-  let formData = new FormData(form);
-  let object = {};
-  formData.forEach(function (value, key) {
-  object[key] = value;
- });
- const querystring = encodeQueryData(object);
-  return querystring
-}
+    const getUrlParams = () => {
+        //Obtener inputs de formulario y guardarlos en objeto
+        var form = document.getElementById("form_busqueda_rapida");
+        let formData = new FormData(form);
+        let object = {};
+        formData.forEach(function (value, key) {
+            object[key] = value;
+        });
+        const querystring = encodeQueryData(object);
+        return querystring;
+    };
 
-const encodeQueryData = (data) => {//Convertir objeto en url
- const ret = [];
- for (let d in data)
-  ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
- return ret.join('&');
-}
+    const encodeQueryData = (data) => {
+        //Convertir objeto en url
+        const ret = [];
+        for (let d in data)
+            ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+        return ret.join("&");
+    };
 
-    const pageChange = (url) => {//Peticiones por paginador
+    const pageChange = (url) => {
+        //Peticiones por paginador
         if (url == null) return;
-        const querystring = getUrlParams()
-        fetch(url + '&' + querystring)
-        .then((response) => response.json())
-        .then((data) => {
-            tableFormat(data)
-        })
+        const querystring = getUrlParams();
+        fetch(url + "&" + querystring)
+            .then((response) => response.json())
+            .then((data) => {
+                tableFormat(data);
+            });
     };
 
-    const handleChangeInputSearch = (e) => {//Peticiones por input busqueda rapida
+    const handleChangeInputSearch = (e) => {
+        //Peticiones por input busqueda rapida
         setInputSearch(e.target.value);
-        const querystring = getUrlParams()
-        fetch('/contratos/?' + querystring)
-        .then((response) => response.json())
-        .then((data) => {
-            tableFormat(data)
-        })
+        const querystring = getUrlParams();
+        fetch("/contratos/?" + querystring)
+            .then((response) => response.json())
+            .then((data) => {
+                tableFormat(data);
+            });
     };
 
-    const tableFormat = (data) =>{//Formatear valores del paginador
-        setTableContratos(data.data)
-        setTotalPaginas(data.to)
-        setCurrentPage(data.from)
-        setTotalElementos(data.total)
-        setNextPage(data.next_page_url)
-        setPrevPage(data.prev_page_url)
-    }
+    const tableFormat = (data) => {
+        //Formatear valores del paginador
+        setTableContratos(data.data);
+        setTotalPaginas(data.to);
+        setCurrentPage(data.from);
+        setTotalElementos(data.total);
+        setNextPage(data.next_page_url);
+        setPrevPage(data.prev_page_url);
+    };
 
-    useEffect(() => {//Al cargar la pagina, si hay parametros asignar valores al formulario
+    useEffect(() => {
+        //Al cargar la pagina, si hay parametros asignar valores al formulario
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const fecha_publicacion = urlParams.get("fecha_publicacion");
         if (fecha_publicacion != null) {
-            setInputFechaPublicacion(fecha_publicacion)
+            setInputFechaPublicacion(fecha_publicacion);
         }
         const buscador_rapido = urlParams.get("buscador_rapido");
         if (buscador_rapido != null) {
-            setInputSearch(buscador_rapido)
+            setInputSearch(buscador_rapido);
         }
-    }, [])
+    }, []);
     /*Inicio Buscador rapido y paginador */
 
     return (
@@ -176,7 +180,11 @@ const encodeQueryData = (data) => {//Convertir objeto en url
             <div>
                 <div className="contenedor-filtros">
                     <div className="">
-                        <form method="get" name="form_busqueda_rapida" id="form_busqueda_rapida">
+                        <form
+                            method="get"
+                            name="form_busqueda_rapida"
+                            id="form_busqueda_rapida"
+                        >
                             <input
                                 className="buscador_rapido"
                                 name="buscador_rapido"
@@ -190,13 +198,9 @@ const encodeQueryData = (data) => {//Convertir objeto en url
                                 type="hidden"
                                 value={inputFechaPublicacion}
                             />
-                            <input
-                                name="type"
-                                type="hidden"
-                                value="fetch"
-                            />
+                            <input name="type" type="hidden" value="fetch" />
                         </form>
-                        <span className="material-symbols-outlined posicion-color">
+                        <span className="material-symbols-outlined posicion-lupa-contratos">
                             search
                         </span>
                     </div>
@@ -225,8 +229,8 @@ const encodeQueryData = (data) => {//Convertir objeto en url
 
                     <div>
                         <Paginador
-                            nextHandler={()=>pageChange(nextPage)}
-                            prevHandler={()=>pageChange(prevPage)}
+                            nextHandler={() => pageChange(nextPage)}
+                            prevHandler={() => pageChange(prevPage)}
                             currentPage={currentPage}
                             totalPaginas={totalPaginas}
                             totalElementos={totalElementos}
@@ -321,50 +325,50 @@ const encodeQueryData = (data) => {//Convertir objeto en url
                                                 <>
                                                     {showMoreSelected !=
                                                         contrato.id && (
-                                                            <span className="data-text">
-                                                                {contrato.objeto.substr(
-                                                                    0,
-                                                                    40
-                                                                )}
-                                                                ...{" "}
-                                                                <a
-                                                                    className="text-primary"
-                                                                    onClick={() =>
-                                                                        getData(
-                                                                            contrato
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    Ver más
-                                                                </a>
-                                                            </span>
-                                                        )}
+                                                        <span className="data-text">
+                                                            {contrato.objeto.substr(
+                                                                0,
+                                                                40
+                                                            )}
+                                                            ...{" "}
+                                                            <a
+                                                                className="text-primary"
+                                                                onClick={() =>
+                                                                    getData(
+                                                                        contrato
+                                                                    )
+                                                                }
+                                                            >
+                                                                Ver más
+                                                            </a>
+                                                        </span>
+                                                    )}
                                                 </>
                                             )}
 
                                             {showMoreSelected ==
                                                 contrato.id && (
-                                                    <div className="showmore">
-                                                        <span className="data-text">
-                                                            {contrato.objeto}
-                                                            <a
-                                                                className="text-primary"
-                                                                onClick={() =>
-                                                                    hideData()
-                                                                }
-                                                            >
-                                                                Ver menos
-                                                            </a>
-                                                        </span>
-                                                    </div>
-                                                )}
+                                                <div className="showmore">
+                                                    <span className="data-text">
+                                                        {contrato.objeto}
+                                                        <a
+                                                            className="text-primary"
+                                                            onClick={() =>
+                                                                hideData()
+                                                            }
+                                                        >
+                                                            Ver menos
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            )}
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos width-columna-menor">
                                             {contrato.valor > 0
                                                 ? "$" +
-                                                contrato.valor.toLocaleString(
-                                                    "ch-CH"
-                                                )
+                                                  contrato.valor.toLocaleString(
+                                                      "ch-CH"
+                                                  )
                                                 : contrato.valor_texto}
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos mw-200">

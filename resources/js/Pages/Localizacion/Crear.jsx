@@ -38,17 +38,18 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
 
 
     const handleSubmit = (event) => {
-        console.log(event.target[0][0].innerText)
+        const selector = document.querySelectorAll(".sector")[0].value;
+        console.log(selector);
+
         const form = event.currentTarget;
         setValidated(true);
 
-        if (event.target[0][0].innerText == "Selecciona una región") {
+        if (selector == "Selecciona una región") {
             event.preventDefault();
             event.stopPropagation();
             document.querySelectorAll("select.sector.form-select")[0].classList.add('failed');
             return;
         }
-
 
         if (form.checkValidity() === false) {
             event.preventDefault();
@@ -74,6 +75,8 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
     }, [errors])
 
     const getSegmentos = (e) => {
+        document.querySelectorAll("select.sector.form-select")[0].classList.remove('failed');
+
         setData("sector", e.target.value)
         var parent = e.target.value
         const input_filter = parent
@@ -128,7 +131,7 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
                                     </Form.Label>
                                 </div>
                                 <div className="col-12 col-sm-8">
-                                    <Form.Select name="sector" className="sector" id="" onChange={getSegmentos}>
+                                    <Form.Select name="sector" className="sector" onChange={getSegmentos}>
                                         <option>Selecciona una región</option>
                                         {sectores.map((sector) => (
                                             <option value={sector.id}>{sector.nombre}</option>

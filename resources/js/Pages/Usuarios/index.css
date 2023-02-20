@@ -212,9 +212,8 @@ ul.lista-opciones.margen-nav > li {
     font-size: 13px;
 }
 
-.posicion-color {
+.posicion-lupa-color {
     position: absolute;
-    margin: 10px 0px 0px -57px;
+    margin: 10px 0px 0px -60px;
     width: 13px;
-    color: #00a1e0;
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-
+import "./Modal.css";
 import { Link } from "@inertiajs/inertia-react";
 
 //const DeleteModal = ({ props.usuario }) => {
@@ -10,8 +10,8 @@ const DeleteModal = props => {
         <div className="modal fade show" id={"deleteModal" + props.usuario.id} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style={{display: 'block'}}>
             <div className="modal-dialog">
                 <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Eliminar Plan</h5>
+                        <div className="modal-header" id="modal-header-delete-user">
+                            <h5 className="modal-title" id="exampleModalLabel">Eliminar Usuario</h5>
                             <button type="button" className="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"  onClick={handleSearch}></button>
                         </div>
                         <div className="modal-body">

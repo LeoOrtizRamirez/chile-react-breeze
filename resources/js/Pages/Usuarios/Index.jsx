@@ -206,10 +206,11 @@ const Index = ({
                                     placeholder="Búsqueda rápida"
                                     onChange={handleChange}
                                 />
-                                <span className="material-symbols-outlined posicion-color">
+                                <span className="material-symbols-outlined posicion-lupa-color">
                                     search
                                 </span>
                             </div>
+
                             <a
                                 className="autorenew"
                                 href="javascript:location.reload()"
@@ -291,7 +292,7 @@ const Index = ({
 
                                                 {openDeleteUserModal &&
                                                     openDeleteUserModalId ==
-                                                        usuario.id && (
+                                                    usuario.id && (
                                                         <DeleteModal
                                                             usuario={usuario}
                                                             openDeleteModal={
