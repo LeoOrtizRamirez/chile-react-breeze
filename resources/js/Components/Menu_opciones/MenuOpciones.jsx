@@ -3,7 +3,7 @@ import cssMO from "./MenuOpciones.module.css";
 import "./MenuOpciones.css";
 
 const App = () => {
-    const [subMenuOpen, setSubMenuOpen] = useState(false);
+    const [open, setOpen] = useState(true);
     const Menus = [
         {
             title: (
@@ -11,10 +11,11 @@ const App = () => {
                     onClick={() => setIsOpen(true)}
                     className="opciones-menu-text"
                 >
+                    <span className="bi bi-shield text-base material-symbols-outlined iconos-tamano"></span>
+                    <br />
                     Menú Admin
                 </button>
             ),
-            icon: "bi bi-shield text-base material-symbols-outlined iconos-tamano",
             submenu: true,
             submenuItems: [
                 { title: "Usuarios", href: "/usuarios" },
@@ -24,6 +25,7 @@ const App = () => {
                     href: "/actividades-economicas",
                 },
                 { title: "Localización", href: "/localizacion" },
+                { title: "Tipos Compras", href: "/tiposcompras" },
             ],
         },
         {
@@ -35,6 +37,7 @@ const App = () => {
             title: (
                 <button className="opciones-menu-text">Mis Seguimientos</button>
             ),
+
             icon: "bi bi-eye text-base material-symbols-outlined iconos-tamano",
             // href: "",
         },
@@ -49,6 +52,7 @@ const App = () => {
                     Todos los Contratos
                 </button>
             ),
+
             icon: "bi bi-search text-base material-symbols-outlined iconos-tamano",
             href: "/contratos",
         },
@@ -101,14 +105,6 @@ const App = () => {
                                 >
                                     {Menu.submenu && open ? (
                                         <>
-                                            <i
-                                                className={Menu.icon}
-                                                onClick={() => {
-                                                    setSubMenuOpen(
-                                                        !subMenuOpen
-                                                    );
-                                                }}
-                                            ></i>
                                             <p
                                                 className={`${
                                                     !open && "hidden"
@@ -119,7 +115,7 @@ const App = () => {
                                         </>
                                     ) : (
                                         <>
-                                            <button href={Menu.href}>
+                                            <a href={Menu.href}>
                                                 <i className={Menu.icon}></i>
                                                 <p
                                                     className={`${
@@ -128,13 +124,15 @@ const App = () => {
                                                 >
                                                     {Menu.title}
                                                 </p>
-                                            </button>
+                                            </a>
                                         </>
                                     )}
                                 </li>
+
                                 <hr />
+
                                 <div>
-                                    {Menu.submenu && subMenuOpen && open && (
+                                    {Menu.submenu && open && (
                                         <div>
                                             {isOpen && (
                                                 <div ref={ref}>
@@ -154,14 +152,14 @@ const App = () => {
                                                                     cssMO.iconContraerCampanaClick
                                                                 }
                                                             >
-                                                                {/* <button
+                                                                <i
                                                                     className="bi bi-chevron-double-left"
                                                                     onClick={() =>
                                                                         setIsOpen(
-                                                                            true
+                                                                            false
                                                                         )
                                                                     }
-                                                                ></button> */}
+                                                                />
                                                             </span>
                                                             <div
                                                                 className={
@@ -192,7 +190,7 @@ const App = () => {
                                                                             index
                                                                         ) => (
                                                                             <div>
-                                                                                <button
+                                                                                <a
                                                                                     className={
                                                                                         cssMO.submenuItem
                                                                                     }
@@ -203,7 +201,7 @@ const App = () => {
                                                                                     {
                                                                                         submenuItem.title
                                                                                     }
-                                                                                </button>
+                                                                                </a>
                                                                             </div>
                                                                         )
                                                                     )}
