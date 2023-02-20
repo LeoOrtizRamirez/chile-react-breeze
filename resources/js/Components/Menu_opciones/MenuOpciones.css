@@ -90,6 +90,7 @@ font-family: "Roboto", sans-serif;
     text-decoration: none !important;
     color: rgb(121, 121, 121);
     font-family: "Roboto", sans-serif;
+    /* border: solid 1px red; */
 }
 
 .opciones-menu-text:hover {

@@ -1,14 +1,19 @@
-import { useState } from "react";
-// import "../../../css/estilos-menu-opciones.css";
+import React, { useState, useEffect, useRef } from "react";
 import cssMO from "./MenuOpciones.module.css";
 import "./MenuOpciones.css";
-import { BsArrowLeftShort, BsSearch, BsChevronDown } from "react-icons/bs";
+
 const App = () => {
-    const [open, setOpen] = useState(true);
     const [subMenuOpen, setSubMenuOpen] = useState(false);
     const Menus = [
         {
-            title: <a className="opciones-menu-text">Menú Admin</a>,
+            title: (
+                <button
+                    onClick={() => setIsOpen(true)}
+                    className="opciones-menu-text"
+                >
+                    Menú Admin
+                </button>
+            ),
             icon: "bi bi-shield text-base material-symbols-outlined iconos-tamano",
             submenu: true,
             submenuItems: [
@@ -22,31 +27,54 @@ const App = () => {
             ],
         },
         {
-            title: <a className="opciones-menu-text">Perfiles</a>,
+            title: <button className="opciones-menu-text">Perfiles</button>,
             icon: "bi bi-funnel text-base material-symbols-outlined iconos-tamano",
             // href: "",
         },
         {
-            title: <a className="opciones-menu-text">Mis Seguimientos</a>,
+            title: (
+                <button className="opciones-menu-text">Mis Seguimientos</button>
+            ),
             icon: "bi bi-eye text-base material-symbols-outlined iconos-tamano",
             // href: "",
         },
         {
-            title: <a className="opciones-menu-text">Carpetas</a>,
+            title: <button className="opciones-menu-text">Carpetas</button>,
             icon: "bi bi-folder text-base material-symbols-outlined iconos-tamano",
             // href: "",
         },
         {
-            title: <a className="opciones-menu-text">Todos los Contratos</a>,
+            title: (
+                <button className="opciones-menu-text">
+                    Todos los Contratos
+                </button>
+            ),
             icon: "bi bi-search text-base material-symbols-outlined iconos-tamano",
             href: "/contratos",
         },
         {
-            title: <a className="opciones-menu-text">Ajustes</a>,
+            title: <button className="opciones-menu-text">Ajustes</button>,
             icon: "bi bi-gear text-base material-symbols-outlined iconos-tamano",
             // href: "",
         },
     ];
+
+    const [isOpen, setIsOpen] = useState(false);
+    const ref = useRef();
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (ref.current && !ref.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [ref]);
 
     return (
         <div>
@@ -64,7 +92,7 @@ const App = () => {
                 >
                     <ul className="lista-opciones margen-nav">
                         {Menus.map((Menu, index) => (
-                            <>
+                            <div>
                                 <li
                                     key={index}
                                     className={`text-center rounded-md p-1 cursor-pointer hover:bg-light-white text-gray-500 text-sm items-center gap-x-4 ${
@@ -88,12 +116,10 @@ const App = () => {
                                             >
                                                 {Menu.title}
                                             </p>
-
-                                            {/*<BsChevronDown className={`${subMenuOpen && "rotate-180"}`} onClick={() => { setSubMenuOpen(!subMenuOpen) }} />*/}
                                         </>
                                     ) : (
                                         <>
-                                            <a href={Menu.href}>
+                                            <button href={Menu.href}>
                                                 <i className={Menu.icon}></i>
                                                 <p
                                                     className={`${
@@ -102,81 +128,95 @@ const App = () => {
                                                 >
                                                     {Menu.title}
                                                 </p>
-                                            </a>
+                                            </button>
                                         </>
                                     )}
                                 </li>
-
                                 <hr />
-
-                                {Menu.submenu && subMenuOpen && open && (
-                                    <ul className={cssMO.submenu}>
-                                        <span
-                                            className={cssMO.angleDropdownMenu}
-                                        ></span>
-                                        <div className="drop-perfiles drop-carpetas position-relative">
-                                            <span
-                                                className={
-                                                    cssMO.iconContraerCampanaClick
-                                                }
-                                            >
-                                                <i
-                                                    className="bi bi-chevron-double-left"
-                                                    onClick={() =>
-                                                        setSubMenuOpen(false)
-                                                    }
-                                                />
-                                            </span>
-                                            <div
-                                                className={
-                                                    cssMO.itemCheckboxMenuSubtitle
-                                                }
-                                            >
-                                                <label
-                                                    className={
-                                                        cssMO.submenuTitle
-                                                    }
-                                                >
-                                                    Administración
-                                                </label>
-                                            </div>
-                                            <div
-                                                className={
-                                                    cssMO.bodyAllPerfiles
-                                                }
-                                            >
-                                                <div
-                                                    className={
-                                                        cssMO.contenedorCarpetas
-                                                    }
-                                                >
-                                                    {Menu.submenuItems.map(
-                                                        (
-                                                            submenuItem,
-                                                            index
-                                                        ) => (
-                                                            <div>
-                                                                <a
-                                                                    className={
-                                                                        cssMO.submenuItem
+                                <div>
+                                    {Menu.submenu && subMenuOpen && open && (
+                                        <div>
+                                            {isOpen && (
+                                                <div ref={ref}>
+                                                    <ul
+                                                        className={
+                                                            cssMO.submenu
+                                                        }
+                                                    >
+                                                        <span
+                                                            className={
+                                                                cssMO.angleDropdownMenu
+                                                            }
+                                                        ></span>
+                                                        <div className="drop-perfiles drop-carpetas position-relative">
+                                                            <span
+                                                                className={
+                                                                    cssMO.iconContraerCampanaClick
+                                                                }
+                                                            >
+                                                                {/* <button
+                                                                    className="bi bi-chevron-double-left"
+                                                                    onClick={() =>
+                                                                        setIsOpen(
+                                                                            true
+                                                                        )
                                                                     }
-                                                                    href={
-                                                                        submenuItem.href
+                                                                ></button> */}
+                                                            </span>
+                                                            <div
+                                                                className={
+                                                                    cssMO.itemCheckboxMenuSubtitle
+                                                                }
+                                                            >
+                                                                <label
+                                                                    className={
+                                                                        cssMO.submenuTitle
                                                                     }
                                                                 >
-                                                                    {
-                                                                        submenuItem.title
-                                                                    }
-                                                                </a>
+                                                                    Administración
+                                                                </label>
                                                             </div>
-                                                        )
-                                                    )}
+                                                            <div
+                                                                className={
+                                                                    cssMO.bodyAllPerfiles
+                                                                }
+                                                            >
+                                                                <div
+                                                                    className={
+                                                                        cssMO.contenedorCarpetas
+                                                                    }
+                                                                >
+                                                                    {Menu.submenuItems.map(
+                                                                        (
+                                                                            submenuItem,
+                                                                            index
+                                                                        ) => (
+                                                                            <div>
+                                                                                <button
+                                                                                    className={
+                                                                                        cssMO.submenuItem
+                                                                                    }
+                                                                                    href={
+                                                                                        submenuItem.href
+                                                                                    }
+                                                                                >
+                                                                                    {
+                                                                                        submenuItem.title
+                                                                                    }
+                                                                                </button>
+                                                                            </div>
+                                                                        )
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </ul>
                                                 </div>
-                                            </div>
+                                            )}
                                         </div>
-                                    </ul>
-                                )}
-                            </>
+                                    )}
+                                </div>
+                            </div>
                         ))}
                     </ul>
                 </div>

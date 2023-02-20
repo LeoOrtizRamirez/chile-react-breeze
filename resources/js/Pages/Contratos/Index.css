@@ -261,9 +261,10 @@ div#wrapper1 {
     font-size: 13px;
 }
 
-.posicion-color {
+.posicion-lupa-contratos {
     position: absolute;
-    margin: 17px 0px 0px -75px;
+    top: 84px;
+    left: 445px;
     width: 13px;
     color: #00a1e0;
 }
