@@ -231,183 +231,233 @@ const Index = ({
                         <div className="margen-titulo">Usuarios</div>
                         <div></div>
                     </div>
-                    <table id="tabla" className="w-full bg-white border tabla ">
-                        <thead
-                            className="cabecera-tabla "
-                            style={{ backgroundColor: "#00a1c9" }}
-                        >
-                            <tr className="bg-paginador text-white uppercase leading-normal">
-                                <th>Acciones</th>
-                                <th># Documento</th>
-                                <th>Nombre</th>
-                                <th>País</th>
-                                <th>Ciudad</th>
-                                <th>Dirección</th>
-                                <th>indicativo</th>
-                                <th>Celular</th>
-                                <th>teléfono fijo</th>
-                                <th>Email</th>
-                                <th>Plan</th>
-                                {/* <th>Email confirmado</th> */}
-                                <th>Creacion</th>
-                                <th>Final Plan</th>
-                                <th>Estado</th>
-                                <th>Como se entero de Licitaciones</th>
-                                <th>NIT</th>
-                                <th>Empresa</th>
-                                <th>País empresa</th>
-                                <th>Ciudad empresa</th>
-                                <th>Dirección empresa</th>
-                                <th>Indicativo empresa</th>
-                                <th>Celular empresa</th>
-                                <th>Telefono fijo empresa</th>
-                                <th>Email empresa</th>
-                                <th>Actividad economica</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {usuariosBuscador.map((usuario) => (
-                                <tr key={usuario.id} className="tr-users">
-                                    <td className="border border-gray-200 text-left px-4 ">
-                                        <div className="iconos-horizontal">
-                                            <div className="estilos-boton-eliminar">
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-danger btn-sm usuarios"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target={
-                                                        "#deleteModal" +
-                                                        usuario.id
-                                                    }
-                                                    onClick={() => {
-                                                        getUsuarioDelete(
-                                                            usuario
-                                                        );
-                                                    }}
-                                                >
-                                                    <span className="material-symbols-outlined text-white iconos-tamano-margen align-middle">
-                                                        delete
-                                                    </span>
-                                                </button>
+                    <div className="tabla-ubicacion-usuarios">
+                        <table id="tabla" className="">
+                            <thead
+                                className="cabecera-tabla "
+                                style={{ backgroundColor: "#00a1c9" }}
+                            >
+                                <tr className="bg-paginador text-white uppercase leading-normal">
+                                    <th style={{ padding: "0px 35px" }}>
+                                        Acciones
+                                    </th>
+                                    <th style={{ padding: "0px 10px" }}>
+                                        Documento
+                                    </th>
+                                    <th style={{ padding: "0px 35px" }}>
+                                        Nombre
+                                    </th>
+                                    <th style={{ padding: "0px 10px" }}>
+                                        País
+                                    </th>
+                                    <th style={{ padding: "0px 10px" }}>
+                                        Ciudad
+                                    </th>
+                                    <th style={{ padding: "0px 35px" }}>
+                                        Dirección
+                                    </th>
+                                    <th style={{ padding: "0px 35px" }}>
+                                        indicativo
+                                    </th>
+                                    <th style={{ padding: "0px 35px" }}>
+                                        Celular
+                                    </th>
+                                    <th style={{ padding: "0px 35px" }}>
+                                        teléfono fijo
+                                    </th>
+                                    <th style={{ padding: "0px 35px" }}>
+                                        Email
+                                    </th>
+                                    <th style={{ padding: "0px 0px" }}>Plan</th>
+                                    {/* <th style={{ padding: "0px 35px" }}>Email confirmado</th> */}
+                                    <th style={{ padding: "0px 35px" }}>
+                                        Creacion
+                                    </th>
+                                    <th style={{ padding: "0px 35px" }}>
+                                        Final Plan
+                                    </th>
+                                    <th style={{ padding: "0px 10px" }}>
+                                        Estado
+                                    </th>
+                                    <th style={{ padding: "0px 35px" }}>
+                                        Como se entero de Licitaciones
+                                    </th>
+                                    <th style={{ padding: "0px 35px" }}>NIT</th>
+                                    <th style={{ padding: "0px 35px" }}>
+                                        Empresa
+                                    </th>
+                                    <th style={{ padding: "0px 35px" }}>
+                                        País empresa
+                                    </th>
+                                    <th style={{ padding: "0px 35px" }}>
+                                        Ciudad empresa
+                                    </th>
+                                    <th style={{ padding: "0px 35px" }}>
+                                        Dirección empresa
+                                    </th>
+                                    <th style={{ padding: "0px 10px" }}>
+                                        Indicativo empresa
+                                    </th>
+                                    <th style={{ padding: "0px 10px" }}>
+                                        Celular empresa
+                                    </th>
+                                    <th style={{ padding: "0px 35px" }}>
+                                        Telefono fijo empresa
+                                    </th>
+                                    <th style={{ padding: "0px 35px" }}>
+                                        Email empresa
+                                    </th>
+                                    <th style={{ padding: "0px 35px" }}>
+                                        Actividad economica
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {usuariosBuscador.map((usuario) => (
+                                    <tr key={usuario.id} className="tr-users">
+                                        <td className="border border-gray-200 px-4 ">
+                                            <div className="iconos-horizontal">
+                                                <div className="estilos-boton-eliminar">
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-danger btn-sm usuarios"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target={
+                                                            "#deleteModal" +
+                                                            usuario.id
+                                                        }
+                                                        onClick={() => {
+                                                            getUsuarioDelete(
+                                                                usuario
+                                                            );
+                                                        }}
+                                                    >
+                                                        <span className="material-symbols-outlined text-white iconos-tamano-margen align-middle">
+                                                            delete
+                                                        </span>
+                                                    </button>
 
-                                                {openDeleteUserModal &&
-                                                    openDeleteUserModalId ==
-                                                    usuario.id && (
-                                                        <DeleteModal
-                                                            usuario={usuario}
-                                                            openDeleteModal={
-                                                                openDeleteUserModal
-                                                            }
-                                                            handleSearch={
-                                                                handleSearch
-                                                            }
-                                                        />
-                                                    )}
-                                            </div>
+                                                    {openDeleteUserModal &&
+                                                        openDeleteUserModalId ==
+                                                            usuario.id && (
+                                                            <DeleteModal
+                                                                usuario={
+                                                                    usuario
+                                                                }
+                                                                openDeleteModal={
+                                                                    openDeleteUserModal
+                                                                }
+                                                                handleSearch={
+                                                                    handleSearch
+                                                                }
+                                                            />
+                                                        )}
+                                                </div>
 
-                                            <div className="estilos-boton-editar">
-                                                <a
-                                                    href={
-                                                        route(
-                                                            "usuarios.update",
-                                                            usuario.uuid
-                                                        ) + "/edit"
-                                                    }
-                                                >
+                                                <div className="estilos-boton-editar">
+                                                    <a
+                                                        href={
+                                                            route(
+                                                                "usuarios.update",
+                                                                usuario.uuid
+                                                            ) + "/edit"
+                                                        }
+                                                    >
+                                                        <span className="material-symbols-outlined">
+                                                            edit
+                                                        </span>
+                                                    </a>
+                                                </div>
+
+                                                <div className="estilos-boton-email">
                                                     <span className="material-symbols-outlined">
-                                                        edit
+                                                        mail
                                                     </span>
-                                                </a>
+                                                </div>
                                             </div>
-
-                                            <div className="estilos-boton-email">
-                                                <span className="material-symbols-outlined">
-                                                    mail
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.identificacion}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.nombre_completo}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.pais}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.ciudad}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.direccion}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.indicativo}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.celular}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.telefono_fijo}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.email}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.idplan}
-                                    </td>
-                                    {/* <td className="border border-gray-200 text-left margen-textos">
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.identificacion}
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.nombre_completo}
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.pais}
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.ciudad}
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.direccion}
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.indicativo}
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.celular}
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.telefono_fijo}
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.email}
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.idplan}
+                                        </td>
+                                        {/* <td className="border border-gray-200 margen-textos">
                                         {usuario.email_verified_at}
                                     </td> */}
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.created_at.substr(0, 10)}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.fecha_vencimiento}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.estado}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.origen}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.nit_empresa}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.nombre_empresa}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.pais_empresa}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.ciudad_empresa}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.direccion_empresa}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.indicativo_empresa}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.celular_empresa}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.telefono_fijo_empresa}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {usuario.email_facturacion_empresa}
-                                    </td>
-                                    <td className="border border-gray-200 text-left margen-textos">
-                                        {
-                                            usuario.descripcion_actividad_economica
-                                        }
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.created_at.substr(0, 10)}
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.fecha_vencimiento}
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.estado}
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.origen}
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.nit_empresa}
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.nombre_empresa}
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.pais_empresa}
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.ciudad_empresa}
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.direccion_empresa}
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.indicativo_empresa}
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.celular_empresa}
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.telefono_fijo_empresa}
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {usuario.email_facturacion_empresa}
+                                        </td>
+                                        <td className="border border-gray-200 margen-textos">
+                                            {
+                                                usuario.descripcion_actividad_economica
+                                            }
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
 
                     <Paginador
                         nextHandler={nextHandler}

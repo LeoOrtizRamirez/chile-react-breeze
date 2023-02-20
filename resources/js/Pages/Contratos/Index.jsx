@@ -276,18 +276,42 @@ const Index = ({ auth, contratos }) => {
                                 style={{ backgroundColor: "#00a1c9" }}
                             >
                                 <tr className="bg-paginador text-white uppercase leading-normal">
-                                    <th>Acciones</th>
-                                    <th>Portal</th>
-                                    <th>Entidad</th>
-                                    <th>Objeto</th>
-                                    <th>Cuantía</th>
-                                    <th>Modalidad</th>
-                                    <th>Número</th>
-                                    <th>Estado</th>
-                                    <th>Publicada</th>
-                                    <th>Ubicación</th>
-                                    <th>Contratista</th>
-                                    <th>Actividad económica</th>
+                                    <th style={{ padding: "0px 0px" }}>
+                                        Acciones
+                                    </th>
+                                    <th style={{ padding: "0px 5px" }}>
+                                        Portal
+                                    </th>
+                                    <th style={{ padding: "0px 80px" }}>
+                                        Entidad
+                                    </th>
+                                    <th style={{ padding: "0px 80px" }}>
+                                        Objeto
+                                    </th>
+                                    <th style={{ padding: "0px 35px" }}>
+                                        Cuantía
+                                    </th>
+                                    <th style={{ padding: "0px 80px" }}>
+                                        Modalidad
+                                    </th>
+                                    <th style={{ padding: "0px 30px" }}>
+                                        Número
+                                    </th>
+                                    <th style={{ padding: "0px 0px" }}>
+                                        Estado
+                                    </th>
+                                    <th style={{ padding: "0px 35px" }}>
+                                        Publicada
+                                    </th>
+                                    <th style={{ padding: "0px 35px" }}>
+                                        Ubicación
+                                    </th>
+                                    <th style={{ padding: "0px 80px" }}>
+                                        Contratista
+                                    </th>
+                                    <th style={{ padding: "0px 80px" }}>
+                                        Actividad económica
+                                    </th>
                                 </tr>
                             </thead>
 

@@ -64,6 +64,7 @@ th {
 .data-text {
     text-transform: lowercase;
     display: inline-block;
+    font-size: 12px;
 }
 
 .data-text:first-letter {
@@ -128,7 +129,7 @@ p {
 }
 
 .width-columna-menor {
-    width: 100px;
+    width: 100%;
 }
 
 .width-columna-mayor {
