@@ -12,6 +12,7 @@ import Paginador from "@/Components/PaginadorContratos";
 import $ from "jquery";
 import "@fontsource/poppins";
 
+import Loader from "@/Components/Loader";
 const Index = ({ auth, contratos }) => {
     const [tableContratos, setTableContratos] = useState(contratos.data);
 
@@ -82,17 +83,28 @@ const Index = ({ auth, contratos }) => {
         var fake_contenedor_tabla = document.getElementById("wrapper1");
         var contenedor_tabla = document.getElementById("scroll-table");
 
-        setFakeScrollContentWidth(contenido_tabla.offsetWidth);
-        setFakeScrollContainertWidth(contenedor_tabla.offsetWidth);
+        if (contenido_tabla) {
+            setFakeScrollContentWidth(contenido_tabla.offsetWidth);
+        }
+        if (contenedor_tabla) {
+            setFakeScrollContainertWidth(contenedor_tabla.offsetWidth);
+        }
+
         var wrapper1 = document.getElementById("wrapper1");
         var wrapper2 = document.querySelector("#scroll-table");
 
-        wrapper1.onscroll = function () {
-            wrapper2.scrollLeft = wrapper1.scrollLeft;
-        };
-        wrapper2.onscroll = function () {
-            wrapper1.scrollLeft = wrapper2.scrollLeft;
-        };
+        if (wrapper1) {
+            wrapper1.onscroll = function () {
+                wrapper2.scrollLeft = wrapper1.scrollLeft;
+            };
+        }
+
+        if (wrapper2) {
+            wrapper2.onscroll = function () {
+                wrapper1.scrollLeft = wrapper2.scrollLeft;
+            };
+        }
+
     });
     /*Fin Scroll*/
 
@@ -139,17 +151,23 @@ const Index = ({ auth, contratos }) => {
 
     const buscadorRapido = useRef(0);
     useEffect(() => {
-        buscadorRapido.current.addEventListener("keypress", function (event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                const querystring = getUrlParams();
-                fetch("/contratos/?" + querystring)
-                    .then((response) => response.json())
-                    .then((data) => {
-                        tableFormat(data);
-                    });
-            }
-        });
+        if (buscadorRapido.current != 0) {
+            console.log(buscadorRapido)
+            buscadorRapido.current.addEventListener("keypress", function (event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    const querystring = getUrlParams();
+
+                    setLoading(true)
+                    fetch("/contratos/?" + querystring)
+                        .then((response) => response.json())
+                        .then((data) => {
+                            tableFormat(data);
+                            setLoading(false)
+                        });
+                }
+            });
+        }
     }, [])
 
     const tableFormat = (data) => {
@@ -181,14 +199,13 @@ const Index = ({ auth, contratos }) => {
 
 
 
-
+    const [loading, setLoading] = useState(true)
 
     /*Inicio Buscador rapido y paginador */
 
     return (
         <AuthenticatedLayout auth={auth}>
             <link rel="shortcut icon" href="#"></link>
-
             <div>
                 <div className="contenedor-filtros">
                     <div className="">
@@ -257,198 +274,208 @@ const Index = ({ auth, contratos }) => {
                         <MenuOpciones />
                     </div>
 
+
                     <div
                         className="alto-tabla bg-white overflow-auto "
                         id="scroll-table"
                     >
-                        <div
-                            id="wrapper1"
-                            style={{
-                                width:
-                                    fakeScrollContainerWidth > 0
-                                        ? fakeScrollContainerWidth
-                                        : 0 + "px",
-                            }}
-                        >
-                            <div
-                                id="div1"
-                                style={{
-                                    width:
-                                        fakeScrollContentWidth > 0
-                                            ? fakeScrollContentWidth
-                                            : 0 + "px",
-                                }}
-                            ></div>
-                        </div>
+                        {!loading ?
+                            <>
+                                <div
+                                    id="wrapper1"
+                                    style={{
+                                        width:
+                                            fakeScrollContainerWidth > 0
+                                                ? fakeScrollContainerWidth
+                                                : 0 + "px",
+                                    }}
+                                >
+                                    <div
+                                        id="div1"
+                                        style={{
+                                            width:
+                                                fakeScrollContentWidth > 0
+                                                    ? fakeScrollContentWidth
+                                                    : 0 + "px",
+                                        }}
+                                    ></div>
+                                </div>
 
-                        <table
-                            id="tabla"
-                            className="w-full bg-white border tabla table-hover"
-                        >
-                            <thead
-                                className="cabecera-tabla"
-                                style={{ backgroundColor: "#00a1c9" }}
-                            >
-                                <tr className="bg-paginador text-white uppercase leading-normal">
-                                    <th style={{ padding: "0px 0px" }}>
-                                        Acciones
-                                    </th>
-                                    <th style={{ padding: "0px 5px" }}>
-                                        Portal
-                                    </th>
-                                    <th style={{ padding: "0px 80px" }}>
-                                        Entidad
-                                    </th>
-                                    <th style={{ padding: "0px 80px" }}>
-                                        Objeto
-                                    </th>
-                                    <th style={{ padding: "0px 35px" }}>
-                                        Cuantía
-                                    </th>
-                                    <th style={{ padding: "0px 80px" }}>
-                                        Modalidad
-                                    </th>
-                                    <th style={{ padding: "0px 30px" }}>
-                                        Número
-                                    </th>
-                                    <th style={{ padding: "0px 0px" }}>
-                                        Estado
-                                    </th>
-                                    <th style={{ padding: "0px 35px" }}>
-                                        Publicada
-                                    </th>
-                                    <th style={{ padding: "0px 35px" }}>
-                                        Ubicación
-                                    </th>
-                                    <th style={{ padding: "0px 80px" }}>
-                                        Contratista
-                                    </th>
-                                    <th style={{ padding: "0px 80px" }}>
-                                        Actividad económica
-                                    </th>
-                                </tr>
-                            </thead>
+                                <table
+                                    id="tabla"
+                                    className="w-full bg-white border tabla table-hover"
+                                >
+                                    <thead
+                                        className="cabecera-tabla"
+                                        style={{ backgroundColor: "#00a1c9" }}
+                                    >
+                                        <tr className="bg-paginador text-white uppercase leading-normal">
+                                            <th style={{ padding: "0px 0px" }}>
+                                                Acciones
+                                            </th>
+                                            <th style={{ padding: "0px 5px" }}>
+                                                Portal
+                                            </th>
+                                            <th style={{ padding: "0px 80px" }}>
+                                                Entidad
+                                            </th>
+                                            <th style={{ padding: "0px 80px" }}>
+                                                Objeto
+                                            </th>
+                                            <th style={{ padding: "0px 35px" }}>
+                                                Cuantía
+                                            </th>
+                                            <th style={{ padding: "0px 80px" }}>
+                                                Modalidad
+                                            </th>
+                                            <th style={{ padding: "0px 30px" }}>
+                                                Número
+                                            </th>
+                                            <th style={{ padding: "0px 0px" }}>
+                                                Estado
+                                            </th>
+                                            <th style={{ padding: "0px 35px" }}>
+                                                Publicada
+                                            </th>
+                                            <th style={{ padding: "0px 35px" }}>
+                                                Ubicación
+                                            </th>
+                                            <th style={{ padding: "0px 80px" }}>
+                                                Contratista
+                                            </th>
+                                            <th style={{ padding: "0px 80px" }}>
+                                                Actividad económica
+                                            </th>
+                                        </tr>
+                                    </thead>
 
-                            <tbody>
-                                {tableContratos.map((contrato) => (
-                                    <tr key={contrato.id} className="tr-users">
-                                        <td className="border border-gray-200 text-left mw-90">
-                                            <div className="iconos-horizontal width-columna-acciones">
-                                                <div>
-                                                    <Pdf />
-                                                    <Enviar
-                                                        url={contrato.link}
-                                                    />
-                                                    <Favoritos />
-                                                </div>
-                                                <div className="">
-                                                    <Compartir />
-                                                    <Eliminar />
-                                                    <Visualizar />
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className="border border-gray-200 text-left margen-textos">
-                                            <span className="circulo">
-                                                {contrato.fuente.alias_portal}
-                                            </span>
-                                        </td>
-                                        <td className="border border-gray-200 text-left margen-textos">
-                                            <span className="data-text width-columna-menor">
-                                                {contrato.entidad_contratante}
-                                            </span>
-                                        </td>
-                                        <td className="border border-gray-200 text-left margen-textos mw-200">
-                                            {showLess && (
-                                                <>
-                                                    {showMoreSelected !=
-                                                        contrato.id && (
-                                                            <span className="data-text">
-                                                                {contrato.objeto.substr(
-                                                                    0,
-                                                                    40
-                                                                )}
-                                                                ...{" "}
-                                                                <a
-                                                                    className="text-primary"
-                                                                    onClick={() =>
-                                                                        getData(
-                                                                            contrato
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    Ver más
-                                                                </a>
-                                                            </span>
-                                                        )}
-                                                </>
-                                            )}
-
-                                            {showMoreSelected ==
-                                                contrato.id && (
-                                                    <div className="showmore">
-                                                        <span className="data-text">
-                                                            {contrato.objeto}
-                                                            <a
-                                                                className="text-primary"
-                                                                onClick={() =>
-                                                                    hideData()
-                                                                }
-                                                            >
-                                                                Ver menos
-                                                            </a>
-                                                        </span>
+                                    <tbody>
+                                        {tableContratos.map((contrato) => (
+                                            <tr key={contrato.id} className="tr-users">
+                                                <td className="border border-gray-200 text-left mw-90">
+                                                    <div className="iconos-horizontal width-columna-acciones">
+                                                        <div>
+                                                            <Pdf />
+                                                            <Enviar
+                                                                url={contrato.link}
+                                                            />
+                                                            <Favoritos />
+                                                        </div>
+                                                        <div className="">
+                                                            <Compartir />
+                                                            <Eliminar />
+                                                            <Visualizar />
+                                                        </div>
                                                     </div>
-                                                )}
-                                        </td>
-                                        <td className="border border-gray-200 text-left margen-textos width-columna-menor">
-                                            {contrato.valor > 0
-                                                ? "$" +
-                                                contrato.valor.toLocaleString(
-                                                    "ch-CH"
-                                                )
-                                                : contrato.valor_texto}
-                                        </td>
-                                        <td className="border border-gray-200 text-left margen-textos mw-200">
-                                            <span className="data-text ">
-                                                {contrato.modalidad}
-                                            </span>
-                                        </td>
-                                        <td className="border border-gray-200 text-left margen-textos ">
-                                            <span className="data-text ">
-                                                {contrato.codigo_proceso}
-                                            </span>
-                                        </td>
-                                        <td className="border border-gray-200 text-left color-estado margen-textos width-columna-menor">
-                                            <span className="data-text ">
-                                                {contrato.estado_proceso}
-                                            </span>
-                                        </td>
-                                        <td className="border border-gray-200 text-left margen-textos">
-                                            <span className="data-text width-columna-menor">
-                                                {contrato.fecha_publicacion}
-                                            </span>
-                                        </td>
-                                        <td className="border border-gray-200 text-left margen-textos width-columna-menor">
-                                            <span className="data-text ">
-                                                {contrato.ubicacion}
-                                            </span>
-                                        </td>
-                                        <td className="border border-gray-200 text-left margen-textos mw-200">
-                                            <span className="data-text ">
-                                                {contrato.contratista}
-                                            </span>
-                                        </td>
-                                        <td className="border border-gray-200 text-left margen-textos">
-                                            <span className="data-text ">
-                                                {contrato.actividad_economica}
-                                            </span>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                                </td>
+                                                <td className="border border-gray-200 text-left margen-textos">
+                                                    <span className="circulo">
+                                                        {contrato.fuente.alias_portal}
+                                                    </span>
+                                                </td>
+                                                <td className="border border-gray-200 text-left margen-textos">
+                                                    <span className="data-text width-columna-menor">
+                                                        {contrato.entidad_contratante}
+                                                    </span>
+                                                </td>
+                                                <td className="border border-gray-200 text-left margen-textos mw-200">
+                                                    {showLess && (
+                                                        <>
+                                                            {showMoreSelected !=
+                                                                contrato.id && (
+                                                                    <span className="data-text">
+                                                                        {contrato.objeto.substr(
+                                                                            0,
+                                                                            40
+                                                                        )}
+                                                                        ...{" "}
+                                                                        <a
+                                                                            className="text-primary"
+                                                                            onClick={() =>
+                                                                                getData(
+                                                                                    contrato
+                                                                                )
+                                                                            }
+                                                                        >
+                                                                            Ver más
+                                                                        </a>
+                                                                    </span>
+                                                                )}
+                                                        </>
+                                                    )}
+
+                                                    {showMoreSelected ==
+                                                        contrato.id && (
+                                                            <div className="showmore">
+                                                                <span className="data-text">
+                                                                    {contrato.objeto}
+                                                                    <a
+                                                                        className="text-primary"
+                                                                        onClick={() =>
+                                                                            hideData()
+                                                                        }
+                                                                    >
+                                                                        Ver menos
+                                                                    </a>
+                                                                </span>
+                                                            </div>
+                                                        )}
+                                                </td>
+                                                <td className="border border-gray-200 text-left margen-textos width-columna-menor">
+                                                    {contrato.valor > 0
+                                                        ? "$" +
+                                                        contrato.valor.toLocaleString(
+                                                            "ch-CH"
+                                                        )
+                                                        : contrato.valor_texto}
+                                                </td>
+                                                <td className="border border-gray-200 text-left margen-textos mw-200">
+                                                    <span className="data-text ">
+                                                        {contrato.modalidad}
+                                                    </span>
+                                                </td>
+                                                <td className="border border-gray-200 text-left margen-textos ">
+                                                    <span className="data-text ">
+                                                        {contrato.codigo_proceso}
+                                                    </span>
+                                                </td>
+                                                <td className="border border-gray-200 text-left color-estado margen-textos width-columna-menor">
+                                                    <span className="data-text ">
+                                                        {contrato.estado_proceso}
+                                                    </span>
+                                                </td>
+                                                <td className="border border-gray-200 text-left margen-textos">
+                                                    <span className="data-text width-columna-menor">
+                                                        {contrato.fecha_publicacion}
+                                                    </span>
+                                                </td>
+                                                <td className="border border-gray-200 text-left margen-textos width-columna-menor">
+                                                    <span className="data-text ">
+                                                        {contrato.ubicacion}
+                                                    </span>
+                                                </td>
+                                                <td className="border border-gray-200 text-left margen-textos mw-200">
+                                                    <span className="data-text ">
+                                                        {contrato.contratista}
+                                                    </span>
+                                                </td>
+                                                <td className="border border-gray-200 text-left margen-textos">
+                                                    <span className="data-text ">
+                                                        {contrato.actividad_economica}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </>
+                            :
+                            <Loader />
+                        }
                     </div>
+
+
+
                 </div>
             </div>
         </AuthenticatedLayout>
