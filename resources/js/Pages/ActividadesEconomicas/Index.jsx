@@ -241,7 +241,7 @@ const Index = ({ auth, actividades_economicas }) => {
                 <div className="posicion-opciones-planes">
                     <MenuOpciones />
                 </div>
-                <div className="bg-white overflow-auto w-full text-center margen-superior">
+                <div className="bg-white overflow-auto w-full text-center margen-superior custom-scroll">
                     <h2 className="name_section_app">Actividad económica</h2>
                     <div className="container mt-4">
                         <div className="tree_categorias tree_1">
