@@ -13,9 +13,7 @@ a {
     font-weight: bold;
 }
 
-.posicion-opciones-planes {
-    margin-top: 58px;
-}
+
 
 ul {
     padding-left: 0px !important;
@@ -242,12 +240,25 @@ ul.lista-opciones.margen-nav > li {
 
 @media (min-width: 768px) {
     .tree-content .tree-division__title {
-        background: #66c6de !important;
+        background: #66c6de!important;
         display: inline-block;
         font-size: 17px;
         font-weight: bold;
-        color: #fff !important;
-        font-family: Nexa-bold, sans-serif;
+        color: #fff!important;
+        font-family: Nexa-bold,sans-serif;
+        border-radius: 22px;
+        text-align: center;
+        width: 100%;
+        padding: 4px 10px;
+    }
+    
+    .tree-content .tree-division__title-gray {
+        background: #3a3a3a3a !important;
+        display: inline-block;
+        font-size: 14px;
+        font-weight: bold;
+        color: #00a1c9  !important;
+        font-family: Nexa-bold,sans-serif;
         border-radius: 22px;
         text-align: center;
         width: 100%;
@@ -297,6 +308,7 @@ ul.lista-opciones.margen-nav > li {
     font-size: 14px;
     color: #000 !important;
     text-align: left;
+    font-weight: inherit;
 }
 
 .tree-anchor.children .tree-division__title-gray {
@@ -307,6 +319,7 @@ ul.lista-opciones.margen-nav > li {
     border-radius: 22px;
     width: 100%;
     padding: 4px 10px;
+    font-weight: inherit;
 
 }
 
@@ -407,4 +420,17 @@ body {
 .infinite-scroll{
     overflow: auto;
     height: 35em;
+}
+
+.posicion-opciones-planes {
+    margin-top: 48px;
+}
+
+.margen-nav {
+    margin-top: 0px !important;
+}
+
+.custom-scroll{
+    height: 90vh;
+    overflow-y: scroll;
 }
