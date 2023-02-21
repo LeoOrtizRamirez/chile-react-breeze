@@ -194,15 +194,11 @@ const Index = ({ auth, contratos }) => {
         }
     }, []);
 
-
-
-
-
-
-    const [loading, setLoading] = useState(true)
-
     /*Inicio Buscador rapido y paginador */
 
+    /*Inicio Loader */
+    const [loading, setLoading] = useState(false)
+    /*Fin Loader */
     return (
         <AuthenticatedLayout auth={auth}>
             <link rel="shortcut icon" href="#"></link>
