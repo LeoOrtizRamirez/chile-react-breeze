@@ -304,3 +304,48 @@ div#wrapper1 {
     font-size: 13px;
     color: #7c7c7c;
 }
+
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+#mensajes-personalizado-busqueda .estructura-mensaje-personalizado {
+    max-width: 460px;
+}
+
+#mensajes-personalizado-busqueda .titulo-personalizado {
+    padding-bottom: 3.75rem;
+    max-width: 447px;
+    margin: 0 auto;
+    color: #c9003d;
+}
+
+#mensajes-personalizado-busqueda .mensaje-personalizado {
+    font-size: 18px!important;
+    max-width: 428px;
+    margin-bottom: 0;
+    line-height: 1.2;
+}
+
+#mensajes-personalizado-busqueda .mensaje-personalizado {
+    font-family: Nexa-regular,sans-serif!important;
+    color: #686868;
+}
+
+#mensajes-personalizado-busqueda .mensaje-icono {
+    font-size: 35px!important;
+    color: #ffc107;
+    position: absolute;
+    right: 100%;
+    margin-right: 7px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    top: 0;
+    height: 100%;
+}
