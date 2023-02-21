@@ -11,6 +11,9 @@ import Visualizar from "../../Components/Acciones/Visualizar";
 import Paginador from "@/Components/PaginadorContratos";
 import $ from "jquery";
 import "@fontsource/poppins";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import '../../../css/font-web.css'
 
 import Loader from "@/Components/Loader";
 const Index = ({ auth, contratos }) => {
@@ -464,6 +467,27 @@ const Index = ({ auth, contratos }) => {
                                         ))}
                                     </tbody>
                                 </table>
+                                {
+                                    tableContratos.length <= 0 &&
+                                    <div id="mensajes-personalizado-busqueda" class="container-fluid content_blank_interno">
+                                        <div class="row justify-content-center align-items-center">
+                                            <div class="col-md-4 col-sm-4 offset-md-1 offset-sm-1">
+                                                <img src="https://col.licitaciones.info/img/mensajes-personalisados/sin-resultados-busqueda.png" alt="" class="img-fluid mensaje-imagen" />
+                                            </div>
+                                            <div class="col-md-5 col-sm-5 offset-sm-1 offset-md-1">
+                                                <div class="estructura-mensaje-personalizado">
+                                                    <h4 class="text-center titulo-personalizado">
+                                                        <b class="text-rojo">No se encontró</b> el resultado.</h4>
+                                                    <div class="position-relative">
+                                                        <span class="icon-Bombillo mensaje-icono"></span>
+                                                        <p class="mensaje-personalizado d-block text-left">Prueba cambiando tus opciones de búsqueda e intentalo nuevamente.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
                             </>
                             :
                             <Loader />
