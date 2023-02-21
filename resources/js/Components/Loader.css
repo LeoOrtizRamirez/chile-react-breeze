@@ -1,0 +1,45 @@
+.img-col{
+    width: 230px;
+    max-width: 100%;
+}
+
+.cargando_tables {
+    position: fixed;
+    /* top: 0;
+    left: 0;
+    z-index: 99999999; */
+    background: hsla(0,0%,100%,.9);
+    width: 100%;
+    text-align: center;
+    height: 100%;
+}
+
+.cargando_tables>.col {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    height: 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.cargando_tables {
+    /* z-index: 1000; */
+}
+
+.cargando_tables p {
+    /* font-family: Nexa-bold; */
+    font-family: Poppins;
+    font-weight: 700;
+    font-size: 27px;
+    padding-top: 8px;
+    color: #959595;
+}
