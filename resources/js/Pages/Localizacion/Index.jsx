@@ -245,6 +245,19 @@ const Index = ({ auth, localizacion }) => {
                 setShowModalActividadEconomica(false)
             })
     }
+
+    const filterLocalizacion = (e) => {
+        const pattern = new RegExp(e.target.value, "i");
+        const FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
+            if (pattern.test(el.nombre)) {
+                return el;
+            }
+        });
+        setSectores(FilteredActividadesEcomomicas);
+        setShowActividadEconomica(!showActividadEconomica)
+    }
+
+
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Localización" />
@@ -278,7 +291,9 @@ const Index = ({ auth, localizacion }) => {
                                         placeholder="Buscar localización en Chile"
                                         autoComplete="off"
                                         className="form-control m-auto"
-                                        onChange={inputSearchActividadEconomica}
+                                        /* onChange={inputSearchActividadEconomica} */
+                                        onChange={filterLocalizacion}
+                                        
                                     />
                                     <i className="icon-Cancelar"></i>
                                     <button type="button" className="icon-Buscar-click"><i className="bi bi-search"></i></button>

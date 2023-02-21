@@ -195,7 +195,7 @@ const Index = ({
                 <div className="contenedor-opciones-usuarios">
                     <MenuOpciones />
                 </div>
-                <div className="contenedor-informacion-usuarios bg-white overflow-scroll ">
+                <div className="contenedor-informacion-usuarios bg-white">
                     <div className="usuarios">
                         <div className="contenedor-botones">
                             <div className="">
