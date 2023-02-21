@@ -13,9 +13,7 @@ a {
     font-weight: bold;
 }
 
-.posicion-opciones-planes {
-    margin-top: 58px;
-}
+
 
 ul {
     padding-left: 0px !important;
@@ -407,4 +405,17 @@ body {
 .infinite-scroll{
     overflow: auto;
     height: 35em;
+}
+
+.posicion-opciones-planes {
+    margin-top: 48px;
+}
+
+.margen-nav {
+    margin-top: 0px !important;
+}
+
+.custom-scroll{
+    height: 90vh;
+    overflow-y: scroll;
 }
