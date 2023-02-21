@@ -49,7 +49,7 @@ const Index = ({ auth, actividades_economicas }) => {
     };
     const editActividadEconomica = () => {
         if (inputActividadEconomica.id != 0) {
-            /*  window.location.replace('/actividades-economicas/' + inputActividadEconomica.id + '/edit') */
+             window.location.replace('/actividades-economicas/' + inputActividadEconomica.id + '/edit')
         } else {
             setToastMessage("Debes seleccionar una Actividad Ecónomica")
             setToastIcon('icon-error')
@@ -124,6 +124,8 @@ const Index = ({ auth, actividades_economicas }) => {
 
     const inputSearchActividadEconomica = (e) => {
         if(e.target.value == ""){
+            console.log("primer if");
+            console.log(e.target.value)
             setSectores(fakeSectores)
             setSegmentos([])
             setActividadesEconomicas([])
@@ -132,6 +134,8 @@ const Index = ({ auth, actividades_economicas }) => {
             return;
         }
         if (e.key === 'Enter') {
+            console.log("enter");
+            console.log(e.key)
             //SE BUSCAN LAS ACTIVIDADES ECONOMICAS QUE COINCIDAN CON EL NOMBRE QUE SE INGRESO
             const pattern = new RegExp(e.target.value, "i");
             const FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
@@ -279,7 +283,7 @@ const Index = ({ auth, actividades_economicas }) => {
                                                     {/* {showSegmento && sector.id == selectedSegmento && */}
                                                     {openSegmentos.includes(sector.id) &&
                                                         <ul className="tree-children new-class">
-                                                            {segmentos.map((segmento) => (
+                                                            {segmentos.map((segmento, index) => (
                                                                 <>
                                                                     {sector.id == segmento.id_padre_sub_categoria &&
                                                                         <li data-id="20504" className="tree-node has-child expanded draggable">
@@ -288,7 +292,13 @@ const Index = ({ auth, actividades_economicas }) => {
                                                                                 {/* <i className="tree-checkbox"></i> */}
                                                                                 <span className="tree-anchor">
                                                                                     <span className="tree-division tree-division1">
+                                                                                    <>
+                                                                                    {index % 2 == 0 ? (
                                                                                         <span className="tree-division__title my-auto">{segmento.nombre}</span>
+                                                                                    ) : (
+                                                                                        <span className="tree-division__title-gray my-auto">{segmento.nombre}</span>
+                                                                                    )}
+                                                                                </>
                                                                                     </span>
                                                                                 </span>
                                                                             </div>
