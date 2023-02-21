@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, lazy } from "react";
+import React, { useState, useEffect, useRef, Suspense, lazy } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 import "./Index.css";
@@ -137,16 +137,20 @@ const Index = ({ auth, contratos }) => {
             });
     };
 
-    const handleChangeInputSearch = (e) => {
-        //Peticiones por input busqueda rapida
-        setInputSearch(e.target.value);
-        const querystring = getUrlParams();
-        fetch("/contratos/?" + querystring)
-            .then((response) => response.json())
-            .then((data) => {
-                tableFormat(data);
-            });
-    };
+    const buscadorRapido = useRef(0);
+    useEffect(() => {
+        buscadorRapido.current.addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                const querystring = getUrlParams();
+                fetch("/contratos/?" + querystring)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        tableFormat(data);
+                    });
+            }
+        });
+    }, [])
 
     const tableFormat = (data) => {
         //Formatear valores del paginador
@@ -171,6 +175,14 @@ const Index = ({ auth, contratos }) => {
             setInputSearch(buscador_rapido);
         }
     }, []);
+
+
+
+
+
+
+
+
     /*Inicio Buscador rapido y paginador */
 
     return (
@@ -186,12 +198,14 @@ const Index = ({ auth, contratos }) => {
                             id="form_busqueda_rapida"
                         >
                             <input
+                                ref={buscadorRapido}
+                                id="buscador_rapido"
                                 className="buscador_rapido"
                                 name="buscador_rapido"
                                 type="text"
                                 value={inputSearch}
                                 placeholder="Búsqueda rápida"
-                                onChange={handleChangeInputSearch}
+                                onChange={(e) => setInputSearch(e.target.value)}
                             />
                             <input
                                 name="fecha_publicacion"
@@ -349,50 +363,50 @@ const Index = ({ auth, contratos }) => {
                                                 <>
                                                     {showMoreSelected !=
                                                         contrato.id && (
-                                                        <span className="data-text">
-                                                            {contrato.objeto.substr(
-                                                                0,
-                                                                40
-                                                            )}
-                                                            ...{" "}
-                                                            <a
-                                                                className="text-primary"
-                                                                onClick={() =>
-                                                                    getData(
-                                                                        contrato
-                                                                    )
-                                                                }
-                                                            >
-                                                                Ver más
-                                                            </a>
-                                                        </span>
-                                                    )}
+                                                            <span className="data-text">
+                                                                {contrato.objeto.substr(
+                                                                    0,
+                                                                    40
+                                                                )}
+                                                                ...{" "}
+                                                                <a
+                                                                    className="text-primary"
+                                                                    onClick={() =>
+                                                                        getData(
+                                                                            contrato
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    Ver más
+                                                                </a>
+                                                            </span>
+                                                        )}
                                                 </>
                                             )}
 
                                             {showMoreSelected ==
                                                 contrato.id && (
-                                                <div className="showmore">
-                                                    <span className="data-text">
-                                                        {contrato.objeto}
-                                                        <a
-                                                            className="text-primary"
-                                                            onClick={() =>
-                                                                hideData()
-                                                            }
-                                                        >
-                                                            Ver menos
-                                                        </a>
-                                                    </span>
-                                                </div>
-                                            )}
+                                                    <div className="showmore">
+                                                        <span className="data-text">
+                                                            {contrato.objeto}
+                                                            <a
+                                                                className="text-primary"
+                                                                onClick={() =>
+                                                                    hideData()
+                                                                }
+                                                            >
+                                                                Ver menos
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                )}
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos width-columna-menor">
                                             {contrato.valor > 0
                                                 ? "$" +
-                                                  contrato.valor.toLocaleString(
-                                                      "ch-CH"
-                                                  )
+                                                contrato.valor.toLocaleString(
+                                                    "ch-CH"
+                                                )
                                                 : contrato.valor_texto}
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos mw-200">
