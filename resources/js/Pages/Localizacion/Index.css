@@ -259,9 +259,9 @@ ul.lista-opciones.margen-nav>li {
 .tree-content .tree-division__title-gray {
     background: #3a3a3a3a !important;
     display: inline-block;
-    font-size: 17px;
+    font-size: 14px;
     font-weight: bold;
-    color: #fff !important;
+    color: #00a1c9  !important;
     font-family: Nexa-bold,sans-serif;
     border-radius: 22px;
     text-align: center;
@@ -311,6 +311,7 @@ ul.lista-opciones.margen-nav>li {
     font-size: 14px;
     color: #000!important;
     text-align: left;
+   
 }
 
 .tree-children .tree-content .tree-division {
