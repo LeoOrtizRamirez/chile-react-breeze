@@ -15,12 +15,12 @@ import "../../../css/estilos-toast.css";
 import "../../../css/font-unicolor.css";
 /*Toast*/
 
-const Index = ({ auth, localizacion }) => {
+const Index = ({ auth, tiposcompras }) => {
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastIcon, setToastIcon] = useState("");
-    const [fakeSectores, setFakeSectores] = useState(localizacion);
-    const [sectores, setSectores] = useState(localizacion);
+    const [fakeSectores, setFakeSectores] = useState(tiposcompras);
+    const [sectores, setSectores] = useState(tiposcompras);
     const [showSegmento, setShowSegmento] = useState(false);
     const [showActividadEconomica, setShowActividadEconomica] = useState(false);
     const [selectedSegmento, setSelectedSegmento] = useState(0);
@@ -32,7 +32,7 @@ const Index = ({ auth, localizacion }) => {
         []
     );
 
-    const [inputLocalizacion, setInputLocalizacion] = useState({
+    const [inputTiposCompras, setInputTiposCompras] = useState({
         id: 0,
         nombre: "",
     });
@@ -47,22 +47,22 @@ const Index = ({ auth, localizacion }) => {
         setShowModalActividadEconomica(false);
 
     const handleShowModalActividadEconomica = () => {
-        if (inputLocalizacion.id != 0) {
+        if (inputTiposCompras.id != 0) {
             setShowModalActividadEconomica(true);
         } else {
-            setToastMessage("Debes seleccionar una Ciudad");
+            setToastMessage("Debes seleccionar uno");
             setToastIcon("icon-error");
             setShowToast(true);
         }
     };
 
-    const editLocalizacion = () => {
-        if (inputLocalizacion.id != 0) {
+    const editTiposCompras = () => {
+        if (inputTiposCompras.id != 0) {
             window.location.replace(
-                "/localizacion/" + inputLocalizacion.id + "/edit"
+                "/tiposcompras/" + inputTiposCompras.id + "/edit"
             );
         } else {
-            setToastMessage("Debes seleccionar una Ciudad");
+            setToastMessage("Debes seleccionar uno");
             setToastIcon("icon-error");
             setShowToast(true);
         }
@@ -102,7 +102,7 @@ const Index = ({ auth, localizacion }) => {
         });
     };
 
-    const getLocalizacion = (parent) => {
+    const getTiposCompras = (parent) => {
         if (openActividadesEconomicas.includes(parent)) {
             //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY openActividadesEconomicas
             setOpenActividadesEconomicas(
@@ -141,10 +141,10 @@ const Index = ({ auth, localizacion }) => {
     };
 
     const checked = (actividad_economica) => {
-        setInputLocalizacion(actividad_economica);
+        setInputTiposCompras(actividad_economica);
     };
 
-    /*    const filterLocalizacion = (e) => {
+    /*    const filterTiposCompras = (e) => {
         const pattern = new RegExp(e.target.value, "i");
         const FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
             if (pattern.test(el.nombre)) {
@@ -270,17 +270,17 @@ const Index = ({ auth, localizacion }) => {
         }
     };
 
-    const deleteLocalizacion = () => {
-        fetch("/localizacion/" + inputLocalizacion.id + "/delete")
+    const deleteTiposCompras = () => {
+        fetch("/tiposcompras/" + inputTiposCompras.id + "/delete")
             .then((response) => response.json())
             .then((data) => {
                 if (data.type == "Success") {
                     setToastIcon("icon-check");
                     var new_data = segmentos.filter(
-                        (ae) => ae.id != inputLocalizacion.id
+                        (ae) => ae.id != inputTiposCompras.id
                     );
                     setSegmentos(new_data);
-                    setInputLocalizacion({ id: 0, nombre: "" });
+                    setInputTiposCompras({ id: 0, nombre: "" });
                 } else {
                     setToastIcon("icon-error");
                 }
@@ -289,23 +289,9 @@ const Index = ({ auth, localizacion }) => {
                 setShowModalActividadEconomica(false);
             });
     };
-
-    const filterLocalizacion = (e) => {
-        const pattern = new RegExp(e.target.value, "i");
-        const FilteredActividadesEcomomicas = fakeSectores.filter(function (
-            el
-        ) {
-            if (pattern.test(el.nombre)) {
-                return el;
-            }
-        });
-        setSectores(FilteredActividadesEcomomicas);
-        setShowActividadEconomica(!showActividadEconomica);
-    };
-
     return (
         <AuthenticatedLayout auth={auth}>
-            <Head title="Localización" />
+            <Head title="Tipos Compras" />
             <ToastContainer position="bottom-start">
                 <Toast
                     onClose={() => setShowToast(false)}
@@ -341,18 +327,17 @@ const Index = ({ auth, localizacion }) => {
                     <MenuOpciones />
                 </div>
                 <div className="bg-white overflow-auto w-full text-center margen-superior">
-                    <h2 className="name_section_app">Localización</h2>
+                    <h2 className="name_section_app">Tipos Compras</h2>
                     <div className="container mt-4">
                         <div className="tree_categorias tree_1">
                             <div className="tree_categorias__busqueda mb-3 mb-md-4">
                                 <div className="mx-auto">
                                     <input
                                         type="text"
-                                        placeholder="Buscar localización en Chile"
+                                        placeholder="Buscar tipo compra"
                                         autoComplete="off"
                                         className="form-control m-auto"
-                                        /* onChange={inputSearchActividadEconomica} */
-                                        onChange={filterLocalizacion}
+                                        onChange={inputSearchActividadEconomica}
                                     />
                                     <i className="icon-Cancelar"></i>
                                     <button
@@ -364,13 +349,13 @@ const Index = ({ auth, localizacion }) => {
                                     <br></br>
                                     <div className="botones">
                                         <Nav.Link
-                                            href={route("createLocalizacion")}
+                                            href={route("createTiposCompras")}
                                             className="flex  ml-4 text-probar "
                                         >
                                             <i className="bi bi-plus-square-fill"></i>
                                         </Nav.Link>
                                         <Nav.Link
-                                            onClick={editLocalizacion}
+                                            onClick={editTiposCompras}
                                             className="flex  ml-4 text-probar "
                                         >
                                             <i className="bi bi-pencil-fill"></i>
@@ -384,16 +369,14 @@ const Index = ({ auth, localizacion }) => {
                                             <i className="bi bi-trash3"></i>
                                         </Nav.Link>
                                     </div>
-
                                     {sectores.map((sector) => (
                                         <>
                                             {sector.id_padre_sub_categoria ==
                                                 null && (
                                                 <>
-                                                    {/* {console.log(sector)} */}
                                                     <div
                                                         id={sector.id}
-                                                        className="tree-content mt-3 sector"
+                                                        className="tree-content mt-3 sector "
                                                         key={sector.id}
                                                         onClick={() =>
                                                             getSegmento(
@@ -443,7 +426,7 @@ const Index = ({ auth, localizacion }) => {
                                                                                 <div
                                                                                     className="tree-content segmento"
                                                                                     onClick={() =>
-                                                                                        getLocalizacion(
+                                                                                        getTiposCompras(
                                                                                             segmento.id
                                                                                         )
                                                                                     }
@@ -459,7 +442,7 @@ const Index = ({ auth, localizacion }) => {
                                                                                         }
                                                                                         checked={
                                                                                             segmento.id ==
-                                                                                            inputLocalizacion.id
+                                                                                            inputTiposCompras.id
                                                                                                 ? "checked"
                                                                                                 : ""
                                                                                         }
@@ -488,38 +471,38 @@ const Index = ({ auth, localizacion }) => {
                                                                                     </span>
                                                                                 </div>
 
-                                                                                {openActividadesEconomicas.includes(
-                                                                                    segmento.id
-                                                                                ) && (
-                                                                                    <ul className="tree-children">
-                                                                                        {actividadesEconomicas.map(
-                                                                                            (
-                                                                                                childs
-                                                                                            ) => (
-                                                                                                <li className="tree-node draggable">
-                                                                                                    <div
-                                                                                                        className="tree-content actividad-economica"
-                                                                                                        onClick={() =>
-                                                                                                            checked(
-                                                                                                                childs
-                                                                                                            )
-                                                                                                        }
-                                                                                                    >
-                                                                                                        <span className="tree-anchor children">
-                                                                                                            <span className="tree-division tree-division1">
-                                                                                                                <span className="tree-division__title my-auto">
-                                                                                                                    {
-                                                                                                                        childs.nombre
-                                                                                                                    }
-                                                                                                                </span>
-                                                                                                            </span>
+                                                                                {/* {openActividadesEconomicas.includes(
+                                                                            segmento.id
+                                                                        ) && (
+                                                                            <ul className="tree-children">
+                                                                                {actividadesEconomicas.map(
+                                                                                    (
+                                                                                        childs
+                                                                                    ) => (
+                                                                                        <li className="tree-node draggable">
+                                                                                            <div
+                                                                                                className="tree-content actividad-economica"
+                                                                                                onClick={() =>
+                                                                                                    checked(
+                                                                                                        childs
+                                                                                                    )
+                                                                                                }
+                                                                                            >
+                                                                                                <span className="tree-anchor children">
+                                                                                                    <span className="tree-division tree-division1">
+                                                                                                        <span className="tree-division__title my-auto">
+                                                                                                            {
+                                                                                                                childs.nombre
+                                                                                                            }
                                                                                                         </span>
-                                                                                                    </div>
-                                                                                                </li>
-                                                                                            )
-                                                                                        )}
-                                                                                    </ul>
+                                                                                                    </span>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </li>
+                                                                                    )
                                                                                 )}
+                                                                            </ul>
+                                                                        )} */}
                                                                             </li>
                                                                         )}
                                                                     </>
@@ -551,7 +534,7 @@ const Index = ({ auth, localizacion }) => {
                             <Modal.Body id="removeActividadEconomicaBody">
                                 <p>
                                     Desea eliminar la comuna{" "}
-                                    {inputLocalizacion.nombre}?
+                                    {inputTiposCompras.nombre}?
                                 </p>
                             </Modal.Body>
                             <Modal.Footer>
@@ -563,7 +546,7 @@ const Index = ({ auth, localizacion }) => {
                                     Cancelar
                                 </button>
                                 <button
-                                    onClick={deleteLocalizacion}
+                                    onClick={deleteTiposCompras}
                                     className="btn btnRadius btn-new-red ml-2"
                                 >
                                     Eliminar

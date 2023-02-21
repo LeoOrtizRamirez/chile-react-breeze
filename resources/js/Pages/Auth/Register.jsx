@@ -284,7 +284,7 @@ export default function Register(props) {
                                             autoComplete="name"
                                             isFocused={true}
                                             onChange={(e) => onHandleChange(e)}
-                                            pattern="^[A-Za-z]+$"
+                                            pattern="^[A-Za-z\s]+$"
                                             required
                                         />
                                     </div>
