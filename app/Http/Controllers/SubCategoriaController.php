@@ -405,10 +405,10 @@ class SubCategoriaController extends Controller
         try {
             $tiposcompra->delete();
             $response['type'] = 'Success';
-            $response['message'] = ('Se ha eliminado la Comuna');
+            $response['message'] = ('Se ha eliminado correctamente');
         } catch (Exception $e) {
             $response['type'] = 'Error';
-            $response['message'] = ('No puedes eliminar esta Comuna');
+            $response['message'] = ('No puedes eliminar este registro');
         }
         return json_encode($response);
     }

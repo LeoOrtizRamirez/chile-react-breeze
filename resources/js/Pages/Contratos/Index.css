@@ -30,8 +30,8 @@ table tr th {
 }
 
 .alto-tabla {
-    width: auto;
-    height: 100vh;
+    width: 90vw;
+    height: 85vh;
 }
 
 .cabecera-tabla {
@@ -76,10 +76,10 @@ th {
 }
 
 body {
-    overflow-y: hidden;
+    overflow: hidden;
 }
 
-span,
+/* span, */
 td,
 a {
     text-align: center;
@@ -120,10 +120,6 @@ html {
     background-color: #f3f4f6;
 }
 
-p {
-    margin-bottom: 0px;
-}
-
 .width-columna-acciones {
     width: 80px;
 }
@@ -136,34 +132,10 @@ p {
     width: 200px;
 }
 
-ul.lista-opciones.margen-nav {
-    height: 100vh;
-}
-
-ul.lista-opciones.margen-nav > li {
-    height: 16vh !important;
-}
-
-.p-10 {
-    padding: 0px 10px 0px 10px;
-}
-
 /*Formatear estilos*/
 a {
     color: unset !important;
     text-decoration: none !important;
-}
-
-h1,
-h2,
-h3,
-h4,
-h4,
-h5,
-h6,
-span,
-p {
-    font-family: "Poppins";
 }
 
 .text-primary {
@@ -173,14 +145,6 @@ p {
 
 .logo-header {
     width: unset !important;
-}
-
-hr {
-    margin: unset !important;
-}
-
-p {
-    margin-bottom: unset !important;
 }
 
 .px-4 {
@@ -197,8 +161,6 @@ a.text-primary:hover {
 .showmore {
     max-height: 150px;
     width: 100%;
-    /* border: 1px solid #ddd; */
-    /* background: #f1f1f1; */
     overflow-y: scroll;
 }
 
@@ -240,20 +202,19 @@ div#wrapper1 {
 .contenedor-filtros {
     display: flex;
     align-items: center;
-    margin-left: 110px;
     justify-content: space-between;
+    width: 91vw;
 }
 
 .buscador_rapido {
-    margin: 15px 25px 15px 22px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
     border: 2px solid #e6e6e6;
-    padding: 0px 5px 0px 15px;
+    padding: 0px 15px 0px 15px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
-    width: 350px;
+    width: 320px;
 }
 
 .buscador_rapido::placeholder {

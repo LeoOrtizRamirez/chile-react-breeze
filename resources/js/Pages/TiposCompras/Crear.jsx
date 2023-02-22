@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 import "./Crear.css";
 
 /*Toast*/
@@ -63,14 +62,12 @@ const Crear = ({ auth, tiposcompras, solo_sectores }) => {
         var parent = e.target.value;
         const input_filter = parent;
         const pattern = new RegExp(input_filter, "i");
-        const FilteredActividadesEcomomicas = fakeSectores.filter(function (
-            el
-        ) {
+        const FilteredTiposCompras = fakeSectores.filter(function (el) {
             if (pattern.test(el.id_padre_sub_categoria)) {
                 return el;
             }
         });
-        setSegmentos(FilteredActividadesEcomomicas);
+        setSegmentos(FilteredTiposCompras);
     };
 
     return (
@@ -97,9 +94,6 @@ const Crear = ({ auth, tiposcompras, solo_sectores }) => {
                 </Toast>
             </ToastContainer>
             <div className="contenedor-planes">
-                <div className="posicion-opciones-planes">
-                    <MenuOpciones />
-                </div>
                 <div className="bg-white overflow-auto w-full text-center margen-superior">
                     <h2 className="name_section_app">Crear Tipos Compras</h2>
                     <div className="container mt-4">

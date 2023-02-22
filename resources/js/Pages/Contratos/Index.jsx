@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, Suspense, lazy } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 import "./Index.css";
 import Compartir from "../../Components/Acciones/Compartir";
 import Eliminar from "../../Components/Acciones/Eliminar";
@@ -269,13 +268,8 @@ const Index = ({ auth, contratos }) => {
                 </div>
 
                 <div className="contenedor-contratos">
-                    <div className="contenedor-opciones-usuarios">
-                        <MenuOpciones />
-                    </div>
-
-
                     <div
-                        className="alto-tabla bg-white overflow-auto "
+                        className="alto-tabla bg-white overflow-auto"
                         id="scroll-table"
                     >
                         {!loading ?

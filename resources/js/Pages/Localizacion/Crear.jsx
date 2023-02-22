@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
-import './Crear.css';
+import "./Crear.css";
 
 /*Toast*/
-import Toast from 'react-bootstrap/Toast';
-import ToastContainer from 'react-bootstrap/ToastContainer';
-import '../../../css/estilos-toast.css'
+import Toast from "react-bootstrap/Toast";
+import ToastContainer from "react-bootstrap/ToastContainer";
+import "../../../css/estilos-toast.css";
 import "../../../css/font-unicolor.css";
 /*Toast*/
 
@@ -19,10 +18,8 @@ import { useForm, Head } from "@inertiajs/inertia-react";
 /*Form */
 
 const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
-
-
-    const [showToast, setShowToast] = useState(false)
-    const [toastMessage, setToastMessage] = useState("")
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
     const { data, setData, post, processing, reset, errors } = useForm({
         id: "",
         nombre: "",
@@ -30,12 +27,11 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
         segmento: "",
         tipo_categoria: 3,
     });
-    const [fakeSectores, setFakeSectores] = useState(actividades_economicas)
-    const [sectores, setSectores] = useState(solo_sectores)
-    const [segmentos, setSegmentos] = useState([])
+    const [fakeSectores, setFakeSectores] = useState(actividades_economicas);
+    const [sectores, setSectores] = useState(solo_sectores);
+    const [segmentos, setSegmentos] = useState([]);
 
-    const [validated, setValidated] = useState(false)
-
+    const [validated, setValidated] = useState(false);
 
     const handleSubmit = (event) => {
         const selector = document.querySelectorAll(".sector")[0].value;
@@ -47,7 +43,9 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
         if (selector == "Selecciona una región") {
             event.preventDefault();
             event.stopPropagation();
-            document.querySelectorAll("select.sector.form-select")[0].classList.add('failed');
+            document
+                .querySelectorAll("select.sector.form-select")[0]
+                .classList.add("failed");
             return;
         }
 
@@ -62,41 +60,49 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
 
     useEffect(() => {
         if (Object.entries(errors).length > 0) {
-            var responses = Object.values(errors)
-            var message = '';
+            var responses = Object.values(errors);
+            var message = "";
             {
-                responses.map((response) => (
-                    message += response
-                ))
+                responses.map((response) => (message += response));
             }
-            setToastMessage(message)
-            setShowToast(true)
+            setToastMessage(message);
+            setShowToast(true);
         }
-    }, [errors])
+    }, [errors]);
 
     const getSegmentos = (e) => {
-        document.querySelectorAll("select.sector.form-select")[0].classList.remove('failed');
+        document
+            .querySelectorAll("select.sector.form-select")[0]
+            .classList.remove("failed");
 
-        setData("sector", e.target.value)
-        var parent = e.target.value
-        const input_filter = parent
+        setData("sector", e.target.value);
+        var parent = e.target.value;
+        const input_filter = parent;
         const pattern = new RegExp(input_filter, "i");
-        const FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
+        const FilteredActividadesEcomomicas = fakeSectores.filter(function (
+            el
+        ) {
             if (pattern.test(el.id_padre_sub_categoria)) {
                 return el;
             }
         });
         setSegmentos(FilteredActividadesEcomomicas);
-    }
+    };
 
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Localización" />
-            <ToastContainer position='bottom-start'>
-                <Toast onClose={() => setShowToast(false)} show={showToast} delay={300000} autohide>
-                    <div className="notification-toast error"><span className='toast-icon toast-danger'>
-                        <span className='icon-error'></span>
-                    </span>
+            <ToastContainer position="bottom-start">
+                <Toast
+                    onClose={() => setShowToast(false)}
+                    show={showToast}
+                    delay={300000}
+                    autohide
+                >
+                    <div className="notification-toast error">
+                        <span className="toast-icon toast-danger">
+                            <span className="icon-error"></span>
+                        </span>
                         <p className="title">{toastMessage}</p>
                         <button
                             type="button"
@@ -107,9 +113,6 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
                 </Toast>
             </ToastContainer>
             <div className="contenedor-planes">
-                <div className="posicion-opciones-planes">
-                    <MenuOpciones />
-                </div>
                 <div className="bg-white overflow-auto w-full text-center margen-superior">
                     <h2 className="name_section_app">Crear Localización</h2>
                     <div className="container mt-4">
@@ -127,19 +130,25 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
                                         for="validationInput"
                                         className="bloque__registro-form-title-label"
                                     >
-                                       Región
+                                        Región
                                     </Form.Label>
                                 </div>
                                 <div className="col-12 col-sm-8">
-                                    <Form.Select name="sector" className="sector" onChange={getSegmentos}>
+                                    <Form.Select
+                                        name="sector"
+                                        className="sector"
+                                        onChange={getSegmentos}
+                                    >
                                         <option>Selecciona una región</option>
                                         {sectores.map((sector) => (
-                                            <option value={sector.id}>{sector.nombre}</option>
+                                            <option value={sector.id}>
+                                                {sector.nombre}
+                                            </option>
                                         ))}
                                     </Form.Select>
                                 </div>
                             </Form.Group>
-                           {/*  <Form.Group className="row mt-3">
+                            {/*  <Form.Group className="row mt-3">
                                 <div className="col-12 col-sm-4">
                                     <Form.Label
                                         htmlFor=""
@@ -165,7 +174,7 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
                                         for="validationInput"
                                         className="bloque__registro-form-title-label"
                                     >
-                                       Nombre de la comuna o ciudad
+                                        Nombre de la comuna o ciudad
                                     </Form.Label>
                                 </div>
                                 <div className="col-12 col-sm-8">
@@ -181,7 +190,7 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
                                     />
                                 </div>
                             </Form.Group>
-                           {/*  <Form.Group className="row mt-3">
+                            {/*  <Form.Group className="row mt-3">
                                 <div className="col-12 col-sm-4">
                                     <Form.Label
                                         htmlFor=""
@@ -205,8 +214,16 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
                                 </div>
                             </Form.Group> */}
                             <Form.Group className="mt-4">
-                                <button type="submit" className={`btn btnRadius btn-new-blue mr-2`}>Crear</button>
-                                <a href={route("indexLocalizacion")} className="btn btnRadius btn-new-red ml-2">
+                                <button
+                                    type="submit"
+                                    className={`btn btnRadius btn-new-blue mr-2`}
+                                >
+                                    Crear
+                                </button>
+                                <a
+                                    href={route("indexLocalizacion")}
+                                    className="btn btnRadius btn-new-red ml-2"
+                                >
                                     Cancelar
                                 </a>
                             </Form.Group>
@@ -214,7 +231,7 @@ const Crear = ({ auth, actividades_economicas, solo_sectores }) => {
                     </div>
                 </div>
             </div>
-        </AuthenticatedLayout >
+        </AuthenticatedLayout>
     );
 };
 

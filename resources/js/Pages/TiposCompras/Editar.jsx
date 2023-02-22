@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 import "./Editar.css";
 
 /*Toast*/
@@ -53,14 +52,12 @@ const Editar = ({ auth, tiposcompras, solo_sectores, ae_actual }) => {
     const getSegmentos = (value) => {
         setData("sector", value);
         const pattern = new RegExp(value, "i");
-        const FilteredActividadesEcomomicas = fakeSectores.filter(function (
-            el
-        ) {
+        const FilteredTiposCompras = fakeSectores.filter(function (el) {
             if (pattern.test(el.id_padre_sub_categoria)) {
                 return el;
             }
         });
-        setSegmentos(FilteredActividadesEcomomicas);
+        setSegmentos(FilteredTiposCompras);
     };
 
     useEffect(() => {
@@ -110,13 +107,8 @@ const Editar = ({ auth, tiposcompras, solo_sectores, ae_actual }) => {
                 </Toast>
             </ToastContainer>
             <div className="contenedor-planes">
-                <div className="posicion-opciones-planes">
-                    <MenuOpciones />
-                </div>
                 <div className="bg-white overflow-auto w-full text-center margen-superior">
-                    <h2 className="name_section_app">
-                        Edición tipo compra
-                    </h2>
+                    <h2 className="name_section_app">Edición tipo compra</h2>
                     <div className="container mt-4">
                         <Form
                             id="form"
@@ -166,13 +158,13 @@ const Editar = ({ auth, tiposcompras, solo_sectores, ae_actual }) => {
                                         for="validationInput"
                                         className="bloque__registro-form-title-label"
                                     >
-                                        Nombre de la comuna o ciudad
+                                        Tipo de compra
                                     </Form.Label>
                                 </div>
                                 <div className="col-12 col-sm-8">
                                     <Form.Control
                                         type="text"
-                                        placeholder="Nombre de la comuna o ciudad"
+                                        placeholder="Tipo de compra"
                                         value={data.nombre}
                                         onChange={(e) =>
                                             setData("nombre", e.target.value)

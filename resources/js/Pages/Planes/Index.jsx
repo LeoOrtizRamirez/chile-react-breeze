@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { useForm, Head } from "@inertiajs/inertia-react";
-import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
-import './Index.css';
+import "./Index.css";
 import { Link } from "@inertiajs/inertia-react";
 
 import UpdateModal from "@/Components/Modals/UpdateModal";
@@ -54,9 +53,6 @@ const Index = ({ auth, planes }) => {
         <AuthenticatedLayout auth={auth}>
             <Head title="Planes" />
             <div className="contenedor-planes">
-                <div className="posicion-opciones-planes">
-                    <MenuOpciones />
-                </div>
                 <div className="bg-white overflow-auto w-full text-center margen-superior">
                     <h2 className="name_section_app">Planes</h2>
                     <div className="planes">
@@ -75,7 +71,7 @@ const Index = ({ auth, planes }) => {
                                     setOpenCreateModal(true);
                                 }}
                             >
-                                <i className="bi bi-plus-lg"></i> Crear 
+                                <i className="bi bi-plus-lg"></i> Crear
                             </a>
                             {openCreateModal && (
                                 <CreateModal
@@ -135,7 +131,11 @@ const Index = ({ auth, planes }) => {
                                                     plan.id
                                                 )}
                                             >
-                                                <img src="/public/icons/multicolor/toggle-on.svg" alt="" className="m-auto" />
+                                                <img
+                                                    src="/public/icons/multicolor/toggle-on.svg"
+                                                    alt=""
+                                                    className="m-auto"
+                                                />
                                             </Link>
                                         ) : (
                                             <Link
@@ -144,7 +144,11 @@ const Index = ({ auth, planes }) => {
                                                     plan.id
                                                 )}
                                             >
-                                                <img src="/public/icons/multicolor/toggle-off.svg" alt="" className="m-auto" />
+                                                <img
+                                                    src="/public/icons/multicolor/toggle-off.svg"
+                                                    alt=""
+                                                    className="m-auto"
+                                                />
                                             </Link>
                                         )}
                                     </td>
