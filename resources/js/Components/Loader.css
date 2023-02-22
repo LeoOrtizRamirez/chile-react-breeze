@@ -29,6 +29,8 @@
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
+    padding-right: 190px;
+    padding-bottom: 100px;
 }
 
 .cargando_tables {
@@ -42,4 +44,9 @@
     font-size: 27px;
     padding-top: 8px;
     color: #959595;
+}
+
+#mensajes-personalizado-busqueda {
+    padding-top: 8rem;
+    padding-bottom: 3.4rem;
 }
