@@ -199,32 +199,36 @@ class scrapping extends Command
         $crawlerDetalle = $this->getClient()->request('GET', $model->link);
         $model->modalidad = $this->textValidation($crawlerDetalle->filter('#lblFicha1Tipo'));
         $model->ubicacion = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
-        sleep(1);
         $estado_proceso = $this->textValidation($crawlerDetalle->filter('#imgEstado'), '#imgEstado', 'src');
 
-        switch ($estado_proceso) {
-            case '../../Includes/images/FichaLight/iconos_estados/publicadas.png':
-                $model->estado_proceso =  "Publicada";
-                break;
-            case '../../Includes/images/FichaLight/iconos_estados/cerrada.png':
-                $model->estado_proceso =  "Cerrada";
-                break;
-            case '../../Includes/images/FichaLight/iconos_estados/desierta.png':
-                $model->estado_proceso =  "Desierta";
-                break;
-            case '../../Includes/images/FichaLight/iconos_estados/adjudicada.png':
-                $model->estado_proceso =  "Adjudicada";
-                break;
-            case '../../Includes/images/FichaLight/iconos_estados/revocada.png':
-                $model->estado_proceso =  "Revocada";
-                break;
-            case '../../Includes/images/FichaLight/iconos_estados/suspendida.png':
-                $model->estado_proceso =  "Suspendida";
-                break;
-            default:
-                # code...
-                break;
+        while($estado_proceso == ""){
+            $crawlerDetalle = $this->getClient()->request('GET', $model->link);
+            $estado_proceso = $this->textValidation($crawlerDetalle->filter('#imgEstado'), '#imgEstado', 'src');
+            switch ($estado_proceso) {
+                case '../../Includes/images/FichaLight/iconos_estados/publicadas.png':
+                    $model->estado_proceso =  "Publicada";
+                    break;
+                case '../../Includes/images/FichaLight/iconos_estados/cerrada.png':
+                    $model->estado_proceso =  "Cerrada";
+                    break;
+                case '../../Includes/images/FichaLight/iconos_estados/desierta.png':
+                    $model->estado_proceso =  "Desierta";
+                    break;
+                case '../../Includes/images/FichaLight/iconos_estados/adjudicada.png':
+                    $model->estado_proceso =  "Adjudicada";
+                    break;
+                case '../../Includes/images/FichaLight/iconos_estados/revocada.png':
+                    $model->estado_proceso =  "Revocada";
+                    break;
+                case '../../Includes/images/FichaLight/iconos_estados/suspendida.png':
+                    $model->estado_proceso =  "Suspendida";
+                    break;
+                default:
+                    # code...
+                    break;
+            }
         }
+
         $model->save();
         echo "Guardando Detalle del Concurso\n";
 
