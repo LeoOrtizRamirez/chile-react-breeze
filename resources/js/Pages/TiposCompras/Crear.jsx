@@ -129,7 +129,7 @@ const Crear = ({ auth, tiposcompras, solo_sectores }) => {
                                             selected
                                             hidden
                                         >
-                                            Selecciona una región
+                                            Selecciona una entidad
                                         </option>
                                         {sectores.map((sector) => (
                                             <option value={sector.id}>
