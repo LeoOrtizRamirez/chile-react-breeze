@@ -135,112 +135,123 @@ const Index = ({ auth, tiposcompras }) => {
         setInputTiposCompras(actividad_economica);
     };
 
-    const inputSearchTipoCompra = (e) => {
-        if (e.target.value == "") {
-            console.log("primer if");
-            console.log(e.target.value);
-            setSectores(fakeSectores);
-            setSegmentos([]);
-            setTiposCompras([]);
-            setOpenSegmentos([]);
-            setOpenTiposCompras([]);
-            return;
-        }
-        if (e.key === "Enter") {
-            console.log("enter");
-            console.log(e.key);
-            //SE BUSCAN LAS ACTIVIDADES ECONOMICAS QUE COINCIDAN CON EL NOMBRE QUE SE INGRESO
-            const pattern = new RegExp(e.target.value, "i");
-            const FilteredTiposCompras = fakeSectores.filter(function (el) {
-                if (pattern.test(el.nombre)) {
-                    return el;
-                }
-            });
+    // const inputSearchTipoCompra = (e) => {
+    //     if (e.target.value == "") {
+    //         console.log("primer if");
+    //         console.log(e.target.value);
+    //         setSectores(fakeSectores);
+    //         setSegmentos([]);
+    //         setTiposCompras([]);
+    //         setOpenSegmentos([]);
+    //         setOpenTiposCompras([]);
+    //         return;
+    //     }
+    //     if (e.key === "Enter") {
+    //         console.log("enter");
+    //         console.log(e.key);
+    //         //SE BUSCAN LAS ACTIVIDADES ECONOMICAS QUE COINCIDAN CON EL NOMBRE QUE SE INGRESO
+    //         const pattern = new RegExp(e.target.value, "i");
+    //         const FilteredTiposCompras = fakeSectores.filter(function (el) {
+    //             if (pattern.test(el.nombre)) {
+    //                 return el;
+    //             }
+    //         });
 
-            var sectores_filtrados = [];
-            var segmentos_filtrados = [];
-            var tipos_compras_filtrados = [];
-            var open_tipos_compras = [];
-            var open_segmentos = [];
+    //         var sectores_filtrados = [];
+    //         var segmentos_filtrados = [];
+    //         var tipos_compras_filtrados = [];
+    //         var open_tipos_compras = [];
+    //         var open_segmentos = [];
 
-            FilteredTiposCompras.forEach((element) => {
-                if (
-                    element.id_abuelo_sub_categoria != null &&
-                    element.id_padre_sub_categoria != null
-                ) {
-                    //ae
-                    tipos_compras_filtrados.push(element);
-                    open_tipos_compras.push(element.id_padre_sub_categoria);
+    //         FilteredTiposCompras.forEach((element) => {
+    //             if (
+    //                 element.id_abuelo_sub_categoria != null &&
+    //                 element.id_padre_sub_categoria != null
+    //             ) {
+    //                 //ae
+    //                 tipos_compras_filtrados.push(element);
+    //                 open_tipos_compras.push(element.id_padre_sub_categoria);
 
-                    //BUSCAMOS EL SEGMENTO
-                    segmentos_filtrados.push(
-                        fakeSectores.filter(
-                            (fs) => fs.id == element.id_padre_sub_categoria
-                        )[0]
-                    );
-                    open_segmentos.push(element.id_abuelo_sub_categoria);
-                }
+    //                 //BUSCAMOS EL SEGMENTO
+    //                 segmentos_filtrados.push(
+    //                     fakeSectores.filter(
+    //                         (fs) => fs.id == element.id_padre_sub_categoria
+    //                     )[0]
+    //                 );
+    //                 open_segmentos.push(element.id_abuelo_sub_categoria);
+    //             }
 
-                if (
-                    element.id_abuelo_sub_categoria == null &&
-                    element.id_padre_sub_categoria != null
-                ) {
-                    //segmento
-                    if (!segmentos_filtrados.includes(element)) {
-                        segmentos_filtrados.push(element);
-                    }
-                    if (
-                        !open_segmentos.includes(element.id_padre_sub_categoria)
-                    ) {
-                        open_segmentos.push(element.id_padre_sub_categoria);
-                    }
-                }
+    //             if (
+    //                 element.id_abuelo_sub_categoria == null &&
+    //                 element.id_padre_sub_categoria != null
+    //             ) {
+    //                 //segmento
+    //                 if (!segmentos_filtrados.includes(element)) {
+    //                     segmentos_filtrados.push(element);
+    //                 }
+    //                 if (
+    //                     !open_segmentos.includes(element.id_padre_sub_categoria)
+    //                 ) {
+    //                     open_segmentos.push(element.id_padre_sub_categoria);
+    //                 }
+    //             }
 
-                if (
-                    element.id_abuelo_sub_categoria == null &&
-                    element.id_padre_sub_categoria == null
-                ) {
-                    //sector
-                    sectores_filtrados.push(element);
-                }
-            });
+    //             if (
+    //                 element.id_abuelo_sub_categoria == null &&
+    //                 element.id_padre_sub_categoria == null
+    //             ) {
+    //                 //sector
+    //                 sectores_filtrados.push(element);
+    //             }
+    //         });
 
-            //BUSCAR TODOS LOS SECTORES Y SEGMENTOS DE tipos_compras_filtrados
-            var ae_sector = null;
-            var ae_segmento = null;
-            tipos_compras_filtrados.forEach((ae) => {
-                //OBTENER SECTOR
-                ae_sector = fakeSectores.filter(
-                    (fs) => fs.id == ae.id_abuelo_sub_categoria
-                )[0];
-                ae_segmento = fakeSectores.filter(
-                    (fs) => fs.id == ae.id_padre_sub_categoria
-                )[0];
-                //SI EL ae_sector NO ESTA INCLUIDO EN sectores
-                if (!sectores_filtrados.includes(ae_sector)) {
-                    //BUSCAR SECTOR Y GUARDAR
-                    sectores_filtrados.push(
-                        fakeSectores.filter(
-                            (sector) => sector.id == ae.id_abuelo_sub_categoria
-                        )[0]
-                    );
-                }
-                if (!segmentos_filtrados.includes(ae_segmento)) {
-                    //BUSCAR SEGMENTO Y GUARDAR
-                    sectores_filtrados.push(
-                        fakeSectores.filter(
-                            (sector) => sector.id == ae.id_padre_sub_categoria
-                        )[0]
-                    );
-                }
-            });
+    //         //BUSCAR TODOS LOS SECTORES Y SEGMENTOS DE tipos_compras_filtrados
+    //         var ae_sector = null;
+    //         var ae_segmento = null;
+    //         tipos_compras_filtrados.forEach((ae) => {
+    //             //OBTENER SECTOR
+    //             ae_sector = fakeSectores.filter(
+    //                 (fs) => fs.id == ae.id_abuelo_sub_categoria
+    //             )[0];
+    //             ae_segmento = fakeSectores.filter(
+    //                 (fs) => fs.id == ae.id_padre_sub_categoria
+    //             )[0];
+    //             //SI EL ae_sector NO ESTA INCLUIDO EN sectores
+    //             if (!sectores_filtrados.includes(ae_sector)) {
+    //                 //BUSCAR SECTOR Y GUARDAR
+    //                 sectores_filtrados.push(
+    //                     fakeSectores.filter(
+    //                         (sector) => sector.id == ae.id_abuelo_sub_categoria
+    //                     )[0]
+    //                 );
+    //             }
+    //             if (!segmentos_filtrados.includes(ae_segmento)) {
+    //                 //BUSCAR SEGMENTO Y GUARDAR
+    //                 sectores_filtrados.push(
+    //                     fakeSectores.filter(
+    //                         (sector) => sector.id == ae.id_padre_sub_categoria
+    //                     )[0]
+    //                 );
+    //             }
+    //         });
 
-            setSectores(sectores_filtrados);
-            setSegmentos(segmentos_filtrados);
-            setTiposCompras(tipos_compras_filtrados);
-            setOpenSegmentos(open_segmentos);
-            setOpenTiposCompras(open_tipos_compras);
-        }
+    //         setSectores(sectores_filtrados);
+    //         setSegmentos(segmentos_filtrados);
+    //         setTiposCompras(tipos_compras_filtrados);
+    //         setOpenSegmentos(open_segmentos);
+    //         setOpenTiposCompras(open_tipos_compras);
+    //     }
+    // };
+
+    const filterTipoCompra = (e) => {
+        const pattern = new RegExp(e.target.value, "i");
+        const FilteredTiposCompras = fakeSectores.filter(function (el) {
+            if (pattern.test(el.nombre)) {
+                return el;
+            }
+        });
+        setSectores(FilteredTiposCompras);
+        setShowTipoCompra(!showTipoCompra);
     };
 
     const deleteTiposCompras = () => {
@@ -307,7 +318,7 @@ const Index = ({ auth, tiposcompras }) => {
                                         placeholder="Buscar tipo compra"
                                         autoComplete="off"
                                         className="form-control m-auto"
-                                        onChange={inputSearchTipoCompra}
+                                        onChange={filterTipoCompra}
                                     />
                                     <i className="icon-Cancelar"></i>
                                     <button

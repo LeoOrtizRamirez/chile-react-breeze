@@ -119,15 +119,18 @@ const Crear = ({ auth, tiposcompras, solo_sectores }) => {
                                         type="text"
                                         name="sector"
                                         className="sector"
-                                        id="sector"
                                         onChange={getSegmentos}
                                         pattern="^[A-Za-z\s]+$"
                                         required
                                     >
-                                        {/* <option disabled hidden selected>
-                                            -- Selecciona una opción --
-                                        </option> */}
-
+                                        <option
+                                            value=""
+                                            disabled
+                                            selected
+                                            hidden
+                                        >
+                                            Selecciona una región
+                                        </option>
                                         {sectores.map((sector) => (
                                             <option value={sector.id}>
                                                 {sector.nombre}
