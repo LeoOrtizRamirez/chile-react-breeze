@@ -3,18 +3,6 @@ html {
     overflow: hidden !important;
 }
 
-ul.lista-opciones.margen-nav {
-    height: 100vh;
-}
-
-ul.lista-opciones.margen-nav > li {
-    height: 16vh !important;
-}
-
-.p-10 {
-    padding: 0px 10px 0px 10px;
-}
-
 .titulo {
     display: flex;
     align-items: center;
@@ -101,12 +89,4 @@ ul.lista-opciones.margen-nav > li {
 .usuarios-regresar:hover {
     background-color: #00a1c9;
     color: white;
-}
-
-hr {
-    margin: unset !important;
-}
-
-p {
-    margin-bottom: unset !important;
 }

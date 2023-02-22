@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { useForm, Head } from "@inertiajs/inertia-react";
-import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 import Paginador from "@/Components/PaginadorContratos";
 import "./index.css";
 import DeleteModal from "@/Components/Modals/DeleteModalUsers";
@@ -192,9 +191,6 @@ const Index = ({
             <Head title="Usuarios" />
 
             <div className="contenedor-usuarios">
-                <div className="contenedor-opciones-usuarios">
-                    <MenuOpciones />
-                </div>
                 <div className="contenedor-informacion-usuarios bg-white">
                     <div className="usuarios">
                         <div className="contenedor-botones">

@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
-import MenuOpciones from "@/Components/Menu_opciones/MenuOpciones";
 import { useForm, Head } from "@inertiajs/inertia-react";
 import Form from "react-bootstrap/Form";
 import paises from "../../../../public/data/paises.json";
 import "./Crear.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const Crear = ({ auth,planesAll }) => {
+const Crear = ({ auth, planesAll }) => {
     const { data, setData, post, processing, reset, errors } = useForm({
         identificacion: "",
         nombre_completo: "",
@@ -38,7 +37,7 @@ const Crear = ({ auth,planesAll }) => {
     });
 
     const [validated, setValidated] = useState(false);
-    const [planes, setPlanes] = useState(planesAll)
+    const [planes, setPlanes] = useState(planesAll);
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
@@ -78,10 +77,6 @@ const Crear = ({ auth,planesAll }) => {
         <AuthenticatedLayout auth={auth}>
             <Head title="Crear Usuario" />
             <div className="content">
-                <link
-                    rel="stylesheet"
-                    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-                />
                 <div className="titulo">Creación de usuario</div>
                 <a href="/usuarios" className="arrow-left usuarios-regresar">
                     Regresar
@@ -91,9 +86,6 @@ const Crear = ({ auth,planesAll }) => {
                     - -
                 </div>
                 <div className="content-menu-form">
-                    <div className="content-menu-create">
-                        <MenuOpciones />
-                    </div>
                     <Form
                         noValidate
                         validated={validated}
@@ -337,7 +329,7 @@ const Crear = ({ auth,planesAll }) => {
                                     >
                                         Seleccione un plan:
                                     </Form.Label>
-                        
+
                                     <Form.Select
                                         required
                                         onChange={(e) =>
@@ -357,11 +349,6 @@ const Crear = ({ auth,planesAll }) => {
                                             </option>
                                         ))}
                                     </Form.Select>
-
-
-
-
-
                                 </Form.Group>
 
                                 <Form.Group className="w-full mx-2">

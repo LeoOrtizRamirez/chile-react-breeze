@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Link, useForm, Head } from "@inertiajs/inertia-react";
-import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 import "./Index.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -337,9 +336,6 @@ const Index = ({ auth, localizacion }) => {
                 </Toast>
             </ToastContainer>
             <div className="contenedor-planes">
-                <div className="posicion-opciones-planes">
-                    <MenuOpciones />
-                </div>
                 <div className="bg-white overflow-auto w-full text-center margen-superior">
                     <h2 className="name_section_app">Localización</h2>
                     <div className="container mt-4">

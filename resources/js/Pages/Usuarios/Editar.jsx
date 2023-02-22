@@ -2,17 +2,16 @@ import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
-import MenuOpciones from "@/Components/Menu_opciones/MenuOpciones";
 import { useForm, usePage, Head } from "@inertiajs/inertia-react";
 import Form from "react-bootstrap/Form";
 import paises from "../../../../public/data/paises.json";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Editar.css";
 
-const editar = ({ usuario,planesAll, planUsuario }) => {
+const editar = ({ usuario, planesAll, planUsuario }) => {
     const { auth } = usePage().props;
     const [editing, setEditing] = useState(false);
-    const [planes, setPlanes] = useState(planesAll)
+    const [planes, setPlanes] = useState(planesAll);
 
     const { data, setData, patch, processing, reset, errors } = useForm({
         nombre_completo: usuario.nombre_completo,
@@ -40,10 +39,8 @@ const editar = ({ usuario,planesAll, planUsuario }) => {
         telefono_fijo_empresa: usuario.telefono_fijo_empresa,
         email_facturacion_empresa: usuario.email_facturacion_empresa,
         descripcion_actividad_economica:
-        usuario.descripcion_actividad_economica,
+            usuario.descripcion_actividad_economica,
     });
-
-  
 
     const submit = (e) => {
         e.preventDefault();
@@ -62,7 +59,6 @@ const editar = ({ usuario,planesAll, planUsuario }) => {
         setData("idplan", e.target.value);
         planes.find((plan) => plan.id === e.target.value);
     };
-
 
     const handlePaisEmpresa = (e) => {
         setData("pais_empresa", e.target.value);
@@ -85,12 +81,7 @@ const editar = ({ usuario,planesAll, planUsuario }) => {
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Crear Usuario" />
-            
             <div className="content">
-                <link
-                    rel="stylesheet"
-                    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-                />
                 <div className="titulo">
                     <a href="/usuarios" className="usuarios-regresar">
                         Regresar
@@ -102,9 +93,6 @@ const editar = ({ usuario,planesAll, planUsuario }) => {
                     - -
                 </div>
                 <div className="content-menu-form">
-                    <div className="content-menu-edit">
-                        <MenuOpciones />
-                    </div>
                     <Form onSubmit={submit} className="was-validated">
                         <div className="container-create">
                             <div className="content-form">
@@ -337,14 +325,14 @@ const editar = ({ usuario,planesAll, planUsuario }) => {
                             </div>
 
                             <div className="content-form">
-                            <Form.Group className="w-full mx-2">
+                                <Form.Group className="w-full mx-2">
                                     <Form.Label
                                         for="validationInput"
                                         htmlFor="idplan"
                                     >
                                         Seleccione un plan:
                                     </Form.Label>
-                        
+
                                     <Form.Select
                                         required
                                         onChange={(e) =>
@@ -353,9 +341,17 @@ const editar = ({ usuario,planesAll, planUsuario }) => {
                                         placeholder="Selecione un plan"
                                         className="mb-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-2xl shadow-sm"
                                     >
-                                        <option value={data.idplan}>{data.nombrePlan}</option>
+                                        <option value={data.idplan}>
+                                            {data.nombrePlan}
+                                        </option>
                                         {planes.map((plan, index) => (
-                                            <option  key={index} autoFocus value={plan.id}>{plan.nombre}</option>
+                                            <option
+                                                key={index}
+                                                autoFocus
+                                                value={plan.id}
+                                            >
+                                                {plan.nombre}
+                                            </option>
                                         ))}
                                     </Form.Select>
                                 </Form.Group>

@@ -25,14 +25,6 @@ a {
     text-decoration: none !important;
 }
 
-.w-30 {
-    width: 110px;
-}
-
-p {
-    margin-bottom: 0px !important;
-}
-
 html {
     background-color: #f3f4f6;
 }
@@ -64,38 +56,15 @@ th {
     font-weight: bold;
     padding-bottom: 5px;
     border: 0;
-    background-image: linear-gradient(90deg,
-            #e1e1e1 0,
-            #e1e1e1 50%,
-            transparent 0);
+    background-image: linear-gradient(
+        90deg,
+        #e1e1e1 0,
+        #e1e1e1 50%,
+        transparent 0
+    );
     background-size: 16px 2px;
     background-position: bottom;
     background-repeat: repeat-x;
-}
-
-ul.lista-opciones.margen-nav {
-    height: 100vh;
-}
-
-ul.lista-opciones.margen-nav>li {
-    height: 16vh !important;
-}
-
-/* .contenedor-opciones {
-    margin-top: -115px;
-    margin-left: 10px;
-    margin-right: 10px;
-    background-color: white;
-    border-radius: 25px;
-    -webkit-border-radius: 25px;
-    -moz-border-radius: 25px;
-    -ms-border-radius: 25px;
-    -o-border-radius: 25px;
-    height: 100vh;
-} */
-
-.p-10 {
-    padding: 10px 10px 0px 10px;
 }
 
 .planes {
@@ -161,7 +130,9 @@ ul.lista-opciones.margen-nav>li {
     cursor: pointer;
 }
 
-.sector, .segmento, input.actividad-economica{
+.sector,
+.segmento,
+input.actividad-economica {
     width: 100%;
     border-radius: 22px !important;
 }
@@ -176,8 +147,8 @@ ul.lista-opciones.margen-nav>li {
 }
 
 .btn-new-blue:hover {
-    background: #00a1c9!important;
-    color: #fff!important;
+    background: #00a1c9 !important;
+    color: #fff !important;
 }
 
 .btn-new-red {
@@ -186,10 +157,9 @@ ul.lista-opciones.margen-nav>li {
 }
 
 .btn-new-red:hover {
-    background: #dc3545!important;
-    color: #fff!important;
+    background: #dc3545 !important;
+    color: #fff !important;
 }
-
 
 .failed {
     border-color: rgb(220, 53, 69) !important;

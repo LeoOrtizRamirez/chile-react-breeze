@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, Suspense, lazy } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import MenuOpciones from "../../Components/Menu_opciones/MenuOpciones";
 import "./Index.css";
 import Compartir from "../../Components/Acciones/Compartir";
 import Eliminar from "../../Components/Acciones/Eliminar";
@@ -11,6 +10,7 @@ import Visualizar from "../../Components/Acciones/Visualizar";
 import Paginador from "@/Components/PaginadorContratos";
 import $ from "jquery";
 import "@fontsource/poppins";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Index = ({ auth, contratos }) => {
     const [tableContratos, setTableContratos] = useState(contratos.data);
@@ -150,7 +150,7 @@ const Index = ({ auth, contratos }) => {
                     });
             }
         });
-    }, [])
+    }, []);
 
     const tableFormat = (data) => {
         //Formatear valores del paginador
@@ -176,19 +176,11 @@ const Index = ({ auth, contratos }) => {
         }
     }, []);
 
-
-
-
-
-
-
-
     /*Inicio Buscador rapido y paginador */
 
     return (
         <AuthenticatedLayout auth={auth}>
             <link rel="shortcut icon" href="#"></link>
-
             <div>
                 <div className="contenedor-filtros">
                     <div className="">
@@ -253,12 +245,8 @@ const Index = ({ auth, contratos }) => {
                 </div>
 
                 <div className="contenedor-contratos">
-                    <div className="contenedor-opciones-usuarios">
-                        <MenuOpciones />
-                    </div>
-
                     <div
-                        className="alto-tabla bg-white overflow-auto "
+                        className="alto-tabla bg-white overflow-auto"
                         id="scroll-table"
                     >
                         <div
@@ -363,50 +351,50 @@ const Index = ({ auth, contratos }) => {
                                                 <>
                                                     {showMoreSelected !=
                                                         contrato.id && (
-                                                            <span className="data-text">
-                                                                {contrato.objeto.substr(
-                                                                    0,
-                                                                    40
-                                                                )}
-                                                                ...{" "}
-                                                                <a
-                                                                    className="text-primary"
-                                                                    onClick={() =>
-                                                                        getData(
-                                                                            contrato
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    Ver más
-                                                                </a>
-                                                            </span>
-                                                        )}
+                                                        <span className="data-text">
+                                                            {contrato.objeto.substr(
+                                                                0,
+                                                                40
+                                                            )}
+                                                            ...{" "}
+                                                            <a
+                                                                className="text-primary"
+                                                                onClick={() =>
+                                                                    getData(
+                                                                        contrato
+                                                                    )
+                                                                }
+                                                            >
+                                                                Ver más
+                                                            </a>
+                                                        </span>
+                                                    )}
                                                 </>
                                             )}
 
                                             {showMoreSelected ==
                                                 contrato.id && (
-                                                    <div className="showmore">
-                                                        <span className="data-text">
-                                                            {contrato.objeto}
-                                                            <a
-                                                                className="text-primary"
-                                                                onClick={() =>
-                                                                    hideData()
-                                                                }
-                                                            >
-                                                                Ver menos
-                                                            </a>
-                                                        </span>
-                                                    </div>
-                                                )}
+                                                <div className="showmore">
+                                                    <span className="data-text">
+                                                        {contrato.objeto}
+                                                        <a
+                                                            className="text-primary"
+                                                            onClick={() =>
+                                                                hideData()
+                                                            }
+                                                        >
+                                                            Ver menos
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            )}
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos width-columna-menor">
                                             {contrato.valor > 0
                                                 ? "$" +
-                                                contrato.valor.toLocaleString(
-                                                    "ch-CH"
-                                                )
+                                                  contrato.valor.toLocaleString(
+                                                      "ch-CH"
+                                                  )
                                                 : contrato.valor_texto}
                                         </td>
                                         <td className="border border-gray-200 text-left margen-textos mw-200">
