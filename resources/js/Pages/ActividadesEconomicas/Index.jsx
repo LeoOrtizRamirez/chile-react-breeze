@@ -478,21 +478,13 @@ const Index = ({ auth, actividades_economicas }) => {
                                                                                                                     <span className="tree-division tree-division1">
                                                                                                                         {/*  <span className="tree-division__title my-auto">{childs.nombre}</span> */}
                                                                                                                         <>
-                                                                                                                            {index %
-                                                                                                                                2 ==
-                                                                                                                            0 ? (
+                                                                                                                           
                                                                                                                                 <span className="tree-division__title my-auto">
                                                                                                                                     {
                                                                                                                                         childs.nombre
                                                                                                                                     }
                                                                                                                                 </span>
-                                                                                                                            ) : (
-                                                                                                                                <span className="tree-division__title-gray my-auto">
-                                                                                                                                    {
-                                                                                                                                        childs.nombre
-                                                                                                                                    }
-                                                                                                                                </span>
-                                                                                                                            )}
+                                                                                                                        
                                                                                                                         </>
                                                                                                                     </span>
                                                                                                                 </span>

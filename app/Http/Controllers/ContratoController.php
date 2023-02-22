@@ -31,8 +31,6 @@ class ContratoController extends Controller
                 $query->where('fecha_publicacion', request("fecha_publicacion"));
             }
         })
-        /* ->take(30)
-        ->get(); */
         ->paginate(30);
 
         foreach ($contratos as $key => $value) {
@@ -67,69 +65,7 @@ class ContratoController extends Controller
         $buscador_rapido = request("buscador_rapido");
         $fecha_publicacion = request("fecha_publicacion");
 
-        /* if (request()->has("fecha_publicacion") || request()->has("buscador_rapido")) {
-            $contratosAll = Contrato::where('fecha_publicacion', request("fecha_publicacion"))->count();
-            if ($estado == "next") {
-                $contratos = Contrato::with('fuente')
-                    ->where('fecha_publicacion', request("fecha_publicacion"))
-                    ->where(function ($query) use ($buscador_rapido) {
-                        if (!is_null($buscador_rapido) && $buscador_rapido != "") {
-                            $query->where('entidad_contratante', 'like', '%' . $buscador_rapido . '%')
-                                ->orWhere('objeto', 'like', '%' . $buscador_rapido . '%')
-                                ->orWhere('modalidad', 'like', '%' . $buscador_rapido . '%')
-                                ->orWhere('ubicacion', 'like', '%' . $buscador_rapido . '%');
-                        }
-                    })
-                    ->where('id', '>', $idContrato)
-                    ->limit(30)
-                    ->get();
-                $pagina = $pagina + $page;
-                $numElementosPagina =  $numElementosPagina * ($page + 1);
-                $totalElemetosPaginados = ($numElementosPagina - 30) + 1;
-            } else {
-                $contratos = Contrato::with('fuente')
-                    ->where('id', '<', $idContrato)
-                    ->where(function ($query) use ($buscador_rapido) {
-                        if (!is_null($buscador_rapido) && $buscador_rapido != "") {
-                            $query->where('entidad_contratante', 'like', '%' . $buscador_rapido . '%')
-                                ->orWhere('objeto', 'like', '%' . $buscador_rapido . '%')
-                                ->orWhere('modalidad', 'like', '%' . $buscador_rapido . '%')
-                                ->orWhere('ubicacion', 'like', '%' . $buscador_rapido . '%');
-                        }
-                    })
-                    ->orderBy('id', 'desc')
-                    ->limit(30)
-                    ->get()
-                    ->reverse();
-                $contratos = $contratos->values();
-                $pagina = $page - $pagina;
-                $numElementosPagina = ($numElementosPagina * ($page - 1));
-                $totalElemetosPaginados = ($numElementosPagina - 30) + 1;
-            }
-        } else {
-            $contratosAll = Contrato::all()->count();
-            if ($estado == "next") {
-                $contratos = Contrato::with('fuente')
-                    ->where('id', '>', $idContrato)
-                    ->limit(30)
-                    ->get();
-                $numElementosPagina =  $numElementosPagina * ($page + 1);
-                $pagina = $pagina + $page;
-                $totalElemetosPaginados = ($numElementosPagina - 30) + 1;
-            } else {
-                $contratos = Contrato::with('fuente')
-                    ->orderBy('id', 'desc')
-                    ->where('id', '<', $idContrato)
-                    ->limit(30)
-                    ->get()
-                    ->reverse();
-                $contratos = $contratos->values();
-                $pagina = $page - $pagina;
-                $numElementosPagina = ($numElementosPagina * ($page - 1));
-                $totalElemetosPaginados = ($numElementosPagina - 30) + 1;
-            }
-        } */
-
+    
 
         //new
 
@@ -173,10 +109,8 @@ class ContratoController extends Controller
                     $query->where('fecha_publicacion', request("fecha_publicacion"));
                 }
             })
-            /* ->take(30)
-            ->get(); */
             ->paginate(30);
-        //dd($contratos);
+     
 
 
         if ($estado == "prev") {
@@ -190,8 +124,6 @@ class ContratoController extends Controller
             $pagina = $pagina + $page;
             $totalElemetosPaginados = ($numElementosPagina - 30) + 1;
         }
-
-
 
         foreach ($contratos as $key => $value) {
             $contratista = ContratistaContrato::where('id_contrato', $value->id)->first();

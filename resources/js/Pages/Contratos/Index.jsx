@@ -154,13 +154,17 @@ const Index = ({ auth, contratos }) => {
     };
 
     const buscadorRapido = useRef(0);
+
     useEffect(() => {
         if (buscadorRapido.current != 0) {
-            console.log(buscadorRapido)
+
             buscadorRapido.current.addEventListener("keypress", function (event) {
+
                 if (event.key === "Enter") {
                     event.preventDefault();
                     const querystring = getUrlParams();
+
+                    console.log(querystring)
 
                     setLoading(true)
                     fetch("/contratos/?" + querystring)
@@ -465,18 +469,18 @@ const Index = ({ auth, contratos }) => {
                                 </table>
                                 {
                                     tableContratos.length <= 0 &&
-                                    <div id="mensajes-personalizado-busqueda" class="container-fluid content_blank_interno">
-                                        <div class="row justify-content-center align-items-center">
-                                            <div class="col-md-4 col-sm-4 offset-md-1 offset-sm-1">
-                                                <img src="https://col.licitaciones.info/img/mensajes-personalisados/sin-resultados-busqueda.png" alt="" class="img-fluid mensaje-imagen" />
+                                    <div id="mensajes-personalizado-busqueda" className="container-fluid content_blank_interno">
+                                        <div className="row justify-content-center align-items-center">
+                                            <div className="col-md-4 col-sm-4 offset-md-1 offset-sm-1">
+                                                <img src="https://col.licitaciones.info/img/mensajes-personalisados/sin-resultados-busqueda.png" alt="" className="img-fluid mensaje-imagen" />
                                             </div>
-                                            <div class="col-md-5 col-sm-5 offset-sm-1 offset-md-1">
-                                                <div class="estructura-mensaje-personalizado">
-                                                    <h4 class="text-center titulo-personalizado">
-                                                        <b class="text-rojo">No se encontró</b> el resultado.</h4>
-                                                    <div class="position-relative">
-                                                        <span class="icon-Bombillo mensaje-icono"></span>
-                                                        <p class="mensaje-personalizado d-block text-left">Prueba cambiando tus opciones de búsqueda e intentalo nuevamente.</p>
+                                            <div className="col-md-5 col-sm-5 offset-sm-1 offset-md-1">
+                                                <div className="estructura-mensaje-personalizado">
+                                                    <h4 className="text-center titulo-personalizado">
+                                                        <b className="text-rojo">No se encontró</b> el resultado.</h4>
+                                                    <div className="position-relative">
+                                                        <span className="icon-Bombillo mensaje-icono"></span>
+                                                        <p className="mensaje-personalizado d-block text-left">Prueba cambiando tus opciones de búsqueda e intentalo nuevamente.</p>
                                                     </div>
                                                 </div>
                                             </div>
