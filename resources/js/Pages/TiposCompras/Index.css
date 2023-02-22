@@ -354,3 +354,8 @@ body {
     background: #dc3545 !important;
     color: #fff !important;
 }
+
+.icon-Buscar-click {
+    position: relative;
+    left: 790px;
+}
