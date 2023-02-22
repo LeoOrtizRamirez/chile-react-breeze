@@ -81,7 +81,7 @@ class scrapping extends Command
 
             //1. Extraccion de informacion de encabezados.
             $dataEncabezado = array();
-            $crawler->filter(".responsive-resultado")->each(function ($node) use (&$dataEncabezado) {
+            $crawler->filter(".responsive-resultado")->each(function ($node) use (&$dataEncabezado, &$pagina, &$num_paginas) {
                 //Filtrar datos
 
                 //construccion id_licitacion
@@ -153,7 +153,7 @@ class scrapping extends Command
                     echo "El contrato ya existe...\n";
                 } else {
                     $model->save();
-                    echo "Guardando Concurso\n";
+                    echo "Guardando Contrato - pagina: " . $pagina . " de: ".$num_paginas. "\n";
                     $this->guardarDetalle($model, $contratista_nombre);
                     //Fin - Actividad economica
 
@@ -199,34 +199,21 @@ class scrapping extends Command
         $crawlerDetalle = $this->getClient()->request('GET', $model->link);
         $model->modalidad = $this->textValidation($crawlerDetalle->filter('#lblFicha1Tipo'));
         $model->ubicacion = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
-        sleep(1);
-        $estado_proceso = $this->textValidation($crawlerDetalle->filter('#imgEstado'), '#imgEstado', 'src');
+        $estado_proceso_fuente = $this->textValidation($crawlerDetalle->filter('#imgEstado'), '#imgEstado', 'src');
 
-        switch ($estado_proceso) {
-            case '../../Includes/images/FichaLight/iconos_estados/publicadas.png':
-                $model->estado_proceso =  "Publicada";
-                break;
-            case '../../Includes/images/FichaLight/iconos_estados/cerrada.png':
-                $model->estado_proceso =  "Cerrada";
-                break;
-            case '../../Includes/images/FichaLight/iconos_estados/desierta.png':
-                $model->estado_proceso =  "Desierta";
-                break;
-            case '../../Includes/images/FichaLight/iconos_estados/adjudicada.png':
-                $model->estado_proceso =  "Adjudicada";
-                break;
-            case '../../Includes/images/FichaLight/iconos_estados/revocada.png':
-                $model->estado_proceso =  "Revocada";
-                break;
-            case '../../Includes/images/FichaLight/iconos_estados/suspendida.png':
-                $model->estado_proceso =  "Suspendida";
-                break;
-            default:
-                # code...
-                break;
+        if($estado_proceso_fuente != ""){
+            $estado_proceso = $this->getEstadoProceso($estado_proceso_fuente);
+        }else{
+            do {
+                $crawlerDetalle = $this->getClient()->request('GET', $model->link);
+                $estado_proceso_fuente = $this->textValidation($crawlerDetalle->filter('#imgEstado'), '#imgEstado', 'src');
+                $estado_proceso = $this->getEstadoProceso($estado_proceso_fuente);
+            } while ($estado_proceso_fuente == "");
         }
+        $model->estado_proceso = $estado_proceso;
+        echo "Estado:" . $estado_proceso. "\n";
         $model->save();
-        echo "Guardando Detalle del Concurso\n";
+        echo "Guardando Detalle del Contrato\n";
 
         $contratista = new ContratistaContrato;
         $contratista->nombre = $contratista_nombre;
@@ -239,10 +226,10 @@ class scrapping extends Command
 
         $actividad_economica = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblProducto'));
         $find_subcategoria = SubCategoria::where('nombre', $actividad_economica)->first();
-        if($find_subcategoria){
+        if ($find_subcategoria) {
             $subcategoria_id = $find_subcategoria->id;
             echo "Ya esta creada\n";
-        }else{
+        } else {
             $subcategoria = new SubCategoria();
             $subcategoria->nombre = $actividad_economica;
             $subcategoria->tipo_categoria = 4; //Actividad Económica Scrapping
@@ -256,6 +243,34 @@ class scrapping extends Command
         $clasificacion_contrato->id_sub_categoria = $subcategoria_id;
         $clasificacion_contrato->save();
         echo "Guardando ClasificacionContrato\n\n";
+    }
+
+    public function getEstadoProceso($img){
+        $estado_proceso = $img;
+        switch ($img) {
+            case '../../Includes/images/FichaLight/iconos_estados/publicadas.png':
+                $estado_proceso =  "Publicada";
+                break;
+            case '../../Includes/images/FichaLight/iconos_estados/cerrada.png':
+                $estado_proceso =  "Cerrada";
+                break;
+            case '../../Includes/images/FichaLight/iconos_estados/desierta.png':
+                $estado_proceso =  "Desierta";
+                break;
+            case '../../Includes/images/FichaLight/iconos_estados/adjudicada.png':
+                $estado_proceso =  "Adjudicada";
+                break;
+            case '../../Includes/images/FichaLight/iconos_estados/revocada.png':
+                $estado_proceso =  "Revocada";
+                break;
+            case '../../Includes/images/FichaLight/iconos_estados/suspendida.png':
+                $estado_proceso =  "Suspendida";
+                break;
+            default:
+                $estado_proceso =  "Default";
+                break;
+        }
+        return $estado_proceso;
     }
 
     public function getClient()
