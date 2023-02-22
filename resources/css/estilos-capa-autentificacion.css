@@ -1,0 +1,55 @@
+.tamano-iconos {
+    font-size: 40px !important;
+    margin: 0px 5px;
+}
+
+.contenedor-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.margen-logo {
+    margin-left: 15px;
+    margin-top: 5px;
+}
+
+a {
+    margin: 0px 3px 0px 3px;
+}
+
+.encabezado {
+    background-color: white;
+    margin-left: 105px;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    border: none;
+}
+
+.margen-nav {
+    margin-top: 10px;
+}
+
+.opciones-centro-ayuda {
+    background-color: white !important;
+}
+
+.centro-ayuda-iconos {
+    color: rgb(151, 151, 151);
+    margin-right: 7px;
+    position: absolute;
+    left: 20px;
+    font-size: 18px !important;
+    font-weight: bold !important;
+}
+
+.centro-ayuda-iconos-margen {
+    margin-left: 25px;
+}
+
+.centro-ayuda-iconos-color {
+    color: red;
+}
