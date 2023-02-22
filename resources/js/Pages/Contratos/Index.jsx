@@ -201,7 +201,7 @@ const Index = ({ auth, contratos }) => {
     /*Inicio Buscador rapido y paginador */
 
     /*Inicio Loader */
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     /*Fin Loader */
     return (
         <AuthenticatedLayout auth={auth}>
