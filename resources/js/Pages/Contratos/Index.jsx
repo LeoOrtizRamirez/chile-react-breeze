@@ -335,9 +335,9 @@ const Index = ({ auth, contratos }) => {
                                             <th style={{ padding: "0px 35px" }}>
                                                 Ubicación
                                             </th>
-                                            <th style={{ padding: "0px 80px" }}>
+                                            {/* <th style={{ padding: "0px 80px" }}>
                                                 Contratista
-                                            </th>
+                                            </th> */}
                                             <th style={{ padding: "0px 80px" }}>
                                                 Actividad económica
                                             </th>
@@ -449,11 +449,11 @@ const Index = ({ auth, contratos }) => {
                                                         {contrato.ubicacion}
                                                     </span>
                                                 </td>
-                                                <td className="border border-gray-200 text-left margen-textos mw-200">
+                                                {/* <td className="border border-gray-200 text-left margen-textos mw-200">
                                                     <span className="data-text ">
                                                         {contrato.contratista}
                                                     </span>
-                                                </td>
+                                                </td> */}
                                                 <td className="border border-gray-200 text-left margen-textos">
                                                     <span className="data-text ">
                                                         {contrato.actividad_economica}
