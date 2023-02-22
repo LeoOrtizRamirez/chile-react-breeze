@@ -1,42 +1,42 @@
 .content-flex {
-    display: flex;
-    flex-direction: row;
+    display: flex !important;
+    flex-direction: row !important;
 }
 
 .tamano-iconos {
     font-size: 40px !important;
-    margin: 0px 5px;
+    margin: 0px 5px !important;
 }
 
 .contenedor-logos {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 .margen-logo {
-    margin-left: 15px;
-    margin-top: 5px;
+    margin-left: 15px !important;
+    margin-top: 5px !important;
 }
 
 a {
-    margin: 0px 3px 0px 3px;
+    margin: 0px 3px 0px 3px !important;
 }
 
 .encabezado {
-    background-color: white;
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
-    border: none;
-    width: 90vw;
-    margin-top: 10px;
+    background-color: white !important;
+    border-radius: 15px !important;
+    -webkit-border-radius: 15px !important;
+    -moz-border-radius: 15px !important;
+    -ms-border-radius: 15px !important;
+    -o-border-radius: 15px !important;
+    border: none !important;
+    width: 90vw !important;
+    margin-top: 10px !important;
 }
 
 .margen-nav {
-    margin-top: 10px;
+    margin-top: 10px !important;
 }
 
 .opciones-centro-ayuda {
@@ -44,18 +44,18 @@ a {
 }
 
 .centro-ayuda-iconos {
-    color: rgb(151, 151, 151);
-    margin-right: 7px;
-    position: absolute;
-    left: 20px;
+    color: rgb(151, 151, 151) !important;
+    margin-right: 7px !important;
+    position: absolute !important;
+    left: 20px !important;
     font-size: 18px !important;
     font-weight: bold !important;
 }
 
 .centro-ayuda-iconos-margen {
-    margin-left: 25px;
+    margin-left: 25px !important;
 }
 
 .centro-ayuda-iconos-color {
-    color: red;
+    color: red !important;
 }
