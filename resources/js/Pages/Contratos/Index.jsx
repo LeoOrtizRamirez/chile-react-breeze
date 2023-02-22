@@ -144,10 +144,12 @@ const Index = ({ auth, contratos }) => {
         //Peticiones por paginador
         if (url == null) return;
         const querystring = getUrlParams();
+        setLoading(true)
         fetch(url + "&" + querystring)
             .then((response) => response.json())
             .then((data) => {
                 tableFormat(data);
+                setLoading(false)
             });
     };
 
