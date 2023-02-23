@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef, Suspense, lazy } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Paginador from "@/Components/PaginadorContratos";
-import "./index.css";
 import DeleteModal from "@/Components/Modals/DeleteModalUsers";
-import "bootstrap/dist/css/bootstrap.min.css";
 import $ from "jquery";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@fontsource/poppins";
+import "./font-web.css";
+import "./index.css";
 
 import Loader from "@/Components/Loader";
 
 const Index = ({ auth, usuarios }) => {
-
     const [tableUsuarios, setTableUsuarios] = useState(usuarios.data);
 
     // Inicio Ordenar tabla por columna
@@ -58,7 +59,6 @@ const Index = ({ auth, usuarios }) => {
     //Modal delete users
     const [openDeleteUserModal, setOpenDeleteUserModal] = useState(false);
     const [openDeleteUserModalId, setOpenDeleteUserModalId] = useState(0);
-
 
     const getUsuarioDelete = (usuario) => {
         setOpenDeleteUserModal(true);
@@ -115,30 +115,34 @@ const Index = ({ auth, usuarios }) => {
     const buscadorRapido = useRef(0);
 
     useEffect(() => {
-
         function addKeypressEvent(event) {
-            console.log("entro")
+            console.log("entro");
             if (event.key === "Enter") {
                 event.preventDefault();
                 const querystring = getUrlParams();
-                setLoading(true)
+                setLoading(true);
                 fetch("/usuarios/?" + querystring)
                     .then((response) => response.json())
                     .then((data) => {
                         tableFormat(data);
-                        setLoading(false)
+                        setLoading(false);
                     });
             }
         }
 
         if (buscadorRapido.current != 0) {
-            buscadorRapido.current.addEventListener("keypress", addKeypressEvent)
+            buscadorRapido.current.addEventListener(
+                "keypress",
+                addKeypressEvent
+            );
         }
         return () => {
-            buscadorRapido.current.removeEventListener("keypress", addKeypressEvent)
-            
+            buscadorRapido.current.removeEventListener(
+                "keypress",
+                addKeypressEvent
+            );
         };
-    }, [tableUsuarios])
+    }, [tableUsuarios]);
 
     const tableFormat = (data) => {
         //Formatear valores del paginador
@@ -166,32 +170,25 @@ const Index = ({ auth, usuarios }) => {
 
     /*Fin Buscador rapido y paginador */
 
-
-
-
-
-
-
     /*Inicio Loader */
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
     /*Fin Loader */
     return (
         <AuthenticatedLayout auth={auth} className="testindexusers">
             <link rel="shortcut icon" href="#"></link>
             <div>
                 <div className="contenedor-usuarios">
-                    {!loading ?
+                    {!loading ? (
                         <>
-
                             <div className="contenedor-informacion-usuarios bg-white">
                                 <div className="usuarios">
                                     <div className="contenedor-botones">
-
-
-
                                         <div className="">
-                                            <form method="get" name="form_busqueda_rapida" id="form_busqueda_rapida" >
-
+                                            <form
+                                                method="get"
+                                                name="form_busqueda_rapida"
+                                                id="form_busqueda_rapida"
+                                            >
                                                 <input
                                                     ref={buscadorRapido}
                                                     id="buscador_rapido"
@@ -200,21 +197,29 @@ const Index = ({ auth, usuarios }) => {
                                                     type="text"
                                                     value={inputSearch}
                                                     placeholder="Búsqueda rápida"
-                                                    onChange={(e) => setInputSearch(e.target.value)}
+                                                    onChange={(e) =>
+                                                        setInputSearch(
+                                                            e.target.value
+                                                        )
+                                                    }
                                                 />
                                                 <input
                                                     name="fecha_publicacion"
                                                     type="hidden"
-                                                    value={inputFechaPublicacion}
+                                                    value={
+                                                        inputFechaPublicacion
+                                                    }
                                                 />
-                                                <input name="type" type="hidden" value="fetch" />
+                                                <input
+                                                    name="type"
+                                                    type="hidden"
+                                                    value="fetch"
+                                                />
                                             </form>
                                             <span className="material-symbols-outlined posicion-lupa-color">
                                                 search
                                             </span>
                                         </div>
-
-
 
                                         <a
                                             className="autorenew"
@@ -233,92 +238,204 @@ const Index = ({ auth, usuarios }) => {
                                             </span>
                                         </a>
                                     </div>
-                                    <div className="margen-titulo">Usuarios</div>
+                                    <div className="margen-titulo">
+                                        Usuarios
+                                    </div>
                                     <div></div>
                                 </div>
                                 <div className="tabla-ubicacion-usuarios">
                                     <table id="tabla" className="">
                                         <thead
                                             className="cabecera-tabla "
-                                            style={{ backgroundColor: "#00a1c9" }}
+                                            style={{
+                                                backgroundColor: "#00a1c9",
+                                            }}
                                         >
                                             <tr className="bg-paginador text-white uppercase leading-normal">
-                                                <th style={{ padding: "0px 35px" }}>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 35px",
+                                                    }}
+                                                >
                                                     Acciones
                                                 </th>
-                                                <th style={{ padding: "0px 10px" }}>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 10px",
+                                                    }}
+                                                >
                                                     Documento
                                                 </th>
-                                                <th style={{ padding: "0px 35px" }}>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 35px",
+                                                    }}
+                                                >
                                                     Nombre
                                                 </th>
-                                                <th style={{ padding: "0px 10px" }}>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 10px",
+                                                    }}
+                                                >
                                                     País
                                                 </th>
-                                                <th style={{ padding: "0px 10px" }}>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 10px",
+                                                    }}
+                                                >
                                                     Ciudad
                                                 </th>
-                                                <th style={{ padding: "0px 35px" }}>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 35px",
+                                                    }}
+                                                >
                                                     Dirección
                                                 </th>
-                                                <th style={{ padding: "0px 35px" }}>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 35px",
+                                                    }}
+                                                >
                                                     indicativo
                                                 </th>
-                                                <th style={{ padding: "0px 35px" }}>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 35px",
+                                                    }}
+                                                >
                                                     Celular
                                                 </th>
-                                                <th style={{ padding: "0px 35px" }}>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 35px",
+                                                    }}
+                                                >
                                                     teléfono fijo
                                                 </th>
-                                                <th style={{ padding: "0px 35px" }}>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 35px",
+                                                    }}
+                                                >
                                                     Email
                                                 </th>
-                                                <th style={{ padding: "0px 0px" }}>Plan</th>
-                                                <th style={{ padding: "0px 35px" }}>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 0px",
+                                                    }}
+                                                >
+                                                    Plan
+                                                </th>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 35px",
+                                                    }}
+                                                >
                                                     Creacion
                                                 </th>
-                                                <th style={{ padding: "0px 35px" }}>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 35px",
+                                                    }}
+                                                >
                                                     Final Plan
                                                 </th>
-                                                <th style={{ padding: "0px 10px" }}>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 10px",
+                                                    }}
+                                                >
                                                     Estado
                                                 </th>
-                                                <th style={{ padding: "0px 35px" }}>
-                                                    Como se entero de Licitaciones
+                                                <th
+                                                    style={{
+                                                        padding: "0px 35px",
+                                                    }}
+                                                >
+                                                    Como se entero de
+                                                    Licitaciones
                                                 </th>
-                                                <th style={{ padding: "0px 35px" }}>NIT</th>
-                                                <th style={{ padding: "0px 35px" }}>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 35px",
+                                                    }}
+                                                >
+                                                    NIT
+                                                </th>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 35px",
+                                                    }}
+                                                >
                                                     Empresa
                                                 </th>
-                                                <th style={{ padding: "0px 35px" }}>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 35px",
+                                                    }}
+                                                >
                                                     País empresa
                                                 </th>
-                                                <th style={{ padding: "0px 35px" }}>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 35px",
+                                                    }}
+                                                >
                                                     Ciudad empresa
                                                 </th>
-                                                <th style={{ padding: "0px 35px" }}>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 35px",
+                                                    }}
+                                                >
                                                     Dirección empresa
                                                 </th>
-                                                <th style={{ padding: "0px 10px" }}>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 10px",
+                                                    }}
+                                                >
                                                     Indicativo empresa
                                                 </th>
-                                                <th style={{ padding: "0px 10px" }}>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 10px",
+                                                    }}
+                                                >
                                                     Celular empresa
                                                 </th>
-                                                <th style={{ padding: "0px 35px" }}>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 35px",
+                                                    }}
+                                                >
                                                     Telefono fijo empresa
                                                 </th>
-                                                <th style={{ padding: "0px 35px" }}>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 35px",
+                                                    }}
+                                                >
                                                     Email empresa
                                                 </th>
-                                                <th style={{ padding: "0px 35px" }}>
+                                                <th
+                                                    style={{
+                                                        padding: "0px 35px",
+                                                    }}
+                                                >
                                                     Actividad economica
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {tableUsuarios.map((usuario) => (
-                                                <tr key={usuario.id} className="tr-users">
+                                                <tr
+                                                    key={usuario.id}
+                                                    className="tr-users"
+                                                >
                                                     <td className="border border-gray-200 px-4 ">
                                                         <div className="iconos-horizontal">
                                                             <div className="estilos-boton-eliminar">
@@ -343,7 +460,7 @@ const Index = ({ auth, usuarios }) => {
 
                                                                 {openDeleteUserModal &&
                                                                     openDeleteUserModalId ==
-                                                                    usuario.id && (
+                                                                        usuario.id && (
                                                                         <DeleteModal
                                                                             usuario={
                                                                                 usuario
@@ -364,7 +481,8 @@ const Index = ({ auth, usuarios }) => {
                                                                         route(
                                                                             "usuarios.update",
                                                                             usuario.uuid
-                                                                        ) + "/edit"
+                                                                        ) +
+                                                                        "/edit"
                                                                     }
                                                                 >
                                                                     <span className="material-symbols-outlined">
@@ -384,7 +502,9 @@ const Index = ({ auth, usuarios }) => {
                                                         {usuario.identificacion}
                                                     </td>
                                                     <td className="border border-gray-200 margen-textos">
-                                                        {usuario.nombre_completo}
+                                                        {
+                                                            usuario.nombre_completo
+                                                        }
                                                     </td>
                                                     <td className="border border-gray-200 margen-textos">
                                                         {usuario.pais}
@@ -411,10 +531,15 @@ const Index = ({ auth, usuarios }) => {
                                                         {usuario.idplan}
                                                     </td>
                                                     <td className="border border-gray-200 margen-textos">
-                                                        {usuario.created_at.substr(0, 10)}
+                                                        {usuario.created_at.substr(
+                                                            0,
+                                                            10
+                                                        )}
                                                     </td>
                                                     <td className="border border-gray-200 margen-textos">
-                                                        {usuario.fecha_vencimiento}
+                                                        {
+                                                            usuario.fecha_vencimiento
+                                                        }
                                                     </td>
                                                     <td className="border border-gray-200 margen-textos">
                                                         {usuario.estado}
@@ -435,19 +560,29 @@ const Index = ({ auth, usuarios }) => {
                                                         {usuario.ciudad_empresa}
                                                     </td>
                                                     <td className="border border-gray-200 margen-textos">
-                                                        {usuario.direccion_empresa}
+                                                        {
+                                                            usuario.direccion_empresa
+                                                        }
                                                     </td>
                                                     <td className="border border-gray-200 margen-textos">
-                                                        {usuario.indicativo_empresa}
+                                                        {
+                                                            usuario.indicativo_empresa
+                                                        }
                                                     </td>
                                                     <td className="border border-gray-200 margen-textos">
-                                                        {usuario.celular_empresa}
+                                                        {
+                                                            usuario.celular_empresa
+                                                        }
                                                     </td>
                                                     <td className="border border-gray-200 margen-textos">
-                                                        {usuario.telefono_fijo_empresa}
+                                                        {
+                                                            usuario.telefono_fijo_empresa
+                                                        }
                                                     </td>
                                                     <td className="border border-gray-200 margen-textos">
-                                                        {usuario.email_facturacion_empresa}
+                                                        {
+                                                            usuario.email_facturacion_empresa
+                                                        }
                                                     </td>
                                                     <td className="border border-gray-200 margen-textos">
                                                         {
@@ -458,26 +593,42 @@ const Index = ({ auth, usuarios }) => {
                                             ))}
                                         </tbody>
                                     </table>
-                                    {
-                                        tableUsuarios.length <= 0 &&
-                                        <div id="mensajes-personalizado-busqueda" className="container-fluid content_blank_interno">
+                                    {tableUsuarios.length <= 0 && (
+                                        <div
+                                            id="mensajes-personalizado-busqueda"
+                                            className="container-fluid content_blank_interno"
+                                        >
                                             <div className="row justify-content-center align-items-center">
                                                 <div className="col-md-4 col-sm-4 offset-md-1 offset-sm-1">
-                                                    <img src="https://col.licitaciones.info/img/mensajes-personalisados/sin-resultados-busqueda.png" alt="" className="img-fluid mensaje-imagen" />
+                                                    <img
+                                                        src="https://col.licitaciones.info/img/mensajes-personalisados/sin-resultados-busqueda.png"
+                                                        alt=""
+                                                        className="img-fluid mensaje-imagen"
+                                                    />
                                                 </div>
                                                 <div className="col-md-5 col-sm-5 offset-sm-1 offset-md-1">
                                                     <div className="estructura-mensaje-personalizado">
                                                         <h4 className="text-center titulo-personalizado">
-                                                            <b className="text-rojo">No se encontró</b> el resultado.</h4>
+                                                            <b className="text-rojo">
+                                                                No se encontró
+                                                            </b>{" "}
+                                                            el resultado.
+                                                        </h4>
                                                         <div className="position-relative">
                                                             <span className="icon-Bombillo mensaje-icono"></span>
-                                                            <p className="mensaje-personalizado d-block text-left">Prueba cambiando tus opciones de búsqueda e intentalo nuevamente.</p>
+                                                            <p className="mensaje-personalizado d-block text-left">
+                                                                Prueba cambiando
+                                                                tus opciones de
+                                                                búsqueda e
+                                                                intentalo
+                                                                nuevamente.
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    }
+                                    )}
                                 </div>
 
                                 <div>
@@ -490,11 +641,10 @@ const Index = ({ auth, usuarios }) => {
                                     ></Paginador>
                                 </div>
                             </div>
-
                         </>
-                        :
+                    ) : (
                         <Loader />
-                    }
+                    )}
                 </div>
             </div>
         </AuthenticatedLayout>
