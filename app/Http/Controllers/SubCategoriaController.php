@@ -331,7 +331,7 @@ class SubCategoriaController extends Controller
 
     // Tipos de compras
     
-    public function updateTiposCompras(Request $request, SubCategoria $actividad_economica){
+    public function updateTiposCompras(Request $request, SubCategoria $tipo_compra){
         $id = $request->id;
         if($request->id != $request->new_id){
 
@@ -399,7 +399,7 @@ class SubCategoriaController extends Controller
 
     public function createTiposCompras()
     {
-        $actividades_economicas = SubCategoria::where('tipo_categoria', 5)
+        $tipos_compras = SubCategoria::where('tipo_categoria', 5)
             ->orderBy('updated_at', 'DESC')
             ->with('parent', 'childs')
             ->get();
@@ -410,7 +410,7 @@ class SubCategoriaController extends Controller
             ->get();
 
         return Inertia::render('TiposCompras/Crear', [
-            'actividades_economicas' => $actividades_economicas,
+            'tipos_compras' => $tipos_compras,
             'solo_sectores' => $sectores,
         ]);
     }
@@ -418,7 +418,7 @@ class SubCategoriaController extends Controller
     public function editTiposCompras($id)
     {
         $ae_actual = SubCategoria::where('id', $id)->with('parent', 'childs')->first();
-        $actividades_economicas = SubCategoria::where('tipo_categoria', 5)
+        $tipos_compras = SubCategoria::where('tipo_categoria', 5)
             ->orderBy('updated_at', 'DESC')
             ->with('parent', 'childs')
             ->get();
@@ -429,7 +429,7 @@ class SubCategoriaController extends Controller
             ->get();
 
         return Inertia::render('TiposCompras/Editar', [
-            'actividades_economicas' => $actividades_economicas,
+            'tipos_compras' => $tipos_compras,
             'solo_sectores' => $sectores,
             'ae_actual' => $ae_actual,
         ]);
@@ -443,9 +443,9 @@ class SubCategoriaController extends Controller
 
     public function deleteTiposCompras($id)
     {
-        $actividad_economica = SubCategoria::find($id);
+        $tipo_compra = SubCategoria::find($id);
         try {
-            $actividad_economica->delete();
+            $tipo_compra->delete();
             $response['type'] = 'Success';
             $response['message'] = ('Se ha eliminado correctamente');
         } catch (Exception $e) {
