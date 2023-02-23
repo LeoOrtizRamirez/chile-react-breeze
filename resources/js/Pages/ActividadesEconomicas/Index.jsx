@@ -65,7 +65,6 @@ const Index = ({ auth, actividades_economicas }) => {
     };
 
     const getSegmento = (parent) => {
-        console.log(parent);
         if (openSegmentos.includes(parent)) {
             //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY openSegmentos
             setOpenSegmentos(
@@ -145,7 +144,6 @@ const Index = ({ auth, actividades_economicas }) => {
 
     const inputSearchActividadEconomica = (e) => {
         if (e.target.value == "") {
-            console.log("seteando variables");
             setSectores(fakeSectores);
             setSegmentos([]);
             setActividadesEconomicas([]);
@@ -155,8 +153,6 @@ const Index = ({ auth, actividades_economicas }) => {
         }
 
         if (e.key === "Enter") {
-            console.log("Enter");
-    
             //SE BUSCAN LAS ACTIVIDADES ECONOMICAS QUE COINCIDAN CON EL NOMBRE QUE SE INGRESO
             const pattern = new RegExp(e.target.value, "i");
 
@@ -174,7 +170,6 @@ const Index = ({ auth, actividades_economicas }) => {
 
             FilteredActividadesEcomomicas.forEach((element) => {
                 if (element.id_abuelo_sub_categoria != null && element.id_padre_sub_categoria != null) {
-                    console.log("padre null")
                     //ae
                     actividades_economicas_filtrados.push(element);
                     open_actividades_economicas.push(
@@ -182,9 +177,6 @@ const Index = ({ auth, actividades_economicas }) => {
                     );
 
                     //BUSCAMOS EL SEGMENTO DE LA ACTIVIDAD ECONOMICA
-                    console.log("sectores encontrados")
-                    console.log(fakeSectores);
-
 
                     segmentos_filtrados.push(
                         fakeSectores.filter(
@@ -194,24 +186,20 @@ const Index = ({ auth, actividades_economicas }) => {
                     open_segmentos.push(element.id_abuelo_sub_categoria);
                 }
 
-                if (element.id_abuelo_sub_categoria == null && element.id_padre_sub_categoria != null ) {
+                if (element.id_abuelo_sub_categoria == null && element.id_padre_sub_categoria != null) {
                     //segmento
-                    console.log("segmentos")
-                    console.log(segmentos_filtrados);
                     if (!segmentos_filtrados.includes(element)) {
+
+                        segmentos_filtrados.push(element);
                         segmentos_filtrados.push(element);
                     }
-                    if (
-                        !open_segmentos.includes(element.id_padre_sub_categoria)
-                    ) {
+                    if (!open_segmentos.includes(element.id_padre_sub_categoria)) {
                         open_segmentos.push(element.id_padre_sub_categoria);
+                        segmentos_filtrados.push(element);
                     }
                 }
 
-                if (
-                    element.id_abuelo_sub_categoria == null &&
-                    element.id_padre_sub_categoria == null
-                ) {
+                if (element.id_abuelo_sub_categoria == null && element.id_padre_sub_categoria == null) {
                     //sector
                     sectores_filtrados.push(element);
                 }
@@ -252,9 +240,6 @@ const Index = ({ auth, actividades_economicas }) => {
             setActividadesEconomicas(actividades_economicas_filtrados);
             setOpenSegmentos(open_segmentos);
             setOpenActividadesEconomicas(open_actividades_economicas);
-        } else {
-            console.log("imprimiendo e.key");
-            console.log(e.key);
         }
     };
 

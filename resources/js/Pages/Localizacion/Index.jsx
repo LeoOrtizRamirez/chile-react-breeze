@@ -68,7 +68,6 @@ const Index = ({ auth, localizacion }) => {
     };
 
     const getSegmento = (parent) => {
-        console.log(parent);
         if (openSegmentos.includes(parent)) {
             //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY openSegmentos
             setOpenSegmentos(
@@ -144,21 +143,8 @@ const Index = ({ auth, localizacion }) => {
         setInputLocalizacion(actividad_economica);
     };
 
-    /*    const filterLocalizacion = (e) => {
-        const pattern = new RegExp(e.target.value, "i");
-        const FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
-            if (pattern.test(el.nombre)) {
-                return el;
-            }
-        });
-        setSectores(FilteredActividadesEcomomicas);
-        setShowActividadEconomica(!showActividadEconomica)
-    } */
-
-
     const inputSearchActividadEconomica = (e) => {
         if (e.target.value == "") {
-            console.log("seteando variables");
             setSectores(fakeSectores);
             setSegmentos([]);
             setActividadesEconomicas([]);
@@ -169,16 +155,13 @@ const Index = ({ auth, localizacion }) => {
         }
 
         if (e.key === "Enter") {
-            console.log("Enter");
-  
             //SE BUSCAN LAS LOCALIZACIONES QUE COINCIDAN CON EL NOMBRE QUE SE INGRESO
             const pattern = new RegExp(e.target.value, "i");
-
 
             const FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
                 if (pattern.test(el.nombre)) {
                     return el;
-                } 
+                }
             });
 
             var sectores_filtrados = [];
@@ -189,7 +172,6 @@ const Index = ({ auth, localizacion }) => {
 
             FilteredActividadesEcomomicas.forEach((element) => {
                 if (element.id_padre_sub_categoria != null) {
-                    console.log("padre null")
                     //ae
                     actividades_economicas_filtrados.push(element);
                     open_actividades_economicas.push(
@@ -197,8 +179,6 @@ const Index = ({ auth, localizacion }) => {
                     );
 
                     //BUSCAMOS la ciudad  DE LA localizacion
-                    console.log("sectores encontrados")
-                    console.log(fakeSectores);
                     segmentos_filtrados.push(
                         fakeSectores.filter(
                             (fs) => fs.id == element.id_padre_sub_categoria
@@ -207,24 +187,17 @@ const Index = ({ auth, localizacion }) => {
                     open_segmentos.push(element.id_abuelo_sub_categoria);
                 }
 
-                if (element.id_padre_sub_categoria != null ) {
+                if (element.id_padre_sub_categoria != null) {
                     //segmento
-                    console.log("segmentos filtrados "+ segmentos_filtrados);
-                    console.log(segmentos_filtrados);
-
                     if (!segmentos_filtrados.includes(element)) {
-                        console.log("1 if")
                         segmentos_filtrados.push(element);
-                        console.log(segmentos_filtrados);
                     }
                     if (!open_segmentos.includes(element.id_padre_sub_categoria)) {
-                        console.log("2 if")
                         open_segmentos.push(element.id_padre_sub_categoria);
-                        console.log(segmentos_filtrados);
                     }
                 }
 
-                if (element.id_padre_sub_categoria == null ) {
+                if (element.id_padre_sub_categoria == null) {
                     //sector
                     sectores_filtrados.push(element);
                 }
@@ -251,8 +224,9 @@ const Index = ({ auth, localizacion }) => {
                     //BUSCAR Region Y GUARDAR
                     sectores_filtrados.push(
                         fakeSectores.filter(
-                            (sector) => sector.id == ae.id
+                            (sector) => sector.id == ae.id_padre_sub_categoria
                         )[0]
+
                     );
                 }
 
@@ -271,9 +245,6 @@ const Index = ({ auth, localizacion }) => {
             setActividadesEconomicas(actividades_economicas_filtrados);
             setOpenSegmentos(open_segmentos);
             setOpenActividadesEconomicas(open_actividades_economicas);
-        } else {
-            console.log("imprimiendo e.key");
-            console.log(e.key);
         }
     };
 
@@ -402,7 +373,6 @@ const Index = ({ auth, localizacion }) => {
                                             {sector.id_padre_sub_categoria ==
                                                 null && (
                                                     <>
-                                                        {/* {console.log(sector)} */}
                                                         <div
                                                             id={sector.id}
                                                             className="tree-content mt-3 sector"
