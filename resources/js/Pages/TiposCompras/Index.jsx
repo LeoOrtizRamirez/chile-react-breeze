@@ -21,30 +21,33 @@ const Index = ({ auth, tiposcompras }) => {
     const [fakeSectores, setFakeSectores] = useState(tiposcompras);
     const [sectores, setSectores] = useState(tiposcompras);
     const [showSegmento, setShowSegmento] = useState(false);
-    const [showTipoCompra, setShowTipoCompra] = useState(false);
+    const [showActividadEconomica, setShowActividadEconomica] = useState(false);
     const [selectedSegmento, setSelectedSegmento] = useState(0);
-    const [selectedTipoCompra, setSelectedTipoCompra] = useState(0);
+    const [selectedActividadEconomica, setSelectedActividadEconomica] =
+        useState(0);
 
     const [openSegmentos, setOpenSegmentos] = useState([]);
-    const [openTiposCompras, setOpenTiposCompras] = useState([]);
+    const [openActividadesEconomicas, setOpenActividadesEconomicas] = useState(
+        []
+    );
 
     const [inputTiposCompras, setInputTiposCompras] = useState({
         id: 0,
         nombre: "",
     });
 
-    /* var new_data = tiposCompras.filter(ae => ae.id != inputTipoCompra.id); */
-
     const [segmentos, setSegmentos] = useState([]);
-    const [tiposCompras, setTiposCompras] = useState([]);
-    const [showModalTipoCompra, setShowModalTipoCompra] = useState(false);
-    const handleCloseModalTipoCompra = () => setShowModalTipoCompra(false);
+    const [actividadesEconomicas, setActividadesEconomicas] = useState([]);
+    const [showModalActividadEconomica, setShowModalActividadEconomica] =
+        useState(false);
+    const handleCloseModalActividadEconomica = () =>
+        setShowModalActividadEconomica(false);
 
-    const handleShowModalTipoCompra = () => {
+    const handleShowModalActividadEconomica = () => {
         if (inputTiposCompras.id != 0) {
-            setShowModalTipoCompra(true);
+            setShowModalActividadEconomica(true);
         } else {
-            setToastMessage("Debes seleccionar uno");
+            setToastMessage("Debes seleccionar un tipo de compra");
             setToastIcon("icon-error");
             setShowToast(true);
         }
@@ -56,7 +59,7 @@ const Index = ({ auth, tiposcompras }) => {
                 "/tiposcompras/" + inputTiposCompras.id + "/edit"
             );
         } else {
-            setToastMessage("Debes seleccionar uno");
+            setToastMessage("Debes seleccionar un tipo de compra");
             setToastIcon("icon-error");
             setShowToast(true);
         }
@@ -97,161 +100,150 @@ const Index = ({ auth, tiposcompras }) => {
     };
 
     const getTiposCompras = (parent) => {
-        if (openTiposCompras.includes(parent)) {
-            //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY openTiposCompras
-            setOpenTiposCompras(
-                openTiposCompras.filter((element) => element != parent)
+        if (openActividadesEconomicas.includes(parent)) {
+            //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY openActividadesEconomicas
+            setOpenActividadesEconomicas(
+                openActividadesEconomicas.filter((element) => element != parent)
             );
         } else {
-            //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY openTiposCompras
-            setOpenTiposCompras([...openTiposCompras, parent]); //Se añade el nuevo parent
+            //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY openActividadesEconomicas
+            setOpenActividadesEconomicas([
+                ...openActividadesEconomicas,
+                parent,
+            ]); //Se añade el nuevo parent
         }
 
         //SE BUSCAN LOS SEGMENTOS QUE TENGAN EL id_padre_sub_categoria == AL SECTOR QUE SE LE DIO CLICK
         const pattern = new RegExp(parent, "i");
-        const FilteredTiposCompras = sectores.filter(function (el) {
+        const FilteredActividadesEcomomicas = sectores.filter(function (el) {
             if (pattern.test(el.id_padre_sub_categoria)) {
                 return el;
             }
         });
 
         //EN LOS SEGMENTOS QUE SE ENCONTRARON
-        FilteredTiposCompras.forEach((element) => {
-            if (!tiposCompras.includes(element)) {
+        FilteredActividadesEcomomicas.forEach((element) => {
+            if (!actividadesEconomicas.includes(element)) {
                 //SI NO EXISTE, SE AGREGA
-                tiposCompras.push(element);
+                actividadesEconomicas.push(element);
             } else {
                 //SI YA EXISTE, SE ELIMINA
-                const resultado = tiposCompras.filter(
+                const resultado = actividadesEconomicas.filter(
                     (segmento) => segmento.id_padre_sub_categoria != parent
                 );
-                setTiposCompras(resultado);
+                setActividadesEconomicas(resultado);
             }
         });
-        setSelectedTipoCompra(parent);
+        setSelectedActividadEconomica(parent);
     };
 
     const checked = (actividad_economica) => {
         setInputTiposCompras(actividad_economica);
     };
 
-    // const inputSearchTipoCompra = (e) => {
-    //     if (e.target.value == "") {
-    //         console.log("primer if");
-    //         console.log(e.target.value);
-    //         setSectores(fakeSectores);
-    //         setSegmentos([]);
-    //         setTiposCompras([]);
-    //         setOpenSegmentos([]);
-    //         setOpenTiposCompras([]);
-    //         return;
-    //     }
-    //     if (e.key === "Enter") {
-    //         console.log("enter");
-    //         console.log(e.key);
-    //         //SE BUSCAN LAS ACTIVIDADES ECONOMICAS QUE COINCIDAN CON EL NOMBRE QUE SE INGRESO
-    //         const pattern = new RegExp(e.target.value, "i");
-    //         const FilteredTiposCompras = fakeSectores.filter(function (el) {
-    //             if (pattern.test(el.nombre)) {
-    //                 return el;
-    //             }
-    //         });
+    const inputSearchActividadEconomica = (e) => {
+        if (e.target.value == "") {
+            setSectores(fakeSectores);
+            setSegmentos([]);
+            setActividadesEconomicas([]);
+            setOpenSegmentos([]);
+            setOpenActividadesEconomicas([]);
+            return;
+        }
 
-    //         var sectores_filtrados = [];
-    //         var segmentos_filtrados = [];
-    //         var tipos_compras_filtrados = [];
-    //         var open_tipos_compras = [];
-    //         var open_segmentos = [];
+        if (e.key === "Enter") {
+            //SE BUSCAN LAS LOCALIZACIONES QUE COINCIDAN CON EL NOMBRE QUE SE INGRESO
+            const pattern = new RegExp(e.target.value, "i");
 
-    //         FilteredTiposCompras.forEach((element) => {
-    //             if (
-    //                 element.id_abuelo_sub_categoria != null &&
-    //                 element.id_padre_sub_categoria != null
-    //             ) {
-    //                 //ae
-    //                 tipos_compras_filtrados.push(element);
-    //                 open_tipos_compras.push(element.id_padre_sub_categoria);
+            const FilteredActividadesEcomomicas = fakeSectores.filter(function (
+                el
+            ) {
+                if (pattern.test(el.nombre)) {
+                    return el;
+                }
+            });
 
-    //                 //BUSCAMOS EL SEGMENTO
-    //                 segmentos_filtrados.push(
-    //                     fakeSectores.filter(
-    //                         (fs) => fs.id == element.id_padre_sub_categoria
-    //                     )[0]
-    //                 );
-    //                 open_segmentos.push(element.id_abuelo_sub_categoria);
-    //             }
+            var sectores_filtrados = [];
+            var segmentos_filtrados = [];
+            var actividades_economicas_filtrados = [];
+            var open_actividades_economicas = [];
+            var open_segmentos = [];
 
-    //             if (
-    //                 element.id_abuelo_sub_categoria == null &&
-    //                 element.id_padre_sub_categoria != null
-    //             ) {
-    //                 //segmento
-    //                 if (!segmentos_filtrados.includes(element)) {
-    //                     segmentos_filtrados.push(element);
-    //                 }
-    //                 if (
-    //                     !open_segmentos.includes(element.id_padre_sub_categoria)
-    //                 ) {
-    //                     open_segmentos.push(element.id_padre_sub_categoria);
-    //                 }
-    //             }
+            FilteredActividadesEcomomicas.forEach((element) => {
+                if (element.id_padre_sub_categoria != null) {
+                    //ae
+                    actividades_economicas_filtrados.push(element);
+                    open_actividades_economicas.push(
+                        element.id_padre_sub_categoria
+                    );
 
-    //             if (
-    //                 element.id_abuelo_sub_categoria == null &&
-    //                 element.id_padre_sub_categoria == null
-    //             ) {
-    //                 //sector
-    //                 sectores_filtrados.push(element);
-    //             }
-    //         });
+                    //BUSCAMOS la ciudad  DE LA tiposcompras
+                    segmentos_filtrados.push(
+                        fakeSectores.filter(
+                            (fs) => fs.id == element.id_padre_sub_categoria
+                        )[0]
+                    );
+                    open_segmentos.push(element.id_abuelo_sub_categoria);
+                }
 
-    //         //BUSCAR TODOS LOS SECTORES Y SEGMENTOS DE tipos_compras_filtrados
-    //         var ae_sector = null;
-    //         var ae_segmento = null;
-    //         tipos_compras_filtrados.forEach((ae) => {
-    //             //OBTENER SECTOR
-    //             ae_sector = fakeSectores.filter(
-    //                 (fs) => fs.id == ae.id_abuelo_sub_categoria
-    //             )[0];
-    //             ae_segmento = fakeSectores.filter(
-    //                 (fs) => fs.id == ae.id_padre_sub_categoria
-    //             )[0];
-    //             //SI EL ae_sector NO ESTA INCLUIDO EN sectores
-    //             if (!sectores_filtrados.includes(ae_sector)) {
-    //                 //BUSCAR SECTOR Y GUARDAR
-    //                 sectores_filtrados.push(
-    //                     fakeSectores.filter(
-    //                         (sector) => sector.id == ae.id_abuelo_sub_categoria
-    //                     )[0]
-    //                 );
-    //             }
-    //             if (!segmentos_filtrados.includes(ae_segmento)) {
-    //                 //BUSCAR SEGMENTO Y GUARDAR
-    //                 sectores_filtrados.push(
-    //                     fakeSectores.filter(
-    //                         (sector) => sector.id == ae.id_padre_sub_categoria
-    //                     )[0]
-    //                 );
-    //             }
-    //         });
+                if (element.id_padre_sub_categoria != null) {
+                    //segmento
+                    if (!segmentos_filtrados.includes(element)) {
+                        segmentos_filtrados.push(element);
+                    }
+                    if (
+                        !open_segmentos.includes(element.id_padre_sub_categoria)
+                    ) {
+                        open_segmentos.push(element.id_padre_sub_categoria);
+                    }
+                }
 
-    //         setSectores(sectores_filtrados);
-    //         setSegmentos(segmentos_filtrados);
-    //         setTiposCompras(tipos_compras_filtrados);
-    //         setOpenSegmentos(open_segmentos);
-    //         setOpenTiposCompras(open_tipos_compras);
-    //     }
-    // };
+                if (element.id_padre_sub_categoria == null) {
+                    //sector
+                    sectores_filtrados.push(element);
+                }
+            });
 
-    const filterTipoCompra = (e) => {
-        const pattern = new RegExp(e.target.value, "i");
-        const FilteredTiposCompras = fakeSectores.filter(function (el) {
-            if (pattern.test(el.nombre)) {
-                return el;
-            }
-        });
-        setSectores(FilteredTiposCompras);
-        setShowTipoCompra(!showTipoCompra);
+            //BUSCAR TODOS LOS regiones Y ciudades DE actividades_economicas_filtrados
+            var ae_sector = null;
+            var ae_segmento = null;
+
+            actividades_economicas_filtrados.forEach((ae) => {
+                //OBTENER SECTOR DE LA ACTIVIDAD ECONOMICA
+                //OBTENER region  DE LA tiposcomprases
+
+                ae_sector = fakeSectores.filter((fs) => fs.id == ae.id)[0];
+
+                ae_segmento = fakeSectores.filter(
+                    (fs) => fs.id == ae.id_padre_sub_categoria
+                )[0];
+
+                //SI EL ae_sector NO ESTA INCLUIDO EN regiones
+                if (!sectores_filtrados.includes(ae_sector)) {
+                    //BUSCAR Region Y GUARDAR
+                    sectores_filtrados.push(
+                        fakeSectores.filter(
+                            (sector) => sector.id == ae.id_padre_sub_categoria
+                        )[0]
+                    );
+                }
+
+                if (!segmentos_filtrados.includes(ae_segmento)) {
+                    //BUSCAR SEGMENTO Y GUARDAR
+                    sectores_filtrados.push(
+                        fakeSectores.filter(
+                            (sector) => sector.id == ae.id_padre_sub_categoria
+                        )[0]
+                    );
+                }
+            });
+
+            setSectores(sectores_filtrados);
+            setSegmentos(segmentos_filtrados);
+            setActividadesEconomicas(actividades_economicas_filtrados);
+            setOpenSegmentos(open_segmentos);
+            setOpenActividadesEconomicas(open_actividades_economicas);
+        }
     };
 
     const deleteTiposCompras = () => {
@@ -270,9 +262,10 @@ const Index = ({ auth, tiposcompras }) => {
                 }
                 setToastMessage(data.message);
                 setShowToast(true);
-                setShowModalTipoCompra(false);
+                setShowModalActividadEconomica(false);
             });
     };
+
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Tipos Compras" />
@@ -284,14 +277,16 @@ const Index = ({ auth, tiposcompras }) => {
                     autohide
                 >
                     <div
-                        className={`notification-toast ${toastIcon == "icon-error" ? "error" : "success"
-                            }`}
+                        className={`notification-toast ${
+                            toastIcon == "icon-error" ? "error" : "success"
+                        }`}
                     >
                         <span
-                            className={`toast-icon ${toastIcon == "icon-error"
+                            className={`toast-icon ${
+                                toastIcon == "icon-error"
                                     ? "toast-danger"
                                     : "toast-success"
-                                }`}
+                            }`}
                         >
                             <span className={toastIcon}></span>
                         </span>
@@ -311,17 +306,9 @@ const Index = ({ auth, tiposcompras }) => {
                         <div className="tree_categorias tree_1">
                             <div className="tree_categorias__busqueda mb-3 mb-md-4">
                                 <div className="mx-auto">
-                                    {/*  <input
-                                        type="text"
-                                        placeholder="Buscar tipo compra"
-                                        autoComplete="off"
-                                        className="form-control m-auto"
-                                        onChange={filterTipoCompra}
-                                    /> */}
-
                                     <input
                                         type="text"
-                                        placeholder="Busca por actividad económica"
+                                        placeholder="Buscar tipo de compra"
                                         autoComplete="off"
                                         className="form-control m-auto"
                                         onKeyDown={
@@ -350,143 +337,180 @@ const Index = ({ auth, tiposcompras }) => {
                                             <i className="bi bi-pencil-fill"></i>
                                         </Nav.Link>
                                         <Nav.Link
-                                            onClick={handleShowModalTipoCompra}
+                                            onClick={
+                                                handleShowModalActividadEconomica
+                                            }
                                             className="flex  ml-4 text-probar "
                                         >
                                             <i className="bi bi-trash3"></i>
                                         </Nav.Link>
                                     </div>
+
                                     {sectores.map((sector) => (
                                         <>
                                             {sector.id_padre_sub_categoria ==
                                                 null && (
-                                                    <>
-                                                        <div
-                                                            id={sector.id}
-                                                            className="tree-content mt-3 sector "
-                                                            key={sector.id}
-                                                            onClick={() =>
-                                                                getSegmento(
-                                                                    sector.id
-                                                                )
-                                                            }
-                                                        >
-                                                            <i
-                                                                className={`tree-arrow has-child ${sector.childs
-                                                                        .length > 0
-                                                                        ? "bi bi-chevron-down"
-                                                                        : ""
-                                                                    }`}
-                                                            ></i>
-                                                            <span className="tree-anchor">
-                                                                <span className="tree-division tree-division1">
-                                                                    <span className="tree-division__title my-auto">
-                                                                        {
-                                                                            sector.nombre
-                                                                        }
-                                                                    </span>
+                                                <>
+                                                    <div
+                                                        id={sector.id}
+                                                        className="tree-content mt-3 sector"
+                                                        key={sector.id}
+                                                        onClick={() =>
+                                                            getSegmento(
+                                                                sector.id
+                                                            )
+                                                        }
+                                                    >
+                                                        <i
+                                                            className={`tree-arrow has-child ${
+                                                                sector.childs
+                                                                    .length > 0
+                                                                    ? "bi bi-chevron-down"
+                                                                    : ""
+                                                            }`}
+                                                        ></i>
+                                                        <span className="tree-anchor">
+                                                            <span className="tree-division tree-division1">
+                                                                <span className="tree-division__title my-auto">
+                                                                    {
+                                                                        sector.nombre
+                                                                    }
                                                                 </span>
                                                             </span>
-                                                        </div>
-                                                        {openSegmentos.includes(
-                                                            sector.id
-                                                        ) && (
-                                                                <ul className="tree-children">
-                                                                    {segmentos.map(
-                                                                        (
-                                                                            segmento,
-                                                                            index
-                                                                        ) => (
-                                                                            <>
-                                                                                {sector.id ==
-                                                                                    segmento.id_padre_sub_categoria && (
-                                                                                        <li
-                                                                                            data-id="20504"
-                                                                                            className="tree-node has-child expanded draggable"
-                                                                                            onClick={() =>
-                                                                                                checked(
-                                                                                                    segmento
-                                                                                                )
-                                                                                            }
-                                                                                        >
-                                                                                            <div
-                                                                                                className="tree-content segmento"
-                                                                                                onClick={() =>
-                                                                                                    getTiposCompras(
-                                                                                                        segmento.id
-                                                                                                    )
-                                                                                                }
-                                                                                            >
-                                                                                                <i className="tree-arrow expanded has-child ltr"></i>
-                                                                                                <input
-                                                                                                    type="radio"
-                                                                                                    name="actividad_economica"
-                                                                                                    onClick={() =>
-                                                                                                        checked(
-                                                                                                            segmento
-                                                                                                        )
-                                                                                                    }
-                                                                                                    checked={
-                                                                                                        segmento.id ==
-                                                                                                            inputTiposCompras.id
-                                                                                                            ? "checked"
-                                                                                                            : ""
-                                                                                                    }
-                                                                                                />
+                                                        </span>
+                                                    </div>
+                                                    {openSegmentos.includes(
+                                                        sector.id
+                                                    ) && (
+                                                        <ul className="tree-children">
+                                                            {segmentos.map(
+                                                                (
+                                                                    segmento,
+                                                                    index
+                                                                ) => (
+                                                                    <>
+                                                                        {sector.id ==
+                                                                            segmento.id_padre_sub_categoria && (
+                                                                            <li
+                                                                                data-id="20504"
+                                                                                className="tree-node has-child expanded draggable"
+                                                                                onClick={() =>
+                                                                                    checked(
+                                                                                        segmento
+                                                                                    )
+                                                                                }
+                                                                            >
+                                                                                <div
+                                                                                    className="tree-content segmento"
+                                                                                    onClick={() =>
+                                                                                        getTiposCompras(
+                                                                                            segmento.id
+                                                                                        )
+                                                                                    }
+                                                                                >
+                                                                                    <i className="tree-arrow expanded has-child ltr"></i>
+                                                                                    <input
+                                                                                        type="radio"
+                                                                                        name="actividad_economica"
+                                                                                        onClick={() =>
+                                                                                            checked(
+                                                                                                segmento
+                                                                                            )
+                                                                                        }
+                                                                                        checked={
+                                                                                            segmento.id ==
+                                                                                            inputTiposCompras.id
+                                                                                                ? "checked"
+                                                                                                : ""
+                                                                                        }
+                                                                                    />
 
-                                                                                                <span className="tree-anchor">
-                                                                                                    <span className="tree-division tree-division1">
-                                                                                                        <>
-                                                                                                            {index %
-                                                                                                                2 ==
-                                                                                                                0 ? (
+                                                                                    <span className="tree-anchor">
+                                                                                        <span className="tree-division tree-division1">
+                                                                                            <>
+                                                                                                {index %
+                                                                                                    2 ==
+                                                                                                0 ? (
+                                                                                                    <span className="tree-division__title my-auto">
+                                                                                                        {
+                                                                                                            segmento.nombre
+                                                                                                        }
+                                                                                                    </span>
+                                                                                                ) : (
+                                                                                                    <span className="tree-division__title-gray my-auto">
+                                                                                                        {
+                                                                                                            segmento.nombre
+                                                                                                        }
+                                                                                                    </span>
+                                                                                                )}
+                                                                                            </>
+                                                                                        </span>
+                                                                                    </span>
+                                                                                </div>
+
+                                                                                {openActividadesEconomicas.includes(
+                                                                                    segmento.id
+                                                                                ) && (
+                                                                                    <ul className="tree-children">
+                                                                                        {actividadesEconomicas.map(
+                                                                                            (
+                                                                                                childs
+                                                                                            ) => (
+                                                                                                <li className="tree-node draggable">
+                                                                                                    <div
+                                                                                                        className="tree-content actividad-economica"
+                                                                                                        onClick={() =>
+                                                                                                            checked(
+                                                                                                                childs
+                                                                                                            )
+                                                                                                        }
+                                                                                                    >
+                                                                                                        <span className="tree-anchor children">
+                                                                                                            <span className="tree-division tree-division1">
                                                                                                                 <span className="tree-division__title my-auto">
                                                                                                                     {
-                                                                                                                        segmento.nombre
+                                                                                                                        childs.nombre
                                                                                                                     }
                                                                                                                 </span>
-                                                                                                            ) : (
-                                                                                                                <span className="tree-division__title-gray my-auto">
-                                                                                                                    {
-                                                                                                                        segmento.nombre
-                                                                                                                    }
-                                                                                                                </span>
-                                                                                                            )}
-                                                                                                        </>
-                                                                                                    </span>
-                                                                                                </span>
-                                                                                            </div>
-                                                                                        </li>
-                                                                                    )}
-                                                                            </>
-                                                                        )
-                                                                    )}
-                                                                </ul>
+                                                                                                            </span>
+                                                                                                        </span>
+                                                                                                    </div>
+                                                                                                </li>
+                                                                                            )
+                                                                                        )}
+                                                                                    </ul>
+                                                                                )}
+                                                                            </li>
+                                                                        )}
+                                                                    </>
+                                                                )
                                                             )}
-                                                    </>
-                                                )}
+                                                        </ul>
+                                                    )}
+                                                </>
+                                            )}
                                         </>
                                     ))}
                                 </div>
                             </div>
                         </div>
                         <Modal
-                            show={showModalTipoCompra}
-                            onHide={handleCloseModalTipoCompra}
-                            id="removeTipoCompra"
+                            show={showModalActividadEconomica}
+                            onHide={handleCloseModalActividadEconomica}
+                            id="removeActividadEconomica"
                             className="modal-dialog-centered"
                         >
-                            <Modal.Header id="removeTipoCompraHeader">
+                            <Modal.Header id="removeActividadEconomicaHeader">
                                 <h5 className="modal-title">Eliminar</h5>
                                 <button
                                     type="button"
                                     className="btn-close btn-close-white"
-                                    onClick={handleCloseModalTipoCompra}
+                                    onClick={handleCloseModalActividadEconomica}
                                 ></button>
                             </Modal.Header>
-                            <Modal.Body id="removeTipoCompraBody">
+                            <Modal.Body id="removeActividadEconomicaBody">
                                 <p>
-                                    Desea eliminar la comuna{" "}
+                                    Desea eliminar el tipo de compra{" "}
                                     {inputTiposCompras.nombre}?
                                 </p>
                             </Modal.Body>
@@ -494,7 +518,7 @@ const Index = ({ auth, tiposcompras }) => {
                                 <button
                                     type="submit"
                                     className="btn btnRadius btn-new-blue mr-2"
-                                    onClick={handleCloseModalTipoCompra}
+                                    onClick={handleCloseModalActividadEconomica}
                                 >
                                     Cancelar
                                 </button>

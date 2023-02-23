@@ -17,7 +17,7 @@ import { useForm, Head } from "@inertiajs/inertia-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect } from "react";
 
-const Editar = ({ auth, tiposcompras, solo_sectores, ae_actual }) => {
+const Editar = ({ auth, actividades_economicas, solo_sectores, ae_actual }) => {
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const { data, setData, patch, processing, reset, errors } = useForm({
@@ -45,19 +45,21 @@ const Editar = ({ auth, tiposcompras, solo_sectores, ae_actual }) => {
         }
     };
 
-    const [fakeSectores, setFakeSectores] = useState(tiposcompras);
+    const [fakeSectores, setFakeSectores] = useState(actividades_economicas);
     const [sectores, setSectores] = useState(solo_sectores);
     const [segmentos, setSegmentos] = useState([]);
 
     const getSegmentos = (value) => {
         setData("sector", value);
         const pattern = new RegExp(value, "i");
-        const FilteredTiposCompras = fakeSectores.filter(function (el) {
+        const FilteredActividadesEcomomicas = fakeSectores.filter(function (
+            el
+        ) {
             if (pattern.test(el.id_padre_sub_categoria)) {
                 return el;
             }
         });
-        setSegmentos(FilteredTiposCompras);
+        setSegmentos(FilteredActividadesEcomomicas);
     };
 
     useEffect(() => {
@@ -85,7 +87,7 @@ const Editar = ({ auth, tiposcompras, solo_sectores, ae_actual }) => {
 
     return (
         <AuthenticatedLayout auth={auth}>
-            <Head title="Tipos Compras" />
+            <Head title="Tipos Conmpras" />
             <ToastContainer position="bottom-start">
                 <Toast
                     onClose={() => setShowToast(false)}
@@ -108,7 +110,9 @@ const Editar = ({ auth, tiposcompras, solo_sectores, ae_actual }) => {
             </ToastContainer>
             <div className="contenedor-planes">
                 <div className="bg-white overflow-auto w-full text-center margen-superior">
-                    <h2 className="name_section_app">Edición tipo compra</h2>
+                    <h2 className="name_section_app">
+                        Edición comuna o ciudad
+                    </h2>
                     <div className="container mt-4">
                         <Form
                             id="form"
@@ -124,7 +128,7 @@ const Editar = ({ auth, tiposcompras, solo_sectores, ae_actual }) => {
                                         for="validationInput"
                                         className="bloque__registro-form-title-label"
                                     >
-                                        Tipo entidad
+                                        Región
                                     </Form.Label>
                                 </div>
                                 <div className="col-12 col-sm-8">
@@ -137,9 +141,9 @@ const Editar = ({ auth, tiposcompras, solo_sectores, ae_actual }) => {
                                         }
                                         value={data.segmento}
                                     >
-                                        {/* <option value="">
-                                            Nombre de tipo compra
-                                        </option> */}
+                                        <option value="">
+                                            Selecciona una entidad
+                                        </option>
                                         {segmentos.map((segmento) => (
                                             <option
                                                 key={segmento.id}
@@ -164,7 +168,7 @@ const Editar = ({ auth, tiposcompras, solo_sectores, ae_actual }) => {
                                 <div className="col-12 col-sm-8">
                                     <Form.Control
                                         type="text"
-                                        placeholder="Tipo de compra"
+                                        placeholder="Nombre de la comuna o ciudad"
                                         value={data.nombre}
                                         onChange={(e) =>
                                             setData("nombre", e.target.value)
