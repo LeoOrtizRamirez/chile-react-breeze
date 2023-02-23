@@ -21,15 +21,12 @@ const Index = ({ auth, tiposcompras }) => {
     const [fakeSectores, setFakeSectores] = useState(tiposcompras);
     const [sectores, setSectores] = useState(tiposcompras);
     const [showSegmento, setShowSegmento] = useState(false);
-    const [showActividadEconomica, setShowActividadEconomica] = useState(false);
+    const [showTipoCompra, setShowTipoCompra] = useState(false);
     const [selectedSegmento, setSelectedSegmento] = useState(0);
-    const [selectedActividadEconomica, setSelectedActividadEconomica] =
-        useState(0);
+    const [selectedTipoCompra, setSelectedTipoCompra] = useState(0);
 
     const [openSegmentos, setOpenSegmentos] = useState([]);
-    const [openActividadesEconomicas, setOpenActividadesEconomicas] = useState(
-        []
-    );
+    const [openTiposCompras, setOpenTiposCompras] = useState([]);
 
     const [inputTiposCompras, setInputTiposCompras] = useState({
         id: 0,
@@ -37,15 +34,13 @@ const Index = ({ auth, tiposcompras }) => {
     });
 
     const [segmentos, setSegmentos] = useState([]);
-    const [actividadesEconomicas, setActividadesEconomicas] = useState([]);
-    const [showModalActividadEconomica, setShowModalActividadEconomica] =
-        useState(false);
-    const handleCloseModalActividadEconomica = () =>
-        setShowModalActividadEconomica(false);
+    const [tiposCompras, setTiposCompras] = useState([]);
+    const [showModalTipoCompra, setShowModalTipoCompra] = useState(false);
+    const handleCloseModalTipoCompra = () => setShowModalTipoCompra(false);
 
-    const handleShowModalActividadEconomica = () => {
+    const handleShowModalTipoCompra = () => {
         if (inputTiposCompras.id != 0) {
-            setShowModalActividadEconomica(true);
+            setShowModalTipoCompra(true);
         } else {
             setToastMessage("Debes seleccionar un tipo de compra");
             setToastIcon("icon-error");
@@ -67,13 +62,13 @@ const Index = ({ auth, tiposcompras }) => {
 
     const getSegmento = (parent) => {
         if (openSegmentos.includes(parent)) {
-            //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY openSegmentos
+            //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY OPENSEGMENTOS
             setOpenSegmentos(
                 openSegmentos.filter((element) => element != parent)
             );
         } else {
-            //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY openSegmentos
-            setOpenSegmentos([...openSegmentos, parent]); //Se añade el nuevo parent
+            //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY OPENSEGMENTOS
+            setOpenSegmentos([...openSegmentos, parent]); //SE AÑADE EL NUEVO PARENT
         }
 
         //SE BUSCAN LOS SEGMENTOS QUE TENGAN EL id_padre_sub_categoria == AL SECTOR QUE SE LE DIO CLICK
@@ -100,54 +95,51 @@ const Index = ({ auth, tiposcompras }) => {
     };
 
     const getTiposCompras = (parent) => {
-        if (openActividadesEconomicas.includes(parent)) {
-            //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY openActividadesEconomicas
-            setOpenActividadesEconomicas(
-                openActividadesEconomicas.filter((element) => element != parent)
+        if (openTiposCompras.includes(parent)) {
+            //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY OPENTIPOSCOMPRAS
+            setOpenTiposCompras(
+                openTiposCompras.filter((element) => element != parent)
             );
         } else {
-            //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY openActividadesEconomicas
-            setOpenActividadesEconomicas([
-                ...openActividadesEconomicas,
-                parent,
-            ]); //Se añade el nuevo parent
+            //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY OPENTIPOSCOMPRAS
+            setOpenTiposCompras([...openTiposCompras, parent]); //SE AÑADE EL NUEVO PARENT
         }
 
         //SE BUSCAN LOS SEGMENTOS QUE TENGAN EL id_padre_sub_categoria == AL SECTOR QUE SE LE DIO CLICK
         const pattern = new RegExp(parent, "i");
-        const FilteredActividadesEcomomicas = sectores.filter(function (el) {
+        const FilteredTiposCompras = sectores.filter(function (el) {
             if (pattern.test(el.id_padre_sub_categoria)) {
                 return el;
             }
         });
 
         //EN LOS SEGMENTOS QUE SE ENCONTRARON
-        FilteredActividadesEcomomicas.forEach((element) => {
-            if (!actividadesEconomicas.includes(element)) {
+        FilteredTiposCompras.forEach((element) => {
+            if (!tiposCompras.includes(element)) {
                 //SI NO EXISTE, SE AGREGA
-                actividadesEconomicas.push(element);
+                tiposCompras.push(element);
             } else {
                 //SI YA EXISTE, SE ELIMINA
-                const resultado = actividadesEconomicas.filter(
+                const resultado = tiposCompras.filter(
                     (segmento) => segmento.id_padre_sub_categoria != parent
                 );
-                setActividadesEconomicas(resultado);
+                setTiposCompras(resultado);
             }
         });
-        setSelectedActividadEconomica(parent);
+        setSelectedTipoCompra(parent);
     };
 
-    const checked = (actividad_economica) => {
-        setInputTiposCompras(actividad_economica);
+    const checked = (tipo_compra) => {
+        setInputTiposCompras(tipo_compra);
     };
 
-    const inputSearchActividadEconomica = (e) => {
+    const inputSearchTipoCompra = (e) => {
         if (e.target.value == "") {
             setSectores(fakeSectores);
             setSegmentos([]);
-            setActividadesEconomicas([]);
+            setTiposCompras([]);
             setOpenSegmentos([]);
-            setOpenActividadesEconomicas([]);
+            setOpenTiposCompras([]);
             return;
         }
 
@@ -155,9 +147,7 @@ const Index = ({ auth, tiposcompras }) => {
             //SE BUSCAN LAS LOCALIZACIONES QUE COINCIDAN CON EL NOMBRE QUE SE INGRESO
             const pattern = new RegExp(e.target.value, "i");
 
-            const FilteredActividadesEcomomicas = fakeSectores.filter(function (
-                el
-            ) {
+            const FilteredTiposCompras = fakeSectores.filter(function (el) {
                 if (pattern.test(el.nombre)) {
                     return el;
                 }
@@ -165,19 +155,17 @@ const Index = ({ auth, tiposcompras }) => {
 
             var sectores_filtrados = [];
             var segmentos_filtrados = [];
-            var actividades_economicas_filtrados = [];
-            var open_actividades_economicas = [];
+            var tipos_compras_filtrados = [];
+            var open_tipos_compras = [];
             var open_segmentos = [];
 
-            FilteredActividadesEcomomicas.forEach((element) => {
+            FilteredTiposCompras.forEach((element) => {
                 if (element.id_padre_sub_categoria != null) {
                     //ae
-                    actividades_economicas_filtrados.push(element);
-                    open_actividades_economicas.push(
-                        element.id_padre_sub_categoria
-                    );
+                    tipos_compras_filtrados.push(element);
+                    open_tipos_compras.push(element.id_padre_sub_categoria);
 
-                    //BUSCAMOS la ciudad  DE LA tiposcompras
+                    //BUSCAMOS
                     segmentos_filtrados.push(
                         fakeSectores.filter(
                             (fs) => fs.id == element.id_padre_sub_categoria
@@ -187,7 +175,7 @@ const Index = ({ auth, tiposcompras }) => {
                 }
 
                 if (element.id_padre_sub_categoria != null) {
-                    //segmento
+                    //SEGMENTO
                     if (!segmentos_filtrados.includes(element)) {
                         segmentos_filtrados.push(element);
                     }
@@ -199,18 +187,18 @@ const Index = ({ auth, tiposcompras }) => {
                 }
 
                 if (element.id_padre_sub_categoria == null) {
-                    //sector
+                    //SECTOR
                     sectores_filtrados.push(element);
                 }
             });
 
-            //BUSCAR TODOS LOS regiones Y ciudades DE actividades_economicas_filtrados
+            //BUSCAR TODOS LOS regiones Y ciudades DE tipos_compras_filtrados
             var ae_sector = null;
             var ae_segmento = null;
 
-            actividades_economicas_filtrados.forEach((ae) => {
+            tipos_compras_filtrados.forEach((ae) => {
                 //OBTENER SECTOR DE LA ACTIVIDAD ECONOMICA
-                //OBTENER region  DE LA tiposcomprases
+                //OBTENER TIPOS COMPRAS
 
                 ae_sector = fakeSectores.filter((fs) => fs.id == ae.id)[0];
 
@@ -240,9 +228,9 @@ const Index = ({ auth, tiposcompras }) => {
 
             setSectores(sectores_filtrados);
             setSegmentos(segmentos_filtrados);
-            setActividadesEconomicas(actividades_economicas_filtrados);
+            setTiposCompras(tipos_compras_filtrados);
             setOpenSegmentos(open_segmentos);
-            setOpenActividadesEconomicas(open_actividades_economicas);
+            setOpenTiposCompras(open_tipos_compras);
         }
     };
 
@@ -262,7 +250,7 @@ const Index = ({ auth, tiposcompras }) => {
                 }
                 setToastMessage(data.message);
                 setShowToast(true);
-                setShowModalActividadEconomica(false);
+                setShowModalTipoCompra(false);
             });
     };
 
@@ -311,9 +299,7 @@ const Index = ({ auth, tiposcompras }) => {
                                         placeholder="Buscar tipo de compra"
                                         autoComplete="off"
                                         className="form-control m-auto"
-                                        onKeyDown={
-                                            inputSearchActividadEconomica
-                                        }
+                                        onKeyDown={inputSearchTipoCompra}
                                     />
                                     <i className="icon-Cancelar"></i>
                                     <button
@@ -337,9 +323,7 @@ const Index = ({ auth, tiposcompras }) => {
                                             <i className="bi bi-pencil-fill"></i>
                                         </Nav.Link>
                                         <Nav.Link
-                                            onClick={
-                                                handleShowModalActividadEconomica
-                                            }
+                                            onClick={handleShowModalTipoCompra}
                                             className="flex  ml-4 text-probar "
                                         >
                                             <i className="bi bi-trash3"></i>
@@ -411,7 +395,7 @@ const Index = ({ auth, tiposcompras }) => {
                                                                                     <i className="tree-arrow expanded has-child ltr"></i>
                                                                                     <input
                                                                                         type="radio"
-                                                                                        name="actividad_economica"
+                                                                                        name="tipo_compra"
                                                                                         onClick={() =>
                                                                                             checked(
                                                                                                 segmento
@@ -448,38 +432,41 @@ const Index = ({ auth, tiposcompras }) => {
                                                                                     </span>
                                                                                 </div>
 
-                                                                                {openActividadesEconomicas.includes(
-                                                                                    segmento.id
-                                                                                ) && (
-                                                                                    <ul className="tree-children">
-                                                                                        {actividadesEconomicas.map(
-                                                                                            (
-                                                                                                childs
-                                                                                            ) => (
-                                                                                                <li className="tree-node draggable">
-                                                                                                    <div
-                                                                                                        className="tree-content actividad-economica"
-                                                                                                        onClick={() =>
-                                                                                                            checked(
-                                                                                                                childs
-                                                                                                            )
-                                                                                                        }
-                                                                                                    >
-                                                                                                        <span className="tree-anchor children">
-                                                                                                            <span className="tree-division tree-division1">
-                                                                                                                <span className="tree-division__title my-auto">
-                                                                                                                    {
-                                                                                                                        childs.nombre
-                                                                                                                    }
-                                                                                                                </span>
-                                                                                                            </span>
-                                                                                                        </span>
-                                                                                                    </div>
-                                                                                                </li>
-                                                                                            )
-                                                                                        )}
-                                                                                    </ul>
-                                                                                )}
+                                                                                {
+                                                                                    openTiposCompras.includes(
+                                                                                        segmento.id
+                                                                                    )
+                                                                                    // && (
+                                                                                    //     <ul className="tree-children">
+                                                                                    //         {tiposCompras.map(
+                                                                                    //             (
+                                                                                    //                 childs
+                                                                                    //             ) => (
+                                                                                    //                 <li className="tree-node draggable">
+                                                                                    //                     <div
+                                                                                    //                         className="tree-content actividad-economica"
+                                                                                    //                         onClick={() =>
+                                                                                    //                             checked(
+                                                                                    //                                 childs
+                                                                                    //                             )
+                                                                                    //                         }
+                                                                                    //                     >
+                                                                                    //                         <span className="tree-anchor children">
+                                                                                    //                             <span className="tree-division tree-division1">
+                                                                                    //                                 <span className="tree-division__title my-auto">
+                                                                                    //                                     {
+                                                                                    //                                         childs.nombre
+                                                                                    //                                     }
+                                                                                    //                                 </span>
+                                                                                    //                             </span>
+                                                                                    //                         </span>
+                                                                                    //                     </div>
+                                                                                    //                 </li>
+                                                                                    //             )
+                                                                                    //         )}
+                                                                                    //     </ul>
+                                                                                    // )
+                                                                                }
                                                                             </li>
                                                                         )}
                                                                     </>
@@ -495,20 +482,20 @@ const Index = ({ auth, tiposcompras }) => {
                             </div>
                         </div>
                         <Modal
-                            show={showModalActividadEconomica}
-                            onHide={handleCloseModalActividadEconomica}
-                            id="removeActividadEconomica"
+                            show={showModalTipoCompra}
+                            onHide={handleCloseModalTipoCompra}
+                            id="removeTipoCompra"
                             className="modal-dialog-centered"
                         >
-                            <Modal.Header id="removeActividadEconomicaHeader">
+                            <Modal.Header id="removeTipoCompraHeader">
                                 <h5 className="modal-title">Eliminar</h5>
                                 <button
                                     type="button"
                                     className="btn-close btn-close-white"
-                                    onClick={handleCloseModalActividadEconomica}
+                                    onClick={handleCloseModalTipoCompra}
                                 ></button>
                             </Modal.Header>
-                            <Modal.Body id="removeActividadEconomicaBody">
+                            <Modal.Body id="removeTipoCompraBody">
                                 <p>
                                     Desea eliminar el tipo de compra{" "}
                                     {inputTiposCompras.nombre}?
@@ -518,7 +505,7 @@ const Index = ({ auth, tiposcompras }) => {
                                 <button
                                     type="submit"
                                     className="btn btnRadius btn-new-blue mr-2"
-                                    onClick={handleCloseModalActividadEconomica}
+                                    onClick={handleCloseModalTipoCompra}
                                 >
                                     Cancelar
                                 </button>

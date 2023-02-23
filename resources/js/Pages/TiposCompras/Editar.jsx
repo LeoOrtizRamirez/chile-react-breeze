@@ -17,7 +17,7 @@ import { useForm, Head } from "@inertiajs/inertia-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect } from "react";
 
-const Editar = ({ auth, actividades_economicas, solo_sectores, ae_actual }) => {
+const Editar = ({ auth, tipos_compras, solo_sectores, ae_actual }) => {
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const { data, setData, patch, processing, reset, errors } = useForm({
@@ -45,21 +45,19 @@ const Editar = ({ auth, actividades_economicas, solo_sectores, ae_actual }) => {
         }
     };
 
-    const [fakeSectores, setFakeSectores] = useState(actividades_economicas);
+    const [fakeSectores, setFakeSectores] = useState(tipos_compras);
     const [sectores, setSectores] = useState(solo_sectores);
     const [segmentos, setSegmentos] = useState([]);
 
     const getSegmentos = (value) => {
         setData("sector", value);
         const pattern = new RegExp(value, "i");
-        const FilteredActividadesEcomomicas = fakeSectores.filter(function (
-            el
-        ) {
+        const FilteredTiposCompras = fakeSectores.filter(function (el) {
             if (pattern.test(el.id_padre_sub_categoria)) {
                 return el;
             }
         });
-        setSegmentos(FilteredActividadesEcomomicas);
+        setSegmentos(FilteredTiposCompras);
     };
 
     useEffect(() => {
