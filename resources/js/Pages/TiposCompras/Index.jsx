@@ -146,7 +146,7 @@ const Index = ({ auth, tiposcompras }) => {
         if (e.key === "Enter") {
             //SE BUSCAN LAS LOCALIZACIONES QUE COINCIDAN CON EL NOMBRE QUE SE INGRESO
             const pattern = new RegExp(e.target.value, "i");
-
+            // debugger
             const FilteredTiposCompras = fakeSectores.filter(function (el) {
                 if (pattern.test(el.nombre)) {
                     return el;
@@ -159,6 +159,7 @@ const Index = ({ auth, tiposcompras }) => {
             var open_tipos_compras = [];
             var open_segmentos = [];
 
+            // debugger;
             FilteredTiposCompras.forEach((element) => {
                 if (element.id_padre_sub_categoria != null) {
                     //ae
@@ -166,29 +167,21 @@ const Index = ({ auth, tiposcompras }) => {
                     open_tipos_compras.push(element.id_padre_sub_categoria);
 
                     //BUSCAMOS
-                    segmentos_filtrados.push(
-                        fakeSectores.filter(
-                            (fs) => fs.id == element.id_padre_sub_categoria
-                        )[0]
+                    const padre = fakeSectores.find(
+                        (fs) => fs.id == element.id_padre_sub_categoria
                     );
-                    open_segmentos.push(element.id_abuelo_sub_categoria);
-                }
 
-                if (element.id_padre_sub_categoria != null) {
-                    //SEGMENTO
+                    const x = segmentos_filtrados.find(
+                        (fs) => fs.id == padre.id
+                    );
+
+                    if (!x) {
+                        segmentos_filtrados.push(padre);
+                    }
                     if (!segmentos_filtrados.includes(element)) {
                         segmentos_filtrados.push(element);
+                        open_segmentos.push(element.id_padre_sub_categoria); // DESPLIEGA RESULTADOS
                     }
-                    if (
-                        !open_segmentos.includes(element.id_padre_sub_categoria)
-                    ) {
-                        open_segmentos.push(element.id_padre_sub_categoria);
-                    }
-                }
-
-                if (element.id_padre_sub_categoria == null) {
-                    //SECTOR
-                    sectores_filtrados.push(element);
                 }
             });
 
@@ -196,28 +189,19 @@ const Index = ({ auth, tiposcompras }) => {
             var ae_sector = null;
             var ae_segmento = null;
 
+            debugger
             tipos_compras_filtrados.forEach((ae) => {
                 //OBTENER SECTOR DE LA ACTIVIDAD ECONOMICA
                 //OBTENER TIPOS COMPRAS
-
                 ae_sector = fakeSectores.filter((fs) => fs.id == ae.id)[0];
-
                 ae_segmento = fakeSectores.filter(
                     (fs) => fs.id == ae.id_padre_sub_categoria
                 )[0];
 
                 //SI EL ae_sector NO ESTA INCLUIDO EN regiones
+                // debugger
                 if (!sectores_filtrados.includes(ae_sector)) {
                     //BUSCAR Region Y GUARDAR
-                    sectores_filtrados.push(
-                        fakeSectores.filter(
-                            (sector) => sector.id == ae.id_padre_sub_categoria
-                        )[0]
-                    );
-                }
-
-                if (!segmentos_filtrados.includes(ae_segmento)) {
-                    //BUSCAR SEGMENTO Y GUARDAR
                     sectores_filtrados.push(
                         fakeSectores.filter(
                             (sector) => sector.id == ae.id_padre_sub_categoria
@@ -359,6 +343,7 @@ const Index = ({ auth, tiposcompras }) => {
                                                                     {
                                                                         sector.nombre
                                                                     }
+                                                                    {sector.id}
                                                                 </span>
                                                             </span>
                                                         </span>
@@ -386,11 +371,11 @@ const Index = ({ auth, tiposcompras }) => {
                                                                             >
                                                                                 <div
                                                                                     className="tree-content segmento"
-                                                                                    onClick={() =>
-                                                                                        getTiposCompras(
-                                                                                            segmento.id
-                                                                                        )
-                                                                                    }
+                                                                                    // onClick={() =>
+                                                                                    //     getTiposCompras(
+                                                                                    //         segmento.id
+                                                                                    //     )
+                                                                                    // }
                                                                                 >
                                                                                     <i className="tree-arrow expanded has-child ltr"></i>
                                                                                     <input
@@ -419,11 +404,17 @@ const Index = ({ auth, tiposcompras }) => {
                                                                                                         {
                                                                                                             segmento.nombre
                                                                                                         }
+                                                                                                        {
+                                                                                                            segmento.id
+                                                                                                        }
                                                                                                     </span>
                                                                                                 ) : (
                                                                                                     <span className="tree-division__title-gray my-auto">
                                                                                                         {
                                                                                                             segmento.nombre
+                                                                                                        }
+                                                                                                        {
+                                                                                                            segmento.id
                                                                                                         }
                                                                                                     </span>
                                                                                                 )}

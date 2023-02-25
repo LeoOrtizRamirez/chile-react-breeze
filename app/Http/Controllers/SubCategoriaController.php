@@ -53,8 +53,6 @@ class SubCategoriaController extends Controller
         ]);
     }
 
-
-
     public function store(Request $request)
     {
         //Cuando no se cumple hace break
@@ -81,12 +79,10 @@ class SubCategoriaController extends Controller
         return redirect(route('actividades-economicas.index'));
     }
 
-        
-
-    public function show(SubCategoria $actividad_economica)
-    {
-        //
-    }
+    // public function show(SubCategoria $actividad_economica)
+    // {
+    //     //
+    // }
 
 
     public function edit($id)
@@ -108,7 +104,6 @@ class SubCategoriaController extends Controller
             'ae_actual' => $ae_actual,
         ]);
     }
-
 
     public function update(Request $request, SubCategoria $actividad_economica){
         $id = $request->id;
@@ -329,9 +324,181 @@ class SubCategoriaController extends Controller
         return json_encode($response);
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // Tipos de compras
-    
-    public function updateTiposCompras(Request $request, SubCategoria $tipo_compra){
+
+    public function indexTiposCompras()
+    {
+        $tiposcompras = SubCategoria::where('tipo_categoria', 5)
+            ->orderBy('updated_at', 'DESC')
+            ->with('parent', 'childs')
+            ->get();
+
+        //Buscar id del grandparent y agregarlo a la actividad economica
+        foreach ($tiposcompras as $key => $ac) {
+            $model = SubCategoria::find($ac->id);
+            $ac->id_abuelo_sub_categoria = null;
+            if($model->id_padre_sub_categoria != null){
+                $parent = SubCategoria::find($model->id_padre_sub_categoria);
+                if($parent->id_padre_sub_categoria != null){
+                    $grandparent = SubCategoria::find($parent->id_padre_sub_categoria);
+                    $ac->id_abuelo_sub_categoria = $grandparent->id;
+                }
+            }
+        }
+        return Inertia::render('TiposCompras/Index', [
+            'tiposcompras' => $tiposcompras,
+        ]);
+    }
+
+    public function createTiposCompras()
+    {
+        $tipos_compras = SubCategoria::where('tipo_categoria', 5)
+            ->orderBy('updated_at', 'DESC')
+            ->with('parent', 'childs')
+            ->get();
+
+        $sectores = SubCategoria::where('tipo_categoria', 5)
+            ->where('id_padre_sub_categoria', null)
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+
+        return Inertia::render('TiposCompras/Crear', [
+            'tipos_compras' => $tipos_compras,
+            'solo_sectores' => $sectores,
+        ]);
+    }
+
+    public function storeTiposCompras(Request $request)
+    {
+        $request->validate([
+            'id' => 'unique:' . SubCategoria::class,
+            'nombre' => 'required',
+            'tipo_categoria' => 'required',
+        ]);
+        $subcategoria = new SubCategoria;
+        $subcategoria->nombre = $request->nombre;
+        $subcategoria->tipo_categoria = $request->tipo_categoria;
+        if (isset($request->sector) && $request->sector != "") {
+            $subcategoria->id_padre_sub_categoria = intval($request->sector);
+        }
+        if (isset($request->segmento) && $request->segmento != "") {
+            $subcategoria->id_padre_sub_categoria = intval($request->segmento);
+        }
+        try {
+            $subcategoria->save();
+        } catch (Exception $e) {
+            return json_encode($e->getMessage());
+        }
+        return redirect(route('indexTiposCompras'));
+    }
+
+    public function editTiposCompras($id)
+    {
+        $ae_actual = SubCategoria::where('id', $id)->with('parent', 'childs')->first();
+        $tipos_compras = SubCategoria::where('tipo_categoria', 5)
+            ->orderBy('updated_at', 'DESC')
+            ->with('parent', 'childs')
+            ->get();
+
+        $sectores = SubCategoria::where('tipo_categoria', 5)
+            ->where('id_padre_sub_categoria', null)
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+
+        return Inertia::render('TiposCompras/Editar', [
+            'tipos_compras' => $tipos_compras,
+            'solo_sectores' => $sectores,
+            'ae_actual' => $ae_actual,
+        ]);
+    }
+
+    public function updateTiposCompras(Request $request, SubCategoria   $tipo_compra){
         $id = $request->id;
         if($request->id != $request->new_id){
 
@@ -361,80 +528,6 @@ class SubCategoriaController extends Controller
         return redirect(route('indexTiposCompras'));
     }
 
-    public function storeTiposCompras(Request $request)
-    {
-        $request->validate([
-            'id' => 'unique:' . SubCategoria::class,
-            'nombre' => 'required',
-            'tipo_categoria' => 'required',
-        ]);
-        $subcategoria = new SubCategoria;
-        $subcategoria->nombre = $request->nombre;
-        $subcategoria->tipo_categoria = $request->tipo_categoria;
-        if (isset($request->sector) && $request->sector != "") {
-            $subcategoria->id_padre_sub_categoria = intval($request->sector);
-        }
-        if (isset($request->segmento) && $request->segmento != "") {
-            $subcategoria->id_padre_sub_categoria = intval($request->segmento);
-        }
-        try {
-            $subcategoria->save();
-        } catch (Exception $e) {
-            return json_encode($e->getMessage());
-        }
-        return redirect(route('indexTiposCompras'));
-    }
-
-    
-    public function indexTiposCompras()
-    {
-        $tiposcompras = SubCategoria::where('tipo_categoria', 5)
-            ->orderBy('updated_at', 'DESC')
-            ->with('parent', 'childs')
-            ->get();
-        return Inertia::render('TiposCompras/Index', [
-            'tiposcompras' => $tiposcompras,
-        ]);
-    }
-
-    public function createTiposCompras()
-    {
-        $tipos_compras = SubCategoria::where('tipo_categoria', 5)
-            ->orderBy('updated_at', 'DESC')
-            ->with('parent', 'childs')
-            ->get();
-
-        $sectores = SubCategoria::where('tipo_categoria', 5)
-            ->where('id_padre_sub_categoria', null)
-            ->orderBy('updated_at', 'DESC')
-            ->get();
-
-        return Inertia::render('TiposCompras/Crear', [
-            'tipos_compras' => $tipos_compras,
-            'solo_sectores' => $sectores,
-        ]);
-    }
-
-    public function editTiposCompras($id)
-    {
-        $ae_actual = SubCategoria::where('id', $id)->with('parent', 'childs')->first();
-        $tipos_compras = SubCategoria::where('tipo_categoria', 5)
-            ->orderBy('updated_at', 'DESC')
-            ->with('parent', 'childs')
-            ->get();
-
-        $sectores = SubCategoria::where('tipo_categoria', 5)
-            ->where('id_padre_sub_categoria', null)
-            ->orderBy('updated_at', 'DESC')
-            ->get();
-
-        return Inertia::render('TiposCompras/Editar', [
-            'tipos_compras' => $tipos_compras,
-            'solo_sectores' => $sectores,
-            'ae_actual' => $ae_actual,
-        ]);
-    }
-
     public function destroyTiposCompras(SubCategoria $tiposcompras)
     {
         $tiposcompras->deleteTiposCompras();
@@ -455,5 +548,44 @@ class SubCategoriaController extends Controller
         return json_encode($response);
     }
 
+    public function statusTiposCompras($id)
+    {
+        $tipos_compras = SubCategoria::find($id);
+
+        if ($tipos_compras->estado == "Activo") {
+            $tipos_compras->estado = "Inactivo";
+        } else {
+            $tipos_compras->estado = "Activo";
+        }
+        $tipos_compras->save();
+        return redirect(route('indexTiposCompras'));
+    }
+
+    function paginateTiposCompras()
+    {
+        $tipos_compras = SubCategoria::where('tipo_categoria', 5)
+            ->orderBy('nombre', 'ASC')
+            ->with('parent', 'childs')
+            ->paginate(20);
+        return json_encode($tipos_compras);
+    }
+
+    function filterPaginateTiposCompras()
+    {
+        $nombre = "";
+        if(request()->has("tipo_compra")){
+            $nombre = request("tipo_compra");
+        }
+        $tipos_compras = SubCategoria::where('tipo_categoria', 5)
+            ->where(function ($query) use ($nombre) {
+                if (!is_null($nombre) && $nombre != "") {
+                    $query->where('nombre', 'like', '%' . $nombre . '%');
+                }
+            })
+            ->orderBy('nombre', 'ASC')
+            ->with('parent', 'childs')
+            ->paginate(20);
+        return json_encode($tipos_compras);
+    }
 }
 
