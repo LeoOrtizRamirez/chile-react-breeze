@@ -1,17 +1,12 @@
 <?php
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\ContratoController;
-use App\Http\Controllers\ProfileController;
+
+use App\Http\Controllers\{PostController,ContratoController,ProfileController,UserController,PlaneController,MailController,ZonaAdministrativaController,SubCategoriaController,PerfileController};
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\PlaneController;
-use App\Http\Controllers\MailController;
-use App\Http\Controllers\ZonaAdministrativaController;
-use App\Models\Contrato;
 use Illuminate\Http\Request;
-use App\Http\Controllers\SubCategoriaController;
+
+use Inertia\Inertia;
+use App\Models\Contrato;
 
 Route::get('/', function () { 
     $contratosAll = Contrato::where('fecha_publicacion', date('Y-m-d'))
@@ -162,3 +157,6 @@ Route::get('/tiposcompras/{tiposcompras}/delete', [SubCategoriaController::class
 Route::delete('/tiposcompras/{tiposcompras}', [SubCategoriaController::class, 'destroyTiposCompras'])->middleware(['auth','verified'])->name('destroyTiposCompras');
 Route::post('/tiposcompras', [SubCategoriaController::class, 'storeTiposCompras'])->middleware(['auth','verified'])->name('storeTiposCompras');
 Route::PATCH('/tiposcompras/{tiposcompras}', [SubCategoriaController::class, 'updateTiposCompras'])->middleware(['auth','verified'])->name('updateTiposCompras');
+
+
+Route::resource('perfiles', PerfileController::class)->middleware(['auth','verified']);
