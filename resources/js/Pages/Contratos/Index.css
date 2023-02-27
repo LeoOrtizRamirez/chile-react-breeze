@@ -231,16 +231,10 @@ div#wrapper1 {
     color: #00a1e0;
 }
 
-.buscador_avanzado {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-top: 15px;
-}
-
-.color-texto {
+.text-btn-avanzado {
     color: rgb(58, 182, 0);
-    font-size: 13px;
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .input-filtro-estado {
@@ -266,7 +260,6 @@ div#wrapper1 {
     color: #7c7c7c;
 }
 
-
 .img-fluid {
     max-width: 100%;
     height: auto;
@@ -284,19 +277,19 @@ div#wrapper1 {
 }
 
 #mensajes-personalizado-busqueda .mensaje-personalizado {
-    font-size: 18px!important;
+    font-size: 18px !important;
     max-width: 428px;
     margin-bottom: 0;
     line-height: 1.2;
 }
 
 #mensajes-personalizado-busqueda .mensaje-personalizado {
-    font-family: Nexa-regular,sans-serif!important;
+    font-family: Nexa-regular, sans-serif !important;
     color: #686868;
 }
 
 #mensajes-personalizado-busqueda .mensaje-icono {
-    font-size: 35px!important;
+    font-size: 35px !important;
     color: #ffc107;
     position: absolute;
     right: 100%;
