@@ -2865,3 +2865,101 @@ footer[id^="modal-olvidaste"].modal-footer
 #register-container .was-validated .form-control:invalid::placeholder {
     color: #dc3545;
 }
+
+
+/*POP UP*/
+div#modalUsuarioRegistrado {
+    display: block;
+    padding-left: 17px;
+}
+
+#modalUsuarioRegistrado .modal-dialog {
+    height: 100%;
+    max-width: 572px;
+    max-height: 311px;
+    width: 100%;
+}
+#modalUsuarioRegistrado .modal-content {
+    border: transparent;
+}
+.modal-content {
+    border-radius: 29px;
+    border: 0;
+}
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: transparent linear-gradient(118deg,#ffffff66 0%,#ffffff0d 100%) 0% 0% no-repeat padding-box;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+
+div#modalUsuarioRegistrado {
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: transparent linear-gradient(118deg,#0000007d 0%,#ffffff0d 100%) 0% 0% no-repeat padding-box;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+#modalUsuarioRegistrado .titulo {
+    align-items: center;
+    border-bottom: 2px solid hsla(0,1%,61%,.15);
+    display: flex;
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-family: Poppins;
+    justify-content: center;
+    padding-bottom: 10px;
+}
+#modalUsuarioRegistrado .texto-informacion {
+    padding: 27px 6px;
+}
+#modalUsuarioRegistrado .boton {
+    display: flex;
+    justify-content: center;
+}
+#modalUsuarioRegistrado .boton__continuar {
+    border: 2px solid #73c914;
+    color: #73c914;
+    background-color: #fff;
+    border-radius: 42px;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    font-family: Poppins;
+    padding: 10px 30px;
+    cursor: pointer;
+}
+
+#modalUsuarioRegistrado .titulo__icono {
+    color: #73c914;
+    margin-right: 22px;
+    font-size: 1.25rem;
+}
+#modalUsuarioRegistrado .titulo__texto--modifier {
+    color: #73c914;
+}
+#modalUsuarioRegistrado .titulo__texto {
+    color: #959595;
+}
+
+div#modalUsuarioRegistrado___BV_modal_body_  {
+    padding: 44px 52px;
+}
+#modalUsuarioRegistrado .informacion__texto {
+    font-size: 1.125rem;
+    font-weight: 400;
+    font-family: Roboto;
+    line-height: 1.6;
+    color: #686868;
+    margin: 0;
+    text-align: left;
+}
+#modalUsuarioRegistrado .informacion__texto--modifier {
+    font-size: 1.125rem;
+    font-weight: 700;
+    font-family: Roboto;
+}
+
+
