@@ -16,6 +16,7 @@ import "@fontsource/poppins";
 import "./Register.css";
 
 export default function Register(props) {
+
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
         email: "",
@@ -79,7 +80,14 @@ export default function Register(props) {
 
     const [validated, setValidated] = useState(false);
 
+    /**popup*/
+    const [contenedorAvisoCookies, setContenedorAvisoCookies] = useState(false)
+    useEffect(() => {setContenedorAvisoCookies(false)}, [])
+
     const handleSubmit = (event) => {
+        var token = document.querySelector('meta[name="csrf-token"]').content;
+        document.getElementById("token").value = token;
+  
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
@@ -87,8 +95,33 @@ export default function Register(props) {
         }
         setValidated(true);
         event.preventDefault();
-        post(route("register"));
+        fetch("register/modal", {
+            headers: {
+                'X-CSRF-TOKEN': token// <--- aquí el token
+            },
+            method: "POST",
+            body: JSON.stringify({
+                "nombre": "Luis",
+                "web": "parzibyte.me"
+            })
+        })
+            .then(r => r.json())
+            .then(respuesta => {
+                //Abre el popup
+                setContenedorAvisoCookies(true)
+                console.log("Registro Exitoso");
+            });
+        /*  post(route("register")); */
     };
+
+
+    const continuarPopup = () => {
+        setContenedorAvisoCookies(false)
+        console.log("Boton coninuar");
+        window.location.href = "/perfiles";
+    };
+
+
 
     const handleCloseModalPaises = () => setShowModalPaises(false);
     const handleShowModalPaises = () => setShowModalPaises(true);
@@ -454,10 +487,60 @@ export default function Register(props) {
                                     </Button>
                                 </Form.Group>
                             </div>
+                            <input
+                                type="hidden"
+                                name="_token"
+                                id="token"
+                            />
+
                         </Form>
+                        {/*   <PopUpRegistrarse /> */}
                     </div>
                 </div>
             </div>
+
+            <>
+                {contenedorAvisoCookies &&
+                    <div id="modalUsuarioRegistrado" role="dialog" aria-describedby="modalUsuarioRegistrado___BV_modal_body_" className="modal fade show" aria-modal="true" >
+                        <div className="modal-dialog modal-md modal-dialog-centered">
+                            <span tabindex="0">  </span>
+                            <div id="modalUsuarioRegistrado___BV_modal_content_" tabindex="-1" className="modal-content">
+                                <div id="modalUsuarioRegistrado___BV_modal_body_" >
+                                    <div className="titulo">
+                                        <span className="titulo__icono icon-success">  </span>
+                                        <span className="titulo__texto">
+                                            Bienvenido {data.name}, <span className="titulo__texto--modifier"> creaste</span> tu cuenta </span>
+                                    </div>
+
+                                    <div className="texto-informacion">
+                                        <p className="informacion__texto">
+                                            Crea <span className="informacion__texto--modifier">
+                                                tu primer perfil de negocio, </span>
+                                            después de este paso te enviaremos un email de verificación a tu dirección de correo para confirmar tu cuenta. </p></div>
+
+                                    <div className="boton">
+                                        <a onClick={continuarPopup}>
+                                            <span className="boton__continuar">
+                                                Continuar
+                                            </span>
+                                        </a>
+
+                                        {/*  <button className="boton__continuar"> Continuar </button> */}
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                }
+            </>
+
+
         </>
     );
 }
