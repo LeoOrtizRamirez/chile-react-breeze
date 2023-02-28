@@ -7,7 +7,7 @@ import Favoritos from "../../Components/Acciones/Favoritos";
 import Pdf from "../../Components/Acciones/Pdf";
 import Visualizar from "../../Components/Acciones/Visualizar";
 import Paginador from "@/Components/PaginadorContratos";
-import ModalBusquedaAvanzada from "@/Components/Modals/ModalBusquedaAvanzada";
+import ModalBusquedaAvanzada from "@/Components/Modals/ModalBusquedaAvanzada/ModalBusquedaAvanzada";
 import $ from "jquery";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../../css/font-web.css";

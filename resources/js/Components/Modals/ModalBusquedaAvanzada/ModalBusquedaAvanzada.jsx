@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import BusquedaEstado from "./BusquedaEstado";
+import BusquedaUbicacion from "./BusquedaUbicacion";
 import { Head } from "@inertiajs/inertia-react";
 import "./ModalBusquedaAvanzada.css";
 
@@ -79,29 +81,15 @@ export const ModalBusquedaAvanzada = ({
     // Fin Controladores
 
     // Inicio Modal estado
-    const [modalOpenEstado, setModalOpenEstado] = useState(false);
-    const [checkedValues, setCheckedValues] = useState([]);
+    const [showBusquedaEstado, setShowBusquedaEstado] = useState(false);
+    const handleCloseBusquedaEstado = () => setShowBusquedaEstado(false);
+    const handleShowBusquedaEstado = () => setShowBusquedaEstado(true);
+    // Fin Modal estado
 
-    const openModalEstado = () => {
-        setModalOpenEstado(true);
-    };
-
-    const closeModalEstado = () => {
-        setModalOpenEstado(false);
-    };
-
-    const handleCheckboxChange = (e) => {
-        if (e.target.checked) {
-            setCheckedValues([...checkedValues, e.target.value]);
-        } else {
-            setCheckedValues(checkedValues.filter((v) => v !== e.target.value));
-        }
-    };
-
-    const handleSubmitEstado = () => {
-        // Do something with selectedOptionsEstado
-        setModalOpenEstado(false);
-    };
+    // Inicio Modal estado
+    const [showBusquedaUbicacion, setShowBusquedaUbicacion] = useState(false);
+    const handleCloseBusquedaUbicacion = () => setShowBusquedaUbicacion(false);
+    const handleShowBusquedaUbicacion = () => setShowBusquedaUbicacion(true);
     // Fin Modal estado
 
     return (
@@ -126,10 +114,6 @@ export const ModalBusquedaAvanzada = ({
                 </button>
                 <div className="titulo">
                     <span>Búsqueda avanzada</span>
-                    <span>
-                        <i className="bi bi-info-circle iconos iconos"></i>
-                        Ayuda
-                    </span>
                 </div>
             </Modal.Header>
             <Modal.Body className="test">
@@ -205,8 +189,15 @@ export const ModalBusquedaAvanzada = ({
                             name="ubicacion"
                             value={formValues.ubicacion}
                             onChange={handleChange}
+                            onClick={handleShowBusquedaUbicacion}
                             placeholder="Ingresa la(s) ubicacióne(s)"
                         />
+                        <BusquedaUbicacion
+                            showBusquedaUbicacion={showBusquedaUbicacion}
+                            handleCloseBusquedaUbicacion={
+                                handleCloseBusquedaUbicacion
+                            }
+                        ></BusquedaUbicacion>
                         <div className="pareja">
                             <div className="size">
                                 <span>
@@ -215,9 +206,16 @@ export const ModalBusquedaAvanzada = ({
                                 </span>
                                 <input
                                     type="text"
-                                    onClick={openModalEstado}
-                                    value={checkedValues}
+                                    onClick={handleShowBusquedaEstado}
+                                    placeholder="Selecione los estados de proceso"
+                                    // value={checkedValues}
                                 />
+                                <BusquedaEstado
+                                    showBusquedaEstado={showBusquedaEstado}
+                                    handleCloseBusquedaEstado={
+                                        handleCloseBusquedaEstado
+                                    }
+                                ></BusquedaEstado>
                             </div>
                             <div className="size">
                                 <span>
@@ -312,103 +310,6 @@ export const ModalBusquedaAvanzada = ({
                                 Buscar
                             </button>
                         </div>
-                        {modalOpenEstado && (
-                            <div className="container-estado">
-                                <div className="background-estado">
-                                    <div className="estado">
-                                        <button
-                                            type="button"
-                                            onClick={closeModalEstado}
-                                        >
-                                            Cancel
-                                        </button>
-                                        <div className="checkbox">
-                                            <label class="">
-                                                <input
-                                                    type="checkbox"
-                                                    value="value1"
-                                                    onChange={
-                                                        handleCheckboxChange
-                                                    }
-                                                />
-                                                Selecciona todos los estados
-                                            </label>
-                                        </div>
-
-                                        <div className="checkbox">
-                                            <label class="">
-                                                <input
-                                                    type="checkbox"
-                                                    value="value2"
-                                                    onChange={
-                                                        handleCheckboxChange
-                                                    }
-                                                />
-                                                Convocatioria
-                                            </label>
-                                        </div>
-                                        <div className="checkbox">
-                                            <label class="">
-                                                <input
-                                                    type="checkbox"
-                                                    value="value3"
-                                                    onChange={
-                                                        handleCheckboxChange
-                                                    }
-                                                />
-                                                En evaluacion
-                                            </label>
-                                        </div>
-                                        <div className="checkbox">
-                                            <label class="">
-                                                <input
-                                                    type="checkbox"
-                                                    value="value4"
-                                                    onChange={
-                                                        handleCheckboxChange
-                                                    }
-                                                />
-                                                Adjudicado
-                                            </label>
-                                        </div>
-                                        <div className="checkbox">
-                                            <label class="">
-                                                <input
-                                                    type="checkbox"
-                                                    value="Liquidado"
-                                                    onChange={
-                                                        handleCheckboxChange
-                                                    }
-                                                />
-                                                Liquidado
-                                            </label>
-                                        </div>
-
-                                        <div className="checkbox">
-                                            <label class="">
-                                                <input
-                                                    type="checkbox"
-                                                    value="value6"
-                                                    onChange={
-                                                        handleCheckboxChange
-                                                    }
-                                                />
-                                                Terminado anormalmente o
-                                                descartado
-                                            </label>
-                                        </div>
-                                        <div>
-                                            <button
-                                                type="submit"
-                                                onClick={handleSubmitEstado}
-                                            >
-                                                Select
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
                     </Form>
                 </div>
             </Modal.Body>

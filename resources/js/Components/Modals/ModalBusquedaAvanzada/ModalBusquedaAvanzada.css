@@ -1,3 +1,19 @@
+/* #modalBusquedaAvanzada .modal-header .btn-close {
+    background-color: red;
+    border-radius: 50px;
+}
+
+#modalBusquedaAvanzada .btn-close {
+    box-sizing: content-box;
+    width: 18px;
+    height: 18px;
+    border: 0;
+    background: transparent
+        url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e")
+        center/1em auto no-repeat;
+    opacity: 1;
+} */
+
 #modalBusquedaAvanzada .modal-content {
     border: none !important;
 }
@@ -20,7 +36,6 @@
 #header-modal-busqueda-avanzada .titulo span {
     color: white;
     font-size: 16px;
-    margin: 0px 0px 0px 150px;
 }
 
 #header-modal-busqueda-avanzada .iconos {
@@ -148,7 +163,7 @@
     left: 150px;
 }
 
-#modal-busqueda-avanzada .estado input{
+#modal-busqueda-avanzada .estado input {
     font-size: 14px;
     color: black;
 }
