@@ -49,7 +49,7 @@ const Index = ({ auth, localizacion }) => {
         if (inputLocalizacion.id != 0) {
             setShowModalActividadEconomica(true);
         } else {
-            setToastMessage("Debes seleccionar una Ciudad");
+            setToastMessage("Debes seleccionar una comuna");
             setToastIcon("icon-error");
             setShowToast(true);
         }
@@ -197,10 +197,10 @@ const Index = ({ auth, localizacion }) => {
                     }
                 }
 
-                if (element.id_padre_sub_categoria == null) {
+                /* if (element.id_padre_sub_categoria == null) {
                     //sector
                     sectores_filtrados.push(element);
-                }
+                } */
             });
 
             //BUSCAR TODOS LOS regiones Y ciudades DE actividades_economicas_filtrados
@@ -330,7 +330,7 @@ const Index = ({ auth, localizacion }) => {
 
                                     <input
                                         type="text"
-                                        placeholder="Busca por actividad económica"
+                                        placeholder="Buscar localización en chile"
                                         autoComplete="off"
                                         className="form-control m-auto"
                                         onKeyDown={
@@ -468,39 +468,6 @@ const Index = ({ auth, localizacion }) => {
                                                                                                     </span>
                                                                                                 </span>
                                                                                             </div>
-
-                                                                                            {openActividadesEconomicas.includes(
-                                                                                                segmento.id
-                                                                                            ) && (
-                                                                                                    <ul className="tree-children">
-                                                                                                        {actividadesEconomicas.map(
-                                                                                                            (
-                                                                                                                childs
-                                                                                                            ) => (
-                                                                                                                <li className="tree-node draggable">
-                                                                                                                    <div
-                                                                                                                        className="tree-content actividad-economica"
-                                                                                                                        onClick={() =>
-                                                                                                                            checked(
-                                                                                                                                childs
-                                                                                                                            )
-                                                                                                                        }
-                                                                                                                    >
-                                                                                                                        <span className="tree-anchor children">
-                                                                                                                            <span className="tree-division tree-division1">
-                                                                                                                                <span className="tree-division__title my-auto">
-                                                                                                                                    {
-                                                                                                                                        childs.nombre
-                                                                                                                                    }
-                                                                                                                                </span>
-                                                                                                                            </span>
-                                                                                                                        </span>
-                                                                                                                    </div>
-                                                                                                                </li>
-                                                                                                            )
-                                                                                                        )}
-                                                                                                    </ul>
-                                                                                                )}
                                                                                         </li>
                                                                                     )}
                                                                             </>

@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\{PostController,ContratoController,ProfileController,UserController,PlaneController,MailController,ZonaAdministrativaController,SubCategoriaController,PerfileController};
+use App\Http\Controllers\Auth\RegisteredUserController;
+
+
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -116,6 +120,7 @@ Route::controller(UserController::class)->group(function(){
     
     Route::get('/usuarios/{idUsuario}/{pagina}/{estado}', [UserController::class, 'paginador']);
 
+
 });
 
 
@@ -149,6 +154,11 @@ Route::delete('/localizacion/{localizacion}', [SubCategoriaController::class, 'd
 Route::post('/localizacion', [SubCategoriaController::class, 'storeLocalizacion'])->middleware(['auth','verified'])->name('storeLocalizacion');
 Route::PATCH('/localizacion/{localizacion}', [SubCategoriaController::class, 'updateLocalizacion'])->middleware(['auth','verified'])->name('updateLocalizacion');
 
+
+Route::get('localizacion/popup/', [SubCategoriaController::class, 'popup']);
+
+
+
 // Tipos de compras
 Route::get('/tiposcompras', [SubCategoriaController::class, 'indexTiposCompras'])->middleware(['auth','verified'])->name('indexTiposCompras');
 Route::get('/tiposcompras/create', [SubCategoriaController::class, 'createTiposCompras'])->middleware(['auth','verified'])->name('createTiposCompras');
@@ -159,4 +169,8 @@ Route::post('/tiposcompras', [SubCategoriaController::class, 'storeTiposCompras'
 Route::PATCH('/tiposcompras/{tiposcompras}', [SubCategoriaController::class, 'updateTiposCompras'])->middleware(['auth','verified'])->name('updateTiposCompras');
 
 
-Route::resource('perfiles', PerfileController::class)->middleware(['auth','verified']);
+Route::resource('perfiles', PerfileController::class);
+
+Route::POST('register/modal', [RegisteredUserController::class, 'registerModal'])->name('registerModal');
+Route::delete('/tiposcompras/{tiposcompras}', [SubCategoriaController::class, 'destroyTiposCompras'])->middleware(['auth','verified'])->name('destroyTiposCompras');
+

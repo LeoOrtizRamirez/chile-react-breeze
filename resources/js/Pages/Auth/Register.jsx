@@ -16,12 +16,14 @@ import "@fontsource/poppins";
 import "./Register.css";
 
 export default function Register(props) {
+
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
         email: "",
         password: "",
         phone: "",
         password_confirmation: "",
+
     });
 
     const [errorIconStatus, setIconStatus] = useState(false);
@@ -44,6 +46,7 @@ export default function Register(props) {
     }, []);
 
     const [showLS, setShowLS] = useState(props.setShowLS);
+
     useEffect(() => {
         setShowLS(props.setShowLS);
 
@@ -56,11 +59,13 @@ export default function Register(props) {
     }, [props.setShowLS]);
 
     const handleShowLS = () => setShowLS(true);
+
     const handleCloseLS = () => {
         setShowLS(false);
         setData({
             email: "",
             password: "",
+            phone: ""
         });
         setInputClass("form-input-section__container-input");
         setValidForm(true);
@@ -79,7 +84,19 @@ export default function Register(props) {
 
     const [validated, setValidated] = useState(false);
 
+    /**popup*/
+    const [contenedorAvisoCookies, setContenedorAvisoCookies] = useState(false)
+    useEffect(() => { setContenedorAvisoCookies(false) }, [])
+
     const handleSubmit = (event) => {
+
+        var token = document.querySelector('meta[name="csrf-token"]').content;
+        document.getElementById("token").value = token;
+
+        var phone = document.getElementById("tel").value;
+        var name = document.getElementById("name").value;
+        var indicativo = document.getElementById("indicativo").textContent;
+
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
@@ -87,8 +104,36 @@ export default function Register(props) {
         }
         setValidated(true);
         event.preventDefault();
-        post(route("register"));
+
+        fetch("register/modal", {
+            headers: {
+                'X-CSRF-TOKEN': token// <--- aquí el token
+            },
+            method: "POST",
+            body: JSON.stringify({
+                "name": name,
+                "email": data.email,
+                "password": data.password,
+                "phone": phone,
+                "indicativo": indicativo
+            })
+        })
+            .then(r => r.json())
+            .then(respuesta => {
+                //Abre el popup
+                setContenedorAvisoCookies(true)
+            });
+        /*  post(route("register")); */
     };
+
+
+    const continuarPopup = () => {
+        setContenedorAvisoCookies(false)
+
+        window.location.href = "/perfiles";
+    };
+
+
 
     const handleCloseModalPaises = () => setShowModalPaises(false);
     const handleShowModalPaises = () => setShowModalPaises(true);
@@ -333,6 +378,7 @@ export default function Register(props) {
                                         </Form.Label>
                                         <div className="content-inputs">
                                             <PasswordSecurity
+                                                value={data.password}
                                                 required
                                                 onHandleChange={onHandleChange}
                                                 errorIcon="contenido__password-div-icon icon-alert error-icon"
@@ -371,6 +417,7 @@ export default function Register(props) {
                                             <label
                                                 htmlFor=""
                                                 className="bloque__registro-form-telefono-label"
+                                                id="indicativo"
                                             >
                                                 {Country.indicative}
                                             </label>
@@ -380,12 +427,13 @@ export default function Register(props) {
                                         <div className="bloque__registro-form-telefono-div">
                                             <Form.Control
                                                 id="tel"
-                                                name="tel"
+                                                name="phone"
                                                 type="text"
                                                 placeholder="Ingresa tu número"
                                                 className="bloque__registro-form-telefono-input"
                                                 aria-required="true"
                                                 aria-invalid="false"
+                                                value={data.phone}
                                                 // onChange={handlePhone}
                                                 required
                                                 pattern="(?=\w*[0-9])\S{10,10}$"
@@ -454,10 +502,60 @@ export default function Register(props) {
                                     </Button>
                                 </Form.Group>
                             </div>
+                            <input
+                                type="hidden"
+                                name="_token"
+                                id="token"
+                            />
+
                         </Form>
+                        {/*   <PopUpRegistrarse /> */}
                     </div>
                 </div>
             </div>
+
+            <>
+                {contenedorAvisoCookies &&
+                    <div id="modalUsuarioRegistrado" role="dialog" aria-describedby="modalUsuarioRegistrado___BV_modal_body_" className="modal fade show" aria-modal="true" >
+                        <div className="modal-dialog modal-md modal-dialog-centered">
+                            <span tabindex="0">  </span>
+                            <div id="modalUsuarioRegistrado___BV_modal_content_" tabindex="-1" className="modal-content">
+                                <div id="modalUsuarioRegistrado___BV_modal_body_" >
+                                    <div className="titulo">
+                                        <span className="titulo__icono icon-success">  </span>
+                                        <span className="titulo__texto">
+                                            Bienvenido {data.name}, <span className="titulo__texto--modifier"> creaste</span> tu cuenta </span>
+                                    </div>
+
+                                    <div className="texto-informacion">
+                                        <p className="informacion__texto">
+                                            Crea <span className="informacion__texto--modifier">
+                                                tu primer perfil de negocio, </span>
+                                            después de este paso te enviaremos un email de verificación a tu dirección de correo para confirmar tu cuenta. </p></div>
+
+                                    <div className="boton">
+                                        <a onClick={continuarPopup}>
+                                            <span className="boton__continuar">
+                                                Continuar
+                                            </span>
+                                        </a>
+
+                                        {/*  <button className="boton__continuar"> Continuar </button> */}
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                }
+            </>
+
+
         </>
     );
 }

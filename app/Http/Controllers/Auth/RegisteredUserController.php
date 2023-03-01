@@ -14,29 +14,16 @@ use Inertia\Inertia;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     *
-     * @return \Inertia\Response
-     */
     public function create()
     {
         return Inertia::render('Auth/Register');
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:'.User::class,
+            'email' => 'required|string|email|max:255|unique:' . User::class,
             //'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'password' => ['required'],
         ]);
@@ -50,7 +37,22 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-
         return redirect(RouteServiceProvider::HOME);
+    }
+
+    public function registerModal()
+    {
+        $payLoad = json_decode(request()->getContent(), true);
+       
+        $user = User::create([
+            'name' => $payLoad['name'],
+            'email' => $payLoad['email'],
+            'password' => Hash::make($payLoad['password']),
+            'celular' => $payLoad['phone'],
+            'indicativo' => $payLoad['indicativo']
+        ]);
+        event(new Registered($user));
+        Auth::login($user);
+        return json_encode("Usuario Registrado");
     }
 }
