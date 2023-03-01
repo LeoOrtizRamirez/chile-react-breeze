@@ -403,7 +403,7 @@ const Index = ({ auth, actividades_economicas }) => {
             </ToastContainer>
             <div className="contenedor-planes">
                 <div className="bg-white overflow-auto w-full text-center margen-superior custom-scroll">
-                    <h2 className="name_section_app">Crear perfil de negocio</h2>
+                    {/* <h2 className="name_section_app">Crear perfil de negocio</h2>
                     <div className="perfil-guias">
                         <ul>
                             <li>
@@ -412,11 +412,12 @@ const Index = ({ auth, actividades_economicas }) => {
                                 </div>
                             </li>
                         </ul>
-                    </div>
+                    </div> */}
+                    <h2 className="perfiles-titulos crear"><span className="c-verde">Crea</span> tu primer perfil de negocio</h2>
                     <div className="container mt-4">
                         <div className="tree_categorias tree_1">
                             <div className="tree_categorias__busqueda mb-3 mb-md-4">
-                                <div className="mx-auto">
+                                {/* <div className="mx-auto">
                                     <input
                                         type="text"
                                         placeholder="Busca por actividad económica o UNSPSC"
@@ -426,8 +427,30 @@ const Index = ({ auth, actividades_economicas }) => {
                                             inputSearchActividadEconomica
                                         }
                                     />
-                                    {/* <i className="icon-Cancelar" style="display: none;"></i> */}
+                                    <i className="icon-Cancelar" style="display: none;"></i>
                                     <button type="button" className="icon-Buscar-click"></button>
+                                </div> */}
+                                <div className="perfil-guias__indicador perfil-guias__indicador--activo">
+                                    <i className="icon-Paso-1-click"></i> <span>Actividad económica</span>
+                                </div>
+                                <div className="mx-60 mt-30 d-flex">
+                                    <button
+                                        type="button"
+                                        className="icon-Buscar-click"
+                                    >
+                                        {/* <i className="bi bi-search"></i> */}
+                                    </button>
+                                    <input
+                                        type="text"
+                                        placeholder="Busca por actividad económica o UNSPSC"
+                                        autoComplete="off"
+                                        className="form-control busqueda-input"
+                                        onKeyDown={
+                                            inputSearchActividadEconomica
+                                        }
+                                    />
+                                    <h2 className="perfiles-titulos"> Pais de contratación <span className="c-verde">Chile</span></h2>
+
                                 </div>
                                 <br></br>
                                 <ul className="tree-root">
