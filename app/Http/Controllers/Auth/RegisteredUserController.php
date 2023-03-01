@@ -52,7 +52,7 @@ class RegisteredUserController extends Controller
             'indicativo' => $payLoad['indicativo']
         ]);
         event(new Registered($user));
-      /*   Auth::login($user); */
+        Auth::login($user);
         return json_encode("Usuario Registrado");
     }
 }

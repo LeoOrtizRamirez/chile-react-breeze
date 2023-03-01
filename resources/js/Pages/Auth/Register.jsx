@@ -524,7 +524,7 @@ export default function Register(props) {
                                     <div className="titulo">
                                         <span className="titulo__icono icon-success">  </span>
                                         <span className="titulo__texto">
-                                            Bienvenido{data.name}, <span className="titulo__texto--modifier"> creaste</span> tu cuenta </span>
+                                            Bienvenido {data.name}, <span className="titulo__texto--modifier"> creaste</span> tu cuenta </span>
                                     </div>
 
                                     <div className="texto-informacion">
