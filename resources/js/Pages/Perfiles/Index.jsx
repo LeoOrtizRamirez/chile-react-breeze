@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Index.css";
@@ -12,6 +12,8 @@ import '../../../css/font-web.css'
 /*Toast*/
 
 const Index = ({ auth, actividades_economicas }) => {
+    const myRefs = useRef([]);
+
     console.log("renderize")
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
@@ -571,7 +573,7 @@ const Index = ({ auth, actividades_economicas }) => {
                                                                                                                                         )
                                                                                                                                     }
                                                                                                                                 >
-                                                                                                                                    {childs.id}
+                                                                                                                                    {/* {childs.id} */}
                                                                                                                                     <input
                                                                                                                                         type="checkbox"
                                                                                                                                         name="actividad_economica"
