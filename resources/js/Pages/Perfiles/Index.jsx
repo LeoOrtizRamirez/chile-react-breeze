@@ -12,6 +12,7 @@ import '../../../css/font-web.css'
 /*Toast*/
 
 const Index = ({ auth, actividades_economicas }) => {
+    console.log("renderize")
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastIcon, setToastIcon] = useState("");
@@ -36,8 +37,8 @@ const Index = ({ auth, actividades_economicas }) => {
     const [actividadesEconomicas, setActividadesEconomicas] = useState([]);
 
     const getSegmento = (parent) => {
-        var dom_segmento = document.getElementById("sector_" + parent)
-        dom_segmento.classList.toggle("expanded")
+        var dom_sector = document.getElementById("sector_" + parent)
+        dom_sector.classList.toggle("expanded")
         if (openSegmentos.includes(parent)) {
             //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY openSegmentos
             setOpenSegmentos(
@@ -345,8 +346,28 @@ const Index = ({ auth, actividades_economicas }) => {
             setActividadesEconomicas(actividades_economicas_filtrados);
             setOpenSegmentos(open_segmentos);
             setOpenActividadesEconomicas(open_actividades_economicas);
+
+            //AÑADIR CLASE EXPANDED
+            sectores_filtrados.forEach(sf => {
+                //console.log(sf)
+                var dom_sector = document.getElementById("sector_" + sf.id)
+                dom_sector.classList.add("expanded")
+            })
+            segmentos_filtrados.forEach(sf => {
+                console.log(sf)
+                var  dom_segmento = document.getElementById("segmento_" + sf.id)
+                console.log(dom_segmento)
+                if(dom_segmento){
+                    dom_segmento.classList.add("expanded")
+                }
+                
+            })
         }
     };
+
+    useEffect(()=>{
+        
+    }, [sectores])
 
     return (
         <AuthenticatedLayout auth={auth}>
