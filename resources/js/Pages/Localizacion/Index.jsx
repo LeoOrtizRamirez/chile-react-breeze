@@ -49,7 +49,7 @@ const Index = ({ auth, localizacion }) => {
         if (inputLocalizacion.id != 0) {
             setShowModalActividadEconomica(true);
         } else {
-            setToastMessage("Debes seleccionar una Ciudad");
+            setToastMessage("Debes seleccionar una comuna");
             setToastIcon("icon-error");
             setShowToast(true);
         }
@@ -330,7 +330,7 @@ const Index = ({ auth, localizacion }) => {
 
                                     <input
                                         type="text"
-                                        placeholder="Busca por actividad económica"
+                                        placeholder="Buscar localización en chile"
                                         autoComplete="off"
                                         className="form-control m-auto"
                                         onKeyDown={
