@@ -1,3 +1,14 @@
+.mx-60{
+    margin-left: 60px;
+    margin-right: 60px;
+}
+.mt-30{
+    margin-top: 30px;
+}
+
+input.form-control.busqueda-input {
+    width: 50%;
+}
 .contenedor-planes {
     display: flex;
     flex-direction: row;
@@ -122,7 +133,7 @@ th {
 
 
 .busqueda-input{
-    padding: 10px 10px 10px 30px !important;
+    padding: 0px 10px 0px 30px !important;
 
 }
 .tree_categorias__busqueda input {
@@ -132,18 +143,14 @@ th {
 }
 
 
-
 .tree_categorias__busqueda button {
-    top: 0px;
     background: none;
-    padding: 12px 2px;
+    padding: 7px 2px;
     font-size: 19px;
-    color: #00a1c9;
+    color: #686868;
     border: 0;
     cursor: pointer;
-    z-index: 2;
     position: absolute;
-    left: 0;
 }
 
 
@@ -485,7 +492,7 @@ body {
     align-items: center;
     margin-right: 16px;
     cursor: pointer;
-    justify-content: center;
+    justify-content: left;
 }
 
 .icon-Paso-1-click:before {
@@ -523,7 +530,7 @@ body {
 .perfil-guias__indicador span {
     font-family: Nexa-bold,sans-serif;
     /* color: #d7d7d7; */
-    color: #686868;
+    color: #73c914;
     font-size: 16px;
     margin-left: 20px;
     display: inline-block;
@@ -534,11 +541,11 @@ body {
 
 
 
-.tree_categorias__busqueda>div {
+/* .tree_categorias__busqueda>div {
     position: relative;
     display: block;
     max-width: 550px;
-}
+} */
 
 .tree_categorias__busqueda input {
     padding: 4px 60px 4px 13px;
@@ -554,23 +561,14 @@ body {
     font-family: Nexa-regular,sans-serif;
 }
 
-.tree_categorias__busqueda button {
-    position: absolute;
-    right: 10px;
-    top: 5px;
-    background: none;
-    padding: 1px 2px;
-    font-size: 19px;
-    color: #00a1c9;
-    border: 0;
-    cursor: pointer;
-    z-index: 2;
-}
+
 
 button.icon-Buscar-click {
     left: inherit;
 }
 
 input[type="checkbox"] {
-    padding: 0px;
+    border: 2px solid #66c6de;
+    padding: 7px;
+    margin-right: 10px;
 }
