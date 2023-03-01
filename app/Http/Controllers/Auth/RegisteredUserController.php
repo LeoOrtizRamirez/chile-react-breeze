@@ -23,7 +23,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:'.User::class,
+            'email' => 'required|string|email|max:255|unique:' . User::class,
             //'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'password' => ['required'],
         ]);
@@ -40,24 +40,19 @@ class RegisteredUserController extends Controller
         return redirect(RouteServiceProvider::HOME);
     }
 
-    public function registerModal (Request $request){
-
-       /*  $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:'.User::class,
-            //'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'password' => ['required'],
-        ]); */
-
+    public function registerModal()
+    {
+        $payLoad = json_decode(request()->getContent(), true);
+       
         $user = User::create([
-            'name' =>"registro modal",
-            'email' => "modal@gmail.com",
-            'password' => Hash::make("12390ad*d_"),
+            'name' => $payLoad['name'],
+            'email' => $payLoad['email'],
+            'password' => Hash::make($payLoad['password']),
+            'celular' => $payLoad['phone'],
+            'indicativo' => $payLoad['indicativo']
         ]);
         event(new Registered($user));
-
-        Auth::login($user);
-    
+      /*   Auth::login($user); */
         return json_encode("Usuario Registrado");
     }
 }

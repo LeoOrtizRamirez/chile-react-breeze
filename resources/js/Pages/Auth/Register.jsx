@@ -23,6 +23,7 @@ export default function Register(props) {
         password: "",
         phone: "",
         password_confirmation: "",
+
     });
 
     const [errorIconStatus, setIconStatus] = useState(false);
@@ -45,6 +46,7 @@ export default function Register(props) {
     }, []);
 
     const [showLS, setShowLS] = useState(props.setShowLS);
+
     useEffect(() => {
         setShowLS(props.setShowLS);
 
@@ -57,11 +59,13 @@ export default function Register(props) {
     }, [props.setShowLS]);
 
     const handleShowLS = () => setShowLS(true);
+
     const handleCloseLS = () => {
         setShowLS(false);
         setData({
             email: "",
             password: "",
+            phone: ""
         });
         setInputClass("form-input-section__container-input");
         setValidForm(true);
@@ -82,12 +86,17 @@ export default function Register(props) {
 
     /**popup*/
     const [contenedorAvisoCookies, setContenedorAvisoCookies] = useState(false)
-    useEffect(() => {setContenedorAvisoCookies(false)}, [])
+    useEffect(() => { setContenedorAvisoCookies(false) }, [])
 
     const handleSubmit = (event) => {
+
         var token = document.querySelector('meta[name="csrf-token"]').content;
         document.getElementById("token").value = token;
-  
+
+        var phone = document.getElementById("tel").value;
+        var name = document.getElementById("name").value;
+        var indicativo = document.getElementById("indicativo").textContent;
+
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
@@ -95,21 +104,24 @@ export default function Register(props) {
         }
         setValidated(true);
         event.preventDefault();
+
         fetch("register/modal", {
             headers: {
                 'X-CSRF-TOKEN': token// <--- aquí el token
             },
             method: "POST",
             body: JSON.stringify({
-                "nombre": "Luis",
-                "web": "parzibyte.me"
+                "name": name,
+                "email": data.email,
+                "password": data.password,
+                "phone": phone,
+                "indicativo": indicativo
             })
         })
             .then(r => r.json())
             .then(respuesta => {
                 //Abre el popup
                 setContenedorAvisoCookies(true)
-                console.log("Registro Exitoso");
             });
         /*  post(route("register")); */
     };
@@ -117,7 +129,7 @@ export default function Register(props) {
 
     const continuarPopup = () => {
         setContenedorAvisoCookies(false)
-        console.log("Boton coninuar");
+
         window.location.href = "/perfiles";
     };
 
@@ -366,6 +378,7 @@ export default function Register(props) {
                                         </Form.Label>
                                         <div className="content-inputs">
                                             <PasswordSecurity
+                                                value={data.password}
                                                 required
                                                 onHandleChange={onHandleChange}
                                                 errorIcon="contenido__password-div-icon icon-alert error-icon"
@@ -404,6 +417,7 @@ export default function Register(props) {
                                             <label
                                                 htmlFor=""
                                                 className="bloque__registro-form-telefono-label"
+                                                id="indicativo"
                                             >
                                                 {Country.indicative}
                                             </label>
@@ -413,12 +427,13 @@ export default function Register(props) {
                                         <div className="bloque__registro-form-telefono-div">
                                             <Form.Control
                                                 id="tel"
-                                                name="tel"
+                                                name="phone"
                                                 type="text"
                                                 placeholder="Ingresa tu número"
                                                 className="bloque__registro-form-telefono-input"
                                                 aria-required="true"
                                                 aria-invalid="false"
+                                                value={data.phone}
                                                 // onChange={handlePhone}
                                                 required
                                                 pattern="(?=\w*[0-9])\S{10,10}$"
@@ -509,7 +524,7 @@ export default function Register(props) {
                                     <div className="titulo">
                                         <span className="titulo__icono icon-success">  </span>
                                         <span className="titulo__texto">
-                                            Bienvenido {data.name}, <span className="titulo__texto--modifier"> creaste</span> tu cuenta </span>
+                                            Bienvenido{data.name}, <span className="titulo__texto--modifier"> creaste</span> tu cuenta </span>
                                     </div>
 
                                     <div className="texto-informacion">
