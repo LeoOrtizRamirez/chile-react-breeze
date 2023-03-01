@@ -1,13 +1,213 @@
-import React, { useState, useRef } from "react";
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
+import React, { useState } from "react";
 import { Head } from "@inertiajs/inertia-react";
 import "./BusquedaUbicacion.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Modal from "react-bootstrap/Modal";
 
 export const BusquedaUbicacion = ({
     showBusquedaUbicacion,
     handleCloseBusquedaUbicacion,
+    localizacion,
 }) => {
+    const [fakeSectores, setFakeSectores] = useState(localizacion);
+    const [sectores, setSectores] = useState(localizacion);
+
+    const [openSegmentos, setOpenSegmentos] = useState([]);
+    const [openActividadesEconomicas, setOpenActividadesEconomicas] = useState(
+        []
+    );
+
+    const [inputLocalizacion, setInputLocalizacion] = useState({
+        id: 0,
+        nombre: "",
+    });
+
+    const [segmentos, setSegmentos] = useState([]);
+    const [actividadesEconomicas, setActividadesEconomicas] = useState([]);
+
+    const getSegmento = (parent) => {
+        if (openSegmentos.includes(parent)) {
+            //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY openSegmentos
+            setOpenSegmentos(
+                openSegmentos.filter((element) => element != parent)
+            );
+        } else {
+            //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY openSegmentos
+            setOpenSegmentos([...openSegmentos, parent]); //Se añade el nuevo parent
+        }
+
+        //SE BUSCAN LOS SEGMENTOS QUE TENGAN EL id_padre_sub_categoria == AL SECTOR QUE SE LE DIO CLICK
+        const pattern = new RegExp(parent, "i");
+        const FilteredSegmentos = sectores.filter(function (el) {
+            if (pattern.test(el.id_padre_sub_categoria)) {
+                return el;
+            }
+        });
+
+        //EN LOS SEGMENTOS QUE SE ENCONTRARON
+        FilteredSegmentos.forEach((element) => {
+            if (!segmentos.includes(element)) {
+                //SI NO EXISTE, SE AGREGA
+                segmentos.push(element);
+            } else {
+                //SI YA EXISTE, SE ELIMINA
+                const resultado = segmentos.filter(
+                    (segmento) => segmento.id_padre_sub_categoria != parent
+                );
+                setSegmentos(resultado);
+            }
+        });
+    };
+
+    const getLocalizacion = (parent) => {
+        if (openActividadesEconomicas.includes(parent)) {
+            //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY openActividadesEconomicas
+            setOpenActividadesEconomicas(
+                openActividadesEconomicas.filter((element) => element != parent)
+            );
+        } else {
+            //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY openActividadesEconomicas
+            setOpenActividadesEconomicas([
+                ...openActividadesEconomicas,
+                parent,
+            ]); //Se añade el nuevo parent
+        }
+
+        //SE BUSCAN LOS SEGMENTOS QUE TENGAN EL id_padre_sub_categoria == AL SECTOR QUE SE LE DIO CLICK
+        const pattern = new RegExp(parent, "i");
+        const FilteredActividadesEcomomicas = sectores.filter(function (el) {
+            if (pattern.test(el.id_padre_sub_categoria)) {
+                return el;
+            }
+        });
+
+        //EN LOS SEGMENTOS QUE SE ENCONTRARON
+        FilteredActividadesEcomomicas.forEach((element) => {
+            if (!actividadesEconomicas.includes(element)) {
+                //SI NO EXISTE, SE AGREGA
+                actividadesEconomicas.push(element);
+            } else {
+                //SI YA EXISTE, SE ELIMINA
+                const resultado = actividadesEconomicas.filter(
+                    (segmento) => segmento.id_padre_sub_categoria != parent
+                );
+                setActividadesEconomicas(resultado);
+            }
+        });
+        setSelectedActividadEconomica(parent);
+    };
+
+    const checked = (actividad_economica) => {
+        setInputLocalizacion(actividad_economica);
+    };
+
+    const inputSearchActividadEconomica = (e) => {
+        if (e.target.value == "") {
+            setSectores(fakeSectores);
+            setSegmentos([]);
+            setActividadesEconomicas([]);
+            setOpenSegmentos([]);
+            setOpenActividadesEconomicas([]);
+            return;
+        }
+
+        if (e.key === "Enter") {
+            //SE BUSCAN LAS LOCALIZACIONES QUE COINCIDAN CON EL NOMBRE QUE SE INGRESO
+            const pattern = new RegExp(e.target.value, "i");
+
+            const FilteredActividadesEcomomicas = fakeSectores.filter(function (
+                el
+            ) {
+                if (pattern.test(el.nombre)) {
+                    return el;
+                }
+            });
+
+            var sectores_filtrados = [];
+            var segmentos_filtrados = [];
+            var actividades_economicas_filtrados = [];
+            var open_actividades_economicas = [];
+            var open_segmentos = [];
+
+            FilteredActividadesEcomomicas.forEach((element) => {
+                if (element.id_padre_sub_categoria != null) {
+                    //ae
+                    actividades_economicas_filtrados.push(element);
+                    open_actividades_economicas.push(
+                        element.id_padre_sub_categoria
+                    );
+
+                    //BUSCAMOS la ciudad  DE LA localizacion
+                    segmentos_filtrados.push(
+                        fakeSectores.filter(
+                            (fs) => fs.id == element.id_padre_sub_categoria
+                        )[0]
+                    );
+                    open_segmentos.push(element.id_abuelo_sub_categoria);
+                }
+
+                if (element.id_padre_sub_categoria != null) {
+                    //segmento
+                    if (!segmentos_filtrados.includes(element)) {
+                        segmentos_filtrados.push(element);
+                    }
+                    if (
+                        !open_segmentos.includes(element.id_padre_sub_categoria)
+                    ) {
+                        open_segmentos.push(element.id_padre_sub_categoria);
+                    }
+                }
+
+                if (element.id_padre_sub_categoria == null) {
+                    //sector
+                    sectores_filtrados.push(element);
+                }
+            });
+
+            //BUSCAR TODOS LOS regiones Y ciudades DE actividades_economicas_filtrados
+            var ae_sector = null;
+            var ae_segmento = null;
+
+            actividades_economicas_filtrados.forEach((ae) => {
+                //OBTENER SECTOR DE LA ACTIVIDAD ECONOMICA
+                //OBTENER region  DE LA localizaciones
+
+                ae_sector = fakeSectores.filter((fs) => fs.id == ae.id)[0];
+
+                ae_segmento = fakeSectores.filter(
+                    (fs) => fs.id == ae.id_padre_sub_categoria
+                )[0];
+
+                //SI EL ae_sector NO ESTA INCLUIDO EN regiones
+                if (!sectores_filtrados.includes(ae_sector)) {
+                    //BUSCAR Region Y GUARDAR
+                    sectores_filtrados.push(
+                        fakeSectores.filter(
+                            (sector) => sector.id == ae.id_padre_sub_categoria
+                        )[0]
+                    );
+                }
+
+                if (!segmentos_filtrados.includes(ae_segmento)) {
+                    //BUSCAR SEGMENTO Y GUARDAR
+                    sectores_filtrados.push(
+                        fakeSectores.filter(
+                            (sector) => sector.id == ae.id_padre_sub_categoria
+                        )[0]
+                    );
+                }
+            });
+
+            setSectores(sectores_filtrados);
+            setSegmentos(segmentos_filtrados);
+            setActividadesEconomicas(actividades_economicas_filtrados);
+            setOpenSegmentos(open_segmentos);
+            setOpenActividadesEconomicas(open_actividades_economicas);
+        }
+    };
+
+    console.log("sectores:", sectores);
+
     return (
         <Modal
             size="md"
@@ -20,76 +220,149 @@ export const BusquedaUbicacion = ({
             onHide={handleCloseBusquedaUbicacion}
             id="BusquedaUbicacion"
         >
-            <Modal.Header closeButton>
-                <Head title="Busqueda estado" />
-                <div className="titulo">
-                    <span>Seleciona el estado</span>
-                </div>
-            </Modal.Header>
-            <Modal.Body>
-                <div className="busqueda-estado">
-                    <div>
-                        <input
-                            type="text"
-                            className="buscador"
-                            placeholder="Buscar estado"
-                        />
-                    </div>
-                    <div>
-                        <Form>
-                            <div className="form">
-                                <Form.Check className="todos">
-                                    <Form.Check.Label>
-                                        Seleciona todos los estados
-                                    </Form.Check.Label>
-                                    <Form.Check.Input aria-label="todos" />
-                                </Form.Check>
-                                <hr />
-                                <Form.Check>
-                                    <Form.Check.Label>
-                                        Convocatoria
-                                    </Form.Check.Label>
-                                    <Form.Check.Input aria-label="convocatoria" />
-                                </Form.Check>
-                                <hr />
-                                <Form.Check>
-                                    <Form.Check.Label>
-                                        En evaluacion
-                                    </Form.Check.Label>
-                                    <Form.Check.Input aria-label="evaluacion" />
-                                </Form.Check>
-                                <hr />
-                                <Form.Check>
-                                    <Form.Check.Label>
-                                        Adjudicado
-                                    </Form.Check.Label>
-                                    <Form.Check.Input aria-label="adjudicado" />
-                                </Form.Check>
-                                <hr />
-                                <Form.Check>
-                                    <Form.Check.Label>
-                                        Liquidado
-                                    </Form.Check.Label>
-                                    <Form.Check.Input aria-label="liquidado" />
-                                </Form.Check>
-                                <hr />
-                                <Form.Check>
-                                    <Form.Check.Label>
-                                        Terminado anormalmente o descartado
-                                    </Form.Check.Label>
-                                    <Form.Check.Input aria-label="terminado" />
-                                </Form.Check>
-                                <hr />
-                                <button type="submit" className="boton">
-                                    Seleccionar
-                                </button>
+            <Head title="Localización" />
+            <div className="contenedor-planes">
+                <div className="bg-white overflow-auto w-full text-center margen-superior">
+                    <h2 className="name_section_app">Ubicaciones</h2>
+                    <div className="container mt-4">
+                        <div className="tree_categorias tree_1">
+                            <div className="tree_categorias__busqueda mb-3 mb-md-4">
+                                <div className="mx-auto">
+                                    <input
+                                        type="text"
+                                        placeholder="Busca por actividad económica"
+                                        autoComplete="off"
+                                        className="form-control m-auto"
+                                        onKeyDown={
+                                            inputSearchActividadEconomica
+                                        }
+                                    />
+                                    <i className="icon-Cancelar"></i>
+                                    <button
+                                        type="button"
+                                        className="icon-Buscar-click"
+                                    >
+                                        <i className="bi bi-search"></i>
+                                    </button>
+                                    {/* {sectores.map((sector) => (
+                                        <>
+                                            {sector.id_padre_sub_categoria ==
+                                                null && (
+                                                <>
+                                                    <div
+                                                        id={sector.id}
+                                                        className="tree-content mt-3 sector"
+                                                        key={sector.id}
+                                                        onClick={() =>
+                                                            getSegmento(
+                                                                sector.id
+                                                            )
+                                                        }
+                                                    >
+                                                        <i
+                                                            className={`tree-arrow has-child ${
+                                                                sector.childs
+                                                                    .length > 0
+                                                                    ? "bi bi-chevron-down"
+                                                                    : ""
+                                                            }`}
+                                                        ></i>
+                                                        <span className="tree-anchor">
+                                                            <span className="tree-division tree-division1">
+                                                                <span className="tree-division__title my-auto">
+                                                                    {
+                                                                        sector.nombre
+                                                                    }
+                                                                </span>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                    {openSegmentos.includes(
+                                                        sector.id
+                                                    ) && (
+                                                        <ul className="tree-children">
+                                                            {segmentos.map(
+                                                                (
+                                                                    segmento,
+                                                                    index
+                                                                ) => (
+                                                                    <>
+                                                                        {sector.id ==
+                                                                            segmento.id_padre_sub_categoria && (
+                                                                            <li
+                                                                                data-id="20504"
+                                                                                className="tree-node has-child expanded draggable"
+                                                                                onClick={() =>
+                                                                                    checked(
+                                                                                        segmento
+                                                                                    )
+                                                                                }
+                                                                            >
+                                                                                <div
+                                                                                    className="tree-content segmento"
+                                                                                    onClick={() =>
+                                                                                        getLocalizacion(
+                                                                                            segmento.id
+                                                                                        )
+                                                                                    }
+                                                                                >
+                                                                                    <i className="tree-arrow expanded has-child ltr"></i>
+                                                                                    <input
+                                                                                        type="radio"
+                                                                                        name="actividad_economica"
+                                                                                        onClick={() =>
+                                                                                            checked(
+                                                                                                segmento
+                                                                                            )
+                                                                                        }
+                                                                                        checked={
+                                                                                            segmento.id ==
+                                                                                            inputLocalizacion.id
+                                                                                                ? "checked"
+                                                                                                : ""
+                                                                                        }
+                                                                                    />
+                                                                                    <span className="tree-anchor">
+                                                                                        <span className="tree-division tree-division1">
+                                                                                            <>
+                                                                                                {index %
+                                                                                                    2 ==
+                                                                                                0 ? (
+                                                                                                    <span className="tree-division__title my-auto">
+                                                                                                        {
+                                                                                                            segmento.nombre
+                                                                                                        }
+                                                                                                    </span>
+                                                                                                ) : (
+                                                                                                    <span className="tree-division__title-gray my-auto">
+                                                                                                        {
+                                                                                                            segmento.nombre
+                                                                                                        }
+                                                                                                    </span>
+                                                                                                )}
+                                                                                            </>
+                                                                                        </span>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </li>
+                                                                        )}
+                                                                    </>
+                                                                )
+                                                            )}
+                                                        </ul>
+                                                    )}
+                                                </>
+                                            )}
+                                        </>
+                                    ))} */}
+                                </div>
                             </div>
-                        </Form>
+                        </div>
                     </div>
                 </div>
-            </Modal.Body>
-            {/* <Modal.Footer></Modal.Footer> */}
+            </div>
         </Modal>
     );
 };
+
 export default BusquedaUbicacion;
