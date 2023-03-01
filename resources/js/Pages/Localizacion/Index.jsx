@@ -468,39 +468,6 @@ const Index = ({ auth, localizacion }) => {
                                                                                                     </span>
                                                                                                 </span>
                                                                                             </div>
-
-                                                                                            {openActividadesEconomicas.includes(
-                                                                                                segmento.id
-                                                                                            ) && (
-                                                                                                    <ul className="tree-children">
-                                                                                                        {actividadesEconomicas.map(
-                                                                                                            (
-                                                                                                                childs
-                                                                                                            ) => (
-                                                                                                                <li className="tree-node draggable">
-                                                                                                                    <div
-                                                                                                                        className="tree-content actividad-economica"
-                                                                                                                        onClick={() =>
-                                                                                                                            checked(
-                                                                                                                                childs
-                                                                                                                            )
-                                                                                                                        }
-                                                                                                                    >
-                                                                                                                        <span className="tree-anchor children">
-                                                                                                                            <span className="tree-division tree-division1">
-                                                                                                                                <span className="tree-division__title my-auto">
-                                                                                                                                    {
-                                                                                                                                        childs.nombre
-                                                                                                                                    }
-                                                                                                                                </span>
-                                                                                                                            </span>
-                                                                                                                        </span>
-                                                                                                                    </div>
-                                                                                                                </li>
-                                                                                                            )
-                                                                                                        )}
-                                                                                                    </ul>
-                                                                                                )}
                                                                                         </li>
                                                                                     )}
                                                                             </>

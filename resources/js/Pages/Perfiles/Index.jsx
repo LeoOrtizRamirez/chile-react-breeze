@@ -372,7 +372,7 @@ const Index = ({ auth, actividades_economicas }) => {
     }, [sectores])
 
     return (
-        <AuthenticatedLayout auth={auth}>
+        <>
             <ToastContainer position="bottom-start">
                 <Toast
                     onClose={() => setShowToast(false)}
@@ -636,7 +636,7 @@ const Index = ({ auth, actividades_economicas }) => {
                     </div>
                 </div>
             </div>
-        </AuthenticatedLayout>
+        </>
     );
 };
 
