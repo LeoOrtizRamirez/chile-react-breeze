@@ -357,18 +357,18 @@ const Index = ({ auth, actividades_economicas }) => {
             })
             segmentos_filtrados.forEach(sf => {
                 console.log(sf)
-                var  dom_segmento = document.getElementById("segmento_" + sf.id)
+                var dom_segmento = document.getElementById("segmento_" + sf.id)
                 console.log(dom_segmento)
-                if(dom_segmento){
+                if (dom_segmento) {
                     dom_segmento.classList.add("expanded")
                 }
-                
+
             })
         }
     };
 
-    useEffect(()=>{
-        
+    useEffect(() => {
+
     }, [sectores])
 
     return (
@@ -628,6 +628,11 @@ const Index = ({ auth, actividades_economicas }) => {
                             </div>
                         </div>
 
+                    </div>
+                    <div className="perfil-bottons-footer position-relative text-center mt-4">
+                        <button type="button" className="btn btnRadius btn-new-blue">
+                            Siguiente
+                        </button>
                     </div>
                 </div>
             </div>
