@@ -473,13 +473,13 @@ const Index = ({ auth, tiposcompras }) => {
                                     onClick={deleteTiposCompras}
                                     className="btn btnRadius btn-new-red ml-2"
                                 >
-                                    Eliminar
+                                     Eliminar
                                 </button>
                             </Modal.Footer>
                         </Modal>
                     </div>
                 </div>
-            </div>
+            </div> 
         </AuthenticatedLayout>
     );
 };
