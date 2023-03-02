@@ -498,6 +498,9 @@ body {
 .icon-Paso-1-click:before {
     content: "\e9f7";
 }
+i.icon-Paso-2-click {
+    padding-left: 1%;
+}
 
 .perfil-guias ul {
     margin: 0;

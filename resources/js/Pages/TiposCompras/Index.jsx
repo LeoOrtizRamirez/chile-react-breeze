@@ -19,15 +19,13 @@ const Index = ({ auth, tiposcompras }) => {
     const [toastMessage, setToastMessage] = useState("");
     const [toastIcon, setToastIcon] = useState("");
    
-/*     const [fakeSectores, setFakeSectores] = useState(tiposcompras);
-    const [sectores, setTipoComras] = useState(tiposcompras); */
 
     const [fakeTipoCompras, setFakeTipoCompras] = useState(tiposcompras);
     const [tipoCompras, setTipoComras] = useState(tiposcompras);
 
     const [showSegmentoTipoCompras, setShowSegmentoTipoCompras] = useState(false);
     const [showTipoCompra, setShowTipoCompra] = useState(false);
-    const [selectedSegmento, setSelectedSegmento] = useState(0);
+    const [selectedSegmentoTipoCompra, setSelectedSegmentoTipoCompra] = useState(0);
     const [selectedTipoCompra, setSelectedTipoCompra] = useState(0);
 
     const [openSegmentosTipoCompras, setOpenSegmentosTipoCompras] = useState([]);
@@ -37,9 +35,6 @@ const Index = ({ auth, tiposcompras }) => {
         id: 0,
         nombre: "",
     });
-
-/*Hasta aca voy bien*/
-
 
     const [segmentosTipoCompras, setSegmentosTipoCompras] = useState([]);
     const [tiposCompras, setTiposCompras] = useState([]);
@@ -102,7 +97,7 @@ const Index = ({ auth, tiposcompras }) => {
         });
     };
     
-    const checked = (tipo_compra) => {
+    const checkedTipoCompras = (tipo_compra) => {
         setInputTiposCompras(tipo_compra);
     };
 
@@ -337,7 +332,7 @@ const Index = ({ auth, tiposcompras }) => {
                                                                                 data-id="20504"
                                                                                 className="tree-node has-child expanded draggable"
                                                                                 onClick={() =>
-                                                                                    checked(
+                                                                                    checkedTipoCompras(
                                                                                         segmento
                                                                                     )
                                                                                 }

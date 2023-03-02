@@ -54,8 +54,8 @@ class PerfileController extends Controller
 
         return Inertia::render('Perfiles/Index', [
             'actividades_economicas' => $actividades_economicas,
-            'localizaciones' => $localizaciones,
-            'tipo_compras' => $tiposcompras
+            'localizacion' => $localizaciones,
+            'tiposcompras' => $tiposcompras
         ]);
     }
 
