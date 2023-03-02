@@ -18,14 +18,19 @@ const Index = ({ auth, tiposcompras }) => {
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastIcon, setToastIcon] = useState("");
-    const [fakeSectores, setFakeSectores] = useState(tiposcompras);
-    const [sectores, setSectores] = useState(tiposcompras);
-    const [showSegmento, setShowSegmento] = useState(false);
+   
+/*     const [fakeSectores, setFakeSectores] = useState(tiposcompras);
+    const [sectores, setTipoComras] = useState(tiposcompras); */
+
+    const [fakeTipoCompras, setFakeTipoCompras] = useState(tiposcompras);
+    const [tipoCompras, setTipoComras] = useState(tiposcompras);
+
+    const [showSegmentoTipoCompras, setShowSegmentoTipoCompras] = useState(false);
     const [showTipoCompra, setShowTipoCompra] = useState(false);
     const [selectedSegmento, setSelectedSegmento] = useState(0);
     const [selectedTipoCompra, setSelectedTipoCompra] = useState(0);
 
-    const [openSegmentos, setOpenSegmentos] = useState([]);
+    const [openSegmentosTipoCompras, setOpenSegmentosTipoCompras] = useState([]);
     const [openTiposCompras, setOpenTiposCompras] = useState([]);
 
     const [inputTiposCompras, setInputTiposCompras] = useState({
@@ -33,7 +38,10 @@ const Index = ({ auth, tiposcompras }) => {
         nombre: "",
     });
 
-    const [segmentos, setSegmentos] = useState([]);
+/*Hasta aca voy bien*/
+
+
+    const [segmentosTipoCompras, setSegmentosTipoCompras] = useState([]);
     const [tiposCompras, setTiposCompras] = useState([]);
     const [showModalTipoCompra, setShowModalTipoCompra] = useState(false);
     const handleCloseModalTipoCompra = () => setShowModalTipoCompra(false);
@@ -60,20 +68,20 @@ const Index = ({ auth, tiposcompras }) => {
         }
     };
 
-    const getSegmento = (parent) => {
-        if (openSegmentos.includes(parent)) {
+    const getSegmentoTipoCompras = (parent) => {
+        if (openSegmentosTipoCompras.includes(parent)) {
             //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY OPENSEGMENTOS
-            setOpenSegmentos(
-                openSegmentos.filter((element) => element != parent)
+            setOpenSegmentosTipoCompras(
+                openSegmentosTipoCompras.filter((element) => element != parent)
             );
         } else {
             //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY OPENSEGMENTOS
-            setOpenSegmentos([...openSegmentos, parent]); //SE AÑADE EL NUEVO PARENT
+            setOpenSegmentosTipoCompras([...openSegmentosTipoCompras, parent]); //SE AÑADE EL NUEVO PARENT
         }
 
         //SE BUSCAN LOS SEGMENTOS QUE TENGAN EL id_padre_sub_categoria == AL SECTOR QUE SE LE DIO CLICK
         const pattern = new RegExp(parent, "i");
-        const FilteredSegmentos = sectores.filter(function (el) {
+        const FilteredSegmentos = tipoCompras.filter(function (el) {
             if (pattern.test(el.id_padre_sub_categoria)) {
                 return el;
             }
@@ -81,64 +89,29 @@ const Index = ({ auth, tiposcompras }) => {
 
         //EN LOS SEGMENTOS QUE SE ENCONTRARON
         FilteredSegmentos.forEach((element) => {
-            if (!segmentos.includes(element)) {
+            if (!segmentosTipoCompras.includes(element)) {
                 //SI NO EXISTE, SE AGREGA
-                segmentos.push(element);
+                segmentosTipoCompras.push(element);
             } else {
                 //SI YA EXISTE, SE ELIMINA
-                const resultado = segmentos.filter(
+                const resultado = segmentosTipoCompras.filter(
                     (segmento) => segmento.id_padre_sub_categoria != parent
                 );
-                setSegmentos(resultado);
+                setSegmentosTipoCompras(resultado);
             }
         });
     };
-
-    const getTiposCompras = (parent) => {
-        if (openTiposCompras.includes(parent)) {
-            //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY OPENTIPOSCOMPRAS
-            setOpenTiposCompras(
-                openTiposCompras.filter((element) => element != parent)
-            );
-        } else {
-            //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY OPENTIPOSCOMPRAS
-            setOpenTiposCompras([...openTiposCompras, parent]); //SE AÑADE EL NUEVO PARENT
-        }
-
-        //SE BUSCAN LOS SEGMENTOS QUE TENGAN EL id_padre_sub_categoria == AL SECTOR QUE SE LE DIO CLICK
-        const pattern = new RegExp(parent, "i");
-        const FilteredTiposCompras = sectores.filter(function (el) {
-            if (pattern.test(el.id_padre_sub_categoria)) {
-                return el;
-            }
-        });
-
-        //EN LOS SEGMENTOS QUE SE ENCONTRARON
-        FilteredTiposCompras.forEach((element) => {
-            if (!tiposCompras.includes(element)) {
-                //SI NO EXISTE, SE AGREGA
-                tiposCompras.push(element);
-            } else {
-                //SI YA EXISTE, SE ELIMINA
-                const resultado = tiposCompras.filter(
-                    (segmento) => segmento.id_padre_sub_categoria != parent
-                );
-                setTiposCompras(resultado);
-            }
-        });
-        setSelectedTipoCompra(parent);
-    };
-
+    
     const checked = (tipo_compra) => {
         setInputTiposCompras(tipo_compra);
     };
 
     const inputSearchTipoCompra = (e) => {
         if (e.target.value == "") {
-            setSectores(fakeSectores);
-            setSegmentos([]);
+            setTipoComras(fakeTipoCompras);
+            setSegmentosTipoCompras([]);
             setTiposCompras([]);
-            setOpenSegmentos([]);
+            setOpenSegmentosTipoCompras([]);
             setOpenTiposCompras([]);
             return;
         }
@@ -147,17 +120,17 @@ const Index = ({ auth, tiposcompras }) => {
             //SE BUSCAN LAS LOCALIZACIONES QUE COINCIDAN CON EL NOMBRE QUE SE INGRESO
             const pattern = new RegExp(e.target.value, "i");
             // debugger
-            const FilteredTiposCompras = fakeSectores.filter(function (el) {
+            const FilteredTiposCompras = fakeTipoCompras.filter(function (el) {
                 if (pattern.test(el.nombre)) {
                     return el;
                 }
             });
 
-            var sectores_filtrados = [];
-            var segmentos_filtrados = [];
+            var tipo_compras_filtrados = [];
+            var segmentos_filtrados_tipo_compras = [];
             var tipos_compras_filtrados = [];
             var open_tipos_compras = [];
-            var open_segmentos = [];
+            var open_segmentos_tipo_compras = [];
 
             // debugger;
             FilteredTiposCompras.forEach((element) => {
@@ -167,20 +140,20 @@ const Index = ({ auth, tiposcompras }) => {
                     open_tipos_compras.push(element.id_padre_sub_categoria);
 
                     //BUSCAMOS
-                    const padre = fakeSectores.find(
+                    const padre = fakeTipoCompras.find(
                         (fs) => fs.id == element.id_padre_sub_categoria
                     );
 
-                    const x = segmentos_filtrados.find(
+                    const x = segmentos_filtrados_tipo_compras.find(
                         (fs) => fs.id == padre.id
                     );
 
                     if (!x) {
-                        segmentos_filtrados.push(padre);
+                        segmentos_filtrados_tipo_compras.push(padre);
                     }
-                    if (!segmentos_filtrados.includes(element)) {
-                        segmentos_filtrados.push(element);
-                        open_segmentos.push(element.id_padre_sub_categoria); // DESPLIEGA RESULTADOS
+                    if (!segmentos_filtrados_tipo_compras.includes(element)) {
+                        segmentos_filtrados_tipo_compras.push(element);
+                        open_segmentos_tipo_compras.push(element.id_padre_sub_categoria); // DESPLIEGA RESULTADOS
                     }
                 }
             });
@@ -193,27 +166,27 @@ const Index = ({ auth, tiposcompras }) => {
             tipos_compras_filtrados.forEach((ae) => {
                 //OBTENER SECTOR DE LA ACTIVIDAD ECONOMICA
                 //OBTENER TIPOS COMPRAS
-                ae_sector = fakeSectores.filter((fs) => fs.id == ae.id)[0];
-                ae_segmento = fakeSectores.filter(
+                ae_sector = fakeTipoCompras.filter((fs) => fs.id == ae.id)[0];
+                ae_segmento = fakeTipoCompras.filter(
                     (fs) => fs.id == ae.id_padre_sub_categoria
                 )[0];
 
                 //SI EL ae_sector NO ESTA INCLUIDO EN regiones
                 // debugger
-                if (!sectores_filtrados.includes(ae_sector)) {
+                if (!tipo_compras_filtrados.includes(ae_sector)) {
                     //BUSCAR Region Y GUARDAR
-                    sectores_filtrados.push(
-                        fakeSectores.filter(
+                    tipo_compras_filtrados.push(
+                        fakeTipoCompras.filter(
                             (sector) => sector.id == ae.id_padre_sub_categoria
                         )[0]
                     );
                 }
             });
 
-            setSectores(sectores_filtrados);
-            setSegmentos(segmentos_filtrados);
+            setTipoComras(tipo_compras_filtrados);
+            setSegmentosTipoCompras(segmentos_filtrados_tipo_compras);
             setTiposCompras(tipos_compras_filtrados);
-            setOpenSegmentos(open_segmentos);
+            setOpenSegmentosTipoCompras(open_segmentos_tipo_compras);
             setOpenTiposCompras(open_tipos_compras);
         }
     };
@@ -224,10 +197,10 @@ const Index = ({ auth, tiposcompras }) => {
             .then((data) => {
                 if (data.type == "Success") {
                     setToastIcon("icon-check");
-                    var new_data = segmentos.filter(
+                    var new_data = segmentosTipoCompras.filter(
                         (ae) => ae.id != inputTiposCompras.id
                     );
-                    setSegmentos(new_data);
+                    setSegmentosTipoCompras(new_data);
                     setInputTiposCompras({ id: 0, nombre: "" });
                 } else {
                     setToastIcon("icon-error");
@@ -314,7 +287,7 @@ const Index = ({ auth, tiposcompras }) => {
                                         </Nav.Link>
                                     </div>
 
-                                    {sectores.map((sector) => (
+                                    {tipoCompras.map((sector) => (
                                         <>
                                             {sector.id_padre_sub_categoria ==
                                                 null && (
@@ -324,7 +297,7 @@ const Index = ({ auth, tiposcompras }) => {
                                                         className="tree-content mt-3 sector"
                                                         key={sector.id}
                                                         onClick={() =>
-                                                            getSegmento(
+                                                            getSegmentoTipoCompras(
                                                                 sector.id
                                                             )
                                                         }
@@ -348,11 +321,11 @@ const Index = ({ auth, tiposcompras }) => {
                                                             </span>
                                                         </span>
                                                     </div>
-                                                    {openSegmentos.includes(
+                                                    {openSegmentosTipoCompras.includes(
                                                         sector.id
                                                     ) && (
                                                         <ul className="tree-children">
-                                                            {segmentos.map(
+                                                            {segmentosTipoCompras.map(
                                                                 (
                                                                     segmento,
                                                                     index
@@ -371,11 +344,7 @@ const Index = ({ auth, tiposcompras }) => {
                                                                             >
                                                                                 <div
                                                                                     className="tree-content segmento"
-                                                                                    // onClick={() =>
-                                                                                    //     getTiposCompras(
-                                                                                    //         segmento.id
-                                                                                    //     )
-                                                                                    // }
+                                                                                  
                                                                                 >
                                                                                     <i className="tree-arrow expanded has-child ltr"></i>
                                                                                     <input
