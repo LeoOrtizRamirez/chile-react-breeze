@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Head } from "@inertiajs/inertia-react";
 import "./BusquedaUbicacion.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -7,10 +7,19 @@ import Modal from "react-bootstrap/Modal";
 export const BusquedaUbicacion = ({
     showBusquedaUbicacion,
     handleCloseBusquedaUbicacion,
-    localizacion,
 }) => {
-    const [fakeSectores, setFakeSectores] = useState(localizacion);
-    const [sectores, setSectores] = useState(localizacion);
+
+
+    useEffect(() => {
+        fetch('/localizacion/json')
+            // Exito
+            .then(response => response.json())  // convertir a json
+            .then(data => setSectores(data))    //imprimir los datos en la consola
+            .catch(err => console.log('Solicitud fallida', err)); // Capturar errores
+    }, [])
+
+    const [fakeSectores, setFakeSectores] = useState([]);
+    const [sectores, setSectores] = useState([]);
 
     const [openSegmentos, setOpenSegmentos] = useState([]);
     const [openActividadesEconomicas, setOpenActividadesEconomicas] = useState(
@@ -244,7 +253,7 @@ export const BusquedaUbicacion = ({
                                     >
                                         <i className="bi bi-search"></i>
                                     </button>
-                                    {/* {sectores.map((sector) => (
+                                    {sectores.map((sector) => (
                                         <>
                                             {sector.id_padre_sub_categoria ==
                                                 null && (
@@ -354,7 +363,7 @@ export const BusquedaUbicacion = ({
                                                 </>
                                             )}
                                         </>
-                                    ))} */}
+                                    ))}
                                 </div>
                             </div>
                         </div>
