@@ -266,15 +266,6 @@ class SubCategoriaController extends Controller
         ]);
     }
 
-    public function indexJsonLocalizacion()
-    {
-        $localizacion = SubCategoria::where('tipo_categoria', 3)
-            ->orderBy('updated_at', 'DESC')
-            ->with('parent', 'childs')
-            ->get();
-        return json_encode($localizacion);
-    }
-
     public function createLocalizacion()
     {
         $actividades_economicas = SubCategoria::where('tipo_categoria', 3)

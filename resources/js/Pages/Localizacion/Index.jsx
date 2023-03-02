@@ -197,10 +197,10 @@ const Index = ({ auth, localizacion }) => {
                     }
                 }
 
-                /* if (element.id_padre_sub_categoria == null) {
+                if (element.id_padre_sub_categoria == null) {
                     //sector
                     sectores_filtrados.push(element);
-                } */
+                }
             });
 
             //BUSCAR TODOS LOS regiones Y ciudades DE actividades_economicas_filtrados

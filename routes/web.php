@@ -147,7 +147,6 @@ Route::get('/actividades-economicas/filter/paginate', [SubCategoriaController::c
 
 
 Route::get('/localizacion', [SubCategoriaController::class, 'indexLocalizacion'])->middleware(['auth','verified'])->name('indexLocalizacion');
-Route::get('/localizacion/json', [SubCategoriaController::class, 'indexJsonLocalizacion'])->middleware(['auth','verified'])->name('indexJsonLocalizacion');
 Route::get('/localizacion/create', [SubCategoriaController::class, 'createLocalizacion'])->middleware(['auth','verified'])->name('createLocalizacion');
 Route::get('/localizacion/{localizacion}/edit', [SubCategoriaController::class, 'editLocalizacion'])->middleware(['auth','verified'])->name('editLocalizacion');
 Route::get('/localizacion/{localizacion}/delete', [SubCategoriaController::class, 'deleteLocalizacion'])->middleware(['auth','verified'])->name('deleteLocalizacion');

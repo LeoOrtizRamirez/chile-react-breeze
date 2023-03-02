@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, Suspense, lazy } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import "./Index.css";
 import Compartir from "../../Components/Acciones/Compartir";
 import Eliminar from "../../Components/Acciones/Eliminar";
 import Enviar from "../../Components/Acciones/Enviar";
@@ -7,12 +8,11 @@ import Favoritos from "../../Components/Acciones/Favoritos";
 import Pdf from "../../Components/Acciones/Pdf";
 import Visualizar from "../../Components/Acciones/Visualizar";
 import Paginador from "@/Components/PaginadorContratos";
-import ModalBusquedaAvanzada from "@/Components/Modals/ModalBusquedaAvanzada/ModalBusquedaAvanzada";
 import $ from "jquery";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "../../../css/font-web.css";
-import "./Index.css";
 import "@fontsource/poppins";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import '../../../css/font-web.css'
 
 import Loader from "@/Components/Loader";
 const Index = ({ auth, contratos }) => {
@@ -106,6 +106,7 @@ const Index = ({ auth, contratos }) => {
                 wrapper1.scrollLeft = wrapper2.scrollLeft;
             };
         }
+
     });
     /*Fin Scroll*/
 
@@ -115,6 +116,7 @@ const Index = ({ auth, contratos }) => {
     const [totalElementos, setTotalElementos] = useState(contratos.total);
     const [nextPage, setNextPage] = useState(contratos.next_page_url);
     const [prevPage, setPrevPage] = useState(contratos.prev_page_url);
+
     const [inputSearch, setInputSearch] = useState("");
     const [inputFechaPublicacion, setInputFechaPublicacion] = useState("");
 
@@ -142,12 +144,12 @@ const Index = ({ auth, contratos }) => {
         //Peticiones por paginador
         if (url == null) return;
         const querystring = getUrlParams();
-        setLoading(true);
+        setLoading(true)
         fetch(url + "&" + querystring)
             .then((response) => response.json())
             .then((data) => {
                 tableFormat(data);
-                setLoading(false);
+                setLoading(false)
             });
     };
 
@@ -155,27 +157,26 @@ const Index = ({ auth, contratos }) => {
 
     useEffect(() => {
         if (buscadorRapido.current != 0) {
-            buscadorRapido.current.addEventListener(
-                "keypress",
-                function (event) {
-                    if (event.key === "Enter") {
-                        event.preventDefault();
-                        const querystring = getUrlParams();
 
-                        console.log(querystring);
+            buscadorRapido.current.addEventListener("keypress", function (event) {
 
-                        setLoading(true);
-                        fetch("/contratos/?" + querystring)
-                            .then((response) => response.json())
-                            .then((data) => {
-                                tableFormat(data);
-                                setLoading(false);
-                            });
-                    }
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    const querystring = getUrlParams();
+
+                    console.log(querystring)
+
+                    setLoading(true)
+                    fetch("/contratos/?" + querystring)
+                        .then((response) => response.json())
+                        .then((data) => {
+                            tableFormat(data);
+                            setLoading(false)
+                        });
                 }
-            );
+            });
         }
-    }, []);
+    }, [])
 
     const tableFormat = (data) => {
         //Formatear valores del paginador
@@ -201,16 +202,11 @@ const Index = ({ auth, contratos }) => {
         }
     }, []);
 
+    /*Inicio Buscador rapido y paginador */
+
     /*Inicio Loader */
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false)
     /*Fin Loader */
-
-    // Inicio buscador avanzado
-    const [showBusquedaAvanzada, setShowBusquedaAvanzada] = useState(false);
-    const handleCloseBusquedaAvanzada = () => setShowBusquedaAvanzada(false);
-    const handleShowBusquedaAvanzada = () => setShowBusquedaAvanzada(true);
-    // fin buscador avanzado
-
     return (
         <AuthenticatedLayout auth={auth}>
             <link rel="shortcut icon" href="#"></link>
@@ -245,25 +241,14 @@ const Index = ({ auth, contratos }) => {
                     </div>
 
                     <div className="">
-                        <span>
-                            <button
-                                onClick={handleShowBusquedaAvanzada}
-                                className="mb-2"
-                            >
-                                <span className="material-symbols-outlined text-btn-avanzado">
-                                    list
-                                </span>
-                                <span className="text-btn-avanzado">
-                                    Búsqueda avanzada
-                                </span>
-                            </button>
-                            <ModalBusquedaAvanzada
-                                showBusquedaAvanzada={showBusquedaAvanzada}
-                                handleCloseBusquedaAvanzada={
-                                    handleCloseBusquedaAvanzada
-                                }
-                            ></ModalBusquedaAvanzada>
-                        </span>
+                        <button className="buscador_avanzado mb-3">
+                            <span className="material-symbols-outlined">
+                                list
+                            </span>
+                            <span className="color-texto">
+                                Búsqueda avanzada
+                            </span>
+                        </button>
                     </div>
 
                     <div className="input-filtro-estado">
@@ -293,7 +278,7 @@ const Index = ({ auth, contratos }) => {
                         className="alto-tabla bg-white overflow-auto"
                         id="scroll-table"
                     >
-                        {!loading ? (
+                        {!loading ?
                             <>
                                 <div
                                     id="wrapper1"
@@ -365,18 +350,13 @@ const Index = ({ auth, contratos }) => {
 
                                     <tbody>
                                         {tableContratos.map((contrato) => (
-                                            <tr
-                                                key={contrato.id}
-                                                className="tr-users"
-                                            >
+                                            <tr key={contrato.id} className="tr-users">
                                                 <td className="border border-gray-200 text-left mw-90">
                                                     <div className="iconos-horizontal width-columna-acciones">
                                                         <div>
                                                             <Pdf />
                                                             <Enviar
-                                                                url={
-                                                                    contrato.link
-                                                                }
+                                                                url={contrato.link}
                                                             />
                                                             <Favoritos />
                                                         </div>
@@ -389,17 +369,12 @@ const Index = ({ auth, contratos }) => {
                                                 </td>
                                                 <td className="border border-gray-200 text-left margen-textos">
                                                     <span className="circulo">
-                                                        {
-                                                            contrato.fuente
-                                                                .alias_portal
-                                                        }
+                                                        {contrato.fuente.alias_portal}
                                                     </span>
                                                 </td>
                                                 <td className="border border-gray-200 text-left margen-textos">
                                                     <span className="data-text width-columna-menor">
-                                                        {
-                                                            contrato.entidad_contratante
-                                                        }
+                                                        {contrato.entidad_contratante}
                                                     </span>
                                                 </td>
                                                 <td className="border border-gray-200 text-left margen-textos mw-200">
@@ -407,52 +382,50 @@ const Index = ({ auth, contratos }) => {
                                                         <>
                                                             {showMoreSelected !=
                                                                 contrato.id && (
-                                                                <span className="data-text">
-                                                                    {contrato.objeto.substr(
-                                                                        0,
-                                                                        40
-                                                                    )}
-                                                                    ...{" "}
-                                                                    <a
-                                                                        className="text-primary"
-                                                                        onClick={() =>
-                                                                            getData(
-                                                                                contrato
-                                                                            )
-                                                                        }
-                                                                    >
-                                                                        Ver más
-                                                                    </a>
-                                                                </span>
-                                                            )}
+                                                                    <span className="data-text">
+                                                                        {contrato.objeto.substr(
+                                                                            0,
+                                                                            40
+                                                                        )}
+                                                                        ...{" "}
+                                                                        <a
+                                                                            className="text-primary"
+                                                                            onClick={() =>
+                                                                                getData(
+                                                                                    contrato
+                                                                                )
+                                                                            }
+                                                                        >
+                                                                            Ver más
+                                                                        </a>
+                                                                    </span>
+                                                                )}
                                                         </>
                                                     )}
 
                                                     {showMoreSelected ==
                                                         contrato.id && (
-                                                        <div className="showmore">
-                                                            <span className="data-text">
-                                                                {
-                                                                    contrato.objeto
-                                                                }
-                                                                <a
-                                                                    className="text-primary"
-                                                                    onClick={() =>
-                                                                        hideData()
-                                                                    }
-                                                                >
-                                                                    Ver menos
-                                                                </a>
-                                                            </span>
-                                                        </div>
-                                                    )}
+                                                            <div className="showmore">
+                                                                <span className="data-text">
+                                                                    {contrato.objeto}
+                                                                    <a
+                                                                        className="text-primary"
+                                                                        onClick={() =>
+                                                                            hideData()
+                                                                        }
+                                                                    >
+                                                                        Ver menos
+                                                                    </a>
+                                                                </span>
+                                                            </div>
+                                                        )}
                                                 </td>
                                                 <td className="border border-gray-200 text-left margen-textos width-columna-menor">
                                                     {contrato.valor > 0
                                                         ? "$" +
-                                                          contrato.valor.toLocaleString(
-                                                              "ch-CH"
-                                                          )
+                                                        contrato.valor.toLocaleString(
+                                                            "ch-CH"
+                                                        )
                                                         : contrato.valor_texto}
                                                 </td>
                                                 <td className="border border-gray-200 text-left margen-textos mw-200">
@@ -462,23 +435,17 @@ const Index = ({ auth, contratos }) => {
                                                 </td>
                                                 <td className="border border-gray-200 text-left margen-textos ">
                                                     <span className="data-text ">
-                                                        {
-                                                            contrato.codigo_proceso
-                                                        }
+                                                        {contrato.codigo_proceso}
                                                     </span>
                                                 </td>
                                                 <td className="border border-gray-200 text-left color-estado margen-textos width-columna-menor">
                                                     <span className="data-text ">
-                                                        {
-                                                            contrato.estado_proceso
-                                                        }
+                                                        {contrato.estado_proceso}
                                                     </span>
                                                 </td>
                                                 <td className="border border-gray-200 text-left margen-textos">
                                                     <span className="data-text width-columna-menor">
-                                                        {
-                                                            contrato.fecha_publicacion
-                                                        }
+                                                        {contrato.fecha_publicacion}
                                                     </span>
                                                 </td>
                                                 <td className="border border-gray-200 text-left margen-textos width-columna-menor">
@@ -493,55 +460,42 @@ const Index = ({ auth, contratos }) => {
                                                 </td> */}
                                                 <td className="border border-gray-200 text-left margen-textos">
                                                     <span className="data-text ">
-                                                        {
-                                                            contrato.actividad_economica
-                                                        }
+                                                        {contrato.actividad_economica}
                                                     </span>
                                                 </td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
-                                {tableContratos.length <= 0 && (
-                                    <div
-                                        id="mensajes-personalizado-busqueda"
-                                        className="container-fluid content_blank_interno"
-                                    >
+                                {
+                                    tableContratos.length <= 0 &&
+                                    <div id="mensajes-personalizado-busqueda" className="container-fluid content_blank_interno">
                                         <div className="row justify-content-center align-items-center">
                                             <div className="col-md-4 col-sm-4 offset-md-1 offset-sm-1">
-                                                <img
-                                                    src="https://col.licitaciones.info/img/mensajes-personalisados/sin-resultados-busqueda.png"
-                                                    alt=""
-                                                    className="img-fluid mensaje-imagen"
-                                                />
+                                                <img src="https://col.licitaciones.info/img/mensajes-personalisados/sin-resultados-busqueda.png" alt="" className="img-fluid mensaje-imagen" />
                                             </div>
                                             <div className="col-md-5 col-sm-5 offset-sm-1 offset-md-1">
                                                 <div className="estructura-mensaje-personalizado">
                                                     <h4 className="text-center titulo-personalizado">
-                                                        <b className="text-rojo">
-                                                            No se encontró
-                                                        </b>{" "}
-                                                        el resultado.
-                                                    </h4>
+                                                        <b className="text-rojo">No se encontró</b> el resultado.</h4>
                                                     <div className="position-relative">
                                                         <span className="icon-Bombillo mensaje-icono"></span>
-                                                        <p className="mensaje-personalizado d-block text-left">
-                                                            Prueba cambiando tus
-                                                            opciones de búsqueda
-                                                            e intentalo
-                                                            nuevamente.
-                                                        </p>
+                                                        <p className="mensaje-personalizado d-block text-left">Prueba cambiando tus opciones de búsqueda e intentalo nuevamente.</p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                )}
+                                }
+
                             </>
-                        ) : (
+                            :
                             <Loader />
-                        )}
+                        }
                     </div>
+
+
+
                 </div>
             </div>
         </AuthenticatedLayout>
