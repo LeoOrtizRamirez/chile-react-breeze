@@ -1,8 +1,8 @@
-.mx-60{
+.mx-60 {
     margin-left: 60px;
     margin-right: 60px;
 }
-.mt-30{
+.mt-30 {
     margin-top: 30px;
 }
 
@@ -32,12 +32,6 @@ ul {
 
 html {
     background-color: #f3f4f6;
-}
-
-.modal-header,
-.btn-info {
-    background: #1383ac;
-    color: #fff;
 }
 
 input.btn.btn-info {
@@ -123,7 +117,6 @@ th {
     }
 }
 
-
 /* .tree_categorias__busqueda > div > input {
     position: relative;
     display: block;
@@ -131,17 +124,14 @@ th {
     float: left;
 } */
 
-
-.busqueda-input{
+.busqueda-input {
     padding: 0px 10px 0px 30px !important;
-
 }
 .tree_categorias__busqueda input {
     padding: 10px 10px 10px 10px;
     font-size: 15px;
     color: #73c914;
 }
-
 
 .tree_categorias__busqueda button {
     background: none;
@@ -152,7 +142,6 @@ th {
     cursor: pointer;
     position: absolute;
 }
-
 
 .tree-anchor {
     flex-grow: 2;
@@ -374,14 +363,19 @@ body {
     font-weight: bold;
     padding-bottom: 5px;
     border: 0;
-    background-image: linear-gradient( 90deg, #e1e1e1 0, #e1e1e1 50%, transparent 0 );
+    background-image: linear-gradient(
+        90deg,
+        #e1e1e1 0,
+        #e1e1e1 50%,
+        transparent 0
+    );
     background-size: 16px 2px;
     background-position: bottom;
     background-repeat: repeat-x;
 }
 
-.c-verde{
-    color:#73c914;
+.c-verde {
+    color: #73c914;
 }
 
 .perfiles-titulos {
@@ -398,7 +392,7 @@ body {
     padding: 25px 0px;
 }
 
-.tree-root{
+.tree-root {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -414,14 +408,14 @@ body {
     box-sizing: border-box;
 }
 
-.tree-root>.tree-node {
+.tree-root > .tree-node {
     min-width: 50%;
     width: 50%;
     padding: 5px 10px 15px;
-    -webkit-transition: -webkit-box-shadow .25s ease;
-    transition: -webkit-box-shadow .25s ease;
-    transition: box-shadow .25s ease;
-    transition: box-shadow .25s ease,-webkit-box-shadow .25s ease;
+    -webkit-transition: -webkit-box-shadow 0.25s ease;
+    transition: -webkit-box-shadow 0.25s ease;
+    transition: box-shadow 0.25s ease;
+    transition: box-shadow 0.25s ease, -webkit-box-shadow 0.25s ease;
 }
 
 .tree-node {
@@ -453,7 +447,7 @@ body {
     overflow: auto;
 }
 
-.tree_categorias .tree-root .tree-children:first-of-type{
+.tree_categorias .tree-root .tree-children:first-of-type {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -468,16 +462,17 @@ body {
     padding: 12px 20px;
 }
 
-.tree_categorias .tree-root .tree-children:first-of-type .tree-node.has-child.expanded {
+.tree_categorias
+    .tree-root
+    .tree-children:first-of-type
+    .tree-node.has-child.expanded {
     min-width: 100%;
 }
-
 
 .tree_categorias .tree-root .tree-children .tree-node {
     min-width: 100%;
     max-width: 100%;
 }
-
 
 .perfil-guias {
     padding: 20px 20px 25px;
@@ -508,8 +503,8 @@ body {
 
 .perfil-guias__indicador--activo i {
     color: #73c914;
-    -webkit-transition: all .4s;
-    transition: all .4s;
+    -webkit-transition: all 0.4s;
+    transition: all 0.4s;
 }
 
 .perfil-guias__indicador i {
@@ -528,18 +523,15 @@ body {
 }
 
 .perfil-guias__indicador span {
-    font-family: Nexa-bold,sans-serif;
+    font-family: Nexa-bold, sans-serif;
     /* color: #d7d7d7; */
     color: #73c914;
     font-size: 16px;
     margin-left: 20px;
     display: inline-block;
-    line-height: 15px!important;
+    line-height: 15px !important;
     font-weight: bold;
 }
-
-
-
 
 /* .tree_categorias__busqueda>div {
     position: relative;
@@ -557,11 +549,10 @@ body {
     border-radius: 1rem;
 }
 
-.form-control, .inputs-rounded {
-    font-family: Nexa-regular,sans-serif;
+.form-control,
+.inputs-rounded {
+    font-family: Nexa-regular, sans-serif;
 }
-
-
 
 button.icon-Buscar-click {
     left: inherit;

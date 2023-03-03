@@ -1,0 +1,77 @@
+.modal-backdrop.show {
+    opacity: 0.5 !important;
+}
+
+.modal-backdrop {
+    --bs-backdrop-zindex: 1050 !important;
+    --bs-backdrop-bg: rgb(0, 0, 0) !important;
+    --bs-backdrop-opacity: 0.5 !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 1055  !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background-color: var(--bs-backdrop-bg) !important;
+}
+
+#BusquedaEstado .titulo {
+    margin-left: 140px;
+}
+
+#BusquedaEstado .titulo span {
+    font-size: 20px;
+    font-weight: 700;
+    color: rgb(112, 112, 112);
+}
+
+#BusquedaEstado .busqueda-estado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#BusquedaEstado input::placeholder {
+    color: rgba(137, 137, 137, 0.621);
+    font-weight: 500;
+    padding-left: 20px;
+}
+
+#BusquedaEstado .buscador {
+    border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
+    border-color: rgb(210, 210, 210);
+    margin-top: 10px;
+    margin-bottom: 30px;
+    width: 320px;
+}
+
+#BusquedaEstado .form {
+    flex-direction: column;
+    justify-content: flex-start;
+    color: rgb(137, 137, 137);
+    font-weight: 500;
+}
+
+#BusquedaEstado .todos {
+    margin-left: -30px;
+}
+
+#BusquedaEstado .boton {
+    margin-left: 75px;
+
+    background-color: chartreuse !important;
+    border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
+    width: 150px;
+    padding: 5px 0px;
+    color: white;
+    font-weight: 500;
+}
