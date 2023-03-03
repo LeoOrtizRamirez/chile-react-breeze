@@ -518,6 +518,10 @@ body {
     margin: 0;
 }
 
+.perfil-guias__indicador--activo span {
+    /* color: #686868; */
+}
+
 .perfil-guias__indicador span {
     font-family: Nexa-bold, sans-serif;
     /* color: #d7d7d7; */
@@ -528,6 +532,12 @@ body {
     line-height: 15px !important;
     font-weight: bold;
 }
+
+/* .tree_categorias__busqueda>div {
+    position: relative;
+    display: block;
+    max-width: 550px;
+} */
 
 .tree_categorias__busqueda input {
     padding: 4px 60px 4px 13px;
