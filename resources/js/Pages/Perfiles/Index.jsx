@@ -13,8 +13,6 @@ import '../../../css/font-web.css'
 
 const Index = ({ auth, actividades_economicas }) => {
     const myRefs = useRef([]);
-
-    console.log("renderize")
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastIcon, setToastIcon] = useState("");
@@ -175,9 +173,6 @@ const Index = ({ auth, actividades_economicas }) => {
                         }
                     })
                 }
-
-                console.log(sc)
-
                 setChecksActividadesEconomicas(array_checks)
             })
 
@@ -216,7 +211,6 @@ const Index = ({ auth, actividades_economicas }) => {
                     setChecksActividadesEconomicas(array_checks)
                 })
             } else {
-                //console.log(array_checks)
                 //CHECK SEGMENTO - Agregar/Eliminar al array (array_checks)
                 if (!array_checks.includes(actividad_economica.id)) {
                     array_checks.push(actividad_economica.id)
@@ -349,21 +343,7 @@ const Index = ({ auth, actividades_economicas }) => {
             setOpenSegmentos(open_segmentos);
             setOpenActividadesEconomicas(open_actividades_economicas);
 
-            //AÑADIR CLASE EXPANDED
-            sectores_filtrados.forEach(sf => {
-                //console.log(sf)
-                var dom_sector = document.getElementById("sector_" + sf.id)
-                dom_sector.classList.add("expanded")
-            })
-            segmentos_filtrados.forEach(sf => {
-                console.log(sf)
-                var dom_segmento = document.getElementById("segmento_" + sf.id)
-                console.log(dom_segmento)
-                if (dom_segmento) {
-                    dom_segmento.classList.add("expanded")
-                }
-
-            })
+            
         }
     };
 
@@ -381,8 +361,7 @@ const Index = ({ auth, actividades_economicas }) => {
                     autohide
                 >
                     <div
-                        className={`notification-toast ${toastIcon == "icon-error" ? "error" : "success"
-                            }`}
+                        className={`notification-toast ${toastIcon == "icon-error" ? "error" : "success"}`}
                     >
                         <span
                             className={`toast-icon ${toastIcon == "icon-error"
@@ -459,7 +438,7 @@ const Index = ({ auth, actividades_economicas }) => {
                                         <>
                                             {sector.id_padre_sub_categoria ==
                                                 null && (
-                                                    <li className="tree-node has-child draggable" id={"sector_" + sector.id}>
+                                                    <li className={`tree-node has-child draggable ${openSegmentos.includes(sector.id) ? "expanded" : ""}`} id={"sector_" + sector.id}>
                                                         <div
                                                             id={sector.id}
                                                             className="tree-content mt-3 sector"
@@ -521,7 +500,7 @@ const Index = ({ auth, actividades_economicas }) => {
                                                                                 {sector.id ==
                                                                                     segmento.id_padre_sub_categoria && (
                                                                                         <li
-                                                                                            className="tree-node has-child draggable segmento"
+                                                                                            className={`tree-node has-child draggable segmento ${openActividadesEconomicas.includes(segmento.id) ? "expanded" : ""}`}
                                                                                             id={"segmento_" + segmento.id}
                                                                                         >
                                                                                             <div
