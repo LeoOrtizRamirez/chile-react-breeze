@@ -428,7 +428,9 @@ const Index = ({ auth, actividades_economicas }) => {
                                             inputSearchActividadEconomica
                                         }
                                     />
-                                    <h2 className="perfiles-titulos"> Pais de contratación <span className="c-verde">Chile</span></h2>
+                                    <h2 className="perfiles-titulos d-flex"> Pais de contratación
+                                    <img class="bandera" src="/public/images/banderas/listado_nombres/CHL.svg" alt="Bandera Chile"/>
+                                    </h2>
 
                                 </div>
                                 <br></br>
