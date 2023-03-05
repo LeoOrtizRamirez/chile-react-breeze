@@ -7,7 +7,8 @@
 }
 
 input.form-control.busqueda-input {
-    width: 50%;
+    width: 60%;
+    height: 35px;
 }
 .contenedor-planes {
     display: flex;
@@ -356,14 +357,14 @@ body {
     text-align: center;
     display: block;
     max-width: 410px;
-    margin: 0 auto;
-    color: #00a1c9;
+    margin: 20px auto;
+    color: #8d8d8d;
     font-family: Nexa-bold, sans-serif;
     font-size: 24px;
     font-weight: bold;
     padding-bottom: 5px;
     border: 0;
-    background-image: linear-gradient(
+    /* background-image: linear-gradient(
         90deg,
         #e1e1e1 0,
         #e1e1e1 50%,
@@ -371,7 +372,7 @@ body {
     );
     background-size: 16px 2px;
     background-position: bottom;
-    background-repeat: repeat-x;
+    background-repeat: repeat-x; */
 }
 
 .c-verde {

@@ -394,17 +394,16 @@ export const BusquedaUbicacion = ({
             <>
                 <div className="contenedor-planes">
                     <div className="bg-white overflow-auto w-full text-center margen-superior custom-scroll">
+                        <h2 className="name_section_app">
+                            Seleccione la ubicacion
+                        </h2>
                         <div className="container mt-4">
                             <div className="tree_categorias tree_1">
                                 <div className="tree_categorias__busqueda mb-3 mb-md-4">
-                                    <div className="mx-60 mt-30 d-flex">
-                                        <button
-                                            type="button"
-                                            className="icon-Buscar-click"
-                                        ></button>
+                                    <div className="mx-60 mt-30 d-flex justify-content-center">
                                         <input
                                             type="text"
-                                            placeholder="Busca por actividad económica o UNSPSC"
+                                            placeholder="Buscar por ubicacion"
                                             autoComplete="off"
                                             className="form-control busqueda-input"
                                             onKeyDown={

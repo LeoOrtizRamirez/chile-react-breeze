@@ -36,6 +36,27 @@ class SubCategoriaController extends Controller
         ]);
     }
 
+    public function indexJson()
+    {
+        $actividades_economicas = SubCategoria::where('tipo_categoria', 1)
+            ->orderBy('updated_at', 'DESC')
+            ->with('parent', 'childs')
+            ->get();
+        //Buscar id del grandparent y agregarlo a la actividad economica
+        foreach ($actividades_economicas as $key => $ac) {
+            $model = SubCategoria::find($ac->id);
+            $ac->id_abuelo_sub_categoria = null;
+            if($model->id_padre_sub_categoria != null){
+                $parent = SubCategoria::find($model->id_padre_sub_categoria);
+                if($parent->id_padre_sub_categoria != null){
+                    $grandparent = SubCategoria::find($parent->id_padre_sub_categoria);
+                    $ac->id_abuelo_sub_categoria = $grandparent->id;
+                }
+            }
+        }
+        return json_encode($actividades_economicas);
+    }
+
     public function create()
     {
         $actividades_economicas = SubCategoria::where('tipo_categoria', 1)
