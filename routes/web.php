@@ -120,13 +120,13 @@ Route::get('/recuperar-contrasena', function (Request $request) {
 Route::get('/actualizar-contrasena', [UserController::class, 'actualizarContrasena'])->name('actualizarContrasena');
 
 Route::resource('actividades-economicas', SubCategoriaController::class)
-->only(['index','create', 'store', 'edit', 'update', 'destroy', 'indexJson'])
+->only(['index','create', 'store', 'edit', 'update', 'destroy'])
 ->middleware(['auth','verified']);
 
 Route::get('/actividades-economicas/{id}/delete', [SubCategoriaController::class, 'delete']);
 Route::get('/actividades-economicas/paginate', [SubCategoriaController::class, 'paginate']);
 Route::get('/actividades-economicas/filter/paginate', [SubCategoriaController::class, 'filterPaginate']);
-
+Route::get('/actividades-economicas/json', [SubCategoriaController::class, 'indexJson'])->middleware(['auth','verified'])->name('indexJson');
 
 Route::get('/localizacion', [SubCategoriaController::class, 'indexLocalizacion'])->middleware(['auth','verified'])->name('indexLocalizacion');
 Route::get('/localizacion/json', [SubCategoriaController::class, 'indexJsonLocalizacion'])->middleware(['auth','verified'])->name('indexJsonLocalizacion');
@@ -136,24 +136,18 @@ Route::get('/localizacion/{localizacion}/delete', [SubCategoriaController::class
 Route::delete('/localizacion/{localizacion}', [SubCategoriaController::class, 'destroyLocalizacion'])->middleware(['auth','verified'])->name('destroyLocalizacion');
 Route::post('/localizacion', [SubCategoriaController::class, 'storeLocalizacion'])->middleware(['auth','verified'])->name('storeLocalizacion');
 Route::PATCH('/localizacion/{localizacion}', [SubCategoriaController::class, 'updateLocalizacion'])->middleware(['auth','verified'])->name('updateLocalizacion');
-
-
 Route::get('localizacion/popup/', [SubCategoriaController::class, 'popup']);
-
-
 
 // Tipos de compras
 Route::get('/tiposcompras', [SubCategoriaController::class, 'indexTiposCompras'])->middleware(['auth','verified'])->name('indexTiposCompras');
+Route::get('/tiposcompras/json', [SubCategoriaController::class, 'indexJsonTiposCompras'])->middleware(['auth','verified'])->name('indexJsonTiposCompras');
 Route::get('/tiposcompras/create', [SubCategoriaController::class, 'createTiposCompras'])->middleware(['auth','verified'])->name('createTiposCompras');
 Route::get('/tiposcompras/{tiposcompras}/edit', [SubCategoriaController::class, 'editTiposCompras'])->middleware(['auth','verified'])->name('editTiposCompras');
 Route::get('/tiposcompras/{tiposcompras}/delete', [SubCategoriaController::class, 'deleteTiposCompras'])->middleware(['auth','verified'])->name('deleteTiposCompras');
 Route::delete('/tiposcompras/{tiposcompras}', [SubCategoriaController::class, 'destroyTiposCompras'])->middleware(['auth','verified'])->name('destroyTiposCompras');
-Route::post('/tiposcompras', [SubCategoriaController::class, 'storeTiposCompras'])->middleware(['auth','verified'])->name('storeTiposCompras');
 Route::PATCH('/tiposcompras/{tiposcompras}', [SubCategoriaController::class, 'updateTiposCompras'])->middleware(['auth','verified'])->name('updateTiposCompras');
-
+Route::post('/tiposcompras', [SubCategoriaController::class, 'storeTiposCompras'])->middleware(['auth','verified'])->name('storeTiposCompras');
 
 Route::resource('perfiles', PerfileController::class);
-
 Route::POST('register/modal', [RegisteredUserController::class, 'registerModal'])->name('registerModal');
-Route::delete('/tiposcompras/{tiposcompras}', [SubCategoriaController::class, 'destroyTiposCompras'])->middleware(['auth','verified'])->name('destroyTiposCompras');
 

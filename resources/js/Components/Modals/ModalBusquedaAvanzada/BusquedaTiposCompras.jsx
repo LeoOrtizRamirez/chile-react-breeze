@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Head } from "@inertiajs/inertia-react";
-import "./BusquedaUbicacion.css";
+import "./BusquedaTiposCompras.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Modal from "react-bootstrap/Modal";
 
-export const BusquedaUbicacion = ({
-    showBusquedaUbicacion,
-    handleCloseBusquedaUbicacion,
+export const BusquedaTiposCompras = ({
+    showBusquedaTiposCompras,
+    handleCloseBusquedaTiposCompras,
 }) => {
     useEffect(() => {
-        fetch("/localizacion/json")
+        fetch("/tiposcompras/json")
             .then((response) => response.json()) // convertir a json
             .then((data) => setSectores(data)) //imprimir los datos en la consola
             .catch((err) => console.log("Solicitud fallida", err)); // Capturar errores
@@ -378,7 +378,7 @@ export const BusquedaUbicacion = ({
     };
 
     useEffect(() => {}, [sectores]);
-    // console.log("sectores:", sectores);
+    console.log("sectores:", sectores);
 
     return (
         <Modal
@@ -388,9 +388,9 @@ export const BusquedaUbicacion = ({
             backdropClassName=""
             className=""
             centered
-            show={showBusquedaUbicacion}
-            onHide={handleCloseBusquedaUbicacion}
-            id="BusquedaUbicacion"
+            show={showBusquedaTiposCompras}
+            onHide={handleCloseBusquedaTiposCompras}
+            id="BusquedaTiposCompras"
         >
             <>
                 <div className="contenedor-planes">
@@ -562,4 +562,4 @@ export const BusquedaUbicacion = ({
     );
 };
 
-export default BusquedaUbicacion;
+export default BusquedaTiposCompras;
