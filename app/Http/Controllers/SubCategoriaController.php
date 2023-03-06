@@ -10,10 +10,7 @@ use Inertia\Inertia;
 
 class SubCategoriaController extends Controller
 {
-
-
-    public function index()
-    {
+    public function index(){
         $actividades_economicas = SubCategoria::where('tipo_categoria', 1)
             ->orderBy('updated_at', 'DESC')
             ->with('parent', 'childs')
@@ -36,8 +33,7 @@ class SubCategoriaController extends Controller
         ]);
     }
 
-    public function indexJson()
-    {
+    public function indexJson(){
         $actividades_economicas = SubCategoria::where('tipo_categoria', 1)
             ->orderBy('updated_at', 'DESC')
             ->with('parent', 'childs')
@@ -45,8 +41,7 @@ class SubCategoriaController extends Controller
         return json_encode($actividades_economicas);
     }
 
-    public function create()
-    {
+    public function create(){
         $actividades_economicas = SubCategoria::where('tipo_categoria', 1)
             ->orderBy('updated_at', 'DESC')
             ->with('parent', 'childs')
@@ -62,8 +57,7 @@ class SubCategoriaController extends Controller
         ]);
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         //Cuando no se cumple hace break
         $request->validate([
             'id' => 'required|unique:' . SubCategoria::class,
@@ -88,14 +82,7 @@ class SubCategoriaController extends Controller
         return redirect(route('actividades-economicas.index'));
     }
 
-    // public function show(SubCategoria $actividad_economica)
-    // {
-    //     //
-    // }
-
-
-    public function edit($id)
-    {
+    public function edit($id){
         $ae_actual = SubCategoria::where('id', $id)->with('parent', 'childs')->first();
         $actividades_economicas = SubCategoria::where('tipo_categoria', 1)
             ->orderBy('updated_at', 'DESC')
@@ -144,14 +131,12 @@ class SubCategoriaController extends Controller
         return redirect(route('actividades-economicas.index'));
     }
 
-    public function destroy(SubCategoria $actividad_economica)
-    {
+    public function destroy(SubCategoria $actividad_economica){
         $actividad_economica->delete();
         return redirect(route('actividad-economica.index'));
     }
 
-    public function delete($id)
-    {
+    public function delete($id){
         $actividad_economica = SubCategoria::find($id);
         try {
             $actividad_economica->delete();
@@ -164,9 +149,7 @@ class SubCategoriaController extends Controller
         return json_encode($response);
     }
 
-
-    public function status($id)
-    {
+    public function status($id){
         $actividades_economicas = SubCategoria::find($id);
 
         if ($actividades_economicas->estado == "Activo") {
@@ -178,9 +161,7 @@ class SubCategoriaController extends Controller
         return redirect(route('actividad-economica.index'));
     }
 
-
-    function paginate()
-    {
+    function paginate(){
         $actividades_economicas = SubCategoria::where('tipo_categoria', 1)
             ->orderBy('nombre', 'ASC')
             ->with('parent', 'childs')
@@ -188,27 +169,101 @@ class SubCategoriaController extends Controller
         return json_encode($actividades_economicas);
     }
 
-    function filterPaginate()
-    {
+    function filterPaginate(){
         $nombre = "";
         if(request()->has("actividad_economica")){
             $nombre = request("actividad_economica");
         }
         $actividades_economicas = SubCategoria::where('tipo_categoria', 1)
-            ->where(function ($query) use ($nombre) {
-                if (!is_null($nombre) && $nombre != "") {
-                    $query->where('nombre', 'like', '%' . $nombre . '%');
-                }
-            })
-            ->orderBy('nombre', 'ASC')
-            ->with('parent', 'childs')
-            ->paginate(20);
+        ->where(function ($query) use ($nombre) {
+            if (!is_null($nombre) && $nombre != "") {
+                $query->where('nombre', 'like', '%' . $nombre . '%');
+            }
+        })
+        ->orderBy('nombre', 'ASC')
+        ->with('parent', 'childs')
+        ->paginate(20);
         return json_encode($actividades_economicas);
     }
-
-
-    /* LOCALIZACION */
     
+    /* LOCALIZACION */
+    public function indexLocalizacion(){
+        $localizacion = SubCategoria::where('tipo_categoria', 3)
+            ->orderBy('updated_at', 'DESC')
+            ->with('parent', 'childs')
+            ->get();
+        return Inertia::render('Localizacion/Index', [
+            'localizacion' => $localizacion,
+        ]);
+    }
+
+    public function indexJsonLocalizacion(){
+        $localizacion = SubCategoria::where('tipo_categoria', 3)
+            ->orderBy('updated_at', 'DESC')
+            ->with('parent', 'childs')
+            ->get();
+        return json_encode($localizacion);
+    }
+
+    public function createLocalizacion(){
+        $actividades_economicas = SubCategoria::where('tipo_categoria', 3)
+            ->orderBy('updated_at', 'DESC')
+            ->with('parent', 'childs')
+            ->get();
+
+        $sectores = SubCategoria::where('tipo_categoria', 3)
+            ->where('id_padre_sub_categoria', null)
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+
+        return Inertia::render('Localizacion/Crear', [
+            'actividades_economicas' => $actividades_economicas,
+            'solo_sectores' => $sectores,
+        ]);
+    }
+
+    public function storeLocalizacion(Request $request){
+        $request->validate([
+            'id' => 'unique:' . SubCategoria::class,
+            'nombre' => 'required',
+            'tipo_categoria' => 'required',
+        ]);
+        $subcategoria = new SubCategoria;
+        $subcategoria->nombre = $request->nombre;
+        $subcategoria->tipo_categoria = $request->tipo_categoria;
+        if (isset($request->sector) && $request->sector != "") {
+            $subcategoria->id_padre_sub_categoria = intval($request->sector);
+        }
+        if (isset($request->segmento) && $request->segmento != "") {
+            $subcategoria->id_padre_sub_categoria = intval($request->segmento);
+        }
+        try {
+            $subcategoria->save();
+        } catch (Exception $e) {
+            return json_encode($e->getMessage());
+        }
+        return redirect(route('indexLocalizacion'));
+    }
+
+    public function editLocalizacion($id){
+        $ae_actual = SubCategoria::where('id', $id)->with('parent', 'childs')->first();
+        $actividades_economicas = SubCategoria::where('tipo_categoria', 3)
+            ->orderBy('updated_at', 'DESC')
+            ->with('parent', 'childs')
+            ->get();
+
+        $sectores = SubCategoria::where('tipo_categoria', 3)
+            ->where('id_padre_sub_categoria', null)
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+
+        return Inertia::render('Localizacion/Editar', [
+            'actividades_economicas' => $actividades_economicas,
+            'solo_sectores' => $sectores,
+            'ae_actual' => $ae_actual,
+        ]);
+    }
+
     public function updateLocalizacion(Request $request, SubCategoria $actividad_economica){
         $id = $request->id;
         if($request->id != $request->new_id){
@@ -239,97 +294,12 @@ class SubCategoriaController extends Controller
         return redirect(route('indexLocalizacion'));
     }
 
-    public function storeLocalizacion(Request $request)
-    {
-        $request->validate([
-            'id' => 'unique:' . SubCategoria::class,
-            'nombre' => 'required',
-            'tipo_categoria' => 'required',
-        ]);
-        $subcategoria = new SubCategoria;
-        $subcategoria->nombre = $request->nombre;
-        $subcategoria->tipo_categoria = $request->tipo_categoria;
-        if (isset($request->sector) && $request->sector != "") {
-            $subcategoria->id_padre_sub_categoria = intval($request->sector);
-        }
-        if (isset($request->segmento) && $request->segmento != "") {
-            $subcategoria->id_padre_sub_categoria = intval($request->segmento);
-        }
-        try {
-            $subcategoria->save();
-        } catch (Exception $e) {
-            return json_encode($e->getMessage());
-        }
-        return redirect(route('indexLocalizacion'));
-    }
-
-    
-    public function indexLocalizacion()
-    {
-        $localizacion = SubCategoria::where('tipo_categoria', 3)
-            ->orderBy('updated_at', 'DESC')
-            ->with('parent', 'childs')
-            ->get();
-        return Inertia::render('Localizacion/Index', [
-            'localizacion' => $localizacion,
-        ]);
-    }
-
-    public function indexJsonLocalizacion()
-    {
-        $localizacion = SubCategoria::where('tipo_categoria', 3)
-            ->orderBy('updated_at', 'DESC')
-            ->with('parent', 'childs')
-            ->get();
-        return json_encode($localizacion);
-    }
-
-    public function createLocalizacion()
-    {
-        $actividades_economicas = SubCategoria::where('tipo_categoria', 3)
-            ->orderBy('updated_at', 'DESC')
-            ->with('parent', 'childs')
-            ->get();
-
-        $sectores = SubCategoria::where('tipo_categoria', 3)
-            ->where('id_padre_sub_categoria', null)
-            ->orderBy('updated_at', 'DESC')
-            ->get();
-
-        return Inertia::render('Localizacion/Crear', [
-            'actividades_economicas' => $actividades_economicas,
-            'solo_sectores' => $sectores,
-        ]);
-    }
-
-    public function editLocalizacion($id)
-    {
-        $ae_actual = SubCategoria::where('id', $id)->with('parent', 'childs')->first();
-        $actividades_economicas = SubCategoria::where('tipo_categoria', 3)
-            ->orderBy('updated_at', 'DESC')
-            ->with('parent', 'childs')
-            ->get();
-
-        $sectores = SubCategoria::where('tipo_categoria', 3)
-            ->where('id_padre_sub_categoria', null)
-            ->orderBy('updated_at', 'DESC')
-            ->get();
-
-        return Inertia::render('Localizacion/Editar', [
-            'actividades_economicas' => $actividades_economicas,
-            'solo_sectores' => $sectores,
-            'ae_actual' => $ae_actual,
-        ]);
-    }
-
-    public function destroyLocalizacion(SubCategoria $localizacion)
-    {
+    public function destroyLocalizacion(SubCategoria $localizacion){
         $localizacion->deleteLocalizacion();
         return redirect(route('indexLocalizacion'));
     }
 
-    public function deleteLocalizacion($id)
-    {
+    public function deleteLocalizacion($id){
         $actividad_economica = SubCategoria::find($id);
         try {
             $actividad_economica->delete();
@@ -343,9 +313,7 @@ class SubCategoriaController extends Controller
     }
 
     // Tipos de compras
-
-    public function indexTiposCompras()
-    {
+    public function indexTiposCompras(){
         $tiposcompras = SubCategoria::where('tipo_categoria', 5)
             ->orderBy('updated_at', 'DESC')
             ->with('parent', 'childs')
@@ -368,8 +336,7 @@ class SubCategoriaController extends Controller
         ]);
     }
 
-    public function indexJsonTiposCompra()
-    {
+    public function indexJsonTiposCompras(){
         $tiposcompras = SubCategoria::where('tipo_categoria', 5)
             ->orderBy('updated_at', 'DESC')
             ->with('parent', 'childs')
@@ -377,9 +344,8 @@ class SubCategoriaController extends Controller
         return json_encode($tiposcompras);
     }
 
-    public function createTiposCompras()
-    {
-        $tipos_compras = SubCategoria::where('tipo_categoria', 5)
+    public function createTiposCompras(){
+        $tiposcompras = SubCategoria::where('tipo_categoria', 5)
             ->orderBy('updated_at', 'DESC')
             ->with('parent', 'childs')
             ->get();
@@ -390,13 +356,12 @@ class SubCategoriaController extends Controller
             ->get();
 
         return Inertia::render('TiposCompras/Crear', [
-            'tipos_compras' => $tipos_compras,
+            'tiposcompras' => $tiposcompras,
             'solo_sectores' => $sectores,
         ]);
     }
 
-    public function storeTiposCompras(Request $request)
-    {
+    public function storeTiposCompras(Request $request){
         $request->validate([
             'id' => 'unique:' . SubCategoria::class,
             'nombre' => 'required',
@@ -419,8 +384,7 @@ class SubCategoriaController extends Controller
         return redirect(route('indexTiposCompras'));
     }
 
-    public function editTiposCompras($id)
-    {
+    public function editTiposCompras($id){
         $ae_actual = SubCategoria::where('id', $id)->with('parent', 'childs')->first();
         $actividades_economicas = SubCategoria::where('tipo_categoria', 5)
             ->orderBy('updated_at', 'DESC')
@@ -469,14 +433,12 @@ class SubCategoriaController extends Controller
         return redirect(route('indexTiposCompras'));
     }
 
-    public function destroyTiposCompras(SubCategoria $tiposcompras)
-    {
+    public function destroyTiposCompras(SubCategoria $tiposcompras){
         $tiposcompras->deleteTiposCompras();
         return redirect(route('indexTiposCompras'));
     }
 
-    public function deleteTiposCompras($id)
-    {
+    public function deleteTiposCompras($id){
         $actividad_economica = SubCategoria::find($id);
         try {
             $actividad_economica->delete();
@@ -489,35 +451,32 @@ class SubCategoriaController extends Controller
         return json_encode($response);
     }
 
-    public function statusTiposCompras($id)
-    {
-        $tipos_compras = SubCategoria::find($id);
+    public function statusTiposCompras($id){
+        $tiposcompras = SubCategoria::find($id);
 
-        if ($tipos_compras->estado == "Activo") {
-            $tipos_compras->estado = "Inactivo";
+        if ($tiposcompras->estado == "Activo") {
+            $tiposcompras->estado = "Inactivo";
         } else {
-            $tipos_compras->estado = "Activo";
+            $tiposcompras->estado = "Activo";
         }
-        $tipos_compras->save();
+        $tiposcompras->save();
         return redirect(route('indexTiposCompras'));
     }
 
-    function paginateTiposCompras()
-    {
-        $tipos_compras = SubCategoria::where('tipo_categoria', 5)
+    function paginateTiposCompras(){
+        $tiposcompras = SubCategoria::where('tipo_categoria', 5)
             ->orderBy('nombre', 'ASC')
             ->with('parent', 'childs')
             ->paginate(20);
-        return json_encode($tipos_compras);
+        return json_encode($tiposcompras);
     }
 
-    function filterPaginateTiposCompras()
-    {
+    function filterPaginateTiposCompras(){
         $nombre = "";
         if(request()->has("tipo_compra")){
             $nombre = request("tipo_compra");
         }
-        $tipos_compras = SubCategoria::where('tipo_categoria', 5)
+        $tiposcompras = SubCategoria::where('tipo_categoria', 5)
             ->where(function ($query) use ($nombre) {
                 if (!is_null($nombre) && $nombre != "") {
                     $query->where('nombre', 'like', '%' . $nombre . '%');
@@ -526,7 +485,7 @@ class SubCategoriaController extends Controller
             ->orderBy('nombre', 'ASC')
             ->with('parent', 'childs')
             ->paginate(20);
-        return json_encode($tipos_compras);
+        return json_encode($tiposcompras);
     }
 }
 

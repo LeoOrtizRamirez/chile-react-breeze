@@ -101,9 +101,12 @@ export const ModalBusquedaAvanzada = ({
     // Fin Modal actividad
 
     // Inicio Modal actividad
-    const [showBusquedaTiposCompras, setShowBusquedaTiposCompras] = useState(false);
-    const handleCloseBusquedaTiposCompras = () => setShowBusquedaTiposCompras(false);
-    const handleShowBusquedaTiposCompras = () => setShowBusquedaTiposCompras(true);
+    const [showBusquedaTiposCompras, setShowBusquedaTiposCompras] =
+        useState(false);
+    const handleCloseBusquedaTiposCompras = () =>
+        setShowBusquedaTiposCompras(false);
+    const handleShowBusquedaTiposCompras = () =>
+        setShowBusquedaTiposCompras(true);
     // Fin Modal actividad
 
     return (
