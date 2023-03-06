@@ -259,7 +259,7 @@ const Index = ({ auth, actividades_economicas }) => {
             const pattern = new RegExp(e.target.value, "i");
 
             const FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
-                if (pattern.test(el.nombre)) {
+                if (pattern.test(el.nombre) || e.target.value == el.id) {
                     return el;
                 }
             });
@@ -271,7 +271,7 @@ const Index = ({ auth, actividades_economicas }) => {
             var open_sectores = [];
 
             FilteredActividadesEcomomicas.forEach((element) => {
-                //ACTIVIDADES ECONOMICAS
+                //SI ES ACTIVIDAD ECONOMICA, SE GUARDA SECTOR Y SEGMENTOS TAMBIEN
                 if (element.id_abuelo_sub_categoria != null && element.id_padre_sub_categoria != null) {
                     //BUSCAMOS LA ACTIVIDAD ECONOMICA
                     actividades_economicas_filtrados.push(element);
@@ -298,12 +298,21 @@ const Index = ({ auth, actividades_economicas }) => {
                     }
                 }
 
-                //SEGMENTO
+                //SI ES SEGMENTO, SE GUARDA SECTOR TAMBIEN
                 if (element.id_abuelo_sub_categoria == null && element.id_padre_sub_categoria != null) {
                     if (!segmentos_filtrados.includes(element)) {
                         segmentos_filtrados.push(element);
                     }
                     if (!open_sectores.includes(element.id_padre_sub_categoria)) {
+                        open_sectores.push(element.id_padre_sub_categoria);
+                    }
+
+                    //BUSCAMOS EL SECTOR DEL SEGMENTOS
+                    var sector = fakeSectores.filter((fs) => fs.id == element.id_padre_sub_categoria)[0]
+                    if(!sectores_filtrados.includes(sector)){
+                        sectores_filtrados.push(sector);
+                    }
+                    if(!open_sectores.includes(element.id_padre_sub_categoria)){
                         open_sectores.push(element.id_padre_sub_categoria);
                     }
                 }
