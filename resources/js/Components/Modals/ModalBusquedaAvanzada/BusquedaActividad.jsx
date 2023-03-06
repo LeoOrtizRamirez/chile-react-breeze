@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Head } from "@inertiajs/inertia-react";
-import "./BusquedaUbicacion.css";
+import "./BusquedaActividad.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Modal from "react-bootstrap/Modal";
 
-export const BusquedaUbicacion = ({
-    showBusquedaUbicacion,
-    handleCloseBusquedaUbicacion,
+export const BusquedaActividad = ({
+    showBusquedaActividad,
+    handleCloseBusquedaActividad,
 }) => {
     useEffect(() => {
-        fetch("/localizacion/json")
+        fetch("/actividades_economicas/json")
             .then((response) => response.json()) // convertir a json
             .then((data) => setSectores(data)) //imprimir los datos en la consola
             .catch((err) => console.log("Solicitud fallida", err)); // Capturar errores
@@ -380,6 +380,8 @@ export const BusquedaUbicacion = ({
     useEffect(() => {}, [sectores]);
     // console.log("sectores:", sectores);
 
+    console.log("sectores:", sectores);
+
     return (
         <Modal
             size="xl"
@@ -388,47 +390,50 @@ export const BusquedaUbicacion = ({
             backdropClassName=""
             className=""
             centered
-            show={showBusquedaUbicacion}
-            onHide={handleCloseBusquedaUbicacion}
-            id="BusquedaUbicacion"
+            show={showBusquedaActividad}
+            onHide={handleCloseBusquedaActividad}
+            id="BusquedaActividad"
         >
             <>
                 <div className="contenedor-planes">
                     <div className="bg-white overflow-auto w-full text-center margen-superior custom-scroll">
                         <h2 className="name_section_app">
-                            Seleccione la ubicacion
+                            Actividad económica
                         </h2>
                         <div className="container mt-4">
                             <div className="tree_categorias tree_1">
                                 <div className="tree_categorias__busqueda mb-3 mb-md-4">
-                                    <div className="mx-60 mt-30 d-flex justify-content-center">
+                                    <div className="mx-auto">
                                         <input
                                             type="text"
-                                            placeholder="Buscar por ubicacion"
+                                            placeholder="Busca por actividad económica"
                                             autoComplete="off"
-                                            className="form-control busqueda-input"
+                                            className="form-control m-auto"
                                             onKeyDown={
                                                 inputSearchActividadEconomica
                                             }
                                         />
-                                    </div>
-                                    <br></br>
-                                    <ul className="tree-root">
+                                        <i className="icon-Cancelar"></i>
+                                        <button
+                                            type="button"
+                                            className="icon-Buscar-click"
+                                        >
+                                            <i className="bi bi-search"></i>
+                                        </button>
                                         {sectores.map((sector) => (
                                             <>
                                                 {sector.id_padre_sub_categoria ==
                                                     null && (
-                                                    <li
-                                                        className="tree-node has-child draggable"
-                                                        id={
-                                                            "sector_" +
-                                                            sector.id
-                                                        }
-                                                    >
+                                                    <>
                                                         <div
                                                             id={sector.id}
                                                             className="tree-content mt-3 sector"
                                                             key={sector.id}
+                                                            onClick={() =>
+                                                                getSegmento(
+                                                                    sector.id
+                                                                )
+                                                            }
                                                         >
                                                             <i
                                                                 className={`tree-arrow has-child ${
@@ -440,31 +445,8 @@ export const BusquedaUbicacion = ({
                                                                         : ""
                                                                 }`}
                                                             ></i>
-                                                            <input
-                                                                type="checkbox"
-                                                                name="actividad_economica"
-                                                                onChange={() =>
-                                                                    checked(
-                                                                        sector
-                                                                    )
-                                                                }
-                                                                checked={
-                                                                    checksActividadesEconomicas.includes(
-                                                                        sector.id
-                                                                    )
-                                                                        ? "checked"
-                                                                        : ""
-                                                                }
-                                                            />
                                                             <span className="tree-anchor">
-                                                                <span
-                                                                    className="tree-division tree-division1"
-                                                                    onClick={() =>
-                                                                        getSegmento(
-                                                                            sector.id
-                                                                        )
-                                                                    }
-                                                                >
+                                                                <span className="tree-division tree-division1">
                                                                     <span className="tree-division__title my-auto">
                                                                         {
                                                                             sector.nombre
@@ -473,6 +455,7 @@ export const BusquedaUbicacion = ({
                                                                 </span>
                                                             </span>
                                                         </div>
+                                                        {/* {showSegmento && sector.id == selectedSegmento && */}
                                                         {openSegmentos.includes(
                                                             sector.id
                                                         ) && (
@@ -486,30 +469,19 @@ export const BusquedaUbicacion = ({
                                                                             {sector.id ==
                                                                                 segmento.id_padre_sub_categoria && (
                                                                                 <li
-                                                                                    className="tree-node has-child draggable segmento"
-                                                                                    id={
-                                                                                        "segmento_" +
-                                                                                        segmento.id
-                                                                                    }
+                                                                                    data-id="20504"
+                                                                                    className="tree-node has-child expanded draggable"
                                                                                 >
-                                                                                    <div className="tree-content segmento">
-                                                                                        <i className="tree-arrow has-child ltr"></i>
-                                                                                        <input
-                                                                                            type="checkbox"
-                                                                                            name="actividad_economica"
-                                                                                            onChange={() =>
-                                                                                                checked(
-                                                                                                    segmento
-                                                                                                )
-                                                                                            }
-                                                                                            checked={
-                                                                                                checksActividadesEconomicas.includes(
-                                                                                                    segmento.id
-                                                                                                )
-                                                                                                    ? "checked"
-                                                                                                    : ""
-                                                                                            }
-                                                                                        />
+                                                                                    <div
+                                                                                        className="tree-content segmento"
+                                                                                        onClick={() =>
+                                                                                            getActividadEconomica(
+                                                                                                segmento.id
+                                                                                            )
+                                                                                        }
+                                                                                    >
+                                                                                        <i className="tree-arrow expanded has-child ltr"></i>
+                                                                                        {/* <i className="tree-checkbox"></i> */}
                                                                                         <span className="tree-anchor">
                                                                                             <span className="tree-division tree-division1">
                                                                                                 <>
@@ -532,6 +504,64 @@ export const BusquedaUbicacion = ({
                                                                                             </span>
                                                                                         </span>
                                                                                     </div>
+
+                                                                                    {/* {showActividadEconomica && selectedActividadEconomica == segmento.id && */}
+                                                                                    {openActividadesEconomicas.includes(
+                                                                                        segmento.id
+                                                                                    ) && (
+                                                                                        <ul className="tree-children">
+                                                                                            {actividadesEconomicas.map(
+                                                                                                (
+                                                                                                    childs,
+                                                                                                    index
+                                                                                                ) => (
+                                                                                                    <>
+                                                                                                        {segmento.id ==
+                                                                                                            childs.id_padre_sub_categoria && (
+                                                                                                            <li className="tree-node draggable">
+                                                                                                                <div
+                                                                                                                    className="tree-content actividad-economica"
+                                                                                                                    onClick={() =>
+                                                                                                                        checked(
+                                                                                                                            childs
+                                                                                                                        )
+                                                                                                                    }
+                                                                                                                >
+                                                                                                                    <input
+                                                                                                                        type="radio"
+                                                                                                                        name="actividad_economica"
+                                                                                                                        onChange={() =>
+                                                                                                                            checked(
+                                                                                                                                childs
+                                                                                                                            )
+                                                                                                                        }
+                                                                                                                        checked={
+                                                                                                                            childs.id ==
+                                                                                                                            inputActividadEconomica.id
+                                                                                                                                ? "checked"
+                                                                                                                                : ""
+                                                                                                                        }
+                                                                                                                    />
+                                                                                                                    <span className="tree-anchor children">
+                                                                                                                        <span className="tree-division tree-division1">
+                                                                                                                            {/*  <span className="tree-division__title my-auto">{childs.nombre}</span> */}
+                                                                                                                            <>
+                                                                                                                                <span className="tree-division__title my-auto">
+                                                                                                                                    {
+                                                                                                                                        childs.nombre
+                                                                                                                                    }
+                                                                                                                                </span>
+                                                                                                                            </>
+                                                                                                                        </span>
+                                                                                                                    </span>
+                                                                                                                </div>
+                                                                                                            </li>
+                                                                                                        )}
+                                                                                                    </>
+                                                                                                )
+                                                                                            )}
+                                                                                        </ul>
+                                                                                    )}
                                                                                 </li>
                                                                             )}
                                                                         </>
@@ -539,21 +569,13 @@ export const BusquedaUbicacion = ({
                                                                 )}
                                                             </ul>
                                                         )}
-                                                    </li>
+                                                    </>
                                                 )}
                                             </>
                                         ))}
-                                    </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="perfil-bottons-footer position-relative text-center mt-4">
-                            <button
-                                type="button"
-                                className="btn btnRadius btn-new-blue"
-                            >
-                                Siguiente
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -562,4 +584,4 @@ export const BusquedaUbicacion = ({
     );
 };
 
-export default BusquedaUbicacion;
+export default BusquedaActividad;

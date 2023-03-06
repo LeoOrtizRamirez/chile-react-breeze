@@ -42,18 +42,6 @@ class SubCategoriaController extends Controller
             ->orderBy('updated_at', 'DESC')
             ->with('parent', 'childs')
             ->get();
-        //Buscar id del grandparent y agregarlo a la actividad economica
-        foreach ($actividades_economicas as $key => $ac) {
-            $model = SubCategoria::find($ac->id);
-            $ac->id_abuelo_sub_categoria = null;
-            if($model->id_padre_sub_categoria != null){
-                $parent = SubCategoria::find($model->id_padre_sub_categoria);
-                if($parent->id_padre_sub_categoria != null){
-                    $grandparent = SubCategoria::find($parent->id_padre_sub_categoria);
-                    $ac->id_abuelo_sub_categoria = $grandparent->id;
-                }
-            }
-        }
         return json_encode($actividades_economicas);
     }
 
@@ -354,92 +342,6 @@ class SubCategoriaController extends Controller
         return json_encode($response);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // Tipos de compras
 
     public function indexTiposCompras()
@@ -464,6 +366,15 @@ class SubCategoriaController extends Controller
         return Inertia::render('TiposCompras/Index', [
             'tiposcompras' => $tiposcompras,
         ]);
+    }
+
+    public function indexJsonTiposCompra()
+    {
+        $tiposcompras = SubCategoria::where('tipo_categoria', 5)
+            ->orderBy('updated_at', 'DESC')
+            ->with('parent', 'childs')
+            ->get();
+        return json_encode($tiposcompras);
     }
 
     public function createTiposCompras()
