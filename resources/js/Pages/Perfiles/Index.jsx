@@ -123,11 +123,11 @@ const Index = ({ auth, actividades_economicas }) => {
         if (segmentos.length > 0) {//Click en check sector
             if (!array_checks.includes(current.id)) {//Si no esta seleccionado el sector
                 array_checks.push(current.id)//Se agrega el sector
-                array_checks = deleteAll(array_checks, segmentos, 'segmento')
-                array_checks = checkedAll(array_checks, segmentos, 'segmento')
+                array_checks = toggleCheked(array_checks, segmentos, 'segmento', 'remove')
+                array_checks = toggleCheked(array_checks, segmentos, 'segmento', 'add')
             } else {//Si ya esta seleccionado el sector
                 array_checks = deleteActividadEconomica(array_checks, current)//Se elimina el sector
-                array_checks = deleteAll(array_checks, segmentos, 'segmento')
+                array_checks = toggleCheked(array_checks, segmentos, 'segmento', 'remove')
             }
         } else {//Click en segmento o actividad economica
             var actividades_economicas = fakeSectores.filter(fs => fs.id_padre_sub_categoria == current.id)
@@ -135,10 +135,10 @@ const Index = ({ auth, actividades_economicas }) => {
             if (actividades_economicas.length > 0) {//Click en segmento
                 if (!array_checks.includes(current.id)) {
                     array_checks.push(current.id)
-                    array_checks = checkedAll(array_checks, actividades_economicas, 'actividad_economica')
+                    array_checks = toggleCheked(array_checks, actividades_economicas, 'actividad_economica', 'add')
                 } else {
                     array_checks = deleteActividadEconomica(array_checks, current)
-                    array_checks = deleteAll(array_checks, actividades_economicas, 'actividad_economica')
+                    array_checks = toggleCheked(array_checks, actividades_economicas, 'actividad_economica', 'remove')
                 }
             } else {//Click en actividad economica
                 if (!array_checks.includes(current.id)) {
@@ -160,29 +160,30 @@ const Index = ({ auth, actividades_economicas }) => {
     }
 
     //Se eliminan los segmentos y actividades economicas
-    const deleteAll = (array, sectores, level = null) => {
+    const toggleCheked = (array, sectores, level = null, action) => {
         sectores.forEach(sc => {
-            array = deleteActividadEconomica(array, sc)
-            if (level == 'segmento') {
-                const actividades_economicas = fakeSectores.filter(fsa => fsa.id_padre_sub_categoria == sc.id)
-                actividades_economicas.forEach(ac => {
-                    array = deleteActividadEconomica(array, ac)
-                })
-            }
-        })
-        return array
-    }
+            switch (action) {
+                case 'add':
+                    array.push(sc.id)
+                    if (level == 'segmento') {
+                        const actividades_economicas = fakeSectores.filter(fsa => fsa.id_padre_sub_categoria == sc.id)
+                        actividades_economicas.forEach(ac => {
+                            array.push(ac.id)
+                        })
+                    }
+                    break;
+                case 'remove':
+                    array = deleteActividadEconomica(array, sc)
+                    if (level == 'segmento') {
+                        const actividades_economicas = fakeSectores.filter(fsa => fsa.id_padre_sub_categoria == sc.id)
+                        actividades_economicas.forEach(ac => {
+                            array = deleteActividadEconomica(array, ac)
+                        })
+                    }
+                    break;
 
-    //Se eliminan los segmentos y actividades economicas
-    const checkedAll = (array, sectores, level = null) => {
-        sectores.forEach(sc => {
-            array.push(sc.id)
-
-            if (level == 'segmento') {
-                const actividades_economicas = fakeSectores.filter(fsa => fsa.id_padre_sub_categoria == sc.id)
-                actividades_economicas.forEach(ac => {
-                    array.push(ac.id)
-                })
+                default:
+                    break;
             }
         })
         return array
