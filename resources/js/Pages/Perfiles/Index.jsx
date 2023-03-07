@@ -249,7 +249,7 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
                         segmentos_filtrados.push(element);
                     }
                     if (!open_sectores.includes(element.id_padre_sub_categoria)) {
-                        open_sectores.push(element.id_padre_sub_categoria);
+                        open_segmentos.push(element.id);
                     }
 
                     //BUSCAMOS EL SECTOR DEL SEGMENTOS
@@ -266,6 +266,9 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
                 if (element.id_abuelo_sub_categoria == null && element.id_padre_sub_categoria == null) {
                     if (!sectores_filtrados.includes(element)) {
                         sectores_filtrados.push(element);
+                    }
+                    if (!open_sectores.includes(element.id)) {
+                        open_sectores.push(element.id);
                     }
                 }
             });
@@ -577,7 +580,6 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
     useEffect(() => { setContenedorPaso3Localizaciones(false) }, [])
 
     const SiguientePaso2 = () => {
-        console.log("paso 2");
         setContenedorPaso1Actividades(false)
         setContenedorPaso2TipoCompras(true)
         setcontenedorBotonVolver(true)
