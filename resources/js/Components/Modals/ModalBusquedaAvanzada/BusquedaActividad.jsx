@@ -373,307 +373,257 @@ export const BusquedaActividad = ({
             onHide={handleCloseBusquedaActividad}
             id="BusquedaActividad"
         >
-            <>
-                <div className="contenedor-planes">
-                    <div className="bg-white overflow-auto w-full text-center margen-superior custom-scroll">
-                        {/* <h2 className="name_section_app">Crear perfil de negocio</h2>
-                    <div className="perfil-guias">
-                        <ul>
-                            <li>
-                                <div className="perfil-guias__indicador perfil-guias__indicador--activo">
-                                    <i className="icon-Paso-1-click"></i> <span>Actividad económica</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div> */}
-                        <h2 className="perfiles-titulos crear">
-                            <span className="c-verde">Crea</span> tu primer
-                            perfil de negocio
-                        </h2>
-                        <div className="container mt-4">
-                            <div className="tree_categorias tree_1">
-                                <div className="tree_categorias__busqueda mb-3 mb-md-4">
-                                    {/* <div className="mx-auto">
+            <Modal.Header closeButton>
+                <h2 className="name_section_app">
+                    Selecciona la(s) actividad(es) economica(s) de tu interes.
+                </h2>
+            </Modal.Header>
+            <Modal.Body className="contenedor-planes">
+                <div className="bg-white overflow-auto w-full text-center margen-superior custom-scroll">
+                    <div className="container mt-4">
+                        <div className="tree_categorias tree_1">
+                            <div className="tree_categorias__busqueda mb-3 mb-md-4">
+                                <div className="mx-60 mt-30 d-flex justify-content-center">
                                     <input
                                         type="text"
                                         placeholder="Busca por actividad económica o UNSPSC"
-                                        autocomplete="off"
-                                        className="form-control"
+                                        autoComplete="off"
+                                        className="form-control busqueda-input"
                                         onKeyDown={
                                             inputSearchActividadEconomica
                                         }
                                     />
-                                    <i className="icon-Cancelar" style="display: none;"></i>
-                                    <button type="button" className="icon-Buscar-click"></button>
-                                </div> */}
-                                    <div className="perfil-guias__indicador perfil-guias__indicador--activo">
-                                        <i className="icon-Paso-1-click"></i>{" "}
-                                        <span>Actividad económica</span>
-                                    </div>
-                                    <div className="mx-60 mt-30 d-flex">
-                                        <button
-                                            type="button"
-                                            className="icon-Buscar-click"
-                                        >
-                                            {/* <i className="bi bi-search"></i> */}
-                                        </button>
-                                        <input
-                                            type="text"
-                                            placeholder="Busca por actividad económica o UNSPSC"
-                                            autoComplete="off"
-                                            className="form-control busqueda-input"
-                                            onKeyDown={
-                                                inputSearchActividadEconomica
-                                            }
-                                        />
-                                        <h2 className="perfiles-titulos d-flex">
-                                            {" "}
-                                            Pais de contratación
-                                            <img
-                                                class="bandera"
-                                                src="/public/images/banderas/listado_nombres/CHL.svg"
-                                                alt="Bandera Chile"
-                                            />
-                                        </h2>
-                                    </div>
-                                    <br></br>
-                                    <ul className="tree-root">
-                                        {sectores.map((sector) => (
-                                            <>
-                                                {sector.id_padre_sub_categoria ==
-                                                    null && (
-                                                    <li
-                                                        className={`tree-node has-child draggable ${
-                                                            openSegmentos.includes(
-                                                                sector.id
-                                                            )
-                                                                ? "expanded"
-                                                                : ""
-                                                        }`}
-                                                        id={
-                                                            "sector_" +
+                                </div>
+                                <br></br>
+                                <ul className="tree-root">
+                                    {sectores.map((sector) => (
+                                        <>
+                                            {sector.id_padre_sub_categoria ==
+                                                null && (
+                                                <li
+                                                    className={`tree-node has-child draggable ${
+                                                        openSegmentos.includes(
                                                             sector.id
-                                                        }
-                                                    >
-                                                        <div
-                                                            id={sector.id}
-                                                            className="tree-content mt-3 sector"
-                                                            key={sector.id}
-                                                            /* onClick={() =>
+                                                        )
+                                                            ? "expanded"
+                                                            : ""
+                                                    }`}
+                                                    id={"sector_" + sector.id}
+                                                >
+                                                    <div
+                                                        id={sector.id}
+                                                        className="tree-content mt-3 sector"
+                                                        key={sector.id}
+                                                        /* onClick={() =>
                                                             getSegmento(
                                                                 sector.id
                                                             )
                                                         } */
-                                                        >
-                                                            <i
-                                                                className={`tree-arrow has-child ${
-                                                                    sector
-                                                                        .childs
-                                                                        .length >
-                                                                    0
-                                                                        ? "bi bi-chevron-down"
-                                                                        : ""
-                                                                }`}
-                                                            ></i>
-                                                            <input
-                                                                type="checkbox"
-                                                                name="actividad_economica"
-                                                                onChange={() =>
-                                                                    checked(
-                                                                        sector
-                                                                    )
-                                                                }
-                                                                checked={
-                                                                    /* childs.id == inputActividadEconomica.id */
+                                                    >
+                                                        <i
+                                                            className={`tree-arrow has-child ${
+                                                                sector.childs
+                                                                    .length > 0
+                                                                    ? "bi bi-chevron-down"
+                                                                    : ""
+                                                            }`}
+                                                        ></i>
+                                                        <input
+                                                            type="checkbox"
+                                                            name="actividad_economica"
+                                                            onChange={() =>
+                                                                checked(sector)
+                                                            }
+                                                            checked={
+                                                                /* childs.id == inputActividadEconomica.id */
 
-                                                                    checksActividadesEconomicas.includes(
+                                                                checksActividadesEconomicas.includes(
+                                                                    sector.id
+                                                                )
+                                                                    ? "checked"
+                                                                    : ""
+                                                            }
+                                                        />
+                                                        <span className="tree-anchor">
+                                                            <span
+                                                                className="tree-division tree-division1"
+                                                                onClick={() =>
+                                                                    getSegmento(
                                                                         sector.id
                                                                     )
-                                                                        ? "checked"
-                                                                        : ""
                                                                 }
-                                                            />
-                                                            <span className="tree-anchor">
-                                                                <span
-                                                                    className="tree-division tree-division1"
-                                                                    onClick={() =>
-                                                                        getSegmento(
-                                                                            sector.id
-                                                                        )
+                                                            >
+                                                                <span className="tree-division__title my-auto">
+                                                                    {
+                                                                        sector.nombre
                                                                     }
-                                                                >
-                                                                    <span className="tree-division__title my-auto">
-                                                                        {
-                                                                            sector.nombre
-                                                                        }
-                                                                    </span>
                                                                 </span>
                                                             </span>
-                                                        </div>
-                                                        {/* {showSegmento && sector.id == selectedSegmento && */}
-                                                        {openSegmentos.includes(
-                                                            sector.id
-                                                        ) && (
-                                                            <ul className="tree-children new-class">
-                                                                {segmentos.map(
-                                                                    (
-                                                                        segmento,
-                                                                        index
-                                                                    ) => (
-                                                                        <>
-                                                                            {sector.id ==
-                                                                                segmento.id_padre_sub_categoria && (
-                                                                                <li
-                                                                                    className={`tree-node has-child draggable segmento ${
-                                                                                        openActividadesEconomicas.includes(
-                                                                                            segmento.id
-                                                                                        )
-                                                                                            ? "expanded"
-                                                                                            : ""
-                                                                                    }`}
-                                                                                    id={
-                                                                                        "segmento_" +
+                                                        </span>
+                                                    </div>
+                                                    {/* {showSegmento && sector.id == selectedSegmento && */}
+                                                    {openSegmentos.includes(
+                                                        sector.id
+                                                    ) && (
+                                                        <ul className="tree-children new-class">
+                                                            {segmentos.map(
+                                                                (
+                                                                    segmento,
+                                                                    index
+                                                                ) => (
+                                                                    <>
+                                                                        {sector.id ==
+                                                                            segmento.id_padre_sub_categoria && (
+                                                                            <li
+                                                                                className={`tree-node has-child draggable segmento ${
+                                                                                    openActividadesEconomicas.includes(
                                                                                         segmento.id
-                                                                                    }
-                                                                                >
-                                                                                    <div className="tree-content segmento">
-                                                                                        <i className="tree-arrow has-child ltr"></i>
-                                                                                        {/* <i className="tree-checkbox"></i> */}
-                                                                                        <input
-                                                                                            type="checkbox"
-                                                                                            name="actividad_economica"
-                                                                                            onChange={() =>
-                                                                                                checked(
-                                                                                                    segmento
-                                                                                                )
-                                                                                            }
-                                                                                            checked={
-                                                                                                /* childs.id == inputActividadEconomica.id */
+                                                                                    )
+                                                                                        ? "expanded"
+                                                                                        : ""
+                                                                                }`}
+                                                                                id={
+                                                                                    "segmento_" +
+                                                                                    segmento.id
+                                                                                }
+                                                                            >
+                                                                                <div className="tree-content segmento">
+                                                                                    <i className="tree-arrow has-child ltr"></i>
+                                                                                    {/* <i className="tree-checkbox"></i> */}
+                                                                                    <input
+                                                                                        type="checkbox"
+                                                                                        name="actividad_economica"
+                                                                                        onChange={() =>
+                                                                                            checked(
+                                                                                                segmento
+                                                                                            )
+                                                                                        }
+                                                                                        checked={
+                                                                                            /* childs.id == inputActividadEconomica.id */
 
-                                                                                                checksActividadesEconomicas.includes(
+                                                                                            checksActividadesEconomicas.includes(
+                                                                                                segmento.id
+                                                                                            )
+                                                                                                ? "checked"
+                                                                                                : ""
+                                                                                        }
+                                                                                    />
+                                                                                    <span className="tree-anchor">
+                                                                                        <span
+                                                                                            className="tree-division tree-division1"
+                                                                                            onClick={() =>
+                                                                                                getActividadEconomica(
                                                                                                     segmento.id
                                                                                                 )
-                                                                                                    ? "checked"
-                                                                                                    : ""
                                                                                             }
-                                                                                        />
-                                                                                        <span className="tree-anchor">
-                                                                                            <span
-                                                                                                className="tree-division tree-division1"
-                                                                                                onClick={() =>
-                                                                                                    getActividadEconomica(
-                                                                                                        segmento.id
-                                                                                                    )
-                                                                                                }
-                                                                                            >
-                                                                                                <>
-                                                                                                    {index %
-                                                                                                        2 ==
-                                                                                                    0 ? (
-                                                                                                        <span className="tree-division__title my-auto">
-                                                                                                            {
-                                                                                                                segmento.nombre
-                                                                                                            }
-                                                                                                        </span>
-                                                                                                    ) : (
-                                                                                                        <span className="tree-division__title-gray my-auto">
-                                                                                                            {
-                                                                                                                segmento.nombre
-                                                                                                            }
-                                                                                                        </span>
-                                                                                                    )}
-                                                                                                </>
-                                                                                            </span>
+                                                                                        >
+                                                                                            <>
+                                                                                                {index %
+                                                                                                    2 ==
+                                                                                                0 ? (
+                                                                                                    <span className="tree-division__title my-auto">
+                                                                                                        {
+                                                                                                            segmento.nombre
+                                                                                                        }
+                                                                                                    </span>
+                                                                                                ) : (
+                                                                                                    <span className="tree-division__title-gray my-auto">
+                                                                                                        {
+                                                                                                            segmento.nombre
+                                                                                                        }
+                                                                                                    </span>
+                                                                                                )}
+                                                                                            </>
                                                                                         </span>
-                                                                                    </div>
+                                                                                    </span>
+                                                                                </div>
 
-                                                                                    {/* {showActividadEconomica && selectedActividadEconomica == segmento.id && */}
-                                                                                    {openActividadesEconomicas.includes(
-                                                                                        segmento.id
-                                                                                    ) && (
-                                                                                        <ul className="tree-children actividad-economica">
-                                                                                            {actividadesEconomicas.map(
-                                                                                                (
-                                                                                                    childs,
-                                                                                                    index
-                                                                                                ) => (
-                                                                                                    <>
-                                                                                                        {segmento.id ==
-                                                                                                            childs.id_padre_sub_categoria && (
-                                                                                                            <li className="tree-node draggable">
-                                                                                                                <div
-                                                                                                                    className="tree-content actividad-economica"
-                                                                                                                    onClick={() =>
+                                                                                {/* {showActividadEconomica && selectedActividadEconomica == segmento.id && */}
+                                                                                {openActividadesEconomicas.includes(
+                                                                                    segmento.id
+                                                                                ) && (
+                                                                                    <ul className="tree-children actividad-economica">
+                                                                                        {actividadesEconomicas.map(
+                                                                                            (
+                                                                                                childs,
+                                                                                                index
+                                                                                            ) => (
+                                                                                                <>
+                                                                                                    {segmento.id ==
+                                                                                                        childs.id_padre_sub_categoria && (
+                                                                                                        <li className="tree-node draggable">
+                                                                                                            <div
+                                                                                                                className="tree-content actividad-economica"
+                                                                                                                onClick={() =>
+                                                                                                                    checked(
+                                                                                                                        childs
+                                                                                                                    )
+                                                                                                                }
+                                                                                                            >
+                                                                                                                {/* {childs.id} */}
+                                                                                                                <input
+                                                                                                                    type="checkbox"
+                                                                                                                    name="actividad_economica"
+                                                                                                                    onChange={() =>
                                                                                                                         checked(
                                                                                                                             childs
                                                                                                                         )
                                                                                                                     }
-                                                                                                                >
-                                                                                                                    {/* {childs.id} */}
-                                                                                                                    <input
-                                                                                                                        type="checkbox"
-                                                                                                                        name="actividad_economica"
-                                                                                                                        onChange={() =>
-                                                                                                                            checked(
-                                                                                                                                childs
-                                                                                                                            )
-                                                                                                                        }
-                                                                                                                        checked={
-                                                                                                                            /* childs.id == inputActividadEconomica.id */
+                                                                                                                    checked={
+                                                                                                                        /* childs.id == inputActividadEconomica.id */
 
-                                                                                                                            checksActividadesEconomicas.includes(
-                                                                                                                                childs.id
-                                                                                                                            )
-                                                                                                                                ? "checked"
-                                                                                                                                : ""
-                                                                                                                        }
-                                                                                                                    />
-                                                                                                                    <span className="tree-anchor children">
-                                                                                                                        <span className="tree-division tree-division1">
-                                                                                                                            {/*  <span className="tree-division__title my-auto">{childs.nombre}</span> */}
-                                                                                                                            <>
-                                                                                                                                <span className="tree-division__title my-auto">
-                                                                                                                                    {
-                                                                                                                                        childs.nombre
-                                                                                                                                    }
-                                                                                                                                </span>
-                                                                                                                            </>
-                                                                                                                        </span>
+                                                                                                                        checksActividadesEconomicas.includes(
+                                                                                                                            childs.id
+                                                                                                                        )
+                                                                                                                            ? "checked"
+                                                                                                                            : ""
+                                                                                                                    }
+                                                                                                                />
+                                                                                                                <span className="tree-anchor children">
+                                                                                                                    <span className="tree-division tree-division1">
+                                                                                                                        {/*  <span className="tree-division__title my-auto">{childs.nombre}</span> */}
+                                                                                                                        <>
+                                                                                                                            <span className="tree-division__title my-auto">
+                                                                                                                                {
+                                                                                                                                    childs.nombre
+                                                                                                                                }
+                                                                                                                            </span>
+                                                                                                                        </>
                                                                                                                     </span>
-                                                                                                                </div>
-                                                                                                            </li>
-                                                                                                        )}
-                                                                                                    </>
-                                                                                                )
-                                                                                            )}
-                                                                                        </ul>
-                                                                                    )}
-                                                                                </li>
-                                                                            )}
-                                                                        </>
-                                                                    )
-                                                                )}
-                                                            </ul>
-                                                        )}
-                                                    </li>
-                                                )}
-                                            </>
-                                        ))}
-                                    </ul>
-                                </div>
+                                                                                                                </span>
+                                                                                                            </div>
+                                                                                                        </li>
+                                                                                                    )}
+                                                                                                </>
+                                                                                            )
+                                                                                        )}
+                                                                                    </ul>
+                                                                                )}
+                                                                            </li>
+                                                                        )}
+                                                                    </>
+                                                                )
+                                                            )}
+                                                        </ul>
+                                                    )}
+                                                </li>
+                                            )}
+                                        </>
+                                    ))}
+                                </ul>
                             </div>
                         </div>
-                        <div className="perfil-bottons-footer position-relative text-center mt-4">
-                            <button
-                                type="button"
-                                className="btn btnRadius btn-new-blue"
-                            >
-                                Siguiente
-                            </button>
-                        </div>
+                    </div>
+                    <div className="perfil-bottons-footer position-relative text-center mt-4">
+                        <button
+                            type="button"
+                            className="btn btnRadius btn-new-green"
+                        >
+                            Seleccionar
+                        </button>
                     </div>
                 </div>
-            </>
+            </Modal.Body>
         </Modal>
     );
 };

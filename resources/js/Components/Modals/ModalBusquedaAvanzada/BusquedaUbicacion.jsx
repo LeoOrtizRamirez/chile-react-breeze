@@ -393,11 +393,13 @@ export const BusquedaUbicacion = ({
             id="BusquedaUbicacion"
         >
             <>
-                <div className="contenedor-planes">
+                <Modal.Header closeButton className="header">
+                    <h2 className="name_section_app">
+                        Seleccione la ubicacion
+                    </h2>
+                </Modal.Header>
+                <Modal.Body className="contenedor-planes" id="">
                     <div className="bg-white overflow-auto w-full text-center margen-superior custom-scroll">
-                        <h2 className="name_section_app">
-                            Seleccione la ubicacion
-                        </h2>
                         <div className="container mt-4">
                             <div className="tree_categorias tree_1">
                                 <div className="tree_categorias__busqueda mb-3 mb-md-4">
@@ -550,13 +552,13 @@ export const BusquedaUbicacion = ({
                         <div className="perfil-bottons-footer position-relative text-center mt-4">
                             <button
                                 type="button"
-                                className="btn btnRadius btn-new-blue"
+                                className="btn btnRadius btn-new-green"
                             >
-                                Siguiente
+                                Seleccionar
                             </button>
                         </div>
                     </div>
-                </div>
+                </Modal.Body>
             </>
         </Modal>
     );
