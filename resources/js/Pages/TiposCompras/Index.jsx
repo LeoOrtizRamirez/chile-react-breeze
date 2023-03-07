@@ -29,15 +29,10 @@ const Index = ({ auth, tiposcompras }) => {
     const [showModalTipoCompra, setShowModalTipoCompra] = useState(false);
     const handleCloseModalTipoCompra = () => setShowModalTipoCompra(false);
 
-
    /*  const [showSegmento, setShowSegmento] = useState(false);
     const [showTipoCompra, setShowTipoCompra] = useState(false);
     const [selectedSegmento, setSelectedSegmento] = useState(0);
     const [selectedTipoCompra, setSelectedTipoCompra] = useState(0); */
-
- 
-
-    
 
     const handleShowModalTipoCompra = () => {
         if (inputTiposCompras.id != 0) {
@@ -95,42 +90,7 @@ const Index = ({ auth, tiposcompras }) => {
         });
     };
 
-    const getTiposCompras = (parent) => {
-        if (openTiposCompras.includes(parent)) {
-            //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY OPENTIPOSCOMPRAS
-            setOpenTiposCompras(
-                openTiposCompras.filter((element) => element != parent)
-            );
-        } else {
-            //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY OPENTIPOSCOMPRAS
-            setOpenTiposCompras([...openTiposCompras, parent]); //SE AÑADE EL NUEVO PARENT
-        }
-
-        //SE BUSCAN LOS SEGMENTOS QUE TENGAN EL id_padre_sub_categoria == AL SECTOR QUE SE LE DIO CLICK
-        const pattern = new RegExp(parent, "i");
-        const FilteredTiposCompras = sectoresTipoCompras.filter(function (el) {
-            if (pattern.test(el.id_padre_sub_categoria)) {
-                return el;
-            }
-        });
-
-        //EN LOS SEGMENTOS QUE SE ENCONTRARON
-        FilteredTiposCompras.forEach((element) => {
-            if (!tiposCompras.includes(element)) {
-                //SI NO EXISTE, SE AGREGA
-                tiposCompras.push(element);
-            } else {
-                //SI YA EXISTE, SE ELIMINA
-                const resultado = tiposCompras.filter(
-                    (segmento) => segmento.id_padre_sub_categoria != parent
-                );
-                setTiposCompras(resultado);
-            }
-        });
-        setSelectedTipoCompra(parent);
-    };
-
-    const checked = (tipo_compra) => {
+    const checkedTipoCompra = (tipo_compra) => {
         setInputTiposCompras(tipo_compra);
     };
 
@@ -335,7 +295,7 @@ const Index = ({ auth, tiposcompras }) => {
                                                                                             data-id="20504"
                                                                                             className="tree-node has-child expanded draggable"
                                                                                             onClick={() =>
-                                                                                                checked(
+                                                                                                checkedTipoCompra(
                                                                                                     segmento
                                                                                                 )
                                                                                             }
@@ -353,7 +313,7 @@ const Index = ({ auth, tiposcompras }) => {
                                                                                                     type="radio"
                                                                                                     name="tipo_compra"
                                                                                                     onClick={() =>
-                                                                                                        checked(
+                                                                                                        checkedTipoCompra(
                                                                                                             segmento
                                                                                                         )
                                                                                                     }
