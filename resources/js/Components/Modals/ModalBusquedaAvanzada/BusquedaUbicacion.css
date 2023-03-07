@@ -1,50 +1,64 @@
-.mx-60 {
+#BusquedaUbicacion .modal-body,
+#BusquedaUbicacion .modal-content {
+    padding: 0px 0px 5px 0px !important;
+}
+
+#BusquedaUbicacion .modal.show .modal-dialog {
+    transform: none;
+    height: 0px;
+    /* margin-top: 55px; */
+}
+
+#BusquedaUbicacion .mx-60 {
     margin-left: 60px;
     margin-right: 60px;
 }
-.mt-30 {
-    margin-top: 30px;
+
+#BusquedaUbicacion .mt-30 {
+    margin-top: 0px;
 }
 
-input.form-control.busqueda-input {
-    width: 50%;
+#BusquedaUbicacion input.form-control.busqueda-input {
+    width: 60%;
+    height: 35px;
 }
-.contenedor-planes {
+
+#BusquedaUbicacion .contenedor-planes {
     display: flex;
     flex-direction: row;
 }
 
-body {
+#BusquedaUbicacion body {
     overflow-y: hidden !important;
     overflow-x: hidden !important;
 }
 
-a {
+#BusquedaUbicacion a {
     text-align: center;
     font-weight: bold;
     color: unset !important;
     text-decoration: none !important;
 }
 
-ul {
+#BusquedaUbicacion ul {
     padding-left: 0px !important;
 }
 
-html {
+#BusquedaUbicacion html {
     background-color: #f3f4f6;
 }
 
-input.btn.btn-info {
+#BusquedaUbicacion input.btn.btn-info {
     background: #1383ac;
     border-color: #1383ac;
     color: #fff;
 }
 
-th {
-    font-size: 12px;
+#BusquedaUbicacion th {
+    font-size: 12px !important;
 }
 
-.planes {
+#BusquedaUbicacion .planes {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -58,20 +72,20 @@ th {
     margin-bottom: -5px;
 }
 
-.margen-superior {
+/* #BusquedaUbicacion .margen-superior {
     margin-top: 10px !important;
-}
+} */
 
-.contenedor-botones {
+#BusquedaUbicacion .contenedor-botones {
     display: flex;
     flex-direction: row;
 }
 
-.actualizar-color {
+#BusquedaUbicacion .actualizar-color {
     color: #00a1c9;
 }
 
-.autorenew {
+#BusquedaUbicacion .autorenew {
     background-color: #ffffff;
     width: 35px;
     height: 35px;
@@ -83,7 +97,7 @@ th {
     color: black;
 }
 
-.add_circle {
+#BusquedaUbicacion .add_circle {
     background-color: rgb(58, 182, 0);
     width: 35px;
     height: 35px;
@@ -93,47 +107,49 @@ th {
     padding: 5px;
 }
 
-.material-symbols-outlined-color {
+#BusquedaUbicacion .material-symbols-outlined-color {
     color: white;
 }
 
-.tree-content {
+#BusquedaUbicacion .tree-content {
     cursor: pointer;
 }
 
-.tree-content:hover {
+#BusquedaUbicacion .tree-content:hover {
+    padding-top: 10px;
     background: #f6f8fb;
 }
 
-.tree_categorias__busqueda {
+#BusquedaUbicacion .tree_categorias__busqueda {
     text-align: center;
     position: relative;
 }
 
 @media (min-width: 768px) {
-    .mb-md-4,
-    .my-md-4 {
+    #BusquedaUbicacion .mb-md-4,
+    #BusquedaUbicacion .my-md-4 {
         margin-bottom: 1.5rem !important;
     }
 }
 
-/* .tree_categorias__busqueda > div > input {
+#BusquedaUbicacion .tree_categorias__busqueda > div > input {
     position: relative;
     display: block;
     max-width: 550px;
     float: left;
-} */
+}
 
-.busqueda-input {
+#BusquedaUbicacion .busqueda-input {
     padding: 0px 10px 0px 30px !important;
 }
-.tree_categorias__busqueda input {
+
+#BusquedaUbicacion .tree_categorias__busqueda input {
     padding: 10px 10px 10px 10px;
     font-size: 15px;
     color: #73c914;
 }
 
-.tree_categorias__busqueda button {
+#BusquedaUbicacion .tree_categorias__busqueda button {
     background: none;
     padding: 7px 2px;
     font-size: 19px;
@@ -143,7 +159,7 @@ th {
     position: absolute;
 }
 
-.tree-anchor {
+#BusquedaUbicacion .tree-anchor {
     flex-grow: 2;
     outline: 0;
     display: flex;
@@ -155,7 +171,8 @@ th {
     -ms-user-select: none;
     user-select: none;
 }
-.tree-arrow {
+
+#BusquedaUbicacion .tree-arrow {
     position: absolute;
     right: 30px;
     width: 16px;
@@ -166,7 +183,7 @@ th {
 }
 
 @media (min-width: 768px) {
-    .tree-content .tree-division {
+    #BusquedaUbicacion .tree-content .tree-division {
         width: 100%;
         height: auto;
         display: -webkit-box;
@@ -176,49 +193,56 @@ th {
 }
 
 @media (min-width: 768px) {
-    .tree-content .tree-division__title {
+    #BusquedaUbicacion .tree-content .tree-division__title {
         background: #66c6de !important;
         display: inline-block;
         font-size: 17px;
         font-weight: bold;
         color: #fff !important;
         font-family: Nexa-bold, sans-serif;
-        border-radius: 22px;
+        border-radius: 25px;
         text-align: center;
         width: 100%;
         padding: 4px 10px;
     }
 
-    .tree-content .tree-division__title-gray {
+    #BusquedaUbicacion .tree-content .tree-division__title-gray {
         background: #3a3a3a3a !important;
         display: inline-block;
         font-size: 14px;
         font-weight: bold;
         color: #00a1c9 !important;
         font-family: Nexa-bold, sans-serif;
-        border-radius: 22px;
+        border-radius: 25px;
         text-align: center;
         width: 100%;
         padding: 4px 10px;
+        -webkit-border-radius: 25px;
+        -moz-border-radius: 25px;
+        -ms-border-radius: 25px;
+        -o-border-radius: 25px;
     }
 
-    .tree-content.actividad-economica .tree-division__title {
+    #BusquedaUbicacion .tree-content.actividad-economica .tree-division__title {
         font-weight: 100;
     }
 }
 
-.form-control {
+#BusquedaUbicacion .form-control {
     border: 1px solid #ddd !important;
     border-radius: 1rem !important;
     font-family: Nexa-bold, sans-serif;
 }
 
-.tree-node.has-child > .tree-content {
+#BusquedaUbicacion .tree-node.has-child > .tree-content {
     border-bottom: 2px solid #e6e5e5;
-    padding: 7px 18px 14px !important;
+    padding: 0px 0px 10px 0px !important;
 }
 
-.tree-node.has-child.segmento > .tree-content .tree-division__title {
+#BusquedaUbicacion
+    .tree-node.has-child.segmento
+    > .tree-content
+    .tree-division__title {
     background: #fff !important;
     padding: 4px 10px;
     font-size: 14px !important;
@@ -226,19 +250,19 @@ th {
     font-family: Nexa-bold, sans-serif;
 }
 
-.tree-children:first-of-type .tree-node.has-child {
+#BusquedaUbicacion .tree-children:first-of-type .tree-node.has-child {
     min-width: 50%;
     max-width: 100%;
     padding: 6px 26px 5px;
 }
 
-.tree-anchor.children {
+#BusquedaUbicacion .tree-anchor.children {
     padding: 0 19px;
     margin: 0;
     white-space: pre-line;
 }
 
-.tree-anchor.children .tree-division__title {
+#BusquedaUbicacion .tree-anchor.children .tree-division__title {
     background: #fff !important;
     font-size: 14px;
     color: #000 !important;
@@ -246,19 +270,19 @@ th {
     font-weight: inherit;
 }
 
-.tree-anchor.children .tree-division__title-gray {
+#BusquedaUbicacion .tree-anchor.children .tree-division__title-gray {
     background: #3a3a3a3a !important;
     font-size: 14px;
     color: #000 !important;
     text-align: left;
-    border-radius: 22px;
+    border-radius: 25px;
     width: 100%;
     padding: 4px 10px;
     font-weight: inherit;
 }
 
-.tree-children .tree-content .tree-division {
-    padding: 0 9px 0 20px;
+#BusquedaUbicacion .tree-children .tree-content .tree-division {
+    padding: 10px 10px 0px 20px;
 }
 
 .tree_categorias
@@ -266,13 +290,14 @@ th {
     .tree-children:first-of-type
     .tree-node.has-child
     > .tree-content
+    #BusquedaUbicacion
     .tree-division__title {
     font-size: 14px;
     color: #00a1c9;
     font-family: Nexa-bold, sans-serif;
 }
 
-.tree-checkbox {
+#BusquedaUbicacion .tree-checkbox {
     width: 19px;
     height: 19px;
     border: 2px solid #dadada;
@@ -280,18 +305,18 @@ th {
 }
 
 .tree-arrow:after,
-.tree-checkbox:after {
+#BusquedaUbicacion .tree-checkbox:after {
     position: absolute;
     display: block;
     content: "";
 }
 
-.tree-checkbox.checked {
+#BusquedaUbicacion .tree-checkbox.checked {
     background-color: #73c914;
     border-color: #73c914 !important;
 }
 
-.tree-content {
+#BusquedaUbicacion .tree-content {
     display: flex;
     align-items: center;
     padding: 3px;
@@ -300,70 +325,72 @@ th {
     box-sizing: border-box;
 }
 
-.tree-content.actividad-economica {
+#BusquedaUbicacion .tree-content.actividad-economica {
     padding-left: 48px;
 }
 
-body {
+#BusquedaUbicacion body {
     overflow: scroll;
 }
 
-.botones {
+#BusquedaUbicacion .botones {
     font-size: 25px;
     display: flex;
     justify-content: center;
 }
 
-.btn-new-blue {
-    color: #00a1c9 !important;
-    border: 1px solid #00a1c9 !important;
+#BusquedaUbicacion .btn-new-green {
+    background-color: chartreuse !important;
+    border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
+    width: 150px;
+    padding: 5px 0px;
+    color: white;
+    font-weight: 500;
 }
 
-.btnRadius {
-    border-radius: 40px !important;
+#BusquedaUbicacion .btn-new-green:hover {
+    color: chartreuse !important;
+    background: white !important;
+    border: 2px solid chartreuse !important;
 }
 
-.btn-new-blue:hover {
-    background: #00a1c9 !important;
-    color: #fff !important;
-}
-
-.btn-new-red {
+#BusquedaUbicacion .btn-new-red {
     color: #dc3545 !important;
     border: 1px solid #dc3545 !important;
 }
 
-.btn-new-red:hover {
+#BusquedaUbicacion .btn-new-red:hover {
     background: #dc3545 !important;
     color: #fff !important;
 }
 
-.infinite-scroll {
+#BusquedaUbicacion .infinite-scroll {
     overflow: auto;
     height: 35em;
 }
 
-.posicion-opciones-planes {
+#BusquedaUbicacion .posicion-opciones-planes {
     margin-top: 48px;
 }
 
-.custom-scroll {
-    height: 90vh;
+#BusquedaUbicacion .custom-scroll {
+    height: 80vh;
     overflow-y: scroll;
 }
 
-.name_section_app {
-    text-align: center;
-    display: block;
-    max-width: 410px;
-    margin: 0 auto;
-    color: #00a1c9;
+#BusquedaUbicacion .name_section_app {
+    color: #8d8d8d;
     font-family: Nexa-bold, sans-serif;
     font-size: 24px;
     font-weight: bold;
-    padding-bottom: 5px;
     border: 0;
-    background-image: linear-gradient(
+    margin-left: 400px;
+    /* padding-bottom: 5px; */
+    /* background-image: linear-gradient(
         90deg,
         #e1e1e1 0,
         #e1e1e1 50%,
@@ -371,14 +398,14 @@ body {
     );
     background-size: 16px 2px;
     background-position: bottom;
-    background-repeat: repeat-x;
+    background-repeat: repeat-x; */
 }
 
-.c-verde {
+#BusquedaUbicacion .c-verde {
     color: #73c914;
 }
 
-.perfiles-titulos {
+#BusquedaUbicacion .perfiles-titulos {
     display: block;
     margin: 0 auto;
     color: gray;
@@ -388,11 +415,11 @@ body {
     padding-bottom: 5px;
 }
 
-.perfiles-titulos.crear {
+#BusquedaUbicacion .perfiles-titulos.crear {
     padding: 25px 0px;
 }
 
-.tree-root {
+#BusquedaUbicacion .tree-root {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -403,22 +430,22 @@ body {
     overflow: auto;
 }
 
-.tree-root {
-    padding: 3px;
+#BusquedaUbicacion .tree-root {
+    /* padding: 3px; */
     box-sizing: border-box;
 }
 
-.tree-root > .tree-node {
+#BusquedaUbicacion .tree-root > .tree-node {
     min-width: 50%;
     width: 50%;
-    padding: 5px 10px 15px;
+    /* padding: 5px 10px 15px; */
     -webkit-transition: -webkit-box-shadow 0.25s ease;
     transition: -webkit-box-shadow 0.25s ease;
     transition: box-shadow 0.25s ease;
     transition: box-shadow 0.25s ease, -webkit-box-shadow 0.25s ease;
 }
 
-.tree-node {
+#BusquedaUbicacion .tree-node {
     white-space: nowrap;
     display: flex;
     flex-direction: column;
@@ -426,17 +453,21 @@ body {
     box-sizing: border-box;
 }
 
-.tree-node.has-child.draggable.expanded {
+#BusquedaUbicacion .tree-node.has-child.draggable.expanded {
     min-width: 100%;
 }
 
-.tree_categorias .tree-root .tree-children:first-of-type .tree-node.has-child {
+#BusquedaUbicacion
+    .tree_categorias
+    .tree-root
+    .tree-children:first-of-type
+    .tree-node.has-child {
     min-width: 50%;
     max-width: 50%;
     padding: 6px 26px 5px;
 }
 
-.tree-children {
+#BusquedaUbicacion .tree-children {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -447,7 +478,7 @@ body {
     overflow: auto;
 }
 
-.tree_categorias .tree-root .tree-children:first-of-type {
+#BusquedaUbicacion .tree_categorias .tree-root .tree-children:first-of-type {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -458,27 +489,29 @@ body {
     overflow: auto;
 }
 
-.tree_categorias .tree-root .tree-children {
-    padding: 12px 20px;
+#BusquedaUbicacion .tree_categorias .tree-root .tree-children {
+    /* padding: 12px 20px; */
+    padding: 0px 0px;
 }
 
 .tree_categorias
     .tree-root
     .tree-children:first-of-type
+    #BusquedaUbicacion
     .tree-node.has-child.expanded {
     min-width: 100%;
 }
 
-.tree_categorias .tree-root .tree-children .tree-node {
+#BusquedaUbicacion .tree_categorias .tree-root .tree-children .tree-node {
     min-width: 100%;
     max-width: 100%;
 }
 
-.perfil-guias {
+#BusquedaUbicacion .perfil-guias {
     padding: 20px 20px 25px;
 }
 
-.perfil-guias__indicador {
+#BusquedaUbicacion .perfil-guias__indicador {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -490,39 +523,39 @@ body {
     justify-content: left;
 }
 
-.icon-Paso-1-click:before {
+#BusquedaUbicacion .icon-Paso-1-click:before {
     content: "\e9f7";
 }
 
-.perfil-guias ul {
+#BusquedaUbicacion .perfil-guias ul {
     margin: 0;
     padding: 0;
     list-style: none;
     text-align: center;
 }
 
-.perfil-guias__indicador--activo i {
+#BusquedaUbicacion .perfil-guias__indicador--activo i {
     color: #73c914;
     -webkit-transition: all 0.4s;
     transition: all 0.4s;
 }
 
-.perfil-guias__indicador i {
+#BusquedaUbicacion .perfil-guias__indicador i {
     font-size: 40px;
     /* color: #d7d7d7; */
 }
 
-.perfil-guias ul li:first-child div:before {
+#BusquedaUbicacion .perfil-guias ul li:first-child div:before {
     height: 0;
     width: 0;
     margin: 0;
 }
 
-.perfil-guias__indicador--activo span {
-    /* color: #686868; */
-}
+/* #BusquedaUbicacion .perfil-guias__indicador--activo span {
+    color: #686868;
+} */
 
-.perfil-guias__indicador span {
+#BusquedaUbicacion .perfil-guias__indicador span {
     font-family: Nexa-bold, sans-serif;
     /* color: #d7d7d7; */
     color: #73c914;
@@ -533,32 +566,32 @@ body {
     font-weight: bold;
 }
 
-/* .tree_categorias__busqueda>div {
+/* #BusquedaUbicacion .tree_categorias__busqueda>div {
     position: relative;
     display: block;
     max-width: 550px;
 } */
 
-.tree_categorias__busqueda input {
+#BusquedaUbicacion .tree_categorias__busqueda input {
     padding: 4px 60px 4px 13px;
     font-size: 15px;
 }
 
-.form-control {
+#BusquedaUbicacion .form-control {
     border: 1px solid #ddd;
     border-radius: 1rem;
 }
 
 .form-control,
-.inputs-rounded {
+#BusquedaUbicacion .inputs-rounded {
     font-family: Nexa-regular, sans-serif;
 }
 
-button.icon-Buscar-click {
+#BusquedaUbicacion button.icon-Buscar-click {
     left: inherit;
 }
 
-input[type="checkbox"] {
+#BusquedaUbicacion input[type="checkbox"] {
     border: 2px solid #66c6de;
     padding: 7px;
     margin-right: 10px;

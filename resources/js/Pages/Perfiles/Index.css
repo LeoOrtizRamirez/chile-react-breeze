@@ -151,9 +151,6 @@ th {
     color: #73c914;
 }
 
-.busqueda-input {
-    color: #212529 !important;
-}
 
 .tree_categorias__busqueda button {
     background: none;
@@ -505,6 +502,11 @@ body {
 
 .icon-Paso-1-click:before {
     content: "\e9f7";
+}
+
+
+#pleft2 {
+    padding-left: 2%;
 }
 
 .perfil-guias ul {

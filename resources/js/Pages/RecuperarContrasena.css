@@ -140,7 +140,7 @@ video {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
 }
 
 #input_password{
