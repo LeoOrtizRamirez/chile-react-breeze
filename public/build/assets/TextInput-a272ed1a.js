@@ -1,5 +1,0 @@
-<<<<<<<< HEAD:public/build/assets/TextInput-478fb5d2.js
-import{r as o,a as g}from"./app-7bc7aa84.js";function x({type:s,id:e,name:n,placeholder:t,value:u,className:i,autoComplete:c,required:f,isFocused:a,handleChange:d}){const r=o.exports.useRef();return o.exports.useEffect(()=>{a&&r.current.focus()},[]),g("input",{type:s,id:e,name:n,placeholder:t,value:u,className:"border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm "+i,autoComplete:c,required:f,onChange:p=>d(p),ref:r})}export{x as T};
-========
-import{r as o,a as g}from"./app-a395f59d.js";function x({type:s,id:e,name:n,placeholder:t,value:u,className:i,autoComplete:c,required:f,isFocused:a,handleChange:d}){const r=o.exports.useRef();return o.exports.useEffect(()=>{a&&r.current.focus()},[]),g("input",{type:s,id:e,name:n,placeholder:t,value:u,className:"border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm "+i,autoComplete:c,required:f,onChange:p=>d(p),ref:r})}export{x as T};
->>>>>>>> 479cb1aee199c379a30a26461e7920d8a247747e:public/build/assets/TextInput-a272ed1a.js
