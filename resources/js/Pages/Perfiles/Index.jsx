@@ -12,24 +12,13 @@ import '../../../css/font-web.css'
 /*Toast*/
 
 const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => {
-    const myRefs = useRef([]);
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastIcon, setToastIcon] = useState("");
     const [fakeSectores, setFakeSectores] = useState(actividades_economicas);
     const [sectores, setSectores] = useState(actividades_economicas);
-    const [showSegmento, setShowSegmento] = useState(false);
-    const [showActividadEconomica, setShowActividadEconomica] = useState(false);
-    const [selectedSegmento, setSelectedSegmento] = useState(0);
-    const [selectedActividadEconomica, setSelectedActividadEconomica] = useState(0);
-
     const [openSectores, setOpenSectores] = useState([]);
     const [openSegmentos, setOpenSegmentos] = useState([]);
-
-    const [inputActividadEconomica, setInputActividadEconomica] = useState({
-        id: 0,
-        nombre: "",
-    });
 
     const [checksActividadesEconomicas, setChecksActividadesEconomicas] = useState([])
 
@@ -48,9 +37,7 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
             //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY openSectores
             setOpenSectores([...openSectores, parent]); //Se añade el nuevo parent
         }
-
-
-
+        
         //SE BUSCAN LOS SEGMENTOS QUE TENGAN EL id_padre_sub_categoria == AL SECTOR QUE SE LE DIO CLICK
         const pattern = new RegExp(parent, "i");
         const FilteredSegmentos = sectores.filter(function (el) {
@@ -111,7 +98,6 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
                 setActividadesEconomicas(resultado);
             }
         });
-        setSelectedActividadEconomica(parent);
     };
 
     const checked = (current) => {
@@ -737,7 +723,6 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
                                                                         </span>
                                                                     </span>
                                                                 </div>
-                                                                {/* {showSegmento && sector.id == selectedSegmento && */}
                                                                 {openSectores.includes(
                                                                     sector.id
                                                                 ) && (
@@ -803,8 +788,6 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
                                                                                                             </span>
                                                                                                         </span>
                                                                                                     </div>
-
-                                                                                                    {/* {showActividadEconomica && selectedActividadEconomica == segmento.id && */}
                                                                                                     {openSegmentos.includes(
                                                                                                         segmento.id
                                                                                                     ) && (
@@ -935,7 +918,6 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
                                                                         </span>
                                                                     </span>
                                                                 </div>
-                                                                {/* {showSegmento && sector.id == selectedSegmento && */}
                                                                 {openSectoresTipoCompras.includes(
                                                                     sector.id
                                                                 ) && (
