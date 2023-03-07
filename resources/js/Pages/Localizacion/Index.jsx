@@ -42,22 +42,23 @@ const Index = ({ auth, localizacion }) => {
         if (inputTiposCompras.id != 0) {
             setShowModalTipoCompra(true);
         } else {
-            setToastMessage("Debes seleccionar un tipo de compra");
+            setToastMessage("Debes seleccionar una comuna");
             setToastIcon("icon-error");
             setShowToast(true);
         }
     };
 
-    const editTiposCompras = () => {
+    const editLocalizacion = () => {
         if (inputTiposCompras.id != 0) {
             window.location.replace(
-                "/tiposcompras/" + inputTiposCompras.id + "/edit"
+                "/localizacion/" + inputTiposCompras.id + "/edit"
             );
         } else {
-            setToastMessage("Debes seleccionar un tipo de compra");
+            setToastMessage("Debes seleccionar una comuna");
             setToastIcon("icon-error");
             setShowToast(true);
         }
+
     };
 
     const getSegmento = (parent) => {
@@ -177,7 +178,7 @@ const Index = ({ auth, localizacion }) => {
             //Se recorren los segmentos para obtener el sector
             segmentos_filtrados.forEach(segmento_filtrado => {
                 //Buscar sector por medio del id_padre_sub_categoria
-                var sector = fakeSectores.filter(fs=> fs.id == segmento_filtrado.id_padre_sub_categoria)[0]
+                var sector = fakeSectores.filter(fs => fs.id == segmento_filtrado.id_padre_sub_categoria)[0]
                 if (!sectores_filtrados.includes(sector)) {
                     sectores_filtrados.push(fakeSectores.filter(fakeSector => fakeSector.id == segmento_filtrado.id_padre_sub_categoria)[0])
                 }
@@ -192,8 +193,9 @@ const Index = ({ auth, localizacion }) => {
         }
     };
 
-    const deleteTiposCompras = () => {
-        fetch("/tiposcompras/" + inputTiposCompras.id + "/delete")
+
+    const deleteLocalizacion = () => {
+        fetch("/localizacion/" + inputTiposCompras.id + "/delete")
             .then((response) => response.json())
             .then((data) => {
                 if (data.type == "Success") {
@@ -212,6 +214,8 @@ const Index = ({ auth, localizacion }) => {
             });
     };
 
+
+
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Localizacion" />
@@ -228,8 +232,8 @@ const Index = ({ auth, localizacion }) => {
                     >
                         <span
                             className={`toast-icon ${toastIcon == "icon-error"
-                                    ? "toast-danger"
-                                    : "toast-success"
+                                ? "toast-danger"
+                                : "toast-success"
                                 }`}
                         >
                             <span className={toastIcon}></span>
@@ -273,7 +277,7 @@ const Index = ({ auth, localizacion }) => {
                                             <i className="bi bi-plus-square-fill"></i>
                                         </Nav.Link>
                                         <Nav.Link
-                                            onClick={editTiposCompras}
+                                            onClick={editLocalizacion}
                                             className="flex  ml-4 text-probar "
                                         >
                                             <i className="bi bi-pencil-fill"></i>
@@ -303,8 +307,8 @@ const Index = ({ auth, localizacion }) => {
                                                         >
                                                             <i
                                                                 className={`tree-arrow has-child ${sector.childs.length > 0
-                                                                        ? "bi bi-chevron-down"
-                                                                        : ""
+                                                                    ? "bi bi-chevron-down"
+                                                                    : ""
                                                                     }`}
                                                             ></i>
                                                             <span className="tree-anchor">
@@ -313,7 +317,7 @@ const Index = ({ auth, localizacion }) => {
                                                                         {
                                                                             sector.nombre
                                                                         }
-                                                                       
+
                                                                     </span>
                                                                 </span>
                                                             </span>
@@ -374,18 +378,14 @@ const Index = ({ auth, localizacion }) => {
                                                                                                                     {
                                                                                                                         segmento.nombre
                                                                                                                     }
-                                                                                                                    {
-                                                                                                                        segmento.id
-                                                                                                                    }
+
                                                                                                                 </span>
                                                                                                             ) : (
                                                                                                                 <span className="tree-division__title-gray my-auto">
                                                                                                                     {
                                                                                                                         segmento.nombre
                                                                                                                     }
-                                                                                                                    {
-                                                                                                                        segmento.id
-                                                                                                                    }
+
                                                                                                                 </span>
                                                                                                             )}
                                                                                                         </>
@@ -435,7 +435,7 @@ const Index = ({ auth, localizacion }) => {
                                     Cancelar
                                 </button>
                                 <button
-                                    onClick={deleteTiposCompras}
+                                    onClick={deleteLocalizacion}
                                     className="btn btnRadius btn-new-red ml-2"
                                 >
                                     Eliminar

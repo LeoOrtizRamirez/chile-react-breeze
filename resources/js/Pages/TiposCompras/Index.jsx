@@ -374,18 +374,14 @@ const Index = ({ auth, tiposcompras }) => {
                                                                                                                     {
                                                                                                                         segmento.nombre
                                                                                                                     }
-                                                                                                                    {
-                                                                                                                        segmento.id
-                                                                                                                    }
+                                                                                                                    
                                                                                                                 </span>
                                                                                                             ) : (
                                                                                                                 <span className="tree-division__title-gray my-auto">
                                                                                                                     {
                                                                                                                         segmento.nombre
                                                                                                                     }
-                                                                                                                    {
-                                                                                                                        segmento.id
-                                                                                                                    }
+                                                                                                                   
                                                                                                                 </span>
                                                                                                             )}
                                                                                                         </>
