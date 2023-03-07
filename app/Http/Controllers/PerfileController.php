@@ -51,10 +51,11 @@ class PerfileController extends Controller
             ->with('parent', 'childs')
             ->get();
         /* Parte 3 TIPO COMPRAS  */
+
         return Inertia::render('Perfiles/Index', [
             'actividades_economicas' => $actividades_economicas,
             'localizaciones' => $localizaciones,
-            'tiposcompras' => $tiposcompras
+            'tipo_compras' => $tiposcompras
         ]);
     }
 

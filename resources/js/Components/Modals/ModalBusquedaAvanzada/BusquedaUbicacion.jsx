@@ -378,7 +378,6 @@ export const BusquedaUbicacion = ({
     };
 
     useEffect(() => {}, [sectores]);
-    // console.log("sectores:", sectores);
 
     return (
         <Modal
@@ -393,20 +392,19 @@ export const BusquedaUbicacion = ({
             id="BusquedaUbicacion"
         >
             <>
-                <Modal.Header closeButton className="header">
-                    <h2 className="name_section_app">
-                        Seleccione la ubicacion
-                    </h2>
-                </Modal.Header>
-                <Modal.Body className="contenedor-planes" id="">
+                <div className="contenedor-planes">
                     <div className="bg-white overflow-auto w-full text-center margen-superior custom-scroll">
                         <div className="container mt-4">
                             <div className="tree_categorias tree_1">
                                 <div className="tree_categorias__busqueda mb-3 mb-md-4">
-                                    <div className="mx-60 mt-30 d-flex justify-content-center">
+                                    <div className="mx-60 mt-30 d-flex">
+                                        <button
+                                            type="button"
+                                            className="icon-Buscar-click"
+                                        ></button>
                                         <input
                                             type="text"
-                                            placeholder="Buscar por ubicacion"
+                                            placeholder="Busca por actividad económica o UNSPSC"
                                             autoComplete="off"
                                             className="form-control busqueda-input"
                                             onKeyDown={
@@ -552,13 +550,13 @@ export const BusquedaUbicacion = ({
                         <div className="perfil-bottons-footer position-relative text-center mt-4">
                             <button
                                 type="button"
-                                className="btn btnRadius btn-new-green"
+                                className="btn btnRadius btn-new-blue"
                             >
-                                Seleccionar
+                                Siguiente
                             </button>
                         </div>
                     </div>
-                </Modal.Body>
+                </div>
             </>
         </Modal>
     );
