@@ -3,6 +3,8 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import BusquedaEstado from "./BusquedaEstado";
 import BusquedaUbicacion from "./BusquedaUbicacion";
+import BusquedaActividad from "./BusquedaActividad";
+import BusquedaTiposCompras from "./BusquedaTiposCompras";
 import { Head } from "@inertiajs/inertia-react";
 import "./ModalBusquedaAvanzada.css";
 
@@ -86,11 +88,26 @@ export const ModalBusquedaAvanzada = ({
     const handleShowBusquedaEstado = () => setShowBusquedaEstado(true);
     // Fin Modal estado
 
-    // Inicio Modal estado
+    // Inicio Modal ubicacion
     const [showBusquedaUbicacion, setShowBusquedaUbicacion] = useState(false);
     const handleCloseBusquedaUbicacion = () => setShowBusquedaUbicacion(false);
     const handleShowBusquedaUbicacion = () => setShowBusquedaUbicacion(true);
-    // Fin Modal estado
+    // Fin Modal ubicacion
+
+    // Inicio Modal actividad
+    const [showBusquedaActividad, setShowBusquedaActividad] = useState(false);
+    const handleCloseBusquedaActividad = () => setShowBusquedaActividad(false);
+    const handleShowBusquedaActividad = () => setShowBusquedaActividad(true);
+    // Fin Modal actividad
+
+    // Inicio Modal actividad
+    const [showBusquedaTiposCompras, setShowBusquedaTiposCompras] =
+        useState(false);
+    const handleCloseBusquedaTiposCompras = () =>
+        setShowBusquedaTiposCompras(false);
+    const handleShowBusquedaTiposCompras = () =>
+        setShowBusquedaTiposCompras(true);
+    // Fin Modal actividad
 
     return (
         <Modal
@@ -165,8 +182,17 @@ export const ModalBusquedaAvanzada = ({
                                     name="modalidad"
                                     value={formValues.modalidad}
                                     onChange={handleChange}
-                                    placeholder="Ingresa la modalidad"
+                                    onClick={handleShowBusquedaTiposCompras}
+                                    placeholder="Ingresa la modalidad de contrato"
                                 />
+                                <BusquedaTiposCompras
+                                    showBusquedaTiposCompras={
+                                        showBusquedaTiposCompras
+                                    }
+                                    handleCloseBusquedaTiposCompras={
+                                        handleCloseBusquedaTiposCompras
+                                    }
+                                ></BusquedaTiposCompras>
                             </div>
                         </div>
                         <span>
@@ -178,8 +204,15 @@ export const ModalBusquedaAvanzada = ({
                             name="actividadEconomica"
                             value={formValues.actividadEconomica}
                             onChange={handleChange}
+                            onClick={handleShowBusquedaActividad}
                             placeholder="Ingresa la(s) actividade(s) económica(s)"
                         />
+                        <BusquedaActividad
+                            showBusquedaActividad={showBusquedaActividad}
+                            handleCloseBusquedaActividad={
+                                handleCloseBusquedaActividad
+                            }
+                        ></BusquedaActividad>
                         <span>
                             <i class="bi bi-geo-alt-fill iconos"></i>
                             Ubicación:
