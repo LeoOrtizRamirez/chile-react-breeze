@@ -119,10 +119,11 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
             var actividades_economicas = fakeSectores.filter(fs => fs.id_padre_sub_categoria == current.id)
             //Si tiene actividades economicas es un segmento
             if (actividades_economicas.length > 0) {//Click en segmento
-                if (!array_checks.includes(current.id)) {
-                    array_checks.push(current.id)
+                if (!array_checks.includes(current.id)) {//Si no esta seleccionada el segmento
+                    array_checks.push(current.id)//Se agrega el segmento
+                    array_checks = toggleCheked(array_checks, actividades_economicas, 'actividades_economicas', 'remove')
                     array_checks = toggleCheked(array_checks, actividades_economicas, 'actividad_economica', 'add')
-                } else {
+                } else {//Si ya esta seleccionada el segmento
                     array_checks = deleteActividadEconomica(array_checks, current)
                     array_checks = toggleCheked(array_checks, actividades_economicas, 'actividad_economica', 'remove')
                 }
