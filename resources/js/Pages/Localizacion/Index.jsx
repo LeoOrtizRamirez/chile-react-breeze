@@ -21,33 +21,26 @@ const Index = ({ auth, localizacion }) => {
     const [fakeSectores, setFakeSectores] = useState(localizacion);
     const [sectores, setSectores] = useState(localizacion);
     const [showSegmento, setShowSegmento] = useState(false);
-    const [showActividadEconomica, setShowActividadEconomica] = useState(false);
+    const [showTipoCompra, setShowTipoCompra] = useState(false);
     const [selectedSegmento, setSelectedSegmento] = useState(0);
-    const [selectedActividadEconomica, setSelectedActividadEconomica] =
-        useState(0);
+    const [selectedTipoCompra, setSelectedTipoCompra] = useState(0);
 
     const [openSegmentos, setOpenSegmentos] = useState([]);
-    const [openActividadesEconomicas, setOpenActividadesEconomicas] = useState(
-        []
-    );
+    const [openTiposCompras, setOpenTiposCompras] = useState([]);
 
-    const [inputLocalizacion, setInputLocalizacion] = useState({
+    const [inputTiposCompras, setInputTiposCompras] = useState({
         id: 0,
         nombre: "",
     });
 
-    /* var new_data = actividadesEconomicas.filter(ae => ae.id != inputActividadEconomica.id); */
-
     const [segmentos, setSegmentos] = useState([]);
-    const [actividadesEconomicas, setActividadesEconomicas] = useState([]);
-    const [showModalActividadEconomica, setShowModalActividadEconomica] =
-        useState(false);
-    const handleCloseModalActividadEconomica = () =>
-        setShowModalActividadEconomica(false);
+    const [tiposCompras, setTiposCompras] = useState([]);
+    const [showModalTipoCompra, setShowModalTipoCompra] = useState(false);
+    const handleCloseModalTipoCompra = () => setShowModalTipoCompra(false);
 
-    const handleShowModalActividadEconomica = () => {
-        if (inputLocalizacion.id != 0) {
-            setShowModalActividadEconomica(true);
+    const handleShowModalTipoCompra = () => {
+        if (inputTiposCompras.id != 0) {
+            setShowModalTipoCompra(true);
         } else {
             setToastMessage("Debes seleccionar una comuna");
             setToastIcon("icon-error");
@@ -56,26 +49,27 @@ const Index = ({ auth, localizacion }) => {
     };
 
     const editLocalizacion = () => {
-        if (inputLocalizacion.id != 0) {
+        if (inputTiposCompras.id != 0) {
             window.location.replace(
-                "/localizacion/" + inputLocalizacion.id + "/edit"
+                "/localizacion/" + inputTiposCompras.id + "/edit"
             );
         } else {
-            setToastMessage("Debes seleccionar una Ciudad");
+            setToastMessage("Debes seleccionar una comuna");
             setToastIcon("icon-error");
             setShowToast(true);
         }
+
     };
 
     const getSegmento = (parent) => {
         if (openSegmentos.includes(parent)) {
-            //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY openSegmentos
+            //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY OPENSEGMENTOS
             setOpenSegmentos(
                 openSegmentos.filter((element) => element != parent)
             );
         } else {
-            //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY openSegmentos
-            setOpenSegmentos([...openSegmentos, parent]); //Se añade el nuevo parent
+            //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY OPENSEGMENTOS
+            setOpenSegmentos([...openSegmentos, parent]); //SE AÑADE EL NUEVO PARENT
         }
 
         //SE BUSCAN LOS SEGMENTOS QUE TENGAN EL id_padre_sub_categoria == AL SECTOR QUE SE LE DIO CLICK
@@ -101,64 +95,59 @@ const Index = ({ auth, localizacion }) => {
         });
     };
 
-    const getLocalizacion = (parent) => {
-        if (openActividadesEconomicas.includes(parent)) {
-            //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY openActividadesEconomicas
-            setOpenActividadesEconomicas(
-                openActividadesEconomicas.filter((element) => element != parent)
+    const getTiposCompras = (parent) => {
+        if (openTiposCompras.includes(parent)) {
+            //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY OPENTIPOSCOMPRAS
+            setOpenTiposCompras(
+                openTiposCompras.filter((element) => element != parent)
             );
         } else {
-            //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY openActividadesEconomicas
-            setOpenActividadesEconomicas([
-                ...openActividadesEconomicas,
-                parent,
-            ]); //Se añade el nuevo parent
+            //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY OPENTIPOSCOMPRAS
+            setOpenTiposCompras([...openTiposCompras, parent]); //SE AÑADE EL NUEVO PARENT
         }
 
         //SE BUSCAN LOS SEGMENTOS QUE TENGAN EL id_padre_sub_categoria == AL SECTOR QUE SE LE DIO CLICK
         const pattern = new RegExp(parent, "i");
-        const FilteredActividadesEcomomicas = sectores.filter(function (el) {
+        const FilteredTiposCompras = sectores.filter(function (el) {
             if (pattern.test(el.id_padre_sub_categoria)) {
                 return el;
             }
         });
 
         //EN LOS SEGMENTOS QUE SE ENCONTRARON
-        FilteredActividadesEcomomicas.forEach((element) => {
-            if (!actividadesEconomicas.includes(element)) {
+        FilteredTiposCompras.forEach((element) => {
+            if (!localizacion.includes(element)) {
                 //SI NO EXISTE, SE AGREGA
-                actividadesEconomicas.push(element);
+                localizacion.push(element);
             } else {
                 //SI YA EXISTE, SE ELIMINA
-                const resultado = actividadesEconomicas.filter(
+                const resultado = localizacion.filter(
                     (segmento) => segmento.id_padre_sub_categoria != parent
                 );
-                setActividadesEconomicas(resultado);
+                setTiposCompras(resultado);
             }
         });
-        setSelectedActividadEconomica(parent);
+        setSelectedTipoCompra(parent);
     };
 
-    const checked = (actividad_economica) => {
-        setInputLocalizacion(actividad_economica);
+    const checked = (tipo_compra) => {
+        setInputTiposCompras(tipo_compra);
     };
 
-    const inputSearchActividadEconomica = (e) => {
+    const inputSearchTipoCompra = (e) => {
         if (e.target.value == "") {
             setSectores(fakeSectores);
             setSegmentos([]);
-            setActividadesEconomicas([]);
+            setTiposCompras([]);
             setOpenSegmentos([]);
-            setOpenActividadesEconomicas([]);
+            setOpenTiposCompras([]);
             return;
-
         }
 
         if (e.key === "Enter") {
             //SE BUSCAN LAS LOCALIZACIONES QUE COINCIDAN CON EL NOMBRE QUE SE INGRESO
             const pattern = new RegExp(e.target.value, "i");
-
-            const FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
+            const FilteredTiposCompras = fakeSectores.filter(function (el) {
                 if (pattern.test(el.nombre)) {
                     return el;
                 }
@@ -166,124 +155,70 @@ const Index = ({ auth, localizacion }) => {
 
             var sectores_filtrados = [];
             var segmentos_filtrados = [];
-            var actividades_economicas_filtrados = [];
-            var open_actividades_economicas = [];
             var open_segmentos = [];
 
-            FilteredActividadesEcomomicas.forEach((element) => {
+            FilteredTiposCompras.forEach((element) => {
                 if (element.id_padre_sub_categoria != null) {
-                    //ae
-                    actividades_economicas_filtrados.push(element);
-                    open_actividades_economicas.push(
-                        element.id_padre_sub_categoria
-                    );
-
-                    //BUSCAMOS la ciudad  DE LA localizacion
-                    segmentos_filtrados.push(
-                        fakeSectores.filter(
-                            (fs) => fs.id == element.id_padre_sub_categoria
-                        )[0]
-                    );
-                    open_segmentos.push(element.id_abuelo_sub_categoria);
-                }
-
-                if (element.id_padre_sub_categoria != null) {
-                    //segmento
+                    //Se guardan los segmentos
                     if (!segmentos_filtrados.includes(element)) {
-                        segmentos_filtrados.push(element);
+                        segmentos_filtrados.push(element)
                     }
+                } else {
+                    //Se guardan los sectores
+                    if (!sectores_filtrados.includes(element)) {
+                        sectores_filtrados.push(element);
+                    }
+                    //Se guardan los id de los sectores para abrirlos
                     if (!open_segmentos.includes(element.id_padre_sub_categoria)) {
-                        open_segmentos.push(element.id_padre_sub_categoria);
+                        open_segmentos.push(element.id_padre_sub_categoria)
                     }
                 }
-
-                /* if (element.id_padre_sub_categoria == null) {
-                    //sector
-                    sectores_filtrados.push(element);
-                } */
             });
 
-            //BUSCAR TODOS LOS regiones Y ciudades DE actividades_economicas_filtrados
-            var ae_sector = null;
-            var ae_segmento = null;
-
-            actividades_economicas_filtrados.forEach((ae) => {
-                //OBTENER SECTOR DE LA ACTIVIDAD ECONOMICA
-                //OBTENER region  DE LA localizaciones
-
-                ae_sector = fakeSectores.filter(
-                    (fs) => fs.id == ae.id
-                )[0];
-
-                ae_segmento = fakeSectores.filter(
-                    (fs) => fs.id == ae.id_padre_sub_categoria
-                )[0];
-
-                //SI EL ae_sector NO ESTA INCLUIDO EN regiones
-                if (!sectores_filtrados.includes(ae_sector)) {
-                    //BUSCAR Region Y GUARDAR
-                    sectores_filtrados.push(
-                        fakeSectores.filter(
-                            (sector) => sector.id == ae.id_padre_sub_categoria
-                        )[0]
-
-                    );
+            //Se recorren los segmentos para obtener el sector
+            segmentos_filtrados.forEach(segmento_filtrado => {
+                //Buscar sector por medio del id_padre_sub_categoria
+                var sector = fakeSectores.filter(fs => fs.id == segmento_filtrado.id_padre_sub_categoria)[0]
+                if (!sectores_filtrados.includes(sector)) {
+                    sectores_filtrados.push(fakeSectores.filter(fakeSector => fakeSector.id == segmento_filtrado.id_padre_sub_categoria)[0])
+                }
+                if (!open_segmentos.includes(segmento_filtrado.id_padre_sub_categoria)) {
+                    open_segmentos.push(segmento_filtrado.id_padre_sub_categoria)
                 }
 
-                if (!segmentos_filtrados.includes(ae_segmento)) {
-                    //BUSCAR SEGMENTO Y GUARDAR
-                    sectores_filtrados.push(
-                        fakeSectores.filter(
-                            (sector) => sector.id == ae.id_padre_sub_categoria
-                        )[0]
-                    );
-                }
-            });
-
+            })
             setSectores(sectores_filtrados);
             setSegmentos(segmentos_filtrados);
-            setActividadesEconomicas(actividades_economicas_filtrados);
             setOpenSegmentos(open_segmentos);
-            setOpenActividadesEconomicas(open_actividades_economicas);
         }
     };
 
+
     const deleteLocalizacion = () => {
-        fetch("/localizacion/" + inputLocalizacion.id + "/delete")
+        fetch("/localizacion/" + inputTiposCompras.id + "/delete")
             .then((response) => response.json())
             .then((data) => {
                 if (data.type == "Success") {
                     setToastIcon("icon-check");
                     var new_data = segmentos.filter(
-                        (ae) => ae.id != inputLocalizacion.id
+                        (ae) => ae.id != inputTiposCompras.id
                     );
                     setSegmentos(new_data);
-                    setInputLocalizacion({ id: 0, nombre: "" });
+                    setInputTiposCompras({ id: 0, nombre: "" });
                 } else {
                     setToastIcon("icon-error");
                 }
                 setToastMessage(data.message);
                 setShowToast(true);
-                setShowModalActividadEconomica(false);
+                setShowModalTipoCompra(false);
             });
     };
 
-    const filterLocalizacion = (e) => {
-        const pattern = new RegExp(e.target.value, "i");
-        const FilteredActividadesEcomomicas = fakeSectores.filter(function (
-            el
-        ) {
-            if (pattern.test(el.nombre)) {
-                return el;
-            }
-        });
-        setSectores(FilteredActividadesEcomomicas);
-        setShowActividadEconomica(!showActividadEconomica);
-    };
+
 
     return (
         <AuthenticatedLayout auth={auth}>
-            <Head title="Localización" />
+            <Head title="Localizacion" />
             <ToastContainer position="bottom-start">
                 <Toast
                     onClose={() => setShowToast(false)}
@@ -314,28 +249,17 @@ const Index = ({ auth, localizacion }) => {
             </ToastContainer>
             <div className="contenedor-planes">
                 <div className="bg-white overflow-auto w-full text-center margen-superior">
-                    <h2 className="name_section_app">Localización</h2>
+                    <h2 className="name_section_app">Localizaciones</h2>
                     <div className="container mt-4">
                         <div className="tree_categorias tree_1">
                             <div className="tree_categorias__busqueda mb-3 mb-md-4">
                                 <div className="mx-auto">
-                                    {/*     <input
+                                    <input
                                         type="text"
                                         placeholder="Buscar localización en Chile"
                                         autoComplete="off"
                                         className="form-control m-auto"
-                                        // onChange={inputSearchActividadEconomica} 
-                                        onChange={filterLocalizacion}
-                                    /> */}
-
-                                    <input
-                                        type="text"
-                                        placeholder="Buscar localización en chile"
-                                        autoComplete="off"
-                                        className="form-control m-auto"
-                                        onKeyDown={
-                                            inputSearchActividadEconomica
-                                        }
+                                        onKeyDown={inputSearchTipoCompra}
                                     />
                                     <i className="icon-Cancelar"></i>
                                     <button
@@ -347,7 +271,7 @@ const Index = ({ auth, localizacion }) => {
                                     <br></br>
                                     <div className="botones">
                                         <Nav.Link
-                                            href={route("createLocalizacion")}
+                                            href={route("createTiposCompras")}
                                             className="flex  ml-4 text-probar "
                                         >
                                             <i className="bi bi-plus-square-fill"></i>
@@ -359,9 +283,7 @@ const Index = ({ auth, localizacion }) => {
                                             <i className="bi bi-pencil-fill"></i>
                                         </Nav.Link>
                                         <Nav.Link
-                                            onClick={
-                                                handleShowModalActividadEconomica
-                                            }
+                                            onClick={handleShowModalTipoCompra}
                                             className="flex  ml-4 text-probar "
                                         >
                                             <i className="bi bi-trash3"></i>
@@ -384,8 +306,7 @@ const Index = ({ auth, localizacion }) => {
                                                             }
                                                         >
                                                             <i
-                                                                className={`tree-arrow has-child ${sector.childs
-                                                                    .length > 0
+                                                                className={`tree-arrow has-child ${sector.childs.length > 0
                                                                     ? "bi bi-chevron-down"
                                                                     : ""
                                                                     }`}
@@ -396,6 +317,7 @@ const Index = ({ auth, localizacion }) => {
                                                                         {
                                                                             sector.nombre
                                                                         }
+
                                                                     </span>
                                                                 </span>
                                                             </span>
@@ -423,16 +345,16 @@ const Index = ({ auth, localizacion }) => {
                                                                                         >
                                                                                             <div
                                                                                                 className="tree-content segmento"
-                                                                                                onClick={() =>
-                                                                                                    getLocalizacion(
-                                                                                                        segmento.id
-                                                                                                    )
-                                                                                                }
+                                                                                            // onClick={() =>
+                                                                                            //     getTiposCompras(
+                                                                                            //         segmento.id
+                                                                                            //     )
+                                                                                            // }
                                                                                             >
                                                                                                 <i className="tree-arrow expanded has-child ltr"></i>
                                                                                                 <input
                                                                                                     type="radio"
-                                                                                                    name="actividad_economica"
+                                                                                                    name="tipo_compra"
                                                                                                     onClick={() =>
                                                                                                         checked(
                                                                                                             segmento
@@ -440,7 +362,7 @@ const Index = ({ auth, localizacion }) => {
                                                                                                     }
                                                                                                     checked={
                                                                                                         segmento.id ==
-                                                                                                            inputLocalizacion.id
+                                                                                                            inputTiposCompras.id
                                                                                                             ? "checked"
                                                                                                             : ""
                                                                                                     }
@@ -456,12 +378,14 @@ const Index = ({ auth, localizacion }) => {
                                                                                                                     {
                                                                                                                         segmento.nombre
                                                                                                                     }
+
                                                                                                                 </span>
                                                                                                             ) : (
                                                                                                                 <span className="tree-division__title-gray my-auto">
                                                                                                                     {
                                                                                                                         segmento.nombre
                                                                                                                     }
+
                                                                                                                 </span>
                                                                                                             )}
                                                                                                         </>
@@ -483,30 +407,30 @@ const Index = ({ auth, localizacion }) => {
                             </div>
                         </div>
                         <Modal
-                            show={showModalActividadEconomica}
-                            onHide={handleCloseModalActividadEconomica}
-                            id="removeActividadEconomica"
+                            show={showModalTipoCompra}
+                            onHide={handleCloseModalTipoCompra}
+                            id="removeTipoCompra"
                             className="modal-dialog-centered"
                         >
-                            <Modal.Header id="removeActividadEconomicaHeader">
+                            <Modal.Header id="removeTipoCompraHeader">
                                 <h5 className="modal-title">Eliminar</h5>
                                 <button
                                     type="button"
                                     className="btn-close btn-close-white"
-                                    onClick={handleCloseModalActividadEconomica}
+                                    onClick={handleCloseModalTipoCompra}
                                 ></button>
                             </Modal.Header>
-                            <Modal.Body id="removeActividadEconomicaBody">
+                            <Modal.Body id="removeTipoCompraBody">
                                 <p>
                                     Desea eliminar la comuna{" "}
-                                    {inputLocalizacion.nombre}?
+                                    {inputTiposCompras.nombre}?
                                 </p>
                             </Modal.Body>
                             <Modal.Footer>
                                 <button
                                     type="submit"
                                     className="btn btnRadius btn-new-blue mr-2"
-                                    onClick={handleCloseModalActividadEconomica}
+                                    onClick={handleCloseModalTipoCompra}
                                 >
                                     Cancelar
                                 </button>
