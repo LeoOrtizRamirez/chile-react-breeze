@@ -77,15 +77,15 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
     const getActividadEconomica = (parent) => {
         var dom_segmento = document.getElementById("segmento_" + parent)
         dom_segmento.classList.toggle("expanded")
-        if (opeSegmentos.includes(parent)) {
-            //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY opeSegmentos
+        if (openSegmentos.includes(parent)) {
+            //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY openSegmentos
             setOpenSegmentos(
-                opeSegmentos.filter((element) => element != parent)
+                openSegmentos.filter((element) => element != parent)
             );
         } else {
-            //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY opeSegmentos
+            //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY openSegmentos
             setOpenSegmentos([
-                ...opeSegmentos,
+                ...openSegmentos,
                 parent,
             ]); //Se añade el nuevo parent
         }
