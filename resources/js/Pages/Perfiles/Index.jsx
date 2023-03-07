@@ -352,7 +352,7 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
 
     /*################################### TIPO COMPRAS #############################################*/
     const [fakeTipoCompras, setFakeTipoCompras] = useState(tiposcompras);
-    const [tipoCompras, setTipoComras] = useState(tiposcompras);
+    const [tipoCompras, setTipoCompras] = useState(tiposcompras);
 
     const [showSegmentoTipoCompras, setShowSegmentoTipoCompras] = useState(false);
     const [showTipoCompra, setShowTipoCompra] = useState(false);
@@ -549,11 +549,10 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
 
 
 
-
-
-    const inputSearchTipoCompra = (e) => {
+    const inputSearchTipoCompra2 = (e) => {
+        console.log("entro")
         if (e.target.value == "") {
-            setTipoComras(fakeTipoCompras);
+            setTipoCompras(fakeTipoCompras);
             setSegmentosTipoCompras([]);
             setTiposCompras([]);
             setOpenSegmentosTipoCompras([]);
@@ -564,7 +563,75 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
         if (e.key === "Enter") {
             //SE BUSCAN LAS LOCALIZACIONES QUE COINCIDAN CON EL NOMBRE QUE SE INGRESO
             const pattern = new RegExp(e.target.value, "i");
-            // debugger
+            const FilteredTiposCompras = fakeTipoCompras.filter(function (el) {
+                if (pattern.test(el.nombre)) {
+                    return el;
+                }
+            });
+
+            var sectores_filtrados = [];
+            var segmentos_filtrados = [];
+            var open_segmentos = [];
+
+            FilteredTiposCompras.forEach((element) => {
+                if (element.id_padre_sub_categoria != null) {
+                    //Se guardan los segmentos
+                    if (!segmentos_filtrados.includes(element)) {
+                        segmentos_filtrados.push(element)
+                    }
+                } else {
+                    //Se guardan los sectores
+                    if (!sectores_filtrados.includes(element)) {
+                        sectores_filtrados.push(element);
+                    }
+                    //Se guardan los id de los sectores para abrirlos
+                    if (!open_segmentos.includes(element.id_padre_sub_categoria)) {
+                        open_segmentos.push(element.id_padre_sub_categoria)
+                    }
+                }
+            });
+
+            //Se recorren los segmentos para obtener el sector
+            segmentos_filtrados.forEach(segmento_filtrado => {
+                //Buscar sector por medio del id_padre_sub_categoria
+                var sector = fakeTipoCompras.filter(fs=> fs.id == segmento_filtrado.id_padre_sub_categoria)[0]
+                if (!sectores_filtrados.includes(sector)) {
+                    sectores_filtrados.push(fakeTipoCompras.filter(fakeSector => fakeSector.id == segmento_filtrado.id_padre_sub_categoria)[0])
+                }
+                if (!open_segmentos.includes(segmento_filtrado.id_padre_sub_categoria)) {
+                    open_segmentos.push(segmento_filtrado.id_padre_sub_categoria)
+                }
+
+            })
+    /*         setSectores(sectores_filtrados);
+            setSegmentos(segmentos_filtrados);
+            setOpenSegmentos(open_segmentos);
+ */
+            setTipoCompras(sectores_filtrados);
+            setSegmentosTipoCompras(segmentos_filtrados);
+            setOpenSegmentosTipoCompras(open_segmentos);
+       
+        }
+    };
+
+
+
+
+
+    const inputSearchTipoCompra = (e) => {
+        console.log("entro")
+        if (e.target.value == "") {
+            setTipoCompras(fakeTipoCompras);
+            setSegmentosTipoCompras([]);
+            setTiposCompras([]);
+            setOpenSegmentosTipoCompras([]);
+            setOpenTiposCompras([]);
+            return;
+        }
+
+        if (e.key === "Enter") {
+            //SE BUSCAN LAS LOCALIZACIONES QUE COINCIDAN CON EL NOMBRE QUE SE INGRESO
+            const pattern = new RegExp(e.target.value, "i");
             const FilteredTiposCompras = fakeTipoCompras.filter(function (el) {
                 if (pattern.test(el.nombre)) {
                     return el;
@@ -573,9 +640,10 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
 
             var tipo_compras_filtrados = [];
             var segmentos_filtrados_tipo_compras = [];
-            var tipos_compras_filtrados = [];
-            var open_tipos_compras = [];
             var open_segmentos_tipo_compras = [];
+            var tipos_compras_filtrados = [];
+            /*    var open_tipos_compras = []; */
+
 
             // debugger;
             FilteredTiposCompras.forEach((element) => {
@@ -628,7 +696,7 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
                 }
             });
 
-            setTipoComras(tipo_compras_filtrados);
+            setTipoCompras(tipo_compras_filtrados);
             setSegmentosTipoCompras(segmentos_filtrados_tipo_compras);
             setTiposCompras(tipos_compras_filtrados);
             setOpenSegmentosTipoCompras(open_segmentos_tipo_compras);
@@ -643,23 +711,37 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
     const [contenedorPaso2TipoCompras, setContenedorPaso2TipoCompras] = useState(false)
     const [contenedorPaso3Localizaciones, setContenedorPaso3Localizaciones] = useState(false)
 
-    useEffect(() => { setContenedorPaso2TipoCompras(false) }, []) //cambiar por false
-    useEffect(() => { setcontenedorBotonVolver(false) }, []) //cambiar por false
+    const [contenedorBuscadorActividades, setContenedorBuscadorActividades] = useState(true)
+    const [contenedorBuscadorTipoCompras, setContenedorBuscadorTipoCompras] = useState(false)
+    const [contenedorBuscadorLocalizaciones, setContenedorBuscadorLocalizaciones] = useState(false)
+
+
+
+    useEffect(() => { setContenedorPaso2TipoCompras(false) }, [])
+    useEffect(() => { setcontenedorBotonVolver(false) }, [])
     useEffect(() => { setContenedorPaso3Localizaciones(false) }, [])
 
+    useEffect(() => { setContenedorBuscadorActividades(true) }, [])
+    useEffect(() => { setContenedorBuscadorTipoCompras(false) }, [])
+    useEffect(() => { setContenedorBuscadorLocalizaciones(false) }, [])
+
     const SiguientePaso2 = () => {
-        console.log("paso 2");
+        console.log("pasa a tipo compras boton siguiente");
         setContenedorPaso1Actividades(false)
         setContenedorPaso2TipoCompras(true)
         setcontenedorBotonVolver(true)
+        setContenedorBuscadorActividades(false)
+        setContenedorBuscadorTipoCompras(true)
     }
 
     const VolverPaso1 = () => {
         setContenedorPaso1Actividades(true)
         setContenedorPaso2TipoCompras(false)
         setcontenedorBotonVolver(false)
+        setContenedorBuscadorActividades(true)
+        setContenedorBuscadorTipoCompras(false)
     }
-   
+
 
     return (
         <>
@@ -719,29 +801,55 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
                                     <i className="icon-Cancelar" style="display: none;"></i>
                                     <button type="button" className="icon-Buscar-click"></button>
                                 </div> */}
-                               
+
                                 <div className="perfil-guias__indicador perfil-guias__indicador--activo">
-                                    <i className="icon-Paso-1-click"></i> <span>Actividad económica</span>
+                                    <i className="icon-Paso-1-click">            </i> <span>Actividad económica</span>
                                     <i className="icon-Paso-2-click" id="pleft2"></i> <span>Tipo de compra</span>
                                     <i className="icon-Paso-3-click" id="pleft2"></i> <span>Localizaciones</span>
 
                                 </div>
                                 <div className="mx-60 mt-30 d-flex">
-                                    <button
-                                        type="button"
-                                        className="icon-Buscar-click"
-                                    >
-                                        {/* <i className="bi bi-search"></i> */}
-                                    </button>
-                                    <input
-                                        type="text"
-                                        placeholder="Busca por actividad económica o UNSPSC"
-                                        autoComplete="off"
-                                        className="form-control busqueda-input"
-                                        onKeyDown={
-                                            inputSearchActividadEconomica
-                                        }
-                                    />
+
+                                    {contenedorBuscadorActividades &&
+                                        <>
+                                            <button button
+                                                type="button"
+                                                className="icon-Buscar-click"
+                                            >
+                                            </button>
+                                            <input
+                                                type="text"
+                                                placeholder="Busca por actividad económica o UNSPSC"
+                                                autoComplete="off"
+                                                className="form-control busqueda-input"
+                                                onKeyDown={
+                                                    inputSearchActividadEconomica
+                                                }
+                                            />
+
+                                        </>
+                                    }
+
+                                    {contenedorBuscadorTipoCompras &&
+                                        <>
+                                            <input
+                                                type="text"
+                                                placeholder="Buscar tipo de compra"
+                                                autoComplete="off"
+                                                className="form-control m-auto"
+                                                onKeyDown={inputSearchTipoCompra2}
+                                            />
+
+                                        </>
+                                    }
+
+                                    {contenedorBuscadorLocalizaciones &&
+                                        <>
+                                        <p> poner buscador localizaciones</p>
+                                        </>
+                                    }
+
+
                                     <h2 className="perfiles-titulos d-flex"> Pais de contratación
                                         <img class="bandera" src="/public/images/banderas/listado_nombres/CHL.svg" alt="Bandera Chile" />
                                     </h2>
@@ -1087,7 +1195,7 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
                                     }
                                 </>
 
-    
+
                                 <>{/* Paso 3*/}
                                     {contenedorPaso3Localizaciones &&
                                         <ul className="tree-root">
