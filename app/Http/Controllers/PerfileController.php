@@ -51,6 +51,21 @@ class PerfileController extends Controller
             ->with('parent', 'childs')
             ->get();
         /* Parte 3 TIPO COMPRAS  */
+
+          //Buscar id del grandparent y agregarlo a la actividad economica
+          foreach ($tiposcompras as $key => $ac) {
+            $model = SubCategoria::find($ac->id);
+            $ac->id_abuelo_sub_categoria = null;
+            if ($model->id_padre_sub_categoria != null) {
+                $parent = SubCategoria::find($model->id_padre_sub_categoria);
+                if ($parent->id_padre_sub_categoria != null) {
+                    $grandparent = SubCategoria::find($parent->id_padre_sub_categoria);
+                    $ac->id_abuelo_sub_categoria = $grandparent->id;
+                }
+            }
+        }
+
+
         return Inertia::render('Perfiles/Index', [
             'actividades_economicas' => $actividades_economicas,
             'localizaciones' => $localizaciones,
