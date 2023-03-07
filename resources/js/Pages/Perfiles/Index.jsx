@@ -206,9 +206,9 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
                 if (element.id_abuelo_sub_categoria != null && element.id_padre_sub_categoria != null) {
                     //BUSCAMOS LA ACTIVIDAD ECONOMICA
                     actividades_economicas_filtrados.push(element);
-                    open_segmentos.push(
+                    /* open_segmentos.push(
                         element.id_padre_sub_categoria
-                    );
+                    ); */
 
                     //BUSCAMOS EL SEGMENTO DE LA ACTIVIDAD ECONOMICA
                     var segmento = fakeSectores.filter((fs) => fs.id == element.id_padre_sub_categoria)[0]
@@ -234,7 +234,7 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
                     if (!segmentos_filtrados.includes(element)) {
                         segmentos_filtrados.push(element);
                     }
-                    if (!open_sectores.includes(element.id_padre_sub_categoria)) {
+                    if (!open_segmentos.includes(element.id)) {
                         open_segmentos.push(element.id);
                     }
 
