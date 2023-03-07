@@ -143,7 +143,8 @@ th {
 .tree_categorias__busqueda input {
     padding: 10px 10px 10px 10px;
     font-size: 15px;
-    color: #73c914;
+    /* color: #73c914; */
+    color: #212529;
 }
 
 
