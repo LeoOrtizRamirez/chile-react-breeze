@@ -313,7 +313,7 @@ const Index = ({ auth, tiposcompras }) => {
                                                                         {
                                                                             sector.nombre
                                                                         }
-                                                                        {sector.id}
+                                                                     
                                                                     </span>
                                                                 </span>
                                                             </span>
