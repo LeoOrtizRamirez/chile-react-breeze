@@ -510,7 +510,7 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
             //Se recorren los segmentos para obtener el sector
             segmentos_filtrados.forEach(segmento_filtrado => {
                 //Buscar sector por medio del id_padre_sub_categoria
-                var sector = fakeTipoCompras.filter(fs=> fs.id == segmento_filtrado.id_padre_sub_categoria)[0]
+                var sector = fakeTipoCompras.filter(fs => fs.id == segmento_filtrado.id_padre_sub_categoria)[0]
                 if (!sectores_filtrados.includes(sector)) {
                     sectores_filtrados.push(fakeTipoCompras.filter(fakeSector => fakeSector.id == segmento_filtrado.id_padre_sub_categoria)[0])
                 }
@@ -519,14 +519,14 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
                 }
 
             })
-    /*         setSectores(sectores_filtrados);
-            setSegmentos(segmentos_filtrados);
-            setOpenSegmentos(open_segmentos);
- */
+            /*         setSectores(sectores_filtrados);
+                    setSegmentos(segmentos_filtrados);
+                    setOpenSegmentos(open_segmentos);
+         */
             setTipoCompras(sectores_filtrados);
             setSegmentosTipoCompras(segmentos_filtrados);
             setOpenSegmentosTipoCompras(open_segmentos);
-       
+
         }
     };
 
@@ -659,7 +659,33 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
         setContenedorBuscadorTipoCompras(false)
     }
 
+    const [cuantiaHasta, setCuantiaHasta] = useState(0)
+    const [toggleSwitchCuantia, setToggleSwitchCuantia] = useState(false)
+    const [switchCuantia, setSwitchCuantia] = useState(true)
+    const formatValue = (e) => {
+        var number = e.target.value
+        number = clearValue(number)
+        //console.log(number)
+        setCuantiaHasta('$ ' + new Intl.NumberFormat().format(number))
+        console.log()
+    }
 
+    const clearValue = (value) => {
+        value = value.replace(' ', '')
+        value = value.replace('$', '')
+        value = value.replace(',', '')
+        value = value.replace('.', '')
+
+        if (value == "") {
+            value = 0
+            setToggleSwitchCuantia(false)
+        }else{
+            setToggleSwitchCuantia(true)
+            
+        }
+
+        return (parseInt(value))
+    }
     return (
         <>
             <ToastContainer position="bottom-start">
@@ -762,7 +788,7 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
 
                                     {contenedorBuscadorLocalizaciones &&
                                         <>
-                                        <p> poner buscador localizaciones</p>
+                                            <p> poner buscador localizaciones</p>
                                         </>
                                     }
 
@@ -1130,7 +1156,13 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
                                                             <span className="path4"></span>
                                                         </span>
                                                         <label>Cuantía desde:</label>
-                                                        <input type="text" id="cuantia_desde" name="cuantia_desde" placeholder="$" className="form-control inputs_form" />
+                                                        <input
+                                                            type="text"
+                                                            id="cuantia_desde"
+                                                            name="cuantia_desde"
+                                                            placeholder="$"
+                                                            className="form-control inputs_form"
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div className="col-10 col-sm-8 col-lg-4 col-md-5">
@@ -1142,22 +1174,36 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
                                                             <span className="path4"></span>
                                                         </span>
                                                         <label id="descripcion">Cuantía hasta:</label>
-                                                        <input type="text" id="cuantia_hasta" name="cuantia_hasta" placeholder="Sin limite superior" className="form-control inputs_form" />
+                                                        <input
+                                                            value={cuantiaHasta}
+                                                            onChange={formatValue}
+                                                            type="text"
+                                                            id="cuantia_hasta"
+                                                            name="cuantia_hasta"
+                                                            placeholder="Sin limite superior"
+                                                            className="form-control inputs_form"
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="align-items-center col-11 col-lg-8 col-md-9 col-sm-10 justify-content-between campos-cuantias__block row">
-                                                <div class="col-8 p-0">
-                                                    <p>¿Deseas incluir contratos <span class="text_color">sin presupuesto asignado</span> o con cuantía de <span
-                                                        class="text_color">$0</span> en este perfil?</p>
+                                            {toggleSwitchCuantia &&
+                                                <div class="align-items-center col-11 col-lg-8 col-md-9 col-sm-10 justify-content-between campos-cuantias__block row">
+                                                    <div class="col-8 p-0">
+                                                        <p>¿Deseas incluir contratos <span class="text_color">sin presupuesto asignado</span> o con cuantía de <span
+                                                            class="text_color">$0</span> en este perfil?</p>
+                                                    </div>
+                                                    <div class="col-3 text-center">
+                                                        <label class="switch">
+                                                            <input 
+                                                                type="checkbox" 
+                                                                checked={switchCuantia}   
+                                                                onClick={()=>setSwitchCuantia(!switchCuantia)} 
+                                                            />
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                                <div class="col-3 text-center">
-                                                    <label class="switch">
-                                                        <input type="checkbox" />
-                                                        <span class="slider round"></span>
-                                                    </label>
-                                                </div>
-                                            </div>
+                                            }
                                         </div>
                                     }
                                 </>
