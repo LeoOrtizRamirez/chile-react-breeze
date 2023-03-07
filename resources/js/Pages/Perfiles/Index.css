@@ -146,6 +146,9 @@ th {
     color: #73c914;
 }
 
+.busqueda-input {
+    color: #212529 !important;
+}
 
 .tree_categorias__busqueda button {
     background: none;
