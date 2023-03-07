@@ -37,7 +37,7 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
             //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY openSectores
             setOpenSectores([...openSectores, parent]); //Se añade el nuevo parent
         }
-        
+
         //SE BUSCAN LOS SEGMENTOS QUE TENGAN EL id_padre_sub_categoria == AL SECTOR QUE SE LE DIO CLICK
         const pattern = new RegExp(parent, "i");
         const FilteredSegmentos = sectores.filter(function (el) {
@@ -556,10 +556,12 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
 
     /*################################### TIPO COMPRAS #############################################*/
 
-    const [contenedorPaso1Actividades, setContenedorPaso1Actividades] = useState(true)
+    const [contenedorPaso1Actividades, setContenedorPaso1Actividades] = useState(false)
     const [contenedorBotonVolver, setcontenedorBotonVolver] = useState(false)
     const [contenedorPaso2TipoCompras, setContenedorPaso2TipoCompras] = useState(false)
     const [contenedorPaso3Localizaciones, setContenedorPaso3Localizaciones] = useState(false)
+    const [contenedorPaso4Cuantia, setContenedorPaso4Cuantia] = useState(true)
+
 
     useEffect(() => { setContenedorPaso2TipoCompras(false) }, []) //cambiar por false
     useEffect(() => { setcontenedorBotonVolver(false) }, []) //cambiar por false
@@ -576,7 +578,7 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
         setContenedorPaso2TipoCompras(false)
         setcontenedorBotonVolver(false)
     }
-   
+
 
     return (
         <>
@@ -636,12 +638,12 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
                                     <i className="icon-Cancelar" style="display: none;"></i>
                                     <button type="button" className="icon-Buscar-click"></button>
                                 </div> */}
-                               
+
                                 <div className="perfil-guias__indicador perfil-guias__indicador--activo">
                                     <i className="icon-Paso-1-click"></i> <span>Actividad económica</span>
                                     <i className="icon-Paso-2-click" id="pleft2"></i> <span>Tipo de compra</span>
                                     <i className="icon-Paso-3-click" id="pleft2"></i> <span>Localizaciones</span>
-
+                                    <i className="icon-Paso-4-click" id="pleft2"></i> <span>Rango de Cuantía</span>
                                 </div>
                                 <div className="mx-60 mt-30 d-flex">
                                     <button
@@ -1000,12 +1002,57 @@ const Index = ({ auth, actividades_economicas, tiposcompras, localizacion }) => 
                                     }
                                 </>
 
-    
+
                                 <>{/* Paso 3*/}
                                     {contenedorPaso3Localizaciones &&
                                         <ul className="tree-root">
                                             <p>Paso 3</p>
                                         </ul>
+                                    }
+                                </>
+
+                                <>{/* Paso 4*/}
+                                    {contenedorPaso4Cuantia &&
+                                        <div className="perfil-cuantias">
+                                            <div id="campos-cuantias" className="justify-content-center pt-2 pb-5 py-md-5 row">
+                                                <div className="col-10 col-sm-8 col-lg-4 col-md-5">
+                                                    <div className="form-group mb-5 mb-md-1 campos-cuantias__form">
+                                                        <span className="icon-Cuantia campos-cuantias__icon">
+                                                            <span className="path1"></span>
+                                                            <span className="path2"></span>
+                                                            <span className="path3"></span>
+                                                            <span className="path4"></span>
+                                                        </span>
+                                                        <label>Cuantía desde:</label>
+                                                        <input type="text" id="cuantia_desde" name="cuantia_desde" placeholder="$" className="form-control inputs_form" />
+                                                    </div>
+                                                </div>
+                                                <div className="col-10 col-sm-8 col-lg-4 col-md-5">
+                                                    <div className="form-group campos-cuantias__form">
+                                                        <span className="icon-Cuantia-2 campos-cuantias__icon">
+                                                            <span className="path1"></span>
+                                                            <span className="path2"></span>
+                                                            <span className="path3"></span>
+                                                            <span className="path4"></span>
+                                                        </span>
+                                                        <label id="descripcion">Cuantía hasta:</label>
+                                                        <input type="text" id="cuantia_hasta" name="cuantia_hasta" placeholder="Sin limite superior" className="form-control inputs_form" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="align-items-center col-11 col-lg-8 col-md-9 col-sm-10 justify-content-between campos-cuantias__block row">
+                                                <div class="col-8 p-0">
+                                                    <p>¿Deseas incluir contratos <span class="text_color">sin presupuesto asignado</span> o con cuantía de <span
+                                                        class="text_color">$0</span> en este perfil?</p>
+                                                </div>
+                                                <div class="col-3 text-center">
+                                                    <label class="switch">
+                                                        <input type="checkbox" />
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
                                     }
                                 </>
 
