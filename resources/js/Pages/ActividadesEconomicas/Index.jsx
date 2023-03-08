@@ -15,7 +15,7 @@ import "../../../css/font-unicolor.css";
 /*Toast*/
 
 const Index = ({ auth, actividades_economicas }) => {
-    const [showToast, setShowToast] = useState(false);
+    const [showToast, setShowToast] = useState(true);
     const [toastMessage, setToastMessage] = useState("");
     const [toastIcon, setToastIcon] = useState("");
     const [fakeSectores, setFakeSectores] = useState(actividades_economicas);
@@ -37,10 +37,15 @@ const Index = ({ auth, actividades_economicas }) => {
     });
     const [segmentos, setSegmentos] = useState([]);
     const [actividadesEconomicas, setActividadesEconomicas] = useState([]);
-    const [showModalActividadEconomica, setShowModalActividadEconomica] =
-        useState(false);
+
+    const [showModalActividadEconomica, setShowModalActividadEconomica] = useState(false);
+
+
+
     const handleCloseModalActividadEconomica = () =>
         setShowModalActividadEconomica(false);
+
+
     const handleShowModalActividadEconomica = () => {
         if (inputActividadEconomica.id != 0) {
             setShowModalActividadEconomica(true);
@@ -50,6 +55,7 @@ const Index = ({ auth, actividades_economicas }) => {
             setShowToast(true);
         }
     };
+
     const editActividadEconomica = () => {
         if (inputActividadEconomica.id != 0) {
             window.location.replace(

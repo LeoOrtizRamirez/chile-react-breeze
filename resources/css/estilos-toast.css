@@ -174,3 +174,8 @@ button.icon-close.m-auto {
         width: 196px
     }
 }
+
+div#Toast-register {
+    left: 76%;
+    bottom: 88%;
+}

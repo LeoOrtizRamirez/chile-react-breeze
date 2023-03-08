@@ -43,16 +43,32 @@ class RegisteredUserController extends Controller
     public function registerModal()
     {
         $payLoad = json_decode(request()->getContent(), true);
-       
-        $user = User::create([
-            'name' => $payLoad['name'],
-            'email' => $payLoad['email'],
-            'password' => Hash::make($payLoad['password']),
-            'celular' => $payLoad['phone'],
-            'indicativo' => $payLoad['indicativo']
-        ]);
-        event(new Registered($user));
-        Auth::login($user);
-        return json_encode("Usuario Registrado");
+
+        $user = User::where('email', $payLoad['email'])->first();
+
+        //Validamos que el correo electronico no este registrado
+        if (!is_null($user)) {
+            $response = 'Failed';
+        }
+
+        //Validamos que no queden campos vacios
+        if ($payLoad['email'] = "" || $payLoad['name']= "" || $payLoad['password']= "" || $payLoad['phone']= "" || $payLoad['indicativo']) {
+            $response = 'NULL';
+        } else {
+            $user = User::create([
+                'name' => $payLoad['name'],
+                'email' => $payLoad['email'],
+                'password' => Hash::make($payLoad['password']),
+                'celular' => $payLoad['phone'],
+                'indicativo' => $payLoad['indicativo']
+            ]);
+            $response = 'Success';
+            Auth::login($user);
+        }
+
+
+        /*  event(new Registered($user)); */
+
+        return json_encode($response);
     }
 }

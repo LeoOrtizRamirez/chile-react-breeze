@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from 'react';
 import { useEffect, useState } from "react";
 import { Head, useForm } from "@inertiajs/inertia-react";
 import Modal from "react-bootstrap/Modal";
@@ -15,7 +15,24 @@ import Button from "react-bootstrap/Button";
 import "@fontsource/poppins";
 import "./Register.css";
 
+
+/*Toast*/
+import Toast from "react-bootstrap/Toast";
+import ToastContainer from "react-bootstrap/ToastContainer";
+import "../../../css/estilos-toast.css";
+import "../../../css/font-unicolor.css";
+/*Toast*/
+
+
+
+
 export default function Register(props) {
+
+    /*Toast*/
+    const [toastMessage, setToastMessage] = useState("");
+    const [toastIcon, setToastIcon] = useState("icon-error");
+    const [showToast, setShowToast] = useState(false);
+    /*Toast*/
 
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
@@ -26,10 +43,12 @@ export default function Register(props) {
 
     });
 
+    const inputRefEmail = useRef();
+
     const [errorIconStatus, setIconStatus] = useState(false);
 
-    const [disabledBtnRegister, setDisableddisabledBtnRegister] =
-        useState(true);
+    const [disabledBtnRegister, setDisableddisabledBtnRegister] = useState(true);
+
     const [disabledClass, setDisabledClass] = useState("disabled");
     const [showModalPaises, setShowModalPaises] = useState(false);
     const [Country, SetCountry] = useState({
@@ -73,7 +92,6 @@ export default function Register(props) {
     };
 
     const onHandleChange = (event) => {
-        console.log(event.target);
         setData(
             event.target.name,
             event.target.type === "checkbox"
@@ -85,11 +103,11 @@ export default function Register(props) {
     const [validated, setValidated] = useState(false);
 
     /**popup*/
-    const [contenedorAvisoCookies, setContenedorAvisoCookies] = useState(false)
-    useEffect(() => { setContenedorAvisoCookies(false) }, [])
+    const [contenedorPopUpRegister, setContenedorPopUpRegister] = useState(false)
+
+    useEffect(() => { setContenedorPopUpRegister(false) }, [])
 
     const handleSubmit = (event) => {
-
         var token = document.querySelector('meta[name="csrf-token"]').content;
         document.getElementById("token").value = token;
 
@@ -98,10 +116,12 @@ export default function Register(props) {
         var indicativo = document.getElementById("indicativo").textContent;
 
         const form = event.currentTarget;
+
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
         }
+
         setValidated(true);
         event.preventDefault();
 
@@ -120,15 +140,28 @@ export default function Register(props) {
         })
             .then(r => r.json())
             .then(respuesta => {
+                if (respuesta == "Failed") {
+                    inputRefEmail.current.focus();
+                    data.email="";
+                    setToastMessage("El correo ya se encuentra registrado");
+                    setShowToast(true);
+                }else{
+                    if (respuesta == "NULL") {
+                        setToastMessage("Porfavor completa todos los campos");
+                        setShowToast(true);
+                    }else{
+                        setContenedorPopUpRegister(true)
+                    }
+                }
+                
                 //Abre el popup
-                setContenedorAvisoCookies(true)
+              
             });
-        /*  post(route("register")); */
     };
 
 
     const continuarPopup = () => {
-        setContenedorAvisoCookies(false)
+        setContenedorPopUpRegister(false)
 
         window.location.href = "/perfiles";
     };
@@ -181,6 +214,41 @@ export default function Register(props) {
         <>
             <Head title="Register" />
             <Header user={props}></Header>
+
+            <ToastContainer
+              id="Toast-register"
+             
+             >
+                <Toast
+               
+                    onClose={() => setShowToast(false)}
+                    show={showToast}
+                    delay={500000}
+                    autohide
+                >
+                    <div
+                        className={`notification-toast ${toastIcon == "icon-error" ? "error" : "success"
+                            }`}
+                    >
+                        <span
+                            className={`toast-icon ${toastIcon == "icon-error"
+                                ? "toast-danger"
+                                : "toast-success"
+                                }`}
+                        >
+                            <span className={toastIcon}></span>
+                        </span>
+                        <p className="title">{toastMessage}</p>
+                        <button
+                            type="button"
+                            className="icon-close m-auto"
+                            onClick={() => setShowToast(false)}
+                        />
+                    </div>
+                </Toast>
+            </ToastContainer>
+
+
             <div id="register-container" className="container">
                 <div className="bloque row">
                     <div className="bloque__info col-lg-6">
@@ -355,8 +423,10 @@ export default function Register(props) {
                                             value={data.email}
                                             className="bloque__registro-form-container-input"
                                             autoComplete="username"
+                                            ref={inputRefEmail}
                                             onChange={(e) => onHandleChange(e)}
                                             required
+                                            
                                         />
                                     </div>
                                 </Form.Group>
@@ -509,13 +579,12 @@ export default function Register(props) {
                             />
 
                         </Form>
-                        {/*   <PopUpRegistrarse /> */}
                     </div>
                 </div>
             </div>
 
             <>
-                {contenedorAvisoCookies &&
+                {contenedorPopUpRegister &&
                     <div id="modalUsuarioRegistrado" role="dialog" aria-describedby="modalUsuarioRegistrado___BV_modal_body_" className="modal fade show" aria-modal="true" >
                         <div className="modal-dialog modal-md modal-dialog-centered">
                             <span tabindex="0">  </span>
