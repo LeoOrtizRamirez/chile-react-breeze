@@ -146,27 +146,14 @@ const Index = ({
                 (fs) => fs.id_padre_sub_categoria == current.id
             );
             //Si tiene actividades economicas es un segmento
-            if (actividades_economicas.length > 0) {
-                //Click en segmento
-                if (!array_checks.includes(current.id)) {
-                    array_checks.push(current.id);
-                    array_checks = toggleCheked(
-                        array_checks,
-                        actividades_economicas,
-                        "actividad_economica",
-                        "add"
-                    );
-                } else {
-                    array_checks = deleteActividadEconomica(
-                        array_checks,
-                        current
-                    );
-                    array_checks = toggleCheked(
-                        array_checks,
-                        actividades_economicas,
-                        "actividad_economica",
-                        "remove"
-                    );
+            if (actividades_economicas.length > 0) {//Click en segmento
+                if (!array_checks.includes(current.id)) {//Si no esta seleccionada el segmento
+                    array_checks.push(current.id)//Se agrega el segmento
+                    array_checks = toggleCheked(array_checks, actividades_economicas, 'actividades_economicas', 'remove')
+                    array_checks = toggleCheked(array_checks, actividades_economicas, 'actividad_economica', 'add')
+                } else {//Si ya esta seleccionada el segmento
+                    array_checks = deleteActividadEconomica(array_checks, current)
+                    array_checks = toggleCheked(array_checks, actividades_economicas, 'actividad_economica', 'remove')
                 }
             } else {
                 //Click en actividad economica
