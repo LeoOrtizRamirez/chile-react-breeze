@@ -42,30 +42,30 @@ class RegisteredUserController extends Controller
 
     public function registerModal()
     {
+       
         $payLoad = json_decode(request()->getContent(), true);
-
         $user = User::where('email', $payLoad['email'])->first();
-
-        //Validamos que el correo electronico no este registrado
-        if (!is_null($user)) {
-            $response = 'Failed';
-        }
-
+      
         //Validamos que no queden campos vacios
-        if ($payLoad['email'] = "" || $payLoad['name']= "" || $payLoad['password']= "" || $payLoad['phone']= "" || $payLoad['indicativo']) {
+        if ($payLoad['email'] == "" ||  $payLoad['name'] == "" || $payLoad['password'] == "" || $payLoad['phone'] == "") {
             $response = 'NULL';
         } else {
-            $user = User::create([
-                'name' => $payLoad['name'],
-                'email' => $payLoad['email'],
-                'password' => Hash::make($payLoad['password']),
-                'celular' => $payLoad['phone'],
-                'indicativo' => $payLoad['indicativo']
-            ]);
-            $response = 'Success';
-            Auth::login($user);
+            //Validamos que el correo electronico no este registrado
+            if (!is_null($user) ) {
+                $response = 'Failed';
+            }else{
+                $user = User::create([
+                    'name' => $payLoad['name'],
+                    'email' => $payLoad['email'],
+                    'password' => Hash::make($payLoad['password']),
+                    'celular' => $payLoad['phone'],
+                    'indicativo' => $payLoad['indicativo']
+                ]);
+                $response = 'Success';
+                Auth::login($user);
+            }
+          
         }
-
 
         /*  event(new Registered($user)); */
 

@@ -142,20 +142,18 @@ export default function Register(props) {
             .then(respuesta => {
                 if (respuesta == "Failed") {
                     inputRefEmail.current.focus();
-                    data.email="";
+                    data.email = "";
                     setToastMessage("El correo ya se encuentra registrado");
                     setShowToast(true);
-                }else{
+                } else {
                     if (respuesta == "NULL") {
                         setToastMessage("Porfavor completa todos los campos");
                         setShowToast(true);
-                    }else{
+                    } else {
+                        //Abre el popup
                         setContenedorPopUpRegister(true)
                     }
                 }
-                
-                //Abre el popup
-              
             });
     };
 
@@ -216,14 +214,14 @@ export default function Register(props) {
             <Header user={props}></Header>
 
             <ToastContainer
-              id="Toast-register"
-             
-             >
+                id="Toast-register"
+
+            >
                 <Toast
-               
+
                     onClose={() => setShowToast(false)}
                     show={showToast}
-                    delay={500000}
+                    delay={5000}
                     autohide
                 >
                     <div
@@ -426,7 +424,7 @@ export default function Register(props) {
                                             ref={inputRefEmail}
                                             onChange={(e) => onHandleChange(e)}
                                             required
-                                            
+
                                         />
                                     </div>
                                 </Form.Group>
