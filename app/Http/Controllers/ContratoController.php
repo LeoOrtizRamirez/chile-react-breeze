@@ -16,14 +16,17 @@ class ContratoController extends Controller
     public function index(){
         $buscador_rapido = request("buscador_rapido");
         $fecha_publicacion = request("fecha_publicacion");
-
+        $entidad_contratante = request("entidad_contratante");
         $contratos = Contrato::with('fuente')
-        ->where(function ($query) use ($buscador_rapido) {
+        ->where(function ($query) use ($buscador_rapido, $entidad_contratante) {
             if (!is_null($buscador_rapido) && $buscador_rapido != "") {
                 $query->where('entidad_contratante', 'like', '%' . $buscador_rapido . '%')
                     ->orWhere('objeto', 'like', '%' . $buscador_rapido . '%')
                     ->orWhere('modalidad', 'like', '%' . $buscador_rapido . '%')
                     ->orWhere('ubicacion', 'like', '%' . $buscador_rapido . '%');
+            }
+            if (!is_null($entidad_contratante) && $entidad_contratante != "") {
+                $query->where('entidad_contratante', 'like', '%' . $entidad_contratante . '%');
             }
         })
         ->where(function ($query) use ($fecha_publicacion) {

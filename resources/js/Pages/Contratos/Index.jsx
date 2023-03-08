@@ -159,6 +159,7 @@ const Index = ({ auth, contratos }) => {
                 "keypress",
                 function (event) {
                     if (event.key === "Enter") {
+                        // debugger
                         event.preventDefault();
                         const querystring = getUrlParams();
 
@@ -166,6 +167,7 @@ const Index = ({ auth, contratos }) => {
 
                         setLoading(true);
                         fetch("/contratos/?" + querystring)
+                        // fetch("/contratos/?entidad_contratante=coquimbo&fecha_publicacion=&type=fetch")
                             .then((response) => response.json())
                             .then((data) => {
                                 tableFormat(data);
@@ -176,6 +178,23 @@ const Index = ({ auth, contratos }) => {
             );
         }
     }, []);
+
+    const busquedaAvanzada = (data, queryString) => {
+        debugger;
+        if (data.EntidadContratante !== "") {
+            console.log(queryString);
+            setLoading(true);
+            // fetch(
+            //     "/contratos/?EntidadContratante=" +
+            //         data.EntidadContratante
+            // )
+            fetch("/contratos/?entidad_contratante=coquimbo&fecha_publicacion=&type=fetch")
+                .then((data) => {
+                    tableFormat(data.json());
+                    setLoading(false);
+                });
+        }
+    };
 
     const tableFormat = (data) => {
         //Formatear valores del paginador
@@ -206,9 +225,12 @@ const Index = ({ auth, contratos }) => {
     /*Fin Loader */
 
     // Inicio buscador avanzado
+
     const [showBusquedaAvanzada, setShowBusquedaAvanzada] = useState(false);
     const handleCloseBusquedaAvanzada = () => setShowBusquedaAvanzada(false);
     const handleShowBusquedaAvanzada = () => setShowBusquedaAvanzada(true);
+    const handleBusqueda = (data, queryString) =>
+        busquedaAvanzada(data, queryString);
     // fin buscador avanzado
 
     return (
@@ -258,6 +280,7 @@ const Index = ({ auth, contratos }) => {
                                 </span>
                             </button>
                             <ModalBusquedaAvanzada
+                                handleBusqueda={handleBusqueda}
                                 showBusquedaAvanzada={showBusquedaAvanzada}
                                 handleCloseBusquedaAvanzada={
                                     handleCloseBusquedaAvanzada

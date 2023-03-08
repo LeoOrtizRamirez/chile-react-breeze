@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import BusquedaEstado from "./BusquedaEstado";
@@ -11,6 +11,7 @@ import "./ModalBusquedaAvanzada.css";
 export const ModalBusquedaAvanzada = ({
     showBusquedaAvanzada,
     handleCloseBusquedaAvanzada,
+    handleBusqueda,
 }) => {
     const [formValues, setFormValues] = useState({
         EntidadContratante: "",
@@ -58,7 +59,29 @@ export const ModalBusquedaAvanzada = ({
     const handleSubmit = (event) => {
         event.preventDefault();
         // Aquí puedes hacer lo que necesites con los valores del formulario
-        console.log(formValues);
+        // console.log(formValues);
+        debugger
+        handleBusqueda(formValues,getUrlParams());
+    };
+
+    const getUrlParams = () => {
+        //Obtener inputs de formulario y guardarlos en objeto
+        var form = document.getElementById("form_busqueda_avanzada");
+        let formData = new FormData(form);
+        let object = {};
+        formData.forEach(function (value, key) {
+            object[key] = value;
+        });
+        const querystring = encodeQueryData(object);
+        return querystring;
+    };
+
+    const encodeQueryData = (data) => {
+        //Convertir objeto en url
+        const ret = [];
+        for (let d in data)
+            ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+        return ret.join("&");
     };
 
     // Selecionamos el elemento de entrada utilizando una referencia
@@ -135,7 +158,7 @@ export const ModalBusquedaAvanzada = ({
             </Modal.Header>
             <Modal.Body className="test">
                 <div id="modal-busqueda-avanzada">
-                    <Form onSubmit={handleSubmit} className="form-container">
+                    <Form onSubmit={handleSubmit} className="form-container" id="form_busqueda_avanzada">
                         <span>
                             <i class="bi bi-bank iconos"></i>
                             Entidad contratante:
