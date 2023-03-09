@@ -359,7 +359,7 @@ export const BusquedaActividad = ({
 
     useEffect(() => {}, [sectores]);
 
-    console.log("sectores:", sectores);
+    // console.log("sectores:", sectores);
 
     return (
         <Modal
