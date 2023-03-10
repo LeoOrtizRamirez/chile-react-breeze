@@ -16,6 +16,10 @@ import "@fontsource/poppins";
 
 import Loader from "@/Components/Loader";
 const Index = ({ auth, contratos }) => {
+    // let queryStringBusquedaAvanzada = "";
+    const [queryStringBusquedaAvanzada, setqueryStringBusquedaAvanzada] =
+        useState("");
+
     const [tableContratos, setTableContratos] = useState(contratos.data);
 
     // Inicio Ordenar tabla por columna
@@ -139,9 +143,13 @@ const Index = ({ auth, contratos }) => {
     };
 
     const pageChange = (url) => {
+        // debugger;
         //Peticiones por paginador
         if (url == null) return;
-        const querystring = getUrlParams();
+        let querystring = getUrlParams();
+        if (queryStringBusquedaAvanzada !== "") {
+            querystring = queryStringBusquedaAvanzada;
+        }
         setLoading(true);
         fetch(url + "&" + querystring)
             .then((response) => response.json())
@@ -159,17 +167,15 @@ const Index = ({ auth, contratos }) => {
                 "keypress",
                 function (event) {
                     if (event.key === "Enter") {
-                        // debugger
                         event.preventDefault();
                         const querystring = getUrlParams();
-
-                        console.log(querystring);
-
                         setLoading(true);
+                        setqueryStringBusquedaAvanzada("");
                         fetch("/contratos/?" + querystring)
-                        // fetch("/contratos/?entidad_contratante=coquimbo&fecha_publicacion=&type=fetch")
+                            // fetch("/contratos/?entidad_contratante=coquimbo&fecha_publicacion=&type=fetch")
                             .then((response) => response.json())
                             .then((data) => {
+                                // console.log(data);
                                 tableFormat(data);
                                 setLoading(false);
                             });
@@ -179,25 +185,23 @@ const Index = ({ auth, contratos }) => {
         }
     }, []);
 
-    const busquedaAvanzada = (data, queryString) => {
-        debugger;
-        if (data.EntidadContratante !== "") {
-            console.log(queryString);
-            setLoading(true);
-            // fetch(
-            //     "/contratos/?EntidadContratante=" +
-            //         data.EntidadContratante
-            // )
-            fetch("/contratos/?entidad_contratante=coquimbo&fecha_publicacion=&type=fetch")
-                .then((data) => {
-                    tableFormat(data.json());
-                    setLoading(false);
-                });
-        }
+    const busquedaAvanzada = (queryString) => {
+        // debugger;
+        setqueryStringBusquedaAvanzada(queryString + "&type=fetch");
+        setLoading(true);
+        fetch("/contratos/?" + queryString + "&type=fetch")
+            // fetch("/contratos/?entidad_contratante=turismo&fecha_publicacion=&type=fetch")
+            .then((response) => response.json())
+            .then((data) => {
+                tableFormat(data);
+                setLoading(false);
+            });
+        setShowBusquedaAvanzada(false);
     };
 
     const tableFormat = (data) => {
         //Formatear valores del paginador
+        // debugger;
         setTableContratos(data.data);
         setTotalPaginas(data.to);
         setCurrentPage(data.from);
@@ -229,8 +233,7 @@ const Index = ({ auth, contratos }) => {
     const [showBusquedaAvanzada, setShowBusquedaAvanzada] = useState(false);
     const handleCloseBusquedaAvanzada = () => setShowBusquedaAvanzada(false);
     const handleShowBusquedaAvanzada = () => setShowBusquedaAvanzada(true);
-    const handleBusqueda = (data, queryString) =>
-        busquedaAvanzada(data, queryString);
+    const handleBusqueda = (queryString) => busquedaAvanzada(queryString);
     // fin buscador avanzado
 
     return (

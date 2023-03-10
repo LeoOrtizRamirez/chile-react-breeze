@@ -378,7 +378,7 @@ export const BusquedaTiposCompras = ({
     };
 
     useEffect(() => {}, [sectores]);
-    console.log("sectores:", sectores);
+    // console.log("sectores:", sectores);
 
     return (
         <Modal

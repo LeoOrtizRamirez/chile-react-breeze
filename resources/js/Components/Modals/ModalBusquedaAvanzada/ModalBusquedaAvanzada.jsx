@@ -14,18 +14,18 @@ export const ModalBusquedaAvanzada = ({
     handleBusqueda,
 }) => {
     const [formValues, setFormValues] = useState({
-        EntidadContratante: "",
+        entidad_contratante: "",
         objeto: "",
-        numeroContrato: "",
+        codigo_proceso: "",
         modalidad: "",
         actividadEconomica: "",
         ubicacion: "",
-        estado: "",
+        estado_proceso: "",
         portalOrigen: "",
-        cuantiaDesde: "",
-        cuantiaHasta: "",
-        fechaDesde: "",
-        fechaHasta: "",
+        cuantia_desde: "",
+        cuantia_hasta: "",
+        fecha_desde: "",
+        fecha_hasta: "",
         contratista: "",
     });
 
@@ -40,28 +40,29 @@ export const ModalBusquedaAvanzada = ({
     // Reinicia todos los input
     const handleClear = () => {
         setFormValues({
-            EntidadContratante: "",
+            entidad_contratante: "",
             objeto: "",
-            numeroContrato: "",
+            codigo_proceso: "",
             modalidad: "",
             actividadEconomica: "",
             ubicacion: "",
-            estado: "",
+            estado_proceso: "",
             portalOrigen: "",
-            cuantiaDesde: "",
-            cuantiaHasta: "",
-            fechaDesde: "",
-            fechaHasta: "",
+            cuantia_desde: "",
+            cuantia_hasta: "",
+            fecha_desde: "",
+            fecha_hasta: "",
             contratista: "",
         });
+        setCheckboxValues([]);
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
         // Aquí puedes hacer lo que necesites con los valores del formulario
         // console.log(formValues);
-        debugger
-        handleBusqueda(formValues,getUrlParams());
+        // debugger
+        handleBusqueda(getUrlParams());
     };
 
     const getUrlParams = () => {
@@ -72,7 +73,9 @@ export const ModalBusquedaAvanzada = ({
         formData.forEach(function (value, key) {
             object[key] = value;
         });
-        const querystring = encodeQueryData(object);
+        const querystring =
+            encodeQueryData(object) + "&estado_proceso=" + checkboxValues;
+        // debugger;
         return querystring;
     };
 
@@ -86,30 +89,44 @@ export const ModalBusquedaAvanzada = ({
 
     // Selecionamos el elemento de entrada utilizando una referencia
     const inputRef = useRef(null);
-    // Asignamos un estado para el tipo de entrada (type)
+    // Asignamos un estado_proceso para el tipo de entrada (type)
     // Inicialmente,  el tipo de entrada es un campo de texto.
     const [type, setType] = useState("text");
 
     // Inicio Controladores de eventos para escuchar los cambios  onFocus y onBlur
 
-    // onFocus, actualiza el estado del tipo de entrada del campo de texto a un campo de fecha utilizando el método setType().
+    // onFocus, actualiza el estado_proceso del tipo de entrada del campo de texto a un campo de fecha utilizando el método setType().
     const onFocus = () => {
         setType("date");
         inputRef.current.defaultValue = "";
     };
 
-    // onBlur, actualiza el estado del tipo de entrada del campo de fecha a un campo de texto utilizando el método setType().
+    // onBlur, actualiza el estado_proceso del tipo de entrada del campo de fecha a un campo de texto utilizando el método setType().
     const onBlur = () => {
         setType("text");
         // inputRef.current.defaultValue = '2022-01-01';
     };
     // Fin Controladores
 
-    // Inicio Modal estado
+    // Inicio Modal estado_proceso
     const [showBusquedaEstado, setShowBusquedaEstado] = useState(false);
     const handleCloseBusquedaEstado = () => setShowBusquedaEstado(false);
     const handleShowBusquedaEstado = () => setShowBusquedaEstado(true);
-    // Fin Modal estado
+    const [checkboxValues, setCheckboxValues] = useState([]);
+    const handleValuesSelected = (values) => {
+        setCheckboxValues(values);
+    };
+    const handleCheckboxChange = (e) => {
+        const value = e.target.value;
+        const isChecked = e.target.checked;
+
+        if (isChecked) {
+            setCheckboxValues([...checkboxValues, value]);
+        } else {
+            setCheckboxValues(checkboxValues.filter((val) => val !== value));
+        }
+    };
+    // Fin Modal estado_proceso
 
     // Inicio Modal ubicacion
     const [showBusquedaUbicacion, setShowBusquedaUbicacion] = useState(false);
@@ -158,15 +175,19 @@ export const ModalBusquedaAvanzada = ({
             </Modal.Header>
             <Modal.Body className="test">
                 <div id="modal-busqueda-avanzada">
-                    <Form onSubmit={handleSubmit} className="form-container" id="form_busqueda_avanzada">
+                    <Form
+                        onSubmit={handleSubmit}
+                        className="form-container"
+                        id="form_busqueda_avanzada"
+                    >
                         <span>
                             <i class="bi bi-bank iconos"></i>
                             Entidad contratante:
                         </span>
                         <input
                             type="text"
-                            name="EntidadContratante"
-                            value={formValues.EntidadContratante}
+                            name="entidad_contratante"
+                            value={formValues.entidad_contratante}
                             onChange={handleChange}
                             placeholder="Ingresa la entidad contratante"
                         />
@@ -189,8 +210,8 @@ export const ModalBusquedaAvanzada = ({
                                 </span>
                                 <input
                                     type="text"
-                                    name="numeroContrato"
-                                    value={formValues.numeroContrato}
+                                    name="codigo_proceso"
+                                    value={formValues.codigo_proceso}
                                     onChange={handleChange}
                                     placeholder="Ingresa el número del proceso"
                                 />
@@ -262,7 +283,11 @@ export const ModalBusquedaAvanzada = ({
                                 </span>
                                 <input
                                     type="text"
+                                    value={checkboxValues.join(",")}
+                                    // value={formValues?.checkboxValues?.join(",")}
+                                    // value={formValues.checkboxValues}
                                     onClick={handleShowBusquedaEstado}
+                                    onChange={handleCheckboxChange}
                                     placeholder="Selecione los estados de proceso"
                                     // value={checkedValues}
                                 />
@@ -271,6 +296,8 @@ export const ModalBusquedaAvanzada = ({
                                     handleCloseBusquedaEstado={
                                         handleCloseBusquedaEstado
                                     }
+                                    onClose={() => console.log("Modal cerrado")}
+                                    onValuesSelected={handleValuesSelected}
                                 ></BusquedaEstado>
                             </div>
                             <div className="size">
@@ -295,8 +322,8 @@ export const ModalBusquedaAvanzada = ({
                                 </span>
                                 <input
                                     type="text"
-                                    name="cuantiaDesde"
-                                    value={formValues.cuantiaDesde}
+                                    name="cuantia_desde"
+                                    value={formValues.cuantia_desde}
                                     onChange={handleChange}
                                     placeholder="Desde"
                                 />
@@ -305,8 +332,8 @@ export const ModalBusquedaAvanzada = ({
                                 <span>&nbsp;</span>
                                 <input
                                     type="text"
-                                    name="cuantiaHasta"
-                                    value={formValues.cuantiaHasta}
+                                    name="cuantia_hasta"
+                                    value={formValues.cuantia_hasta}
                                     onChange={handleChange}
                                     placeholder="Hasta"
                                 />
@@ -320,8 +347,8 @@ export const ModalBusquedaAvanzada = ({
                                 </span>
                                 <input
                                     type={type}
-                                    name="fechaDesde"
-                                    value={formValues.fechaDesde}
+                                    name="fecha_desde"
+                                    value={formValues.fecha_desde}
                                     onChange={handleChange}
                                     placeholder="Inicio"
                                     ref={inputRef}
@@ -333,8 +360,8 @@ export const ModalBusquedaAvanzada = ({
                                 <span>&nbsp;</span>
                                 <input
                                     type={type}
-                                    name="fechaHasta"
-                                    value={formValues.fechaHasta}
+                                    name="fecha_hasta"
+                                    value={formValues.fecha_hasta}
                                     onChange={handleChange}
                                     placeholder="Fin"
                                     ref={inputRef}
