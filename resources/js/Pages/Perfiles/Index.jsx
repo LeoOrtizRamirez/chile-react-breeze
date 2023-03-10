@@ -296,7 +296,7 @@ const Index = ({
             
 
             var input_sector = document.getElementById('sector_check_' + current.id_padre_sub_categoria)
-            var input_segmento = document.getElementById('segmento_check_' + current.id_padre_sub_categoria)
+            var input_segmento = document.getElementById('segmento_check_' + current.id)
             if (sectorValidator) {
                 array.push(current.id_padre_sub_categoria)//Se agrega el segmento
             }else{
