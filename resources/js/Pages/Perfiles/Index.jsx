@@ -739,43 +739,49 @@ const Index = ({
     const [contenedorBuscadorTipoCompras, setContenedorBuscadorTipoCompras] = useState(false);
     const [contenedorBuscadorLocalizaciones, setContenedorBuscadorLocalizaciones,] = useState(false);
 
-    const [contenedorBotonVolver, setcontenedorBotonVolver] = useState(false);
+    const [contenedorBotonReturnTipoCompra, setcontenedorBotonReturnTipoCompra] = useState(false);
+    const [contenedorBotonReturnLocalizaciones, setcontenedorBotonReturnLocalizaciones] = useState(false);
+    const [contenedorBotonReturnCuantia, setcontenedorBotonReturnCuantia] = useState(false);
+  
+    const [contenedorBotonNextActividadEconomica, setcontenedorBotonNextActividadEconomica] = useState(true);
+    const [contenedorBotonNextTipoCompra, setcontenedorBotonNextTipoCompra] = useState(false);
+    const [contenedorBotonNextLocalizacion, setcontenedorBotonNextLocalizacion] = useState(false);
 
-    const [contenedorBotonPaso2, setcontenedorBotonPaso2] = useState(true);
-    const [contenedorBotonPaso3, setcontenedorBotonPaso3] = useState(false);
-    const [contenedorBotonPaso4, setcontenedorBotonPaso4] = useState(false);
 
 
-
-    const SiguientePaso2 = () => {
-          //Se muestran las tipo de compras
+    const SiguientePaso2TipoCompra = () => {
+        //Se muestran las tipo de compras
         setContenedorPaso1Actividades(false);
         setContenedorBuscadorActividades(false);
 
         setContenedorPaso2TipoCompras(true);
         setContenedorBuscadorTipoCompras(true);
 
-        setcontenedorBotonVolver(true);
-        setcontenedorBotonPaso2(false)
-        setcontenedorBotonPaso3(true)
-
+        setcontenedorBotonReturnTipoCompra(true);
+        setcontenedorBotonNextActividadEconomica(false)
+        setcontenedorBotonNextTipoCompra(true)
 
     };
 
-    const SiguientePaso3 = () => {
+    const SiguientePaso3Localizacion = () => {
         console.log("paso3")
         //Se muestran las localizaciones
-        setcontenedorBotonPaso3(false)
-        setcontenedorBotonPaso4(true)
+
+        setcontenedorBotonNextTipoCompra(false)
+        setcontenedorBotonNextLocalizacion(true)
 
         setContenedorPaso2TipoCompras(false);
         setContenedorBuscadorTipoCompras(false);
 
         setContenedorBuscadorLocalizaciones(true)
         setContenedorPaso3Localizaciones(true)
+
+        //Oculto un boton de volver y muestro el otro
+        contenedorBotonReturnTipoCompra(false)
+        contenedorBotonReturnLocalizaciones(true)
     };
 
-    const SiguientePaso4 = () => {
+    const SiguientePaso4Cuantia = () => {
          //Se muestran las cuantias
         console.log("paso4")
 
@@ -783,22 +789,34 @@ const Index = ({
         setContenedorPaso3Localizaciones(false)
 
         setContenedorPaso4Cuantia(true)
-
+    
     };
 
-    const VolverPaso1 = () => {
-        setContenedorPaso1Actividades(true);
+    const VolverPaso1ActividadEconomica = () => {
+        //Volver A actividades economicas
         setContenedorPaso2TipoCompras(false);
-        setcontenedorBotonVolver(false);
-        setContenedorBuscadorActividades(true);
         setContenedorBuscadorTipoCompras(false);
+
+        setContenedorPaso1Actividades(true);
+        setContenedorBuscadorActividades(true);
+
+        setcontenedorBotonReturnTipoCompra(false);
+        setcontenedorBotonNextTipoCompra(false)
+        setcontenedorBotonNextActividadEconomica(true)
+       
     };
 
-    const VolverPaso2 = () => {
+    const VolverPaso2TipoCompra = () => {
+         //Volver A Tipo de compras
+
+         setContenedorBuscadorLocalizaciones(false)
+         setContenedorPaso3Localizaciones(false)
+
+
 
     };
 
-    const VolverPaso3 = () => {
+    const VolverPaso3Localizaciones = () => {
 
     };
     const [cuantiaHasta, setCuantiaHasta] = useState(0);
@@ -1596,10 +1614,11 @@ const Index = ({
                     <div className="perfil-bottons-footer position-relative text-center mt-4">
 
                         <>
-                            {contenedorBotonPaso2 && (
+                            {contenedorBotonNextActividadEconomica && (
                                 <a
-                                    onClick={SiguientePaso2}
+                                    onClick={SiguientePaso2TipoCompra}
                                     className="btn btnRadius btn-new-blue"
+                                    id ="btn-next-ac"
                                 >
                                     <span className="bloque__info-header-cuenta-text--modifier">
                                         Siguiente
@@ -1608,24 +1627,11 @@ const Index = ({
                             )}
                         </>
                         <>
-                            {contenedorBotonPaso3 && (
+                            {contenedorBotonNextTipoCompra && (
                                 <a
-                                    onClick={SiguientePaso3}
+                                    onClick={SiguientePaso3Localizacion}
                                     className="btn btnRadius btn-new-blue"
-                                >
-                                    <span className="bloque__info-header-cuenta-text--modifier">
-                                        Siguiente
-                                    </span>
-                                </a>
-                            )}
-                        </>
-
-
-                        <>
-                            {contenedorBotonPaso4 && (
-                                <a
-                                    onClick={SiguientePaso4}
-                                    className="btn btnRadius btn-new-blue"
+                                    id ="btn-next-tc"
                                 >
                                     <span className="bloque__info-header-cuenta-text--modifier">
                                         Siguiente
@@ -1636,10 +1642,54 @@ const Index = ({
 
 
                         <>
-                            {contenedorBotonVolver && (
+                            {contenedorBotonNextLocalizacion && (
                                 <a
-                                    onClick={VolverPaso1}
+                                    onClick={SiguientePaso4Cuantia}
                                     className="btn btnRadius btn-new-blue"
+                                    id ="btn-next-lc"
+                                >
+                                    <span className="bloque__info-header-cuenta-text--modifier">
+                                        Siguiente
+                                    </span>
+                                </a>
+                            )}
+                        </>
+
+
+                        <>
+                            {contenedorBotonReturnTipoCompra && (
+                                <a
+                                    onClick={VolverPaso1ActividadEconomica}
+                                    className="btn btnRadius btn-new-blue"
+                                    id ="btn-return-tc"
+                                >
+                                    <span className="bloque__info-header-cuenta-text--modifier">
+                                        Volver
+                                    </span>
+                                </a>
+                            )}
+                        </>
+
+                        <>
+                            {contenedorBotonReturnLocalizaciones && (
+                                <a
+                                    onClick={VolverPaso2TipoCompra}
+                                    className="btn btnRadius btn-new-blue"
+                                    id ="btn-return-lc"
+                                >
+                                    <span className="bloque__info-header-cuenta-text--modifier">
+                                        Volver
+                                    </span>
+                                </a>
+                            )}
+                        </>
+
+                        <>
+                            {contenedorBotonReturnCuantia && (
+                                <a
+                                    onClick={VolverPaso3Localizaciones}
+                                    className="btn btnRadius btn-new-blue"
+                                    id ="btn-return-lc"
                                 >
                                     <span className="bloque__info-header-cuenta-text--modifier">
                                         Volver
