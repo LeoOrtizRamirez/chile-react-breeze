@@ -751,9 +751,27 @@ const Index = ({
     const [contenedorBotonNextLocalizacion, setcontenedorBotonNextLocalizacion] = useState(false);
     const [contenedorBotonNextCuantia, setcontenedorBotonNextCuantia] = useState(false);
 
+    const icon1 = useRef();
+    const span1 = useRef();
+    const icon2 = useRef();
+    const span2 = useRef();
+    const icon3 = useRef();
+    const span3 = useRef();
+    const icon4 = useRef();
+    const span4 = useRef();
+    const icon5 = useRef();
+    const span5 = useRef();
+
+/*     document.querySelectorAll("select.segmento.form-select")[0] .classList.remove("failed"); */
 
     const SiguientePaso2TipoCompra = () => {
         //Se muestran las tipo de compras
+        icon1.current.classList.remove('c-activo-iconos');
+        span1.current.classList.remove('c-activo-texto-iconos');
+
+        icon2.current.classList.add('c-activo-iconos');
+        span2.current.classList.add('c-activo-texto-iconos');
+
         setContenedorPaso1Actividades(false);
         setContenedorBuscadorActividades(false);
 
@@ -768,6 +786,13 @@ const Index = ({
 
     const VolverPaso1ActividadEconomica = () => {
         //Volver A actividades economicas
+
+        icon1.current.classList.add('c-activo-iconos');
+        span1.current.classList.add('c-activo-texto-iconos');
+
+        icon2.current.classList.remove('c-activo-iconos');
+        span2.current.classList.remove('c-activo-texto-iconos');
+
         setContenedorPaso2TipoCompras(false);
         setContenedorBuscadorTipoCompras(false);
 
@@ -782,6 +807,13 @@ const Index = ({
 
     const SiguientePaso3Localizacion = () => {
         //Se muestran las localizaciones
+
+        icon2.current.classList.remove('c-activo-iconos');
+        span2.current.classList.remove('c-activo-texto-iconos');
+
+        icon3.current.classList.add('c-activo-iconos');
+        span3.current.classList.add('c-activo-texto-iconos');
+
         setcontenedorBotonNextTipoCompra(false)
         setcontenedorBotonNextLocalizacion(true)
 
@@ -798,6 +830,15 @@ const Index = ({
 
     const VolverPaso2TipoCompra = () => {
         //Volver A Tipo de compras
+
+
+        icon2.current.classList.add('c-activo-iconos');
+        span2.current.classList.add('c-activo-texto-iconos');
+
+        icon3.current.classList.remove('c-activo-iconos');
+        span3.current.classList.remove('c-activo-texto-iconos');
+
+
         setcontenedorBotonNextTipoCompra(true)
         setcontenedorBotonNextLocalizacion(false)
 
@@ -816,7 +857,11 @@ const Index = ({
 
     const SiguientePaso4Cuantia = () => {
         //Se muestran las cuantias
-        console.log("paso4")
+        icon4.current.classList.add('c-activo-iconos');
+        span4.current.classList.add('c-activo-texto-iconos');
+
+        icon3.current.classList.remove('c-activo-iconos');
+        span3.current.classList.remove('c-activo-texto-iconos');
 
         setcontenedorBotonNextLocalizacion(false)
         setContenedorBotonReturnLocalizaciones(false)
@@ -835,6 +880,12 @@ const Index = ({
 
     const VolverPaso3Localizaciones = () => {
 
+        icon4.current.classList.remove('c-activo-iconos');
+        span4.current.classList.remove('c-activo-texto-iconos');
+
+        icon3.current.classList.add('c-activo-iconos');
+        span3.current.classList.add('c-activo-texto-iconos');
+
         setContenedorBotonReturnCuantia(false)
         setContenedorPaso4Cuantia(false)
 
@@ -851,6 +902,13 @@ const Index = ({
 
     const SiguientePaso5Terminar = () => {
 
+
+        icon5.current.classList.add('c-activo-iconos');
+        span5.current.classList.add('c-activo-texto-iconos');
+
+        icon4.current.classList.remove('c-activo-iconos');
+        span4.current.classList.remove('c-activo-texto-iconos');
+
         setcontenedorBotonNextCuantia(false)
         setContenedorBotonReturnCuantia(false)
 
@@ -864,6 +922,13 @@ const Index = ({
     };
 
     const VolverPaso4Cuantia = () => {
+
+
+        icon5.current.classList.remove('c-activo-iconos');
+        span5.current.classList.remove('c-activo-texto-iconos');
+
+        icon4.current.classList.add('c-activo-iconos');
+        span4.current.classList.add('c-activo-texto-iconos');
 
         setcontenedorBotonNextCuantia(true)
         setContenedorBotonReturnCuantia(true)
@@ -880,7 +945,7 @@ const Index = ({
 
 
     const Guardar = () => {
-
+        alert("Guardando...");
     };
 
 
@@ -972,17 +1037,22 @@ const Index = ({
                                     <button type="button" className="icon-Buscar-click"></button>
                                 </div> */}
 
-                                <div className="perfil-guias__indicador perfil-guias__indicador--activo">
-                                    <i className="icon-Paso-1-click"> </i>{" "}
-                                    <span>Actividad económica</span>
-                                    <i className="icon-Paso-2-click"id="pleft2"></i>{" "}
-                                    <span>Tipo de compra</span>
-                                    <i className="icon-Paso-3-click" id="pleft2"  ></i>{" "}
-                                    <span>Localizaciones</span>
-                                    <i  className="icon-Paso-4-click"id="pleft2" ></i>{" "}
-                                    <span>Rango de Cuantía</span>
-                                    <i  className="icon-Paso-5-click"id="pleft2" ></i>{" "}
-                                    <span>Paso 5</span>
+                                <div className="iconos-perfiles">
+                                    
+                                    <i ref={icon1} className="icon-Paso-1-click c-activo-iconos"> </i>{" "}
+                                    <span ref={span1} className="c-activo-texto-iconos">Actividad económica</span>
+
+                                    <i ref={icon2} className="icon-Paso-2-click"id="pleft2"></i>{" "}
+                                    <span ref={span2} className="">Tipo de compra</span>
+
+                                    <i ref={icon3} className="icon-Paso-3-click" id="pleft2"  ></i>{" "}
+                                    <span  ref={span3}className="">Localizaciones</span>
+
+                                    <i ref={icon4} className="icon-Paso-4-click"id="pleft2" ></i>{" "}
+                                    <span  ref={span4}className="">Rango de Cuantía</span>
+
+                                    <i ref={icon5} className="icon-Paso-5-click"id="pleft2" ></i>{" "}
+                                    <span ref={span5} className="">Paso 5</span>
 
 
                                 </div>

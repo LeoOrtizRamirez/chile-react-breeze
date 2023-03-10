@@ -726,3 +726,37 @@ span.slider.round {
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-dash-lg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z"/></svg>');
     background-size: cover;
 }
+
+
+.iconos-perfiles {
+    color: gray;
+    transition: all .4s;
+    display: flex;
+    align-items: center;
+    margin-right: 16px;
+    cursor: pointer;
+    justify-content: left;
+}
+
+.iconos-perfiles i {
+    font-size: 40px;
+}
+
+.iconos-perfiles span {
+    font-family: Nexa-bold, sans-serif;
+    /* color: #d7d7d7; */
+    color: gray;
+    font-size: 16px;
+    margin-left: 20px;
+    display: inline-block;
+    line-height: 15px !important;
+    font-weight: bold;
+}
+
+.c-activo-iconos {
+    color: #73c914;
+}
+
+.c-activo-texto-iconos {
+    color: #73c914 !important;
+}
