@@ -245,7 +245,8 @@ const Index = ({
             var input_segmento = document.getElementById('segmento_check_' + current.id_padre_sub_categoria)
             var input_sector = document.getElementById('sector_check_' + current.id_abuelo_sub_categoria)
             if (segmentoValidator) {
-                checksActividadesEconomicas.push(current.id_padre_sub_categoria)
+                //checksActividadesEconomicas.push(current.id_padre_sub_categoria)
+                array.push(current.id_padre_sub_categoria)
                 input_segmento.classList.remove('check-minus')
             } else {
                 array = deleteActividadEconomica(array, current.id_padre_sub_categoria)
@@ -263,7 +264,8 @@ const Index = ({
                 }
             }
             if (sectorValidator) {
-                checksActividadesEconomicas.push(current.id_abuelo_sub_categoria)
+                //checksActividadesEconomicas.push(current.id_abuelo_sub_categoria)
+                array.push(current.id_abuelo_sub_categoria)
             }
         }
         if(isSegmento(current.id)){
@@ -294,17 +296,14 @@ const Index = ({
 
             var input_sector = document.getElementById('sector_check_' + current.id_padre_sub_categoria)
             if (sectorValidator) {
-                console.log("entro")
                 array.push(current.id_padre_sub_categoria)//Se agrega el segmento
             }else{
                 array = deleteActividadEconomica(array, current.id_padre_sub_categoria)
                 setChecksActividadesEconomicas(array)
                 if (sectorValidatorTotal > 0) {
                     input_sector.classList.add('check-minus')
-                    console.log("mas", sectorValidatorTotal)
                 } else {
                     input_sector.classList.remove('check-minus')
-                    console.log("menos")
                 }
             }
         }
