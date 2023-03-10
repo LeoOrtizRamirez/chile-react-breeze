@@ -25,6 +25,34 @@ const Index = ({
     const [openSectores, setOpenSectores] = useState([]);
     const [openSegmentos, setOpenSegmentos] = useState([]);
 
+    const [checkedSegmentos, setCheckedSegmentos] = useState([])
+    const [sectoresIds, setSectoresIds] = useState([])
+
+    useEffect(() => {
+        var full_array = []
+        fakeSectores.forEach((sector) => {
+            if (sector.childs.length > 0) {
+                var array_segmentos = []
+                var array_actividades_economicas = []
+                if (sector.id_padre_sub_categoria == null) {//Sectores
+                    sector.childs.forEach((segmento) => {
+                        array_segmentos.push(segmento.id)
+                        var segmento_object = fakeSectores.filter((sectores) => sectores.id == segmento.id)[0]
+                        if (segmento_object.childs.length > 0) {
+                            segmento_object.childs.forEach((actividad_economica) => {
+                                array_actividades_economicas.push(actividad_economica.id)
+                            })
+                        }
+                    })
+                    full_array[sector.id] = ["sectores"]
+                    full_array[sector.id]['segmentos'] = array_segmentos
+                    full_array[sector.id]['actividades_economicas'] = array_actividades_economicas
+                }
+            }
+        })
+        setSectoresIds(full_array)
+    }, [])
+
     const [checksActividadesEconomicas, setChecksActividadesEconomicas] =
         useState([]);
 
@@ -104,113 +132,225 @@ const Index = ({
     };
 
     const checked = (current) => {
-        var array_checks = []; //Conserva el id de las actividades economicas
-        checksActividadesEconomicas.forEach((checks) => {
-            array_checks.push(checks);
-        });
-        var segmentos = fakeSectores.filter(
-            (fs) =>
-                fs.id_padre_sub_categoria == current.id &&
-                fs.id_abuelo_sub_categoria == null
-        );
-        if (segmentos.length > 0) {
-            //Click en check sector
-            if (!array_checks.includes(current.id)) {
-                //Si no esta seleccionado el sector
-                array_checks.push(current.id); //Se agrega el sector
-                array_checks = toggleCheked(
-                    array_checks,
-                    segmentos,
-                    "segmento",
-                    "remove"
-                );
-                array_checks = toggleCheked(
-                    array_checks,
-                    segmentos,
-                    "segmento",
-                    "add"
-                );
-            } else {
-                //Si ya esta seleccionado el sector
-                array_checks = deleteActividadEconomica(array_checks, current); //Se elimina el sector
-                array_checks = toggleCheked(
-                    array_checks,
-                    segmentos,
-                    "segmento",
-                    "remove"
-                );
+        var array_checks = []//Conserva el id de las actividades economicas 
+        checksActividadesEconomicas.forEach(checks => {
+            array_checks.push(checks)
+        })
+        var segmentos = fakeSectores.filter(fs => fs.id_padre_sub_categoria == current.id && fs.id_abuelo_sub_categoria == null)
+        if (segmentos.length > 0) {//Click en check sector
+            if (!array_checks.includes(current.id)) {//Si no esta seleccionado el sector
+                array_checks.push(current.id)//Se agrega el sector
+                array_checks = toggleCheked(array_checks, segmentos, 'segmento', 'remove')
+                array_checks = toggleCheked(array_checks, segmentos, 'segmento', 'add')
+            } else {//Si ya esta seleccionado el sector
+                array_checks = deleteActividadEconomica(array_checks, current.id)//Se elimina el sector
+                array_checks = toggleCheked(array_checks, segmentos, 'segmento', 'remove')
             }
-        } else {
-            //Click en segmento o actividad economica
-            var actividades_economicas = fakeSectores.filter(
-                (fs) => fs.id_padre_sub_categoria == current.id
-            );
+        } else {//Click en segmento o actividad economica
+            var actividades_economicas = fakeSectores.filter(fs => fs.id_padre_sub_categoria == current.id)
             //Si tiene actividades economicas es un segmento
             if (actividades_economicas.length > 0) {//Click en segmento
                 if (!array_checks.includes(current.id)) {//Si no esta seleccionada el segmento
+                    //checksActividadesEconomicas.push(current.id_padre_sub_categoria)
+                    //array_checks.push(current.id_padre_sub_categoria)//Se agrega el segmento
                     array_checks.push(current.id)//Se agrega el segmento
                     array_checks = toggleCheked(array_checks, actividades_economicas, 'actividades_economicas', 'remove')
                     array_checks = toggleCheked(array_checks, actividades_economicas, 'actividad_economica', 'add')
                 } else {//Si ya esta seleccionada el segmento
-                    array_checks = deleteActividadEconomica(array_checks, current)
+                    array_checks = deleteActividadEconomica(array_checks, current.id)
                     array_checks = toggleCheked(array_checks, actividades_economicas, 'actividad_economica', 'remove')
                 }
-            } else {
-                //Click en actividad economica
+            } else {//Click en actividad economica
                 if (!array_checks.includes(current.id)) {
-                    array_checks.push(current.id);
+                    array_checks.push(current.id)
                 } else {
-                    array_checks = deleteActividadEconomica(
-                        array_checks,
-                        current
-                    );
+                    array_checks = deleteActividadEconomica(array_checks, current.id)
                 }
             }
         }
-        setChecksActividadesEconomicas(array_checks);
+        array_checks = [...new Set(array_checks)]
+        setChecksActividadesEconomicas(array_checks)
+        checkClassValidate(array_checks, current)
     };
 
-    const deleteActividadEconomica = (array, actividad_economica) => {
-        const index = array.indexOf(actividad_economica.id);
-        if (index > -1) {
-            array.splice(index, 1);
+    const isSector = (id) => {
+        var sector = fakeSectores.filter(el => el.id == id)[0]
+        if (sector.id_abuelo_sub_categoria == null && sector.id_padre_sub_categoria == null) {
+            return sector
+        } else {
+            return false
         }
-        return array;
-    };
+    }
+
+    const isSegmento = (id) => {
+        var sector = fakeSectores.filter(el => el.id == id)[0]
+        if (sector.id_abuelo_sub_categoria == null && sector.id_padre_sub_categoria != null) {
+            return sector
+        } else {
+            return false
+        }
+    }
+
+    const isActividadEconomica = (id) => {
+        var sector = fakeSectores.filter(el => el.id == id)[0]
+        if (sector.id_abuelo_sub_categoria != null && sector.id_padre_sub_categoria != null) {
+            return sector
+        } else {
+            return false
+        }
+    }
+
+    //array = todas las actividades economicas que estan seleccionadas actualmente
+    //current = actividad economica seleccionada actualmente
+    const checkClassValidate = (array, current) => {
+        if (isActividadEconomica(current.id)) {
+            var array_actividades_economicas = []
+            array.forEach(el => {
+                if (isActividadEconomica(el)) {
+                    array_actividades_economicas.push(el)
+                }
+            })
+            var sectorValidator = true
+            var segmentoValidator = true
+            var sectorValidatorTotal = 0
+            var segmentoValidatorTotal = 0
+            if(array_actividades_economicas.length > 0){
+                array_actividades_economicas.forEach(el => {
+                    var actividad_economica = fakeSectores.filter(item => item.id == el)[0]
+                    sectoresIds[actividad_economica.id_abuelo_sub_categoria]['actividades_economicas'].forEach((el) => {
+                        if (!array_actividades_economicas.includes(el)) {
+                            sectorValidator = false
+                        } else {
+                            sectorValidatorTotal += 1
+                        }
+                    })
+                })
+            }else{
+                sectorValidator = false
+            }
+            
+            var actividades_economicas_segmento_actual = []
+            fakeSectores.forEach((el) => {
+                if (el.id_padre_sub_categoria == current.id_padre_sub_categoria) {
+                    actividades_economicas_segmento_actual.push(el.id)
+                }
+            })
+            actividades_economicas_segmento_actual.forEach((el) => {
+                if (!array_actividades_economicas.includes(el)) {
+                    segmentoValidator = false
+                } else {
+                    segmentoValidatorTotal += 1
+                }
+            })
+            var input_segmento = document.getElementById('segmento_check_' + current.id_padre_sub_categoria)
+            var input_sector = document.getElementById('sector_check_' + current.id_abuelo_sub_categoria)
+            if (segmentoValidator) {
+                checksActividadesEconomicas.push(current.id_padre_sub_categoria)
+                input_segmento.classList.remove('check-minus')
+            } else {
+                array = deleteActividadEconomica(array, current.id_padre_sub_categoria)
+                array = deleteActividadEconomica(array, current.id_abuelo_sub_categoria)
+                setChecksActividadesEconomicas(array)
+                if (segmentoValidatorTotal > 0) {
+                    input_segmento.classList.add('check-minus')
+                } else {
+                    input_segmento.classList.remove('check-minus')
+                }
+                if (sectorValidatorTotal > 0) {
+                    input_sector.classList.add('check-minus')
+                } else {
+                    input_sector.classList.remove('check-minus')
+                }
+            }
+            if (sectorValidator) {
+                checksActividadesEconomicas.push(current.id_abuelo_sub_categoria)
+            }
+        }
+        if(isSegmento(current.id)){
+            var array_segmentos = []
+            array.forEach(el => {
+                if (isSegmento(el)) {
+                    array_segmentos.push(el)
+                }
+            })
+
+            var sectorValidator = true
+            var sectorValidatorTotal = 0
+            if(array_segmentos.length > 0){
+                array_segmentos.forEach(el => {
+                    var segmento = fakeSectores.filter(item => item.id == el)[0]
+                    sectoresIds[segmento.id_padre_sub_categoria]['segmentos'].forEach((el) => {
+                        if (!array_segmentos.includes(el)) {
+                            sectorValidator = false
+                        } else {
+                            sectorValidatorTotal += 1
+                        }
+                    })
+                })
+            }else{
+                sectorValidator = false
+            }
+            
+
+            var input_sector = document.getElementById('sector_check_' + current.id_padre_sub_categoria)
+            if (sectorValidator) {
+                console.log("entro")
+                array.push(current.id_padre_sub_categoria)//Se agrega el segmento
+            }else{
+                array = deleteActividadEconomica(array, current.id_padre_sub_categoria)
+                setChecksActividadesEconomicas(array)
+                if (sectorValidatorTotal > 0) {
+                    input_sector.classList.add('check-minus')
+                    console.log("mas", sectorValidatorTotal)
+                } else {
+                    input_sector.classList.remove('check-minus')
+                    console.log("menos")
+                }
+            }
+        }
+        if(isSector(current.id)){
+            var input_sector = document.getElementById('sector_check_' + current.id)
+            input_sector.classList.remove('check-minus')
+        }
+    }
+
+    const deleteActividadEconomica = (array, id_actividad_economica) => {
+        const index = array.indexOf(id_actividad_economica)
+        if (index > -1) {
+            array.splice(index, 1)
+        }
+        return array
+    }
 
     //Se eliminan/agregan los segmentos y/o actividades economicas
     const toggleCheked = (array, sectores, level = null, action) => {
-        sectores.forEach((sc) => {
+        sectores.forEach(sc => {
             switch (action) {
-                case "add":
-                    array.push(sc.id);
-                    if (level == "segmento") {
-                        const actividades_economicas = fakeSectores.filter(
-                            (fsa) => fsa.id_padre_sub_categoria == sc.id
-                        );
-                        actividades_economicas.forEach((ac) => {
-                            array.push(ac.id);
-                        });
+                case 'add':
+                    array.push(sc.id)
+                    if (level == 'segmento') {
+                        const actividades_economicas = fakeSectores.filter(fsa => fsa.id_padre_sub_categoria == sc.id)
+                        actividades_economicas.forEach(ac => {
+                            array.push(ac.id)
+                        })
                     }
                     break;
-                case "remove":
-                    array = deleteActividadEconomica(array, sc);
-                    if (level == "segmento") {
-                        const actividades_economicas = fakeSectores.filter(
-                            (fsa) => fsa.id_padre_sub_categoria == sc.id
-                        );
-                        actividades_economicas.forEach((ac) => {
-                            array = deleteActividadEconomica(array, ac);
-                        });
+                case 'remove':
+                    array = deleteActividadEconomica(array, sc.id)
+                    if (level == 'segmento') {
+                        const actividades_economicas = fakeSectores.filter(fsa => fsa.id_padre_sub_categoria == sc.id)
+                        actividades_economicas.forEach(ac => {
+                            array = deleteActividadEconomica(array, ac.id)
+                        })
                     }
                     break;
 
                 default:
                     break;
             }
-        });
-        return array;
-    };
+        })
+        return array
+    }
 
     const inputSearchActividadEconomica = (e) => {
         if (e.target.value == "") {
@@ -833,18 +973,7 @@ const Index = ({
                                                 <>
                                                     {sector.id_padre_sub_categoria ==
                                                         null && (
-                                                            <li
-                                                                className={`tree-node has-child draggable ${openSectores.includes(
-                                                                    sector.id
-                                                                )
-                                                                    ? "expanded"
-                                                                    : ""
-                                                                    }`}
-                                                                id={
-                                                                    "sector_" +
-                                                                    sector.id
-                                                                }
-                                                            >
+                                                            <li className={`tree-node has-child draggable ${openSectores.includes(sector.id) ? "expanded" : ""}`} id={"sector_" + sector.id}>
                                                                 <div
                                                                     id={sector.id}
                                                                     className="tree-content mt-3 sector"
@@ -866,6 +995,7 @@ const Index = ({
                                                                     ></i>
                                                                     {/* p1*/}
                                                                     <input
+                                                                    id={"sector_check_" + sector.id}
                                                                         type="checkbox"
                                                                         name="actividad_economica"
                                                                         onChange={() =>
@@ -927,6 +1057,7 @@ const Index = ({
                                                                                                     <div className="tree-content segmento">
                                                                                                         <i className="tree-arrow expanded has-child ltr"></i>
                                                                                                         <input
+                                                                                                            id={"segmento_check_" + segmento.id}
                                                                                                             type="checkbox"
                                                                                                             name="actividad_economica"
                                                                                                             onChange={() =>
