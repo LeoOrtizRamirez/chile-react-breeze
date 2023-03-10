@@ -201,34 +201,48 @@ const Index = ({
         }
     }
 
+    const isType = (id, type) => {
+        var sector = fakeSectores.filter(el => el.id == id)[0]
+        switch (type) {
+            case 'actividades_economicas':
+                if (sector.id_abuelo_sub_categoria != null && sector.id_padre_sub_categoria != null) {
+                    return sector
+                } else {
+                    return false
+                }
+                break;
+            case 'segmentos':
+                if (sector.id_abuelo_sub_categoria == null && sector.id_padre_sub_categoria != null) {
+                    return sector
+                } else {
+                    return false
+                }
+                break;
+            case 'sector':
+                if (sector.id_abuelo_sub_categoria == null && sector.id_padre_sub_categoria == null) {
+                    return sector
+                } else {
+                    return false
+                }
+                break;
+            default:
+                break;
+        }
+
+    }
     //array = todas las actividades economicas que estan seleccionadas actualmente
     //current = actividad economica seleccionada actualmente
     const checkClassValidate = (array, current) => {
-        if (isActividadEconomica(current.id)) {
-            var array_actividades_economicas = []
-            array.forEach(el => {
-                if (isActividadEconomica(el)) {
-                    array_actividades_economicas.push(el)
-                }
-            })
-            var sectorValidator = true
-            var segmentoValidator = true
-            var sectorValidatorTotal = 0
-            var segmentoValidatorTotal = 0
-            if (array_actividades_economicas.length > 0) {
-                array_actividades_economicas.forEach(el => {
-                    var actividad_economica = fakeSectores.filter(item => item.id == el)[0]
-                    sectoresIds[actividad_economica.id_abuelo_sub_categoria]['actividades_economicas'].forEach((el) => {
-                        if (!array_actividades_economicas.includes(el)) {
-                            sectorValidator = false
-                        } else {
-                            sectorValidatorTotal += 1
-                        }
-                    })
-                })
-            } else {
-                sectorValidator = false
-            }
+        var sectorValidator = true
+        var sectorValidatorTotal = 0
+        var segmentoValidator = true
+        var segmentoValidatorTotal = 0
+
+        if (isType(current.id, 'actividades_economicas')) {
+            var array_actividades_economicas = getActividadesEconomicas(array, 'actividades_economicas')
+            var response = getCheckValidator(array_actividades_economicas, 'actividades_economicas')
+            sectorValidator = response[0]
+            sectorValidatorTotal = response[1]
 
             var actividades_economicas_segmento_actual = []
             fakeSectores.forEach((el) => {
@@ -244,9 +258,7 @@ const Index = ({
                 }
             })
             var input_segmento = document.getElementById('segmento_check_' + current.id_padre_sub_categoria)
-            //var input_sector = document.getElementById('sector_check_' + current.id_abuelo_sub_categoria)
             if (segmentoValidator) {
-                //checksActividadesEconomicas.push(current.id_padre_sub_categoria)
                 array.push(current.id_padre_sub_categoria)
                 input_segmento.classList.remove('check-minus')
             } else {
@@ -259,45 +271,22 @@ const Index = ({
                     input_segmento.classList.remove('check-minus')
                 }
                 if (sectorValidatorTotal > 0) {
-                    //input_sector.classList.add('check-minus')
                     toggleClassCheckMinus('sector_check_' + current.id_abuelo_sub_categoria, 'add')
                 } else {
-                    //input_sector.classList.remove('check-minus')
                     toggleClassCheckMinus('sector_check_' + current.id_abuelo_sub_categoria, 'remove')
                 }
             }
             if (sectorValidator) {
-                //checksActividadesEconomicas.push(current.id_abuelo_sub_categoria)
                 array.push(current.id_abuelo_sub_categoria)
             }
         }
-        if (isSegmento(current.id)) {
-            var array_segmentos = []
-            array.forEach(el => {
-                if (isSegmento(el)) {
-                    array_segmentos.push(el)
-                }
-            })
+        if (isType(current.id, 'segmentos')) {
+            var array_segmentos = getActividadesEconomicas(array, 'segmentos')
 
-            var sectorValidator = true
-            var sectorValidatorTotal = 0
-            if (array_segmentos.length > 0) {
-                array_segmentos.forEach(el => {
-                    var segmento = fakeSectores.filter(item => item.id == el)[0]
-                    sectoresIds[segmento.id_padre_sub_categoria]['segmentos'].forEach((el) => {
-                        if (!array_segmentos.includes(el)) {
-                            sectorValidator = false
-                        } else {
-                            sectorValidatorTotal += 1
-                        }
-                    })
-                })
-            } else {
-                sectorValidator = false
-            }
+            var response = getCheckValidator(array_segmentos, 'segmentos')
+            sectorValidator = response[0]
+            sectorValidatorTotal = response[1]
 
-
-            //var input_sector = document.getElementById('sector_check_' + current.id_padre_sub_categoria)
             var input_segmento = document.getElementById('segmento_check_' + current.id)
             if (sectorValidator) {
                 array.push(current.id_padre_sub_categoria)//Se agrega el segmento
@@ -305,28 +294,70 @@ const Index = ({
                 array = deleteActividadEconomica(array, current.id_padre_sub_categoria)
                 setChecksActividadesEconomicas(array)
                 if (sectorValidatorTotal > 0) {
-                    console.log("here")
-                    //input_sector.classList.add('check-minus')
                     toggleClassCheckMinus('sector_check_' + current.id_padre_sub_categoria, 'add')
                 } else {
-                    //input_sector.classList.remove('check-minus')
                     toggleClassCheckMinus('sector_check_' + current.id_padre_sub_categoria, 'remove')
                     input_segmento.classList.remove('check-minus')
                 }
             }
         }
-        if (isSector(current.id)) {
+        if (isType(current.id, 'sector')) {
             toggleClassCheckMinus('sector_check_' + current.id, 'remove')
-            /* var input_sector = document.getElementById('sector_check_' + current.id)
-            input_sector.classList.remove('check-minus') */
         }
+    }
+
+    const getActividadesEconomicas = (array, type) => {
+        var response = []
+        array.forEach(el => {
+            if (isType(el, type)) {
+                response.push(el)
+            }
+        })
+        return response
+    }
+
+    const getCheckValidator = (array, type) => {
+        var sectorValidator = true
+        var sectorValidatorTotal = 0
+        if (array.length > 0) {
+            //Se recorren todas las actividades economicas seleccionadas
+            array.forEach(el => {
+                var actividad_economica = fakeSectores.filter(item => item.id == el)[0]
+                var parent = 0
+                switch (type) {
+                    case "actividades_economicas":
+                        parent = actividad_economica.id_abuelo_sub_categoria
+                        break;
+                    case "segmentos":
+                        parent = actividad_economica.id_padre_sub_categoria
+                        break;
+                    case "sector":
+                        parent = actividad_economica.id
+                        break;
+                    default:
+                        break;
+                }
+                //Se compara con las todas las actividades economicas que tiene el sector
+                sectoresIds[parent][type].forEach((el) => {
+                    //Si en algun momento no encuentra una actividad economica del sector en las que estan seleccionadas actualmente, asigna false
+                    if (!array.includes(el)) {
+                        sectorValidator = false
+                    } else {
+                        sectorValidatorTotal += 1
+                    }
+                })
+            })
+        } else {
+            sectorValidator = false
+        }
+        return [sectorValidator, sectorValidatorTotal]
     }
 
     const toggleClassCheckMinus = (id, action) => {
         var input = document.getElementById(id)
-        if(action == "add"){
+        if (action == "add") {
             input.classList.add('check-minus')
-        }else{
+        } else {
             input.classList.remove('check-minus')
         }
     }
@@ -776,7 +807,7 @@ const Index = ({
     const icon5 = useRef();
     const span5 = useRef();
 
-/*     document.querySelectorAll("select.segmento.form-select")[0] .classList.remove("failed"); */
+    /*     document.querySelectorAll("select.segmento.form-select")[0] .classList.remove("failed"); */
 
     const SiguientePaso2TipoCompra = () => {
         //Se muestran las tipo de compras
@@ -1052,20 +1083,20 @@ const Index = ({
                                 </div> */}
 
                                 <div className="iconos-perfiles">
-                                    
+
                                     <i ref={icon1} className="icon-Paso-1-click c-activo-iconos"> </i>{" "}
                                     <span ref={span1} className="c-activo-texto-iconos">Actividad económica</span>
 
-                                    <i ref={icon2} className="icon-Paso-2-click"id="pleft2"></i>{" "}
+                                    <i ref={icon2} className="icon-Paso-2-click" id="pleft2"></i>{" "}
                                     <span ref={span2} className="">Tipo de compra</span>
 
                                     <i ref={icon3} className="icon-Paso-3-click" id="pleft2"  ></i>{" "}
-                                    <span  ref={span3}className="">Localizaciones</span>
+                                    <span ref={span3} className="">Localizaciones</span>
 
-                                    <i ref={icon4} className="icon-Paso-4-click"id="pleft2" ></i>{" "}
-                                    <span  ref={span4}className="">Rango de Cuantía</span>
+                                    <i ref={icon4} className="icon-Paso-4-click" id="pleft2" ></i>{" "}
+                                    <span ref={span4} className="">Rango de Cuantía</span>
 
-                                    <i ref={icon5} className="icon-Paso-5-click"id="pleft2" ></i>{" "}
+                                    <i ref={icon5} className="icon-Paso-5-click" id="pleft2" ></i>{" "}
                                     <span ref={span5} className="">Paso 5</span>
 
 
