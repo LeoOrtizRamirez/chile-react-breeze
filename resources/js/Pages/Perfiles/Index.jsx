@@ -132,7 +132,7 @@ const Index = ({
     };
 
     const checked = (current) => {
-        
+
         var array_checks = []//Conserva el id de las actividades economicas 
         checksActividadesEconomicas.forEach(checks => {
             array_checks.push(checks)
@@ -215,7 +215,7 @@ const Index = ({
             var segmentoValidator = true
             var sectorValidatorTotal = 0
             var segmentoValidatorTotal = 0
-            if(array_actividades_economicas.length > 0){
+            if (array_actividades_economicas.length > 0) {
                 array_actividades_economicas.forEach(el => {
                     var actividad_economica = fakeSectores.filter(item => item.id == el)[0]
                     sectoresIds[actividad_economica.id_abuelo_sub_categoria]['actividades_economicas'].forEach((el) => {
@@ -226,10 +226,10 @@ const Index = ({
                         }
                     })
                 })
-            }else{
+            } else {
                 sectorValidator = false
             }
-            
+
             var actividades_economicas_segmento_actual = []
             fakeSectores.forEach((el) => {
                 if (el.id_padre_sub_categoria == current.id_padre_sub_categoria) {
@@ -269,7 +269,7 @@ const Index = ({
                 array.push(current.id_abuelo_sub_categoria)
             }
         }
-        if(isSegmento(current.id)){
+        if (isSegmento(current.id)) {
             var array_segmentos = []
             array.forEach(el => {
                 if (isSegmento(el)) {
@@ -279,7 +279,7 @@ const Index = ({
 
             var sectorValidator = true
             var sectorValidatorTotal = 0
-            if(array_segmentos.length > 0){
+            if (array_segmentos.length > 0) {
                 array_segmentos.forEach(el => {
                     var segmento = fakeSectores.filter(item => item.id == el)[0]
                     sectoresIds[segmento.id_padre_sub_categoria]['segmentos'].forEach((el) => {
@@ -290,16 +290,16 @@ const Index = ({
                         }
                     })
                 })
-            }else{
+            } else {
                 sectorValidator = false
             }
-            
+
 
             var input_sector = document.getElementById('sector_check_' + current.id_padre_sub_categoria)
             var input_segmento = document.getElementById('segmento_check_' + current.id)
             if (sectorValidator) {
                 array.push(current.id_padre_sub_categoria)//Se agrega el segmento
-            }else{
+            } else {
                 array = deleteActividadEconomica(array, current.id_padre_sub_categoria)
                 setChecksActividadesEconomicas(array)
                 if (sectorValidatorTotal > 0) {
@@ -311,7 +311,7 @@ const Index = ({
                 }
             }
         }
-        if(isSector(current.id)){
+        if (isSector(current.id)) {
             var input_sector = document.getElementById('sector_check_' + current.id)
             input_sector.classList.remove('check-minus')
         }
@@ -734,19 +734,22 @@ const Index = ({
     const [contenedorPaso2TipoCompras, setContenedorPaso2TipoCompras] = useState(false);
     const [contenedorPaso3Localizaciones, setContenedorPaso3Localizaciones] = useState(false);
     const [contenedorPaso4Cuantia, setContenedorPaso4Cuantia] = useState(false);
+    const [contenedorPaso5, setContenedorPaso5] = useState(false);
 
     const [contenedorBuscadorActividades, setContenedorBuscadorActividades] = useState(true);
     const [contenedorBuscadorTipoCompras, setContenedorBuscadorTipoCompras] = useState(false);
     const [contenedorBuscadorLocalizaciones, setContenedorBuscadorLocalizaciones,] = useState(false);
 
-    const [contenedorBotonReturnTipoCompra, setcontenedorBotonReturnTipoCompra] = useState(false);
-    const [contenedorBotonReturnLocalizaciones, setcontenedorBotonReturnLocalizaciones] = useState(false);
-    const [contenedorBotonReturnCuantia, setcontenedorBotonReturnCuantia] = useState(false);
-  
+    const [contenedorBotonReturnTipoCompra, setContenedorBotonReturnTipoCompra] = useState(false);
+    const [contenedorBotonReturnLocalizaciones, setContenedorBotonReturnLocalizaciones] = useState(false);
+    const [contenedorBotonReturnCuantia, setContenedorBotonReturnCuantia] = useState(false);
+    const [contenedorBotonReturnGuardar, setContenedorBotonReturnGuardar] = useState(false);
+    const [contenedorBotonGuardar, setContenedorBotonGuardar] = useState(false);
+
     const [contenedorBotonNextActividadEconomica, setcontenedorBotonNextActividadEconomica] = useState(true);
     const [contenedorBotonNextTipoCompra, setcontenedorBotonNextTipoCompra] = useState(false);
     const [contenedorBotonNextLocalizacion, setcontenedorBotonNextLocalizacion] = useState(false);
-
+    const [contenedorBotonNextCuantia, setcontenedorBotonNextCuantia] = useState(false);
 
 
     const SiguientePaso2TipoCompra = () => {
@@ -757,39 +760,10 @@ const Index = ({
         setContenedorPaso2TipoCompras(true);
         setContenedorBuscadorTipoCompras(true);
 
-        setcontenedorBotonReturnTipoCompra(true);
+        setContenedorBotonReturnTipoCompra(true);
         setcontenedorBotonNextActividadEconomica(false)
         setcontenedorBotonNextTipoCompra(true)
 
-    };
-
-    const SiguientePaso3Localizacion = () => {
-        console.log("paso3")
-        //Se muestran las localizaciones
-
-        setcontenedorBotonNextTipoCompra(false)
-        setcontenedorBotonNextLocalizacion(true)
-
-        setContenedorPaso2TipoCompras(false);
-        setContenedorBuscadorTipoCompras(false);
-
-        setContenedorBuscadorLocalizaciones(true)
-        setContenedorPaso3Localizaciones(true)
-
-        //Oculto un boton de volver y muestro el otro
-        contenedorBotonReturnTipoCompra(false)
-        contenedorBotonReturnLocalizaciones(true)
-    };
-
-    const SiguientePaso4Cuantia = () => {
-         //Se muestran las cuantias
-        console.log("paso4")
-
-        setContenedorBuscadorLocalizaciones(false)
-        setContenedorPaso3Localizaciones(false)
-
-        setContenedorPaso4Cuantia(true)
-    
     };
 
     const VolverPaso1ActividadEconomica = () => {
@@ -800,25 +774,116 @@ const Index = ({
         setContenedorPaso1Actividades(true);
         setContenedorBuscadorActividades(true);
 
-        setcontenedorBotonReturnTipoCompra(false);
+        setContenedorBotonReturnTipoCompra(false);
         setcontenedorBotonNextTipoCompra(false)
         setcontenedorBotonNextActividadEconomica(true)
-       
+
+    };
+
+    const SiguientePaso3Localizacion = () => {
+        //Se muestran las localizaciones
+        setcontenedorBotonNextTipoCompra(false)
+        setcontenedorBotonNextLocalizacion(true)
+
+        setContenedorPaso2TipoCompras(false);
+        setContenedorBuscadorTipoCompras(false);
+
+        setContenedorBuscadorLocalizaciones(true)
+        setContenedorPaso3Localizaciones(true)
+
+        //Oculto un boton de volver y muestro el otro
+        setContenedorBotonReturnTipoCompra(false)
+        setContenedorBotonReturnLocalizaciones(true)
     };
 
     const VolverPaso2TipoCompra = () => {
-         //Volver A Tipo de compras
+        //Volver A Tipo de compras
+        setcontenedorBotonNextTipoCompra(true)
+        setcontenedorBotonNextLocalizacion(false)
 
-         setContenedorBuscadorLocalizaciones(false)
-         setContenedorPaso3Localizaciones(false)
+        setContenedorPaso2TipoCompras(true);
+        setContenedorBuscadorTipoCompras(true);
+
+        setContenedorBuscadorLocalizaciones(false)
+        setContenedorPaso3Localizaciones(false)
+
+        //Oculto un boton de volver y muestro el otro
+        setContenedorBotonReturnTipoCompra(true)
+        setContenedorBotonReturnLocalizaciones(false)
+
+    };
 
 
+    const SiguientePaso4Cuantia = () => {
+        //Se muestran las cuantias
+        console.log("paso4")
+
+        setcontenedorBotonNextLocalizacion(false)
+        setContenedorBotonReturnLocalizaciones(false)
+
+        setContenedorBuscadorLocalizaciones(false)
+        setContenedorPaso3Localizaciones(false)
+
+        setContenedorPaso4Cuantia(true)
+        setContenedorBotonReturnCuantia(true)
+
+        setcontenedorBotonNextCuantia(true)
+
+        //btn-next
 
     };
 
     const VolverPaso3Localizaciones = () => {
 
+        setContenedorBotonReturnCuantia(false)
+        setContenedorPaso4Cuantia(false)
+
+        setcontenedorBotonNextLocalizacion(true)
+        setContenedorBotonReturnLocalizaciones(true)
+
+        setContenedorBuscadorLocalizaciones(true)
+        setContenedorPaso3Localizaciones(true)
+
+        setcontenedorBotonNextCuantia(false)
+
     };
+
+
+    const SiguientePaso5Terminar = () => {
+
+        setcontenedorBotonNextCuantia(false)
+        setContenedorBotonReturnCuantia(false)
+
+        setContenedorPaso4Cuantia(false)
+
+        setContenedorPaso5(true)
+        setContenedorBotonGuardar(true)
+
+        setContenedorBotonReturnGuardar(true)
+
+    };
+
+    const VolverPaso4Cuantia = () => {
+
+        setcontenedorBotonNextCuantia(true)
+        setContenedorBotonReturnCuantia(true)
+
+        setContenedorPaso4Cuantia(true)
+
+        setContenedorPaso5(false)
+        setContenedorBotonGuardar(false)
+
+        setContenedorBotonReturnGuardar(false)
+
+
+    };
+
+
+    const Guardar = () => {
+
+    };
+
+
     const [cuantiaHasta, setCuantiaHasta] = useState(0);
     const [toggleSwitchCuantia, setToggleSwitchCuantia] = useState(false);
     const [switchCuantia, setSwitchCuantia] = useState(true);
@@ -910,21 +975,16 @@ const Index = ({
                                 <div className="perfil-guias__indicador perfil-guias__indicador--activo">
                                     <i className="icon-Paso-1-click"> </i>{" "}
                                     <span>Actividad económica</span>
-                                    <i
-                                        className="icon-Paso-2-click"
-                                        id="pleft2"
-                                    ></i>{" "}
+                                    <i className="icon-Paso-2-click"id="pleft2"></i>{" "}
                                     <span>Tipo de compra</span>
-                                    <i
-                                        className="icon-Paso-3-click"
-                                        id="pleft2"
-                                    ></i>{" "}
+                                    <i className="icon-Paso-3-click" id="pleft2"  ></i>{" "}
                                     <span>Localizaciones</span>
-                                    <i
-                                        className="icon-Paso-4-click"
-                                        id="pleft2"
-                                    ></i>{" "}
+                                    <i  className="icon-Paso-4-click"id="pleft2" ></i>{" "}
                                     <span>Rango de Cuantía</span>
+                                    <i  className="icon-Paso-5-click"id="pleft2" ></i>{" "}
+                                    <span>Paso 5</span>
+
+
                                 </div>
                                 <div className="mx-60 mt-30 d-flex">
                                     {contenedorBuscadorActividades && (
@@ -986,8 +1046,8 @@ const Index = ({
                                 </div>
                                 <br></br>
 
-                                <>
-                                    {/* Paso 1*/}
+                                <>{/* Paso 1*/}
+
                                     {contenedorPaso1Actividades && (
                                         <ul className="tree-root">
                                             {sectores.map((sector) => (
@@ -1016,7 +1076,7 @@ const Index = ({
                                                                     ></i>
                                                                     {/* p1*/}
                                                                     <input
-                                                                    id={"sector_check_" + sector.id}
+                                                                        id={"sector_check_" + sector.id}
                                                                         type="checkbox"
                                                                         name="actividad_economica"
                                                                         onChange={() =>
@@ -1199,8 +1259,7 @@ const Index = ({
                                         </ul>
                                     )}
                                 </>
-                                <>
-                                    {/* Paso 2 TIPO DE COMPRAS*/}
+                                <> {/* Paso 2 TIPO DE COMPRAS*/}
                                     {contenedorPaso2TipoCompras && (
                                         <ul className="tree-root">
                                             {sectoresTipoCompras.map((sector) => (
@@ -1354,9 +1413,7 @@ const Index = ({
                                         </ul>
                                     )}
                                 </>
-
-                                <>
-                                    {/* Paso 3 LOCALIZACIONES */}
+                                <>{/* Paso 3 LOCALIZACIONES */}
                                     {contenedorPaso3Localizaciones && (
                                         <ul className="tree-root">
                                             {sectoresLocalizaciones.map((sector) => (
@@ -1511,8 +1568,7 @@ const Index = ({
                                     )}
                                 </>
 
-                                <>
-                                    {/* Paso 4*/}
+                                <>{/* Paso 4 Cuantia*/}
                                     {contenedorPaso4Cuantia && (
                                         <div className="perfil-cuantias">
                                             <div
@@ -1606,19 +1662,27 @@ const Index = ({
                                         </div>
                                     )}
                                 </>
+
+                                <> {/* Paso 5*/}
+
+                                    {contenedorPaso5 && (
+                                        <p>Paso 5</p>
+                                    )}
+                                </>
+
                             </div>
                         </div>
                     </div>
 
-                    {/* BOTONES  */}
+                    {/* BOTONES NEXT */}
                     <div className="perfil-bottons-footer position-relative text-center mt-4">
 
-                        <>
+                        <>{/* Next tipoCompra */}
                             {contenedorBotonNextActividadEconomica && (
                                 <a
                                     onClick={SiguientePaso2TipoCompra}
                                     className="btn btnRadius btn-new-blue"
-                                    id ="btn-next-ac"
+                                    id="btn-next-ac"
                                 >
                                     <span className="bloque__info-header-cuenta-text--modifier">
                                         Siguiente
@@ -1626,12 +1690,12 @@ const Index = ({
                                 </a>
                             )}
                         </>
-                        <>
+                        <>{/* Next Localizaciones */}
                             {contenedorBotonNextTipoCompra && (
                                 <a
                                     onClick={SiguientePaso3Localizacion}
                                     className="btn btnRadius btn-new-blue"
-                                    id ="btn-next-tc"
+                                    id="btn-next-tc"
                                 >
                                     <span className="bloque__info-header-cuenta-text--modifier">
                                         Siguiente
@@ -1639,14 +1703,39 @@ const Index = ({
                                 </a>
                             )}
                         </>
-
-
-                        <>
+                        <>{/* Next Cuantia */}
                             {contenedorBotonNextLocalizacion && (
                                 <a
                                     onClick={SiguientePaso4Cuantia}
                                     className="btn btnRadius btn-new-blue"
-                                    id ="btn-next-lc"
+                                    id="btn-next-lc"
+                                >
+                                    <span className="bloque__info-header-cuenta-text--modifier">
+                                        Siguiente
+                                    </span>
+                                </a>
+                            )}
+                        </>
+                        <>{/* GUARDAR*/}
+                            {contenedorBotonGuardar && (
+                                <a
+                                    onClick={Guardar}
+                                    className="btn btnRadius btn-new-blue"
+                                    id="btn-next-cu"
+                                >
+                                    <span className="bloque__info-header-cuenta-text--modifier">
+                                        Guardar
+                                    </span>
+                                </a>
+                            )}
+                        </>
+
+                        <>{/* Next Terminar */}
+                            {contenedorBotonNextCuantia && (
+                                <a
+                                    onClick={SiguientePaso5Terminar}
+                                    className="btn btnRadius btn-new-blue"
+                                    id="btn-next-cu"
                                 >
                                     <span className="bloque__info-header-cuenta-text--modifier">
                                         Siguiente
@@ -1656,12 +1745,14 @@ const Index = ({
                         </>
 
 
-                        <>
+                        {/* BOTONES RETURN */}
+
+                        <>{/* Volver ActividadesEconomicas */}
                             {contenedorBotonReturnTipoCompra && (
                                 <a
                                     onClick={VolverPaso1ActividadEconomica}
                                     className="btn btnRadius btn-new-blue"
-                                    id ="btn-return-tc"
+                                    id="btn-return-tc"
                                 >
                                     <span className="bloque__info-header-cuenta-text--modifier">
                                         Volver
@@ -1670,12 +1761,12 @@ const Index = ({
                             )}
                         </>
 
-                        <>
+                        <>{/* Volver TipoCompra */}
                             {contenedorBotonReturnLocalizaciones && (
                                 <a
                                     onClick={VolverPaso2TipoCompra}
                                     className="btn btnRadius btn-new-blue"
-                                    id ="btn-return-lc"
+                                    id="btn-return-lc"
                                 >
                                     <span className="bloque__info-header-cuenta-text--modifier">
                                         Volver
@@ -1684,12 +1775,26 @@ const Index = ({
                             )}
                         </>
 
-                        <>
+                        <>{/* Volver Localizaciones */}
                             {contenedorBotonReturnCuantia && (
                                 <a
                                     onClick={VolverPaso3Localizaciones}
                                     className="btn btnRadius btn-new-blue"
-                                    id ="btn-return-lc"
+                                    id="btn-return-cu"
+                                >
+                                    <span className="bloque__info-header-cuenta-text--modifier">
+                                        Volver
+                                    </span>
+                                </a>
+                            )}
+                        </>
+
+                        <>{/* Volver Cuantia */}
+                            {contenedorBotonReturnGuardar && (
+                                <a
+                                    onClick={VolverPaso4Cuantia}
+                                    className="btn btnRadius btn-new-blue"
+                                    id="btn-return-te"
                                 >
                                     <span className="bloque__info-header-cuenta-text--modifier">
                                         Volver
