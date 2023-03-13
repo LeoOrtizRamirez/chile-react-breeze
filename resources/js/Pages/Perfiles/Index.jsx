@@ -26,7 +26,7 @@ const Index = ({
     const [sectores, setSectores] = useState(actividades_economicas);
 
     const onHandleSectores = (data) => {
-        console.log(data)
+        //console.log(data)
     }
     
 

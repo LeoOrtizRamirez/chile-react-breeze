@@ -160,7 +160,7 @@ const ActividadEconomica = (props) => {
     const checkClassValidate = (array, current) => {
         if (isType(current.id, 'actividades_economicas')) {
             var array_actividades_economicas = getActividadesEconomicas(array, 'actividades_economicas')
-            var response = getCheckValidator(array_actividades_economicas, 'actividades_economicas')
+            var response = getCheckValidator(array_actividades_economicas, current, 'actividades_economicas')
             var sectorValidator = response[0]
             var sectorValidatorTotal = response[1]
             var segmentoValidator = true
@@ -198,7 +198,7 @@ const ActividadEconomica = (props) => {
         }
         if (isType(current.id, 'segmentos')) {
             var array_segmentos = getActividadesEconomicas(array, 'segmentos')
-            var response = getCheckValidator(array_segmentos, 'segmentos')
+            var response = getCheckValidator(array_segmentos, current, 'segmentos')
             var sectorValidator = response[0]
             var sectorValidatorTotal = response[1]
 
@@ -207,6 +207,7 @@ const ActividadEconomica = (props) => {
             } else {
                 array = deleteActividadEconomica(array, current.id_padre_sub_categoria)
                 setChecksActividadesEconomicas(array)
+                //(sectorValidator)
                 if (sectorValidatorTotal > 0) {
                     toggleClassCheckMinus('sector_check_' + current.id_padre_sub_categoria, 'add')
                 } else {
@@ -286,8 +287,47 @@ const ActividadEconomica = (props) => {
         }
     }
 
-    const getCheckValidator = (array, type) => {
+    const getCheckValidator = (array, current, type) => {
         var sectorValidator = true
+        var sectorValidatorTotal = 0
+        if (array.length > 0) {
+            //Se recorren todas las actividades economicas seleccionadas
+            var actividad_economica = fakeSectores.filter(item => item.id == current.id)[0]
+            var parent = 0
+            
+            //array.forEach(el => {
+                
+                switch (type) {
+                    case "actividades_economicas":
+                        parent = actividad_economica.id_abuelo_sub_categoria
+                        break;
+                    case "segmentos":
+                        parent = actividad_economica.id_padre_sub_categoria
+                        break;
+                    case "sector":
+                        parent = actividad_economica.id
+                        break;
+                    default:
+                        break;
+                }
+                //Se compara con las todas las actividades economicas que tiene el sector
+                sectoresIds[parent][type].forEach((el) => {
+                    //Si en algun momento no encuentra una actividad economica del sector en las que estan seleccionadas actualmente, asigna false
+                    if (!array.includes(el)) {
+                        sectorValidator = false
+                    } else {
+                        sectorValidatorTotal += 1
+                    }
+                })
+            //})
+        } else {
+            sectorValidator = false
+        }
+        return [sectorValidator, sectorValidatorTotal]
+
+
+
+        /* var sectorValidator = true
         var sectorValidatorTotal = 0
         if (array.length > 0) {
             //Se recorren todas las actividades economicas seleccionadas
@@ -320,7 +360,9 @@ const ActividadEconomica = (props) => {
         } else {
             sectorValidator = false
         }
-        return [sectorValidator, sectorValidatorTotal]
+        console.log(array)
+        console.log(array)
+        return [sectorValidator, sectorValidatorTotal] */
     }
 
     const toggleClassCheckMinus = (id, action) => {
