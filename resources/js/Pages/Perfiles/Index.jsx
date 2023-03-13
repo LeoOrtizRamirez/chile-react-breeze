@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import "./Index.css";
 /*Toast*/
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
