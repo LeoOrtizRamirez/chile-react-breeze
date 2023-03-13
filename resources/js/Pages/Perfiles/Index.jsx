@@ -132,7 +132,6 @@ const Index = ({
     };
 
     const checked = (current) => {
-        
         var array_checks = []//Conserva el id de las actividades economicas 
         checksActividadesEconomicas.forEach(checks => {
             array_checks.push(checks)
@@ -174,68 +173,18 @@ const Index = ({
         checkClassValidate(array_checks, current)
     };
 
-    const isSector = (id) => {
-        var sector = fakeSectores.filter(el => el.id == id)[0]
-        if (sector.id_abuelo_sub_categoria == null && sector.id_padre_sub_categoria == null) {
-            return sector
-        } else {
-            return false
-        }
-    }
-
-    const isSegmento = (id) => {
-        var sector = fakeSectores.filter(el => el.id == id)[0]
-        if (sector.id_abuelo_sub_categoria == null && sector.id_padre_sub_categoria != null) {
-            return sector
-        } else {
-            return false
-        }
-    }
-
-    const isActividadEconomica = (id) => {
-        var sector = fakeSectores.filter(el => el.id == id)[0]
-        if (sector.id_abuelo_sub_categoria != null && sector.id_padre_sub_categoria != null) {
-            return sector
-        } else {
-            return false
-        }
-    }
-
     //array = todas las actividades economicas que estan seleccionadas actualmente
     //current = actividad economica seleccionada actualmente
     const checkClassValidate = (array, current) => {
-        if (isActividadEconomica(current.id)) {
-            var array_actividades_economicas = []
-            array.forEach(el => {
-                if (isActividadEconomica(el)) {
-                    array_actividades_economicas.push(el)
-                }
-            })
-            var sectorValidator = true
+        if (isType(current.id, 'actividades_economicas')) {
+            var array_actividades_economicas = getActividadesEconomicas(array, 'actividades_economicas')
+            var response = getCheckValidator(array_actividades_economicas, 'actividades_economicas')
+            var sectorValidator = response[0]
+            var sectorValidatorTotal = response[1]
             var segmentoValidator = true
-            var sectorValidatorTotal = 0
             var segmentoValidatorTotal = 0
-            if(array_actividades_economicas.length > 0){
-                array_actividades_economicas.forEach(el => {
-                    var actividad_economica = fakeSectores.filter(item => item.id == el)[0]
-                    sectoresIds[actividad_economica.id_abuelo_sub_categoria]['actividades_economicas'].forEach((el) => {
-                        if (!array_actividades_economicas.includes(el)) {
-                            sectorValidator = false
-                        } else {
-                            sectorValidatorTotal += 1
-                        }
-                    })
-                })
-            }else{
-                sectorValidator = false
-            }
-            
-            var actividades_economicas_segmento_actual = []
-            fakeSectores.forEach((el) => {
-                if (el.id_padre_sub_categoria == current.id_padre_sub_categoria) {
-                    actividades_economicas_segmento_actual.push(el.id)
-                }
-            })
+            var actividades_economicas_segmento_actual = getChildsIds(current, 'actividades_economicas')
+
             actividades_economicas_segmento_actual.forEach((el) => {
                 if (!array_actividades_economicas.includes(el)) {
                     segmentoValidator = false
@@ -243,77 +192,161 @@ const Index = ({
                     segmentoValidatorTotal += 1
                 }
             })
-            var input_segmento = document.getElementById('segmento_check_' + current.id_padre_sub_categoria)
-            var input_sector = document.getElementById('sector_check_' + current.id_abuelo_sub_categoria)
             if (segmentoValidator) {
-                //checksActividadesEconomicas.push(current.id_padre_sub_categoria)
                 array.push(current.id_padre_sub_categoria)
-                input_segmento.classList.remove('check-minus')
+                toggleClassCheckMinus('segmento_check_' + current.id_padre_sub_categoria, 'remove')
             } else {
                 array = deleteActividadEconomica(array, current.id_padre_sub_categoria)
                 array = deleteActividadEconomica(array, current.id_abuelo_sub_categoria)
                 setChecksActividadesEconomicas(array)
                 if (segmentoValidatorTotal > 0) {
-                    input_segmento.classList.add('check-minus')
+                    toggleClassCheckMinus('segmento_check_' + current.id_padre_sub_categoria, 'add')
                 } else {
-                    input_segmento.classList.remove('check-minus')
+                    toggleClassCheckMinus('segmento_check_' + current.id_padre_sub_categoria, 'remove')
                 }
                 if (sectorValidatorTotal > 0) {
-                    input_sector.classList.add('check-minus')
+                    toggleClassCheckMinus('sector_check_' + current.id_abuelo_sub_categoria, 'add')
                 } else {
-                    input_sector.classList.remove('check-minus')
+                    toggleClassCheckMinus('sector_check_' + current.id_abuelo_sub_categoria, 'remove')
                 }
             }
             if (sectorValidator) {
-                //checksActividadesEconomicas.push(current.id_abuelo_sub_categoria)
                 array.push(current.id_abuelo_sub_categoria)
             }
         }
-        if(isSegmento(current.id)){
-            var array_segmentos = []
-            array.forEach(el => {
-                if (isSegmento(el)) {
-                    array_segmentos.push(el)
-                }
-            })
+        if (isType(current.id, 'segmentos')) {
+            var array_segmentos = getActividadesEconomicas(array, 'segmentos')
+            var response = getCheckValidator(array_segmentos, 'segmentos')
+            var sectorValidator = response[0]
+            var sectorValidatorTotal = response[1]
 
-            var sectorValidator = true
-            var sectorValidatorTotal = 0
-            if(array_segmentos.length > 0){
-                array_segmentos.forEach(el => {
-                    var segmento = fakeSectores.filter(item => item.id == el)[0]
-                    sectoresIds[segmento.id_padre_sub_categoria]['segmentos'].forEach((el) => {
-                        if (!array_segmentos.includes(el)) {
-                            sectorValidator = false
-                        } else {
-                            sectorValidatorTotal += 1
-                        }
-                    })
-                })
-            }else{
-                sectorValidator = false
-            }
-            
-
-            var input_sector = document.getElementById('sector_check_' + current.id_padre_sub_categoria)
-            var input_segmento = document.getElementById('segmento_check_' + current.id)
             if (sectorValidator) {
-                array.push(current.id_padre_sub_categoria)//Se agrega el segmento
-            }else{
+                array.push(current.id_padre_sub_categoria)
+            } else {
                 array = deleteActividadEconomica(array, current.id_padre_sub_categoria)
                 setChecksActividadesEconomicas(array)
                 if (sectorValidatorTotal > 0) {
-                    console.log("here")
-                    input_sector.classList.add('check-minus')
+                    toggleClassCheckMinus('sector_check_' + current.id_padre_sub_categoria, 'add')
                 } else {
-                    input_sector.classList.remove('check-minus')
-                    input_segmento.classList.remove('check-minus')
+                    toggleClassCheckMinus('sector_check_' + current.id_padre_sub_categoria, 'remove')
+                    toggleClassCheckMinus('segmento_check_' + current.id, 'remove')
                 }
             }
         }
-        if(isSector(current.id)){
-            var input_sector = document.getElementById('sector_check_' + current.id)
-            input_sector.classList.remove('check-minus')
+        if (isType(current.id, 'sector')) {
+            toggleClassCheckMinus('sector_check_' + current.id, 'remove')
+            var segmentos = getChildsIds(current, 'segmentos')
+            segmentos.forEach((id) => {
+                toggleClassCheckMinus('segmento_check_' + id, 'remove')
+            })
+        }
+    }
+
+    //Retorna los ids de los hijos del primer nivel
+    //Retorna los ids de los hijos del primer nivel
+    const getChildsIds = (sector, type) => {
+        var data = []
+        fakeSectores.forEach((el) => {
+            switch (type) {
+                case 'actividades_economicas':
+                    if (el.id_padre_sub_categoria == sector.id_padre_sub_categoria) {
+                        data.push(el.id)
+                    }
+                    break;
+                case 'segmentos':
+                    if (el.id_padre_sub_categoria == sector.id) {
+                        data.push(el.id)
+                    }
+                    break;
+                default:
+                    break;
+            }
+        })
+        return data
+    }
+    //Retorna un array con los ids de las actividades economicas seleccionadas segun el tipo que se necesite (ae, sector, segmento)
+    const getActividadesEconomicas = (array, type) => {
+        var response = []
+        array.forEach(el => {
+            if (isType(el, type)) {
+                response.push(el)
+            }
+        })
+        return response
+    }
+
+    const isType = (id, type) => {
+        var sector = fakeSectores.filter(el => el.id == id)[0]
+        switch (type) {
+            case 'actividades_economicas':
+                if (sector.id_abuelo_sub_categoria != null && sector.id_padre_sub_categoria != null) {
+                    return sector
+                } else {
+                    return false
+                }
+                break;
+            case 'segmentos':
+                if (sector.id_abuelo_sub_categoria == null && sector.id_padre_sub_categoria != null) {
+                    return sector
+                } else {
+                    return false
+                }
+                break;
+            case 'sector':
+                if (sector.id_abuelo_sub_categoria == null && sector.id_padre_sub_categoria == null) {
+                    return sector
+                } else {
+                    return false
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    const getCheckValidator = (array, type) => {
+        var sectorValidator = true
+        var sectorValidatorTotal = 0
+        if (array.length > 0) {
+            //Se recorren todas las actividades economicas seleccionadas
+            array.forEach(el => {
+                var actividad_economica = fakeSectores.filter(item => item.id == el)[0]
+                var parent = 0
+                switch (type) {
+                    case "actividades_economicas":
+                        parent = actividad_economica.id_abuelo_sub_categoria
+                        break;
+                    case "segmentos":
+                        parent = actividad_economica.id_padre_sub_categoria
+                        break;
+                    case "sector":
+                        parent = actividad_economica.id
+                        break;
+                    default:
+                        break;
+                }
+                //Se compara con las todas las actividades economicas que tiene el sector
+                sectoresIds[parent][type].forEach((el) => {
+                    //Si en algun momento no encuentra una actividad economica del sector en las que estan seleccionadas actualmente, asigna false
+                    if (!array.includes(el)) {
+                        sectorValidator = false
+                    } else {
+                        sectorValidatorTotal += 1
+                    }
+                })
+            })
+        } else {
+            sectorValidator = false
+        }
+        return [sectorValidator, sectorValidatorTotal]
+    }
+
+    const toggleClassCheckMinus = (id, action) => {
+        var input = document.getElementById(id)
+        if (action == "add") {
+            input.classList.add('check-minus')
+        } else {
+            input.classList.remove('check-minus')
         }
     }
 
@@ -734,38 +767,85 @@ const Index = ({
     const [contenedorPaso2TipoCompras, setContenedorPaso2TipoCompras] = useState(false);
     const [contenedorPaso3Localizaciones, setContenedorPaso3Localizaciones] = useState(false);
     const [contenedorPaso4Cuantia, setContenedorPaso4Cuantia] = useState(false);
+    const [contenedorPaso5, setContenedorPaso5] = useState(false);
 
     const [contenedorBuscadorActividades, setContenedorBuscadorActividades] = useState(true);
     const [contenedorBuscadorTipoCompras, setContenedorBuscadorTipoCompras] = useState(false);
     const [contenedorBuscadorLocalizaciones, setContenedorBuscadorLocalizaciones,] = useState(false);
 
-    const [contenedorBotonReturnTipoCompra, setcontenedorBotonReturnTipoCompra] = useState(false);
-    const [contenedorBotonReturnLocalizaciones, setcontenedorBotonReturnLocalizaciones] = useState(false);
-    const [contenedorBotonReturnCuantia, setcontenedorBotonReturnCuantia] = useState(false);
-  
+    const [contenedorBotonReturnTipoCompra, setContenedorBotonReturnTipoCompra] = useState(false);
+    const [contenedorBotonReturnLocalizaciones, setContenedorBotonReturnLocalizaciones] = useState(false);
+    const [contenedorBotonReturnCuantia, setContenedorBotonReturnCuantia] = useState(false);
+    const [contenedorBotonReturnGuardar, setContenedorBotonReturnGuardar] = useState(false);
+    const [contenedorBotonGuardar, setContenedorBotonGuardar] = useState(false);
+
     const [contenedorBotonNextActividadEconomica, setcontenedorBotonNextActividadEconomica] = useState(true);
     const [contenedorBotonNextTipoCompra, setcontenedorBotonNextTipoCompra] = useState(false);
     const [contenedorBotonNextLocalizacion, setcontenedorBotonNextLocalizacion] = useState(false);
+    const [contenedorBotonNextCuantia, setcontenedorBotonNextCuantia] = useState(false);
 
+    const icon1 = useRef();
+    const span1 = useRef();
+    const icon2 = useRef();
+    const span2 = useRef();
+    const icon3 = useRef();
+    const span3 = useRef();
+    const icon4 = useRef();
+    const span4 = useRef();
+    const icon5 = useRef();
+    const span5 = useRef();
 
+    /*     document.querySelectorAll("select.segmento.form-select")[0] .classList.remove("failed"); */
 
     const SiguientePaso2TipoCompra = () => {
         //Se muestran las tipo de compras
+        icon1.current.classList.remove('c-activo-iconos');
+        span1.current.classList.remove('c-activo-texto-iconos');
+
+        icon2.current.classList.add('c-activo-iconos');
+        span2.current.classList.add('c-activo-texto-iconos');
+
         setContenedorPaso1Actividades(false);
         setContenedorBuscadorActividades(false);
 
         setContenedorPaso2TipoCompras(true);
         setContenedorBuscadorTipoCompras(true);
 
-        setcontenedorBotonReturnTipoCompra(true);
+        setContenedorBotonReturnTipoCompra(true);
         setcontenedorBotonNextActividadEconomica(false)
         setcontenedorBotonNextTipoCompra(true)
 
     };
 
+    const VolverPaso1ActividadEconomica = () => {
+        //Volver A actividades economicas
+
+        icon1.current.classList.add('c-activo-iconos');
+        span1.current.classList.add('c-activo-texto-iconos');
+
+        icon2.current.classList.remove('c-activo-iconos');
+        span2.current.classList.remove('c-activo-texto-iconos');
+
+        setContenedorPaso2TipoCompras(false);
+        setContenedorBuscadorTipoCompras(false);
+
+        setContenedorPaso1Actividades(true);
+        setContenedorBuscadorActividades(true);
+
+        setContenedorBotonReturnTipoCompra(false);
+        setcontenedorBotonNextTipoCompra(false)
+        setcontenedorBotonNextActividadEconomica(true)
+
+    };
+
     const SiguientePaso3Localizacion = () => {
-        console.log("paso3")
         //Se muestran las localizaciones
+
+        icon2.current.classList.remove('c-activo-iconos');
+        span2.current.classList.remove('c-activo-texto-iconos');
+
+        icon3.current.classList.add('c-activo-iconos');
+        span3.current.classList.add('c-activo-texto-iconos');
 
         setcontenedorBotonNextTipoCompra(false)
         setcontenedorBotonNextLocalizacion(true)
@@ -777,48 +857,131 @@ const Index = ({
         setContenedorPaso3Localizaciones(true)
 
         //Oculto un boton de volver y muestro el otro
-        contenedorBotonReturnTipoCompra(false)
-        contenedorBotonReturnLocalizaciones(true)
+        setContenedorBotonReturnTipoCompra(false)
+        setContenedorBotonReturnLocalizaciones(true)
     };
 
+    const VolverPaso2TipoCompra = () => {
+        //Volver A Tipo de compras
+
+
+        icon2.current.classList.add('c-activo-iconos');
+        span2.current.classList.add('c-activo-texto-iconos');
+
+        icon3.current.classList.remove('c-activo-iconos');
+        span3.current.classList.remove('c-activo-texto-iconos');
+
+
+        setcontenedorBotonNextTipoCompra(true)
+        setcontenedorBotonNextLocalizacion(false)
+
+        setContenedorPaso2TipoCompras(true);
+        setContenedorBuscadorTipoCompras(true);
+
+        setContenedorBuscadorLocalizaciones(false)
+        setContenedorPaso3Localizaciones(false)
+
+        //Oculto un boton de volver y muestro el otro
+        setContenedorBotonReturnTipoCompra(true)
+        setContenedorBotonReturnLocalizaciones(false)
+
+    };
+
+
     const SiguientePaso4Cuantia = () => {
-         //Se muestran las cuantias
-        console.log("paso4")
+        //Se muestran las cuantias
+        icon4.current.classList.add('c-activo-iconos');
+        span4.current.classList.add('c-activo-texto-iconos');
+
+        icon3.current.classList.remove('c-activo-iconos');
+        span3.current.classList.remove('c-activo-texto-iconos');
+
+        setcontenedorBotonNextLocalizacion(false)
+        setContenedorBotonReturnLocalizaciones(false)
 
         setContenedorBuscadorLocalizaciones(false)
         setContenedorPaso3Localizaciones(false)
 
         setContenedorPaso4Cuantia(true)
-    
-    };
+        setContenedorBotonReturnCuantia(true)
 
-    const VolverPaso1ActividadEconomica = () => {
-        //Volver A actividades economicas
-        setContenedorPaso2TipoCompras(false);
-        setContenedorBuscadorTipoCompras(false);
+        setcontenedorBotonNextCuantia(true)
 
-        setContenedorPaso1Actividades(true);
-        setContenedorBuscadorActividades(true);
-
-        setcontenedorBotonReturnTipoCompra(false);
-        setcontenedorBotonNextTipoCompra(false)
-        setcontenedorBotonNextActividadEconomica(true)
-       
-    };
-
-    const VolverPaso2TipoCompra = () => {
-         //Volver A Tipo de compras
-
-         setContenedorBuscadorLocalizaciones(false)
-         setContenedorPaso3Localizaciones(false)
-
-
+        //btn-next
 
     };
 
     const VolverPaso3Localizaciones = () => {
 
+        icon4.current.classList.remove('c-activo-iconos');
+        span4.current.classList.remove('c-activo-texto-iconos');
+
+        icon3.current.classList.add('c-activo-iconos');
+        span3.current.classList.add('c-activo-texto-iconos');
+
+        setContenedorBotonReturnCuantia(false)
+        setContenedorPaso4Cuantia(false)
+
+        setcontenedorBotonNextLocalizacion(true)
+        setContenedorBotonReturnLocalizaciones(true)
+
+        setContenedorBuscadorLocalizaciones(true)
+        setContenedorPaso3Localizaciones(true)
+
+        setcontenedorBotonNextCuantia(false)
+
     };
+
+
+    const SiguientePaso5Terminar = () => {
+
+
+        icon5.current.classList.add('c-activo-iconos');
+        span5.current.classList.add('c-activo-texto-iconos');
+
+        icon4.current.classList.remove('c-activo-iconos');
+        span4.current.classList.remove('c-activo-texto-iconos');
+
+        setcontenedorBotonNextCuantia(false)
+        setContenedorBotonReturnCuantia(false)
+
+        setContenedorPaso4Cuantia(false)
+
+        setContenedorPaso5(true)
+        setContenedorBotonGuardar(true)
+
+        setContenedorBotonReturnGuardar(true)
+
+    };
+
+    const VolverPaso4Cuantia = () => {
+
+
+        icon5.current.classList.remove('c-activo-iconos');
+        span5.current.classList.remove('c-activo-texto-iconos');
+
+        icon4.current.classList.add('c-activo-iconos');
+        span4.current.classList.add('c-activo-texto-iconos');
+
+        setcontenedorBotonNextCuantia(true)
+        setContenedorBotonReturnCuantia(true)
+
+        setContenedorPaso4Cuantia(true)
+
+        setContenedorPaso5(false)
+        setContenedorBotonGuardar(false)
+
+        setContenedorBotonReturnGuardar(false)
+
+
+    };
+
+
+    const Guardar = () => {
+        alert("Guardando...");
+    };
+
+
     const [cuantiaHasta, setCuantiaHasta] = useState(0);
     const [toggleSwitchCuantia, setToggleSwitchCuantia] = useState(false);
     const [switchCuantia, setSwitchCuantia] = useState(true);
@@ -907,24 +1070,24 @@ const Index = ({
                                     <button type="button" className="icon-Buscar-click"></button>
                                 </div> */}
 
-                                <div className="perfil-guias__indicador perfil-guias__indicador--activo">
-                                    <i className="icon-Paso-1-click"> </i>{" "}
-                                    <span>Actividad económica</span>
-                                    <i
-                                        className="icon-Paso-2-click"
-                                        id="pleft2"
-                                    ></i>{" "}
-                                    <span>Tipo de compra</span>
-                                    <i
-                                        className="icon-Paso-3-click"
-                                        id="pleft2"
-                                    ></i>{" "}
-                                    <span>Localizaciones</span>
-                                    <i
-                                        className="icon-Paso-4-click"
-                                        id="pleft2"
-                                    ></i>{" "}
-                                    <span>Rango de Cuantía</span>
+                                <div className="iconos-perfiles">
+
+                                    <i ref={icon1} className="icon-Paso-1-click c-activo-iconos"> </i>{" "}
+                                    <span ref={span1} className="c-activo-texto-iconos">Actividad económica</span>
+
+                                    <i ref={icon2} className="icon-Paso-2-click" id="pleft2"></i>{" "}
+                                    <span ref={span2} className="">Tipo de compra</span>
+
+                                    <i ref={icon3} className="icon-Paso-3-click" id="pleft2"  ></i>{" "}
+                                    <span ref={span3} className="">Localizaciones</span>
+
+                                    <i ref={icon4} className="icon-Paso-4-click" id="pleft2" ></i>{" "}
+                                    <span ref={span4} className="">Rango de Cuantía</span>
+
+                                    <i ref={icon5} className="icon-Paso-5-click" id="pleft2" ></i>{" "}
+                                    <span ref={span5} className="">Paso 5</span>
+
+
                                 </div>
                                 <div className="mx-60 mt-30 d-flex">
                                     {contenedorBuscadorActividades && (
@@ -986,8 +1149,8 @@ const Index = ({
                                 </div>
                                 <br></br>
 
-                                <>
-                                    {/* Paso 1*/}
+                                <>{/* Paso 1*/}
+
                                     {contenedorPaso1Actividades && (
                                         <ul className="tree-root">
                                             {sectores.map((sector) => (
@@ -1016,7 +1179,7 @@ const Index = ({
                                                                     ></i>
                                                                     {/* p1*/}
                                                                     <input
-                                                                    id={"sector_check_" + sector.id}
+                                                                        id={"sector_check_" + sector.id}
                                                                         type="checkbox"
                                                                         name="actividad_economica"
                                                                         onChange={() =>
@@ -1199,8 +1362,7 @@ const Index = ({
                                         </ul>
                                     )}
                                 </>
-                                <>
-                                    {/* Paso 2 TIPO DE COMPRAS*/}
+                                <> {/* Paso 2 TIPO DE COMPRAS*/}
                                     {contenedorPaso2TipoCompras && (
                                         <ul className="tree-root">
                                             {sectoresTipoCompras.map((sector) => (
@@ -1354,9 +1516,7 @@ const Index = ({
                                         </ul>
                                     )}
                                 </>
-
-                                <>
-                                    {/* Paso 3 LOCALIZACIONES */}
+                                <>{/* Paso 3 LOCALIZACIONES */}
                                     {contenedorPaso3Localizaciones && (
                                         <ul className="tree-root">
                                             {sectoresLocalizaciones.map((sector) => (
@@ -1511,8 +1671,7 @@ const Index = ({
                                     )}
                                 </>
 
-                                <>
-                                    {/* Paso 4*/}
+                                <>{/* Paso 4 Cuantia*/}
                                     {contenedorPaso4Cuantia && (
                                         <div className="perfil-cuantias">
                                             <div
@@ -1606,19 +1765,27 @@ const Index = ({
                                         </div>
                                     )}
                                 </>
+
+                                <> {/* Paso 5*/}
+
+                                    {contenedorPaso5 && (
+                                        <p>Paso 5</p>
+                                    )}
+                                </>
+
                             </div>
                         </div>
                     </div>
 
-                    {/* BOTONES  */}
+                    {/* BOTONES NEXT */}
                     <div className="perfil-bottons-footer position-relative text-center mt-4">
 
-                        <>
+                        <>{/* Next tipoCompra */}
                             {contenedorBotonNextActividadEconomica && (
                                 <a
                                     onClick={SiguientePaso2TipoCompra}
                                     className="btn btnRadius btn-new-blue"
-                                    id ="btn-next-ac"
+                                    id="btn-next-ac"
                                 >
                                     <span className="bloque__info-header-cuenta-text--modifier">
                                         Siguiente
@@ -1626,12 +1793,12 @@ const Index = ({
                                 </a>
                             )}
                         </>
-                        <>
+                        <>{/* Next Localizaciones */}
                             {contenedorBotonNextTipoCompra && (
                                 <a
                                     onClick={SiguientePaso3Localizacion}
                                     className="btn btnRadius btn-new-blue"
-                                    id ="btn-next-tc"
+                                    id="btn-next-tc"
                                 >
                                     <span className="bloque__info-header-cuenta-text--modifier">
                                         Siguiente
@@ -1639,14 +1806,39 @@ const Index = ({
                                 </a>
                             )}
                         </>
-
-
-                        <>
+                        <>{/* Next Cuantia */}
                             {contenedorBotonNextLocalizacion && (
                                 <a
                                     onClick={SiguientePaso4Cuantia}
                                     className="btn btnRadius btn-new-blue"
-                                    id ="btn-next-lc"
+                                    id="btn-next-lc"
+                                >
+                                    <span className="bloque__info-header-cuenta-text--modifier">
+                                        Siguiente
+                                    </span>
+                                </a>
+                            )}
+                        </>
+                        <>{/* GUARDAR*/}
+                            {contenedorBotonGuardar && (
+                                <a
+                                    onClick={Guardar}
+                                    className="btn btnRadius btn-new-blue"
+                                    id="btn-next-cu"
+                                >
+                                    <span className="bloque__info-header-cuenta-text--modifier">
+                                        Guardar
+                                    </span>
+                                </a>
+                            )}
+                        </>
+
+                        <>{/* Next Terminar */}
+                            {contenedorBotonNextCuantia && (
+                                <a
+                                    onClick={SiguientePaso5Terminar}
+                                    className="btn btnRadius btn-new-blue"
+                                    id="btn-next-cu"
                                 >
                                     <span className="bloque__info-header-cuenta-text--modifier">
                                         Siguiente
@@ -1656,12 +1848,14 @@ const Index = ({
                         </>
 
 
-                        <>
+                        {/* BOTONES RETURN */}
+
+                        <>{/* Volver ActividadesEconomicas */}
                             {contenedorBotonReturnTipoCompra && (
                                 <a
                                     onClick={VolverPaso1ActividadEconomica}
                                     className="btn btnRadius btn-new-blue"
-                                    id ="btn-return-tc"
+                                    id="btn-return-tc"
                                 >
                                     <span className="bloque__info-header-cuenta-text--modifier">
                                         Volver
@@ -1670,12 +1864,12 @@ const Index = ({
                             )}
                         </>
 
-                        <>
+                        <>{/* Volver TipoCompra */}
                             {contenedorBotonReturnLocalizaciones && (
                                 <a
                                     onClick={VolverPaso2TipoCompra}
                                     className="btn btnRadius btn-new-blue"
-                                    id ="btn-return-lc"
+                                    id="btn-return-lc"
                                 >
                                     <span className="bloque__info-header-cuenta-text--modifier">
                                         Volver
@@ -1684,12 +1878,26 @@ const Index = ({
                             )}
                         </>
 
-                        <>
+                        <>{/* Volver Localizaciones */}
                             {contenedorBotonReturnCuantia && (
                                 <a
                                     onClick={VolverPaso3Localizaciones}
                                     className="btn btnRadius btn-new-blue"
-                                    id ="btn-return-lc"
+                                    id="btn-return-cu"
+                                >
+                                    <span className="bloque__info-header-cuenta-text--modifier">
+                                        Volver
+                                    </span>
+                                </a>
+                            )}
+                        </>
+
+                        <>{/* Volver Cuantia */}
+                            {contenedorBotonReturnGuardar && (
+                                <a
+                                    onClick={VolverPaso4Cuantia}
+                                    className="btn btnRadius btn-new-blue"
+                                    id="btn-return-te"
                                 >
                                     <span className="bloque__info-header-cuenta-text--modifier">
                                         Volver
