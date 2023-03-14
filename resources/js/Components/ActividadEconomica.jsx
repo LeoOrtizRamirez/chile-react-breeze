@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import './ActividadEconomica.css'
 
-const ActividadEconomica = (props) => {
+const ActividadEconomica = ({data,id,nameBuscador,onHandleSectores,tipo}) => {
 
-    const [fakeSectores, setFakeSectores] = useState(props.data);
-    const [sectores, setSectores] = useState(props.data);
+    const [fakeSectores, setFakeSectores] = useState(data);
+    const [sectores, setSectores] = useState(data);
     const [openSectores, setOpenSectores] = useState([]);
     const [openSegmentos, setOpenSegmentos] = useState([]);
     const [sectoresIds, setSectoresIds] = useState([])
+
+
+
 
     useEffect(() => {
         var full_array = []
@@ -527,7 +530,7 @@ const ActividadEconomica = (props) => {
     };
 
     useEffect(() =>{
-        props.onHandleSectores(checksActividadesEconomicas)
+        onHandleSectores(checksActividadesEconomicas,tipo)
     },[checksActividadesEconomicas])
 
     return (
@@ -540,7 +543,7 @@ const ActividadEconomica = (props) => {
                 ></button>
                 <input
                     type="text"
-                    placeholder={props.nameBuscador}
+                    placeholder={nameBuscador}
                     autoComplete="off"
                     className="form-control busqueda-input"
                     onKeyDown={
@@ -558,7 +561,7 @@ const ActividadEconomica = (props) => {
                 </h2>
             </div>
             <br></br>
-            <ul className="tree-root" id={props.id}>
+            <ul className="tree-root" id={id}>
                 {sectores.map((sector) => (
                     <>
                         {sector.id_padre_sub_categoria ==
