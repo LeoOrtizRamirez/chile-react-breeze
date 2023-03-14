@@ -1,157 +1,54 @@
-#BusquedaUbicacion .modal-body,
-#BusquedaUbicacion .modal-content {
-    padding: 0px 0px 5px 0px !important;
-}
-
-#BusquedaUbicacion .modal.show .modal-dialog {
-    transform: none;
-    height: 0px;
-    /* margin-top: 55px; */
-}
-
-#BusquedaUbicacion .mx-60 {
+.mx-60 {
     margin-left: 60px;
     margin-right: 60px;
 }
 
-#BusquedaUbicacion .mt-30 {
-    margin-top: 0px;
+input.form-control-mbu.busqueda-input {
+    width: 50%;
 }
 
-#BusquedaUbicacion input.form-control.busqueda-input {
-    width: 60%;
-    height: 35px;
-}
-
-#BusquedaUbicacion .contenedor-planes {
+.contenedor-planes {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
-#BusquedaUbicacion body {
-    overflow-y: hidden !important;
-    overflow-x: hidden !important;
-}
-
-#BusquedaUbicacion a {
-    text-align: center;
-    font-weight: bold;
-    color: unset !important;
-    text-decoration: none !important;
-}
-
-#BusquedaUbicacion ul {
+ul {
     padding-left: 0px !important;
 }
 
-#BusquedaUbicacion html {
-    background-color: #f3f4f6;
-}
-
-#BusquedaUbicacion input.btn.btn-info {
-    background: #1383ac;
-    border-color: #1383ac;
-    color: #fff;
-}
-
-#BusquedaUbicacion th {
-    font-size: 12px !important;
-}
-
-#BusquedaUbicacion .planes {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #00a1c9 !important;
-    font-weight: bold;
-    font-size: 22px;
-    justify-content: space-between;
-    height: 40px;
-    margin-bottom: -5px;
-}
-
-/* #BusquedaUbicacion .margen-superior {
-    margin-top: 10px !important;
-} */
-
-#BusquedaUbicacion .contenedor-botones {
-    display: flex;
-    flex-direction: row;
-}
-
-#BusquedaUbicacion .actualizar-color {
-    color: #00a1c9;
-}
-
-#BusquedaUbicacion .autorenew {
-    background-color: #ffffff;
-    width: 35px;
-    height: 35px;
-    border-bottom: solid 1px #b5b5b5;
-    margin-bottom: 5px;
-    margin-right: 5px;
-    text-align: center;
-    padding: 5px;
-    color: black;
-}
-
-#BusquedaUbicacion .add_circle {
-    background-color: rgb(58, 182, 0);
-    width: 35px;
-    height: 35px;
-    border-bottom: solid 1px #b5b5b5;
-    margin-bottom: 5px;
-    text-align: center;
-    padding: 5px;
-}
-
-#BusquedaUbicacion .material-symbols-outlined-color {
-    color: white;
-}
-
-#BusquedaUbicacion .tree-content {
+.tree-content-mbu {
     cursor: pointer;
 }
 
-#BusquedaUbicacion .tree-content:hover {
-    padding-top: 10px;
+.tree-content-mbu:hover {
     background: #f6f8fb;
 }
 
-#BusquedaUbicacion .tree_categorias__busqueda {
+.tree_categorias-mbu__busqueda-mbu {
     text-align: center;
     position: relative;
 }
 
 @media (min-width: 768px) {
-    #BusquedaUbicacion .mb-md-4,
-    #BusquedaUbicacion .my-md-4 {
+    .mb-md-4,
+    .my-md-4 {
         margin-bottom: 1.5rem !important;
     }
 }
 
-#BusquedaUbicacion .tree_categorias__busqueda > div > input {
-    position: relative;
-    display: block;
-    max-width: 550px;
-    float: left;
-}
-
-#BusquedaUbicacion .busqueda-input {
+.busqueda-input {
     padding: 0px 10px 0px 30px !important;
 }
 
-#BusquedaUbicacion .tree_categorias__busqueda input {
+.tree_categorias-mbu__busqueda-mbu input {
     padding: 10px 10px 10px 10px;
     font-size: 15px;
     color: #73c914;
 }
 
-#BusquedaUbicacion .tree_categorias__busqueda button {
+.tree_categorias-mbu__busqueda-mbu button {
     background: none;
-    padding: 7px 2px;
+    padding: 3px 8px;
     font-size: 19px;
     color: #686868;
     border: 0;
@@ -159,7 +56,7 @@
     position: absolute;
 }
 
-#BusquedaUbicacion .tree-anchor {
+.tree-anchor-mbu {
     flex-grow: 2;
     outline: 0;
     display: flex;
@@ -172,7 +69,7 @@
     user-select: none;
 }
 
-#BusquedaUbicacion .tree-arrow {
+.tree-arrow-mbu {
     position: absolute;
     right: 30px;
     width: 16px;
@@ -183,7 +80,7 @@
 }
 
 @media (min-width: 768px) {
-    #BusquedaUbicacion .tree-content .tree-division {
+    .tree-content-mbu .tree-division-mbu {
         width: 100%;
         height: auto;
         display: -webkit-box;
@@ -193,130 +90,65 @@
 }
 
 @media (min-width: 768px) {
-    #BusquedaUbicacion .tree-content .tree-division__title {
+    .tree-content-mbu .tree-division-mbu__title {
         background: #66c6de !important;
         display: inline-block;
         font-size: 17px;
         font-weight: bold;
         color: #fff !important;
         font-family: Nexa-bold, sans-serif;
-        border-radius: 25px;
+        border-radius: 22px;
         text-align: center;
         width: 100%;
         padding: 4px 10px;
     }
 
-    #BusquedaUbicacion .tree-content .tree-division__title-gray {
+    .tree-content-mbu .tree-division-mbu__title-gray {
         background: #3a3a3a3a !important;
         display: inline-block;
-        font-size: 14px;
+        font-size: 12px;
         font-weight: bold;
         color: #00a1c9 !important;
         font-family: Nexa-bold, sans-serif;
-        border-radius: 25px;
+        border-radius: 22px;
         text-align: center;
         width: 100%;
         padding: 4px 10px;
-        -webkit-border-radius: 25px;
-        -moz-border-radius: 25px;
-        -ms-border-radius: 25px;
-        -o-border-radius: 25px;
     }
 
-    #BusquedaUbicacion .tree-content.actividad-economica .tree-division__title {
+    .tree-content-mbu.actividad-economica .tree-division-mbu__title {
         font-weight: 100;
     }
 }
 
-#BusquedaUbicacion .form-control {
+.form-control-mbu {
     border: 1px solid #ddd !important;
     border-radius: 1rem !important;
     font-family: Nexa-bold, sans-serif;
+    -webkit-border-radius: 1rem !important;
+    -moz-border-radius: 1rem !important;
+    -ms-border-radius: 1rem !important;
+    -o-border-radius: 1rem !important;
 }
 
-#BusquedaUbicacion .tree-node.has-child > .tree-content {
+.tree-node-mbu.has-child .tree-content-mbu {
     border-bottom: 2px solid #e6e5e5;
-    padding: 0px 0px 10px 0px !important;
+    padding: 7px 18px 14px !important;
 }
 
-#BusquedaUbicacion
-    .tree-node.has-child.segmento
-    > .tree-content
-    .tree-division__title {
+.tree-node-mbu.has-child.segmento .tree-content-mbu .tree-division-mbu__title {
     background: #fff !important;
     padding: 4px 10px;
-    font-size: 14px !important;
+    font-size: 12px !important;
     color: #00a1c9 !important;
     font-family: Nexa-bold, sans-serif;
 }
 
-#BusquedaUbicacion .tree-children:first-of-type .tree-node.has-child {
-    min-width: 50%;
-    max-width: 100%;
-    padding: 6px 26px 5px;
+.tree-children-mbu .tree-content-mbu .tree-division-mbu {
+    padding: 0 10px 0 10px;
 }
 
-#BusquedaUbicacion .tree-anchor.children {
-    padding: 0 19px;
-    margin: 0;
-    white-space: pre-line;
-}
-
-#BusquedaUbicacion .tree-anchor.children .tree-division__title {
-    background: #fff !important;
-    font-size: 14px;
-    color: #000 !important;
-    text-align: left;
-    font-weight: inherit;
-}
-
-#BusquedaUbicacion .tree-anchor.children .tree-division__title-gray {
-    background: #3a3a3a3a !important;
-    font-size: 14px;
-    color: #000 !important;
-    text-align: left;
-    border-radius: 25px;
-    width: 100%;
-    padding: 4px 10px;
-    font-weight: inherit;
-}
-
-#BusquedaUbicacion .tree-children .tree-content .tree-division {
-    padding: 10px 10px 0px 20px;
-}
-
-.tree_categorias
-    .tree-root
-    .tree-children:first-of-type
-    .tree-node.has-child
-    > .tree-content
-    #BusquedaUbicacion
-    .tree-division__title {
-    font-size: 14px;
-    color: #00a1c9;
-    font-family: Nexa-bold, sans-serif;
-}
-
-#BusquedaUbicacion .tree-checkbox {
-    width: 19px;
-    height: 19px;
-    border: 2px solid #dadada;
-    border-radius: 9px;
-}
-
-.tree-arrow:after,
-#BusquedaUbicacion .tree-checkbox:after {
-    position: absolute;
-    display: block;
-    content: "";
-}
-
-#BusquedaUbicacion .tree-checkbox.checked {
-    background-color: #73c914;
-    border-color: #73c914 !important;
-}
-
-#BusquedaUbicacion .tree-content {
+.tree-content-mbu {
     display: flex;
     align-items: center;
     padding: 3px;
@@ -325,101 +157,24 @@
     box-sizing: border-box;
 }
 
-#BusquedaUbicacion .tree-content.actividad-economica {
-    padding-left: 48px;
-}
-
-#BusquedaUbicacion body {
-    overflow: scroll;
-}
-
-#BusquedaUbicacion .botones {
-    font-size: 25px;
-    display: flex;
-    justify-content: center;
-}
-
-#BusquedaUbicacion .btn-new-green {
-    background-color: chartreuse !important;
-    border-radius: 25px;
-    -webkit-border-radius: 25px;
-    -moz-border-radius: 25px;
-    -ms-border-radius: 25px;
-    -o-border-radius: 25px;
-    width: 150px;
-    padding: 5px 0px;
-    color: white;
-    font-weight: 500;
-}
-
-#BusquedaUbicacion .btn-new-green:hover {
-    color: chartreuse !important;
-    background: white !important;
-    border: 2px solid chartreuse !important;
-}
-
-#BusquedaUbicacion .btn-new-red {
-    color: #dc3545 !important;
-    border: 1px solid #dc3545 !important;
-}
-
-#BusquedaUbicacion .btn-new-red:hover {
-    background: #dc3545 !important;
-    color: #fff !important;
-}
-
-#BusquedaUbicacion .infinite-scroll {
-    overflow: auto;
-    height: 35em;
-}
-
-#BusquedaUbicacion .posicion-opciones-planes {
-    margin-top: 48px;
-}
-
-#BusquedaUbicacion .custom-scroll {
-    height: 80vh;
+.custom-scroll-mbu {
+    height: 89vh;
     overflow-y: scroll;
 }
 
-#BusquedaUbicacion .name_section_app {
-    color: #8d8d8d;
+.name_section_app-mbu {
+    text-align: center;
+    display: block;
+    max-width: 410px;
+    margin: 0 398px;
+    color: #00a1c9;
     font-family: Nexa-bold, sans-serif;
     font-size: 24px;
     font-weight: bold;
     border: 0;
-    margin-left: 400px;
-    /* padding-bottom: 5px; */
-    /* background-image: linear-gradient(
-        90deg,
-        #e1e1e1 0,
-        #e1e1e1 50%,
-        transparent 0
-    );
-    background-size: 16px 2px;
-    background-position: bottom;
-    background-repeat: repeat-x; */
 }
 
-#BusquedaUbicacion .c-verde {
-    color: #73c914;
-}
-
-#BusquedaUbicacion .perfiles-titulos {
-    display: block;
-    margin: 0 auto;
-    color: gray;
-    font-family: Nexa-bold, sans-serif;
-    font-size: 24px;
-    font-weight: bold;
-    padding-bottom: 5px;
-}
-
-#BusquedaUbicacion .perfiles-titulos.crear {
-    padding: 25px 0px;
-}
-
-#BusquedaUbicacion .tree-root {
+.tree-root-mbu {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -430,22 +185,17 @@
     overflow: auto;
 }
 
-#BusquedaUbicacion .tree-root {
-    /* padding: 3px; */
-    box-sizing: border-box;
-}
-
-#BusquedaUbicacion .tree-root > .tree-node {
+.tree-root-mbu .tree-node-mbu {
     min-width: 50%;
     width: 50%;
-    /* padding: 5px 10px 15px; */
+    padding: 5px 10px 15px;
     -webkit-transition: -webkit-box-shadow 0.25s ease;
     transition: -webkit-box-shadow 0.25s ease;
     transition: box-shadow 0.25s ease;
     transition: box-shadow 0.25s ease, -webkit-box-shadow 0.25s ease;
 }
 
-#BusquedaUbicacion .tree-node {
+.tree-node-mbu {
     white-space: nowrap;
     display: flex;
     flex-direction: column;
@@ -453,21 +203,22 @@
     box-sizing: border-box;
 }
 
-#BusquedaUbicacion .tree-node.has-child.draggable.expanded {
+.tree-node-mbu.has-child.draggable.expanded {
     min-width: 100%;
 }
 
-#BusquedaUbicacion
-    .tree_categorias
-    .tree-root
-    .tree-children:first-of-type
-    .tree-node.has-child {
+/*Confirmar *
+    .tree_categorias-mbu
+    .tree-root-mbu
+    .tree-children-mbu:first-of-type
+    .tree-node-mbu.has-child {
     min-width: 50%;
     max-width: 50%;
     padding: 6px 26px 5px;
 }
+/*Fin Confirmar */
 
-#BusquedaUbicacion .tree-children {
+.tree_categorias-mbu .tree-root-mbu .tree-children-mbu:first-of-type {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -478,121 +229,15 @@
     overflow: auto;
 }
 
-#BusquedaUbicacion .tree_categorias .tree-root .tree-children:first-of-type {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -ms-flex-flow: row wrap;
-    flex-flow: row wrap;
-    overflow: auto;
-}
-
-#BusquedaUbicacion .tree_categorias .tree-root .tree-children {
-    /* padding: 12px 20px; */
-    padding: 0px 0px;
-}
-
-.tree_categorias
-    .tree-root
-    .tree-children:first-of-type
-    #BusquedaUbicacion
-    .tree-node.has-child.expanded {
-    min-width: 100%;
-}
-
-#BusquedaUbicacion .tree_categorias .tree-root .tree-children .tree-node {
-    min-width: 100%;
-    max-width: 100%;
-}
-
-#BusquedaUbicacion .perfil-guias {
-    padding: 20px 20px 25px;
-}
-
-#BusquedaUbicacion .perfil-guias__indicador {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    margin-right: 16px;
-    cursor: pointer;
-    justify-content: left;
-}
-
-#BusquedaUbicacion .icon-Paso-1-click:before {
-    content: "\e9f7";
-}
-
-#BusquedaUbicacion .perfil-guias ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    text-align: center;
-}
-
-#BusquedaUbicacion .perfil-guias__indicador--activo i {
-    color: #73c914;
-    -webkit-transition: all 0.4s;
-    transition: all 0.4s;
-}
-
-#BusquedaUbicacion .perfil-guias__indicador i {
-    font-size: 40px;
-    /* color: #d7d7d7; */
-}
-
-#BusquedaUbicacion .perfil-guias ul li:first-child div:before {
-    height: 0;
-    width: 0;
-    margin: 0;
-}
-
-/* #BusquedaUbicacion .perfil-guias__indicador--activo span {
-    color: #686868;
-} */
-
-#BusquedaUbicacion .perfil-guias__indicador span {
-    font-family: Nexa-bold, sans-serif;
-    /* color: #d7d7d7; */
-    color: #73c914;
-    font-size: 16px;
-    margin-left: 20px;
-    display: inline-block;
-    line-height: 15px !important;
-    font-weight: bold;
-}
-
-/* #BusquedaUbicacion .tree_categorias__busqueda>div {
-    position: relative;
-    display: block;
-    max-width: 550px;
-} */
-
-#BusquedaUbicacion .tree_categorias__busqueda input {
-    padding: 4px 60px 4px 13px;
-    font-size: 15px;
-}
-
-#BusquedaUbicacion .form-control {
-    border: 1px solid #ddd;
-    border-radius: 1rem;
-}
-
-.form-control,
-#BusquedaUbicacion .inputs-rounded {
-    font-family: Nexa-regular, sans-serif;
-}
-
-#BusquedaUbicacion button.icon-Buscar-click {
-    left: inherit;
-}
-
-#BusquedaUbicacion input[type="checkbox"] {
+input[type="checkbox"] {
     border: 2px solid #66c6de;
     padding: 7px;
     margin-right: 10px;
+    border-radius: 5px;
+}
+
+.check-minus {
+    background-color: #73c914;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-dash-lg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z"/></svg>');
+    background-size: cover;
 }
