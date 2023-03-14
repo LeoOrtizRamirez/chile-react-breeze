@@ -33,51 +33,60 @@ const Index = ({
     const [sectores, setSectores] = useState(actividades_economicas);
 
 
-    const [total_array_checks_actividades, setTotal_array_checks_actividades] = useState([]);
-    const [total_array_checks_tipo_compras, setTotal_array_checks_tipo_compra] = useState([]);
-    const [total_array_checks_localizaciones, setTotal_array_checks_localizaciones] = useState([]);
+    let [total_array_checks_actividades, setTotal_array_checks_actividades] = useState([]);
+    let [total_array_checks_tipo_compras, setTotal_array_checks_tipo_compra] = useState([]);
+    let [total_array_checks_localizaciones, setTotal_array_checks_localizaciones] = useState([]);
+
+    let [copia_actividades, setCopia_actividades] = useState([]);
+
+
 
     const onHandleSectores = (data, tipo) => {
+        console.log("copia actividades->")
+        console.log(copia_actividades)
 
+        console.log("total_array_checks_actividades")
+        console.log(total_array_checks_actividades)
+
+        console.log(tipo)
         switch (tipo) {
             case "ActividadEconomica":
-                console.log("data "+ data);
-                if(data != ""){
-                    total_array_checks_actividades[0]= data 
+                //console.log("data", total_array_checks_actividades)
+                let newa = [];
+                if (data.length > 0) {
+                    console.log("if")
+                    console.log(total_array_checks_actividades[0])
+                    data.forEach((el) => {
+                        if (!total_array_checks_actividades.includes(el)) {
+                            newa.push(el)
+                        }
+                    })
 
-                    let newa = [];
-
-                    /* newa.forEach(checks){
-
-                    } */
-
+                    /* console.log(newa) */
+                    total_array_checks_actividades[0] = newa
+                } else {
+                    console.log("else")
+                    /* console.log(newa) */
                 }
-              
+
+
+
 
                 /* setTotal_array_checks_actividades(data) */
-              
-                console.log("case actividad")
-                console.log(total_array_checks_actividades)
+
                 break;
             case "tipoCompra":
                 setTotal_array_checks_tipo_compra(data)
-                console.log(total_array_checks_tipo_compras)
-                console.log(tipo)
                 break;
             default:
                 setTotal_array_checks_localizaciones(data)
-                console.log(total_array_checks_localizaciones)
-                console.log(tipo)
                 break;
         }
-        console.log("actividades_economicas")
-        console.log(total_array_checks_actividades)
-        console.log("TipoCompras")
-        console.log(total_array_checks_tipo_compras)
-        console.log("Localizaionces")
-        console.log(total_array_checks_localizaciones)
-        console.log("----")
+        console.log("fin swhit total array ")
+        console.log(total_array_checks_actividades[0])
+
     }
+
 
     const [contenedorPaso1Actividades, setContenedorPaso1Actividades] = useState(true);
     const [contenedorPaso2TipoCompras, setContenedorPaso2TipoCompras] = useState(false);
@@ -109,6 +118,9 @@ const Index = ({
 
     const SiguientePaso2TipoCompra = () => {
         console.log("paso 2");
+        console.log(total_array_checks_actividades[0])
+
+        setCopia_actividades(total_array_checks_actividades[0])
 
         //Se muestran las tipo de compras
         icon1.current.classList.remove('c-activo-iconos');
@@ -129,6 +141,12 @@ const Index = ({
 
     const VolverPaso1ActividadEconomica = () => {
         //Volver A actividades economicas
+        console.log("paso 1");
+        console.log(total_array_checks_actividades[0])
+
+
+        setCopia_actividades(total_array_checks_actividades[0])
+
 
         icon1.current.classList.add('c-activo-iconos');
         span1.current.classList.add('c-activo-texto-iconos');
@@ -520,11 +538,12 @@ const Index = ({
                                     {contenedorPaso1Actividades && (
                                         <ActividadEconomica
 
-                                            data={sectores}
+                                            subcategorias={sectores}
                                             id={22}
                                             nameBuscador={"Busca por actividad económica o UNSPSC"}
                                             onHandleSectores={onHandleSectores}
                                             tipo={"ActividadEconomica"}
+                                            checkeds={copia_actividades}
                                         >
 
                                         </ActividadEconomica>
@@ -533,7 +552,7 @@ const Index = ({
                                 <> {/* Paso 2 TIPO DE COMPRAS*/}
                                     {contenedorPaso2TipoCompras && (
                                         <ActividadEconomica
-                                            data={tiposcompras}
+                                            subcategorias={tiposcompras}
                                             nameBuscador={"Buscar Tipo de Compra"}
                                             onHandleSectores={onHandleSectores}
                                             tipo={"tipoCompra"}
@@ -544,7 +563,7 @@ const Index = ({
                                 <>{/* Paso 3 LOCALIZACIONES */}
                                     {contenedorPaso3Localizaciones && (
                                         <ActividadEconomica
-                                            data={localizaciones}
+                                            subcategorias={localizaciones}
                                             nameBuscador={"Buscar Localización"}
                                             onHandleSectores={onHandleSectores}
                                             tipo={"localizaciones"}

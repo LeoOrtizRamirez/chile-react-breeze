@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import './ActividadEconomica.css'
 
-const ActividadEconomica = ({data,id,nameBuscador,onHandleSectores,tipo}) => {
-
-    const [fakeSectores, setFakeSectores] = useState(data);
-    const [sectores, setSectores] = useState(data);
+const ActividadEconomica = ({subcategorias,id,nameBuscador,onHandleSectores,tipo, checkeds}) => {
+    console.log("CHEKESD")
+    console.log([checkeds])
+    const [fakeSectores, setFakeSectores] = useState(subcategorias);
+    const [sectores, setSectores] = useState(subcategorias);
     const [openSectores, setOpenSectores] = useState([]);
     const [openSegmentos, setOpenSegmentos] = useState([]);
     const [sectoresIds, setSectoresIds] = useState([])
@@ -230,24 +231,24 @@ const ActividadEconomica = ({data,id,nameBuscador,onHandleSectores,tipo}) => {
     //Retorna los ids de los hijos del primer nivel
     //Retorna los ids de los hijos del primer nivel
     const getChildsIds = (sector, type) => {
-        var data = []
+        var subcategorias = []
         fakeSectores.forEach((el) => {
             switch (type) {
                 case 'actividades_economicas':
                     if (el.id_padre_sub_categoria == sector.id_padre_sub_categoria) {
-                        data.push(el.id)
+                        subcategorias.push(el.id)
                     }
                     break;
                 case 'segmentos':
                     if (el.id_padre_sub_categoria == sector.id) {
-                        data.push(el.id)
+                        subcategorias.push(el.id)
                     }
                     break;
                 default:
                     break;
             }
         })
-        return data
+        return subcategorias
     }
     //Retorna un array con los ids de las actividades economicas seleccionadas segun el tipo que se necesite (ae, sector, segmento)
     const getActividadesEconomicas = (array, type) => {
