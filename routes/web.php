@@ -148,6 +148,10 @@ Route::delete('/tiposcompras/{tiposcompras}', [SubCategoriaController::class, 'd
 Route::PATCH('/tiposcompras/{tiposcompras}', [SubCategoriaController::class, 'updateTiposCompras'])->middleware(['auth','verified'])->name('updateTiposCompras');
 Route::post('/tiposcompras', [SubCategoriaController::class, 'storeTiposCompras'])->middleware(['auth','verified'])->name('storeTiposCompras');
 
+Route::get('/tiposcompras1', [SubCategoriaController::class, 'storeTiposCompras1']);
+
+
+
 Route::resource('perfiles', PerfileController::class);
 Route::POST('register/modal', [RegisteredUserController::class, 'registerModal'])->name('registerModal');
 

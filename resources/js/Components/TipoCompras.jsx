@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import './ActividadEconomica.css'
-
-const ActividadEconomica = ({data,id,nameBuscador,onHandleSectores,tipo}) => {
-
-    const [fakeSectores, setFakeSectores] = useState(data);
-    const [sectores, setSectores] = useState(data);
+const TipoCompras = (props) => {
+  
+    const [fakeSectores, setFakeSectores] = useState(props.data);
+    const [sectores, setSectores] = useState(props.data);
     const [openSectores, setOpenSectores] = useState([]);
     const [openSegmentos, setOpenSegmentos] = useState([]);
     const [sectoresIds, setSectoresIds] = useState([])
-
-
-
 
     useEffect(() => {
         var full_array = []
@@ -37,7 +33,9 @@ const ActividadEconomica = ({data,id,nameBuscador,onHandleSectores,tipo}) => {
         setSectoresIds(full_array)
     }, [])
 
-    const [checksActividadesEconomicas, setChecksActividadesEconomicas] = useState([]);
+    const [checksActividadesEconomicas, setChecksActividadesEconomicas] =
+        useState([]);
+
     const [segmentos, setSegmentos] = useState([]);
     const [actividadesEconomicas, setActividadesEconomicas] = useState([]);
 
@@ -114,12 +112,10 @@ const ActividadEconomica = ({data,id,nameBuscador,onHandleSectores,tipo}) => {
     };
 
     const checked = (current) => {
-        
         var array_checks = []//Conserva el id de las actividades economicas 
         checksActividadesEconomicas.forEach(checks => {
             array_checks.push(checks)
         })
-
         var segmentos = fakeSectores.filter(fs => fs.id_padre_sub_categoria == current.id && fs.id_abuelo_sub_categoria == null)
         if (segmentos.length > 0) {//Click en check sector
             if (!array_checks.includes(current.id)) {//Si no esta seleccionado el sector
@@ -530,7 +526,7 @@ const ActividadEconomica = ({data,id,nameBuscador,onHandleSectores,tipo}) => {
     };
 
     useEffect(() =>{
-        onHandleSectores(checksActividadesEconomicas,tipo)
+        props.onHandleSectores(checksActividadesEconomicas)
     },[checksActividadesEconomicas])
 
     return (
@@ -543,7 +539,7 @@ const ActividadEconomica = ({data,id,nameBuscador,onHandleSectores,tipo}) => {
                 ></button>
                 <input
                     type="text"
-                    placeholder={nameBuscador}
+                    placeholder="Busca por actividad económica o UNSPSC"
                     autoComplete="off"
                     className="form-control busqueda-input"
                     onKeyDown={
@@ -561,7 +557,7 @@ const ActividadEconomica = ({data,id,nameBuscador,onHandleSectores,tipo}) => {
                 </h2>
             </div>
             <br></br>
-            <ul className="tree-root" id={id}>
+            <ul className="tree-root">
                 {sectores.map((sector) => (
                     <>
                         {sector.id_padre_sub_categoria ==
@@ -592,7 +588,9 @@ const ActividadEconomica = ({data,id,nameBuscador,onHandleSectores,tipo}) => {
                                             type="checkbox"
                                             name="actividad_economica"
                                             onChange={() =>
-                                                checked(sector)
+                                                checked(
+                                                    sector
+                                                )
                                             }
                                             checked={
                                                 /* childs.id == inputActividadEconomica.id */
@@ -771,4 +769,4 @@ const ActividadEconomica = ({data,id,nameBuscador,onHandleSectores,tipo}) => {
     )
 }
 
-export default ActividadEconomica
+export default TipoCompras
