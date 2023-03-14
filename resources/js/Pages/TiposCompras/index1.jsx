@@ -3,23 +3,28 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./Index.css";
 
 const Index = ({ tiposcompras }) => {
-    const [fakeSectores, setFakeSectores] = useState(tiposcompras);
-    const [sectores, setSectores] = useState(tiposcompras);
-    const [openSectores, setOpenSectores] = useState([]);
-    const [openSegmentos, setOpenSegmentos] = useState([]);
-    const [checkedSegmentos, setCheckedSegmentos] = useState([]);
-    const [sectoresIds, setSectoresIds] = useState([]);
+    const [fakeSectores22, setFakeSectores22] = useState(tiposcompras);
+    const [sectores22, setSectores22] = useState(tiposcompras);
+    const [openSectores22, setOpenSectores22] = useState([]);
+    const [openSegmentos22, setOpenSegmentos22] = useState([]);
+    const [checkedSegmentos22, setCheckedSegmentos22] = useState([]);
+    const [sectoresIds22, setSectoresIds22] = useState([]);
+    const [checksSegmentos22, setChecksTiposCompras22] = useState([]);
+    const [segmentos22, setSegmentos22] = useState([]);
+
+
+
 
     useEffect(() => {
         var full_array = [];
-        fakeSectores.forEach((sector) => {
+        fakeSectores22.forEach((sector) => {
             if (sector.childs.length > 0) {
                 var array_segmentos = [];
                 if (sector.id_padre_sub_categoria == null) {
                     //Sectores
                     sector.childs.forEach((segmento) => {
                         array_segmentos.push(segmento.id);
-                        var segmento_object = fakeSectores.filter(
+                        var segmento_object = fakeSectores22.filter(
                             (sectores) => sectores.id == segmento.id
                         )[0];
                     });
@@ -28,28 +33,27 @@ const Index = ({ tiposcompras }) => {
                 }
             }
         });
-        setSectoresIds(full_array);
+        setSectoresIds22(full_array);
     }, []);
 
-    const [checksSegmentos, setChecksTiposCompras] = useState([]);
-    const [segmentos, setSegmentos] = useState([]);
+    
 
-    const getSegmento = (parent) => {
+    const getSegmento22 = (parent) => {
         var dom_sector = document.getElementById("sector_" + parent);
         dom_sector.classList.toggle("expanded");
-        if (openSectores.includes(parent)) {
+        if (openSectores22.includes(parent)) {
             //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY openSectores
-            setOpenSectores(
-                openSectores.filter((element) => element != parent)
+            setOpenSectores22(
+                openSectores22.filter((element) => element != parent)
             );
         } else {
             //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY openSectores
-            setOpenSectores([...openSectores, parent]); //Se añade el nuevo parent
+            setOpenSectores22([...openSectores22, parent]); //Se añade el nuevo parent
         }
 
         //SE BUSCAN LOS SEGMENTOS QUE TENGAN EL id_padre_sub_categoria == AL SECTOR QUE SE LE DIO CLICK
         const pattern = new RegExp(parent, "i");
-        const FilteredSegmentos = sectores.filter(function (el) {
+        const FilteredSegmentos = sectores22.filter(function (el) {
             if (pattern.test(el.id_padre_sub_categoria)) {
                 return el;
             }
@@ -57,25 +61,25 @@ const Index = ({ tiposcompras }) => {
 
         //EN LOS SEGMENTOS QUE SE ENCONTRARON
         FilteredSegmentos.forEach((element) => {
-            if (!segmentos.includes(element)) {
+            if (!segmentos22.includes(element)) {
                 //SI NO EXISTE, SE AGREGA
-                segmentos.push(element);
+                segmentos22.push(element);
             } else {
                 //SI YA EXISTE, SE ELIMINA
-                const resultado = segmentos.filter(
+                const resultado = segmentos22.filter(
                     (segmento) => segmento.id_padre_sub_categoria != parent
                 );
-                setSegmentos(resultado);
+                setSegmentos22(resultado);
             }
         });
     };
 
-    const checked = (current) => {
+    const checked22 = (current) => {
         var array_checks = []; //Conserva el id de las actividades economicas
-        checksSegmentos.forEach((checks) => {
+        checksSegmentos22.forEach((checks) => {
             array_checks.push(checks);
         });
-        var segmentos = fakeSectores.filter(
+        var segmentos = fakeSectores22.filter(
             (fs) =>
                 fs.id_padre_sub_categoria == current.id &&
                 fs.id_abuelo_sub_categoria == null
@@ -85,13 +89,13 @@ const Index = ({ tiposcompras }) => {
             if (!array_checks.includes(current.id)) {
                 //Si no esta seleccionado el sector
                 array_checks.push(current.id); //Se agrega el sector
-                array_checks = toggleCheked(
+                array_checks = toggleCheked22(
                     array_checks,
                     segmentos,
                     "segmento",
                     "remove"
                 );
-                array_checks = toggleCheked(
+                array_checks = toggleCheked22(
                     array_checks,
                     segmentos,
                     "segmento",
@@ -99,8 +103,8 @@ const Index = ({ tiposcompras }) => {
                 );
             } else {
                 //Si ya esta seleccionado el sector
-                array_checks = deleteTipoCompra(array_checks, current.id); //Se elimina el sector
-                array_checks = toggleCheked(
+                array_checks = deleteTipoCompra22(array_checks, current.id); //Se elimina el sector
+                array_checks = toggleCheked22(
                     array_checks,
                     segmentos,
                     "segmento",
@@ -109,7 +113,7 @@ const Index = ({ tiposcompras }) => {
             }
         } else {
             //Click en segmento o actividad economica
-            var tiposcompras = fakeSectores.filter(
+            var tiposcompras = fakeSectores22.filter(
                 (fs) => fs.id_padre_sub_categoria == current.id
             );
             //Si tiene actividades economicas es un segmento
@@ -117,16 +121,16 @@ const Index = ({ tiposcompras }) => {
                 //Click en segmento
                 if (!array_checks.includes(current.id)) {
                     //Si no esta seleccionada el segmento
-                    //checksSegmentos.push(current.id_padre_sub_categoria)
+                    //checksSegmentos22.push(current.id_padre_sub_categoria)
                     //array_checks.push(current.id_padre_sub_categoria)//Se agrega el segmento
                     array_checks.push(current.id); //Se agrega el segmento
-                    array_checks = toggleCheked(
+                    array_checks = toggleCheked22(
                         array_checks,
                         tiposcompras,
                         "tiposcompras",
                         "remove"
                     );
-                    array_checks = toggleCheked(
+                    array_checks = toggleCheked22(
                         array_checks,
                         tiposcompras,
                         "tipo_compra",
@@ -134,8 +138,8 @@ const Index = ({ tiposcompras }) => {
                     );
                 } else {
                     //Si ya esta seleccionada el segmento
-                    array_checks = deleteTipoCompra(array_checks, current.id);
-                    array_checks = toggleCheked(
+                    array_checks = deleteTipoCompra22(array_checks, current.id);
+                    array_checks = toggleCheked22(
                         array_checks,
                         tiposcompras,
                         "tipo_compra",
@@ -147,17 +151,17 @@ const Index = ({ tiposcompras }) => {
                 if (!array_checks.includes(current.id)) {
                     array_checks.push(current.id);
                 } else {
-                    array_checks = deleteTipoCompra(array_checks, current.id);
+                    array_checks = deleteTipoCompra22(array_checks, current.id);
                 }
             }
         }
         array_checks = [...new Set(array_checks)];
-        setChecksTiposCompras(array_checks);
-        checkClassValidate(array_checks, current);
+        setChecksTiposCompras22(array_checks);
+        checkClassValidate22(array_checks, current);
     };
 
-    const isSector = (id) => {
-        var sector = fakeSectores.filter((el) => el.id == id)[0];
+    const isSector22 = (id) => {
+        var sector = fakeSectores22.filter((el) => el.id == id)[0];
         if (
             sector.id_abuelo_sub_categoria == null &&
             sector.id_padre_sub_categoria == null
@@ -168,8 +172,8 @@ const Index = ({ tiposcompras }) => {
         }
     };
 
-    const isSegmento = (id) => {
-        var sector = fakeSectores.filter((el) => el.id == id)[0];
+    const isSegmento22 = (id) => {
+        var sector = fakeSectores22.filter((el) => el.id == id)[0];
         if (
             sector.id_abuelo_sub_categoria == null &&
             sector.id_padre_sub_categoria != null
@@ -182,11 +186,11 @@ const Index = ({ tiposcompras }) => {
 
     //array = todas las actividades economicas que estan seleccionadas actualmente
     //current = actividad economica seleccionada actualmente
-    const checkClassValidate = (array, current) => {
-        if (isSegmento(current.id)) {
+    const checkClassValidate22 = (array, current) => {
+        if (isSegmento22(current.id)) {
             var array_segmentos = [];
             array.forEach((el) => {
-                if (isSegmento(el)) {
+                if (isSegmento22(el)) {
                     array_segmentos.push(el);
                 }
             });
@@ -195,10 +199,10 @@ const Index = ({ tiposcompras }) => {
             var sectorValidatorTotal = 0;
             if (array_segmentos.length > 0) {
                 array_segmentos.forEach((el) => {
-                    var segmento = fakeSectores.filter(
+                    var segmento = fakeSectores22.filter(
                         (item) => item.id == el
                     )[0];
-                    sectoresIds[segmento.id_padre_sub_categoria][
+                    sectoresIds22[segmento.id_padre_sub_categoria][
                         "segmentos"
                     ].forEach((el) => {
                         if (!array_segmentos.includes(el)) {
@@ -221,8 +225,8 @@ const Index = ({ tiposcompras }) => {
             if (sectorValidator) {
                 array.push(current.id_padre_sub_categoria); //Se agrega el segmento
             } else {
-                array = deleteTipoCompra(array, current.id_padre_sub_categoria);
-                setChecksTiposCompras(array);
+                array = deleteTipoCompra22(array, current.id_padre_sub_categoria);
+                setChecksTiposCompras22(array);
                 if (sectorValidatorTotal > 0) {
                     console.log("here");
                     input_sector.classList.add("check-minus");
@@ -232,7 +236,7 @@ const Index = ({ tiposcompras }) => {
                 }
             }
         }
-        if (isSector(current.id)) {
+        if (isSector22(current.id)) {
             var input_sector = document.getElementById(
                 "sector_check_" + current.id
             );
@@ -240,7 +244,7 @@ const Index = ({ tiposcompras }) => {
         }
     };
 
-    const deleteTipoCompra = (array, id_tipo_compra) => {
+    const deleteTipoCompra22 = (array, id_tipo_compra) => {
         const index = array.indexOf(id_tipo_compra);
         if (index > -1) {
             array.splice(index, 1);
@@ -249,13 +253,13 @@ const Index = ({ tiposcompras }) => {
     };
 
     //Se eliminan/agregan los segmentos y/o actividades economicas
-    const toggleCheked = (array, sectores, level = null, action) => {
+    const toggleCheked22 = (array, sectores, level = null, action) => {
         sectores.forEach((sc) => {
             switch (action) {
                 case "add":
                     array.push(sc.id);
                     if (level == "segmento") {
-                        const tiposcompras = fakeSectores.filter(
+                        const tiposcompras = fakeSectores22.filter(
                             (fsa) => fsa.id_padre_sub_categoria == sc.id
                         );
                         tiposcompras.forEach((ac) => {
@@ -264,13 +268,13 @@ const Index = ({ tiposcompras }) => {
                     }
                     break;
                 case "remove":
-                    array = deleteTipoCompra(array, sc.id);
+                    array = deleteTipoCompra22(array, sc.id);
                     if (level == "segmento") {
-                        const tiposcompras = fakeSectores.filter(
+                        const tiposcompras = fakeSectores22.filter(
                             (fsa) => fsa.id_padre_sub_categoria == sc.id
                         );
                         tiposcompras.forEach((ac) => {
-                            array = deleteTipoCompra(array, ac.id);
+                            array = deleteTipoCompra22(array, ac.id);
                         });
                     }
                     break;
@@ -282,19 +286,19 @@ const Index = ({ tiposcompras }) => {
         return array;
     };
 
-    const inputSearchTipoCompra = (e) => {
+    const inputSearchTipoCompra22 = (e) => {
         if (e.target.value == "") {
-            setSectores(fakeSectores);
-            setSegmentos([]);
-            setOpenSectores([]);
-            setOpenSegmentos([]);
+            setSectores22(fakeSectores22);
+            setSegmentos22([]);
+            setOpenSectores22([]);
+            setOpenSegmentos22([]);
             return;
         }
 
         if (e.key === "Enter") {
             //SE BUSCAN LAS ACTIVIDADES ECONOMICAS QUE COINCIDAN CON EL NOMBRE QUE SE INGRESO
             const pattern = new RegExp(e.target.value, "i");
-            const FilteredTiposCompras = fakeSectores.filter(function (el) {
+            const FilteredTiposCompras = fakeSectores22.filter(function (el) {
                 if (pattern.test(el.nombre) || e.target.value == el.id) {
                     return el;
                 }
@@ -312,7 +316,7 @@ const Index = ({ tiposcompras }) => {
                     element.id_padre_sub_categoria != null
                 ) {
                     //BUSCAMOS EL SEGMENTO DE LA ACTIVIDAD ECONOMICA
-                    var segmento = fakeSectores.filter(
+                    var segmento = fakeSectores22.filter(
                         (fs) => fs.id == element.id_padre_sub_categoria
                     )[0];
                     if (!segmentos_filtrados.includes(segmento)) {
@@ -336,7 +340,7 @@ const Index = ({ tiposcompras }) => {
                         open_segmentos.push(element.id);
                     }
                     //BUSCAMOS EL SECTOR DEL SEGMENTOS
-                    var sector = fakeSectores.filter(
+                    var sector = fakeSectores22.filter(
                         (fs) => fs.id == element.id_padre_sub_categoria
                     )[0];
                     if (!sectores_filtrados.includes(sector)) {
@@ -361,10 +365,10 @@ const Index = ({ tiposcompras }) => {
                     }
                 }
             });
-            setSectores(sectores_filtrados);
-            setSegmentos(segmentos_filtrados);
-            setOpenSectores(open_sectores);
-            setOpenSegmentos(open_segmentos);
+            setSectores22(sectores_filtrados);
+            setSegmentos22(segmentos_filtrados);
+            setOpenSectores22(open_sectores);
+            setOpenSegmentos22(open_segmentos);
         }
     };
     return (
@@ -384,18 +388,18 @@ const Index = ({ tiposcompras }) => {
                                     placeholder="Busca por modalidad"
                                     autoComplete="off"
                                     className="form-control busqueda-input"
-                                    onKeyDown={inputSearchTipoCompra}
+                                    onKeyDown={inputSearchTipoCompra22}
                                 />
                             </div>
                             <div>
                                 <ul className="tree-root">
-                                    {sectores.map((sector) => (
+                                    {sectores22.map((sector) => (
                                         <>
                                             {sector.id_padre_sub_categoria ==
                                                 null && (
                                                 <li
                                                     className={`tree-node has-child draggable ${
-                                                        openSectores.includes(
+                                                        openSectores22.includes(
                                                             sector.id
                                                         )
                                                             ? "expanded"
@@ -424,10 +428,10 @@ const Index = ({ tiposcompras }) => {
                                                             type="checkbox"
                                                             name="tipo_compra"
                                                             onChange={() =>
-                                                                checked(sector)
+                                                                checked22(sector)
                                                             }
                                                             checked={
-                                                                checksSegmentos.includes(
+                                                                checksSegmentos22.includes(
                                                                     sector.id
                                                                 )
                                                                     ? "checked"
@@ -438,7 +442,7 @@ const Index = ({ tiposcompras }) => {
                                                             <span
                                                                 className="tree-division tree-division1"
                                                                 onClick={() =>
-                                                                    getSegmento(
+                                                                    getSegmento22(
                                                                         sector.id
                                                                     )
                                                                 }
@@ -451,11 +455,11 @@ const Index = ({ tiposcompras }) => {
                                                             </span>
                                                         </span>
                                                     </div>
-                                                    {openSectores.includes(
+                                                    {openSectores22.includes(
                                                         sector.id
                                                     ) && (
                                                         <ul className="tree-children new-class">
-                                                            {segmentos.map(
+                                                            {segmentos22.map(
                                                                 (
                                                                     segmento,
                                                                     index
@@ -465,7 +469,7 @@ const Index = ({ tiposcompras }) => {
                                                                             segmento.id_padre_sub_categoria && (
                                                                             <li
                                                                                 className={`tree-node has-child draggable segmento ${
-                                                                                    openSegmentos.includes(
+                                                                                    openSegmentos22.includes(
                                                                                         segmento.id
                                                                                     )
                                                                                         ? "expanded"
@@ -486,12 +490,12 @@ const Index = ({ tiposcompras }) => {
                                                                                         type="checkbox"
                                                                                         name="tipo_compra"
                                                                                         onChange={() =>
-                                                                                            checked(
+                                                                                            checked22(
                                                                                                 segmento
                                                                                             )
                                                                                         }
                                                                                         checked={
-                                                                                            checksSegmentos.includes(
+                                                                                            checksSegmentos22.includes(
                                                                                                 segmento.id
                                                                                             )
                                                                                                 ? "checked"
