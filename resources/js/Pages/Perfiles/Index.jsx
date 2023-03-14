@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Index.css";
 /*Toast*/
@@ -11,9 +10,6 @@ import "../../../css/font-unicolor.css";
 import "../../../css/font-web.css";
 
 import ActividadEconomica from "@/Components/ActividadEconomica";
-import TipoCompras from "@/Components/TipoCompras";
-import Localizaciones from "@/Components/Localizaciones";
-
 /*Toast*/
 
 /* HEADER*/
@@ -24,299 +20,39 @@ import ApplicationLogoLici from "@/Components/ApplicationLogoLici";
 import ModalLoginSesion from "@/Components/Modals/ModalLoginSesion";
 /* HEADER*/
 
-
-
-
 const Index = ({
     auth,
     actividades_economicas,
     tiposcompras,
     localizaciones,
 }) => {
+
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastIcon, setToastIcon] = useState("");
-
     const [sectores, setSectores] = useState(actividades_economicas);
     const [openSectores, setOpenSectores] = useState([]);
-    const [checksActividadesEconomicas, setChecksActividadesEconomicas] =
-        useState([]);
-
+    const [checksActividadesEconomicas, setChecksActividadesEconomicas] = useState([]);
+    var total_array_checks = []
 
     const onHandleSectores = (data) => {
-        //console.log(data)
+
+        data.forEach(checks => {
+            total_array_checks.push(checks)
+        })
+
+        console.log("onHandleSectores")
+        console.log(total_array_checks)
+
+        console.log("----")
+
     }
-
-
-    /*################################### TIPO COMPRAS #############################################*/
-
-    const [fakeSectoresTipoCompras, setFakeSectoresTipoCompras] = useState(tiposcompras);
-    const [sectoresTipoCompras, setSectoresTipoCompras] = useState(tiposcompras);
-    const [openSegmentosTipoCompras, setOpenSegmentosTipoCompras] = useState(
-        []
-    );
-    const [openTiposCompras, setOpenTiposCompras] = useState([]);
-    const [inputTiposCompras, setInputTiposCompras] = useState({
-        id: 0,
-        nombre: "",
-    });
-    const [segmentosTipoCompras, setSegmentosTipoCompras] = useState([]);
-    const [tiposCompras, setTiposCompras] = useState([]);
-
-    const getSegmentoTipoCompras = (parent) => {
-        if (openSegmentosTipoCompras.includes(parent)) {
-            //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY OPENSEGMENTOS
-            setOpenSegmentosTipoCompras(
-                openSegmentosTipoCompras.filter((element) => element != parent)
-            );
-        } else {
-            //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY OPENSEGMENTOS
-            setOpenSegmentosTipoCompras([...openSegmentosTipoCompras, parent]); //SE AÑADE EL NUEVO PARENT
-        }
-
-        //SE BUSCAN LOS SEGMENTOS QUE TENGAN EL id_padre_sub_categoria == AL SECTOR QUE SE LE DIO CLICK
-        const pattern = new RegExp(parent, "i");
-        const FilteredSegmentos = sectoresTipoCompras.filter(function (el) {
-            if (pattern.test(el.id_padre_sub_categoria)) {
-                return el;
-            }
-        });
-
-        //EN LOS SEGMENTOS QUE SE ENCONTRARON
-        FilteredSegmentos.forEach((element) => {
-            if (!segmentosTipoCompras.includes(element)) {
-                //SI NO EXISTE, SE AGREGA
-                segmentosTipoCompras.push(element);
-            } else {
-                //SI YA EXISTE, SE ELIMINA
-                const resultado = segmentosTipoCompras.filter(
-                    (segmento) => segmento.id_padre_sub_categoria != parent
-                );
-                setSegmentosTipoCompras(resultado);
-            }
-        });
-    };
-
-    const checkedTipoCompra = (tipo_compra) => {
-        setInputTiposCompras(tipo_compra);
-    };
-
-    const inputSearchTipoCompra = (e) => {
-        if (e.target.value == "") {
-            setSectoresTipoCompras(fakeSectoresTipoCompras);
-            setSegmentosTipoCompras([]);
-            setTiposCompras([]);
-            setOpenSegmentosTipoCompras([]);
-            setOpenTiposCompras([]);
-            return;
-        }
-
-        if (e.key === "Enter") {
-            //SE BUSCAN LAS LOCALIZACIONES QUE COINCIDAN CON EL NOMBRE QUE SE INGRESO
-            const pattern = new RegExp(e.target.value, "i");
-            const FilteredTiposCompras = fakeSectoresTipoCompras.filter(
-                function (el) {
-                    if (pattern.test(el.nombre)) {
-                        return el;
-                    }
-                }
-            );
-
-            var sectores_filtrados = [];
-            var segmentos_filtrados = [];
-            var open_segmentos = [];
-
-            FilteredTiposCompras.forEach((element) => {
-                if (element.id_padre_sub_categoria != null) {
-                    //Se guardan los segmentos
-                    if (!segmentos_filtrados.includes(element)) {
-                        segmentos_filtrados.push(element);
-                    }
-                } else {
-                    //Se guardan los sectores
-                    if (!sectores_filtrados.includes(element)) {
-                        sectores_filtrados.push(element);
-                    }
-                    //Se guardan los id de los sectores para abrirlos
-                    if (
-                        !open_segmentos.includes(element.id_padre_sub_categoria)
-                    ) {
-                        open_segmentos.push(element.id_padre_sub_categoria);
-                    }
-                }
-            });
-
-            //Se recorren los segmentos para obtener el sector
-            segmentos_filtrados.forEach((segmento_filtrado) => {
-                //Buscar sector por medio del id_padre_sub_categoria
-                var sector = fakeSectoresTipoCompras.filter(
-                    (fs) => fs.id == segmento_filtrado.id_padre_sub_categoria
-                )[0];
-                if (!sectores_filtrados.includes(sector)) {
-                    sectores_filtrados.push(
-                        fakeSectoresTipoCompras.filter(
-                            (fakeSector) =>
-                                fakeSector.id ==
-                                segmento_filtrado.id_padre_sub_categoria
-                        )[0]
-                    );
-                }
-                if (
-                    !open_segmentos.includes(
-                        segmento_filtrado.id_padre_sub_categoria
-                    )
-                ) {
-                    open_segmentos.push(
-                        segmento_filtrado.id_padre_sub_categoria
-                    );
-                }
-            });
-            setSectoresTipoCompras(sectores_filtrados);
-            setSegmentosTipoCompras(segmentos_filtrados);
-            setOpenSegmentosTipoCompras(open_segmentos);
-        }
-    };
-
-    /*################################### TIPO COMPRAS #############################################*/
-
-    /*################################### LOCALIZACIONES #############################################*/
-
-    const [fakeSectoresLocalizaciones, setFakeSectoresLocalizaciones] = useState(localizaciones);
-    const [sectoresLocalizaciones, setSectoresLocalizaciones] = useState(localizaciones);
-    const [openSegmentosLocalizaiones, setOpenSegmentosLocalizaiones] = useState([]);
-    const [openLocalizaciones, setOpenLocalizaciones] = useState([]);
-    const [inputLocalizaciones, setInputLocalizaciones] = useState({
-        id: 0,
-        nombre: "",
-    });
-    const [segmentosLocalizaciones, setSegmentosLocalizaciones] = useState([]);
-    const [localizacion, setLocalizacion] = useState([]);
-
-    const getSegmentoLocalizaciones = (parent) => {
-        if (openSegmentosLocalizaiones.includes(parent)) {
-            //SE ELIMINA EL SECTOR AL QUE SE LE DIO CLICK SI YA EXISTE EN EL ARRAY OPENSEGMENTOS
-            setOpenSegmentosLocalizaiones(
-                openSegmentosLocalizaiones.filter((element) => element != parent)
-            );
-        } else {
-            //SE AGREGA EL SECTOR AL QUE SE LE DIO CLICK SI NO EXISTE EN EL ARRAY OPENSEGMENTOS
-            setOpenSegmentosLocalizaiones([...openSegmentosLocalizaiones, parent]); //SE AÑADE EL NUEVO PARENT
-        }
-
-        //SE BUSCAN LOS SEGMENTOS QUE TENGAN EL id_padre_sub_categoria == AL SECTOR QUE SE LE DIO CLICK
-        const pattern = new RegExp(parent, "i");
-        const FilteredSegmentos = sectoresLocalizaciones.filter(function (el) {
-            if (pattern.test(el.id_padre_sub_categoria)) {
-                return el;
-            }
-        });
-
-        //EN LOS SEGMENTOS QUE SE ENCONTRARON
-        FilteredSegmentos.forEach((element) => {
-            if (!segmentosLocalizaciones.includes(element)) {
-                //SI NO EXISTE, SE AGREGA
-                segmentosLocalizaciones.push(element);
-            } else {
-                //SI YA EXISTE, SE ELIMINA
-                const resultado = segmentosLocalizaciones.filter(
-                    (segmento) => segmento.id_padre_sub_categoria != parent
-                );
-                setSegmentosLocalizaciones(resultado);
-            }
-        });
-    };
-
-    const checkedLocalizaciones = (localizacion) => {
-        setInputLocalizaciones(localizacion);
-    };
-
-    const inputSearchLocalizaiones = (e) => {
-        if (e.target.value == "") {
-            setSectoresLocalizaciones(fakeSectoresLocalizaciones);
-            setSegmentosLocalizaciones([]);
-            setLocalizacion([]);
-            setOpenSegmentosLocalizaiones([]);
-            setOpenLocalizaciones([]);
-            return;
-        }
-
-        if (e.key === "Enter") {
-            //SE BUSCAN LAS LOCALIZACIONES QUE COINCIDAN CON EL NOMBRE QUE SE INGRESO
-            const pattern = new RegExp(e.target.value, "i");
-            const FilteredTiposCompras = fakeSectoresLocalizaciones.filter(
-                function (el) {
-                    if (pattern.test(el.nombre)) {
-                        return el;
-                    }
-                }
-            );
-
-            var sectores_filtrados = [];
-            var segmentos_filtrados = [];
-            var open_segmentos = [];
-
-            FilteredTiposCompras.forEach((element) => {
-                if (element.id_padre_sub_categoria != null) {
-                    //Se guardan los segmentos
-                    if (!segmentos_filtrados.includes(element)) {
-                        segmentos_filtrados.push(element);
-                    }
-                } else {
-                    //Se guardan los sectores
-                    if (!sectores_filtrados.includes(element)) {
-                        sectores_filtrados.push(element);
-                    }
-                    //Se guardan los id de los sectores para abrirlos
-                    if (
-                        !open_segmentos.includes(element.id_padre_sub_categoria)
-                    ) {
-                        open_segmentos.push(element.id_padre_sub_categoria);
-                    }
-                }
-            });
-
-            //Se recorren los segmentos para obtener el sector
-            segmentos_filtrados.forEach((segmento_filtrado) => {
-                //Buscar sector por medio del id_padre_sub_categoria
-                var sector = fakeSectoresLocalizaciones.filter(
-                    (fs) => fs.id == segmento_filtrado.id_padre_sub_categoria
-                )[0];
-                if (!sectores_filtrados.includes(sector)) {
-                    sectores_filtrados.push(
-                        fakeSectoresLocalizaciones.filter(
-                            (fakeSector) =>
-                                fakeSector.id ==
-                                segmento_filtrado.id_padre_sub_categoria
-                        )[0]
-                    );
-                }
-                if (
-                    !open_segmentos.includes(
-                        segmento_filtrado.id_padre_sub_categoria
-                    )
-                ) {
-                    open_segmentos.push(
-                        segmento_filtrado.id_padre_sub_categoria
-                    );
-                }
-            });
-            setSectoresLocalizaciones(sectores_filtrados);
-            setSegmentosLocalizaciones(segmentos_filtrados);
-            setOpenSegmentosLocalizaiones(open_segmentos);
-        }
-    };
-
-    /*###################################  END LOCALIZACIONES #############################################*/
 
     const [contenedorPaso1Actividades, setContenedorPaso1Actividades] = useState(true);
     const [contenedorPaso2TipoCompras, setContenedorPaso2TipoCompras] = useState(false);
     const [contenedorPaso3Localizaciones, setContenedorPaso3Localizaciones] = useState(false);
     const [contenedorPaso4Cuantia, setContenedorPaso4Cuantia] = useState(false);
     const [contenedorPaso5, setContenedorPaso5] = useState(false);
-
-    const [contenedorBuscadorActividades, setContenedorBuscadorActividades] = useState(true);
-    const [contenedorBuscadorTipoCompras, setContenedorBuscadorTipoCompras] = useState(false);
-    const [contenedorBuscadorLocalizaciones, setContenedorBuscadorLocalizaciones,] = useState(false);
 
     const [contenedorBotonReturnTipoCompra, setContenedorBotonReturnTipoCompra] = useState(false);
     const [contenedorBotonReturnLocalizaciones, setContenedorBotonReturnLocalizaciones] = useState(false);
@@ -340,9 +76,10 @@ const Index = ({
     const icon5 = useRef();
     const span5 = useRef();
 
-    /*     document.querySelectorAll("select.segmento.form-select")[0] .classList.remove("failed"); */
-
     const SiguientePaso2TipoCompra = () => {
+        console.log("paso 2");
+        console.log(total_array_checks);
+
         //Se muestran las tipo de compras
         icon1.current.classList.remove('c-activo-iconos');
         span1.current.classList.remove('c-activo-texto-iconos');
@@ -351,11 +88,9 @@ const Index = ({
         span2.current.classList.add('c-activo-texto-iconos');
 
         setContenedorPaso1Actividades(false);
-        setContenedorBuscadorActividades(false);
 
         setContenedorPaso2TipoCompras(true);
-        setContenedorBuscadorTipoCompras(true);
-
+     
         setContenedorBotonReturnTipoCompra(true);
         setcontenedorBotonNextActividadEconomica(false)
         setcontenedorBotonNextTipoCompra(true)
@@ -372,10 +107,8 @@ const Index = ({
         span2.current.classList.remove('c-activo-texto-iconos');
 
         setContenedorPaso2TipoCompras(false);
-        setContenedorBuscadorTipoCompras(false);
-
         setContenedorPaso1Actividades(true);
-        setContenedorBuscadorActividades(true);
+   
 
         setContenedorBotonReturnTipoCompra(false);
         setcontenedorBotonNextTipoCompra(false)
@@ -396,9 +129,6 @@ const Index = ({
         setcontenedorBotonNextLocalizacion(true)
 
         setContenedorPaso2TipoCompras(false);
-        setContenedorBuscadorTipoCompras(false);
-
-        setContenedorBuscadorLocalizaciones(true)
         setContenedorPaso3Localizaciones(true)
 
         //Oculto un boton de volver y muestro el otro
@@ -421,9 +151,7 @@ const Index = ({
         setcontenedorBotonNextLocalizacion(false)
 
         setContenedorPaso2TipoCompras(true);
-        setContenedorBuscadorTipoCompras(true);
 
-        setContenedorBuscadorLocalizaciones(false)
         setContenedorPaso3Localizaciones(false)
 
         //Oculto un boton de volver y muestro el otro
@@ -444,7 +172,6 @@ const Index = ({
         setcontenedorBotonNextLocalizacion(false)
         setContenedorBotonReturnLocalizaciones(false)
 
-        setContenedorBuscadorLocalizaciones(false)
         setContenedorPaso3Localizaciones(false)
 
         setContenedorPaso4Cuantia(true)
@@ -470,7 +197,6 @@ const Index = ({
         setcontenedorBotonNextLocalizacion(true)
         setContenedorBotonReturnLocalizaciones(true)
 
-        setContenedorBuscadorLocalizaciones(true)
         setContenedorPaso3Localizaciones(true)
 
         setcontenedorBotonNextCuantia(false)
@@ -553,17 +279,17 @@ const Index = ({
         return parseInt(value);
     };
 
+    /* header */
     const [showLS, setShowLS] = useState(false);
     const handleCloseLS = () => setShowLS(false);
     const handleShowLS = () => setShowLS(true);
 
-
+    /* header */
 
     return (
         <>
-            {/*   header */}
 
-            <>
+            <> {/*   header */}
                 <div className="contenido_headerLite--margin-top">
                     <Navbar
                         collapseOnSelect
@@ -628,10 +354,6 @@ const Index = ({
             </>
             {/*   header */}
 
-
-
-
-
             <ToastContainer position="bottom-start">
                 <Toast
                     onClose={() => setShowToast(false)}
@@ -660,6 +382,7 @@ const Index = ({
                     </div>
                 </Toast>
             </ToastContainer>
+
             <div className="contenedor-planes">
                 <div className="bg-white overflow-auto w-full text-center margen-superior custom-scroll">
                     {/* <h2 className="name_section_app">Crear perfil de negocio</h2>
@@ -732,7 +455,7 @@ const Index = ({
                                         </>
                                     )} */}
 
-                                    {contenedorBuscadorTipoCompras && (
+                                    {/*  {contenedorBuscadorTipoCompras && (
                                         <>
                                             <input
                                                 type="text"
@@ -744,8 +467,8 @@ const Index = ({
                                                 }
                                             />
                                         </>
-                                    )}
-
+                                    )} */}
+                                    {/* 
                                     {contenedorBuscadorLocalizaciones && (
                                         <>
                                             <input
@@ -758,38 +481,39 @@ const Index = ({
                                                 }
                                             />
                                         </>
-                                    )}
+                                    )} */}
 
-                                    <h2 className="perfiles-titulos d-flex">
-                                        {" "}
-                                        Pais de contratación
-                                        <img
-                                            className="bandera"
-                                            src="/public/images/banderas/listado_nombres/CHL.svg"
-                                            alt="Bandera Chile"
-                                        />
-                                    </h2>
                                 </div>
                                 <br></br>
 
                                 <>{/* Paso 1*/}
                                     {contenedorPaso1Actividades && (
-                                        <ActividadEconomica data={sectores} onHandleSectores={onHandleSectores}></ActividadEconomica>
+                                        <ActividadEconomica
+
+                                            data={sectores}
+                                            id={22}
+                                            nameBuscador={"Busca por actividad económica o UNSPSC"}
+                                            onHandleSectores={onHandleSectores}>
+
+                                        </ActividadEconomica>
                                     )}
                                 </>
                                 <> {/* Paso 2 TIPO DE COMPRAS*/}
-
-
                                     {contenedorPaso2TipoCompras && (
-
-                                        <TipoCompras data={sectoresTipoCompras} onHandleSectores={onHandleSectores}></TipoCompras>
+                                        <ActividadEconomica
+                                            data={tiposcompras}
+                                            nameBuscador={"Buscar Tipo de Compra"}
+                                            onHandleSectores={onHandleSectores}
+                                        ></ActividadEconomica>
                                     )}
                                 </>
+
                                 <>{/* Paso 3 LOCALIZACIONES */}
                                     {contenedorPaso3Localizaciones && (
-
-                                        <Localizaciones data={localizaciones} onHandleSectores={onHandleSectores}></Localizaciones>
-
+                                        <ActividadEconomica
+                                            data={localizaciones}
+                                            nameBuscador={"Buscar Localización"}
+                                            onHandleSectores={onHandleSectores}></ActividadEconomica>
                                     )}
                                 </>
 

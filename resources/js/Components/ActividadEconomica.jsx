@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-
 import './ActividadEconomica.css'
 
 const ActividadEconomica = (props) => {
@@ -35,9 +34,7 @@ const ActividadEconomica = (props) => {
         setSectoresIds(full_array)
     }, [])
 
-    const [checksActividadesEconomicas, setChecksActividadesEconomicas] =
-        useState([]);
-
+    const [checksActividadesEconomicas, setChecksActividadesEconomicas] = useState([]);
     const [segmentos, setSegmentos] = useState([]);
     const [actividadesEconomicas, setActividadesEconomicas] = useState([]);
 
@@ -114,10 +111,12 @@ const ActividadEconomica = (props) => {
     };
 
     const checked = (current) => {
+        
         var array_checks = []//Conserva el id de las actividades economicas 
         checksActividadesEconomicas.forEach(checks => {
             array_checks.push(checks)
         })
+
         var segmentos = fakeSectores.filter(fs => fs.id_padre_sub_categoria == current.id && fs.id_abuelo_sub_categoria == null)
         if (segmentos.length > 0) {//Click en check sector
             if (!array_checks.includes(current.id)) {//Si no esta seleccionado el sector
@@ -541,7 +540,7 @@ const ActividadEconomica = (props) => {
                 ></button>
                 <input
                     type="text"
-                    placeholder="Busca por actividad económica o UNSPSC"
+                    placeholder={props.nameBuscador}
                     autoComplete="off"
                     className="form-control busqueda-input"
                     onKeyDown={
@@ -559,7 +558,7 @@ const ActividadEconomica = (props) => {
                 </h2>
             </div>
             <br></br>
-            <ul className="tree-root">
+            <ul className="tree-root" id={props.id}>
                 {sectores.map((sector) => (
                     <>
                         {sector.id_padre_sub_categoria ==
@@ -590,9 +589,7 @@ const ActividadEconomica = (props) => {
                                             type="checkbox"
                                             name="actividad_economica"
                                             onChange={() =>
-                                                checked(
-                                                    sector
-                                                )
+                                                checked(sector)
                                             }
                                             checked={
                                                 /* childs.id == inputActividadEconomica.id */
