@@ -44,7 +44,6 @@ const Index = ({
     const [checkedsTiposCompras, setCheckedsTiposCompras] = useState([])
 
     const onHandleSectores = (data, tipo) => {
-        console.log("inputs que llegaron al componente padre", data)
         switch (tipo) {
             case "ActividadEconomica":
                 if (data.length > 0) {

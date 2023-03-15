@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './ActividadEconomica.css'
 
-const ActividadEconomica = ({subcategorias,id,nameBuscador,onHandleSectores,tipo, checkeds}) => {
+const ActividadEconomica = ({ subcategorias, id, nameBuscador, onHandleSectores, tipo, checkeds }) => {
 
     const [fakeSectores, setFakeSectores] = useState(subcategorias);
     const [sectores, setSectores] = useState(subcategorias);
@@ -115,7 +115,7 @@ const ActividadEconomica = ({subcategorias,id,nameBuscador,onHandleSectores,tipo
     };
 
     const checked = (current) => {
-        
+
         var array_checks = []//Conserva el id de las actividades economicas 
         checksActividadesEconomicas.forEach(checks => {
             array_checks.push(checks)
@@ -168,7 +168,7 @@ const ActividadEconomica = ({subcategorias,id,nameBuscador,onHandleSectores,tipo
             var sectorValidatorTotal = response[1]
             var segmentoValidator = true
             var segmentoValidatorTotal = 0
-            var actividades_economicas_segmento_actual = getChildsIds(current, 'actividades_economicas')
+            var actividades_economicas_segmento_actual = getChildsIds(current.id_padre_sub_categoria, 'actividades_economicas')
 
             actividades_economicas_segmento_actual.forEach((el) => {
                 if (!array_actividades_economicas.includes(el)) {
@@ -221,7 +221,7 @@ const ActividadEconomica = ({subcategorias,id,nameBuscador,onHandleSectores,tipo
         }
         if (isType(current.id, 'sector')) {
             toggleClassCheckMinus('sector_check_' + current.id, 'remove')
-            var segmentos = getChildsIds(current, 'segmentos')
+            var segmentos = getChildsIds(current.id, 'segmentos')
             segmentos.forEach((id) => {
                 toggleClassCheckMinus('segmento_check_' + id, 'remove')
             })
@@ -230,17 +230,17 @@ const ActividadEconomica = ({subcategorias,id,nameBuscador,onHandleSectores,tipo
 
     //Retorna los ids de los hijos del primer nivel
     //Retorna los ids de los hijos del primer nivel
-    const getChildsIds = (sector, type) => {
+    const getChildsIds = (id, type) => {
         var subcategorias = []
         fakeSectores.forEach((el) => {
             switch (type) {
                 case 'actividades_economicas':
-                    if (el.id_padre_sub_categoria == sector.id_padre_sub_categoria) {
+                    if (el.id_padre_sub_categoria == id) {
                         subcategorias.push(el.id)
                     }
                     break;
                 case 'segmentos':
-                    if (el.id_padre_sub_categoria == sector.id) {
+                    if (el.id_padre_sub_categoria == id) {
                         subcategorias.push(el.id)
                     }
                     break;
@@ -297,81 +297,50 @@ const ActividadEconomica = ({subcategorias,id,nameBuscador,onHandleSectores,tipo
             //Se recorren todas las actividades economicas seleccionadas
             var actividad_economica = fakeSectores.filter(item => item.id == current.id)[0]
             var parent = 0
-            
+
             //array.forEach(el => {
-                
-                switch (type) {
-                    case "actividades_economicas":
-                        parent = actividad_economica.id_abuelo_sub_categoria
-                        break;
-                    case "segmentos":
-                        parent = actividad_economica.id_padre_sub_categoria
-                        break;
-                    case "sector":
-                        parent = actividad_economica.id
-                        break;
-                    default:
-                        break;
+
+            switch (type) {
+                case "actividades_economicas":
+                    parent = actividad_economica.id_abuelo_sub_categoria
+                    break;
+                case "segmentos":
+                    parent = actividad_economica.id_padre_sub_categoria
+                    break;
+                case "sector":
+                    parent = actividad_economica.id
+                    break;
+                default:
+                    break;
+            }
+            //Se compara con las todas las actividades economicas que tiene el sector
+            sectoresIds[parent][type].forEach((el) => {
+                //Si en algun momento no encuentra una actividad economica del sector en las que estan seleccionadas actualmente, asigna false
+                if (!array.includes(el)) {
+                    sectorValidator = false
+                } else {
+                    sectorValidatorTotal += 1
                 }
-                //Se compara con las todas las actividades economicas que tiene el sector
-                sectoresIds[parent][type].forEach((el) => {
-                    //Si en algun momento no encuentra una actividad economica del sector en las que estan seleccionadas actualmente, asigna false
-                    if (!array.includes(el)) {
-                        sectorValidator = false
-                    } else {
-                        sectorValidatorTotal += 1
-                    }
-                })
+            })
             //})
         } else {
             sectorValidator = false
         }
         return [sectorValidator, sectorValidatorTotal]
-
-
-
-        /* var sectorValidator = true
-        var sectorValidatorTotal = 0
-        if (array.length > 0) {
-            //Se recorren todas las actividades economicas seleccionadas
-            array.forEach(el => {
-                var actividad_economica = fakeSectores.filter(item => item.id == el)[0]
-                var parent = 0
-                switch (type) {
-                    case "actividades_economicas":
-                        parent = actividad_economica.id_abuelo_sub_categoria
-                        break;
-                    case "segmentos":
-                        parent = actividad_economica.id_padre_sub_categoria
-                        break;
-                    case "sector":
-                        parent = actividad_economica.id
-                        break;
-                    default:
-                        break;
-                }
-                //Se compara con las todas las actividades economicas que tiene el sector
-                sectoresIds[parent][type].forEach((el) => {
-                    //Si en algun momento no encuentra una actividad economica del sector en las que estan seleccionadas actualmente, asigna false
-                    if (!array.includes(el)) {
-                        sectorValidator = false
-                    } else {
-                        sectorValidatorTotal += 1
-                    }
-                })
-            })
-        } else {
-            sectorValidator = false
-        }
-        return [sectorValidator, sectorValidatorTotal] */
     }
 
     const toggleClassCheckMinus = (id, action) => {
         var input = document.getElementById(id)
         if (action == "add") {
-            input.classList.add('check-minus')
+            if (input) {
+                input.classList.add('check-minus')
+            }
+
         } else {
-            input.classList.remove('check-minus')
+            if (input) {
+                input.classList.remove('check-minus')
+            }
+
         }
     }
 
@@ -528,10 +497,39 @@ const ActividadEconomica = ({subcategorias,id,nameBuscador,onHandleSectores,tipo
         }
     };
 
-    useEffect(() =>{
-        onHandleSectores(checksActividadesEconomicas,tipo)
-    },[checksActividadesEconomicas])
+    useEffect(() => {
+        onHandleSectores(checksActividadesEconomicas, tipo)
+    }, [checksActividadesEconomicas])
 
+
+    const [inputsCheckMinusClass, setInputsCheckMinusClass] = useState([])
+    useEffect(() => {
+        let check_minus_array = []
+        //Añadir clase check-minus a los padres de las actividades economicas seleccionadas
+        checkeds.forEach((el) => {
+            if (isType(el, 'actividades_economicas')) {
+                var segmento = getParent(el)
+                check_minus_array.push(segmento.id)
+
+                var sector = getParent(segmento.id)
+                check_minus_array.push(sector.id)
+            }
+            if (isType(el, 'segmentos')) {
+                var sector = getParent(el)
+                check_minus_array.push(sector.id)
+            }
+        })
+        check_minus_array = [...new Set(check_minus_array)]
+        console.log(check_minus_array)
+        setInputsCheckMinusClass(check_minus_array)
+    }, [])
+
+    /*Recibe el id del padre de la actividad economica o el segmento*/
+    const getParent = (id) => {
+        var actividad_economica = fakeSectores.filter((el) => el.id == id)[0]
+        var parent = fakeSectores.filter((el) => el.id == actividad_economica.id_padre_sub_categoria)[0]
+        return parent
+    }
     return (
         <>
             <div className="mx-60 mt-30 d-flex">
@@ -588,6 +586,7 @@ const ActividadEconomica = ({subcategorias,id,nameBuscador,onHandleSectores,tipo
                                         {/* p1*/}
                                         <input
                                             id={"sector_check_" + sector.id}
+                                            class={`${inputsCheckMinusClass.includes(sector.id) ? "check-minus" : ""}`}
                                             type="checkbox"
                                             name="actividad_economica"
                                             onChange={() =>
@@ -648,6 +647,7 @@ const ActividadEconomica = ({subcategorias,id,nameBuscador,onHandleSectores,tipo
                                                                             <i className="tree-arrow expanded has-child ltr"></i>
                                                                             <input
                                                                                 id={"segmento_check_" + segmento.id}
+                                                                                class={`${inputsCheckMinusClass.includes(segmento.id) ? "check-minus" : ""}`}
                                                                                 type="checkbox"
                                                                                 name="actividad_economica"
                                                                                 onChange={() =>
