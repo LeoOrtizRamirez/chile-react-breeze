@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './ActividadEconomica.css'
 
 const ActividadEconomica = ({subcategorias,id,nameBuscador,onHandleSectores,tipo, checkeds}) => {
-    console.log("CHEKESD")
-    console.log([checkeds])
+
     const [fakeSectores, setFakeSectores] = useState(subcategorias);
     const [sectores, setSectores] = useState(subcategorias);
     const [openSectores, setOpenSectores] = useState([]);
@@ -38,7 +37,8 @@ const ActividadEconomica = ({subcategorias,id,nameBuscador,onHandleSectores,tipo
         setSectoresIds(full_array)
     }, [])
 
-    const [checksActividadesEconomicas, setChecksActividadesEconomicas] = useState([]);
+    const [checksActividadesEconomicas, setChecksActividadesEconomicas] = useState(checkeds);
+
     const [segmentos, setSegmentos] = useState([]);
     const [actividadesEconomicas, setActividadesEconomicas] = useState([]);
 
@@ -363,8 +363,6 @@ const ActividadEconomica = ({subcategorias,id,nameBuscador,onHandleSectores,tipo
         } else {
             sectorValidator = false
         }
-        console.log(array)
-        console.log(array)
         return [sectorValidator, sectorValidatorTotal] */
     }
 
@@ -562,7 +560,7 @@ const ActividadEconomica = ({subcategorias,id,nameBuscador,onHandleSectores,tipo
                 </h2>
             </div>
             <br></br>
-            <ul className="tree-root" id={id}>
+            <ul className={`tree-root ${tipo}`} id={id}>
                 {sectores.map((sector) => (
                     <>
                         {sector.id_padre_sub_categoria ==
@@ -625,7 +623,7 @@ const ActividadEconomica = ({subcategorias,id,nameBuscador,onHandleSectores,tipo
                                     {openSectores.includes(
                                         sector.id
                                     ) && (
-                                            <ul className="tree-children new-class">
+                                            <ul className={`tree-children ${tipo}`}>
                                                 {segmentos.map(
                                                     (
                                                         segmento,

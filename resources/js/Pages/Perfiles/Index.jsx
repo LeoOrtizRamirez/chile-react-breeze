@@ -26,7 +26,6 @@ const Index = ({
     tiposcompras,
     localizaciones,
 }) => {
-
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastIcon, setToastIcon] = useState("");
@@ -40,51 +39,29 @@ const Index = ({
     let [copia_actividades, setCopia_actividades] = useState([]);
 
 
+    const [checkedsActividadesEconomicas, setCheckedsActividadesEconomicas] = useState([])
+    const [checkedsLocalizaciones, setCheckedsLocalizaciones] = useState([])
+    const [checkedsTiposCompras, setCheckedsTiposCompras] = useState([])
 
     const onHandleSectores = (data, tipo) => {
-        console.log("copia actividades->")
-        console.log(copia_actividades)
-
-        console.log("total_array_checks_actividades")
-        console.log(total_array_checks_actividades)
-
-        console.log(tipo)
+        console.log("inputs que llegaron al componente padre", data)
         switch (tipo) {
             case "ActividadEconomica":
-                //console.log("data", total_array_checks_actividades)
-                let newa = [];
                 if (data.length > 0) {
-                    console.log("if")
-                    console.log(total_array_checks_actividades[0])
-                    data.forEach((el) => {
-                        if (!total_array_checks_actividades.includes(el)) {
-                            newa.push(el)
-                        }
-                    })
-
-                    /* console.log(newa) */
-                    total_array_checks_actividades[0] = newa
-                } else {
-                    console.log("else")
-                    /* console.log(newa) */
+                    setCheckedsActividadesEconomicas(data)
                 }
-
-
-
-
-                /* setTotal_array_checks_actividades(data) */
-
                 break;
-            case "tipoCompra":
-                setTotal_array_checks_tipo_compra(data)
+            case "Localizaciones":
+                if (data.length > 0) {
+                    setCheckedsLocalizaciones(data)
+                }
                 break;
-            default:
-                setTotal_array_checks_localizaciones(data)
+            case "TiposCompras":
+                if (data.length > 0) {
+                    setCheckedsTiposCompras(data)
+                }
                 break;
         }
-        console.log("fin swhit total array ")
-        console.log(total_array_checks_actividades[0])
-
     }
 
 
@@ -117,9 +94,6 @@ const Index = ({
     const span5 = useRef();
 
     const SiguientePaso2TipoCompra = () => {
-        console.log("paso 2");
-        console.log(total_array_checks_actividades[0])
-
         setCopia_actividades(total_array_checks_actividades[0])
 
         //Se muestran las tipo de compras
@@ -141,8 +115,6 @@ const Index = ({
 
     const VolverPaso1ActividadEconomica = () => {
         //Volver A actividades economicas
-        console.log("paso 1");
-        console.log(total_array_checks_actividades[0])
 
 
         setCopia_actividades(total_array_checks_actividades[0])
@@ -537,16 +509,12 @@ const Index = ({
                                 <>{/* Paso 1*/}
                                     {contenedorPaso1Actividades && (
                                         <ActividadEconomica
-
                                             subcategorias={sectores}
-                                            id={22}
                                             nameBuscador={"Busca por actividad económica o UNSPSC"}
                                             onHandleSectores={onHandleSectores}
                                             tipo={"ActividadEconomica"}
-                                            checkeds={copia_actividades}
-                                        >
-
-                                        </ActividadEconomica>
+                                            checkeds={checkedsActividadesEconomicas}
+                                        />
                                     )}
                                 </>
                                 <> {/* Paso 2 TIPO DE COMPRAS*/}
@@ -555,8 +523,9 @@ const Index = ({
                                             subcategorias={tiposcompras}
                                             nameBuscador={"Buscar Tipo de Compra"}
                                             onHandleSectores={onHandleSectores}
-                                            tipo={"tipoCompra"}
-                                        ></ActividadEconomica>
+                                            tipo={"TiposCompras"}
+                                            checkeds={checkedsTiposCompras}
+                                        />
                                     )}
                                 </>
 
@@ -566,10 +535,9 @@ const Index = ({
                                             subcategorias={localizaciones}
                                             nameBuscador={"Buscar Localización"}
                                             onHandleSectores={onHandleSectores}
-                                            tipo={"localizaciones"}
-                                        >
-
-                                        </ActividadEconomica>
+                                            tipo={"Localizaciones"}
+                                            checkeds={checkedsLocalizaciones}
+                                        />
                                     )}
                                 </>
 
