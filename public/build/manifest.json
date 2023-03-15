@@ -1,23 +1,15 @@
 {
-  "public/images/planes/yellow-badge.svg": {
-    "file": "assets/yellow-badge-11e362ea.svg",
-    "src": "public/images/planes/yellow-badge.svg"
-  },
   "public/images/planes/blue-badge.svg": {
     "file": "assets/blue-badge-cded9287.svg",
     "src": "public/images/planes/blue-badge.svg"
   },
-  "public/images/contacto/mapa_google.webp": {
-    "file": "assets/mapa_google-5f43a2cc.webp",
-    "src": "public/images/contacto/mapa_google.webp"
+  "public/images/planes/yellow-badge.svg": {
+    "file": "assets/yellow-badge-11e362ea.svg",
+    "src": "public/images/planes/yellow-badge.svg"
   },
-  "public/images/contacto/banner.png": {
-    "file": "assets/banner-d77c6185.png",
-    "src": "public/images/contacto/banner.png"
-  },
-  "public/images/nosotros/banner.png": {
-    "file": "assets/banner-ba1ddb8b.png",
-    "src": "public/images/nosotros/banner.png"
+  "public/fonts/Icomoon/Web.woff2": {
+    "file": "assets/Web-aebdf1e9.woff2",
+    "src": "public/fonts/Icomoon/Web.woff2"
   },
   "public/fonts/Pblica---Unicolor.eot": {
     "file": "assets/Pblica---Unicolor-44a19d61.eot",
@@ -27,25 +19,33 @@
     "file": "assets/poppins-devanagari-400-normal-478b3ab7.woff2",
     "src": "node_modules/@fontsource/poppins/files/poppins-devanagari-400-normal.woff2"
   },
+  "node_modules/@fontsource/poppins/files/poppins-latin-400-normal.woff2": {
+    "file": "assets/poppins-latin-400-normal-7d93459d.woff2",
+    "src": "node_modules/@fontsource/poppins/files/poppins-latin-400-normal.woff2"
+  },
   "node_modules/@fontsource/poppins/files/poppins-latin-ext-400-normal.woff2": {
     "file": "assets/poppins-latin-ext-400-normal-cb8bdeab.woff2",
     "src": "node_modules/@fontsource/poppins/files/poppins-latin-ext-400-normal.woff2"
   },
-  "node_modules/@fontsource/poppins/files/poppins-latin-400-normal.woff2": {
-    "file": "assets/poppins-latin-400-normal-7d93459d.woff2",
-    "src": "node_modules/@fontsource/poppins/files/poppins-latin-400-normal.woff2"
+  "public/images/nosotros/banner.png": {
+    "file": "assets/banner-ba1ddb8b.png",
+    "src": "public/images/nosotros/banner.png"
+  },
+  "public/images/contacto/mapa_google.webp": {
+    "file": "assets/mapa_google-5f43a2cc.webp",
+    "src": "public/images/contacto/mapa_google.webp"
   },
   "public/fonts/Pblica---Unicolor.woff2": {
     "file": "assets/Pblica---Unicolor-4298858f.woff2",
     "src": "public/fonts/Pblica---Unicolor.woff2"
   },
-  "public/fonts/Icomoon/Web.woff2": {
-    "file": "assets/Web-aebdf1e9.woff2",
-    "src": "public/fonts/Icomoon/Web.woff2"
-  },
   "node_modules/@fontsource/poppins/files/poppins-all-400-normal.woff": {
     "file": "assets/poppins-all-400-normal-c68e1edb.woff",
     "src": "node_modules/@fontsource/poppins/files/poppins-all-400-normal.woff"
+  },
+  "public/images/contacto/banner.png": {
+    "file": "assets/banner-d77c6185.png",
+    "src": "public/images/contacto/banner.png"
   },
   "public/fonts/Pblica---Unicolor.ttf": {
     "file": "assets/Pblica---Unicolor-84507b8b.ttf",
@@ -63,45 +63,61 @@
     "file": "assets/app-dcb1d859.css",
     "src": "resources/js/app.css"
   },
-  "resources/js/Pages/TiposCompras/Crear.css": {
-    "file": "assets/Crear-ad2b1ac3.css",
-    "src": "resources/js/Pages/TiposCompras/Crear.css"
+  "GuestLayout.css": {
+    "file": "assets/GuestLayout-7512eb5e.css",
+    "src": "GuestLayout.css"
   },
   "resources/js/Pages/TiposCompras/Editar.css": {
     "file": "assets/Editar-fecf6b0c.css",
     "src": "resources/js/Pages/TiposCompras/Editar.css"
   },
-  "resources/js/Pages/ActividadesEconomicas/Index.css": {
-    "file": "assets/Index-1cb7ed7d.css",
-    "src": "resources/js/Pages/ActividadesEconomicas/Index.css"
+  "resources/js/Pages/Localizacion/Crear.css": {
+    "file": "assets/Crear-ad2b1ac3.css",
+    "src": "resources/js/Pages/Localizacion/Crear.css"
   },
-  "BotonRegistrarse.css": {
-    "file": "assets/BotonRegistrarse-0a89753d.css",
-    "src": "BotonRegistrarse.css"
+  "FooterLite.css": {
+    "file": "assets/FooterLite-4fb08567.css",
+    "src": "FooterLite.css"
   },
-  "index.css": {
-    "file": "assets/index-8fc26b76.css",
-    "src": "index.css"
+  "PasswordSecurity.css": {
+    "file": "assets/PasswordSecurity-6a252a1e.css",
+    "src": "PasswordSecurity.css"
+  },
+  "resources/js/Pages/TerminosCondiciones.css": {
+    "file": "assets/TerminosCondiciones-9c4fdcf5.css",
+    "src": "resources/js/Pages/TerminosCondiciones.css"
   },
   "Header.css": {
     "file": "assets/Header-87996dc8.css",
     "src": "Header.css"
   },
-  "resources/js/Pages/Planes/Index.css": {
-    "file": "assets/Index-22b5b7c0.css",
-    "src": "resources/js/Pages/Planes/Index.css"
+  "HeaderLite.css": {
+    "file": "assets/HeaderLite-0cf4c4a5.css",
+    "src": "HeaderLite.css"
+  },
+  "estilos-toast.css": {
+    "file": "assets/estilos-toast-69992bc2.css",
+    "src": "estilos-toast.css"
+  },
+  "AuthenticatedLayout.css": {
+    "file": "assets/AuthenticatedLayout-33fba112.css",
+    "src": "AuthenticatedLayout.css"
+  },
+  "resources/js/Pages/ActividadesEconomicas/Index.css": {
+    "file": "assets/Index-1cb7ed7d.css",
+    "src": "resources/js/Pages/ActividadesEconomicas/Index.css"
+  },
+  "index.css": {
+    "file": "assets/index-8fc26b76.css",
+    "src": "index.css"
   },
   "Loader.css": {
     "file": "assets/Loader-3d7a4499.css",
     "src": "Loader.css"
   },
-  "Button.css": {
-    "file": "assets/Button-1324f74b.css",
-    "src": "Button.css"
-  },
-  "resources/js/Pages/PlanesChile.css": {
-    "file": "assets/PlanesChile-fb226ea0.css",
-    "src": "resources/js/Pages/PlanesChile.css"
+  "resources/js/Pages/Usuarios/Crear.css": {
+    "file": "assets/Crear-18e820cf.css",
+    "src": "resources/js/Pages/Usuarios/Crear.css"
   },
   "resources/js/Pages/Nosotros.css": {
     "file": "assets/Nosotros-d82cf984.css",
@@ -115,57 +131,69 @@
     "file": "assets/Index-a3e8eabe.css",
     "src": "Index.css"
   },
-  "ModalLoginSesion.css": {
-    "file": "assets/ModalLoginSesion-b8aee10e.css",
-    "src": "ModalLoginSesion.css"
-  },
-  "resources/js/Pages/Contratos/Index.css": {
-    "file": "assets/Index-05e1445d.css",
-    "src": "resources/js/Pages/Contratos/Index.css"
-  },
-  "resources/js/Pages/Usuarios/Crear.css": {
-    "file": "assets/Crear-18e820cf.css",
-    "src": "resources/js/Pages/Usuarios/Crear.css"
+  "resources/js/Pages/Funcionalidades.css": {
+    "file": "assets/Funcionalidades-3fa146a8.css",
+    "src": "resources/js/Pages/Funcionalidades.css"
   },
   "font-unicolor.css": {
     "file": "assets/font-unicolor-09c71ddc.css",
     "src": "font-unicolor.css"
   },
-  "resources/js/Pages/Contacto.css": {
-    "file": "assets/Contacto-85d4044a.css",
-    "src": "resources/js/Pages/Contacto.css"
-  },
-  "resources/js/Pages/Usuarios/Editar.css": {
-    "file": "assets/Editar-84a28afa.css",
-    "src": "resources/js/Pages/Usuarios/Editar.css"
-  },
-  "resources/js/Pages/Usuarios/Index.css": {
-    "file": "assets/Index-746db3ad.css",
-    "src": "resources/js/Pages/Usuarios/Index.css"
-  },
-  "resources/js/Pages/Funcionalidades.css": {
-    "file": "assets/Funcionalidades-3fa146a8.css",
-    "src": "resources/js/Pages/Funcionalidades.css"
+  "PoliticasC.css": {
+    "file": "assets/PoliticasC-171f6e61.css",
+    "src": "PoliticasC.css"
   },
   "BotonHablarAsesor.css": {
     "file": "assets/BotonHablarAsesor-584eb93b.css",
     "src": "BotonHablarAsesor.css"
   },
+  "resources/js/Pages/Perfiles/Index.css": {
+    "file": "assets/Index-23989d23.css",
+    "src": "resources/js/Pages/Perfiles/Index.css"
+  },
+  "resources/js/Pages/Auth/Register.css": {
+    "file": "assets/Register-0eced8e5.css",
+    "src": "resources/js/Pages/Auth/Register.css"
+  },
+  "resources/js/Pages/PlanesChile.css": {
+    "file": "assets/PlanesChile-fb226ea0.css",
+    "src": "resources/js/Pages/PlanesChile.css"
+  },
+  "Button.css": {
+    "file": "assets/Button-1324f74b.css",
+    "src": "Button.css"
+  },
+  "resources/js/Pages/Usuarios/Editar.css": {
+    "file": "assets/Editar-84a28afa.css",
+    "src": "resources/js/Pages/Usuarios/Editar.css"
+  },
   "resources/js/Pages/Errors/Page404.css": {
     "file": "assets/Page404-be4ef31b.css",
     "src": "resources/js/Pages/Errors/Page404.css"
   },
-  "GuestLayout.css": {
-    "file": "assets/GuestLayout-7512eb5e.css",
-    "src": "GuestLayout.css"
-  },
-  "FooterLite.css": {
-    "file": "assets/FooterLite-4fb08567.css",
-    "src": "FooterLite.css"
-  },
   "resources/js/Pages/RecuperarContrasena.css": {
     "file": "assets/RecuperarContrasena-fc8e2f66.css",
     "src": "resources/js/Pages/RecuperarContrasena.css"
+  },
+  "BotonRegistrarse.css": {
+    "file": "assets/BotonRegistrarse-0a89753d.css",
+    "src": "BotonRegistrarse.css"
+  },
+  "resources/js/Pages/Contratos/Index.css": {
+    "file": "assets/Index-05e1445d.css",
+    "src": "resources/js/Pages/Contratos/Index.css"
+  },
+  "ModalLoginSesion.css": {
+    "file": "assets/ModalLoginSesion-b8aee10e.css",
+    "src": "ModalLoginSesion.css"
+  },
+  "estilos-carousel-publica.css": {
+    "file": "assets/estilos-carousel-publica-5bf6fc7f.css",
+    "src": "estilos-carousel-publica.css"
+  },
+  "bootstrap.css": {
+    "file": "assets/bootstrap-f6aaf64b.css",
+    "src": "bootstrap.css"
   },
   "resources/js/Pages/Welcome.css": {
     "file": "assets/Welcome-1502a7d3.css",
@@ -179,156 +207,368 @@
     "file": "assets/Modal-7b2ad0b6.css",
     "src": "Modal.css"
   },
-  "PoliticasC.css": {
-    "file": "assets/PoliticasC-171f6e61.css",
-    "src": "PoliticasC.css"
+  "resources/js/Pages/Localizacion/Index.css": {
+    "file": "assets/Index-3738a0d5.css",
+    "src": "resources/js/Pages/Localizacion/Index.css"
   },
-  "estilos-carousel-publica.css": {
-    "file": "assets/estilos-carousel-publica-5bf6fc7f.css",
-    "src": "estilos-carousel-publica.css"
+  "resources/js/Pages/Contacto.css": {
+    "file": "assets/Contacto-85d4044a.css",
+    "src": "resources/js/Pages/Contacto.css"
   },
-  "resources/js/Pages/Auth/Register.css": {
-    "file": "assets/Register-0eced8e5.css",
-    "src": "resources/js/Pages/Auth/Register.css"
+  "resources/js/Pages/Planes/Index.css": {
+    "file": "assets/Index-22b5b7c0.css",
+    "src": "resources/js/Pages/Planes/Index.css"
   },
   "HeaderPublica.css": {
     "file": "assets/HeaderPublica-0bce36f9.css",
     "src": "HeaderPublica.css"
   },
-  "bootstrap.css": {
-    "file": "assets/bootstrap-f6aaf64b.css",
-    "src": "bootstrap.css"
+  "resources/js/Pages/Usuarios/Index.css": {
+    "file": "assets/Index-746db3ad.css",
+    "src": "resources/js/Pages/Usuarios/Index.css"
   },
-  "HeaderLite.css": {
-    "file": "assets/HeaderLite-0cf4c4a5.css",
-    "src": "HeaderLite.css"
-  },
-  "estilos-toast.css": {
-    "file": "assets/estilos-toast-69992bc2.css",
-    "src": "estilos-toast.css"
-  },
-  "resources/js/Pages/Perfiles/Index.css": {
-    "file": "assets/Index-23989d23.css",
-    "src": "resources/js/Pages/Perfiles/Index.css"
-  },
-  "resources/js/Pages/Localizacion/Index.css": {
-    "file": "assets/Index-3738a0d5.css",
-    "src": "resources/js/Pages/Localizacion/Index.css"
-  },
-  "AuthenticatedLayout.css": {
-    "file": "assets/AuthenticatedLayout-33fba112.css",
-    "src": "AuthenticatedLayout.css"
-  },
-  "PasswordSecurity.css": {
-    "file": "assets/PasswordSecurity-6a252a1e.css",
-    "src": "PasswordSecurity.css"
-  },
-  "resources/js/Pages/TerminosCondiciones.css": {
-    "file": "assets/TerminosCondiciones-9c4fdcf5.css",
-    "src": "resources/js/Pages/TerminosCondiciones.css"
-  },
-  "_hook-a94dcc91.js": {
-    "file": "assets/hook-a94dcc91.js",
-    "imports": [
-      "_CloseButton-c9ee8f0f.js",
-      "resources/js/app.jsx"
-    ]
-  },
-  "resources/js/Pages/Auth/Login.jsx": {
-    "file": "assets/Login-518dad87.js",
-    "src": "resources/js/Pages/Auth/Login.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_GuestLayout-63b88564.js",
-      "_InputError-4f76d3d7.js",
-      "_PrimaryButton-820dd0d3.js",
-      "_TextInput-9ec9eb2c.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js"
-    ]
-  },
-  "resources/js/Pages/Auth/ConfirmPassword.jsx": {
-    "file": "assets/ConfirmPassword-53ed3524.js",
-    "src": "resources/js/Pages/Auth/ConfirmPassword.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_GuestLayout-63b88564.js",
-      "_InputError-4f76d3d7.js",
-      "_InputLabel-4a5c7158.js",
-      "_PrimaryButton-820dd0d3.js",
-      "_TextInput-9ec9eb2c.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js"
-    ]
-  },
-  "_hasClass-34322397.js": {
-    "file": "assets/hasClass-34322397.js",
-    "imports": [
-      "resources/js/app.jsx",
-      "_CloseButton-c9ee8f0f.js"
-    ]
-  },
-  "_TextInput-9ec9eb2c.js": {
-    "file": "assets/TextInput-9ec9eb2c.js",
+  "_SecondaryButton-e0936b4e.js": {
+    "file": "assets/SecondaryButton-e0936b4e.js",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_PrimaryButton-820dd0d3.js": {
-    "file": "assets/PrimaryButton-820dd0d3.js",
+  "_useIsomorphicEffect-edd85f07.js": {
+    "file": "assets/useIsomorphicEffect-edd85f07.js",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
   "resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx": {
-    "file": "assets/UpdatePasswordForm-721bbd44.js",
+    "file": "assets/UpdatePasswordForm-096e51c0.js",
     "src": "resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_InputError-4f76d3d7.js",
-      "_InputLabel-4a5c7158.js",
-      "_PrimaryButton-820dd0d3.js",
-      "_TextInput-9ec9eb2c.js",
-      "_transition-a74f05dc.js"
+      "_InputError-0935a2cb.js",
+      "_InputLabel-f21e1bd3.js",
+      "_PrimaryButton-d6321219.js",
+      "_TextInput-23b1b0eb.js",
+      "_transition-9cf396d0.js"
+    ]
+  },
+  "resources/js/Pages/Auth/ConfirmPassword.jsx": {
+    "file": "assets/ConfirmPassword-b491fff5.js",
+    "src": "resources/js/Pages/Auth/ConfirmPassword.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_GuestLayout-80ce0f3f.js",
+      "_InputError-0935a2cb.js",
+      "_InputLabel-f21e1bd3.js",
+      "_PrimaryButton-d6321219.js",
+      "_TextInput-23b1b0eb.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js"
+    ]
+  },
+  "_InputError-0935a2cb.js": {
+    "file": "assets/InputError-0935a2cb.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Auth/Login.jsx": {
+    "file": "assets/Login-0ad9ed53.js",
+    "src": "resources/js/Pages/Auth/Login.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_GuestLayout-80ce0f3f.js",
+      "_InputError-0935a2cb.js",
+      "_PrimaryButton-d6321219.js",
+      "_TextInput-23b1b0eb.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js"
+    ]
+  },
+  "_ElementChildren-3efe8bfe.js": {
+    "file": "assets/ElementChildren-3efe8bfe.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_PrimaryButton-d6321219.js": {
+    "file": "assets/PrimaryButton-d6321219.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx": {
+    "file": "assets/UpdateProfileInformationForm-61957d04.js",
+    "src": "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_InputError-0935a2cb.js",
+      "_InputLabel-f21e1bd3.js",
+      "_PrimaryButton-d6321219.js",
+      "_TextInput-23b1b0eb.js",
+      "_transition-9cf396d0.js"
+    ]
+  },
+  "resources/js/Pages/Planes/Editar.jsx": {
+    "file": "assets/Editar-98b308ff.js",
+    "src": "resources/js/Pages/Planes/Editar.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_relativeTime-29bb3e56.js",
+      "_AuthenticatedLayout-24438c3f.js",
+      "_InputError-0935a2cb.js",
+      "_PrimaryButton-d6321219.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_transition-9cf396d0.js"
+    ]
+  },
+  "_hook-f2dcfbfc.js": {
+    "file": "assets/hook-f2dcfbfc.js",
+    "imports": [
+      "_CloseButton-a10fcccb.js",
+      "resources/js/app.jsx"
+    ]
+  },
+  "_hasClass-0219308f.js": {
+    "file": "assets/hasClass-0219308f.js",
+    "imports": [
+      "resources/js/app.jsx",
+      "_CloseButton-a10fcccb.js"
+    ]
+  },
+  "resources/js/Pages/Auth/ResetPassword.jsx": {
+    "file": "assets/ResetPassword-82927c18.js",
+    "src": "resources/js/Pages/Auth/ResetPassword.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_GuestLayout-80ce0f3f.js",
+      "_InputError-0935a2cb.js",
+      "_InputLabel-f21e1bd3.js",
+      "_PrimaryButton-d6321219.js",
+      "_TextInput-23b1b0eb.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js"
+    ]
+  },
+  "_Form-11cbb6b4.js": {
+    "file": "assets/Form-11cbb6b4.js",
+    "imports": [
+      "_createWithBsPrefix-a68b3894.js",
+      "resources/js/app.jsx",
+      "_ElementChildren-3efe8bfe.js"
     ]
   },
   "resources/js/Pages/Planes/Crear.jsx": {
-    "file": "assets/Crear-2e9d3467.js",
+    "file": "assets/Crear-c5baa9b7.js",
     "src": "resources/js/Pages/Planes/Crear.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-bfc8ecac.js",
-      "_InputError-4f76d3d7.js",
-      "_PrimaryButton-820dd0d3.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_transition-a74f05dc.js"
+      "_AuthenticatedLayout-24438c3f.js",
+      "_InputError-0935a2cb.js",
+      "_PrimaryButton-d6321219.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_transition-9cf396d0.js"
+    ]
+  },
+  "_InputLabel-f21e1bd3.js": {
+    "file": "assets/InputLabel-f21e1bd3.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_transition-9cf396d0.js": {
+    "file": "assets/transition-9cf396d0.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/ActividadesEconomicas/Editar.jsx": {
+    "file": "assets/Editar-5038ebc3.js",
+    "src": "resources/js/Pages/ActividadesEconomicas/Editar.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-24438c3f.js",
+      "_estilos-toast-b87bb345.js",
+      "_Form-11cbb6b4.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_transition-9cf396d0.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_CloseButton-a10fcccb.js",
+      "_ElementChildren-3efe8bfe.js"
+    ],
+    "css": [
+      "assets/Editar-fecf6b0c.css",
+      "assets/font-unicolor-09c71ddc.css",
+      "assets/bootstrap-f6aaf64b.css"
+    ]
+  },
+  "_Nav-bbceeac9.js": {
+    "file": "assets/Nav-bbceeac9.js",
+    "imports": [
+      "_createWithBsPrefix-a68b3894.js",
+      "resources/js/app.jsx",
+      "_hook-f2dcfbfc.js",
+      "_Modal-292be896.js",
+      "_CloseButton-a10fcccb.js"
+    ]
+  },
+  "resources/js/Pages/ActividadesEconomicas/Crear.jsx": {
+    "file": "assets/Crear-67931db7.js",
+    "src": "resources/js/Pages/ActividadesEconomicas/Crear.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-24438c3f.js",
+      "_estilos-toast-b87bb345.js",
+      "_Form-11cbb6b4.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_transition-9cf396d0.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_CloseButton-a10fcccb.js",
+      "_ElementChildren-3efe8bfe.js"
+    ],
+    "css": [
+      "assets/Crear-ad2b1ac3.css",
+      "assets/font-unicolor-09c71ddc.css",
+      "assets/bootstrap-f6aaf64b.css"
+    ]
+  },
+  "_FooterLite-2f942e05.js": {
+    "file": "assets/FooterLite-2f942e05.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ],
+    "css": [
+      "assets/FooterLite-4fb08567.css"
+    ]
+  },
+  "_estilos-toast-b87bb345.js": {
+    "file": "assets/estilos-toast-b87bb345.js",
+    "imports": [
+      "resources/js/app.jsx",
+      "_createWithBsPrefix-a68b3894.js",
+      "_CloseButton-a10fcccb.js"
+    ],
+    "css": [
+      "assets/estilos-toast-69992bc2.css"
+    ]
+  },
+  "resources/js/Pages/TiposCompras/Crear.jsx": {
+    "file": "assets/Crear-83f961b9.js",
+    "src": "resources/js/Pages/TiposCompras/Crear.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-24438c3f.js",
+      "_estilos-toast-b87bb345.js",
+      "_Form-11cbb6b4.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_transition-9cf396d0.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_CloseButton-a10fcccb.js",
+      "_ElementChildren-3efe8bfe.js"
+    ],
+    "css": [
+      "assets/Crear-ad2b1ac3.css",
+      "assets/font-unicolor-09c71ddc.css",
+      "assets/bootstrap-f6aaf64b.css"
+    ]
+  },
+  "_Header-640b01b9.js": {
+    "file": "assets/Header-640b01b9.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ],
+    "css": [
+      "assets/Header-87996dc8.css"
+    ]
+  },
+  "resources/js/Pages/Auth/ForgotPassword.jsx": {
+    "file": "assets/ForgotPassword-8a7a44e3.js",
+    "src": "resources/js/Pages/Auth/ForgotPassword.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_GuestLayout-80ce0f3f.js",
+      "_InputError-0935a2cb.js",
+      "_PrimaryButton-d6321219.js",
+      "_TextInput-23b1b0eb.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js"
+    ]
+  },
+  "resources/js/Pages/TerminosCondiciones2.jsx": {
+    "file": "assets/TerminosCondiciones2-b60e1b2d.js",
+    "src": "resources/js/Pages/TerminosCondiciones2.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_HeaderLite-69b0e2ac.js",
+      "_FooterLite-2f942e05.js",
+      "_Nav-bbceeac9.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_Header-640b01b9.js",
+      "_ModalLoginSesion-0f574715.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_hook-f2dcfbfc.js",
+      "_CloseButton-a10fcccb.js",
+      "_useIsomorphicEffect-edd85f07.js",
+      "_Modal-292be896.js",
+      "_hasClass-0219308f.js",
+      "_TextInput-23b1b0eb.js"
+    ],
+    "css": [
+      "assets/PoliticasC-171f6e61.css",
+      "assets/index-8fc26b76.css",
+      "assets/bootstrap-f6aaf64b.css",
+      "assets/font-unicolor-09c71ddc.css"
+    ]
+  },
+  "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx": {
+    "file": "assets/DeleteUserForm-c20b0881.js",
+    "src": "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_InputError-0935a2cb.js",
+      "_InputLabel-f21e1bd3.js",
+      "_transition-9cf396d0.js",
+      "_SecondaryButton-e0936b4e.js",
+      "_TextInput-23b1b0eb.js"
     ]
   },
   "resources/js/Pages/PoliticasP.jsx": {
-    "file": "assets/PoliticasP-fee5a546.js",
+    "file": "assets/PoliticasP-8ffb221a.js",
     "src": "resources/js/Pages/PoliticasP.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_FooterLite-bb477b53.js",
-      "_HeaderLite-c6d7e145.js",
-      "_mdb-react-ui-kit.esm-ba8419b7.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_Header-c3f1a046.js",
-      "_ModalLoginSesion-268856fc.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_Nav-19082c78.js",
-      "_hook-a94dcc91.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_Modal-5834253e.js",
-      "_hasClass-34322397.js",
-      "_useIsomorphicEffect-feefd84b.js",
-      "_TextInput-9ec9eb2c.js"
+      "_FooterLite-2f942e05.js",
+      "_HeaderLite-69b0e2ac.js",
+      "_mdb-react-ui-kit.esm-18c40661.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_Header-640b01b9.js",
+      "_ModalLoginSesion-0f574715.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_Nav-bbceeac9.js",
+      "_hook-f2dcfbfc.js",
+      "_CloseButton-a10fcccb.js",
+      "_Modal-292be896.js",
+      "_hasClass-0219308f.js",
+      "_useIsomorphicEffect-edd85f07.js",
+      "_TextInput-23b1b0eb.js"
     ],
     "css": [
       "assets/index-8fc26b76.css",
@@ -337,81 +577,167 @@
       "assets/font-unicolor-09c71ddc.css"
     ]
   },
-  "_useIsomorphicEffect-feefd84b.js": {
-    "file": "assets/useIsomorphicEffect-feefd84b.js",
-    "imports": [
-      "resources/js/app.jsx"
-    ]
-  },
-  "resources/js/Pages/Profile/Edit.jsx": {
-    "file": "assets/Edit-88f06040.js",
-    "src": "resources/js/Pages/Profile/Edit.jsx",
+  "resources/js/Pages/Localizacion/Crear.jsx": {
+    "file": "assets/Crear-81b7f551.js",
+    "src": "resources/js/Pages/Localizacion/Crear.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-bfc8ecac.js",
-      "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx",
-      "resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx",
-      "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_transition-a74f05dc.js",
-      "_InputError-4f76d3d7.js",
-      "_InputLabel-4a5c7158.js",
-      "_SecondaryButton-13363c3b.js",
-      "_TextInput-9ec9eb2c.js",
-      "_PrimaryButton-820dd0d3.js"
-    ]
-  },
-  "resources/js/Pages/PoliticasC.jsx": {
-    "file": "assets/PoliticasC-2e65196e.js",
-    "src": "resources/js/Pages/PoliticasC.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_FooterLite-bb477b53.js",
-      "_HeaderLite-c6d7e145.js",
-      "_Nav-19082c78.js",
-      "_mdb-react-ui-kit.esm-ba8419b7.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_Header-c3f1a046.js",
-      "_ModalLoginSesion-268856fc.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_hook-a94dcc91.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_useIsomorphicEffect-feefd84b.js",
-      "_Modal-5834253e.js",
-      "_hasClass-34322397.js",
-      "_TextInput-9ec9eb2c.js"
+      "_AuthenticatedLayout-24438c3f.js",
+      "_estilos-toast-b87bb345.js",
+      "_Form-11cbb6b4.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_transition-9cf396d0.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_CloseButton-a10fcccb.js",
+      "_ElementChildren-3efe8bfe.js"
     ],
     "css": [
+      "assets/Crear-ad2b1ac3.css",
+      "assets/font-unicolor-09c71ddc.css",
+      "assets/bootstrap-f6aaf64b.css"
+    ]
+  },
+  "_GuestLayout-80ce0f3f.js": {
+    "file": "assets/GuestLayout-80ce0f3f.js",
+    "imports": [
+      "resources/js/app.jsx",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js"
+    ],
+    "css": [
+      "assets/GuestLayout-7512eb5e.css"
+    ]
+  },
+  "resources/js/Pages/TerminosCondiciones.jsx": {
+    "file": "assets/TerminosCondiciones-658d4823.js",
+    "src": "resources/js/Pages/TerminosCondiciones.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_FooterLite-2f942e05.js",
+      "_HeaderLite-69b0e2ac.js",
+      "_mdb-react-ui-kit.esm-18c40661.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_Header-640b01b9.js",
+      "_ModalLoginSesion-0f574715.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_Nav-bbceeac9.js",
+      "_hook-f2dcfbfc.js",
+      "_CloseButton-a10fcccb.js",
+      "_Modal-292be896.js",
+      "_hasClass-0219308f.js",
+      "_useIsomorphicEffect-edd85f07.js",
+      "_TextInput-23b1b0eb.js"
+    ],
+    "css": [
+      "assets/TerminosCondiciones-9c4fdcf5.css",
       "assets/index-8fc26b76.css",
-      "assets/PoliticasC-171f6e61.css",
+      "assets/PoliticasP-1a2e3ee0.css",
       "assets/bootstrap-f6aaf64b.css",
       "assets/font-unicolor-09c71ddc.css"
     ]
   },
+  "_createWithBsPrefix-a68b3894.js": {
+    "file": "assets/createWithBsPrefix-a68b3894.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Posts/Index.jsx": {
+    "file": "assets/Index-3d7eb5ff.js",
+    "src": "resources/js/Pages/Posts/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-24438c3f.js",
+      "_InputError-0935a2cb.js",
+      "_PrimaryButton-d6321219.js",
+      "_relativeTime-29bb3e56.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_transition-9cf396d0.js"
+    ]
+  },
+  "_HeaderLite-69b0e2ac.js": {
+    "file": "assets/HeaderLite-69b0e2ac.js",
+    "imports": [
+      "resources/js/app.jsx",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_Header-640b01b9.js",
+      "_ModalLoginSesion-0f574715.js",
+      "_Nav-bbceeac9.js"
+    ],
+    "css": [
+      "assets/HeaderLite-0cf4c4a5.css",
+      "assets/bootstrap-f6aaf64b.css",
+      "assets/font-unicolor-09c71ddc.css"
+    ]
+  },
+  "resources/js/Pages/Localizacion/Editar.jsx": {
+    "file": "assets/Editar-6360f0b2.js",
+    "src": "resources/js/Pages/Localizacion/Editar.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-24438c3f.js",
+      "_estilos-toast-b87bb345.js",
+      "_Form-11cbb6b4.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_transition-9cf396d0.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_CloseButton-a10fcccb.js",
+      "_ElementChildren-3efe8bfe.js"
+    ],
+    "css": [
+      "assets/Editar-fecf6b0c.css",
+      "assets/font-unicolor-09c71ddc.css",
+      "assets/bootstrap-f6aaf64b.css"
+    ]
+  },
+  "resources/js/Pages/Profile/Edit.jsx": {
+    "file": "assets/Edit-35722335.js",
+    "src": "resources/js/Pages/Profile/Edit.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-24438c3f.js",
+      "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx",
+      "resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx",
+      "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_transition-9cf396d0.js",
+      "_InputError-0935a2cb.js",
+      "_InputLabel-f21e1bd3.js",
+      "_SecondaryButton-e0936b4e.js",
+      "_TextInput-23b1b0eb.js",
+      "_PrimaryButton-d6321219.js"
+    ]
+  },
   "resources/js/Pages/Nosotros.jsx": {
-    "file": "assets/Nosotros-364bec96.js",
+    "file": "assets/Nosotros-78fc5f17.js",
     "src": "resources/js/Pages/Nosotros.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_HeaderPublica-82695b79.js",
-      "_estilos-carousel-publica-a9f44a1a.js",
-      "_BotonRegistrarse-083226b1.js",
-      "_BotonHablarAsesor-52b9a0c6.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_Header-c3f1a046.js",
-      "_ModalLoginSesion-268856fc.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_Nav-19082c78.js",
-      "_hook-a94dcc91.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_Modal-5834253e.js",
-      "_hasClass-34322397.js",
-      "_useIsomorphicEffect-feefd84b.js",
-      "_TextInput-9ec9eb2c.js"
+      "_HeaderPublica-801362d1.js",
+      "_estilos-carousel-publica-691fc3c2.js",
+      "_BotonRegistrarse-557c329b.js",
+      "_BotonHablarAsesor-b909a7fe.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_Header-640b01b9.js",
+      "_ModalLoginSesion-0f574715.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_Nav-bbceeac9.js",
+      "_hook-f2dcfbfc.js",
+      "_CloseButton-a10fcccb.js",
+      "_Modal-292be896.js",
+      "_hasClass-0219308f.js",
+      "_useIsomorphicEffect-edd85f07.js",
+      "_TextInput-23b1b0eb.js"
     ],
     "css": [
       "assets/Nosotros-d82cf984.css",
@@ -423,237 +749,23 @@
       "assets/banner-ba1ddb8b.png"
     ]
   },
-  "_ApplicationLogo-25d0fc4c.js": {
-    "file": "assets/ApplicationLogo-25d0fc4c.js",
-    "imports": [
-      "resources/js/app.jsx"
-    ]
-  },
-  "resources/js/Pages/Auth/ResetPassword.jsx": {
-    "file": "assets/ResetPassword-ae65968e.js",
-    "src": "resources/js/Pages/Auth/ResetPassword.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_GuestLayout-63b88564.js",
-      "_InputError-4f76d3d7.js",
-      "_InputLabel-4a5c7158.js",
-      "_PrimaryButton-820dd0d3.js",
-      "_TextInput-9ec9eb2c.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js"
-    ]
-  },
-  "_InputError-4f76d3d7.js": {
-    "file": "assets/InputError-4f76d3d7.js",
-    "imports": [
-      "resources/js/app.jsx"
-    ]
-  },
-  "_CloseButton-c9ee8f0f.js": {
-    "file": "assets/CloseButton-c9ee8f0f.js",
-    "imports": [
-      "resources/js/app.jsx",
-      "_createWithBsPrefix-3725888c.js"
-    ]
-  },
-  "_createWithBsPrefix-3725888c.js": {
-    "file": "assets/createWithBsPrefix-3725888c.js",
-    "imports": [
-      "resources/js/app.jsx"
-    ]
-  },
-  "_Modal-5834253e.js": {
-    "file": "assets/Modal-5834253e.js",
-    "imports": [
-      "_createWithBsPrefix-3725888c.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_hasClass-34322397.js",
-      "resources/js/app.jsx"
-    ]
-  },
-  "_Button-c08ac3f3.js": {
-    "file": "assets/Button-c08ac3f3.js",
-    "imports": [
-      "resources/js/app.jsx",
-      "_paises-3204ede2.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_Nav-19082c78.js"
-    ],
-    "css": [
-      "assets/Button-1324f74b.css"
-    ]
-  },
-  "resources/js/Pages/TiposCompras/index1.jsx": {
-    "file": "assets/index1-39025efd.js",
-    "src": "resources/js/Pages/TiposCompras/index1.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx"
-    ],
-    "css": [
-      "assets/bootstrap-f6aaf64b.css",
-      "assets/Index-a3e8eabe.css"
-    ]
-  },
-  "_transition-a74f05dc.js": {
-    "file": "assets/transition-a74f05dc.js",
-    "imports": [
-      "resources/js/app.jsx"
-    ]
-  },
-  "_BotonRegistrarse-083226b1.js": {
-    "file": "assets/BotonRegistrarse-083226b1.js",
-    "imports": [
-      "resources/js/app.jsx"
-    ],
-    "css": [
-      "assets/BotonRegistrarse-0a89753d.css"
-    ]
-  },
-  "resources/js/Pages/TerminosCondiciones2.jsx": {
-    "file": "assets/TerminosCondiciones2-641e63b8.js",
-    "src": "resources/js/Pages/TerminosCondiciones2.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_HeaderLite-c6d7e145.js",
-      "_FooterLite-bb477b53.js",
-      "_Nav-19082c78.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_Header-c3f1a046.js",
-      "_ModalLoginSesion-268856fc.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_hook-a94dcc91.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_useIsomorphicEffect-feefd84b.js",
-      "_Modal-5834253e.js",
-      "_hasClass-34322397.js",
-      "_TextInput-9ec9eb2c.js"
-    ],
-    "css": [
-      "assets/PoliticasC-171f6e61.css",
-      "assets/index-8fc26b76.css",
-      "assets/bootstrap-f6aaf64b.css",
-      "assets/font-unicolor-09c71ddc.css"
-    ]
-  },
-  "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx": {
-    "file": "assets/DeleteUserForm-1fa31d1a.js",
-    "src": "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_InputError-4f76d3d7.js",
-      "_InputLabel-4a5c7158.js",
-      "_transition-a74f05dc.js",
-      "_SecondaryButton-13363c3b.js",
-      "_TextInput-9ec9eb2c.js"
-    ]
-  },
-  "resources/js/Pages/Planes/Editar.jsx": {
-    "file": "assets/Editar-66c9e39e.js",
-    "src": "resources/js/Pages/Planes/Editar.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_relativeTime-e5167ad8.js",
-      "_AuthenticatedLayout-bfc8ecac.js",
-      "_InputError-4f76d3d7.js",
-      "_PrimaryButton-820dd0d3.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_transition-a74f05dc.js"
-    ]
-  },
-  "resources/js/Pages/ActividadesEconomicas/Crear.jsx": {
-    "file": "assets/Crear-8562c855.js",
-    "src": "resources/js/Pages/ActividadesEconomicas/Crear.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-bfc8ecac.js",
-      "_estilos-toast-d80762b1.js",
-      "_Form-eaebbc95.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_transition-a74f05dc.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_ElementChildren-81884a3b.js"
-    ],
-    "css": [
-      "assets/Crear-ad2b1ac3.css",
-      "assets/font-unicolor-09c71ddc.css",
-      "assets/bootstrap-f6aaf64b.css"
-    ]
-  },
-  "resources/js/Pages/Localizacion/Crear.jsx": {
-    "file": "assets/Crear-1a1510f3.js",
-    "src": "resources/js/Pages/Localizacion/Crear.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-bfc8ecac.js",
-      "_estilos-toast-d80762b1.js",
-      "_Form-eaebbc95.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_transition-a74f05dc.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_ElementChildren-81884a3b.js"
-    ],
-    "css": [
-      "assets/Crear-ad2b1ac3.css",
-      "assets/font-unicolor-09c71ddc.css",
-      "assets/bootstrap-f6aaf64b.css"
-    ]
-  },
-  "_Header-c3f1a046.js": {
-    "file": "assets/Header-c3f1a046.js",
-    "imports": [
-      "resources/js/app.jsx"
-    ],
-    "css": [
-      "assets/Header-87996dc8.css"
-    ]
-  },
-  "resources/js/Pages/Planes/Index.jsx": {
-    "file": "assets/Index-681f2b91.js",
-    "src": "resources/js/Pages/Planes/Index.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-bfc8ecac.js",
-      "_InputError-4f76d3d7.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_transition-a74f05dc.js"
-    ],
-    "css": [
-      "assets/Index-22b5b7c0.css",
-      "assets/Modal-7b2ad0b6.css",
-      "assets/bootstrap-f6aaf64b.css"
-    ]
-  },
   "resources/js/Pages/ActividadesEconomicas/Index.jsx": {
-    "file": "assets/Index-649f3d59.js",
+    "file": "assets/Index-bb71061c.js",
     "src": "resources/js/Pages/ActividadesEconomicas/Index.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-bfc8ecac.js",
-      "_Nav-19082c78.js",
-      "_Modal-5834253e.js",
-      "_estilos-toast-d80762b1.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_transition-a74f05dc.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_hook-a94dcc91.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_hasClass-34322397.js"
+      "_AuthenticatedLayout-24438c3f.js",
+      "_Nav-bbceeac9.js",
+      "_Modal-292be896.js",
+      "_estilos-toast-b87bb345.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_transition-9cf396d0.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_hook-f2dcfbfc.js",
+      "_CloseButton-a10fcccb.js",
+      "_hasClass-0219308f.js"
     ],
     "css": [
       "assets/Index-1cb7ed7d.css",
@@ -661,67 +773,111 @@
       "assets/font-unicolor-09c71ddc.css"
     ]
   },
-  "resources/js/Pages/Auth/VerifyEmail.jsx": {
-    "file": "assets/VerifyEmail-4d3e19a5.js",
-    "src": "resources/js/Pages/Auth/VerifyEmail.jsx",
+  "resources/js/Pages/TiposCompras/Index.jsx": {
+    "file": "assets/Index-f7da6740.js",
+    "src": "resources/js/Pages/TiposCompras/Index.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_GuestLayout-63b88564.js",
-      "_PrimaryButton-820dd0d3.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js"
-    ]
-  },
-  "_mdb-react-ui-kit.esm-ba8419b7.js": {
-    "file": "assets/mdb-react-ui-kit.esm-ba8419b7.js",
-    "imports": [
-      "resources/js/app.jsx"
-    ]
-  },
-  "resources/js/Pages/Posts/Index.jsx": {
-    "file": "assets/Index-05c78c12.js",
-    "src": "resources/js/Pages/Posts/Index.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-bfc8ecac.js",
-      "_InputError-4f76d3d7.js",
-      "_PrimaryButton-820dd0d3.js",
-      "_relativeTime-e5167ad8.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_transition-a74f05dc.js"
-    ]
-  },
-  "_estilos-carousel-publica-a9f44a1a.js": {
-    "file": "assets/estilos-carousel-publica-a9f44a1a.js",
-    "imports": [
-      "resources/js/app.jsx"
+      "_AuthenticatedLayout-24438c3f.js",
+      "_Nav-bbceeac9.js",
+      "_Modal-292be896.js",
+      "_estilos-toast-b87bb345.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_transition-9cf396d0.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_hook-f2dcfbfc.js",
+      "_CloseButton-a10fcccb.js",
+      "_hasClass-0219308f.js"
     ],
     "css": [
-      "assets/estilos-carousel-publica-5bf6fc7f.css"
+      "assets/Index-a3e8eabe.css",
+      "assets/bootstrap-f6aaf64b.css",
+      "assets/font-unicolor-09c71ddc.css"
+    ]
+  },
+  "_ApplicationLogo-fae98692.js": {
+    "file": "assets/ApplicationLogo-fae98692.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/TiposCompras/Editar.jsx": {
+    "file": "assets/Editar-f45597d9.js",
+    "src": "resources/js/Pages/TiposCompras/Editar.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-24438c3f.js",
+      "_estilos-toast-b87bb345.js",
+      "_Form-11cbb6b4.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_transition-9cf396d0.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_CloseButton-a10fcccb.js",
+      "_ElementChildren-3efe8bfe.js"
+    ],
+    "css": [
+      "assets/Editar-fecf6b0c.css",
+      "assets/font-unicolor-09c71ddc.css",
+      "assets/bootstrap-f6aaf64b.css"
+    ]
+  },
+  "resources/js/Pages/Usuarios/Crear.jsx": {
+    "file": "assets/Crear-92e79e0e.js",
+    "src": "resources/js/Pages/Usuarios/Crear.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-24438c3f.js",
+      "_PrimaryButton-d6321219.js",
+      "_SecondaryButton-e0936b4e.js",
+      "_Form-11cbb6b4.js",
+      "_paises-3204ede2.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_transition-9cf396d0.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_ElementChildren-3efe8bfe.js"
+    ],
+    "css": [
+      "assets/Crear-18e820cf.css",
+      "assets/bootstrap-f6aaf64b.css"
+    ]
+  },
+  "_AuthenticatedLayout-24438c3f.js": {
+    "file": "assets/AuthenticatedLayout-24438c3f.js",
+    "imports": [
+      "resources/js/app.jsx",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_transition-9cf396d0.js"
+    ],
+    "css": [
+      "assets/AuthenticatedLayout-33fba112.css"
     ]
   },
   "resources/js/Pages/PlanesChile.jsx": {
-    "file": "assets/PlanesChile-210a10fc.js",
+    "file": "assets/PlanesChile-0bebfdc5.js",
     "src": "resources/js/Pages/PlanesChile.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_HeaderPublica-82695b79.js",
-      "_BotonRegistrarse-083226b1.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_Header-c3f1a046.js",
-      "_ModalLoginSesion-268856fc.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_Nav-19082c78.js",
-      "_hook-a94dcc91.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_Modal-5834253e.js",
-      "_hasClass-34322397.js",
-      "_useIsomorphicEffect-feefd84b.js",
-      "_TextInput-9ec9eb2c.js"
+      "_HeaderPublica-801362d1.js",
+      "_BotonRegistrarse-557c329b.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_Header-640b01b9.js",
+      "_ModalLoginSesion-0f574715.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_Nav-bbceeac9.js",
+      "_hook-f2dcfbfc.js",
+      "_CloseButton-a10fcccb.js",
+      "_Modal-292be896.js",
+      "_hasClass-0219308f.js",
+      "_useIsomorphicEffect-edd85f07.js",
+      "_TextInput-23b1b0eb.js"
     ],
     "css": [
       "assets/PlanesChile-fb226ea0.css",
@@ -734,27 +890,457 @@
       "assets/yellow-badge-11e362ea.svg"
     ]
   },
+  "_relativeTime-29bb3e56.js": {
+    "file": "assets/relativeTime-29bb3e56.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Funcionalidades.jsx": {
+    "file": "assets/Funcionalidades-e497cb86.js",
+    "src": "resources/js/Pages/Funcionalidades.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_HeaderPublica-801362d1.js",
+      "_BotonRegistrarse-557c329b.js",
+      "_BotonHablarAsesor-b909a7fe.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_Header-640b01b9.js",
+      "_ModalLoginSesion-0f574715.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_Nav-bbceeac9.js",
+      "_hook-f2dcfbfc.js",
+      "_CloseButton-a10fcccb.js",
+      "_Modal-292be896.js",
+      "_hasClass-0219308f.js",
+      "_useIsomorphicEffect-edd85f07.js",
+      "_TextInput-23b1b0eb.js"
+    ],
+    "css": [
+      "assets/Funcionalidades-3fa146a8.css",
+      "assets/font-unicolor-09c71ddc.css",
+      "assets/bootstrap-f6aaf64b.css",
+      "assets/index-8fc26b76.css"
+    ]
+  },
+  "_BotonHablarAsesor-b909a7fe.js": {
+    "file": "assets/BotonHablarAsesor-b909a7fe.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ],
+    "css": [
+      "assets/BotonHablarAsesor-584eb93b.css"
+    ]
+  },
+  "resources/js/Pages/Errors/Page404.jsx": {
+    "file": "assets/Page404-c69ef5bd.js",
+    "src": "resources/js/Pages/Errors/Page404.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_HeaderPublica-801362d1.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_Header-640b01b9.js",
+      "_ModalLoginSesion-0f574715.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_Nav-bbceeac9.js",
+      "_hook-f2dcfbfc.js",
+      "_CloseButton-a10fcccb.js",
+      "_Modal-292be896.js",
+      "_hasClass-0219308f.js",
+      "_useIsomorphicEffect-edd85f07.js",
+      "_TextInput-23b1b0eb.js"
+    ],
+    "css": [
+      "assets/Page404-be4ef31b.css",
+      "assets/bootstrap-f6aaf64b.css",
+      "assets/font-unicolor-09c71ddc.css"
+    ]
+  },
+  "resources/js/Pages/PoliticasC.jsx": {
+    "file": "assets/PoliticasC-187a3efa.js",
+    "src": "resources/js/Pages/PoliticasC.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_FooterLite-2f942e05.js",
+      "_HeaderLite-69b0e2ac.js",
+      "_Nav-bbceeac9.js",
+      "_mdb-react-ui-kit.esm-18c40661.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_Header-640b01b9.js",
+      "_ModalLoginSesion-0f574715.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_hook-f2dcfbfc.js",
+      "_CloseButton-a10fcccb.js",
+      "_useIsomorphicEffect-edd85f07.js",
+      "_Modal-292be896.js",
+      "_hasClass-0219308f.js",
+      "_TextInput-23b1b0eb.js"
+    ],
+    "css": [
+      "assets/index-8fc26b76.css",
+      "assets/PoliticasC-171f6e61.css",
+      "assets/bootstrap-f6aaf64b.css",
+      "assets/font-unicolor-09c71ddc.css"
+    ]
+  },
+  "_CloseButton-a10fcccb.js": {
+    "file": "assets/CloseButton-a10fcccb.js",
+    "imports": [
+      "resources/js/app.jsx",
+      "_createWithBsPrefix-a68b3894.js"
+    ]
+  },
+  "resources/js/Pages/Usuarios/Editar.jsx": {
+    "file": "assets/Editar-f89ef054.js",
+    "src": "resources/js/Pages/Usuarios/Editar.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-24438c3f.js",
+      "_PrimaryButton-d6321219.js",
+      "_SecondaryButton-e0936b4e.js",
+      "_Form-11cbb6b4.js",
+      "_paises-3204ede2.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_transition-9cf396d0.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_ElementChildren-3efe8bfe.js"
+    ],
+    "css": [
+      "assets/Editar-84a28afa.css",
+      "assets/bootstrap-f6aaf64b.css"
+    ]
+  },
+  "_paises-3204ede2.js": {
+    "file": "assets/paises-3204ede2.js"
+  },
+  "resources/js/Pages/Auth/VerifyEmail.jsx": {
+    "file": "assets/VerifyEmail-f89e49fd.js",
+    "src": "resources/js/Pages/Auth/VerifyEmail.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_GuestLayout-80ce0f3f.js",
+      "_PrimaryButton-d6321219.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js"
+    ]
+  },
+  "_Button-162b8367.js": {
+    "file": "assets/Button-162b8367.js",
+    "imports": [
+      "resources/js/app.jsx",
+      "_paises-3204ede2.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_Nav-bbceeac9.js"
+    ],
+    "css": [
+      "assets/Button-1324f74b.css"
+    ]
+  },
+  "resources/js/Pages/Perfiles/Index.jsx": {
+    "file": "assets/Index-b94b24f2.js",
+    "src": "resources/js/Pages/Perfiles/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_estilos-toast-b87bb345.js",
+      "_Nav-bbceeac9.js",
+      "_ModalLoginSesion-0f574715.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_CloseButton-a10fcccb.js",
+      "_hook-f2dcfbfc.js",
+      "_Modal-292be896.js",
+      "_hasClass-0219308f.js",
+      "_useIsomorphicEffect-edd85f07.js",
+      "_TextInput-23b1b0eb.js"
+    ],
+    "css": [
+      "assets/Index-23989d23.css",
+      "assets/bootstrap-f6aaf64b.css",
+      "assets/font-unicolor-09c71ddc.css",
+      "assets/font-web-2a6893f6.css"
+    ]
+  },
+  "_TextInput-23b1b0eb.js": {
+    "file": "assets/TextInput-23b1b0eb.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Dashboard.jsx": {
+    "file": "assets/Dashboard-263d24d9.js",
+    "src": "resources/js/Pages/Dashboard.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-24438c3f.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_transition-9cf396d0.js"
+    ]
+  },
+  "resources/js/Pages/RecuperarContrasena.jsx": {
+    "file": "assets/RecuperarContrasena-f548f57a.js",
+    "src": "resources/js/Pages/RecuperarContrasena.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_estilos-toast-b87bb345.js",
+      "_Form-11cbb6b4.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_PasswordSecurity-c453d843.js",
+      "_CloseButton-a10fcccb.js",
+      "_ElementChildren-3efe8bfe.js",
+      "_hasClass-0219308f.js",
+      "_hook-f2dcfbfc.js",
+      "_useIsomorphicEffect-edd85f07.js"
+    ],
+    "css": [
+      "assets/RecuperarContrasena-fc8e2f66.css",
+      "assets/font-unicolor-09c71ddc.css",
+      "assets/bootstrap-f6aaf64b.css",
+      "assets/index-8fc26b76.css"
+    ]
+  },
+  "resources/js/Pages/TiposCompras/index1.jsx": {
+    "file": "assets/index1-891caf69.js",
+    "src": "resources/js/Pages/TiposCompras/index1.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx"
+    ],
+    "css": [
+      "assets/bootstrap-f6aaf64b.css",
+      "assets/Index-a3e8eabe.css"
+    ]
+  },
+  "_ApplicationLogoLici-a2e29c08.js": {
+    "file": "assets/ApplicationLogoLici-a2e29c08.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_Modal-292be896.js": {
+    "file": "assets/Modal-292be896.js",
+    "imports": [
+      "_createWithBsPrefix-a68b3894.js",
+      "_CloseButton-a10fcccb.js",
+      "_hasClass-0219308f.js",
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Auth/Register.jsx": {
+    "file": "assets/Register-c75b55c0.js",
+    "src": "resources/js/Pages/Auth/Register.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_Modal-292be896.js",
+      "_Button-162b8367.js",
+      "_PasswordSecurity-c453d843.js",
+      "_HeaderLite-69b0e2ac.js",
+      "_mdb-react-ui-kit.esm-18c40661.js",
+      "_ModalLoginSesion-0f574715.js",
+      "_Form-11cbb6b4.js",
+      "_estilos-toast-b87bb345.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_CloseButton-a10fcccb.js",
+      "_hasClass-0219308f.js",
+      "_paises-3204ede2.js",
+      "_Nav-bbceeac9.js",
+      "_hook-f2dcfbfc.js",
+      "_useIsomorphicEffect-edd85f07.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_Header-640b01b9.js",
+      "_TextInput-23b1b0eb.js",
+      "_ElementChildren-3efe8bfe.js"
+    ],
+    "css": [
+      "assets/Register-0eced8e5.css",
+      "assets/index-8fc26b76.css",
+      "assets/font-unicolor-09c71ddc.css",
+      "assets/bootstrap-f6aaf64b.css"
+    ]
+  },
+  "_PasswordSecurity-c453d843.js": {
+    "file": "assets/PasswordSecurity-c453d843.js",
+    "imports": [
+      "resources/js/app.jsx",
+      "_hasClass-0219308f.js",
+      "_estilos-toast-b87bb345.js",
+      "_hook-f2dcfbfc.js",
+      "_CloseButton-a10fcccb.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_useIsomorphicEffect-edd85f07.js",
+      "_Form-11cbb6b4.js"
+    ],
+    "css": [
+      "assets/PasswordSecurity-6a252a1e.css"
+    ]
+  },
+  "_mdb-react-ui-kit.esm-18c40661.js": {
+    "file": "assets/mdb-react-ui-kit.esm-18c40661.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_estilos-carousel-publica-691fc3c2.js": {
+    "file": "assets/estilos-carousel-publica-691fc3c2.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ],
+    "css": [
+      "assets/estilos-carousel-publica-5bf6fc7f.css"
+    ]
+  },
+  "_BotonRegistrarse-557c329b.js": {
+    "file": "assets/BotonRegistrarse-557c329b.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ],
+    "css": [
+      "assets/BotonRegistrarse-0a89753d.css"
+    ]
+  },
+  "resources/js/Pages/Welcome.jsx": {
+    "file": "assets/Welcome-ae00bc3a.js",
+    "src": "resources/js/Pages/Welcome.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_BotonRegistrarse-557c329b.js",
+      "_HeaderPublica-801362d1.js",
+      "_estilos-carousel-publica-691fc3c2.js",
+      "_BotonHablarAsesor-b909a7fe.js",
+      "_ModalLoginSesion-0f574715.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_Header-640b01b9.js",
+      "_Nav-bbceeac9.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_hook-f2dcfbfc.js",
+      "_CloseButton-a10fcccb.js",
+      "_Modal-292be896.js",
+      "_hasClass-0219308f.js",
+      "_useIsomorphicEffect-edd85f07.js",
+      "_TextInput-23b1b0eb.js"
+    ],
+    "css": [
+      "assets/Welcome-1502a7d3.css",
+      "assets/font-unicolor-09c71ddc.css",
+      "assets/bootstrap-f6aaf64b.css",
+      "assets/index-8fc26b76.css"
+    ]
+  },
+  "_ModalLoginSesion-0f574715.js": {
+    "file": "assets/ModalLoginSesion-0f574715.js",
+    "imports": [
+      "_createWithBsPrefix-a68b3894.js",
+      "resources/js/app.jsx",
+      "_Nav-bbceeac9.js",
+      "_hook-f2dcfbfc.js",
+      "_CloseButton-a10fcccb.js",
+      "_useIsomorphicEffect-edd85f07.js",
+      "_Modal-292be896.js",
+      "_TextInput-23b1b0eb.js"
+    ],
+    "css": [
+      "assets/ModalLoginSesion-b8aee10e.css"
+    ]
+  },
+  "resources/js/Pages/Contratos/Index.jsx": {
+    "file": "assets/Index-4554f0c1.js",
+    "src": "resources/js/Pages/Contratos/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-24438c3f.js",
+      "_Loader-5191ac65.js",
+      "_Modal-292be896.js",
+      "_Form-11cbb6b4.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_transition-9cf396d0.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_CloseButton-a10fcccb.js",
+      "_hasClass-0219308f.js",
+      "_ElementChildren-3efe8bfe.js"
+    ],
+    "css": [
+      "assets/Index-05e1445d.css",
+      "assets/bootstrap-f6aaf64b.css",
+      "assets/font-web-2a6893f6.css",
+      "assets/index-8fc26b76.css"
+    ]
+  },
+  "resources/js/Pages/Localizacion/Index.jsx": {
+    "file": "assets/Index-57b74008.js",
+    "src": "resources/js/Pages/Localizacion/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-24438c3f.js",
+      "_Nav-bbceeac9.js",
+      "_Modal-292be896.js",
+      "_estilos-toast-b87bb345.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_transition-9cf396d0.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_hook-f2dcfbfc.js",
+      "_CloseButton-a10fcccb.js",
+      "_hasClass-0219308f.js"
+    ],
+    "css": [
+      "assets/Index-3738a0d5.css",
+      "assets/bootstrap-f6aaf64b.css",
+      "assets/font-unicolor-09c71ddc.css"
+    ]
+  },
+  "resources/js/Pages/Planes/Index.jsx": {
+    "file": "assets/Index-2068e6c9.js",
+    "src": "resources/js/Pages/Planes/Index.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_AuthenticatedLayout-24438c3f.js",
+      "_InputError-0935a2cb.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_transition-9cf396d0.js"
+    ],
+    "css": [
+      "assets/Index-22b5b7c0.css",
+      "assets/Modal-7b2ad0b6.css",
+      "assets/bootstrap-f6aaf64b.css"
+    ]
+  },
   "resources/js/Pages/Contacto.jsx": {
-    "file": "assets/Contacto-c17de620.js",
+    "file": "assets/Contacto-f12ddad9.js",
     "src": "resources/js/Pages/Contacto.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_HeaderPublica-82695b79.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_hook-a94dcc91.js",
-      "_ModalLoginSesion-268856fc.js",
-      "_Nav-19082c78.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_ElementChildren-81884a3b.js",
-      "_Button-c08ac3f3.js",
-      "_Modal-5834253e.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_Header-c3f1a046.js",
-      "_useIsomorphicEffect-feefd84b.js",
-      "_TextInput-9ec9eb2c.js",
+      "_HeaderPublica-801362d1.js",
+      "_createWithBsPrefix-a68b3894.js",
+      "_hook-f2dcfbfc.js",
+      "_ModalLoginSesion-0f574715.js",
+      "_Nav-bbceeac9.js",
+      "_CloseButton-a10fcccb.js",
+      "_ElementChildren-3efe8bfe.js",
+      "_Button-162b8367.js",
+      "_Modal-292be896.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_Header-640b01b9.js",
+      "_useIsomorphicEffect-edd85f07.js",
+      "_TextInput-23b1b0eb.js",
       "_paises-3204ede2.js",
-      "_hasClass-34322397.js"
+      "_hasClass-0219308f.js"
     ],
     "css": [
       "assets/Contacto-85d4044a.css",
@@ -767,166 +1353,41 @@
       "assets/mapa_google-5f43a2cc.webp"
     ]
   },
-  "resources/js/Pages/Usuarios/Crear.jsx": {
-    "file": "assets/Crear-ce59bb37.js",
-    "src": "resources/js/Pages/Usuarios/Crear.jsx",
-    "isDynamicEntry": true,
+  "_HeaderPublica-801362d1.js": {
+    "file": "assets/HeaderPublica-801362d1.js",
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-bfc8ecac.js",
-      "_PrimaryButton-820dd0d3.js",
-      "_SecondaryButton-13363c3b.js",
-      "_Form-eaebbc95.js",
-      "_paises-3204ede2.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_transition-a74f05dc.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_ElementChildren-81884a3b.js"
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_Header-640b01b9.js",
+      "_ModalLoginSesion-0f574715.js",
+      "_Nav-bbceeac9.js"
     ],
     "css": [
-      "assets/Crear-18e820cf.css",
-      "assets/bootstrap-f6aaf64b.css"
+      "assets/HeaderPublica-0bce36f9.css",
+      "assets/bootstrap-f6aaf64b.css",
+      "assets/font-unicolor-09c71ddc.css"
     ]
   },
-  "resources/js/Pages/TiposCompras/Editar.jsx": {
-    "file": "assets/Editar-7e072b48.js",
-    "src": "resources/js/Pages/TiposCompras/Editar.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-bfc8ecac.js",
-      "_estilos-toast-d80762b1.js",
-      "_Form-eaebbc95.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_transition-a74f05dc.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_ElementChildren-81884a3b.js"
-    ],
-    "css": [
-      "assets/Editar-fecf6b0c.css",
-      "assets/font-unicolor-09c71ddc.css",
-      "assets/bootstrap-f6aaf64b.css"
-    ]
-  },
-  "_paises-3204ede2.js": {
-    "file": "assets/paises-3204ede2.js"
-  },
-  "_ApplicationLogoLici-ae19551d.js": {
-    "file": "assets/ApplicationLogoLici-ae19551d.js",
-    "imports": [
-      "resources/js/app.jsx"
-    ]
-  },
-  "_SecondaryButton-13363c3b.js": {
-    "file": "assets/SecondaryButton-13363c3b.js",
-    "imports": [
-      "resources/js/app.jsx"
-    ]
-  },
-  "_ModalLoginSesion-268856fc.js": {
-    "file": "assets/ModalLoginSesion-268856fc.js",
-    "imports": [
-      "_createWithBsPrefix-3725888c.js",
-      "resources/js/app.jsx",
-      "_Nav-19082c78.js",
-      "_hook-a94dcc91.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_useIsomorphicEffect-feefd84b.js",
-      "_Modal-5834253e.js",
-      "_TextInput-9ec9eb2c.js"
-    ],
-    "css": [
-      "assets/ModalLoginSesion-b8aee10e.css"
-    ]
-  },
-  "_FooterLite-bb477b53.js": {
-    "file": "assets/FooterLite-bb477b53.js",
+  "_Loader-5191ac65.js": {
+    "file": "assets/Loader-5191ac65.js",
     "imports": [
       "resources/js/app.jsx"
     ],
     "css": [
-      "assets/FooterLite-4fb08567.css"
-    ]
-  },
-  "resources/js/Pages/Usuarios/Editar.jsx": {
-    "file": "assets/Editar-d2d3a92a.js",
-    "src": "resources/js/Pages/Usuarios/Editar.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-bfc8ecac.js",
-      "_PrimaryButton-820dd0d3.js",
-      "_SecondaryButton-13363c3b.js",
-      "_Form-eaebbc95.js",
-      "_paises-3204ede2.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_transition-a74f05dc.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_ElementChildren-81884a3b.js"
-    ],
-    "css": [
-      "assets/Editar-84a28afa.css",
-      "assets/bootstrap-f6aaf64b.css"
-    ]
-  },
-  "resources/js/Pages/Auth/ForgotPassword.jsx": {
-    "file": "assets/ForgotPassword-f4a6b32f.js",
-    "src": "resources/js/Pages/Auth/ForgotPassword.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_GuestLayout-63b88564.js",
-      "_InputError-4f76d3d7.js",
-      "_PrimaryButton-820dd0d3.js",
-      "_TextInput-9ec9eb2c.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js"
-    ]
-  },
-  "_InputLabel-4a5c7158.js": {
-    "file": "assets/InputLabel-4a5c7158.js",
-    "imports": [
-      "resources/js/app.jsx"
-    ]
-  },
-  "_Nav-19082c78.js": {
-    "file": "assets/Nav-19082c78.js",
-    "imports": [
-      "_createWithBsPrefix-3725888c.js",
-      "resources/js/app.jsx",
-      "_hook-a94dcc91.js",
-      "_Modal-5834253e.js",
-      "_CloseButton-c9ee8f0f.js"
-    ]
-  },
-  "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx": {
-    "file": "assets/UpdateProfileInformationForm-cec3e342.js",
-    "src": "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_InputError-4f76d3d7.js",
-      "_InputLabel-4a5c7158.js",
-      "_PrimaryButton-820dd0d3.js",
-      "_TextInput-9ec9eb2c.js",
-      "_transition-a74f05dc.js"
+      "assets/Loader-3d7a4499.css"
     ]
   },
   "resources/js/Pages/Usuarios/Index.jsx": {
-    "file": "assets/Index-c67696a7.js",
+    "file": "assets/Index-fd104a92.js",
     "src": "resources/js/Pages/Usuarios/Index.jsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.jsx",
-      "_AuthenticatedLayout-bfc8ecac.js",
-      "_Loader-16ef192d.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_transition-a74f05dc.js"
+      "_AuthenticatedLayout-24438c3f.js",
+      "_Loader-5191ac65.js",
+      "_ApplicationLogo-fae98692.js",
+      "_ApplicationLogoLici-a2e29c08.js",
+      "_transition-9cf396d0.js"
     ],
     "css": [
       "assets/Index-746db3ad.css",
@@ -938,469 +1399,8 @@
       "assets/Web-aebdf1e9.woff2"
     ]
   },
-  "_ElementChildren-81884a3b.js": {
-    "file": "assets/ElementChildren-81884a3b.js",
-    "imports": [
-      "resources/js/app.jsx"
-    ]
-  },
-  "resources/js/Pages/TiposCompras/Index.jsx": {
-    "file": "assets/Index-a184462e.js",
-    "src": "resources/js/Pages/TiposCompras/Index.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-bfc8ecac.js",
-      "_Nav-19082c78.js",
-      "_Modal-5834253e.js",
-      "_estilos-toast-d80762b1.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_transition-a74f05dc.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_hook-a94dcc91.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_hasClass-34322397.js"
-    ],
-    "css": [
-      "assets/Index-a3e8eabe.css",
-      "assets/bootstrap-f6aaf64b.css",
-      "assets/font-unicolor-09c71ddc.css"
-    ]
-  },
-  "_Form-eaebbc95.js": {
-    "file": "assets/Form-eaebbc95.js",
-    "imports": [
-      "_createWithBsPrefix-3725888c.js",
-      "resources/js/app.jsx",
-      "_ElementChildren-81884a3b.js"
-    ]
-  },
-  "_relativeTime-e5167ad8.js": {
-    "file": "assets/relativeTime-e5167ad8.js",
-    "imports": [
-      "resources/js/app.jsx"
-    ]
-  },
-  "resources/js/Pages/ActividadesEconomicas/Editar.jsx": {
-    "file": "assets/Editar-af6cf4cb.js",
-    "src": "resources/js/Pages/ActividadesEconomicas/Editar.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-bfc8ecac.js",
-      "_estilos-toast-d80762b1.js",
-      "_Form-eaebbc95.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_transition-a74f05dc.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_ElementChildren-81884a3b.js"
-    ],
-    "css": [
-      "assets/Editar-fecf6b0c.css",
-      "assets/font-unicolor-09c71ddc.css",
-      "assets/bootstrap-f6aaf64b.css"
-    ]
-  },
-  "resources/js/Pages/RecuperarContrasena.jsx": {
-    "file": "assets/RecuperarContrasena-98b8edbd.js",
-    "src": "resources/js/Pages/RecuperarContrasena.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_estilos-toast-d80762b1.js",
-      "_Form-eaebbc95.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_PasswordSecurity-d3a957f5.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_ElementChildren-81884a3b.js",
-      "_hasClass-34322397.js",
-      "_hook-a94dcc91.js",
-      "_useIsomorphicEffect-feefd84b.js"
-    ],
-    "css": [
-      "assets/RecuperarContrasena-fc8e2f66.css",
-      "assets/font-unicolor-09c71ddc.css",
-      "assets/bootstrap-f6aaf64b.css",
-      "assets/index-8fc26b76.css"
-    ]
-  },
-  "resources/js/Pages/Localizacion/Editar.jsx": {
-    "file": "assets/Editar-207376a0.js",
-    "src": "resources/js/Pages/Localizacion/Editar.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-bfc8ecac.js",
-      "_estilos-toast-d80762b1.js",
-      "_Form-eaebbc95.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_transition-a74f05dc.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_ElementChildren-81884a3b.js"
-    ],
-    "css": [
-      "assets/Editar-fecf6b0c.css",
-      "assets/font-unicolor-09c71ddc.css",
-      "assets/bootstrap-f6aaf64b.css"
-    ]
-  },
-  "resources/js/Pages/Dashboard.jsx": {
-    "file": "assets/Dashboard-559a56ef.js",
-    "src": "resources/js/Pages/Dashboard.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-bfc8ecac.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_transition-a74f05dc.js"
-    ]
-  },
-  "resources/js/Pages/Welcome.jsx": {
-    "file": "assets/Welcome-a0a8a44b.js",
-    "src": "resources/js/Pages/Welcome.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_BotonRegistrarse-083226b1.js",
-      "_HeaderPublica-82695b79.js",
-      "_estilos-carousel-publica-a9f44a1a.js",
-      "_BotonHablarAsesor-52b9a0c6.js",
-      "_ModalLoginSesion-268856fc.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_Header-c3f1a046.js",
-      "_Nav-19082c78.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_hook-a94dcc91.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_Modal-5834253e.js",
-      "_hasClass-34322397.js",
-      "_useIsomorphicEffect-feefd84b.js",
-      "_TextInput-9ec9eb2c.js"
-    ],
-    "css": [
-      "assets/Welcome-1502a7d3.css",
-      "assets/font-unicolor-09c71ddc.css",
-      "assets/bootstrap-f6aaf64b.css",
-      "assets/index-8fc26b76.css"
-    ]
-  },
-  "_BotonHablarAsesor-52b9a0c6.js": {
-    "file": "assets/BotonHablarAsesor-52b9a0c6.js",
-    "imports": [
-      "resources/js/app.jsx"
-    ],
-    "css": [
-      "assets/BotonHablarAsesor-584eb93b.css"
-    ]
-  },
-  "resources/js/Pages/Funcionalidades.jsx": {
-    "file": "assets/Funcionalidades-304eccdb.js",
-    "src": "resources/js/Pages/Funcionalidades.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_HeaderPublica-82695b79.js",
-      "_BotonRegistrarse-083226b1.js",
-      "_BotonHablarAsesor-52b9a0c6.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_Header-c3f1a046.js",
-      "_ModalLoginSesion-268856fc.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_Nav-19082c78.js",
-      "_hook-a94dcc91.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_Modal-5834253e.js",
-      "_hasClass-34322397.js",
-      "_useIsomorphicEffect-feefd84b.js",
-      "_TextInput-9ec9eb2c.js"
-    ],
-    "css": [
-      "assets/Funcionalidades-3fa146a8.css",
-      "assets/font-unicolor-09c71ddc.css",
-      "assets/bootstrap-f6aaf64b.css",
-      "assets/index-8fc26b76.css"
-    ]
-  },
-  "resources/js/Pages/TiposCompras/Crear.jsx": {
-    "file": "assets/Crear-d1b7c44e.js",
-    "src": "resources/js/Pages/TiposCompras/Crear.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-bfc8ecac.js",
-      "_estilos-toast-d80762b1.js",
-      "_Form-eaebbc95.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_transition-a74f05dc.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_ElementChildren-81884a3b.js"
-    ],
-    "css": [
-      "assets/Crear-ad2b1ac3.css",
-      "assets/font-unicolor-09c71ddc.css",
-      "assets/bootstrap-f6aaf64b.css"
-    ]
-  },
-  "resources/js/Pages/Errors/Page404.jsx": {
-    "file": "assets/Page404-a827815c.js",
-    "src": "resources/js/Pages/Errors/Page404.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_HeaderPublica-82695b79.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_Header-c3f1a046.js",
-      "_ModalLoginSesion-268856fc.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_Nav-19082c78.js",
-      "_hook-a94dcc91.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_Modal-5834253e.js",
-      "_hasClass-34322397.js",
-      "_useIsomorphicEffect-feefd84b.js",
-      "_TextInput-9ec9eb2c.js"
-    ],
-    "css": [
-      "assets/Page404-be4ef31b.css",
-      "assets/bootstrap-f6aaf64b.css",
-      "assets/font-unicolor-09c71ddc.css"
-    ]
-  },
-  "_GuestLayout-63b88564.js": {
-    "file": "assets/GuestLayout-63b88564.js",
-    "imports": [
-      "resources/js/app.jsx",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js"
-    ],
-    "css": [
-      "assets/GuestLayout-7512eb5e.css"
-    ]
-  },
-  "resources/js/Pages/Auth/Register.jsx": {
-    "file": "assets/Register-890fcb7e.js",
-    "src": "resources/js/Pages/Auth/Register.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_Modal-5834253e.js",
-      "_Button-c08ac3f3.js",
-      "_PasswordSecurity-d3a957f5.js",
-      "_HeaderLite-c6d7e145.js",
-      "_mdb-react-ui-kit.esm-ba8419b7.js",
-      "_ModalLoginSesion-268856fc.js",
-      "_Form-eaebbc95.js",
-      "_estilos-toast-d80762b1.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_hasClass-34322397.js",
-      "_paises-3204ede2.js",
-      "_Nav-19082c78.js",
-      "_hook-a94dcc91.js",
-      "_useIsomorphicEffect-feefd84b.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_Header-c3f1a046.js",
-      "_TextInput-9ec9eb2c.js",
-      "_ElementChildren-81884a3b.js"
-    ],
-    "css": [
-      "assets/Register-0eced8e5.css",
-      "assets/index-8fc26b76.css",
-      "assets/font-unicolor-09c71ddc.css",
-      "assets/bootstrap-f6aaf64b.css"
-    ]
-  },
-  "resources/js/Pages/Contratos/Index.jsx": {
-    "file": "assets/Index-a8b41352.js",
-    "src": "resources/js/Pages/Contratos/Index.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-bfc8ecac.js",
-      "_Loader-16ef192d.js",
-      "_Modal-5834253e.js",
-      "_Form-eaebbc95.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_transition-a74f05dc.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_hasClass-34322397.js",
-      "_ElementChildren-81884a3b.js"
-    ],
-    "css": [
-      "assets/Index-05e1445d.css",
-      "assets/bootstrap-f6aaf64b.css",
-      "assets/font-web-2a6893f6.css",
-      "assets/index-8fc26b76.css"
-    ]
-  },
-  "_HeaderPublica-82695b79.js": {
-    "file": "assets/HeaderPublica-82695b79.js",
-    "imports": [
-      "resources/js/app.jsx",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_Header-c3f1a046.js",
-      "_ModalLoginSesion-268856fc.js",
-      "_Nav-19082c78.js"
-    ],
-    "css": [
-      "assets/HeaderPublica-0bce36f9.css",
-      "assets/bootstrap-f6aaf64b.css",
-      "assets/font-unicolor-09c71ddc.css"
-    ]
-  },
-  "_HeaderLite-c6d7e145.js": {
-    "file": "assets/HeaderLite-c6d7e145.js",
-    "imports": [
-      "resources/js/app.jsx",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_Header-c3f1a046.js",
-      "_ModalLoginSesion-268856fc.js",
-      "_Nav-19082c78.js"
-    ],
-    "css": [
-      "assets/HeaderLite-0cf4c4a5.css",
-      "assets/bootstrap-f6aaf64b.css",
-      "assets/font-unicolor-09c71ddc.css"
-    ]
-  },
-  "_estilos-toast-d80762b1.js": {
-    "file": "assets/estilos-toast-d80762b1.js",
-    "imports": [
-      "resources/js/app.jsx",
-      "_createWithBsPrefix-3725888c.js",
-      "_CloseButton-c9ee8f0f.js"
-    ],
-    "css": [
-      "assets/estilos-toast-69992bc2.css"
-    ]
-  },
-  "_Loader-16ef192d.js": {
-    "file": "assets/Loader-16ef192d.js",
-    "imports": [
-      "resources/js/app.jsx"
-    ],
-    "css": [
-      "assets/Loader-3d7a4499.css"
-    ]
-  },
-  "resources/js/Pages/Localizacion/Index.jsx": {
-    "file": "assets/Index-b12a7f8d.js",
-    "src": "resources/js/Pages/Localizacion/Index.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_AuthenticatedLayout-bfc8ecac.js",
-      "_Nav-19082c78.js",
-      "_Modal-5834253e.js",
-      "_estilos-toast-d80762b1.js",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_transition-a74f05dc.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_hook-a94dcc91.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_hasClass-34322397.js"
-    ],
-    "css": [
-      "assets/Index-3738a0d5.css",
-      "assets/bootstrap-f6aaf64b.css",
-      "assets/font-unicolor-09c71ddc.css"
-    ]
-  },
-  "resources/js/Pages/Perfiles/Index.jsx": {
-    "file": "assets/Index-0f318d5b.js",
-    "src": "resources/js/Pages/Perfiles/Index.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_estilos-toast-d80762b1.js",
-      "_Nav-19082c78.js",
-      "_ModalLoginSesion-268856fc.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_hook-a94dcc91.js",
-      "_Modal-5834253e.js",
-      "_hasClass-34322397.js",
-      "_useIsomorphicEffect-feefd84b.js",
-      "_TextInput-9ec9eb2c.js"
-    ],
-    "css": [
-      "assets/Index-23989d23.css",
-      "assets/bootstrap-f6aaf64b.css",
-      "assets/font-unicolor-09c71ddc.css",
-      "assets/font-web-2a6893f6.css"
-    ]
-  },
-  "_AuthenticatedLayout-bfc8ecac.js": {
-    "file": "assets/AuthenticatedLayout-bfc8ecac.js",
-    "imports": [
-      "resources/js/app.jsx",
-      "_ApplicationLogo-25d0fc4c.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_transition-a74f05dc.js"
-    ],
-    "css": [
-      "assets/AuthenticatedLayout-33fba112.css"
-    ]
-  },
-  "resources/js/Pages/TerminosCondiciones.jsx": {
-    "file": "assets/TerminosCondiciones-73832f03.js",
-    "src": "resources/js/Pages/TerminosCondiciones.jsx",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.jsx",
-      "_FooterLite-bb477b53.js",
-      "_HeaderLite-c6d7e145.js",
-      "_mdb-react-ui-kit.esm-ba8419b7.js",
-      "_ApplicationLogoLici-ae19551d.js",
-      "_Header-c3f1a046.js",
-      "_ModalLoginSesion-268856fc.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_Nav-19082c78.js",
-      "_hook-a94dcc91.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_Modal-5834253e.js",
-      "_hasClass-34322397.js",
-      "_useIsomorphicEffect-feefd84b.js",
-      "_TextInput-9ec9eb2c.js"
-    ],
-    "css": [
-      "assets/TerminosCondiciones-9c4fdcf5.css",
-      "assets/index-8fc26b76.css",
-      "assets/PoliticasP-1a2e3ee0.css",
-      "assets/bootstrap-f6aaf64b.css",
-      "assets/font-unicolor-09c71ddc.css"
-    ]
-  },
-  "_PasswordSecurity-d3a957f5.js": {
-    "file": "assets/PasswordSecurity-d3a957f5.js",
-    "imports": [
-      "resources/js/app.jsx",
-      "_hasClass-34322397.js",
-      "_estilos-toast-d80762b1.js",
-      "_hook-a94dcc91.js",
-      "_CloseButton-c9ee8f0f.js",
-      "_createWithBsPrefix-3725888c.js",
-      "_useIsomorphicEffect-feefd84b.js",
-      "_Form-eaebbc95.js"
-    ],
-    "css": [
-      "assets/PasswordSecurity-6a252a1e.css"
-    ]
-  },
   "resources/js/app.jsx": {
-    "file": "assets/app-aaf90054.js",
+    "file": "assets/app-dcd3922e.js",
     "src": "resources/js/app.jsx",
     "isEntry": true,
     "dynamicImports": [
@@ -1450,17 +1450,17 @@
       "assets/app-dcb1d859.css"
     ]
   },
-  "resources/js/Pages/ActividadesEconomicas/Crear.css": {
-    "file": "assets/Crear-ad2b1ac3.css",
-    "src": "resources/js/Pages/TiposCompras/Crear.css"
-  },
   "resources/js/Pages/ActividadesEconomicas/Editar.css": {
     "file": "assets/Editar-fecf6b0c.css",
     "src": "resources/js/Pages/TiposCompras/Editar.css"
   },
-  "resources/js/Pages/Localizacion/Crear.css": {
+  "resources/js/Pages/ActividadesEconomicas/Crear.css": {
     "file": "assets/Crear-ad2b1ac3.css",
-    "src": "resources/js/Pages/TiposCompras/Crear.css"
+    "src": "resources/js/Pages/Localizacion/Crear.css"
+  },
+  "resources/js/Pages/TiposCompras/Crear.css": {
+    "file": "assets/Crear-ad2b1ac3.css",
+    "src": "resources/js/Pages/Localizacion/Crear.css"
   },
   "resources/js/Pages/Localizacion/Editar.css": {
     "file": "assets/Editar-fecf6b0c.css",
