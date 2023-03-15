@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import BusquedaEstado from "./BusquedaEstado";
 import BusquedaUbicacion from "./BusquedaUbicacion";
 import BusquedaActividad from "./BusquedaActividad";
+// import ActividadEconomica from "@/Components/ActividadEconomica";
 import BusquedaTiposCompras from "./BusquedaTiposCompras";
 import { Head } from "@inertiajs/inertia-react";
 import "./ModalBusquedaAvanzada.css";
