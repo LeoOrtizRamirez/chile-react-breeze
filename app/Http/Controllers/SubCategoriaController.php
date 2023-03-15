@@ -10,6 +10,32 @@ use Inertia\Inertia;
 
 class SubCategoriaController extends Controller
 {
+
+    public function storeTiposCompras1(){
+        $tiposcompras = SubCategoria::where('tipo_categoria', 5)
+        ->orderBy('updated_at', 'DESC')
+        ->with('parent', 'childs')
+        ->get();
+
+    //Buscar id del grandparent y agregarlo a la actividad economica
+    foreach ($tiposcompras as $key => $ac) {
+        $model = SubCategoria::find($ac->id);
+        $ac->id_abuelo_sub_categoria = null;
+        if ($model->id_padre_sub_categoria != null) {
+            $parent = SubCategoria::find($model->id_padre_sub_categoria);
+            if ($parent->id_padre_sub_categoria != null) {
+                $grandparent = SubCategoria::find($parent->id_padre_sub_categoria);
+                $ac->id_abuelo_sub_categoria = $grandparent->id;
+            }
+        }
+    }
+    return Inertia::render('TiposCompras/index1', [
+        'tiposcompras' => $tiposcompras,
+    ]);
+
+    }
+
+
     public function index()
     {
         $actividades_economicas = SubCategoria::where('tipo_categoria', 1)

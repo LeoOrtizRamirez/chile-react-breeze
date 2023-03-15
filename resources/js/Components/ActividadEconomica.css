@@ -229,6 +229,10 @@ input.form-control.busqueda-input {
     transition: box-shadow .25s ease, -webkit-box-shadow .25s ease;
 }
 
+.tree-root.Localizaciones li, .tree-children.Localizaciones li{
+    min-width: 100% !important;
+}
+
 .tree-node {
     white-space: nowrap;
     display: flex;
