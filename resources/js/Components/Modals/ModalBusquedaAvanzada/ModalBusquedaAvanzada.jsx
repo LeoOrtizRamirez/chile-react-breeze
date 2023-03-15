@@ -6,7 +6,8 @@ import BusquedaUbicacion from "./BusquedaUbicacion";
 import BusquedaActividad from "./BusquedaActividad";
 import BusquedaTiposCompras from "./BusquedaTiposCompras";
 import { Head } from "@inertiajs/inertia-react";
-import "./ModalBusquedaAvanzada.css";
+// import "./ModalBusquedaAvanzada.css";
+import '@/Pages/Perfiles/Index.css'
 
 export const ModalBusquedaAvanzada = ({
     showBusquedaAvanzada,
