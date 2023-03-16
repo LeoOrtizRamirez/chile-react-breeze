@@ -9,12 +9,6 @@ const ActividadEconomica = ({
     tipo,
     checkeds,
 }) => {
-    console.log("subcategorias", subcategorias);
-    console.log("id", id);
-    console.log("nameBuscador", nameBuscador);
-    console.log("onHandleSectores", onHandleSectores);
-    console.log("tipo", tipo);
-    console.log("checkeds", checkeds);
 
     const [fakeSectores, setFakeSectores] = useState(subcategorias);
     const [sectores, setSectores] = useState(subcategorias);
@@ -443,9 +437,6 @@ const ActividadEconomica = ({
                     break;
             }
             //Se compara con las todas las actividades economicas que tiene el sector
-            console.log("sectoresIds:", sectoresIds);
-            console.log("parent:", parent);
-            console.log("type:", type);
             sectoresIds[parent][type].forEach((el) => {
                 //Si en algun momento no encuentra una actividad economica del sector en las que estan seleccionadas actualmente, asigna false
                 if (!array.includes(el)) {
@@ -653,7 +644,6 @@ const ActividadEconomica = ({
             }
         });
         check_minus_array = [...new Set(check_minus_array)];
-        console.log(check_minus_array);
         setInputsCheckMinusClass(check_minus_array);
     }, []);
 
