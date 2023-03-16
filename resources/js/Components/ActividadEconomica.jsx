@@ -628,9 +628,14 @@ const ActividadEconomica = ({
 
     const [inputsCheckMinusClass, setInputsCheckMinusClass] = useState([]);
     useEffect(() => {
+        getInputsCheckMinusClass()
+    }, [checksActividadesEconomicas]);
+
+    const getInputsCheckMinusClass = () =>{
         let check_minus_array = [];
+        console.log(checksActividadesEconomicas)
         //Añadir clase check-minus a los padres de las actividades economicas seleccionadas
-        checkeds.forEach((el) => {
+        checksActividadesEconomicas.forEach((el) => {
             if (isType(el, "actividades_economicas")) {
                 var segmento = getParent(el);
                 check_minus_array.push(segmento.id);
@@ -645,7 +650,7 @@ const ActividadEconomica = ({
         });
         check_minus_array = [...new Set(check_minus_array)];
         setInputsCheckMinusClass(check_minus_array);
-    }, []);
+    }
 
     /*Recibe el id del padre de la actividad economica o el segmento*/
     const getParent = (id) => {
