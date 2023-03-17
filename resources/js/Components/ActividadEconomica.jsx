@@ -9,7 +9,6 @@ const ActividadEconomica = ({
     tipo,
     checkeds,
 }) => {
-
     const [fakeSectores, setFakeSectores] = useState(subcategorias);
     const [sectores, setSectores] = useState(subcategorias);
     const [openSectores, setOpenSectores] = useState([]);
@@ -421,8 +420,6 @@ const ActividadEconomica = ({
             )[0];
             var parent = 0;
 
-            //array.forEach(el => {
-
             switch (type) {
                 case "actividades_economicas":
                     parent = actividad_economica.id_abuelo_sub_categoria;
@@ -544,8 +541,8 @@ const ActividadEconomica = ({
                     //BUSCAMOS LA ACTIVIDAD ECONOMICA
                     actividades_economicas_filtrados.push(element);
                     /* open_segmentos.push(
-                        element.id_padre_sub_categoria
-                    ); */
+element.id_padre_sub_categoria
+); */
 
                     //BUSCAMOS EL SEGMENTO DE LA ACTIVIDAD ECONOMICA
                     var segmento = fakeSectores.filter(
@@ -697,11 +694,6 @@ const ActividadEconomica = ({
                                     id={sector.id}
                                     className="tree-content mt-3 sector"
                                     key={sector.id}
-                                    /* onClick={() =>
-                                        getSegmento(
-                                            sector.id
-                                        )
-                                    } */
                                 >
                                     <i
                                         className={`tree-arrow has-child ${
@@ -710,7 +702,6 @@ const ActividadEconomica = ({
                                                 : ""
                                         }`}
                                     ></i>
-                                    {/* p1*/}
                                     <input
                                         id={"sector_check_" + sector.id}
                                         class={`${
@@ -724,8 +715,6 @@ const ActividadEconomica = ({
                                         name="actividad_economica"
                                         onChange={() => checked(sector)}
                                         checked={
-                                            /* childs.id == inputActividadEconomica.id */
-
                                             checksActividadesEconomicas.includes(
                                                 sector.id
                                             )
@@ -787,8 +776,6 @@ const ActividadEconomica = ({
                                                                     )
                                                                 }
                                                                 checked={
-                                                                    /* childs.id == inputActividadEconomica.id */
-
                                                                     checksActividadesEconomicas.includes(
                                                                         segmento.id
                                                                     )
@@ -846,7 +833,6 @@ const ActividadEconomica = ({
                                                                                             )
                                                                                         }
                                                                                     >
-                                                                                        {/* {childs.id} */}
                                                                                         <input
                                                                                             type="checkbox"
                                                                                             name="actividad_economica"
@@ -856,8 +842,6 @@ const ActividadEconomica = ({
                                                                                                 )
                                                                                             }
                                                                                             checked={
-                                                                                                /* childs.id == inputActividadEconomica.id */
-
                                                                                                 checksActividadesEconomicas.includes(
                                                                                                     childs.id
                                                                                                 )
@@ -867,7 +851,6 @@ const ActividadEconomica = ({
                                                                                         />
                                                                                         <span className="tree-anchor children">
                                                                                             <span className="tree-division tree-division1">
-                                                                                                {/*  <span className="tree-division__title my-auto">{childs.nombre}</span> */}
                                                                                                 <>
                                                                                                     <span className="tree-division__title my-auto">
                                                                                                         {
