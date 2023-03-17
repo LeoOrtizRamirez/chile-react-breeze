@@ -5,36 +5,35 @@ namespace App\Http\Controllers;
 use App\Models\SubCategoria;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
 use Inertia\Inertia;
 
 class SubCategoriaController extends Controller
 {
 
-    public function storeTiposCompras1(){
+    public function storeTiposCompras1()
+    {
         $tiposcompras = SubCategoria::where('tipo_categoria', 5)
-        ->orderBy('updated_at', 'DESC')
-        ->with('parent', 'childs')
-        ->get();
+            ->orderBy('updated_at', 'DESC')
+            ->with('parent', 'childs')
+            ->get();
 
-    //Buscar id del grandparent y agregarlo a la actividad economica
-    foreach ($tiposcompras as $key => $ac) {
-        $model = SubCategoria::find($ac->id);
-        $ac->id_abuelo_sub_categoria = null;
-        if ($model->id_padre_sub_categoria != null) {
-            $parent = SubCategoria::find($model->id_padre_sub_categoria);
-            if ($parent->id_padre_sub_categoria != null) {
-                $grandparent = SubCategoria::find($parent->id_padre_sub_categoria);
-                $ac->id_abuelo_sub_categoria = $grandparent->id;
+        //Buscar id del grandparent y agregarlo a la actividad economica
+        foreach ($tiposcompras as $key => $ac) {
+            $model = SubCategoria::find($ac->id);
+            $ac->id_abuelo_sub_categoria = null;
+            if ($model->id_padre_sub_categoria != null) {
+                $parent = SubCategoria::find($model->id_padre_sub_categoria);
+                if ($parent->id_padre_sub_categoria != null) {
+                    $grandparent = SubCategoria::find($parent->id_padre_sub_categoria);
+                    $ac->id_abuelo_sub_categoria = $grandparent->id;
+                }
             }
         }
-    }
-    return Inertia::render('TiposCompras/index1', [
-        'tiposcompras' => $tiposcompras,
-    ]);
+        return Inertia::render('TiposCompras/index1', [
+            'tiposcompras' => $tiposcompras,
+        ]);
 
     }
-
 
     public function index()
     {
@@ -209,7 +208,7 @@ class SubCategoriaController extends Controller
         return redirect(route('actividad-economica.index'));
     }
 
-    function paginate()
+    public function paginate()
     {
         $actividades_economicas = SubCategoria::where('tipo_categoria', 1)
             ->orderBy('nombre', 'ASC')
@@ -218,7 +217,7 @@ class SubCategoriaController extends Controller
         return json_encode($actividades_economicas);
     }
 
-    function filterPaginate()
+    public function filterPaginate()
     {
         $nombre = "";
         if (request()->has("actividad_economica")) {
@@ -244,8 +243,8 @@ class SubCategoriaController extends Controller
             ->with('parent', 'childs')
             ->get();
 
-         //Buscar id del grandparent y agregarlo a la actividad economica
-         foreach ($localizacion as $key => $ac) {
+        //Buscar id del grandparent y agregarlo a la actividad economica
+        foreach ($localizacion as $key => $ac) {
             $model = SubCategoria::find($ac->id);
             $ac->id_abuelo_sub_categoria = null;
             if ($model->id_padre_sub_categoria != null) {
@@ -262,15 +261,25 @@ class SubCategoriaController extends Controller
         ]);
     }
 
-
-
-
     public function indexJsonLocalizacion()
     {
         $localizacion = SubCategoria::where('tipo_categoria', 3)
             ->orderBy('updated_at', 'DESC')
             ->with('parent', 'childs')
             ->get();
+
+        //Buscar id del grandparent y agregarlo a la actividad economica
+        foreach ($localizacion as $key => $ac) {
+            $model = SubCategoria::find($ac->id);
+            $ac->id_abuelo_sub_categoria = null;
+            if ($model->id_padre_sub_categoria != null) {
+                $parent = SubCategoria::find($model->id_padre_sub_categoria);
+                if ($parent->id_padre_sub_categoria != null) {
+                    $grandparent = SubCategoria::find($parent->id_padre_sub_categoria);
+                    $ac->id_abuelo_sub_categoria = $grandparent->id;
+                }
+            }
+        }
         return json_encode($localizacion);
     }
 
@@ -418,6 +427,19 @@ class SubCategoriaController extends Controller
             ->orderBy('updated_at', 'DESC')
             ->with('parent', 'childs')
             ->get();
+
+        //Buscar id del grandparent y agregarlo a la actividad economica
+        foreach ($tiposcompras as $key => $ac) {
+            $model = SubCategoria::find($ac->id);
+            $ac->id_abuelo_sub_categoria = null;
+            if ($model->id_padre_sub_categoria != null) {
+                $parent = SubCategoria::find($model->id_padre_sub_categoria);
+                if ($parent->id_padre_sub_categoria != null) {
+                    $grandparent = SubCategoria::find($parent->id_padre_sub_categoria);
+                    $ac->id_abuelo_sub_categoria = $grandparent->id;
+                }
+            }
+        }
         return json_encode($tiposcompras);
     }
 
@@ -483,7 +505,7 @@ class SubCategoriaController extends Controller
         ]);
     }
 
-    public function updateTiposCompras(Request $request, SubCategoria   $tipo_compra)
+    public function updateTiposCompras(Request $request, SubCategoria $tipo_compra)
     {
         $id = $request->id;
         if ($request->id != $request->new_id) {
@@ -547,7 +569,7 @@ class SubCategoriaController extends Controller
         return redirect(route('indexTiposCompras'));
     }
 
-    function paginateTiposCompras()
+    public function paginateTiposCompras()
     {
         $tiposcompras = SubCategoria::where('tipo_categoria', 5)
             ->orderBy('nombre', 'ASC')
@@ -556,7 +578,7 @@ class SubCategoriaController extends Controller
         return json_encode($tiposcompras);
     }
 
-    function filterPaginateTiposCompras()
+    public function filterPaginateTiposCompras()
     {
         $nombre = "";
         if (request()->has("tipo_compra")) {

@@ -1,10 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import BusquedaEstado from "./BusquedaEstado";
 import BusquedaUbicacion from "./BusquedaUbicacion";
 import BusquedaActividad from "./BusquedaActividad";
-// import ActividadEconomica from "@/Components/ActividadEconomica";
 import BusquedaTiposCompras from "./BusquedaTiposCompras";
 import { Head } from "@inertiajs/inertia-react";
 import "./ModalBusquedaAvanzada.css";
@@ -14,6 +13,13 @@ export const ModalBusquedaAvanzada = ({
     handleCloseBusquedaAvanzada,
     handleBusqueda,
 }) => {
+    const handleChange = ({ target: { name, value } }) => {
+        setFormValues({
+            ...formValues,
+            [name]: value,
+        });
+    };
+
     const [formValues, setFormValues] = useState({
         entidad_contratante: "",
         objeto: "",
@@ -30,17 +36,9 @@ export const ModalBusquedaAvanzada = ({
         contratista: "",
     });
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setFormValues({
-            ...formValues,
-            [name]: value,
-        });
-    };
-
     // Reinicia todos los input
     const handleClear = () => {
-        setFormValues({
+        const defaultValues = {
             entidad_contratante: "",
             objeto: "",
             codigo_proceso: "",
@@ -54,38 +52,32 @@ export const ModalBusquedaAvanzada = ({
             fecha_desde: "",
             fecha_hasta: "",
             contratista: "",
-        });
+        };
+        setFormValues(defaultValues);
         setCheckboxValues([]);
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Aquí puedes hacer lo que necesites con los valores del formulario
-        // console.log(formValues);
-        // debugger
         handleBusqueda(getUrlParams());
     };
 
     const getUrlParams = () => {
-        //Obtener inputs de formulario y guardarlos en objeto
-        var form = document.getElementById("form_busqueda_avanzada");
-        let formData = new FormData(form);
-        let object = {};
-        formData.forEach(function (value, key) {
-            object[key] = value;
-        });
+        const formData = new FormData(
+            document.getElementById("form_busqueda_avanzada")
+        );
+        const object = Object.fromEntries(formData.entries());
         const querystring =
             encodeQueryData(object) + "&estado_proceso=" + checkboxValues;
-        // debugger;
         return querystring;
     };
 
     const encodeQueryData = (data) => {
-        //Convertir objeto en url
-        const ret = [];
-        for (let d in data)
-            ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
-        return ret.join("&");
+        const params = new URLSearchParams();
+        for (let d in data) {
+            params.append(d, data[d]);
+        }
+        return params.toString();
     };
 
     // Selecionamos el elemento de entrada utilizando una referencia
@@ -105,7 +97,6 @@ export const ModalBusquedaAvanzada = ({
     // onBlur, actualiza el estado_proceso del tipo de entrada del campo de fecha a un campo de texto utilizando el método setType().
     const onBlur = () => {
         setType("text");
-        // inputRef.current.defaultValue = '2022-01-01';
     };
     // Fin Controladores
 
@@ -141,7 +132,7 @@ export const ModalBusquedaAvanzada = ({
     const handleShowBusquedaActividad = () => setShowBusquedaActividad(true);
     // Fin Modal actividad
 
-    // Inicio Modal actividad
+    // Inicio Modal Tipos compras
     const [showBusquedaTiposCompras, setShowBusquedaTiposCompras] =
         useState(false);
     const handleCloseBusquedaTiposCompras = () =>
@@ -285,12 +276,9 @@ export const ModalBusquedaAvanzada = ({
                                 <input
                                     type="text"
                                     value={checkboxValues.join(",")}
-                                    // value={formValues?.checkboxValues?.join(",")}
-                                    // value={formValues.checkboxValues}
                                     onClick={handleShowBusquedaEstado}
                                     onChange={handleCheckboxChange}
                                     placeholder="Selecione los estados de proceso"
-                                    // value={checkedValues}
                                 />
                                 <BusquedaEstado
                                     showBusquedaEstado={showBusquedaEstado}
@@ -397,7 +385,6 @@ export const ModalBusquedaAvanzada = ({
                     </Form>
                 </div>
             </Modal.Body>
-            {/* <Modal.Footer></Modal.Footer> */}
         </Modal>
     );
 };
