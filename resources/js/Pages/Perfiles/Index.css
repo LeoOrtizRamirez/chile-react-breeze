@@ -450,35 +450,35 @@ span.slider.round {
 
 .icon-Paso-1-click:before {
     content: "\e9f7";
-    background-image: url(/images/1.svg);
+    background-image: url(/public/images/1.svg);
     background-size: cover;
     filter: grayscale(1);
 }
 
 .icon-Paso-2-click:before {
     content: "\e9f8";
-    background-image: url(/images/2.svg);
+    background-image: url(/public/images/2.svg);
     background-size: cover;
     filter: grayscale(1);
 }
 
 .icon-Paso-3-click:before {
     content: "\e9f9";
-    background-image: url(/images/3.svg);
+    background-image: url(/public/images/3.svg);
     background-size: cover;
     filter: grayscale(1);
 }
 
 .icon-Paso-4-click:before {
     content: "\e9fa";
-    background-image: url(/images/4.svg);
+    background-image: url(/public/images/4.svg);
     background-size: cover;
     filter: grayscale(1);
 }
 
 .icon-Paso-5-click:before {
     content: "\e9fb";
-    background-image: url(/images/5.svg);
+    background-image: url(/public/images/5.svg);
     background-size: cover;
     filter: grayscale(1);
 }
