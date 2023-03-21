@@ -63,208 +63,26 @@ const Index = ({
         }
     }
 
-
-    const [contenedorPaso1Actividades, setContenedorPaso1Actividades] = useState(true);
-    const [contenedorPaso2TipoCompras, setContenedorPaso2TipoCompras] = useState(false);
-    const [contenedorPaso3Localizaciones, setContenedorPaso3Localizaciones] = useState(false);
-    const [contenedorPaso4Cuantia, setContenedorPaso4Cuantia] = useState(false);
-    const [contenedorPaso5, setContenedorPaso5] = useState(false);
-
-    const [contenedorBotonReturnTipoCompra, setContenedorBotonReturnTipoCompra] = useState(false);
-    const [contenedorBotonReturnLocalizaciones, setContenedorBotonReturnLocalizaciones] = useState(false);
-    const [contenedorBotonReturnCuantia, setContenedorBotonReturnCuantia] = useState(false);
-    const [contenedorBotonReturnGuardar, setContenedorBotonReturnGuardar] = useState(false);
-    const [contenedorBotonGuardar, setContenedorBotonGuardar] = useState(false);
-
-    const [contenedorBotonNextActividadEconomica, setcontenedorBotonNextActividadEconomica] = useState(true);
-    const [contenedorBotonNextTipoCompra, setcontenedorBotonNextTipoCompra] = useState(false);
-    const [contenedorBotonNextLocalizacion, setcontenedorBotonNextLocalizacion] = useState(false);
-    const [contenedorBotonNextCuantia, setcontenedorBotonNextCuantia] = useState(false);
-
-    const icon1 = useRef();
-    const span1 = useRef();
-    const icon2 = useRef();
-    const span2 = useRef();
-    const icon3 = useRef();
-    const span3 = useRef();
-    const icon4 = useRef();
-    const span4 = useRef();
-    const icon5 = useRef();
-    const span5 = useRef();
-
-    const SiguientePaso2TipoCompra = () => {
-        setCopia_actividades(total_array_checks_actividades[0])
-
-        //Se muestran las tipo de compras
-        icon1.current.classList.remove('c-activo-iconos');
-        span1.current.classList.remove('c-activo-texto-iconos');
-
-        icon2.current.classList.add('c-activo-iconos');
-        span2.current.classList.add('c-activo-texto-iconos');
-
-        setContenedorPaso1Actividades(false);
-
-        setContenedorPaso2TipoCompras(true);
-
-        setContenedorBotonReturnTipoCompra(true);
-        setcontenedorBotonNextActividadEconomica(false)
-        setcontenedorBotonNextTipoCompra(true)
-
-    };
-
-    const VolverPaso1ActividadEconomica = () => {
-        //Volver A actividades economicas
-
-
-        setCopia_actividades(total_array_checks_actividades[0])
-
-
-        icon1.current.classList.add('c-activo-iconos');
-        span1.current.classList.add('c-activo-texto-iconos');
-
-        icon2.current.classList.remove('c-activo-iconos');
-        span2.current.classList.remove('c-activo-texto-iconos');
-
-        setContenedorPaso2TipoCompras(false);
-        setContenedorPaso1Actividades(true);
-
-
-        setContenedorBotonReturnTipoCompra(false);
-        setcontenedorBotonNextTipoCompra(false)
-        setcontenedorBotonNextActividadEconomica(true)
-
-    };
-
-    const SiguientePaso3Localizacion = () => {
-        //Se muestran las localizaciones
-
-        icon2.current.classList.remove('c-activo-iconos');
-        span2.current.classList.remove('c-activo-texto-iconos');
-
-        icon3.current.classList.add('c-activo-iconos');
-        span3.current.classList.add('c-activo-texto-iconos');
-
-        setcontenedorBotonNextTipoCompra(false)
-        setcontenedorBotonNextLocalizacion(true)
-
-        setContenedorPaso2TipoCompras(false);
-        setContenedorPaso3Localizaciones(true)
-
-        //Oculto un boton de volver y muestro el otro
-        setContenedorBotonReturnTipoCompra(false)
-        setContenedorBotonReturnLocalizaciones(true)
-    };
-
-    const VolverPaso2TipoCompra = () => {
-        //Volver A Tipo de compras
-
-
-        icon2.current.classList.add('c-activo-iconos');
-        span2.current.classList.add('c-activo-texto-iconos');
-
-        icon3.current.classList.remove('c-activo-iconos');
-        span3.current.classList.remove('c-activo-texto-iconos');
-
-
-        setcontenedorBotonNextTipoCompra(true)
-        setcontenedorBotonNextLocalizacion(false)
-
-        setContenedorPaso2TipoCompras(true);
-
-        setContenedorPaso3Localizaciones(false)
-
-        //Oculto un boton de volver y muestro el otro
-        setContenedorBotonReturnTipoCompra(true)
-        setContenedorBotonReturnLocalizaciones(false)
-
-    };
-
-
-    const SiguientePaso4Cuantia = () => {
-        //Se muestran las cuantias
-        icon4.current.classList.add('c-activo-iconos');
-        span4.current.classList.add('c-activo-texto-iconos');
-
-        icon3.current.classList.remove('c-activo-iconos');
-        span3.current.classList.remove('c-activo-texto-iconos');
-
-        setcontenedorBotonNextLocalizacion(false)
-        setContenedorBotonReturnLocalizaciones(false)
-
-        setContenedorPaso3Localizaciones(false)
-
-        setContenedorPaso4Cuantia(true)
-        setContenedorBotonReturnCuantia(true)
-
-        setcontenedorBotonNextCuantia(true)
-
-        //btn-next
-
-    };
-
-    const VolverPaso3Localizaciones = () => {
-
-        icon4.current.classList.remove('c-activo-iconos');
-        span4.current.classList.remove('c-activo-texto-iconos');
-
-        icon3.current.classList.add('c-activo-iconos');
-        span3.current.classList.add('c-activo-texto-iconos');
-
-        setContenedorBotonReturnCuantia(false)
-        setContenedorPaso4Cuantia(false)
-
-        setcontenedorBotonNextLocalizacion(true)
-        setContenedorBotonReturnLocalizaciones(true)
-
-        setContenedorPaso3Localizaciones(true)
-
-        setcontenedorBotonNextCuantia(false)
-
-    };
-
-
-    const SiguientePaso5Terminar = () => {
-
-
-        icon5.current.classList.add('c-activo-iconos');
-        span5.current.classList.add('c-activo-texto-iconos');
-
-        icon4.current.classList.remove('c-activo-iconos');
-        span4.current.classList.remove('c-activo-texto-iconos');
-
-        setcontenedorBotonNextCuantia(false)
-        setContenedorBotonReturnCuantia(false)
-
-        setContenedorPaso4Cuantia(false)
-
-        setContenedorPaso5(true)
-        setContenedorBotonGuardar(true)
-
-        setContenedorBotonReturnGuardar(true)
-
-    };
-
-    const VolverPaso4Cuantia = () => {
-
-
-        icon5.current.classList.remove('c-activo-iconos');
-        span5.current.classList.remove('c-activo-texto-iconos');
-
-        icon4.current.classList.add('c-activo-iconos');
-        span4.current.classList.add('c-activo-texto-iconos');
-
-        setcontenedorBotonNextCuantia(true)
-        setContenedorBotonReturnCuantia(true)
-
-        setContenedorPaso4Cuantia(true)
-
-        setContenedorPaso5(false)
-        setContenedorBotonGuardar(false)
-
-        setContenedorBotonReturnGuardar(false)
-
-
-    };
+    const [container, setContainer] = useState(1);
+
+    const changeContent = (id, type) =>{
+        if(type == "next"){
+            var last_id = id - 1
+        }else{
+            var last_id = id + 1
+        }
+        let current_icon = document.querySelector(`#icon${id}`)
+        let current_span = document.querySelector(`#span${id}`)
+        let last_icon = document.querySelector(`#icon${last_id}`)
+        let last_span = document.querySelector(`#span${last_id}`)
+
+        last_icon.classList.remove('c-activo-iconos');
+        last_span.classList.remove('c-activo-texto-iconos');
+        current_icon.classList.add('c-activo-iconos');
+        current_span.classList.add('c-activo-texto-iconos');
+
+        setContainer(id)
+    }
 
 
     const Guardar = () => {
@@ -436,23 +254,20 @@ const Index = ({
                                 </div> */}
 
                                 <div className="iconos-perfiles">
+                                    <i id="icon1" className="icon-Paso-1-click c-activo-iconos"> </i>{" "}
+                                    <span id="span1" className="c-activo-texto-iconos">Actividad económica</span>
 
-                                    <i ref={icon1} className="icon-Paso-1-click c-activo-iconos"> </i>{" "}
-                                    <span ref={span1} className="c-activo-texto-iconos">Actividad económica</span>
+                                    <i id="icon2" className="icon-Paso-2-click"></i>{" "}
+                                    <span id="span2" className="">Tipo de compra</span>
 
-                                    <i ref={icon2} className="icon-Paso-2-click" id="pleft2"></i>{" "}
-                                    <span ref={span2} className="">Tipo de compra</span>
+                                    <i id="icon3" className="icon-Paso-3-click"  ></i>{" "}
+                                    <span id="span3" className="">Localizaciones</span>
 
-                                    <i ref={icon3} className="icon-Paso-3-click" id="pleft2"  ></i>{" "}
-                                    <span ref={span3} className="">Localizaciones</span>
+                                    <i id="icon4" className="icon-Paso-4-click" ></i>{" "}
+                                    <span id="span4" className="">Rango de Cuantía</span>
 
-                                    <i ref={icon4} className="icon-Paso-4-click" id="pleft2" ></i>{" "}
-                                    <span ref={span4} className="">Rango de Cuantía</span>
-
-                                    <i ref={icon5} className="icon-Paso-5-click" id="pleft2" ></i>{" "}
-                                    <span ref={span5} className="">Paso 5</span>
-
-
+                                    <i id="icon5" className="icon-Paso-5-click" ></i>{" "}
+                                    <span id="span5" className="">Paso 5</span>
                                 </div>
                                 <div className="mx-60 mt-30 d-flex">
                                     {/* {contenedorBuscadorActividades && (
@@ -506,7 +321,7 @@ const Index = ({
                                 <br></br>
 
                                 <>{/* Paso 1*/}
-                                    {contenedorPaso1Actividades && (
+                                    {container == 1 && (
                                         <ActividadEconomica
                                             subcategorias={sectores}
                                             nameBuscador={"Busca por actividad económica o UNSPSC"}
@@ -517,7 +332,7 @@ const Index = ({
                                     )}
                                 </>
                                 <> {/* Paso 2 TIPO DE COMPRAS*/}
-                                    {contenedorPaso2TipoCompras && (
+                                    {container == 2 && (
                                         <ActividadEconomica
                                             subcategorias={tiposcompras}
                                             nameBuscador={"Buscar Tipo de Compra"}
@@ -529,7 +344,7 @@ const Index = ({
                                 </>
 
                                 <>{/* Paso 3 LOCALIZACIONES */}
-                                    {contenedorPaso3Localizaciones && (
+                                    {container == 3 && (
                                         <ActividadEconomica
                                             subcategorias={localizaciones}
                                             nameBuscador={"Buscar Localización"}
@@ -541,7 +356,7 @@ const Index = ({
                                 </>
 
                                 <>{/* Paso 4 Cuantia*/}
-                                    {contenedorPaso4Cuantia && (
+                                    {container == 4 && (
                                         <div className="perfil-cuantias">
                                             <div
                                                 id="campos-cuantias"
@@ -637,7 +452,7 @@ const Index = ({
 
                                 <> {/* Paso 5*/}
 
-                                    {contenedorPaso5 && (
+                                    {container == 5 && (
                                         <p>Paso 5</p>
                                     )}
                                 </>
@@ -648,81 +463,12 @@ const Index = ({
 
                     {/* BOTONES NEXT */}
                     <div className="perfil-bottons-footer position-relative text-center mt-4">
-
-                        <>{/* Next tipoCompra */}
-                            {contenedorBotonNextActividadEconomica && (
-                                <a
-                                    onClick={SiguientePaso2TipoCompra}
-                                    className="btn btnRadius btn-new-blue"
-                                    id="btn-next-ac"
-                                >
-                                    <span className="bloque__info-header-cuenta-text--modifier">
-                                        Siguiente
-                                    </span>
-                                </a>
-                            )}
-                        </>
-                        <>{/* Next Localizaciones */}
-                            {contenedorBotonNextTipoCompra && (
-                                <a
-                                    onClick={SiguientePaso3Localizacion}
-                                    className="btn btnRadius btn-new-blue"
-                                    id="btn-next-tc"
-                                >
-                                    <span className="bloque__info-header-cuenta-text--modifier">
-                                        Siguiente
-                                    </span>
-                                </a>
-                            )}
-                        </>
-                        <>{/* Next Cuantia */}
-                            {contenedorBotonNextLocalizacion && (
-                                <a
-                                    onClick={SiguientePaso4Cuantia}
-                                    className="btn btnRadius btn-new-blue"
-                                    id="btn-next-lc"
-                                >
-                                    <span className="bloque__info-header-cuenta-text--modifier">
-                                        Siguiente
-                                    </span>
-                                </a>
-                            )}
-                        </>
-                        <>{/* GUARDAR*/}
-                            {contenedorBotonGuardar && (
-                                <a
-                                    onClick={Guardar}
-                                    className="btn btnRadius btn-new-blue"
-                                    id="btn-next-cu"
-                                >
-                                    <span className="bloque__info-header-cuenta-text--modifier">
-                                        Guardar
-                                    </span>
-                                </a>
-                            )}
-                        </>
-
-                        <>{/* Next Terminar */}
-                            {contenedorBotonNextCuantia && (
-                                <a
-                                    onClick={SiguientePaso5Terminar}
-                                    className="btn btnRadius btn-new-blue"
-                                    id="btn-next-cu"
-                                >
-                                    <span className="bloque__info-header-cuenta-text--modifier">
-                                        Siguiente
-                                    </span>
-                                </a>
-                            )}
-                        </>
-
-
                         {/* BOTONES RETURN */}
 
                         <>{/* Volver ActividadesEconomicas */}
-                            {contenedorBotonReturnTipoCompra && (
+                            {container == 2 && (
                                 <a
-                                    onClick={VolverPaso1ActividadEconomica}
+                                    onClick={() => changeContent(1, 'previous')}
                                     className="btn btnRadius btn-new-blue"
                                     id="btn-return-tc"
                                 >
@@ -734,9 +480,9 @@ const Index = ({
                         </>
 
                         <>{/* Volver TipoCompra */}
-                            {contenedorBotonReturnLocalizaciones && (
+                            {container == 3 && (
                                 <a
-                                    onClick={VolverPaso2TipoCompra}
+                                    onClick={() => changeContent(2, 'previous')}
                                     className="btn btnRadius btn-new-blue"
                                     id="btn-return-lc"
                                 >
@@ -748,9 +494,9 @@ const Index = ({
                         </>
 
                         <>{/* Volver Localizaciones */}
-                            {contenedorBotonReturnCuantia && (
+                            {container == 4 && (
                                 <a
-                                    onClick={VolverPaso3Localizaciones}
+                                    onClick={() => changeContent(3, 'previous')}
                                     className="btn btnRadius btn-new-blue"
                                     id="btn-return-cu"
                                 >
@@ -762,9 +508,9 @@ const Index = ({
                         </>
 
                         <>{/* Volver Cuantia */}
-                            {contenedorBotonReturnGuardar && (
+                            {container == 5 && (
                                 <a
-                                    onClick={VolverPaso4Cuantia}
+                                    onClick={() => changeContent(4, 'previous')}
                                     className="btn btnRadius btn-new-blue"
                                     id="btn-return-te"
                                 >
@@ -775,7 +521,71 @@ const Index = ({
                             )}
                         </>
 
-
+                        <>{/* Next tipoCompra */}
+                            {container == 1 && (
+                                <a
+                                    onClick={() => changeContent(2, 'next')}
+                                    className="btn btnRadius btn-new-blue"
+                                    id="btn-next-ac"
+                                >
+                                    <span className="bloque__info-header-cuenta-text--modifier">
+                                        Siguiente
+                                    </span>
+                                </a>
+                            )}
+                        </>
+                        <>{/* Next Localizaciones */}
+                            {container == 2 && (
+                                <a
+                                    onClick={() => changeContent(3, 'next')}
+                                    className="btn btnRadius btn-new-blue"
+                                    id="btn-next-tc"
+                                >
+                                    <span className="bloque__info-header-cuenta-text--modifier">
+                                        Siguiente
+                                    </span>
+                                </a>
+                            )}
+                        </>
+                        <>{/* Next Cuantia */}
+                            {container == 3 && (
+                                <a
+                                    onClick={() => changeContent(4, 'next')}
+                                    className="btn btnRadius btn-new-blue"
+                                    id="btn-next-lc"
+                                >
+                                    <span className="bloque__info-header-cuenta-text--modifier">
+                                        Siguiente
+                                    </span>
+                                </a>
+                            )}
+                        </>
+                        <>{/* Next Terminar */}
+                            {container == 4 && (
+                                <a
+                                    onClick={() => changeContent(5, 'next')}
+                                    className="btn btnRadius btn-new-blue"
+                                    id="btn-next-cu"
+                                >
+                                    <span className="bloque__info-header-cuenta-text--modifier">
+                                        Siguiente
+                                    </span>
+                                </a>
+                            )}
+                        </>
+                        <>{/* GUARDAR*/}
+                            {container == 5 && (
+                                <a
+                                    onClick={Guardar}
+                                    className="btn btnRadius btn-new-blue"
+                                    id="btn-next-cu"
+                                >
+                                    <span className="bloque__info-header-cuenta-text--modifier">
+                                        Guardar
+                                    </span>
+                                </a>
+                            )}
+                        </>
                     </div>
                 </div>
             </div>
