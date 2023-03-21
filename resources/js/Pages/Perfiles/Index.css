@@ -211,6 +211,12 @@ body {
     padding-left: 2%;
 }
 
+.iconos-perfiles div:first-child:before {
+    height: 0;
+    width: 0;
+    margin: 0;
+}
+
 .perfil-guias ul {
     margin: 0;
     padding: 0;
@@ -248,6 +254,25 @@ body {
     display: inline-block;
     line-height: 15px !important;
     font-weight: bold;
+}
+
+.perfil-guias__indicador:before {
+    content: "";
+    display: inline-block;
+    vertical-align: top;
+    width: 32px;
+    height: 2px;
+    margin-top: 1px;
+    margin-right: 16px;
+    background-image: -webkit-gradient(linear,left top,right top,from(#d7d7d7),color-stop(50%,#d7d7d7),color-stop(50%,transparent));
+    background-image: linear-gradient(90deg,#d7d7d7 0,#d7d7d7 50%,transparent 0);
+    background-size: 6px 4px;
+    background-repeat: repeat-x;
+}
+
+.perfil-guias__indicador--activo:before {
+    background-image: -webkit-gradient(linear,left top,right top,from(#73c914),color-stop(50%,#73c914),color-stop(50%,transparent));
+    background-image: linear-gradient(90deg,#73c914 0,#73c914 50%,transparent 0);
 }
 
 button.icon-Buscar-click {
@@ -398,7 +423,7 @@ span.slider.round {
     align-items: center;
     margin-right: 16px;
     cursor: pointer;
-    justify-content: left;
+    justify-content: center;
 }
 
 .iconos-perfiles i {

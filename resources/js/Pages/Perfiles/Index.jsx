@@ -31,14 +31,6 @@ const Index = ({
     const [toastIcon, setToastIcon] = useState("");
     const [sectores, setSectores] = useState(actividades_economicas);
 
-
-    let [total_array_checks_actividades, setTotal_array_checks_actividades] = useState([]);
-    let [total_array_checks_tipo_compras, setTotal_array_checks_tipo_compra] = useState([]);
-    let [total_array_checks_localizaciones, setTotal_array_checks_localizaciones] = useState([]);
-
-    let [copia_actividades, setCopia_actividades] = useState([]);
-
-
     const [checkedsActividadesEconomicas, setCheckedsActividadesEconomicas] = useState([])
     const [checkedsLocalizaciones, setCheckedsLocalizaciones] = useState([])
     const [checkedsTiposCompras, setCheckedsTiposCompras] = useState([])
@@ -64,24 +56,11 @@ const Index = ({
     }
 
     const [container, setContainer] = useState(1);
+    const [iconosPerfiles, setIconosPerfiles] = useState([]);
 
-    const changeContent = (id, type) =>{
-        if(type == "next"){
-            var last_id = id - 1
-        }else{
-            var last_id = id + 1
-        }
-        let current_icon = document.querySelector(`#icon${id}`)
-        let current_span = document.querySelector(`#span${id}`)
-        let last_icon = document.querySelector(`#icon${last_id}`)
-        let last_span = document.querySelector(`#span${last_id}`)
-
-        last_icon.classList.remove('c-activo-iconos');
-        last_span.classList.remove('c-activo-texto-iconos');
-        current_icon.classList.add('c-activo-iconos');
-        current_span.classList.add('c-activo-texto-iconos');
-
+    const changeContent = (id) => {
         setContainer(id)
+        setIconosPerfiles([...iconosPerfiles, id])
     }
 
 
@@ -222,16 +201,6 @@ const Index = ({
 
             <div className="contenedor-planes">
                 <div className="bg-white overflow-auto w-full text-center margen-superior custom-scroll">
-                    {/* <h2 className="name_section_app">Crear perfil de negocio</h2>
-                    <div className="perfil-guias">
-                        <ul>
-                            <li>
-                                <div className="perfil-guias__indicador perfil-guias__indicador--activo">
-                                    <i className="icon-Paso-1-click"></i> <span>Actividad económica</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div> */}
                     <h2 className="perfiles-titulos crear">
                         <span className="c-verde">Crea</span> tu primer perfil
                         de negocio
@@ -239,86 +208,36 @@ const Index = ({
                     <div className="container mt-4">
                         <div className="tree_categorias tree_1">
                             <div className="tree_categorias__busqueda mb-3 mb-md-4">
-                                {/* <div className="mx-auto">
-                                    <input
-                                        type="text"
-                                        placeholder="Busca por actividad económica o UNSPSC"
-                                        autocomplete="off"
-                                        className="form-control"
-                                        onKeyDown={
-                                            inputSearchActividadEconomica
-                                        }
-                                    />
-                                    <i className="icon-Cancelar" style="display: none;"></i>
-                                    <button type="button" className="icon-Buscar-click"></button>
-                                </div> */}
-
                                 <div className="iconos-perfiles">
-                                    <i id="icon1" className="icon-Paso-1-click c-activo-iconos"> </i>{" "}
-                                    <span id="span1" className="c-activo-texto-iconos">Actividad económica</span>
-
-                                    <i id="icon2" className="icon-Paso-2-click"></i>{" "}
-                                    <span id="span2" className="">Tipo de compra</span>
-
-                                    <i id="icon3" className="icon-Paso-3-click"  ></i>{" "}
-                                    <span id="span3" className="">Localizaciones</span>
-
-                                    <i id="icon4" className="icon-Paso-4-click" ></i>{" "}
-                                    <span id="span4" className="">Rango de Cuantía</span>
-
-                                    <i id="icon5" className="icon-Paso-5-click" ></i>{" "}
-                                    <span id="span5" className="">Paso 5</span>
+                                    <div className="perfil-guias__indicador" onClick={() => changeContent(1)}>
+                                        <i id="icon1" className={`icon-Paso-1-click ${ container == 1 ? "c-activo-iconos" : ""}`}> </i>{" "}
+                                        <span id="span1" className={`${ container == 1 ? "c-activo-texto-iconos" : ""}`}>Actividad económica</span>
+                                    </div>
+                                    {iconosPerfiles.includes(2) && (
+                                        <div className={`perfil-guias__indicador ${container == 2 ? "perfil-guias__indicador--activo" : ""}`} onClick={() => changeContent(2)}>
+                                            <i id="icon2" className={`icon-Paso-2-click ${ container == 2 ? "c-activo-iconos" : ""}`} ></i>{" "}
+                                            <span id="span2" className={`${ container == 2 ? "c-activo-texto-iconos" : ""}`}>Tipo de compra</span>
+                                        </div>
+                                    )}
+                                    {iconosPerfiles.includes(3) && (
+                                        <div className={`perfil-guias__indicador ${container == 3 ? "perfil-guias__indicador--activo" : ""}`} onClick={() => changeContent(3)}>
+                                            <i id="icon3" className={`icon-Paso-3-click ${ container == 3 ? "c-activo-iconos" : ""}`}></i>{" "}
+                                            <span id="span3" className={`${ container == 3 ? "c-activo-texto-iconos" : ""}`}>Localizaciones</span>
+                                        </div>
+                                    )}
+                                    {iconosPerfiles.includes(4) && (
+                                        <div className={`perfil-guias__indicador ${container == 4 ? "perfil-guias__indicador--activo" : ""}`} onClick={() => changeContent(4)}>
+                                            <i id="icon4" className={`icon-Paso-4-click ${ container == 4 ? "c-activo-iconos" : ""}`}></i>{" "}
+                                            <span id="span4" className={`${ container == 4 ? "c-activo-texto-iconos" : ""}`}>Rango de Cuantía</span>
+                                        </div>
+                                    )}
+                                    {iconosPerfiles.includes(5) && (
+                                        <div className={`perfil-guias__indicador ${container == 5 ? "perfil-guias__indicador--activo" : ""}`} onClick={() => changeContent(5)}>
+                                            <i id="icon5" className={`icon-Paso-5-click ${ container == 5 ? "c-activo-iconos" : ""}`}></i>{" "}
+                                            <span id="span5" className={`${ container == 5 ? "c-activo-texto-iconos" : ""}`}>Paso 5</span>
+                                        </div>
+                                    )}
                                 </div>
-                                <div className="mx-60 mt-30 d-flex">
-                                    {/* {contenedorBuscadorActividades && (
-                                        <>
-                                            <button
-                                                button
-                                                type="button"
-                                                className="icon-Buscar-click"
-                                            ></button>
-                                            <input
-                                                type="text"
-                                                placeholder="Busca por actividad económica o UNSPSC"
-                                                autoComplete="off"
-                                                className="form-control busqueda-input"
-                                                onKeyDown={
-                                                    inputSearchActividadEconomica
-                                                }
-                                            />
-                                        </>
-                                    )} */}
-
-                                    {/*  {contenedorBuscadorTipoCompras && (
-                                        <>
-                                            <input
-                                                type="text"
-                                                placeholder="Buscar tipo de compra"
-                                                autoComplete="off"
-                                                className="form-control m-auto"
-                                                onKeyDown={
-                                                    inputSearchTipoCompra
-                                                }
-                                            />
-                                        </>
-                                    )} */}
-                                    {/* 
-                                    {contenedorBuscadorLocalizaciones && (
-                                        <>
-                                            <input
-                                                type="text"
-                                                placeholder="Buscar localizacion"
-                                                autoComplete="off"
-                                                className="form-control m-auto"
-                                                onKeyDown={
-                                                    inputSearchLocalizaiones
-                                                }
-                                            />
-                                        </>
-                                    )} */}
-
-                                </div>
-                                <br></br>
 
                                 <>{/* Paso 1*/}
                                     {container == 1 && (
@@ -468,7 +387,7 @@ const Index = ({
                         <>{/* Volver ActividadesEconomicas */}
                             {container == 2 && (
                                 <a
-                                    onClick={() => changeContent(1, 'previous')}
+                                    onClick={() => changeContent(1)}
                                     className="btn btnRadius btn-new-blue"
                                     id="btn-return-tc"
                                 >
@@ -482,7 +401,7 @@ const Index = ({
                         <>{/* Volver TipoCompra */}
                             {container == 3 && (
                                 <a
-                                    onClick={() => changeContent(2, 'previous')}
+                                    onClick={() => changeContent(2)}
                                     className="btn btnRadius btn-new-blue"
                                     id="btn-return-lc"
                                 >
@@ -496,7 +415,7 @@ const Index = ({
                         <>{/* Volver Localizaciones */}
                             {container == 4 && (
                                 <a
-                                    onClick={() => changeContent(3, 'previous')}
+                                    onClick={() => changeContent(3)}
                                     className="btn btnRadius btn-new-blue"
                                     id="btn-return-cu"
                                 >
@@ -510,7 +429,7 @@ const Index = ({
                         <>{/* Volver Cuantia */}
                             {container == 5 && (
                                 <a
-                                    onClick={() => changeContent(4, 'previous')}
+                                    onClick={() => changeContent(4)}
                                     className="btn btnRadius btn-new-blue"
                                     id="btn-return-te"
                                 >
@@ -524,7 +443,7 @@ const Index = ({
                         <>{/* Next tipoCompra */}
                             {container == 1 && (
                                 <a
-                                    onClick={() => changeContent(2, 'next')}
+                                    onClick={() => changeContent(2)}
                                     className="btn btnRadius btn-new-blue"
                                     id="btn-next-ac"
                                 >
@@ -537,7 +456,7 @@ const Index = ({
                         <>{/* Next Localizaciones */}
                             {container == 2 && (
                                 <a
-                                    onClick={() => changeContent(3, 'next')}
+                                    onClick={() => changeContent(3)}
                                     className="btn btnRadius btn-new-blue"
                                     id="btn-next-tc"
                                 >
@@ -550,7 +469,7 @@ const Index = ({
                         <>{/* Next Cuantia */}
                             {container == 3 && (
                                 <a
-                                    onClick={() => changeContent(4, 'next')}
+                                    onClick={() => changeContent(4)}
                                     className="btn btnRadius btn-new-blue"
                                     id="btn-next-lc"
                                 >
@@ -563,7 +482,7 @@ const Index = ({
                         <>{/* Next Terminar */}
                             {container == 4 && (
                                 <a
-                                    onClick={() => changeContent(5, 'next')}
+                                    onClick={() => changeContent(5)}
                                     className="btn btnRadius btn-new-blue"
                                     id="btn-next-cu"
                                 >
