@@ -5,19 +5,13 @@ import "./Index.css";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 import "../../../css/estilos-toast.css";
-import "../../../css/font-unicolor.css";
-
-import "../../../css/font-web.css";
 
 import ActividadEconomica from "@/Components/ActividadEconomica";
 /*Toast*/
 
 /* HEADER*/
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import Container from "react-bootstrap/Container";
-import ApplicationLogoLici from "@/Components/ApplicationLogoLici";
-import ModalLoginSesion from "@/Components/Modals/ModalLoginSesion";
+import { Head, useForm } from "@inertiajs/inertia-react";
+import Header from "@/Components/Header/HeaderLite";
 /* HEADER*/
 
 const Index = ({
@@ -104,71 +98,8 @@ const Index = ({
 
     return (
         <>
-
-            <> {/*   header */}
-                <div className="contenido_headerLite--margin-top">
-                    <Navbar
-                        collapseOnSelect
-                        expand="lg"
-                        bg="white"
-                        variant="dark"
-                        className="container-headerPublica"
-                    >
-                        <Container>
-                            <Navbar.Brand href="#home">
-                                <a href="/" className="flex items-center">
-                                    <ApplicationLogoLici />
-                                </a>
-                            </Navbar.Brand>
-                            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-
-                            <Navbar.Collapse id="responsive-navbar-nav">
-                                <Nav className="me-auto">
-                                    <Nav.Link className="menu-header"></Nav.Link>
-                                    <Nav.Link className="menu-header"></Nav.Link>
-                                    <Nav.Link className="menu-header"></Nav.Link>
-                                    <Nav.Link className="menu-header"></Nav.Link>
-                                </Nav>
-                                <Nav>
-                                    <ul className="mb-2 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 ">
-                                        <>
-                                            {/* <Nav.Link> */}
-                                            <li>
-                                                <a
-                                                    className="flex  items-center ml-4 text-iniciar"
-                                                    onClick={handleShowLS}
-                                                >
-                                                    <span className="mr-2 icon-login"></span>
-                                                    Iniciar sesión
-                                                </a>
-                                                <ModalLoginSesion
-                                                    showLS={showLS}
-                                                    handleCloseLS={
-                                                        handleCloseLS
-                                                    }
-                                                ></ModalLoginSesion>
-                                            </li>
-                                            {/* </Nav.Link> */}
-
-                                            <hr className="division-header header-lite"></hr>
-
-                                            <Nav.Link
-                                                href="/contacto"
-                                                className="flex  items-center ml-4 text-contactanos"
-                                            >
-                                                <span className="mr-2 icon-contacto"></span>
-                                                Contáctanos
-                                            </Nav.Link>
-                                        </>
-
-                                    </ul>
-                                </Nav>
-                            </Navbar.Collapse>
-                        </Container>
-                    </Navbar>
-                </div>
-            </>
-            {/*   header */}
+            <Head title="Perfiles" />
+            <Header user={auth}></Header>
 
             <ToastContainer position="bottom-start">
                 <Toast
@@ -210,31 +141,31 @@ const Index = ({
                             <div className="tree_categorias__busqueda mb-3 mb-md-4">
                                 <div className="iconos-perfiles">
                                     <div className="perfil-guias__indicador" onClick={() => changeContent(1)}>
-                                        <i id="icon1" className={`icon-Paso-1-click ${ container == 1 ? "c-activo-iconos" : ""}`}> </i>{" "}
-                                        <span id="span1" className={`${ container == 1 ? "c-activo-texto-iconos" : ""}`}>Actividad económica</span>
+                                        <i id="icon1" className={`icon-Paso-1-click ${container == 1 ? "c-activo-iconos" : ""}`}> </i>{" "}
+                                        <span id="span1" className={`${container == 1 ? "c-activo-texto-iconos" : ""}`}>Actividad económica</span>
                                     </div>
                                     {iconosPerfiles.includes(2) && (
                                         <div className={`perfil-guias__indicador ${container == 2 ? "perfil-guias__indicador--activo" : ""}`} onClick={() => changeContent(2)}>
-                                            <i id="icon2" className={`icon-Paso-2-click ${ container == 2 ? "c-activo-iconos" : ""}`} ></i>{" "}
-                                            <span id="span2" className={`${ container == 2 ? "c-activo-texto-iconos" : ""}`}>Tipo de compra</span>
+                                            <i id="icon2" className={`icon-Paso-2-click ${container == 2 ? "c-activo-iconos" : ""}`} ></i>{" "}
+                                            <span id="span2" className={`${container == 2 ? "c-activo-texto-iconos" : ""}`}>Tipo de compra</span>
                                         </div>
                                     )}
                                     {iconosPerfiles.includes(3) && (
                                         <div className={`perfil-guias__indicador ${container == 3 ? "perfil-guias__indicador--activo" : ""}`} onClick={() => changeContent(3)}>
-                                            <i id="icon3" className={`icon-Paso-3-click ${ container == 3 ? "c-activo-iconos" : ""}`}></i>{" "}
-                                            <span id="span3" className={`${ container == 3 ? "c-activo-texto-iconos" : ""}`}>Localizaciones</span>
+                                            <i id="icon3" className={`icon-Paso-3-click ${container == 3 ? "c-activo-iconos" : ""}`}></i>{" "}
+                                            <span id="span3" className={`${container == 3 ? "c-activo-texto-iconos" : ""}`}>Localizaciones</span>
                                         </div>
                                     )}
                                     {iconosPerfiles.includes(4) && (
                                         <div className={`perfil-guias__indicador ${container == 4 ? "perfil-guias__indicador--activo" : ""}`} onClick={() => changeContent(4)}>
-                                            <i id="icon4" className={`icon-Paso-4-click ${ container == 4 ? "c-activo-iconos" : ""}`}></i>{" "}
-                                            <span id="span4" className={`${ container == 4 ? "c-activo-texto-iconos" : ""}`}>Rango de Cuantía</span>
+                                            <i id="icon4" className={`icon-Paso-4-click ${container == 4 ? "c-activo-iconos" : ""}`}></i>{" "}
+                                            <span id="span4" className={`${container == 4 ? "c-activo-texto-iconos" : ""}`}>Rango de Cuantía</span>
                                         </div>
                                     )}
                                     {iconosPerfiles.includes(5) && (
                                         <div className={`perfil-guias__indicador ${container == 5 ? "perfil-guias__indicador--activo" : ""}`} onClick={() => changeContent(5)}>
-                                            <i id="icon5" className={`icon-Paso-5-click ${ container == 5 ? "c-activo-iconos" : ""}`}></i>{" "}
-                                            <span id="span5" className={`${ container == 5 ? "c-activo-texto-iconos" : ""}`}>Paso 5</span>
+                                            <i id="icon5" className={`icon-Paso-5-click ${container == 5 ? "c-activo-iconos" : ""}`}></i>{" "}
+                                            <span id="span5" className={`${container == 5 ? "c-activo-texto-iconos" : ""}`}>Paso 5</span>
                                         </div>
                                     )}
                                 </div>

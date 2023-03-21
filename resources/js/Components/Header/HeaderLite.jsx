@@ -10,6 +10,8 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import ModalLoginSesion from "@/Components/Modals/ModalLoginSesion";
 
+import "@fontsource/poppins";
+
 const HeaderLite = (props) => {
     const [showLS, setShowLS] = useState(false);
     const handleCloseLS = () => setShowLS(false);
@@ -66,7 +68,7 @@ const HeaderLite = (props) => {
                             </Nav>
                             <Nav>
                                 <ul className="mb-2 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 ">
-                                    {props.user.auth.user ? (
+                                    {props?.user?.auth?.user ? (
                                         <>
                                             {/* <Nav.Link href="#deets"> */}
                                             <li>
