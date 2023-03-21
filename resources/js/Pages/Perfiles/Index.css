@@ -486,3 +486,7 @@ span.slider.round {
 .text-probar {
     display: none;
 }
+
+.tree_categorias__busqueda input{
+    color: #686868;
+}
