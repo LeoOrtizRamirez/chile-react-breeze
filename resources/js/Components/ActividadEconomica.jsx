@@ -630,7 +630,6 @@ element.id_padre_sub_categoria
 
     const getInputsCheckMinusClass = () =>{
         let check_minus_array = [];
-        console.log(checksActividadesEconomicas)
         //Añadir clase check-minus a los padres de las actividades economicas seleccionadas
         checksActividadesEconomicas.forEach((el) => {
             if (isType(el, "actividades_economicas")) {
