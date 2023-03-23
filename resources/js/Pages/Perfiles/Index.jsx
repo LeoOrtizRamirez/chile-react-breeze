@@ -303,7 +303,93 @@ const Index = ({
                                 <> {/* Paso 5*/}
 
                                     {container == 5 && (
-                                        <p>Paso 5</p>
+                                        <div className="perfil-preferencia">
+                                            <div className="row pt-3 justify-content-center pb-lg-4">
+                                                <div className="col-xs-12 col-sm-12 col-xl-6 px-4 contenedor-general row">
+                                                    <div className="col-3 col-md-3 col-xl-3">
+                                                        <div className="imagen">
+                                                            <img src="/images/perfil-invisible.svg" alt="Avatar" className="imagen__avatar" />
+                                                            <button className="imagen__cambiar-avatar-button">
+                                                                <span className="icon-Editar"></span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-9 col-md-9 col-xl-9">
+                                                        <div className="perfil-preferencia__form1">
+                                                            <label id="nombre" className="perfil-preferencia__labels">Dale un nombre a tu perfil:</label>
+                                                            <input type="text" name="nombre" data-vv-as="nombre perfil" className="form-control inputs_form padd-peq is-invalid mb-0" required />
+                                                            <div className="invalid-feedback mb-3">El campo nombre perfil es obligatorio.</div>
+                                                            <label id="descripcion" className="perfil-preferencia__labels">Descripción del perfil (opcional):</label>
+                                                            <textarea type="text" name="descripcion" rows="3" className="form-control inputs_form"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-xs-12 col-sm-12 col-xl-6 px-4 contenedor-general__derecha">
+                                                    <div className="perfil-preferencia__historico pb-4 pb-lg-0 px-3 px-md-0">
+                                                        <div className="align-items-center d-flex justify-content-between perfil-preferencia__historico-row mb-3">
+                                                            <div className="perfil-preferencia__historico-row__icon d-flex">
+                                                                <img src="/images/Web/icon-Historico.svg" alt="" width={30}/>
+                                                                <label>Histórico de procesos de contratación:</label>
+                                                            </div>
+                                                            <div className="perfil-preferencia__historico-row__toggleb">
+                                                                <label class="switch">
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        checked={
+                                                                            switchCuantia
+                                                                        }
+                                                                        onClick={() =>
+                                                                            setSwitchCuantia(
+                                                                                !switchCuantia
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div className="align-items-center d-flex perfil-preferencia__historico-row mb-3">
+                                                            <div className="perfil-preferencia__historico-row__span">
+                                                                <span className="perfil-preferencia__fecha-historico from-label">Desde: </span>
+                                                            </div>
+                                                            <div className="perfil-preferencia__historico-row__input d-flex">
+                                                                <input type="date" className="perfil-preferencia__fecha-historico_input" />
+                                                                <button className="btn btnRadius btn-new-blue button_change_date">
+                                                                    <i className="icon-Cambiar"></i> Cambiar fecha
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="perfil-preferencia__form1">
+                                                        <div className="align-items-center d-flex justify-content-between perfil-preferencia__historico-row mb-3">
+                                                            <div className="perfil-preferencia__historico-row__icon d-flex">
+                                                                <img src="/images/Web/icon-Email-noti.svg" alt="" width={30}/>
+                                                                <label>Notificaciones a tu email:</label>
+                                                            </div>
+                                                            <div className="perfil-preferencia__historico-row__toggleb">
+                                                                <label class="switch">
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        checked={
+                                                                            switchCuantia
+                                                                        }
+                                                                        onClick={() =>
+                                                                            setSwitchCuantia(
+                                                                                !switchCuantia
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div className="alineamiento-label d-flex pb-3 pb-lg-0 px-3 px-md-0">
+                                                            <p className="mr5 text-justify">Te notificaríamos en tu <span className="text_color">correo</span> cuando encontremos una oportunidad que coincida con este perfil.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     )}
                                 </>
 
