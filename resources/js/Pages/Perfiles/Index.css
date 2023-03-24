@@ -663,4 +663,10 @@ html {
     border-radius: 15px;
 }
 
+#perfiles .perfil-bottons-footer a {
+    margin-right: 3rem;
+}
 
+#perfiles .perfil-bottons-footer a:last-child {
+    margin-right: 0px;
+}

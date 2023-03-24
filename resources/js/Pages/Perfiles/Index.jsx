@@ -106,13 +106,18 @@ const Index = ({
     const btnCambiarFecha = useRef("")
 
     useEffect(() => {
-        if (inputFechaHistorico.current != null) {
-            let now = new Date();
-            let day = ("0" + now.getDate()).slice(-2);
-            let month = ("0" + (now.getMonth() + 1)).slice(-2);
-            let today = now.getFullYear() + "-" + (month) + "-" + (day);
+        
+        if (inputFechaHistorico?.current?.value != null) {
+            var d = new Date();
+            console.log(restarDias(d, 92));
+            inputFechaHistorico.current.value = restarDias(d, -1).toISOString().split('T')[0]
         }
     }, [changeContent])
+
+    const restarDias = (fecha, dias) =>{
+        fecha.setDate(fecha.getDate() - dias);
+        return fecha;
+    }
 
     const onHandleSwitchHistorico = (e) => {
         if (e.target.checked) {
@@ -148,18 +153,6 @@ const Index = ({
 
 
     const Guardar = () => {
-
-        console.log('actividades_economicas', checkedsActividadesEconomicas)
-        console.log('tipos_compras', checkedsTiposCompras)
-        console.log('localizaciones', checkedsLocalizaciones)
-        console.log('cuantia_desde', cuantiaDesde)
-        console.log('cuantia_hasta', cuantiaHasta)
-        console.log('nombre', inputNombrePerfil)
-        console.log('descripcion', inputDescripcionPerfil)
-        console.log('sin_presupuesto', switchSinPresupuestoAsignado)
-        console.log('historico_contratacion', switchHistorico)
-        console.log('notificaciones_email', switchEmail)
-
         var payload = {
             'actividades_economicas': checkedsActividadesEconomicas,
             'tipos_compras': checkedsTiposCompras,
@@ -172,9 +165,6 @@ const Index = ({
             'historico_contratacion': switchHistorico,
             'envio_alertas': switchEmail,
         };
-
-        console.log(payload)
-
         var token = document.querySelector('meta[name="csrf-token"]')
         axios.post('/grupo-filtro-usuarios/store', {
             data: payload
@@ -189,42 +179,6 @@ const Index = ({
         .catch(error => {
             console.log('error')
         });
-
-        /* const asyncPostCall = async () => {
-            try {
-                const config = {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        'actividades_economicas': checkedsActividadesEconomicas,
-                        'tipos_compras': checkedsTiposCompras,
-                        'localizaciones': checkedsLocalizaciones,
-                        'cuantia_desde': cuantiaDesde,
-                        'cuantia_hasta': cuantiaHasta,
-                        'nombre': inputNombrePerfil,
-                        'descripcion': inputDescripcionPerfil,
-                        'sin_presupuesto': switchSinPresupuestoAsignado,
-                        'historico_contratacion': switchHistorico,
-                        'notificaciones_email': switchEmail,
-                    })
-                }
-                const response = await fetch('grupo-filtro-usuarios/store', config)
-                //const json = await response.json()
-                if (response.ok) {
-                    //return json
-                    return response
-                } else {
-                    //
-                }
-            } catch (error) {
-                //
-            }
-        }
-
-        asyncPostCall(); */
     };
 
     return (
