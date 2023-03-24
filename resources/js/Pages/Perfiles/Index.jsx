@@ -14,6 +14,11 @@ import { Head, useForm } from "@inertiajs/inertia-react";
 import Header from "@/Components/Header/HeaderLite";
 /* HEADER*/
 
+import Modal from 'react-bootstrap/Modal';
+
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+
 const Index = ({
     auth,
     actividades_economicas,
@@ -105,16 +110,13 @@ const Index = ({
     const inputFechaHistorico = useRef("")
     const btnCambiarFecha = useRef("")
 
-    useEffect(() => {
-        
+/*     useEffect(() => {
         if (inputFechaHistorico?.current?.value != null) {
-            var d = new Date();
-            console.log(restarDias(d, 92));
-            inputFechaHistorico.current.value = restarDias(d, -1).toISOString().split('T')[0]
+            inputFechaHistorico.current.value = restarDias(new Date(), 91).toISOString().split('T')[0]
         }
-    }, [changeContent])
+    }, [changeContent]) */
 
-    const restarDias = (fecha, dias) =>{
+    const restarDias = (fecha, dias) => {
         fecha.setDate(fecha.getDate() - dias);
         return fecha;
     }
@@ -122,17 +124,18 @@ const Index = ({
     const onHandleSwitchHistorico = (e) => {
         if (e.target.checked) {
             btnCambiarFecha.current.style.display = 'block'
-            inputFechaHistorico.current.value = ''
             inputFechaHistorico.current.classList.remove('disabled')
+            setFechaHistorico(date.toISOString().split('T')[0])
         } else {
             btnCambiarFecha.current.style.display = 'none'
-            inputFechaHistorico.current.value = 'Sin Historico'
             inputFechaHistorico.current.classList.add('disabled')
+            setFechaHistorico('Sin Historico')
         }
     }
 
     const [inputNombrePerfil, setInputNombrePerfil] = useState("")
     const [inputDescripcionPerfil, setInputDescripcionPerfil] = useState("")
+    const [fechaHistorico, setFechaHistorico] = useState("")
 
     const handleClickOutside = (event) => {
         if (inputNombrePerfil.current && !inputNombrePerfil.current.contains(event.target)) {
@@ -173,13 +176,27 @@ const Index = ({
                 'Authorization': `Bearer ${token.content}`
             }
         })
-        .then(response => {
-            console.log(response)
-        })
-        .catch(error => {
-            console.log('error')
-        });
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error => {
+                console.log('error')
+            });
     };
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+
+    const [date, setDate] = useState(
+        restarDias(new Date(), 91)
+    );
+
+    useEffect(()=>{
+        setFechaHistorico(date.toISOString().split('T')[0])
+    },[date])
 
     return (
         <>
@@ -348,24 +365,24 @@ const Index = ({
                                                     </div>
                                                 </div>
                                                 {toggleSwitchCuantiaDesde && (
-                                                    <div class="align-items-center col-11 col-lg-8 col-md-9 col-sm-10 justify-content-between campos-cuantias__block row">
-                                                        <div class="col-8 p-0">
+                                                    <div className="align-items-center col-11 col-lg-8 col-md-9 col-sm-10 justify-content-between campos-cuantias__block row">
+                                                        <div className="col-8 p-0">
                                                             <p>
                                                                 ¿Deseas incluir
                                                                 contratos{" "}
-                                                                <span class="text_color">
+                                                                <span className="text_color">
                                                                     sin presupuesto
                                                                     asignado
                                                                 </span>{" "}
                                                                 o con cuantía de{" "}
-                                                                <span class="text_color">
+                                                                <span className="text_color">
                                                                     $0
                                                                 </span>{" "}
                                                                 en este perfil?
                                                             </p>
                                                         </div>
-                                                        <div class="col-3 text-center">
-                                                            <label class="switch">
+                                                        <div className="col-3 text-center">
+                                                            <label className="switch">
                                                                 <input
                                                                     type="checkbox"
                                                                     checked={
@@ -377,7 +394,7 @@ const Index = ({
                                                                         )
                                                                     }
                                                                 />
-                                                                <span class="slider round"></span>
+                                                                <span className="slider round"></span>
                                                             </label>
                                                         </div>
                                                     </div>
@@ -433,7 +450,7 @@ const Index = ({
                                                                     <label>Histórico de procesos de contratación:</label>
                                                                 </div>
                                                                 <div className="perfil-preferencia__historico-row__toggleb">
-                                                                    <label class="switch">
+                                                                    <label className="switch">
                                                                         <input
                                                                             type="checkbox"
                                                                             checked={
@@ -446,7 +463,7 @@ const Index = ({
                                                                             }
                                                                             onChange={onHandleSwitchHistorico}
                                                                         />
-                                                                        <span class="slider round"></span>
+                                                                        <span className="slider round"></span>
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -455,8 +472,11 @@ const Index = ({
                                                                     <span className="perfil-preferencia__fecha-historico from-label">Desde: </span>
                                                                 </div>
                                                                 <div className="perfil-preferencia__historico-row__input d-flex">
-                                                                    <input disabled ref={inputFechaHistorico} name='fecha_historico' className="perfil-preferencia__fecha-historico_input" />
-                                                                    <button ref={btnCambiarFecha} className="btn btnRadius btn-new-blue button_change_date">
+                                                                    <input disabled ref={inputFechaHistorico} value={fechaHistorico} name='fecha_historico' className="perfil-preferencia__fecha-historico_input" />
+                                                                    <button
+                                                                        ref={btnCambiarFecha}
+                                                                        className="btn btnRadius btn-new-blue button_change_date"
+                                                                        onClick={handleShow}>
                                                                         <i className="icon-Cambiar"></i> Cambiar fecha
                                                                     </button>
                                                                 </div>
@@ -469,7 +489,7 @@ const Index = ({
                                                                     <label>Notificaciones a tu email:</label>
                                                                 </div>
                                                                 <div className="perfil-preferencia__historico-row__toggleb">
-                                                                    <label class="switch">
+                                                                    <label className="switch">
                                                                         <input
                                                                             className="Activado"
                                                                             type="checkbox"
@@ -482,7 +502,7 @@ const Index = ({
                                                                                 )
                                                                             }
                                                                         />
-                                                                        <span class="slider round"></span>
+                                                                        <span className="slider round"></span>
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -628,6 +648,39 @@ const Index = ({
                         </div>
                     </div>
                 </div>
+                <Modal
+                    show={show}
+                    onHide={handleClose}
+                    backdrop="static"
+                    keyboard={false}
+                    size="lg"
+                    id="calendar"
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="modal-perfiles-title">Selecciona la fecha de inicio para el histórico</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Calendar
+                            onChange={setDate}
+                            value={date}
+                            selectRange={false}
+                            maxDate={new Date()}
+                        />
+                        <div id="resultados" className="row">
+                            <div className="col text-center">
+                                <span>Desde :</span> <span>
+                                    {fechaHistorico}
+                                </span>
+                            </div>
+                        </div>
+                        <div className="mt-5 text-center">
+                            <button type="button" className="btn-new-green btnRadius text-center bg-transparent px-5" onClick={handleClose}>Filtrar</button>
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+
+                    </Modal.Footer>
+                </Modal>
             </div>
         </>
     );
