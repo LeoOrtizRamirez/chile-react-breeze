@@ -703,6 +703,14 @@ div#resultados {
     color: #fff!important;
 }
 
+.text-probar{
+    display: none;
+}
+
+.icon-close:after{
+    display: none;
+}
+
 /*Modal*/
 #calendar {
     display: flex;
@@ -857,4 +865,9 @@ abbr[title] {
 .react-calendar__tile--now {
     font-weight: unset !important;
     color: unset !important;
+}
+
+
+.toast-container {
+    bottom: 100px !important;
 }

@@ -59,9 +59,17 @@ const Index = ({
     const [iconosPerfiles, setIconosPerfiles] = useState([]);
 
     const changeContent = (id) => {
-        setContainer(id)
-        setIconosPerfiles([...iconosPerfiles, id])
+        if (id == 2 && checkedsActividadesEconomicas.length == 0) {
+            console.log(checkedsActividadesEconomicas.length)
+            setToastMessage("Debes seleccionar mínimo una actividad económica");
+            setToastIcon("icon-error");
+            setShowToast(true);
+        } else {
+            setContainer(id)
+            setIconosPerfiles([...iconosPerfiles, id])
+        }
     }
+
 
     const refCuantiaHasta = useRef("")
     const [cuantiaHasta, setCuantiaHasta] = useState("");
