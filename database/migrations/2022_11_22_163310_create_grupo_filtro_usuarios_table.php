@@ -21,9 +21,10 @@ class CreateGrupoFiltroUsuariosTable extends Migration
                 ->on('users')
                 ->onDelete('set null');
             $table->text('nombre_filtro');
-            $table->boolean('envio_alertas')->comment('Alertas de correo electronico');
+            $table->text('descripcion_filtro')->nullable();
+            $table->boolean('envio_alertas')->comment('Alertas de correo electronico - 0: Falso, 1: Verdadero');
             $table->integer('limite_inferior_cuantia');
-            $table->integer('limite_superior_cuantia');
+            $table->integer('limite_superior_cuantia')->nullable();
             $table->timestamps();
         });
     }

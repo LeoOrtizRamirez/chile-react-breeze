@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ContratoController;
+use App\Http\Controllers\GrupoFiltroUsuarioController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\PerfileController;
 use App\Http\Controllers\PlaneController;
@@ -159,5 +160,8 @@ Route::post('/tiposcompras', [SubCategoriaController::class, 'storeTiposCompras'
 
 Route::get('/tiposcompras1', [SubCategoriaController::class, 'storeTiposCompras1']);
 
-Route::resource('perfiles', PerfileController::class);
+Route::resource('perfiles', PerfileController::class)->middleware(['auth', 'verified']);
+Route::post('grupo-filtro-usuarios/store', [GrupoFiltroUsuarioController::class, 'store'])->middleware(['auth', 'verified']);
+
+
 Route::POST('register/modal', [RegisteredUserController::class, 'registerModal'])->name('registerModal');

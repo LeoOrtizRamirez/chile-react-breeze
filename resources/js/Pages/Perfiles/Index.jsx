@@ -20,7 +20,7 @@ const Index = ({
     tiposcompras,
     localizaciones,
 }) => {
-    
+
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastIcon, setToastIcon] = useState("");
@@ -58,35 +58,30 @@ const Index = ({
         setIconosPerfiles([...iconosPerfiles, id])
     }
 
-
-    const Guardar = () => {
-        alert("Guardando...");
-    };
-
     const refCuantiaHasta = useRef("")
     const [cuantiaHasta, setCuantiaHasta] = useState("");
     const [cuantiaDesde, setCuantiaDesde] = useState("$0");
     const [toggleSwitchCuantiaDesde, setToggleSwitchCuantiaDesde] = useState(false);
-    const [switchCuantiaDesde, setSwitchCuantiaDesde] = useState(true);
+    const [switchSinPresupuestoAsignado, setSwitchSinPresupuestoAsignado] = useState(true);
 
     const formatValue = (e, type) => {
         var number = e.target.value;
         number = clearValue(number);
 
-        if(type=="desde"){
+        if (type == "desde") {
             changeToggleSwitchCuantiaDesde(number)
             setCuantiaDesde("$" + new Intl.NumberFormat().format(number));
-        }else{
-            if(number == 0){
+        } else {
+            if (number == 0) {
                 setCuantiaHasta('')
                 refCuantiaHasta.current.setAttribute("placeholder", "Sin limite superior")
-            }else{
-                setCuantiaHasta("$" + new Intl.NumberFormat().format(number))   
+            } else {
+                setCuantiaHasta("$" + new Intl.NumberFormat().format(number))
             }
         }
     };
 
-    const changeToggleSwitchCuantiaDesde = (value) =>{
+    const changeToggleSwitchCuantiaDesde = (value) => {
         if (value == 0) {
             setToggleSwitchCuantiaDesde(false);
         } else {
@@ -99,7 +94,7 @@ const Index = ({
         value = value.replace("$", "");
         value = value.replace(",", "");
         value = value.replace(".", "");
-        if(value == ""){
+        if (value == "") {
             value = 0
         }
         return parseInt(value);
@@ -110,22 +105,16 @@ const Index = ({
     const inputFechaHistorico = useRef("")
     const btnCambiarFecha = useRef("")
 
-
     useEffect(() => {
         if (inputFechaHistorico.current != null) {
             let now = new Date();
-
             let day = ("0" + now.getDate()).slice(-2);
             let month = ("0" + (now.getMonth() + 1)).slice(-2);
-
             let today = now.getFullYear() + "-" + (month) + "-" + (day);
-
-            //console.log(inputFechaHistorico.current.value = today)//.val(today);
         }
     }, [changeContent])
 
     const onHandleSwitchHistorico = (e) => {
-        console.log(e.target.checked)
         if (e.target.checked) {
             btnCambiarFecha.current.style.display = 'block'
             inputFechaHistorico.current.value = ''
@@ -137,12 +126,14 @@ const Index = ({
         }
     }
 
-    const inputNombrePerfil = useRef("")
+    const [inputNombrePerfil, setInputNombrePerfil] = useState("")
+    const [inputDescripcionPerfil, setInputDescripcionPerfil] = useState("")
+
     const handleClickOutside = (event) => {
         if (inputNombrePerfil.current && !inputNombrePerfil.current.contains(event.target)) {
-            if(inputNombrePerfil.current.value == ""){
+            if (inputNombrePerfil.current.value == "") {
                 inputNombrePerfil.current.classList.add('is-invalid')
-            }else{
+            } else {
                 inputNombrePerfil.current.classList.remove('is-invalid')
             }
         }
@@ -154,7 +145,87 @@ const Index = ({
             document.removeEventListener('click', handleClickOutside, true);
         };
     }, []);
-    
+
+
+    const Guardar = () => {
+
+        console.log('actividades_economicas', checkedsActividadesEconomicas)
+        console.log('tipos_compras', checkedsTiposCompras)
+        console.log('localizaciones', checkedsLocalizaciones)
+        console.log('cuantia_desde', cuantiaDesde)
+        console.log('cuantia_hasta', cuantiaHasta)
+        console.log('nombre', inputNombrePerfil)
+        console.log('descripcion', inputDescripcionPerfil)
+        console.log('sin_presupuesto', switchSinPresupuestoAsignado)
+        console.log('historico_contratacion', switchHistorico)
+        console.log('notificaciones_email', switchEmail)
+
+        var payload = {
+            'actividades_economicas': checkedsActividadesEconomicas,
+            'tipos_compras': checkedsTiposCompras,
+            'localizaciones': checkedsLocalizaciones,
+            'limite_inferior_cuantia': cuantiaDesde,
+            'limite_superior_cuantia': cuantiaHasta,
+            'nombre_filtro': inputNombrePerfil,
+            'descripcion_filtro': inputDescripcionPerfil,
+            'sin_presupuesto': switchSinPresupuestoAsignado,
+            'historico_contratacion': switchHistorico,
+            'envio_alertas': switchEmail,
+        };
+
+        console.log(payload)
+
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.post('/grupo-filtro-usuarios/store', {
+            data: payload
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token.content}`
+            }
+        })
+        .then(response => {
+            console.log(response)
+        })
+        .catch(error => {
+            console.log('error')
+        });
+
+        /* const asyncPostCall = async () => {
+            try {
+                const config = {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        'actividades_economicas': checkedsActividadesEconomicas,
+                        'tipos_compras': checkedsTiposCompras,
+                        'localizaciones': checkedsLocalizaciones,
+                        'cuantia_desde': cuantiaDesde,
+                        'cuantia_hasta': cuantiaHasta,
+                        'nombre': inputNombrePerfil,
+                        'descripcion': inputDescripcionPerfil,
+                        'sin_presupuesto': switchSinPresupuestoAsignado,
+                        'historico_contratacion': switchHistorico,
+                        'notificaciones_email': switchEmail,
+                    })
+                }
+                const response = await fetch('grupo-filtro-usuarios/store', config)
+                //const json = await response.json()
+                if (response.ok) {
+                    //return json
+                    return response
+                } else {
+                    //
+                }
+            } catch (error) {
+                //
+            }
+        }
+
+        asyncPostCall(); */
+    };
 
     return (
         <>
@@ -344,11 +415,11 @@ const Index = ({
                                                                 <input
                                                                     type="checkbox"
                                                                     checked={
-                                                                        switchCuantiaDesde
+                                                                        switchSinPresupuestoAsignado
                                                                     }
                                                                     onClick={() =>
-                                                                        setSwitchCuantiaDesde(
-                                                                            !switchCuantiaDesde
+                                                                        setSwitchSinPresupuestoAsignado(
+                                                                            !switchSinPresupuestoAsignado
                                                                         )
                                                                     }
                                                                 />
@@ -368,7 +439,7 @@ const Index = ({
                                                 <div className="row pt-3 justify-content-center pb-lg-4">
                                                     <div className="col-xs-12 col-sm-12 col-xl-6 px-4 contenedor-general row">
                                                         <div className="col-3 col-md-3 col-xl-3">
-                                                            <div className="imagen" style={{display: "none"}}>
+                                                            <div className="imagen" style={{ display: "none" }}>
                                                                 <img src="/public/images/perfil-invisible.svg" alt="Avatar" className="imagen__avatar" />
                                                                 <button className="imagen__cambiar-avatar-button">
                                                                     <span className="icon-Editar"></span>
@@ -380,7 +451,8 @@ const Index = ({
                                                             <div className="perfil-preferencia__form1">
                                                                 <label id="nombre" className="perfil-preferencia__labels">Dale un nombre a tu perfil:</label>
                                                                 <input
-                                                                    ref={inputNombrePerfil}
+                                                                    value={inputNombrePerfil}
+                                                                    onChange={e => setInputNombrePerfil(e.target.value)}
                                                                     type="text"
                                                                     name="nombre"
                                                                     className="form-control inputs_form padd-peq mb-0"
@@ -388,7 +460,14 @@ const Index = ({
                                                                 />
                                                                 <div className="invalid-feedback mb-3">El campo nombre perfil es obligatorio.</div>
                                                                 <label id="descripcion" className="perfil-preferencia__labels">Descripción del perfil (opcional):</label>
-                                                                <textarea type="text" name="descripcion" rows="3" className="form-control inputs_form"></textarea>
+                                                                <textarea
+                                                                    value={inputDescripcionPerfil}
+                                                                    onChange={e => setInputDescripcionPerfil(e.target.value)}
+                                                                    type="text"
+                                                                    name="descripcion"
+                                                                    rows="3"
+                                                                    className="form-control inputs_form"
+                                                                ></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
