@@ -660,4 +660,7 @@ html {
 
 #perfiles input[type='text'] {
     padding: 5px 21px 5px 40px !important;
+    border-radius: 15px;
 }
+
+

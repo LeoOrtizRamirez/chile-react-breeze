@@ -1,14 +1,14 @@
-.bandera {
+#SubCategorias .bandera {
     width: 40px;
     margin-left: 10px;
 }
 
-.mx-60 {
+#SubCategorias .mx-60 {
     margin-left: 60px;
     margin-right: 60px;
 }
 
-.mt-30 {
+#SubCategorias .mt-30 {
     margin-top: 30px;
 }
 
@@ -16,27 +16,27 @@ input.form-control.busqueda-input {
     width: 50%;
 }
 
-.tree-content {
+#SubCategorias .tree-content {
     cursor: pointer;
 }
 
-.tree-content:hover {
+#SubCategorias .tree-content:hover {
     background: #f6f8fb;
 }
 
-.busqueda-input {
+#SubCategorias .busqueda-input {
     padding: 0px 10px 0px 30px !important;
 
 }
 
-.tree_categorias__busqueda input {
+#SubCategorias .tree_categorias__busqueda input {
     padding: 10px 10px 10px 10px;
     font-size: 15px;
     color: #73c914;
 }
 
 
-.tree_categorias__busqueda button {
+#SubCategorias .tree_categorias__busqueda button {
     background: none;
     padding: 7px 2px;
     font-size: 19px;
@@ -47,7 +47,7 @@ input.form-control.busqueda-input {
 }
 
 
-.tree-anchor {
+#SubCategorias .tree-anchor {
     flex-grow: 2;
     outline: 0;
     display: flex;
@@ -60,7 +60,7 @@ input.form-control.busqueda-input {
     user-select: none;
 }
 
-.tree-arrow {
+#SubCategorias .tree-arrow {
     position: absolute;
     right: 30px;
     width: 16px;
@@ -71,7 +71,7 @@ input.form-control.busqueda-input {
 }
 
 @media (min-width: 768px) {
-    .tree-content .tree-division {
+    #SubCategorias .tree-content .tree-division {
         width: 100%;
         height: auto;
         display: -webkit-box;
@@ -81,7 +81,7 @@ input.form-control.busqueda-input {
 }
 
 @media (min-width: 768px) {
-    .tree-content .tree-division__title {
+    #SubCategorias .tree-content .tree-division__title {
         background: #66c6de !important;
         display: inline-block;
         font-size: 17px;
@@ -94,7 +94,7 @@ input.form-control.busqueda-input {
         padding: 4px 10px;
     }
 
-    .tree-content .tree-division__title-gray {
+    #SubCategorias .tree-content .tree-division__title-gray {
         background: #3a3a3a3a !important;
         display: inline-block;
         font-size: 14px;
@@ -107,23 +107,23 @@ input.form-control.busqueda-input {
         padding: 4px 10px;
     }
 
-    .tree-content.actividad-economica .tree-division__title {
+    #SubCategorias .tree-content.actividad-economica .tree-division__title {
         font-weight: 100;
     }
 }
 
-.form-control {
+#SubCategorias .form-control {
     border: 1px solid #ddd !important;
     border-radius: 1rem !important;
     font-family: Nexa-bold, sans-serif;
 }
 
-.tree-node.has-child>.tree-content {
+#SubCategorias .tree-node.has-child>.tree-content {
     border-bottom: 2px solid #e6e5e5;
     padding: 7px 18px 14px !important;
 }
 
-.tree-node.has-child.segmento>.tree-content .tree-division__title {
+#SubCategorias .tree-node.has-child.segmento>.tree-content .tree-division__title {
     background: #fff !important;
     padding: 4px 10px;
     font-size: 14px !important;
@@ -131,19 +131,19 @@ input.form-control.busqueda-input {
     font-family: Nexa-bold, sans-serif;
 }
 
-.tree-children:first-of-type .tree-node.has-child {
+#SubCategorias .tree-children:first-of-type .tree-node.has-child {
     min-width: 50%;
     max-width: 100%;
     padding: 6px 26px 5px;
 }
 
-.tree-anchor.children {
+#SubCategorias .tree-anchor.children {
     padding: 0 19px;
     margin: 0;
     white-space: pre-line;
 }
 
-.tree-anchor.children .tree-division__title {
+#SubCategorias .tree-anchor.children .tree-division__title {
     background: #fff !important;
     font-size: 14px;
     color: #000 !important;
@@ -151,7 +151,7 @@ input.form-control.busqueda-input {
     font-weight: inherit;
 }
 
-.tree-anchor.children .tree-division__title-gray {
+#SubCategorias .tree-anchor.children .tree-division__title-gray {
     background: #3a3a3a3a !important;
     font-size: 14px;
     color: #000 !important;
@@ -162,35 +162,35 @@ input.form-control.busqueda-input {
     font-weight: inherit;
 }
 
-.tree-children .tree-content .tree-division {
+#SubCategorias .tree-children .tree-content .tree-division {
     padding: 0 9px 0 20px;
 }
 
-.tree_categorias .tree-root .tree-children:first-of-type .tree-node.has-child>.tree-content .tree-division__title {
+#SubCategorias .tree_categorias .tree-root .tree-children:first-of-type .tree-node.has-child>.tree-content .tree-division__title {
     font-size: 14px;
     color: #00a1c9;
     font-family: Nexa-bold, sans-serif;
 }
 
-.tree-checkbox {
+#SubCategorias .tree-checkbox {
     width: 19px;
     height: 19px;
     border: 2px solid #dadada;
     border-radius: 9px;
 }
 
-.tree-arrow:after, .tree-checkbox:after {
+#SubCategorias .tree-arrow:after, .tree-checkbox:after {
     position: absolute;
     display: block;
     content: "";
 }
 
-.tree-checkbox.checked {
+#SubCategorias .tree-checkbox.checked {
     background-color: #73c914;
     border-color: #73c914 !important;
 }
 
-.tree-content {
+#SubCategorias .tree-content {
     display: flex;
     align-items: center;
     padding: 3px;
@@ -199,11 +199,11 @@ input.form-control.busqueda-input {
     box-sizing: border-box;
 }
 
-.tree-content.actividad-economica {
+#SubCategorias .tree-content.actividad-economica {
     padding-left: 48px;
 }
 
-.tree-root {
+#SubCategorias .tree-root {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -214,12 +214,12 @@ input.form-control.busqueda-input {
     overflow: auto;
 }
 
-.tree-root {
+#SubCategorias .tree-root {
     padding: 3px;
     box-sizing: border-box;
 }
 
-.tree-root>.tree-node {
+#SubCategorias .tree-root>.tree-node {
     min-width: 50%;
     width: 50%;
     padding: 5px 10px 15px;
@@ -229,11 +229,11 @@ input.form-control.busqueda-input {
     transition: box-shadow .25s ease, -webkit-box-shadow .25s ease;
 }
 
-/* .tree-root.Localizaciones li,  */.tree-children.Localizaciones li, .tree-children.TiposCompras li{
+#SubCategorias .tree-children.Localizaciones li, .tree-children.TiposCompras li{
     min-width: 100% !important;
 }
 
-.tree-node {
+#SubCategorias .tree-node {
     white-space: nowrap;
     display: flex;
     flex-direction: column;
@@ -241,17 +241,17 @@ input.form-control.busqueda-input {
     box-sizing: border-box;
 }
 
-.tree-node.has-child.draggable.expanded {
+#SubCategorias .tree-node.has-child.draggable.expanded {
     min-width: 100%;
 }
 
-.tree_categorias .tree-root .tree-children:first-of-type .tree-node.has-child {
+#SubCategorias .tree_categorias .tree-root .tree-children:first-of-type .tree-node.has-child {
     min-width: 50%;
     max-width: 50%;
     padding: 6px 26px 5px;
 }
 
-.tree-children {
+#SubCategorias .tree-children {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -262,7 +262,7 @@ input.form-control.busqueda-input {
     overflow: auto;
 }
 
-.tree_categorias .tree-root .tree-children:first-of-type {
+#SubCategorias .tree_categorias .tree-root .tree-children:first-of-type {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -273,11 +273,11 @@ input.form-control.busqueda-input {
     overflow: auto;
 }
 
-.tree_categorias .tree-root .tree-children {
+#SubCategorias .tree_categorias .tree-root .tree-children {
     padding: 12px 20px;
 }
 
-.tree_categorias .tree-root .tree-children:first-of-type .tree-node.has-child.expanded {
+#SubCategorias .tree_categorias .tree-root .tree-children:first-of-type .tree-node.has-child.expanded {
     min-width: 100%;
 }
 
@@ -287,18 +287,18 @@ input.form-control.busqueda-input {
     max-width: 100%;
 }
 
-.tree_categorias__busqueda input {
+#SubCategorias .tree_categorias__busqueda input {
     padding: 4px 60px 4px 13px;
     font-size: 15px;
 }
 
-.form-control {
+#SubCategorias .form-control {
     border: 1px solid #ddd;
     border-radius: 1rem;
 }
 
-.form-control,
-.inputs-rounded {
+#SubCategorias .form-control,
+#SubCategorias .inputs-rounded {
     font-family: Nexa-regular, sans-serif;
 }
 
@@ -309,8 +309,16 @@ input[type="checkbox"] {
     border-radius: 5px;
 }
 
-.check-minus {
+#SubCategorias .check-minus {
     background-color: #73c914;
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-dash-lg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8Z"/></svg>');
     background-size: cover;
+}
+
+#SubCategorias input[type='checkbox']{
+    color: #73c914;
+}
+
+#SubCategorias [type='checkbox']:checked {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e") !important;
 }

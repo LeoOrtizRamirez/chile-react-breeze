@@ -657,7 +657,7 @@ element.id_padre_sub_categoria
         return parent;
     };
     return (
-        <>
+        <div id="SubCategorias">
             <div className="mx-60 mt-30 d-flex">
                 <button
                     button
@@ -903,7 +903,7 @@ element.id_padre_sub_categoria
                     </>
                 ))}
             </ul>
-        </>
+        </div>
     );
 };
 
