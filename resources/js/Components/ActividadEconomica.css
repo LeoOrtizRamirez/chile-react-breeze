@@ -316,7 +316,7 @@ input[type="checkbox"] {
 }
 
 #SubCategorias input[type='checkbox']{
-    color: #73c914;
+    color: #73c914 !important;
 }
 
 #SubCategorias [type='checkbox']:checked {
