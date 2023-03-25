@@ -118,11 +118,11 @@ const Index = ({
     const inputFechaHistorico = useRef("")
     const btnCambiarFecha = useRef("")
 
-/*     useEffect(() => {
-        if (inputFechaHistorico?.current?.value != null) {
-            inputFechaHistorico.current.value = restarDias(new Date(), 91).toISOString().split('T')[0]
-        }
-    }, [changeContent]) */
+    /*     useEffect(() => {
+            if (inputFechaHistorico?.current?.value != null) {
+                inputFechaHistorico.current.value = restarDias(new Date(), 91).toISOString().split('T')[0]
+            }
+        }, [changeContent]) */
 
     const restarDias = (fecha, dias) => {
         fecha.setDate(fecha.getDate() - dias);
@@ -191,21 +191,37 @@ const Index = ({
                 console.log('error')
             });
     };
-
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-
-    const [date, setDate] = useState(
+    /*Calendar*/
+    const [showCalendar, setShowCalendar] = useState(false);
+    const handleCloseCalendar = () => setShowCalendar(false);
+    const handleShowCalendar = () => setShowCalendar(true);
+    const [dateCalendar, setDateCalendar] = useState(
         restarDias(new Date(), 91)
     );
+    useEffect(() => {
+        setFechaHistorico(dateCalendar.toISOString().split('T')[0])
+    }, [dateCalendar])
+    /*Calendar */
 
-    useEffect(()=>{
-        setFechaHistorico(date.toISOString().split('T')[0])
-    },[date])
+    /*Filter */
+    const [showFilter, setShowFilter] = useState(false);
+    const handleCloseFilter = () => setShowFilter(false);
+    const handleShowFilter = () => setShowFilter(true);
 
+    const [iconCheck, setIconCheck] = useState("Por defecto")
+    const [iconCheckTemporal, setIconCheckTemporal] = useState("")
+    const [iconCheckSelected, setIconCheckSelected] = useState("/public/images/perfil-invisible.svg")
+
+    const changeImgFilter = (icon, image) =>{
+        setIconCheck(icon)
+        setIconCheckTemporal(image)
+    }
+
+    const setImgFilter = () =>{
+        setIconCheckSelected(iconCheckTemporal)
+        handleCloseFilter()
+    }
+    /*Filter */
     return (
         <>
             <Head title="Perfiles" />
@@ -418,9 +434,10 @@ const Index = ({
                                                 <div className="row pt-3 justify-content-center pb-lg-4">
                                                     <div className="col-xs-12 col-sm-12 col-xl-6 px-4 contenedor-general row">
                                                         <div className="col-3 col-md-3 col-xl-3">
-                                                            <div className="imagen" style={{ display: "none" }}>
-                                                                <img src="/public/images/perfil-invisible.svg" alt="Avatar" className="imagen__avatar" />
-                                                                <button className="imagen__cambiar-avatar-button">
+                                                            <div className="imagen">
+
+                                                                <img src={iconCheckSelected} alt="Avatar" className="imagen__avatar" />
+                                                                <button className="imagen__cambiar-avatar-button" onClick={handleShowFilter}>
                                                                     <span className="icon-Editar"></span>
                                                                     <img src="/public/images/Web/icon-Editar.svg" alt="Editar" className="" />
                                                                 </button>
@@ -484,7 +501,7 @@ const Index = ({
                                                                     <button
                                                                         ref={btnCambiarFecha}
                                                                         className="btn btnRadius btn-new-blue button_change_date"
-                                                                        onClick={handleShow}>
+                                                                        onClick={handleShowCalendar}>
                                                                         <i className="icon-Cambiar"></i> Cambiar fecha
                                                                     </button>
                                                                 </div>
@@ -657,20 +674,20 @@ const Index = ({
                     </div>
                 </div>
                 <Modal
-                    show={show}
-                    onHide={handleClose}
+                    show={showCalendar}
+                    onHide={handleCloseCalendar}
                     backdrop="static"
                     keyboard={false}
                     size="lg"
                     id="calendar"
                 >
                     <Modal.Header closeButton>
-                        <Modal.Title id="modal-perfiles-title">Selecciona la fecha de inicio para el histórico</Modal.Title>
+                        <Modal.Title id="modal-calendar-title">Selecciona la fecha de inicio para el histórico</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Calendar
-                            onChange={setDate}
-                            value={date}
+                            onChange={setDateCalendar}
+                            value={dateCalendar}
                             selectRange={false}
                             maxDate={new Date()}
                         />
@@ -682,11 +699,115 @@ const Index = ({
                             </div>
                         </div>
                         <div className="mt-5 text-center">
-                            <button type="button" className="btn-new-green btnRadius text-center bg-transparent px-5" onClick={handleClose}>Filtrar</button>
+                            <button type="button" className="btn-new-green btnRadius text-center bg-transparent px-5" onClick={handleCloseCalendar}>Filtrar</button>
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
 
+                    </Modal.Footer>
+                </Modal>
+                <Modal
+                    show={showFilter}
+                    onHide={handleCloseFilter}
+                    backdrop="static"
+                    keyboard={false}
+                    size="lg"
+                    id="filter"
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="modal-filter-title">Selecciona la imagen de tu perfil de negocio</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div className="justify-content-center row">
+                            <div className="perfil-imagenes__element-img">
+                                <div className="perfil-imagenes__img position-relative" onClick={() => changeImgFilter("Por defecto", "/public/images/perfiles/perfil-invisible.svg")}>
+                                    <img src="/public/images/perfiles/perfil-invisible.svg" alt="Por defecto img" />
+                                    {iconCheck == "Por defecto" &&
+                                        <img src="/public/images/Web/icon-Check.svg" alt="icon-Check" className="icon-Check" />
+                                    }
+                                </div>
+                            </div>
+                            <div className="perfil-imagenes__element-img">
+                                <div className="perfil-imagenes__img position-relative" onClick={() => changeImgFilter("Perfil amarillo", "/public/images/perfiles/perfil-amarillo.svg")}>
+                                    <img src="/public/images/perfiles/perfil-amarillo.svg" alt="Perfil amarillo img" />
+                                    {iconCheck == "Perfil amarillo" &&
+                                        <img src="/public/images/Web/icon-Check.svg" alt="icon-Check" className="icon-Check" />
+                                    }
+                                </div>
+                            </div>
+                            <div className="perfil-imagenes__element-img">
+                                <div className="perfil-imagenes__img position-relative" onClick={() => changeImgFilter("Perfil azul", "/public/images/perfiles/perfil-azul.svg")}>
+                                    <img src="/public/images/perfiles/perfil-azul.svg" alt="Perfil azul img" />
+                                    {iconCheck == "Perfil azul" &&
+                                        <img src="/public/images/Web/icon-Check.svg" alt="icon-Check" className="icon-Check" />
+                                    }
+                                </div>
+                            </div>
+                            <div className="perfil-imagenes__element-img">
+                                <div className="perfil-imagenes__img position-relative" onClick={() => changeImgFilter("Perfil gris", "/public/images/perfiles/perfil-gris.svg")}>
+                                    <img src="/public/images/perfiles/perfil-gris.svg" alt="Perfil gris img" />
+                                    {iconCheck == "Perfil gris" &&
+                                        <img src="/public/images/Web/icon-Check.svg" alt="icon-Check" className="icon-Check" />
+                                    }
+                                </div>
+                            </div>
+                            <div className="perfil-imagenes__element-img">
+                                <div className="perfil-imagenes__img position-relative" onClick={() => changeImgFilter("Perfil morado", "/public/images/perfiles/perfil-morado.svg")}>
+                                    <img src="/public/images/perfiles/perfil-morado.svg" alt="Perfil morado img" />
+                                    {iconCheck == "Perfil morado" &&
+                                        <img src="/public/images/Web/icon-Check.svg" alt="icon-Check" className="icon-Check" />
+                                    }
+                                </div>
+                            </div>
+                            <div className="perfil-imagenes__element-img">
+                                <div className="perfil-imagenes__img position-relative" onClick={() => changeImgFilter("Perfil negro", "/public/images/perfiles/perfil-negro.svg")}>
+                                    <img src="/public/images/perfiles/perfil-negro.svg" alt="Perfil negro img" />
+                                    {iconCheck == "Perfil negro" &&
+                                        <img src="/public/images/Web/icon-Check.svg" alt="icon-Check" className="icon-Check" />
+                                    }
+                                </div>
+                            </div>
+                            <div className="perfil-imagenes__element-img">
+                                <div className="perfil-imagenes__img position-relative" onClick={() => changeImgFilter("Perfil rojo", "/public/images/perfiles/perfil-rojo.svg")}>
+                                    <img src="/public/images/perfiles/perfil-rojo.svg" alt="Perfil rojo img" />
+                                    {iconCheck == "Perfil rojo" &&
+                                        <img src="/public/images/Web/icon-Check.svg" alt="icon-Check" className="icon-Check" />
+                                    }
+                                </div>
+                            </div>
+                            <div className="perfil-imagenes__element-img">
+                                <div className="perfil-imagenes__img position-relative" onClick={() => changeImgFilter("Perfil rosado", "/public/images/perfiles/perfil-rosado.svg")}>
+                                    <img src="/public/images/perfiles/perfil-rosado.svg" alt="Perfil rosado img" />
+                                    {iconCheck == "Perfil rosado" &&
+                                        <img src="/public/images/Web/icon-Check.svg" alt="icon-Check" className="icon-Check" />
+                                    }
+                                </div>
+                            </div>
+                            <div className="perfil-imagenes__element-img">
+                                <div className="perfil-imagenes__img position-relative" onClick={() => changeImgFilter("Perfil verde", "/public/images/perfiles/perfil-verde.svg")}>
+                                    <img src="/public/images/perfiles/perfil-verde.svg" alt="Perfil verde img" />
+                                    {iconCheck == "Perfil verde" &&
+                                        <img src="/public/images/Web/icon-Check.svg" alt="icon-Check" className="icon-Check" />
+                                    }
+                                </div>
+                            </div>
+                            <div className="perfil-imagenes__element-img">
+                                <div className="perfil-imagenes__img position-relative" onClick={() => changeImgFilter("Perfil violeta", "/public/images/perfiles/perfil-violeta.svg")}>
+                                    <img src="/public/images/perfiles/perfil-violeta.svg" alt="Perfil violeta img" />
+                                    {iconCheck == "Perfil violeta" &&
+                                        <img src="/public/images/Web/icon-Check.svg" alt="icon-Check" className="icon-Check" />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer class="modal-footer buttons-footer">
+                        <button class="btnRadius btn-new-gray" onClick={handleCloseFilter}>
+                            Atrás
+                        </button>
+                        <button class="btnRadius btn-new-green" onClick={setImgFilter}>
+                            Seleccionar
+                        </button>
                     </Modal.Footer>
                 </Modal>
             </div>
