@@ -40,16 +40,22 @@ const Index = ({
             case "ActividadEconomica":
                 if (data.length > 0) {
                     setCheckedsActividadesEconomicas(data)
+                }else{
+                    setCheckedsActividadesEconomicas([])
                 }
                 break;
             case "Localizaciones":
                 if (data.length > 0) {
                     setCheckedsLocalizaciones(data)
+                }else{
+                    setCheckedsLocalizaciones([])
                 }
                 break;
             case "TiposCompras":
                 if (data.length > 0) {
                     setCheckedsTiposCompras(data)
+                }else{
+                    setCheckedsTiposCompras([])
                 }
                 break;
         }
@@ -60,7 +66,6 @@ const Index = ({
 
     const changeContent = (id) => {
         if (id == 2 && checkedsActividadesEconomicas.length == 0) {
-            console.log(checkedsActividadesEconomicas.length)
             setToastMessage("Debes seleccionar mínimo una actividad económica");
             setToastIcon("icon-error");
             setShowToast(true);

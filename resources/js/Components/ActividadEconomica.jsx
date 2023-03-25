@@ -9,6 +9,7 @@ const ActividadEconomica = ({
     tipo,
     checkeds,
 }) => {
+    
     const [fakeSectores, setFakeSectores] = useState(subcategorias);
     const [sectores, setSectores] = useState(subcategorias);
     const [openSectores, setOpenSectores] = useState([]);
