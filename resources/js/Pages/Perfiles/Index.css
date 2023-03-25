@@ -565,7 +565,7 @@ html {
     padding: 0 10px;
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex;
+    display: block;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
@@ -579,7 +579,7 @@ html {
     outline: none;
     text-align: center;
     font-size: 13px;
-    max-width: 100%;
+    max-width: 40%;
     height: 32px;
     color: #9c9b9b !important;
     margin-right: 20px;
@@ -588,6 +588,7 @@ html {
 
 #perfiles .perfil-preferencia__fecha-historico_input.disabled {
     opacity: .5;
+    max-width: 70%;
 }
 
 #perfiles .perfil-preferencia__historico-row__icon {
@@ -609,7 +610,7 @@ html {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    padding-right: 20%;
+    padding-right: 13%;
 }
 
 #perfiles .perfil-preferencia__fecha-historico.from-label {
@@ -953,4 +954,16 @@ abbr[title] {
     padding-right: unset !important;
     padding-left: unset !important;
     margin-top: 24px !important;
+}
+
+img[alt="icon-Cambiar"] {
+    filter: invert(65%) sepia(71%) saturate(6036%) hue-rotate(161deg) brightness(95%) contrast(102%);
+    width: 13px;
+    display: inline-block;
+}
+
+
+
+button.btn.btnRadius.btn-new-blue.button_change_date:hover img[alt="icon-Cambiar"] {
+    filter: invert(100%) sepia(98%) saturate(8%) hue-rotate(155deg) brightness(102%) contrast(106%);
 }

@@ -133,7 +133,7 @@ const Index = ({
         if (e.target.checked) {
             btnCambiarFecha.current.style.display = 'block'
             inputFechaHistorico.current.classList.remove('disabled')
-            setFechaHistorico(date.toISOString().split('T')[0])
+            setFechaHistorico(dateCalendar.toISOString().split('T')[0])
         } else {
             btnCambiarFecha.current.style.display = 'none'
             inputFechaHistorico.current.classList.add('disabled')
@@ -502,7 +502,7 @@ const Index = ({
                                                                         ref={btnCambiarFecha}
                                                                         className="btn btnRadius btn-new-blue button_change_date"
                                                                         onClick={handleShowCalendar}>
-                                                                        <i className="icon-Cambiar"></i> Cambiar fecha
+                                                                        <img src="/public/images/Web/icon-Cambiar.svg" alt="icon-Cambiar" className="margin-right-5"/> Cambiar fecha
                                                                     </button>
                                                                 </div>
                                                             </div>
