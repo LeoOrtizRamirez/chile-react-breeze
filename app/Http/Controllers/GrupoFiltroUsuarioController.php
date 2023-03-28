@@ -10,9 +10,17 @@ use Illuminate\Http\Request;
 use App\Models\SubCategoria;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class GrupoFiltroUsuarioController extends Controller
 {
+    public function index(){
+        $grupos = GrupoFiltroUsuario::where('id_usuario', Auth::id())->get();
+        return Inertia::render('Grupos/Index', [
+            'grupos' => $grupos
+        ]);
+    }
+
     public function store(Request $request)
     {
         $actividades_economicas = $request->data['actividades_economicas'];

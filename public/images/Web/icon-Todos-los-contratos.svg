@@ -1,0 +1,9 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 24" width="26" height="24">
+	<title>icon-Todos-los-contratos</title>
+	<defs>
+		<image  width="26" height="22" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAWCAMAAADpVnyHAAAAAXNSR0IB2cksfwAAAXRQTFRF/////f398vLyvb29WVlZTk5ORUVFRERERkZGs7Oz8PDw+/v7/v7+9fX1hYWFAAAAAQEBAgICCAgIAwMDa2tr9/f3w8PDHR0dgoKC8/Pz+vr69PT0g4ODCgoKx8fH/Pz8+Pj4n5+fKCgo2tra8fHx6+vr6urq7+/v5+fn09PTHh4enp6eaWlpXFxc6+vrTU1NBAQE7OzsQUFBcnJyS0tLdnZ21dXVwcHBvr6+wsLCvLy8w8PDZmZm9vb229vbLi4ukZGRMDAw0tLSra2tDAwMwcHBnZ2dSUlJR0dHQ0NDqqqqh4eHOjo65OTkeHh4+fn51tbWKioqjIyMZGRkXl5e6+vrTExMY2Nj2dnZSkpKbm5u5eXl7Ozs6urq7u7u4uLiSEhI39/fKSkpBQUFCwsLzs7OJiYm3t7e3d3dMTExBgYGoKCgLy8v3Nzc0dHRLS0tNDQ01NTU0NDQNjY2EhISODg4BwcH2NjYKysr19fXMjIyZWVlL0O9BwAAAHx0Uk5TAAAA/////////wAAAAD/////////AP///wAAAP///wAA////AAAAADD//////y///yb/////AAAAAAAA/wD///////////////////+w/wD//////0D//////6AwUBD//////////////////////////////////////4GCPoYAAAGiSURBVHicZVLpX9NAEH0NkGBInYRwpmoDDZSbgJRLaZGrlKuAAnKEK4AaKFehCvzzzqZ8QJmdze7LzHszmV+ACKSKyipZqZblarEVuaryjYoaDUD0LekG8aolqg0vullXzxSgobGpGRELVgyI8RFB87v3H+KAjZbWBBynrV1KdnQkpfY2x0FnVzcsjvX0Jvv6WYfc0A3q7xsY/GgzTR1KxePDI6Nj45/G2cdGR4bj0c9DDjCRzrSA2TaezRZSk1+mmDU9M6vNZbOKPK/kcsq8rGSzczUVtMBZi0vLEytkijquK4qZtJJfXVuPIPb1myoEAU0rbwE2Nrfy+L69s7vn7XuelIdlIS95DPYOtg7TODomX9dJp5NTbso5PSEBfDr7gZ+/WJ6MgOhc9HdOFPAnUnBRwOWVoRvcBPnXN5Z1c+3z1TTIzdwiXSTSTTKZdpfL3XG+KUJ0X8DqlVGeUVDifCoFzwPL/EZizRXzE9gPXZTmx58CHh79MnppLvmPD0gUX0dErJiAnaJQ8B/jFykbmvdUes0qPXnhv+GoG/+Z6kSBv6NvUSafjJN/AAAAAElFTkSuQmCC"/>
+	</defs>
+	<style>
+	</style>
+	<use id="Background" href="#img1" x="0" y="1"/>
+</svg>

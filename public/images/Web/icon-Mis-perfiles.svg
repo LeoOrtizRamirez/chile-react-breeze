@@ -1,0 +1,9 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 24" width="26" height="24">
+	<title>icon-Mis-perfiles</title>
+	<defs>
+		<image  width="26" height="25" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAZCAMAAAAYAM5SAAAAAXNSR0IB2cksfwAAASZQTFRF////5ubm7+/v7Ozs7u7u8vLyi4uLCAgIAAAABAQEAQEBPDw82dnZqqqqhYWFaGhoAwMDwsLCwMDAZGRkYmJiBgYGxcXFxMTEaWlpbGxsAgICysrKwcHBXl5eCwsLvr6+a2trpKSkBQUFBwcHOjo63d3diYmJoaGhGxsbw8PDb29v9vb25eXlWVlZDg4OHh4etLS0dHR09/f3+fn5/f39/Pz8TExMDw8PoqKi19fX+vr6ioqK5OTkampqzc3N/v7+u7u7IyMjhISEYGBgvLy8ISEh5+fncXFxo6OjFBQUUFBQ3t7e9fX1Tk5O2tra+/v7PT092NjYUlJS6+vr9PT08/Pzx8fHZ2dn7e3t+Pj4xsbGZWVleHh4Jycnj4+PJSUlhoaGycnJ2idfzgAAAGJ0Uk5TAGAAAAAA/////////////////////////////////////////////////wBw//////8AAAAA/////wD/////AP///////////////wD//wD///8QAAD//wAA///////////wHuMHAAABhUlEQVR4nGVRiVbCQAwMgpKuVwFrS8WDIiqCF3QVi7iKt6L1wAO8//8nTGrxAU5f9+2bySSTFiAyFIkOIBYbjkUBRuKo4QAEjo6NT8DkIM/QMZFMwZTQxX+XMW1akEbWbLTDAzWbtZmMBbNdT2AWOGejQdd5cwGyaFClMJimK1kcxNxifmkZhtM0lB/SuB9phlgpJFaLAKU1rkYRrOAIgeu4sZncKlfAlaXtQKNyeumCO9Xd2QgwvN3RIIetM+/EsbZX3ycalAI4OKQkHEPj+I38UYGVAOr4JExCsE7PTJoDIbzzC5pDHs2+vFrKNsHzupIrG/zhqNv1Ta1GtA+hTyoo3Wqc0a7e3T/ICs2Xv5IPXivNIRwsmNYjk7ISNlRQTAUraU/JlCu5meoOU96zQD2HmJl5fgHXhz8ov10PRumdjNXkhl7X5UP5lf9XHDtmvQU9cKENb8Fi2Jl/lT70wW1m36mj/mQutFQP79MWLrQ+PhETZqrY5ylTkjbt/TXyWP2WIfkDFLo1CY7YJMgAAAAASUVORK5CYII="/>
+	</defs>
+	<style>
+	</style>
+	<use id="Background" href="#img1" x="0" y="-1"/>
+</svg>

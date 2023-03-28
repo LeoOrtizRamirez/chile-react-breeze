@@ -1,0 +1,9 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 25" width="26" height="25">
+	<title>icon-Sugerencia</title>
+	<defs>
+		<image  width="22" height="25" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAZCAMAAAACPC7cAAAAAXNSR0IB2cksfwAAAWVQTFRF////9/f339/f3t7e+vr6/f39/Pz829vbZGRkAAAAY2Nj1dXV/v7+7+/vh4eHERERAgICGBgYfn5+7Ozs+Pj49fX1qampICAgAwMDBAQECAgIIiIiqqqq+/v7yMjITExMOzs7vLy83NzcYGBgAQEBBgYGVVVV4uLira2tExMTBQUFDg4Op6enZ2dna2trpqamHR0dCgoKpKSk+fn5w8PDwcHB0NDQv7+/vr6+3d3dvb295eXlVFRUkZGR9vb2cHBwbGxsiYmJU1NT5+fnZmZmpaWlf39/xcXFX19fx8fHhoaGxsbGaGhoycnJnp6eeXl58fHxampqwsLCg4OD8/PzwMDAaWlp9PT0xMTEo6OjhISEV1dXm5ubdXV1j4+PUlJS7u7unZ2dt7e3q6uriIiIqKiojIyMBwcHNzc3u7u7s7OzTk5ORkZGQEBASkpKQkJCS0tLRERETU1NSEhIQ0NDR0dHT09Pr3XpMwAAAHd0Uk5TAAD//wAAAP//////AAD//////zAAAP////////8A////////////0P//////////////AP////////+g//8A/////4D///////////////8A////AP//AP//////////EP////////////////////////////8zT//nAAABnUlEQVR4nFVR6V8TMRB9q7srT9M14hbTapRi1mNVUNsiXi1q8UBQi4LifeFZWxX073cS9IOT/JLMm/NlgH8S7dgZI0nxv+waI3fvgfqrpoiBpJLt1dTcN74/RRLwHHF14oCpkbLrBw/lsOIZITl8hEF0rabJyYbyAVNHHY24umAyLHjsOHDipChFgGqloxZr/dRpnKEzElr6I4C+xDRmzkqkkS60x51PUz93XmiELtPQsVJyWfiSqtlqN6bQnL0wNxvhYvtSK429x+Ur5NVO1KWZz3GN+voNCUit7dE0kC6UvAnccry9TTwao76TY4FmMbV3TbmUJ4lkr07TLQP3WNxXmJMP6wio8KBPtwI1QfcQqq2L3iOpaNHpk6vem+MWyzRrj8MXdnrUTxTWSz5FumLYyz0HW12ibqt0xjGzaJFrkbBpovmMfA71gkU3xkvy1evAsvImW3yL+F32fsOikX1Yr8S+pFgkxj9i/7SRT706yTADWS5MwpiPnz6jT1ME1flttmfUxZevg2/D0eD7j+Fw9HNza/Rrc2vwe+MP7dE3pBzWxPMAAAAASUVORK5CYII="/>
+	</defs>
+	<style>
+	</style>
+	<use id="Background" href="#img1" x="2" y="0"/>
+</svg>

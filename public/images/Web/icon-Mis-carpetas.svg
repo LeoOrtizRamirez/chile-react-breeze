@@ -1,0 +1,9 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 24" width="26" height="24">
+	<title>icon-Mis-carpetas</title>
+	<defs>
+		<image  width="26" height="20" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAUCAMAAACknt2MAAAAAXNSR0IB2cksfwAAAPlQTFRFwcHBPDw8AwMDBwcHAAAA09PT/////Pz8iYmJBAQEODg4y8vLg4ODAgICKCgos7Oz7Ozs8fHx5ubm9/f3/v7+AQEBBgYGU1NT6Ojo+/v7LS0t29vbBQUFEBAQZWVlbGxsa2trYmJicHBwbm5uaWlpcXFxurq6zMzM+fn5Ozs7MTExNTU1LCwsMjIyNDQ0MDAwNjY2paWlc3NzNzc3mpqaenp6KysrLy8vmZmZdXV1Ojo6MzMznJycdnZ2m5ubgoKCgYGBhYWFh4eH2NjYTU1NOTk5Kioqrq6u7+/vmJiYioqKoKCgpKSknp6eoaGhn5+fp6entra29vb2+eVA7wAAAFN0Uk5T////////AAD//////////zAAkAAA////cAD//////////////////wD/////////////////////////////////////////AP///////////wA6tG1sAAAA70lEQVR4nH2Qi07CMBRAx7hWNiyK0im+EAV1Lb2dVkUZ4vuJDvX/P8bNFokm20mTJj05vU0dp+SWwYXSHJknf3EqkOGBXyX/1UJmaLpqi0uW+vIKIQ2jXGBBujELBKtrpNk0VWpZQMHiwfqGvZBubm23dtq7e5ZWp7t/UD00VTfkIuxJC6JQIjrKFKPHPldaCguXmvvRialOa6E4w1mFsh+d/yh6gbo3iKcglwOlhqa6lJiezJyMYzkqUlfA8tR1flWgCmbdsFx16+Y+4055cN9+eNSa//5GH1HxJ6fx/PI6fntPJqNkymScDD8+v74BrS9KILKXKN0AAAAASUVORK5CYII="/>
+	</defs>
+	<style>
+	</style>
+	<use id="Background" href="#img1" x="0" y="2"/>
+</svg>

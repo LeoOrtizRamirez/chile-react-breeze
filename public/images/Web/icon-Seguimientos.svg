@@ -1,0 +1,9 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 24" width="26" height="24">
+	<title>icon-Seguimientos</title>
+	<defs>
+		<image  width="24" height="13" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAANCAMAAACEsl7iAAAAAXNSR0IB2cksfwAAAS9QTFRF/////f39/v7+/Pz85ubmqKioampqRERESUlJRUVFXl5eoKCg39/f+vr6+fn5+/v7xMTEUFBQBQUFAAAAAQEBBwcHCAgIODg4qamp7u7u29vbWFhYExMTWlparq6u0dHR6urq6+vrzs7OlZWVQUFBOTk5vb29ubm5KysrEBAQiIiI9fX1+Pj44eHhbW1tCwsLa2tr6Ojo9vb2o6OjFRUVWVlZ2NjY4+Pjfn5+TU1NlJSUy8vLNjY2AwMD0NDQDg4OCQkJkZGRxcXFLCwsPDw82tra8PDwMzMz19fXwcHBn5+f3d3dPT09BAQEaGho8fHxjo6O2dnZ9PT0qqqqGRkZgoKCBgYGp6enpKSkAgICERERyMjILy8vT09P7+/voqKiDQ0NHh4eTk5O0tLS9/f3lkY3dAAAAGV0Uk5TAAAAAJD//////////wAAAP///////////xD///////9QQP///////////wAA4P///3AA/////8D//////////////////wD//////////wD//wD//////////////wD//////wDgup6EAAAA9klEQVR4nE2OeTdCURTF931XEl633rnPTCGhnuIh4zVFpp4hRObp+38G57Ja2Wudf84e1g8QcADZFeuO9yR6+/pdwD6SUNKBSqU90kQ+0cDg0DCg8GuPjPp6bHwik52cms55NJMXABfd2Tl/vlCEkLyKYKFUpsUlLoTLK7Ra4dG19fjGZsgrW9smvQPEdvf2A+4dVIk8fXgEJWolOj7BaeIMQrjndYoMGXNRY8rLq/o10GA0ODcUkdVtRlj6hrBcFvquSYaJI7qHRFscwQOnW3yPT0l0DBmi8vw39fIaiH8GQ769k9b+R8oOd6TgOvmcKX9+fbfzP6FRHROXhcYXAAAAAElFTkSuQmCC"/>
+	</defs>
+	<style>
+	</style>
+	<use id="Background" href="#img1" x="1" y="5"/>
+</svg>

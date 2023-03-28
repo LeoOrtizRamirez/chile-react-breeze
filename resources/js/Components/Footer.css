@@ -1,0 +1,164 @@
+.footer_licitaciones {
+    background: #00a1c9!important;
+    margin-left: 100px;
+    margin-right: 10px;
+    height: 122px;
+    border-top-left-radius: 35px!important;
+    border-top-right-radius: 35px!important;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+#footer .footer_licitaciones_slot1 {
+    padding: 40px 100px 0 62px;
+}
+
+#footer .footer_licitaciones_slot1 img {
+    display: unset;
+    max-width: unset;
+}
+
+#footer .col_lg_1_footer {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 0.333333%;
+    flex: 0 0 0.333333%;
+    max-width: .333333%;
+    height: 40px;
+    margin-top: 45px;
+    border-right: 1.5px solid #fff;
+    opacity: .5;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+#footer .col_lg_2_acercade {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 20.666667%;
+    flex: 0 0 20.666667%;
+    max-width: 20.666667%;
+}
+
+#footer .footer_licitaciones_acercade {
+    padding: 15px 0 0 75px;
+}
+
+#footer .footer_licitaciones_acercade p {
+    color: #fff!important;
+    font-size: 15px!important;
+    font-family: Nexa-bold,sans-serif!important;
+    margin: 0!important;
+    text-align: left;
+    line-height: 1.9!important;
+}
+
+#footer p {
+    color: #94afc0!important;
+    font-family: SourceSansPro-regular;
+    font-size: 18px;
+    letter-spacing: .1px;
+    line-height: 1.2;
+}
+
+#footer .footer_licitaciones_acercade a {
+    color: #fff!important;
+    font-size: 12px!important;
+    font-family: Nexa-regular,sans-serif!important;
+    text-align: left;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+#footer a {
+    font-family: SourceSansPro-light;
+    margin: 0;
+    line-height: 2;
+    font-size: 16px;
+    color: #eceaea!important;
+}
+
+#footer .separadores_footer {
+    height: 32px!important;
+}
+
+#footer .footer_licitaciones_internacional {
+    padding: 20px 0 0 53px!important;
+}
+
+#footer .footer_licitaciones_internacional p {
+    color: #fff!important;
+    font-size: 15px!important;
+    font-family: Nexa-bold,sans-serif!important;
+    margin: 0!important;
+    text-align: left;
+    line-height: 1.9!important;
+}
+
+#footer .col_lg_3_apps {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 27%;
+    flex: 0 0 27%;
+    max-width: 27%;
+}
+
+#footer .footer_licitaciones_apps {
+    padding: 30px 0 0;
+    margin-left: -25px;
+}
+
+#footer .footer_licitaciones_redes {
+    padding: 33px 0 0 10px;
+}
+
+#footer .footer_licitaciones_apps p {
+    color: #fff!important;
+    font-size: 15px!important;
+    font-family: Nexa-bold,sans-serif!important;
+    margin-bottom: 15px!important;
+    text-align: center;
+}
+
+#footer .footer_licitaciones_internacional a {
+    color: #fff!important;
+    font-size: 12px!important;
+    font-family: Nexa-regular,sans-serif!important;
+    text-align: left;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+#footer .footer_licitaciones_apps a img {
+    width: 120px;
+}
+
+#footer .footer_licitaciones_redes p {
+    color: #fff!important;
+    font-size: 15px!important;
+    font-family: Nexa-bold,sans-serif!important;
+    margin-bottom: 20px!important;
+    text-align: center;
+}
+
+.footer_licitaciones_redes a span {
+    font-size: 26px;
+    color: #fff;
+    padding: 0 15px;
+}
+
+footer a {
+    font-family: SourceSansPro-light;
+    margin: 0;
+    line-height: 2;
+    font-size: 16px;
+    color: #eceaea!important;
+    text-decoration: none;
+}
+
+.footer_licitaciones_apps a {
+    padding: 0 15px;
+}

@@ -1,0 +1,27 @@
+.new-header-licitaciones {
+    display: block;
+    border-radius: 10px;
+    padding-right: 10px;
+    top: 10px !important;
+    background-color: #fff!important;
+    margin-right: 10px;
+}
+
+.margin_left_layout {
+    margin-left: 100px;
+}
+
+#nav-principal {
+    border-radius: 10px;
+    background: #fff;
+    padding: 0.4rem 1.1rem;
+}
+
+#nav-principal .container-fluid>a.navbar-brand {
+    width: 175px;
+    margin-top: 2px;
+}
+
+#app #nav-principal #logo-col, #app .menu-layout-movil #logo-col {
+    max-width: 192px!important;
+}

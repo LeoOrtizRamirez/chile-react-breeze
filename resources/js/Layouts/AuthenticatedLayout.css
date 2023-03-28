@@ -1,4 +1,185 @@
-.content-flex {
+body{
+    background-color: #f5f5f5 !important;
+}
+
+.contenido_internas {
+    margin-top: 45px;
+    margin-left: 0;
+    width: 100%;
+    display: inline-block;
+    min-height: calc(100vh - 167px);
+    min-width: 100%;
+    padding-left: 100px;
+    padding-right: 10px;
+}
+
+#app .content_blank_interno {
+    background: #fff;
+    margin-top: 24px;
+    border-radius: 14px;
+    margin-bottom: 60px;
+}
+
+#app .content_blank_interno.margin_left_layout, #app .content_not_blank_interno.margin_left_layout {
+    margin-left: 0;
+}
+
+#app .content_blank_interno .name_seccion_app, #app .content_not_blank_interno .name_seccion_app {
+    text-align: center;
+    display: block;
+    max-width: 410px;
+    margin: 0 auto;
+    color: #00a1c9;
+    font-family: Nexa-bold,sans-serif;
+    font-size: 24px;
+    padding-top: 22px;
+    padding-bottom: 11px;
+    border: 0;
+    background-image: -webkit-gradient(linear,left top,right top,from(#e1e1e1),color-stop(50%,#e1e1e1),color-stop(50%,transparent));
+    background-image: linear-gradient(90deg,#e1e1e1 0,#e1e1e1 50%,transparent 0);
+    background-size: 16px 2px;
+    background-position: bottom;
+    background-repeat: repeat-x;
+}
+
+.name_seccion_app {
+    font-family: Roboto-medium;
+    font-weight: 400!important;
+    color: #4d4f4f;
+    margin: 0;
+    padding-top: 15px;
+    font-size: 26px;
+    border-bottom: 1px solid #4d4f4f;
+    padding-bottom: 2px;
+}
+
+.tablescoop {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    font-family: Roboto-regular;
+    font-size: 13px;
+    margin-top: 20px;
+    height: 100%;
+}
+
+.cargando_tables {
+    z-index: 1000;
+}
+
+#cargandos, .cargando_tables {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999999;
+    background: hsla(0,0%,100%,.9);
+    width: 100%;
+    text-align: center;
+    height: 100%;
+    display: none;
+}
+
+.cargando_tables>.col {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    height: 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.cargando_tables .img-col, .cargando_tables .img-ecu {
+    width: 230px;
+    max-width: 100%;
+}
+
+#cargandos img, .cargando_tables img {
+    max-width: 100%;
+}
+
+#cargandos p, .cargando_tables p {
+    font-family: Nexa-bold;
+    font-size: 27px;
+    padding-top: 8px;
+    color: #959595;
+}
+
+#perfil-list .tablescoop .VueTables__limit {
+    margin-bottom: 20px!important;
+}
+
+.VueTables__limit {
+    width: 100%;
+    float: none!important;
+    position: relative;
+    margin-bottom: 0!important;
+}
+
+#perfil-list .tablescoop .VueTables__limit .reloadTable #top-botones .btn-new-green {
+    margin-top: 0;
+    padding: 1px 20px;
+}
+
+.btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+
+.btn-new-green {
+    color: #73c914 !important;
+    border: 1px solid #73c914 !important;
+}
+
+.btn-new-green:focus, .btn-new-green:hover {
+    background: #73c914!important;
+    color: #fff!important;
+}
+
+.btnRadius {
+    border-radius: 40px !important;
+}
+
+.btn-new-blue, .btn-new-danger, .btn-new-dark-blue, .btn-new-gray, .btn-new-green, .btn-new-warn, .btnbg-new-blue, .btnbg-new-danger, .btnbg-new-dark-blue, .btnbg-new-gray, .btnbg-new-green, .btnbg-new-warn {
+    cursor: pointer;
+    font-family: Nexa-bold,sans-serif;
+    text-decoration: none!important;
+    font-size: 17px;
+    white-space: normal!important;
+    background: #fff;
+    padding: 3px 24px;
+    outline: none!important;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.row{
+    --bs-gutter-x: unset !important;
+}
+
+/* .content-flex {
     display: flex !important;
     flex-direction: row !important;
 }
@@ -59,3 +240,4 @@ a {
 .centro-ayuda-iconos-color {
     color: red !important;
 }
+ */

@@ -1,0 +1,9 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 24" width="26" height="24">
+	<title>icon-Publicar-click</title>
+	<defs>
+		<image  width="26" height="24" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAYCAMAAADTXB33AAAAAXNSR0IB2cksfwAAARFQTFRF/////f39/Pz8ysrKkJCQh4eHiIiIiYmJgoKCk5OTzMzM/v7+wcHBHx8fAQEBAgICAAAAICAgxcXF+/v7+Pj4jIyMISEhRkZGR0dHSEhIRUVFPz8/S0tLIyMjBAQEfHx8gYGBioqKfn5++vr6hoaGgICA+fn5g4OD9/f39fX1mZmZREREIiIiAwMDJycnSUlJQ0NDJSUlLS0tQkJCSkpK19fXLy8vBQUFBgYGBwcHxsbG29vbx8fH1NTUMTExw8PD2NjYxMTEMjIy2dnZKysrwsLC3d3dMDAwDQ0N2tra4eHhCQkJKSkpzs7OqqqqGRkZExMTpKSk8fHx6enp7Ozs7e3t7u7u6+vr5ubm9PT08/PznUNilQAAAFt0Uk5TAAAA//////////8A/////////wAA//////////////////8A//8A/wAA///////////////////////////////////////////g/////////wBgMCAQQJAAACKHCyYAAAElSURBVHic1VKJVsIwENxEimg1WWmlULHeJ0YQFFIV8QDv2yLq/3+Imwji0y9wkpdsMrO7efMCAMxMPpJy0qNOOjM2Dt9waTCYmBQSBUrEqaxHN9xynCJ/WuSCfCGcKc5GcyQnjoFP5RiDeVwwQgYZXIQlzl3PnFxK5Mu4ArBKlCPW1m0pgI3NUr5UCLfUdlgOSpXiDlZrlaC8m2KwVxdI/Q1EJBsoNMaSXpPbh4OqQoVaY0Rniiw07YfQPEKNX8+WihZteKoiW3Bcx78wypP/TTVPKYxwYFYfUmEWztrWHGNbHw0apOvA+YVNkGqYEpt52YGrNplmDBxS2tQne69rN7/6mN5a3t6Bf/8Qo5DiB0tafHyy/+b5Jem+dnsDJG/vSe8DvE90TjjEm6QnDQAAAABJRU5ErkJggg=="/>
+	</defs>
+	<style>
+	</style>
+	<use id="Background" href="#img1" x="0" y="0"/>
+</svg>

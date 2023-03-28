@@ -1,0 +1,9 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 24" width="26" height="24">
+	<title>icon-Ajustes</title>
+	<defs>
+		<image  width="24" height="24" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAAXNSR0IB2cksfwAAAXFQTFRF9/f3/////f39/Pz85ubml5eXXFxcGxsbIyMjycnJ/v7++vr6+Pj4pKSkBAQEAQEBAAAAr6+v4ODgQUFBUFBQzMzMxsbGCgoKAgICKysra2trZmZmBgYGCAgIhoaG8fHx+fn5+/v7p6enu7u7vLy8MDAwCQkJBQUFAwMDExMTra2tDAwMOjo66+vr29vbPj4+oaGhgYGBS0tL1dXV2dnZpaWlRkZGICAgsbGxKioqERERnp6enJycCwsLSkpKampqYmJi0tLSJiYmmJiYjIyMwcHB4+PjmZmZgICAcHBwysrKeHh4JSUloKCgenp6bW1tn5+fnZ2diYmJbm5u9vb2cXFxkJCQzs7OrKys0NDQTU1N6urq5ubmTk5ODg4OjY2N3d3d8vLyvb29NTU1MjIy8/PzRUVFSUlJISEhrq6uDw8PZ2dn5+fn6urqQEBABwcHZGRk09PT7e3to6OjLCwst7e36Ojov7+/xcXFubm539/fnvOJJwAAAHt0Uk5TAAAAAJD//////wAAAP//////8P///////////////wAAAP//////////////QP///////////////////////////////7D/////////////////AP///////0CA/////wD///8A////////gFD/////IP///3D/////WR98RAAAAbpJREFUeJwtUudf1EAQndkFkc2RHQtc4MIlAb1bmpyKeIiKneIpNrA3FDtN7H+9b6L5sr99O+/NvDchYmbDtqv7QM/BXnZMACLLrDhzhftiL3LImsNHjvajTh8qrOdAVZJYBodqkg7XM2gQ58XIKB873mgmEgu+ZhjrhQgVPD7hJ8cUksRLaIoMTUGE+MS0JABDSIKE8myB4Mid9F48VE61Ts+cmVXe2f4CUqY9p9Ln5nVMl5+/ANrFhUtd5IrLV0SqV4EXOvi1WFIoXKecx308PJs5yzk4fGM6RSNZJHZ1NF/C5DDkYKmuIyTLtHKzE6Q5kpsyGujdEmmIv02rEtD8DiDrCqi5uyGR1czRPfUg9x8UpY7laA2t1zmjdoCHZPAhZrJoYwY6Iv4RfDzuKEOePAVuHD97rtm8eFkhfvW6hQc/uaGdN96Aj+vbGTLWbS5oWvHcu/cfJNbAfJi3pHY/ogypSlV0XT2f5PMX7MPy1nbZproDY0F2p/Zqe7rBgr/u7mAVqE1B69s0Gpohpzvf/zbx/cfPGhyEtt5dpBvMQdv6hbpR8Wnjd6TJ2P9/yb8v22//qXBkystfqTE5+3o6sXUAAAAASUVORK5CYII="/>
+	</defs>
+	<style>
+	</style>
+	<use id="Background" href="#img1" x="1" y="0"/>
+</svg>

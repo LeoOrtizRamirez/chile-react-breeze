@@ -161,6 +161,11 @@ Route::post('/tiposcompras', [SubCategoriaController::class, 'storeTiposCompras'
 Route::get('/tiposcompras1', [SubCategoriaController::class, 'storeTiposCompras1']);
 
 Route::resource('perfiles', PerfileController::class)->middleware(['auth', 'verified']);
+
+/*GrupoFiltroUsuario*/
+Route::get('/cliente/grupo', [GrupoFiltroUsuarioController::class, 'index'])->middleware(['auth', 'verified']);
+
+
 Route::post('grupo-filtro-usuarios/store', [GrupoFiltroUsuarioController::class, 'store'])->middleware(['auth', 'verified']);
 
 
