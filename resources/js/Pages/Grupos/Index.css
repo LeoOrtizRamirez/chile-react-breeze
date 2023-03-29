@@ -1,0 +1,326 @@
+#grupos .p-column-filter.p-fluid.p-column-filter-row button {
+    display: none;
+}
+
+#grupos #limpiar{
+    display: block;
+}
+
+#grupos th[role="columnheader"] {
+    background: #00a1c9 !important;
+    color: #fff;
+}
+
+#grupos th[role="columnheader"]:first-child {
+    border-top-left-radius: 9px;
+    border-bottom-left-radius: 9px;
+}
+
+#grupos th[role="columnheader"]:last-child {
+    border-top-right-radius: 9px;
+    border-bottom-right-radius: 9px;
+}
+
+#grupos .p-datatable .p-datatable-thead>tr:nth-child(1)>th {
+    padding: 3px 0 !important;
+    border: 0px;
+    border-width: 0px;
+}
+
+#grupos .p-datatable .p-datatable-thead>tr:nth-child(2)>th {
+    padding: 13px 0 !important;
+    border: 0px;
+    border-width: 0px;
+}
+
+#grupos .p-datatable .p-column-header-content {
+    display: unset !important;
+    align-items: center;
+}
+
+#grupos .p-datatable .p-datatable-tbody > tr {
+    -webkit-box-shadow: 1px 0 1px 2px #f5f5f5;
+    box-shadow: 1px 0 1px 2px #f5f5f5;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    height: 85px;
+}
+
+.p-datatable .p-datatable-thead > tr > th{
+    background-color: #fff !important;
+}
+
+.p-inputtext:enabled:hover, .p-inputtext:enabled:focus {
+    border-color: unset !important;
+}
+
+[type='text']:focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus{
+    box-shadow: unset !important;
+    border-color: unset !important;
+}
+
+#grupos span.p-column-title {
+    text-align: center !important;
+    display: grid;
+    min-height: 28px;
+    vertical-align: middle;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    font-size: 11px;
+}
+
+#grupos .col {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+#grupos .p-inputtext {
+    padding: 0px;
+    border-radius: 0px;
+    text-align: center;
+}
+
+#grupos .p-inputtext::placeholder,
+#grupos .p-dropdown-label {
+    text-align: center;
+    font-weight: bold;
+    font-size: 11px;
+    padding: 4px 0px 3.5px 10px;
+    vertical-align: middle;
+}
+
+#grupos th:nth-child(2)>div>div>input[placeholder="Buscar"] {
+    border-top-left-radius: 16px !important;
+    border-bottom-left-radius: 16px !important;
+    border-left: 1px solid #d3d3d3 !important;
+    border-left-width: 1px !important;
+    border-left-style: solid !important;
+    border-left-color: rgb(211, 211, 211) !important;
+}
+
+#grupos .p-datatable .p-datatable-tbody>tr>td {
+    padding: 20px 0px 0px 5px;
+    min-width: 150px !important;
+    background: #fff;
+    vertical-align: middle !important;
+    text-align: center;
+    font-size: 13px !important;
+    font-family: Nexa-bold, sans-serif !important;
+    color: #686868;
+    border: 0px;
+    border-width: 0px;
+}
+
+#grupos .p-datatable .p-datatable-tbody>tr>td.columna_pequena {
+    min-width: 12px !important;
+    padding: 0 4px;
+}
+
+
+#grupos .p-dropdown {
+    border-radius: 0px;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    border-right: 1px solid #d3d3d3 !important;
+}
+
+/*Ocultar paginador*/
+#grupos .p-datatable .p-paginator-bottom {
+    display: none;
+}
+
+#grupos .pi {
+    font-size: 10px;
+}
+
+#grupos .p-datatable .p-datatable-thead>tr:nth-child(2)>th.columna_notificaciones{
+    max-width: 110px;
+}
+
+#grupos .p-datatable .p-datatable-tbody>tr>td.columna_notificaciones{
+    min-width: 110px !important;
+    max-width: 110px !important;
+}
+
+#grupos .p-datatable .p-datatable-thead>tr:nth-child(2)>th.columna_grande{
+    min-width: 220px;
+}
+
+#grupos .p-datatable .p-datatable-thead>tr:nth-child(2)>th.columna_promedio{
+    min-width: 150px;
+}
+
+#grupos .p-datatable .p-datatable-thead>tr:nth-child(2)>th.columna_nombre, #grupos .p-datatable .p-datatable-tbody>tr>td.columna_acciones {
+    min-width: 260px;
+}
+
+#grupos .p-datatable .p-datatable-tbody>tr>td.columna_nombre {
+    min-width: 290px !important;
+    position: relative;
+    padding-left: 36px;
+    padding-right: 5px;
+    display: block;
+    padding-top: 42px;
+}
+
+#grupos .columna_nombre--img {
+    position: relative;
+    height: 52px;
+    width: 52px;
+    padding: 12px;
+    background-color: #f3f3f3;
+    border-radius: 80px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.columna_nombre--content-img {
+    position: absolute;
+    left: -16px;
+    top: 22px;
+}
+
+#grupos .iconos_functions_grid {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+#grupos .iconos_functions_grid {
+    border-radius: 20px;
+    padding: 2px 6px;
+}
+
+#grupos .iconos_functions_grid button {
+    margin: 0 5px;
+}
+
+#grupos .icon-pd-editar {
+    padding-left: 0;
+    padding-right: 0.625rem;
+}
+
+#grupos .iconos_functions_grid a,
+#grupos .iconos_functions_grid button {
+    display: inline-block;
+    background: none;
+    border: 0;
+    font-size: 16px;
+    color: #9c9b9b;
+    vertical-align: middle;
+    cursor: pointer;
+    outline: none !important;
+    text-decoration: none !important;
+    padding: 0 9px;
+}
+
+#grupos .iconos_functions_grid .icon-Leidos {
+    font-size: 23px;
+}
+
+#grupos .iconos_functions_grid .icon-Editar:hover:before {
+    color: #60c4dd;
+}
+
+#grupos .iconos_functions_grid .icon-Eliminar:hover:before {
+    color: #c9003d;
+}
+
+#grupos .iconos_functions_grid .icon-Duplicar:hover:before {
+    color: #003dc9;
+}
+
+#grupos .iconos_functions_grid .icon-Leidos:hover:before {
+    color: #007997;
+}
+
+#grupos .iconos_functions_grid .icon-Informacin-click:hover:before {
+    color: #73c914;
+}
+
+.tooltip .tooltip-inner {
+    font-size: 11px;
+    max-width: 250px;
+    padding: 8px 10px;
+    border-radius: 4px;
+    color: #fff;
+    font-family: Nexa-bold, sans-serif !important;
+    -webkit-box-shadow: 0 0 10px 3px hsl(0deg 5% 65% / 39%);
+    -ms-box-shadow: 0 0 10px 3px hsla(0, 5%, 65%, .39);
+    -o-box-shadow: 0 0 10px 3px hsla(0, 5%, 65%, .39);
+    box-shadow: 0 0 10px 3px hsl(0deg 5% 65% / 39%);
+}
+
+.tooltip-editar .tooltip-inner{
+    background-color: #60c4dd;
+}
+
+.tooltip-eliminar .tooltip-inner{
+    background-color: #c9003d;
+}
+
+.tooltip-duplicar .tooltip-inner{
+    background-color: #003dc9;
+}
+
+.tooltip-leidos .tooltip-inner{
+    background-color: #007997;
+}
+
+.tooltip-info .tooltip-inner{
+    background-color: #73c914;
+}
+
+#grupos input{
+    cursor: pointer;
+}
+
+#grupos .p-inputtext{
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item{
+    padding: 0px !important;
+    text-align: center;
+}
+
+.p-dropdown-panel .p-dropdown-items{
+    padding: 0px !important;
+}
+
+th.p-filter-column.v-hidden{
+    visibility: hidden;
+}
+
+.borrador-grid {
+    border: 0!important;
+    background: none!important;
+    -webkit-box-shadow: none!important;
+    box-shadow: none!important;
+    outline: none!important;
+    cursor: pointer;
+    padding: 9px!important;
+    font-size: 21px;
+    color: #9c9b9b;
+}
+
+.borrador-grid:hover {
+    color: #c9003d!important;
+}
+
+.selecciones-nuevo-diseno {
+    display: block;
+    position: relative;
+    text-align: center;
+}
