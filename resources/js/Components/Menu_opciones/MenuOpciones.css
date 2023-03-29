@@ -127,14 +127,14 @@ font-family: "Roboto", sans-serif !important;
     -o-transform: translate3d(45px, 50px, 0px) !important;
 }
 
-.lista-opciones ul,
+/* .lista-opciones ul,
 li {
     padding-left: 10px !important;
     padding-right: 10px !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-evenly !important;
-}
+} */
 
 .w-30 {
     width: 130px !important;

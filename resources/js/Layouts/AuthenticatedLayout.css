@@ -179,6 +179,53 @@ body{
     --bs-gutter-x: unset !important;
 }
 
+/*Botones*/
+.btn-new-gray {
+    color: #686868;
+    border: 1px solid #686868;
+}
+
+.btn-new-gray:focus, .btn-new-gray:hover {
+    background: #686868!important;
+    color: #fff!important;
+}
+
+.btn-new-blue {
+    color: #00a1c9;
+    border: 1px solid #00a1c9;
+}
+
+.btn-new-blue:focus, .btn-new-blue:hover {
+    background: #00a1c9!important;
+    color: #fff!important;
+}
+
+.btn-new-danger {
+    color: #c9003d;
+    border: 1px solid #c9003d;
+}
+
+.btn-new-danger:focus, .btn-new-danger:hover {
+    background: #c9003d!important;
+    color: #fff!important;
+}
+
+.btnRadius {
+    border-radius: 40px;
+}
+/*Botones*/
+
+/*Modals*/
+.modal-backdrop.show {
+    background: hsla(0,2%,46%,.62);
+    -webkit-backdrop-filter: blur(6px);
+    -moz-backdrop-filter: blur(6px);
+    -ms-backdrop-filter: blur(6px);
+    -o-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    opacity: 1 !important;
+}
+/*Modals*/
 /* .content-flex {
     display: flex !important;
     flex-direction: row !important;
