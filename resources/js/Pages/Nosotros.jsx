@@ -1,25 +1,16 @@
 import { Head } from "@inertiajs/inertia-react";
-import { Footer } from "../Components/Footer/Footer";
+import WithOutAuthenticatedLayout from "@/Layouts/WithOutAuthenticatedLayout";
 import CarouselImagenes from '@/Components/CarouselImagenes';
-
 import "../../css/estilos-carousel-publica.css";
 import BotonRegistrarse from '@/Components/BotonRegistrarse';
 import BotonAsesor from '@/Components/BotonHablarAsesor';
-
-import Header from "@/Layouts/HeaderPublica";
-
-
 import './Nosotros.css';
-import "../../css/font-web.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "@fontsource/poppins";
 
-export default function Nosotros(props) {
+export default function Nosotros({auth}) {
 
     return (
-        <>
+        <WithOutAuthenticatedLayout auth={auth}>
             <Head title="Nosotros" />
-            <Header user={props}></Header>
             <div id="nosotros-view">
                 <div id="banner-top">
                     <div id="banner-top--img" className="h-100 w-100">
@@ -185,12 +176,10 @@ export default function Nosotros(props) {
                         </div>
                     </div>
                     <div className="customers-list customers-list-carrousel w-50">
-                    <CarouselImagenes />
+                        <CarouselImagenes />
                     </div>
                 </div>
             </section>
-            
-            <Footer />
-        </>
+        </WithOutAuthenticatedLayout>
     );
 }

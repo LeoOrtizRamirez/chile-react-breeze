@@ -1,24 +1,16 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Link, Head } from "@inertiajs/inertia-react";
-
-import Banner from "@/Components/Banner";
-import { Footer } from "../Components/Footer/Footer";
+import React, {useState} from "react";
+import WithOutAuthenticatedLayout from "@/Layouts/WithOutAuthenticatedLayout";
+import {Head} from "@inertiajs/inertia-react";
+import './Welcome.css'
 import "../../css/estilos-carousel-publica.css";
 import BotonRegistrarse from '@/Components/BotonRegistrarse';
 import BotonAsesor from '@/Components/BotonHablarAsesor';
 import CarouselImagenes from '@/Components/CarouselImagenes';
-
 import ModalLoginSesion from "@/Components/Modals/ModalLoginSesion";
-
 import { BannerMonitoreamos } from "../Components/Banners/BannerMonitoreamos";
 import PopUpPoliticaCookies from '@/Components/PopUpPoliticaCookies';
 
-import Header from "@/Layouts/HeaderPublica";
-
-
-
-
-export default function Welcome(props) {
+export default function Welcome({auth, contratos}) {
 
     {/* INICIO BANNER */ }
     const [date, setDate] = useState(new Date().toLocaleTimeString())
@@ -52,7 +44,7 @@ export default function Welcome(props) {
     }, 1000);
 
     const loginBanner = () => {
-        if (props.auth.user == null) {
+        if (auth.user == null) {
             setOpenLoginModal(true)
             setContratosFiltrados('/contratos?fecha_publicacion=' + new Date().toISOString().slice(0, 10))
         } else {
@@ -66,10 +58,9 @@ export default function Welcome(props) {
 
     {/* FIN BANNER */ }
     return (
-        <>
+        <WithOutAuthenticatedLayout auth={auth} page={'perfiles'}>
             <Head title="Home" />
-            <Header user={props} /* setShow={openLoginModal} url={contratosFiltrados} closeModal={closeModal} */></Header>
-            {/* <Banner procesos={props.contratos}></Banner> */}
+            
             {/* INICIO BANNER */}
             <section id="banner-videos-paises">
                 <div className="banner-video-paises"><video muted="muted" autoPlay="autoplay" loop="loop" src="/public/video/video_inicio_cl.mp4" type="webm" className="banner-video-paises__video"></video>
@@ -116,7 +107,7 @@ export default function Welcome(props) {
                                             ></ModalLoginSesion>
                                             <a /* href={contratosFiltrados} */ className="fraja-fuentes__contador" onClick={loginBanner}>
                                                 <span>Chile Compra : </span>
-                                                <span className="fraja-fuentes__item--claro">{props.contratos} procesos </span>
+                                                <span className="fraja-fuentes__item--claro">{contratos} procesos </span>
                                                 <i className="icon-up"></i>
                                             </a>
                                         </li>
@@ -171,10 +162,7 @@ export default function Welcome(props) {
                     </div>
                 </div>
             </section>
-
             <PopUpPoliticaCookies />
-            <Footer />
-
-        </>
+        </WithOutAuthenticatedLayout>
     );
 }   

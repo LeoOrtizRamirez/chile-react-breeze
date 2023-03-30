@@ -1,29 +1,17 @@
 import React, { useState } from 'react';
+import WithOutAuthenticatedLayout from "@/Layouts/WithOutAuthenticatedLayout";
 import { Head } from "@inertiajs/inertia-react";
-import { Footer } from "../Components/Footer/Footer";
-
-import Header from "@/Layouts/HeaderPublica";
-
 import './Contacto.css';
-import "../../css/font-web.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "@fontsource/poppins";
 
 import Accordion from 'react-bootstrap/Accordion';
-
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-
 import Nav from 'react-bootstrap/Nav';
-
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 import { Paises } from '@/Components/Paises';
 
-//import Sonnet from '../../components/Sonnet';
-
-export default function Contacto(props) {
+export default function Contacto({auth}) {
 
     const [key, setKey] = useState('escribenos');
     const [show, setShow] = useState(false);
@@ -57,10 +45,8 @@ export default function Contacto(props) {
     }
 
     return (
-        <>
-            <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Poppins" />
+        <WithOutAuthenticatedLayout auth={auth}>
             <Head title="Contacto" />
-            <Header user={props}></Header>
             <div id="banner-top">
                 <div id="banner-top--img" className="h-100 w-100">
                     <div className="container">
@@ -402,10 +388,6 @@ export default function Contacto(props) {
                     </div>
                 </div>
             </div>
-
-
-
-            <Footer />
-        </>
+        </WithOutAuthenticatedLayout>
     );
 }

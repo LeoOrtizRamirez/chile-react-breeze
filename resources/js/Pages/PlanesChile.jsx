@@ -1,19 +1,13 @@
 import { Head } from "@inertiajs/inertia-react";
+import WithOutAuthenticatedLayout from "@/Layouts/WithOutAuthenticatedLayout";
 import "../../css/estilos-planes-precios.css";
-
-import "bootstrap/dist/css/bootstrap.min.css";
-import "@fontsource/poppins";
-import "../../css/font-web.css";
-import { Footer } from "../Components/Footer/Footer";
-import Header from "@/Layouts/HeaderPublica";
 import BotonAdquirirPlan from '@/Components/BotonAdquirirPlan';
 import BotonRegistrarse from '@/Components/BotonRegistrarse';
 
-const Chile = (props) => {
+const Chile = ({ auth }) => {
     return (
-        <>
+        <WithOutAuthenticatedLayout auth={auth}>
             <Head title="Welcome" />
-            <Header user={props}></Header>
             <section id="planes" className="planes planes-container customers-planes container">
                 <div className="planes-info">
                     <p className="plan-info-title">Nuestros planes y precios</p>
@@ -271,7 +265,7 @@ const Chile = (props) => {
                         </div>
                     </ul>
                 </div>
-                 <div className="funcionalidades-content-button">
+                <div className="funcionalidades-content-button">
                     <BotonAdquirirPlan
                         texto={"Adquirir un plan"}
                         textoHover={"Escoger mi plan"}
@@ -282,9 +276,7 @@ const Chile = (props) => {
 
                 </div>
             </section>
-
-            <Footer />
-        </>
+        </WithOutAuthenticatedLayout>
     )
 }
 

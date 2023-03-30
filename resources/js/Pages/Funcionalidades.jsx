@@ -1,24 +1,14 @@
 import React from "react";
-import "./Funcionalidades.css";
+import WithOutAuthenticatedLayout from "@/Layouts/WithOutAuthenticatedLayout";
 import { Head } from "@inertiajs/inertia-react";
-import { Footer } from "../Components/Footer/Footer";
-import Header from "@/Layouts/HeaderPublica";
+import "./Funcionalidades.css";
 import BotonRegistrarse from "@/Components/BotonRegistrarse";
 import BotonAsesor from "@/Components/BotonHablarAsesor";
-import "../../css/font-web.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "@fontsource/poppins";
 
-export const Funcionalidades = (props) => {
+export const Funcionalidades = ({auth}) => {
     return (
-        <>
-            <Head  title="Funcionalidades" />
-            <Header user={props}>
-                <link
-                    href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto&display=swap"
-                    rel="stylesheet"
-                ></link>
-            </Header>
+        <WithOutAuthenticatedLayout auth={auth}>
+            <Head title="Funcionalidades" />
             <div className="functionalities">
                 <div className="container-functionalities">
                     <div className="container-functionalities-text">
@@ -381,8 +371,7 @@ export const Funcionalidades = (props) => {
                     </div>
                 </div>
             </div>
-            <Footer />
-        </>
+        </WithOutAuthenticatedLayout>
     );
 };
 

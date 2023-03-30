@@ -3,7 +3,6 @@ import ApplicationLogoLici from "@/Components/ApplicationLogoLici";
 import ChileLogo from "@/Components/ChileLogo";
 import "../../css/estilos-header-publica.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../css/font-web.css";
 import "./Header.css";
 import "./script.js";
 import Container from "react-bootstrap/Container";
@@ -105,7 +104,7 @@ export default function HeaderPublica(props) {
 
                             <Nav>
                                 <ul className="mb-2 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 ">
-                                    {props.user.auth.user ? (
+                                    {props?.user?.auth?.user ? (
                                         <>
                                             <button
                                                 type="button"
