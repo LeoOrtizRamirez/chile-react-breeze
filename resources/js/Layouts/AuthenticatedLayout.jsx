@@ -10,7 +10,10 @@ import MenuLateral from "@/Components/MenuLateral";
 import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
 
-export default function Authenticated({ auth, header, children }) {
+import "../../css/font-unicolor.css";
+import "../../css/font-web.css";
+
+export default function Authenticated({ auth, header, children, page }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
@@ -19,8 +22,10 @@ export default function Authenticated({ auth, header, children }) {
             <Header></Header>
             <div className="">
                 <MenuLateral />
-                <div className="">
-                    {children}
+                <div className="col contenido_internas " id={page}>
+                    <div className="position-relative d-block">
+                        {children}
+                    </div>
                 </div>
                 <Footer></Footer>
             </div>

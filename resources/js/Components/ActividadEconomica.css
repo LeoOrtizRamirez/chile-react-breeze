@@ -60,7 +60,7 @@ input.form-control.busqueda-input {
     user-select: none;
 }
 
-#SubCategorias .tree-arrow {
+/* #SubCategorias .tree-arrow {
     position: absolute;
     right: 30px;
     width: 16px;
@@ -68,7 +68,7 @@ input.form-control.busqueda-input {
     cursor: pointer;
     width: 0;
     color: #fff;
-}
+} */
 
 @media (min-width: 768px) {
     #SubCategorias .tree-content .tree-division {
@@ -118,13 +118,8 @@ input.form-control.busqueda-input {
     font-family: Nexa-bold, sans-serif;
 }
 
-#SubCategorias .tree-node.has-child>.tree-content {
-    border-bottom: 2px solid #e6e5e5;
-    padding: 7px 18px 14px !important;
-}
-
 #SubCategorias .tree-node.has-child.segmento>.tree-content .tree-division__title {
-    background: #fff !important;
+    background: #fff0 !important;
     padding: 4px 10px;
     font-size: 14px !important;
     color: #00a1c9 !important;
@@ -144,11 +139,12 @@ input.form-control.busqueda-input {
 }
 
 #SubCategorias .tree-anchor.children .tree-division__title {
-    background: #fff !important;
+    background: #fff0 !important;
     font-size: 14px;
     color: #000 !important;
     text-align: left;
     font-weight: inherit;
+    padding: 0px;
 }
 
 #SubCategorias .tree-anchor.children .tree-division__title-gray {
@@ -179,11 +175,12 @@ input.form-control.busqueda-input {
     border-radius: 9px;
 }
 
-#SubCategorias .tree-arrow:after, .tree-checkbox:after {
+/* #SubCategorias .tree-arrow:after,
+.tree-checkbox:after {
     position: absolute;
     display: block;
     content: "";
-}
+} */
 
 #SubCategorias .tree-checkbox.checked {
     background-color: #73c914;
@@ -193,7 +190,7 @@ input.form-control.busqueda-input {
 #SubCategorias .tree-content {
     display: flex;
     align-items: center;
-    padding: 3px;
+    padding: 3px 3px 3px 0px;
     cursor: pointer;
     width: 100%;
     box-sizing: border-box;
@@ -229,7 +226,8 @@ input.form-control.busqueda-input {
     transition: box-shadow .25s ease, -webkit-box-shadow .25s ease;
 }
 
-#SubCategorias .tree-children.Localizaciones li, .tree-children.TiposCompras li{
+#SubCategorias .tree-children.Localizaciones li,
+.tree-children.TiposCompras li {
     min-width: 100% !important;
 }
 
@@ -260,6 +258,7 @@ input.form-control.busqueda-input {
     -ms-flex-flow: row wrap;
     flex-flow: row wrap;
     overflow: auto;
+    padding: 12px 20px !important;
 }
 
 #SubCategorias .tree_categorias .tree-root .tree-children:first-of-type {
@@ -274,7 +273,7 @@ input.form-control.busqueda-input {
 }
 
 #SubCategorias .tree_categorias .tree-root .tree-children {
-    padding: 12px 20px;
+    padding: 12px 20px !important;
 }
 
 #SubCategorias .tree_categorias .tree-root .tree-children:first-of-type .tree-node.has-child.expanded {
@@ -305,8 +304,10 @@ input.form-control.busqueda-input {
 input[type="checkbox"] {
     border: 2px solid #66c6de;
     padding: 7px;
-    margin-right: 10px;
+    /* margin-right: 10px; */
     border-radius: 5px;
+    height: 24px;
+    width: 24px;
 }
 
 #SubCategorias .check-minus {
@@ -315,10 +316,95 @@ input[type="checkbox"] {
     background-size: cover;
 }
 
-#SubCategorias input[type='checkbox']{
+#SubCategorias input[type='checkbox'] {
     color: #73c914 !important;
 }
 
 #SubCategorias [type='checkbox']:checked {
     background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e") !important;
+}
+
+@media (min-width: 768px) {
+    .tree_categorias .tree-root>.tree-node>.tree-content .tree-division__img {
+        position: relative;
+        height: 48px;
+        width: 48px;
+        padding: 12px;
+        background-color: #f3f3f3;
+        border-radius: 80px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        margin-right: 30px;
+    }
+}
+
+@media (min-width: 768px) and (min-width: 768px){
+.tree_categorias .tree-root>.tree-node>.tree-content .tree-anchor {
+    padding: 0 5px 0 26px;
+}
+}
+
+.tree-arrow:after, .tree-checkbox:after {
+    position: absolute;
+    display: block;
+    content: "";
+}
+
+.tree_categorias .tree-root>.tree-node .tree-arrow:after {
+    -webkit-transform: rotate(44deg) translateY(-50%) translateX(0);
+    transform: rotate(44deg) translateY(-50%) translateX(0);
+    top: 6px;
+    left: 2px;
+    height: 7px;
+    width: 7px;
+    border-color: #686868;
+    border-width: 0.13rem;
+}
+
+.tree-arrow.has-child:after {
+    border: 1.5px solid #494646;
+    position: absolute;
+    border-left: 0;
+    border-top: 0;
+    left: 9px;
+    top: 50%;
+    height: 9px;
+    width: 9px;
+    transform: rotate(-45deg) translateY(-50%) translateX(0);
+    transition: transform .25s;
+    transform-origin: center;
+}
+
+.tree_categorias .tree-root>.tree-node>.tree-content .tree-arrow::after {
+    border-color: #fff!important;
+}
+
+.tree_categorias .tree-root>.tree-node .tree-arrow {
+    position: absolute;
+    right: 29px;
+    margin-left: 0;
+    width: 16px;
+    height: 16px;
+}
+
+.tree-node.expanded > div >i:after {
+    border-color: #00a1c9;
+    left: 6px;
+    -webkit-transform: rotate(-135deg) translateY(-40%) translateX(0);
+    transform: rotate(-135deg) translateY(-40%) translateX(0) !important;
+}
+
+
+.tree_categorias .tree-root .segmento input[type="checkbox"]{
+    width: 19px;
+    height: 19px;
+}
+
+.tree_categorias .tree-root .tree-children:first-of-type .tree-node.has-child>.tree-content {
+    border-bottom: 2px solid #e6e5e5;
+    padding: 7px 18px 14px!important;
 }

@@ -14,7 +14,8 @@ use Inertia\Inertia;
 
 class GrupoFiltroUsuarioController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $grupos = GrupoFiltroUsuario::where('id_usuario', Auth::id())->get();
         return Inertia::render('Grupos/Index', [
             'grupos' => $grupos
@@ -26,7 +27,7 @@ class GrupoFiltroUsuarioController extends Controller
         $actividades_economicas = $request->data['actividades_economicas'];
         $tipos_compras = $request->data['tipos_compras'];
         $localizaciones = $request->data['localizaciones'];
-        if(sizeof($actividades_economicas) == 0){
+        if (sizeof($actividades_economicas) == 0) {
             return "Debes tener mínimo 1 Actividad Económica seleccionada";
         }
 
@@ -75,5 +76,52 @@ class GrupoFiltroUsuarioController extends Controller
     {
         $int = preg_replace('([^0-9])', '', $string);
         return intval($int);
+    }
+
+    public function create()
+    {
+        /* Parte 1 ACTIVIDADES ECONOMICAS */
+
+        $actividades_economicas = SubCategoria::where('tipo_categoria', 1)
+            ->orderBy('updated_at', 'DESC')
+            ->with('parent', 'childs')
+            ->get();
+
+        //Buscar id del grandparent y agregarlo a la actividad economica
+        foreach ($actividades_economicas as $key => $ac) {
+            $model = SubCategoria::find($ac->id);
+            $ac->id_abuelo_sub_categoria = null;
+            if ($model->id_padre_sub_categoria != null) {
+                $parent = SubCategoria::find($model->id_padre_sub_categoria);
+                if ($parent->id_padre_sub_categoria != null) {
+                    $grandparent = SubCategoria::find($parent->id_padre_sub_categoria);
+                    $ac->id_abuelo_sub_categoria = $grandparent->id;
+                }
+            }
+        }
+
+        /* Parte 1 ACTIVIDADES ECONOMICAS */
+
+        /* Parte 2 LOCALIZACIONES */
+        $localizaciones = SubCategoria::where('tipo_categoria', 3)
+            ->orderBy('updated_at', 'DESC')
+            ->with('parent', 'childs')
+            ->get();
+
+        /* Parte 2 LOCALIZACIONES */
+
+
+
+        /* Parte 3 TIPO COMPRAS */
+        $tiposcompras = SubCategoria::where('tipo_categoria', 5)
+            ->orderBy('updated_at', 'DESC')
+            ->with('parent', 'childs')
+            ->get();
+        /* Parte 3 TIPO COMPRAS  */
+        return Inertia::render('Grupos/Crear', [
+            'actividades_economicas' => $actividades_economicas,
+            'localizaciones' => $localizaciones,
+            'tiposcompras' => $tiposcompras
+        ]);
     }
 }

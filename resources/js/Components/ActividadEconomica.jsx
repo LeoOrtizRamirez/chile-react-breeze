@@ -9,7 +9,7 @@ const ActividadEconomica = ({
     tipo,
     checkeds,
 }) => {
-    
+
     const [fakeSectores, setFakeSectores] = useState(subcategorias);
     const [sectores, setSectores] = useState(subcategorias);
     const [openSectores, setOpenSectores] = useState([]);
@@ -696,12 +696,12 @@ element.id_padre_sub_categoria
                             >
                                 <div
                                     id={sector.id}
-                                    className="tree-content mt-3 sector"
+                                    className="tree-content sector"
                                     key={sector.id}
                                 >
                                     <i
                                         className={`tree-arrow has-child ${sector.childs.length > 0
-                                            ? "bi bi-chevron-down"
+                                            ? "ltr"
                                             : ""
                                             }`}
                                     ></i>
@@ -731,6 +731,9 @@ element.id_padre_sub_categoria
                                                 getSegmento(sector.id)
                                             }
                                         >
+                                            <div class="tree-division__img">
+                                                <img src={`/images/subcategorias/${sector.icon}`} width="35px" />
+                                            </div>
                                             <span className="tree-division__title my-auto">
                                                 {sector.nombre}
                                             </span>
@@ -794,21 +797,11 @@ element.id_padre_sub_categoria
                                                                                 )
                                                                             }
                                                                         >
-                                                                            <>
-                                                                                {index % 2 == 0 ? (
-                                                                                    <span className="tree-division__title my-auto">
-                                                                                        {
-                                                                                            segmento.nombre
-                                                                                        }
-                                                                                    </span>
-                                                                                ) : (
-                                                                                    <span className="tree-division__title-gray my-auto">
-                                                                                        {
-                                                                                            segmento.nombre
-                                                                                        }
-                                                                                    </span>
-                                                                                )}
-                                                                            </>
+                                                                            <span className="tree-division__title my-auto">
+                                                                                {
+                                                                                    segmento.nombre
+                                                                                }
+                                                                            </span>
                                                                         </span>
                                                                         :
                                                                         <span

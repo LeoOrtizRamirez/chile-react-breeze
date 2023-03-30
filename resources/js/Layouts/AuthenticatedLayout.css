@@ -201,8 +201,8 @@ body{
 }
 
 .btn-new-danger {
-    color: #c9003d;
-    border: 1px solid #c9003d;
+    color: #c9003d !important;
+    border: 1px solid #c9003d !important;
 }
 
 .btn-new-danger:focus, .btn-new-danger:hover {
