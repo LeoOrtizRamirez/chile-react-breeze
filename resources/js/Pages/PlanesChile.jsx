@@ -3,7 +3,7 @@ import "../../css/estilos-planes-precios.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fontsource/poppins";
-import "../../css/font-unicolor.css";
+import "../../css/font-web.css";
 import { Footer } from "../Components/Footer/Footer";
 import Header from "@/Layouts/HeaderPublica";
 import BotonAdquirirPlan from '@/Components/BotonAdquirirPlan';

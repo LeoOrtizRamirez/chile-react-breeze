@@ -10,7 +10,6 @@ import MenuLateral from "@/Components/MenuLateral";
 import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
 
-import "../../css/font-unicolor.css";
 import "../../css/font-web.css";
 
 export default function Authenticated({ auth, header, children, page }) {

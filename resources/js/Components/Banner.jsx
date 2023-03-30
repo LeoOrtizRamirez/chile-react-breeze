@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "../../css/estilos-banner-home.css";
-import "../../css/font-unicolor.css";
+import "../../css/font-web.css";
 import BotonRegistrarse from './BotonRegistrarse';
 
 import "bootstrap/dist/css/bootstrap.min.css";

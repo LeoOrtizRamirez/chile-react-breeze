@@ -3,7 +3,7 @@ import ApplicationLogoLici from "@/Components/ApplicationLogoLici";
 import ChileLogo from "@/Components/ChileLogo";
 import "../../css/estilos-header-publica.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../css/font-unicolor.css";
+import "../../css/font-web.css";
 import "./Header.css";
 import "./script.js";
 import Container from "react-bootstrap/Container";

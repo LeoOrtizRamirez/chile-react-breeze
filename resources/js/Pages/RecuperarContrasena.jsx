@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 
 import './RecuperarContrasena.css'
 
-import "../../css/font-unicolor.css";
+import "../../css/font-web.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fontsource/poppins";
 

@@ -5,7 +5,7 @@ import { Footer } from "../Components/Footer/Footer";
 import Header from "@/Layouts/HeaderPublica";
 import BotonRegistrarse from "@/Components/BotonRegistrarse";
 import BotonAsesor from "@/Components/BotonHablarAsesor";
-import "../../css/font-unicolor.css";
+import "../../css/font-web.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fontsource/poppins";
 

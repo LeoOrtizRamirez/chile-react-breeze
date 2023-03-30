@@ -11,7 +11,7 @@ import Modal from "react-bootstrap/Modal";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 import "../../../css/estilos-toast.css";
-import "../../../css/font-unicolor.css";
+import "../../../css/font-web.css";
 /*Toast*/
 
 const Index = ({ auth, actividades_economicas }) => {
