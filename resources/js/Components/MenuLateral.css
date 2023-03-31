@@ -53,7 +53,7 @@
     font-size: 11px;
     width: 100%;
     background: none;
-    color: #686868;
+    color: #686868 !important;
     text-decoration: none!important;
     top: 10px;
 }
@@ -119,6 +119,10 @@
 
 #menu-lateral li{
     padding: 0px !important;
+}
+
+#menu-lateral .icon-Mis-carpetas .path1:before, .icon-Mis-carpetas .path2:before {
+    color: inherit!important;
 }
 
 .scroll_fit {

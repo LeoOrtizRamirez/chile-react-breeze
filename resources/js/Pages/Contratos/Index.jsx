@@ -14,6 +14,24 @@ import "../../../css/font-web.css";
 import "./Index.css";
 import "@fontsource/poppins";
 
+
+/*PRIMEFACES */
+import { FilterMatchMode, FilterOperator } from 'primereact/api';
+import { DataTable } from 'primereact/datatable';
+import { Paginator } from 'primereact/paginator';
+import { Column } from 'primereact/column';
+import { Dropdown } from 'primereact/dropdown';
+import { InputText } from 'primereact/inputtext';
+import { Tag } from 'primereact/tag';
+import "primereact/resources/themes/lara-light-indigo/theme.css";//theme
+import "primereact/resources/primereact.min.css";//core
+import "primeicons/primeicons.css";//icons
+
+/*Tooltips */
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+/*Tooltips */
+
 import Loader from "@/Components/Loader";
 const Index = ({ auth, contratos }) => {
     // let queryStringBusquedaAvanzada = "";
@@ -161,7 +179,7 @@ const Index = ({ auth, contratos }) => {
 
     const buscadorRapido = useRef(0);
 
-    useEffect(() => {
+    /* useEffect(() => {
         if (buscadorRapido.current != 0) {
             buscadorRapido.current.addEventListener(
                 "keypress",
@@ -183,7 +201,7 @@ const Index = ({ auth, contratos }) => {
                 }
             );
         }
-    }, []);
+    }, []); */
 
     const busquedaAvanzada = (queryString) => {
         // debugger;
@@ -236,340 +254,169 @@ const Index = ({ auth, contratos }) => {
     const handleBusqueda = (queryString) => busquedaAvanzada(queryString);
     // fin buscador avanzado
 
-    return (
-        <AuthenticatedLayout auth={auth}>
-            <link rel="shortcut icon" href="#"></link>
-            <div>
-                <div className="contenedor-filtros">
-                    <div className="">
-                        <form
-                            method="get"
-                            name="form_busqueda_rapida"
-                            id="form_busqueda_rapida"
-                        >
-                            <input
-                                ref={buscadorRapido}
-                                id="buscador_rapido"
-                                className="buscador_rapido"
-                                name="buscador_rapido"
-                                type="text"
-                                value={inputSearch}
-                                placeholder="Búsqueda rápida"
-                                onChange={(e) => setInputSearch(e.target.value)}
-                            />
-                            <input
-                                name="fecha_publicacion"
-                                type="hidden"
-                                value={inputFechaPublicacion}
-                            />
-                            <input name="type" type="hidden" value="fetch" />
-                        </form>
-                        <span className="material-symbols-outlined posicion-lupa-contratos">
-                            search
-                        </span>
-                    </div>
 
-                    <div className="">
-                        <span>
-                            <button
-                                onClick={handleShowBusquedaAvanzada}
-                                className="mb-2"
-                            >
-                                <span className="material-symbols-outlined text-btn-avanzado">
-                                    list
-                                </span>
-                                <span className="text-btn-avanzado">
-                                    Búsqueda avanzada
-                                </span>
-                            </button>
-                            <ModalBusquedaAvanzada
-                                handleBusqueda={handleBusqueda}
-                                showBusquedaAvanzada={showBusquedaAvanzada}
-                                handleCloseBusquedaAvanzada={
-                                    handleCloseBusquedaAvanzada
-                                }
-                            ></ModalBusquedaAvanzada>
-                        </span>
-                    </div>
 
-                    <div className="input-filtro-estado">
-                        <span className="input-filtro-estado-span">
-                            Visualizar:
-                        </span>
-                        <select className="input-visualizar">
-                            <option value="">todos</option>
-                            <option value="">Vistos recientemente</option>
-                            <option value="">No Leidos</option>
-                        </select>
-                    </div>
 
-                    <div>
-                        <Paginador
-                            nextHandler={() => pageChange(nextPage)}
-                            prevHandler={() => pageChange(prevPage)}
-                            currentPage={currentPage}
-                            totalPaginas={totalPaginas}
-                            totalElementos={totalElementos}
-                        ></Paginador>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*Borrar filtros*/
+    const dt = useRef(null);
+    const handleClearFilters = () => {
+        if (dt.current) {
+            dt.current.reset();
+        }
+    }
+    /*Borrar filtros*/
+
+    const getGrupos = (data) => {
+        return [...(data || [])].map((d) => {
+            if (d.envio_alertas == 1) {
+                d.envio_alertas = "Si"
+            } else {
+                d.envio_alertas = "No"
+            }
+            return d;
+        });
+    };
+
+    const [data, setData] = useState(getGrupos(contratos.data));
+    const [filters, setFilters] = useState({
+        global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        'fuente.alias_portal': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        entidad_contratante: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        objeto: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        valor: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        modalidad: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        codigo_proceso: { value: null, matchMode: FilterMatchMode.EQUALS },
+        estado_proceso: { value: null, matchMode: FilterMatchMode.EQUALS },
+        fecha_publicacion: { value: null, matchMode: FilterMatchMode.EQUALS },
+        ubicacion: { value: null, matchMode: FilterMatchMode.EQUALS },
+        actividad_economica: { value: null, matchMode: FilterMatchMode.EQUALS },
+    });
+
+    //const [loading, setLoading] = useState(false);
+    const [statuses] = useState(['No', 'Si']);
+
+    const nombreFiltroBodyTemplate = (grupo) => {
+        return (
+            <>
+                <div class="columna_nombre--content-img">
+                    <div class="columna_nombre--img">
+                        <img src={`${grupo.imagen_filtro}`} />
                     </div>
                 </div>
+                <span>{grupo.nombre_filtro}</span>
+            </>
+        );
+    };
 
-                <div className="contenedor-contratos">
-                    <div
-                        className="alto-tabla bg-white overflow-auto"
-                        id="scroll-table"
-                    >
-                        {!loading ? (
-                            <>
-                                <div
-                                    id="wrapper1"
-                                    style={{
-                                        width:
-                                            fakeScrollContainerWidth > 0
-                                                ? fakeScrollContainerWidth
-                                                : 0 + "px",
-                                    }}
-                                >
-                                    <div
-                                        id="div1"
-                                        style={{
-                                            width:
-                                                fakeScrollContentWidth > 0
-                                                    ? fakeScrollContentWidth
-                                                    : 0 + "px",
-                                        }}
-                                    ></div>
-                                </div>
+    const [toolTips, setToolTips] = useState([
+        { 'name': 'editar', text: 'Editar perfil', 'icon': 'icon-Editar icon-pd-editar', modal: 'modal_edit_perfil' },
+        { 'name': 'eliminar', text: 'Eliminar perfil', 'icon': 'icon-Eliminar icon-pd-eliminar', modal: 'modalEliminarPerfil' },
+        { 'name': 'duplicar', text: 'Duplicar perfil', 'icon': 'icon-Duplicar icon-pd-duplicar', modal: '__BVID__16' },
+        { 'name': 'leidos', text: 'Marcar como leídos', 'icon': 'icon-Leidos icon-pd-leidos', modal: 'modalConfirm' },
+        { 'name': 'info', text: 'Ver más información', 'icon': 'icon-Informacin-click icon-pd-info', modal: 'modal-informacion-perfil' }
+    ])
 
-                                <table
-                                    id="tabla"
-                                    className="w-full bg-white border tabla table-hover"
-                                >
-                                    <thead
-                                        className="cabecera-tabla"
-                                        style={{ backgroundColor: "#00a1c9" }}
-                                    >
-                                        <tr className="bg-paginador text-white uppercase leading-normal">
-                                            <th style={{ padding: "0px 0px" }}>
-                                                Acciones
-                                            </th>
-                                            <th style={{ padding: "0px 5px" }}>
-                                                Portal
-                                            </th>
-                                            <th style={{ padding: "0px 80px" }}>
-                                                Entidad
-                                            </th>
-                                            <th style={{ padding: "0px 80px" }}>
-                                                Objeto
-                                            </th>
-                                            <th style={{ padding: "0px 35px" }}>
-                                                Cuantía
-                                            </th>
-                                            <th style={{ padding: "0px 80px" }}>
-                                                Modalidad
-                                            </th>
-                                            <th style={{ padding: "0px 30px" }}>
-                                                Número
-                                            </th>
-                                            <th style={{ padding: "0px 0px" }}>
-                                                Estado
-                                            </th>
-                                            <th style={{ padding: "0px 35px" }}>
-                                                Publicada
-                                            </th>
-                                            <th style={{ padding: "0px 35px" }}>
-                                                Ubicación
-                                            </th>
-                                            {/* <th style={{ padding: "0px 80px" }}>
-                                                Contratista
-                                            </th> */}
-                                            <th style={{ padding: "0px 80px" }}>
-                                                Actividad económica
-                                            </th>
-                                        </tr>
-                                    </thead>
+    const accionesBodyTemplate = (grupo) => {
+        return <div className="iconos_functions_grid">
+            {toolTips.map((placement, index) => (
+                <OverlayTrigger rootClose={true} key={index} overlay={
+                    <Tooltip id={`tooltip-${placement.name}-${grupo.id}`} className={`tooltip tooltip-${placement.name}`}>{placement.text}</Tooltip>
+                }>
+                    <button type="button" id={`${placement.name}-btn${grupo.id}`} className={`${placement.icon}`} onClick={() => handleShowModal(placement.modal)}></button>
+                </OverlayTrigger>
+            ))}
+        </div>;
+    };
 
-                                    <tbody>
-                                        {tableContratos.map((contrato) => (
-                                            <tr
-                                                key={contrato.id}
-                                                className="tr-users"
-                                            >
-                                                <td className="border border-gray-200 text-left mw-90">
-                                                    <div className="iconos-horizontal width-columna-acciones">
-                                                        <div>
-                                                            <Pdf />
-                                                            <Enviar
-                                                                url={
-                                                                    contrato.link
-                                                                }
-                                                            />
-                                                            <Favoritos />
-                                                        </div>
-                                                        <div className="">
-                                                            <Compartir />
-                                                            <Eliminar />
-                                                            <Visualizar />
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="border border-gray-200 text-left margen-textos">
-                                                    <span className="circulo">
-                                                        {
-                                                            contrato.fuente
-                                                                .alias_portal
-                                                        }
-                                                    </span>
-                                                </td>
-                                                <td className="border border-gray-200 text-left margen-textos">
-                                                    <span className="data-text width-columna-menor">
-                                                        {
-                                                            contrato.entidad_contratante
-                                                        }
-                                                    </span>
-                                                </td>
-                                                <td className="border border-gray-200 text-left margen-textos mw-200">
-                                                    {showLess && (
-                                                        <>
-                                                            {showMoreSelected !=
-                                                                contrato.id && (
-                                                                <span className="data-text">
-                                                                    {contrato.objeto.substr(
-                                                                        0,
-                                                                        40
-                                                                    )}
-                                                                    ...{" "}
-                                                                    <a
-                                                                        className="text-primary"
-                                                                        onClick={() =>
-                                                                            getData(
-                                                                                contrato
-                                                                            )
-                                                                        }
-                                                                    >
-                                                                        Ver más
-                                                                    </a>
-                                                                </span>
-                                                            )}
-                                                        </>
-                                                    )}
+    const statusRowFilterTemplate = (options) => {
+        return (
+            <Dropdown value={options.value} options={statuses} onChange={(e) => options.filterApplyCallback(e.value)} placeholder="Seleccionar Notificaciones" className="p-column-filter" showEditModalClear />
+        );
+    };
 
-                                                    {showMoreSelected ==
-                                                        contrato.id && (
-                                                        <div className="showmore">
-                                                            <span className="data-text">
-                                                                {
-                                                                    contrato.objeto
-                                                                }
-                                                                <a
-                                                                    className="text-primary"
-                                                                    onClick={() =>
-                                                                        hideData()
-                                                                    }
-                                                                >
-                                                                    Ver menos
-                                                                </a>
-                                                            </span>
-                                                        </div>
-                                                    )}
-                                                </td>
-                                                <td className="border border-gray-200 text-left margen-textos width-columna-menor">
-                                                    {contrato.valor > 0
-                                                        ? "$" +
-                                                          contrato.valor.toLocaleString(
-                                                              "ch-CH"
-                                                          )
-                                                        : contrato.valor_texto}
-                                                </td>
-                                                <td className="border border-gray-200 text-left margen-textos mw-200">
-                                                    <span className="data-text ">
-                                                        {contrato.modalidad}
-                                                    </span>
-                                                </td>
-                                                <td className="border border-gray-200 text-left margen-textos ">
-                                                    <span className="data-text ">
-                                                        {
-                                                            contrato.codigo_proceso
-                                                        }
-                                                    </span>
-                                                </td>
-                                                <td className="border border-gray-200 text-left color-estado margen-textos width-columna-menor">
-                                                    <span className="data-text ">
-                                                        {
-                                                            contrato.estado_proceso
-                                                        }
-                                                    </span>
-                                                </td>
-                                                <td className="border border-gray-200 text-left margen-textos">
-                                                    <span className="data-text width-columna-menor">
-                                                        {
-                                                            contrato.fecha_publicacion
-                                                        }
-                                                    </span>
-                                                </td>
-                                                <td className="border border-gray-200 text-left margen-textos width-columna-menor">
-                                                    <span className="data-text ">
-                                                        {contrato.ubicacion}
-                                                    </span>
-                                                </td>
-                                                {/* <td className="border border-gray-200 text-left margen-textos mw-200">
-                                                    <span className="data-text ">
-                                                        {contrato.contratista}
-                                                    </span>
-                                                </td> */}
-                                                <td className="border border-gray-200 text-left margen-textos">
-                                                    <span className="data-text ">
-                                                        {
-                                                            contrato.actividad_economica
-                                                        }
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                                {tableContratos.length <= 0 && (
-                                    <div
-                                        id="mensajes-personalizado-busqueda"
-                                        className="container-fluid content_blank_interno"
-                                    >
-                                        <div className="row justify-content-center align-items-center">
-                                            <div className="col-md-4 col-sm-4 offset-md-1 offset-sm-1">
-                                                <img
-                                                    src="https://col.licitaciones.info/img/mensajes-personalisados/sin-resultados-busqueda.png"
-                                                    alt=""
-                                                    className="img-fluid mensaje-imagen"
-                                                />
-                                            </div>
-                                            <div className="col-md-5 col-sm-5 offset-sm-1 offset-md-1">
-                                                <div className="estructura-mensaje-personalizado">
-                                                    <h4 className="text-center titulo-personalizado">
-                                                        <b className="text-rojo">
-                                                            No se encontró
-                                                        </b>{" "}
-                                                        el resultado.
-                                                    </h4>
-                                                    <div className="position-relative">
-                                                        <span className="icon-Bombillo mensaje-icono"></span>
-                                                        <p className="mensaje-personalizado d-block text-left">
-                                                            Prueba cambiando tus
-                                                            opciones de búsqueda
-                                                            e intentalo
-                                                            nuevamente.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                            </>
-                        ) : (
-                            <Loader />
-                        )}
+    const clearTemplate = (options) => {
+        return (
+            <div className="VueTables__selecciones-filter-wrapper">
+                <span>
+                    <div className="selecciones-nuevo-diseno">
+                        <button id="limpiar" type="button" className="icon-Limpiar-click borrador-grid" onClick={handleClearFilters}>
+                            <span className="path1"></span>
+                            <span className="path2"></span>
+                            <span className="path3"></span>
+                            <span className="path4"></span>
+                            <span className="path5"></span>
+                            <span className="path6"></span>
+                            <span className="path7"></span>
+                            <span className="path8"></span>
+                        </button>
                     </div>
+                </span>
+            </div>
+        );
+    };
+    return (
+        <AuthenticatedLayout auth={auth} page={'contratos'}>
+            <div className="content_not_blank_interno">
+                <div id="bodycontenido" className="col contratos_row px-0">
+                    <DataTable ref={dt} value={data} paginator rows={10} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
+                        globalFilterFields={['name', 'representative.name', 'status']} emptyMessage="No se encontraron registros"
+                        paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink NextPageLink LastPageLink CurrentPageReport"
+                        currentPageReportTemplate="{first} a {last} de {totalRecords}">
+                        <Column filter className='columna_seleccion columna_pequena' filterElement={clearTemplate}/>
+                        <Column field="fuente.alias_portal" header="Portal" filter filterPlaceholder="Buscar" className="columna_grande" />
+                        <Column field="entidad_contratante" header="Entidad" filter filterPlaceholder="Buscar" className="columna_grande" />
+                        <Column field="objeto" header="Obejto" filter filterPlaceholder="Buscar" className="columna_promedio" />
+                        <Column field="valor" header="Cuantía" filter filterPlaceholder="Buscar" className="columna_promedio" />
+                        <Column field="modalidad" header="Modalidad" filter filterPlaceholder="Buscar" className="columna_promedio" />
+                        <Column field="codigo_proceso" header="Número" filter filterPlaceholder="Buscar" className="columna_notificaciones" />
+                        <Column field="estado_proceso" header="Estado" filter filterPlaceholder="Buscar" className="columna_promedio" />
+                        <Column field="fecha_publicacion" header="Publicada" filter filterPlaceholder="Buscar" className="columna_promedio" />
+                        <Column field="ubicacion" header="Ubicación" filter filterPlaceholder="Buscar" className="columna_promedio" />
+                        <Column field="actividad_economica" header="Actividad Económica" filter filterPlaceholder="Buscar" className="columna_promedio" />
+                    </DataTable>
                 </div>
             </div>
+
+
+
+
+
+
+
+
         </AuthenticatedLayout>
     );
 };

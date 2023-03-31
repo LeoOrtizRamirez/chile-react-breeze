@@ -25,3 +25,375 @@
 #app #nav-principal #logo-col, #app .menu-layout-movil #logo-col {
     max-width: 192px!important;
 }
+
+#ayuda{
+    border-radius: 20px;
+    margin-left: 40px;
+    margin-right: 25px;
+}
+
+#ayuda span.icon-Ayuda {
+    color: #00a1c9!important;
+    font-size: 20px!important;
+    vertical-align: middle;
+    margin: 0 6px;
+}
+
+span.nav-title {
+    vertical-align: middle;
+    margin: 0 6px;
+    color: #686868;
+    font-family: Nexa-bold,sans-serif;
+    font-size: 12px;
+}
+
+.dropdown-toggle::after {
+    font-family: Web !important;
+    content: "\ea7f" !important;
+    font-size: 11px;
+    display: unset !important;
+    margin-left: unset !important;
+    vertical-align: unset !important;
+    border-top: unset !important;
+    border-right: transparent unset !important;
+    border-bottom: unset !important;
+    border-left: transparent unset !important;
+}
+
+#login-header .nav, #login-header .nav:hover{
+    --bs-nav-link-color: #686868 !important;
+}
+
+#login-header img[alt="Instructivos"] {
+    width: 16px;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+#login-header #ayuda .dropdown .nav-item{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 8px 12px 8px 22px;
+    position: relative;
+    text-decoration: none;
+}
+
+#login-header #ayuda .dropdown .nav-link, #login-header #notificaciones .dropdown .nav-link{
+    padding-top: 1px;
+    padding-bottom: 0;
+    border-radius: 20px;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+#login-header #notificaciones .dropdown a {
+    font-size: 1.4rem;
+    text-decoration: none!important;
+    display: inline-block;
+    position: relative;
+    border: none!important;
+    color: #00a1c9;
+    margin: 0;
+    outline: none!important;
+    padding: 1px 0.5rem;
+}
+
+#login-header .dropdown .dropdown-menu {
+    margin-top: 22px;
+    border-radius: 13px;
+    border: 0;
+    -webkit-box-shadow: 0 0 27px 3px #00000063;
+    box-shadow: 0 0 27px 3px #00000063;
+}
+
+#login-header .dropdown .dropdown-menu:before {
+    content: "";
+    margin-left: 30px;
+    position: absolute;
+    top: -13px;
+    right: -8px;
+    background-color: #fff;
+    text-align: left;
+    width: 42px;
+    height: 34px;
+    border-top-right-radius: 26%;
+    -webkit-transform: rotate(-63deg) skewX(-37deg) scale(.5);
+    transform: rotate(-63deg) skewX(-37deg) scale(.5);
+    z-index: -1;
+}
+
+#login-header #ayuda .submenu-text{
+    font-size: 13px;
+    font-family: Nexa-bold,sans-serif;
+    color: #686868;
+}
+
+#login-header #ayuda .icon-Mostrar {
+    font-size: 19px;
+    color: #c6c6c6!important;
+    margin-right: 8px;
+}
+
+#login-header #ayuda .submenu-img {
+    width: 18px;
+    margin-right: 10px;
+}
+
+#notificaciones{
+    font-size: 1.4rem;
+    text-decoration: none!important;
+    display: inline-block;
+    position: relative;
+    border: none!important;
+    color: #00a1c9;
+    margin: 0;
+    outline: none!important;
+    padding: 1px 0.5rem;
+}
+
+#notificaciones .show>a>span {
+    color: #686868!important;
+}
+
+#notificaciones a>span {
+    display: inline-block;
+    color: #60c4dd;
+}
+
+#navbarSupportedContent .dropdown:hover, .nav-item.show.dropdown {
+    background-color: #f3f6f7!important;
+    border-radius: 20px;
+}
+
+#notificaciones .borde-titulo {
+    border-top: 2px solid #f5f5f5!important;
+    margin-bottom: 0!important;
+    margin-top: 0.625rem!important;
+    margin-right: 12px;
+}
+
+#navbarSupportedContent #notificaciones div.dropdown-menu {
+    right: 10px;
+    min-width: 354px;
+    padding-bottom: 0;
+    margin-left: -325px;
+}
+
+#navbarSupportedContent #paises div.dropdown-menu {
+    margin-left: -40px;
+}
+
+#navbarSupportedContent .dropdown .dropdown-menu .header-new-notifications p {
+    display: inline-block;
+    margin: 0;
+    font-family: Nexa-bold;
+    font-weight: 400!important;
+    font-size: 15px;
+    color: #00a1c9;
+}
+
+#notificaciones .nav-link:after{
+    display: none !important;
+}
+
+#navbarSupportedContent .dropdown .dropdown-menu button.item_notify_category {
+    display: inline-block;
+    width: 100%;
+    padding: 22px 27px 21px 52px;
+}
+
+#notificaciones .item_notify_category>i:before {
+    font-size: 19px!important;
+    color: #80d0e4!important;
+}
+
+#navbarSupportedContent .dropdown .dropdown-menu button .notification-mensaje b {
+    font-family: Nexa-bold,sans-serif;
+    font-weight: 400!important;
+    color: #c9003d;
+    display: inline-block;
+    margin-right: 2px;
+    font-size: 13px;
+}
+
+#navbarSupportedContent .dropdown .dropdown-menu button.item_notify_category i {
+    position: absolute;
+    left: 60px;
+    top: 33%;
+}
+
+#navbarSupportedContent .dropdown .dropdown-menu .dropdown-item {
+    text-align: center;
+    white-space: normal!important;
+    font-size: 14px;
+    color: #686868;
+}
+
+#navbarSupportedContent .dropdown .dropdown-menu .item-dropdown-menu{
+    padding: 15px 30px;
+}
+
+#navbarSupportedContent .dropdown .dropdown-menu .item-dropdown-menu>span:first-child, #navbarSupportedContent .dropdown .dropdown-menu .item-dropdown-menu>span:last-of-type {
+    color: #60c4dd;
+}
+
+#navbarSupportedContent .dropdown .dropdown-menu .item-dropdown-menu>span:first-child {
+    font-size: 22px;
+}
+
+#navbarSupportedContent .dropdown .dropdown-menu .dropdown-divider {
+    margin: 0.5rem auto 0.3rem;
+    border-top: 1px solid #f0f0f0;
+    width: 80%;
+}
+
+#nav-principal .nav-link::after{
+    display: none !important;
+}
+
+#nav-principal .nav-link{
+    padding: 0px;
+}
+
+.inline-block{
+    display: inline-block;
+}
+
+div#notificaciones {
+    display: flex;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#nav-principal .dropdown-perfil {
+    border-radius: 20px;
+}
+
+#navbarSupportedContent .dropdown:hover {
+    background-color: #f3f6f7!important;
+}
+
+#nav-principal .dropdown-perfil #inicialesUsuarioDropdown {
+    padding-top: 1px;
+    padding-bottom: 0;
+    color: #60c4dd;
+    font-family: Nexa-bold,sans-serif;
+    border-radius: 20px;
+    padding-left: 0px;
+}
+
+#navbarSupportedContent a.nav-link {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 100%;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex !important;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+#nav-principal .dropdown-perfil #inicialesUsuarioDropdown>.name_header_title {
+    vertical-align: middle;
+    margin: 0 10px;
+}
+
+#navbarSupportedContent .dropdown .icon-Desplegar {
+    font-size: 11px;
+    color: #686868;
+    top: 0;
+    margin-left: 3px;
+}
+
+#navbarSupportedContent .dropdown:hover {
+    background-color: #f3f6f7!important;
+}
+
+#inicialesUsuarioDropdown ~ div {
+    min-width: 328px;
+    margin-top: 22px !important;
+}
+
+#inicialesUsuarioDropdown ~ div > div.d-flex {
+    padding: 5px 30px!important;
+}
+
+#inicialesUsuarioDropdown ~ div >div.d-flex>.w-100 p:first-child{
+    color: #60c4dd;
+}
+
+#login-header #notificaciones .dropdown a.dropdown-item{
+    display: block;
+    padding: 7px 10px 13px;
+    overflow-x: hidden;
+}
+
+
+.dropdown-paises {
+    border-radius: 20px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.dropdown-paises #navbarDropdownPaises>span{
+    vertical-align: middle;
+    margin: 0 10px;
+    color: #686868;
+    font-family: Nexa-bold,sans-serif;
+}
+
+#headerUserName{
+    font-size: 12px;
+}
+
+#navbarSupportedContent #ayuda .icon-Siguiente1{
+    position: absolute;
+    font-size: 10px;
+    color: #60c4dd!important;
+    top: 13px;
+    right: 13px;
+}
+
+#navbarSupportedContent #ayuda{
+    padding-top: 1px;
+    padding-bottom: 0;
+    border-radius: 20px;
+}
+
+#notificaciones span.icon-Siguiente1 {
+    position: absolute;
+    right: 8px;
+    top: 35%;
+    display: inline-block;
+    z-index: 2;
+    font-size: 13px;
+    color: #686868;
+}
+
+.dropdown-paises #navbarDropdownPaises {
+    padding-top: 1px;
+    padding-bottom: 0;
+    border-radius: 20px;
+}
+
+#navbarSupportedContent .show .icon-Desplegar:before{
+    content: "\EA7E"!important;
+    color: #00a1c9!important;
+}
