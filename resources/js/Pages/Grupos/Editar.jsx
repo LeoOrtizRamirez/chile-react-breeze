@@ -21,11 +21,15 @@ import 'react-calendar/dist/Calendar.css';
 
 import './Crear.css'
 
-const Crear = ({
+const Editar = ({
     auth,
     actividades_economicas,
     tiposcompras,
     localizaciones,
+    actividades_economicas_actuales,
+    tiposcompras_actuales,
+    localizaciones_actuales,
+    perfil
 }) => {
 
     const [showToast, setShowToast] = useState(false);
@@ -33,9 +37,9 @@ const Crear = ({
     const [toastIcon, setToastIcon] = useState("");
     const [sectores, setSectores] = useState(actividades_economicas);
 
-    const [checkedsActividadesEconomicas, setCheckedsActividadesEconomicas] = useState([])
-    const [checkedsLocalizaciones, setCheckedsLocalizaciones] = useState([])
-    const [checkedsTiposCompras, setCheckedsTiposCompras] = useState([])
+    const [checkedsActividadesEconomicas, setCheckedsActividadesEconomicas] = useState(actividades_economicas_actuales)
+    const [checkedsLocalizaciones, setCheckedsLocalizaciones] = useState(localizaciones_actuales)
+    const [checkedsTiposCompras, setCheckedsTiposCompras] = useState(tiposcompras_actuales)
 
     const onHandleSectores = (data, tipo) => {
         switch (tipo) {
@@ -77,12 +81,11 @@ const Crear = ({
         }
     }
 
-
     const refCuantiaHasta = useRef("")
-    const [cuantiaHasta, setCuantiaHasta] = useState("");
-    const [cuantiaDesde, setCuantiaDesde] = useState("$0");
+    const [cuantiaHasta, setCuantiaHasta] = useState(perfil.limite_superior_cuantia);
+    const [cuantiaDesde, setCuantiaDesde] = useState(perfil.limite_inferior_cuantia);
     const [toggleSwitchCuantiaDesde, setToggleSwitchCuantiaDesde] = useState(false);
-    const [switchSinPresupuestoAsignado, setSwitchSinPresupuestoAsignado] = useState(true);
+    const [switchSinPresupuestoAsignado, setSwitchSinPresupuestoAsignado] = useState(perfil.sin_presupuesto == 1 ? true : false);
 
     const formatValue = (e, type) => {
         var number = e.target.value;
@@ -120,14 +123,14 @@ const Crear = ({
         return parseInt(value);
     };
 
-    const [switchHistorico, setSwitchHistorico] = useState(true);
-    const [switchEmail, setSwitchEmail] = useState(true);
-    const inputFechaHistorico = useRef("")
+    const [switchHistorico, setSwitchHistorico] = useState(perfil.historico == null ? false : true);
+    const [switchEmail, setSwitchEmail] = useState(perfil.envio_alertas == 1 ? true : false);
+    const refInputFechaHistorico = useRef("")
     const btnCambiarFecha = useRef("")
 
     /*     useEffect(() => {
-            if (inputFechaHistorico?.current?.value != null) {
-                inputFechaHistorico.current.value = restarDias(new Date(), 91).toISOString().split('T')[0]
+            if (refInputFechaHistorico?.current?.value != null) {
+                refInputFechaHistorico.current.value = restarDias(new Date(), 91).toISOString().split('T')[0]
             }
         }, [changeContent]) */
 
@@ -138,19 +141,19 @@ const Crear = ({
 
     const onHandleSwitchHistorico = (e) => {
         if (e.target.checked) {
-            btnCambiarFecha.current.style.display = 'block'
-            inputFechaHistorico.current.classList.remove('disabled')
+            btnCambiarFecha.current.style.visibility = 'visible'
+            refInputFechaHistorico.current.classList.remove('disabled')
             setFechaHistorico(dateCalendar.toISOString().split('T')[0])
         } else {
-            btnCambiarFecha.current.style.display = 'none'
-            inputFechaHistorico.current.classList.add('disabled')
+            btnCambiarFecha.current.style.visibility = 'hidden'
+            refInputFechaHistorico.current.classList.add('disabled')
             setFechaHistorico('Sin Historico')
         }
     }
 
-    const [inputNombrePerfil, setInputNombrePerfil] = useState("")
-    const [inputDescripcionPerfil, setInputDescripcionPerfil] = useState("")
-    const [fechaHistorico, setFechaHistorico] = useState("")
+    const [inputNombrePerfil, setInputNombrePerfil] = useState(perfil.nombre_filtro)
+    const [inputDescripcionPerfil, setInputDescripcionPerfil] = useState(perfil.descripcion_filtro)
+    const [fechaHistorico, setFechaHistorico] = useState(perfil.historico == null ? 'Sin Historico' : perfil.historico)
 
     const handleClickOutside = (event) => {
         if (inputNombrePerfil.current && !inputNombrePerfil.current.contains(event.target)) {
@@ -172,6 +175,7 @@ const Crear = ({
 
     const Guardar = () => {
         var payload = {
+            'perfil': perfil.id,
             'actividades_economicas': checkedsActividadesEconomicas,
             'tipos_compras': checkedsTiposCompras,
             'localizaciones': checkedsLocalizaciones,
@@ -180,12 +184,12 @@ const Crear = ({
             'nombre_filtro': inputNombrePerfil,
             'descripcion_filtro': inputDescripcionPerfil,
             'sin_presupuesto': switchSinPresupuestoAsignado,
-            'historico_contratacion': switchHistorico,
+            'historico_contratacion': fechaHistorico,
             'envio_alertas': switchEmail,
             'imagen_filtro': iconCheckSelected,
         };
         var token = document.querySelector('meta[name="csrf-token"]')
-        axios.post('/grupo-filtro-usuarios/store', {
+        axios.post('/cliente/grupo/update', {
             data: payload
         }, {
             headers: {
@@ -211,6 +215,16 @@ const Crear = ({
     }, [dateCalendar])
     /*Calendar */
 
+
+    useEffect(() => {
+        if(perfil.historico == null){
+            setFechaHistorico('Sin Historico')
+        }else{
+            setFechaHistorico(perfil.historico)
+            setDateCalendar(restarDias(new Date(perfil.historico), 0))
+        }
+    }, [])
+    
     /*Filter */
     const [showFilter, setShowFilter] = useState(false);
     const handleCloseFilter = () => setShowFilter(false);
@@ -218,7 +232,7 @@ const Crear = ({
 
     const [iconCheck, setIconCheck] = useState("Por defecto")
     const [iconCheckTemporal, setIconCheckTemporal] = useState("")
-    const [iconCheckSelected, setIconCheckSelected] = useState("/public/images/perfil-invisible.svg")
+    const [iconCheckSelected, setIconCheckSelected] = useState(perfil.imagen_filtro)
 
     const changeImgFilter = (icon, image) => {
         setIconCheck(icon)
@@ -230,6 +244,7 @@ const Crear = ({
         handleCloseFilter()
     }
     /*Filter */
+    console.log(perfil)
     return (
         <>
             <AuthenticatedLayout auth={auth} page={'perfiles'}>
@@ -488,11 +503,13 @@ const Crear = ({
                                                                         <span className="perfil-preferencia__fecha-historico from-label">Desde: </span>
                                                                     </div>
                                                                     <div className="perfil-preferencia__historico-row__input d-flex">
-                                                                        <input disabled ref={inputFechaHistorico} value={fechaHistorico} name='fecha_historico' className="perfil-preferencia__fecha-historico_input" />
+                                                                        <input disabled ref={refInputFechaHistorico} value={fechaHistorico} name='fecha_historico' className="perfil-preferencia__fecha-historico_input" />
                                                                         <button
                                                                             ref={btnCambiarFecha}
-                                                                            className="btn btnRadius btn-new-blue button_change_date"
-                                                                            onClick={handleShowCalendar}>
+                                                                            className={`btn btnRadius btn-new-blue button_change_date`}
+                                                                            onClick={handleShowCalendar}
+                                                                            style={{visibility: perfil.historico == null ? 'hidden' : 'visible',}}
+                                                                            >
                                                                             <img src="/public/images/Web/icon-Cambiar.svg" alt="icon-Cambiar" className="margin-right-5" /> Cambiar fecha
                                                                         </button>
                                                                     </div>
@@ -835,4 +852,4 @@ const Crear = ({
     );
 };
 
-export default Crear;
+export default Editar;

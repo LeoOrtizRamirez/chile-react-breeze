@@ -731,9 +731,12 @@ element.id_padre_sub_categoria
                                                 getSegmento(sector.id)
                                             }
                                         >
-                                            <div class="tree-division__img">
-                                                <img src={`/images/subcategorias/${sector.icon}`} width="35px" />
-                                            </div>
+                                            {tipo == "ActividadEconomica" &&
+                                                <div class="tree-division__img">
+                                                    <img src={`/images/subcategorias/${sector.icon}`} width="35px" />
+                                                </div>
+                                            }
+
                                             <span className="tree-division__title my-auto">
                                                 {sector.nombre}
                                             </span>

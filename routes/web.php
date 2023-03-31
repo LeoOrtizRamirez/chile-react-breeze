@@ -165,6 +165,8 @@ Route::resource('perfiles', PerfileController::class)->middleware(['auth', 'veri
 /*GrupoFiltroUsuario*/
 Route::get('/cliente/grupo', [GrupoFiltroUsuarioController::class, 'index'])->middleware(['auth', 'verified']);
 Route::get('/cliente/grupo/crear', [GrupoFiltroUsuarioController::class, 'create'])->middleware(['auth', 'verified']);
+Route::get('/cliente/grupo/editar/{id}', [GrupoFiltroUsuarioController::class, 'edit'])->middleware(['auth', 'verified']);
+Route::post('/cliente/grupo/update', [GrupoFiltroUsuarioController::class, 'update'])->middleware(['auth', 'verified']);
 
 
 Route::post('grupo-filtro-usuarios/store', [GrupoFiltroUsuarioController::class, 'store'])->middleware(['auth', 'verified']);

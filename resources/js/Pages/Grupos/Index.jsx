@@ -22,7 +22,6 @@ import { Tag } from 'primereact/tag';
 import "primereact/resources/themes/lara-light-indigo/theme.css";//theme
 import "primereact/resources/primereact.min.css";//core
 import "primeicons/primeicons.css";//icons
-/* import { CustomerService } from './service/CustomerService'; */
 
 /*Tooltips */
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -56,13 +55,6 @@ const Index = ({ auth, grupos }) => {
     }
     /*Borrar filtros*/
 
-    const getCustomers = (data) => {
-        return [...(data || [])].map((d) => {
-            d.date = new Date(d.date);
-            return d;
-        });
-    };
-
     const getGrupos = (data) => {
         return [...(data || [])].map((d) => {
             if (d.envio_alertas == 1) {
@@ -73,8 +65,6 @@ const Index = ({ auth, grupos }) => {
             return d;
         });
     };
-    console.log(grupos)
-
 
     const [data, setData] = useState(getGrupos(grupos));
     const [filters, setFilters] = useState({
@@ -89,33 +79,7 @@ const Index = ({ auth, grupos }) => {
     });
 
     const [loading, setLoading] = useState(false);
-    const [globalFilterValue, setGlobalFilterValue] = useState('');
     const [statuses] = useState(['No', 'Si']);
-
-    const getSeverity = (status) => {
-        switch (status) {
-            case 'unqualified':
-                return 'danger';
-
-            case 'qualified':
-                return 'success';
-
-            case 'new':
-                return 'info';
-
-            case 'negotiation':
-                return 'warning';
-
-            case 'renewal':
-                return null;
-        }
-    };
-
-
-
-    const statusBodyTemplate = (rowData) => {
-        return <Tag value={rowData.status} severity={getSeverity(rowData.status)} />;
-    };
 
     const nombreFiltroBodyTemplate = (grupo) => {
         return (
@@ -148,10 +112,6 @@ const Index = ({ auth, grupos }) => {
                 </OverlayTrigger>
             ))}
         </div>;
-    };
-
-    const statusItemTemplate = (option) => {
-        return <Tag value={option} severity={getSeverity(option)} />;
     };
 
     const statusRowFilterTemplate = (options) => {
