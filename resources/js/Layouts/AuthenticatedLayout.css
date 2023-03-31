@@ -2,6 +2,15 @@ body{
     background-color: #f5f5f5 !important;
 }
 
+body:before {
+    content: "";
+    width: 100%;
+    position: fixed;
+    background: #fff;
+    height: 51px;
+    z-index: 20;
+}
+
 .contenido_internas {
     margin-top: 45px;
     margin-left: 0;
