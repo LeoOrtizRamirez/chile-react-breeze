@@ -1081,3 +1081,11 @@ button.btn.btnRadius.btn-new-blue.button_change_date:hover img[alt="icon-Cambiar
     margin-right: auto;
     margin-left: auto;
 }
+
+a#btn-cancelar-global-perfiles {
+    color: #c9003d !important
+}
+
+a#btn-cancelar-global-perfiles:hover {
+    color: #fff !important
+}

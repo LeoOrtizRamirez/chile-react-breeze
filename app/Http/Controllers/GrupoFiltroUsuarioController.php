@@ -128,7 +128,12 @@ class GrupoFiltroUsuarioController extends Controller
         ]);
     }
 
-    public function edit($id){
+    public function edit($id, Request $request){
+        $pasos_seleccionados = [];
+        for ($i=1; $i <= $request->paso; $i++) { 
+            array_push($pasos_seleccionados, $i);
+        }
+         
         $perfil = GrupoFiltroUsuario::find($id);
         $actividades_economicas_perfil = GrupoFiltroUsuariosHasSubCategoria::where('id_perfil', $id)->with('subcategoria')->get();
         $actividades_economicas_actuales = [];
@@ -196,7 +201,9 @@ class GrupoFiltroUsuarioController extends Controller
             'actividades_economicas_actuales' => $actividades_economicas_actuales,
             'localizaciones_actuales' => $localizaciones_actuales,
             'tiposcompras_actuales' => $tipos_compras_actuales,
-            'perfil' => $perfil
+            'perfil' => $perfil,
+            'pasos_seleccionados' => $pasos_seleccionados,
+            'paso_actual' => $request->paso,
         ]);
     }
 

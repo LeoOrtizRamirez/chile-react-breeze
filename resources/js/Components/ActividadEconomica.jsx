@@ -733,7 +733,7 @@ element.id_padre_sub_categoria
                                         >
                                             {tipo == "ActividadEconomica" &&
                                                 <div class="tree-division__img">
-                                                    <img src={`/images/subcategorias/${sector.icon}`} width="35px" />
+                                                    <img src={`/public/images/subcategorias/${sector.icon}`} width="35px" />
                                                 </div>
                                             }
 

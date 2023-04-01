@@ -239,7 +239,7 @@ const Crear = ({
                     </div>
                     <div id="container-grupo">
                         <div id="perfil-user">
-                            <button id="btn-cancelar-global-perfiles" class="btn btn-new-danger btnRadius">Cancelar</button>
+                            <a href="/cliente/grupo" id="btn-cancelar-global-perfiles" class="btn btn-new-danger btnRadius">Cancelar</a>
                             <div className="perfil-guias">
                                 <ul>
                                     <li>

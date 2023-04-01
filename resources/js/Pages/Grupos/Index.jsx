@@ -29,6 +29,8 @@ import Tooltip from 'react-bootstrap/Tooltip';
 /*Tooltips */
 
 const Index = ({ auth, grupos }) => {
+    const [filtroSelected, setFiltroSelected] = useState([])
+    const [paso, setPaso] = useState(1)
     /*Tooltip */
     const [showTooltip, setshowTooltip] = useState(true)
     /*Tooltip */
@@ -39,10 +41,11 @@ const Index = ({ auth, grupos }) => {
     const [idModal, setIdModal] = useState("")
     //const handleShowModal = () => setShowModal(true);
 
-    const handleShowModal = (id) => {
-        console.log(id)
-        setIdModal(id)
+    const handleShowModal = (idModal, perfil) => {
+        console.log(perfil)
+        setIdModal(idModal)
         setShowModal(true)
+        setFiltroSelected(perfil)
     }
     /*Modals */
 
@@ -108,7 +111,7 @@ const Index = ({ auth, grupos }) => {
                 <OverlayTrigger rootClose={true} key={index} overlay={
                     <Tooltip id={`tooltip-${placement.name}-${grupo.id}`} className={`tooltip tooltip-${placement.name}`}>{placement.text}</Tooltip>
                 }>
-                    <button type="button" id={`${placement.name}-btn${grupo.id}`} className={`${placement.icon}`} onClick={() => handleShowModal(placement.modal)}></button>
+                    <button type="button" id={`${placement.name}-btn${grupo.id}`} className={`${placement.icon}`} onClick={() => handleShowModal(placement.modal, grupo)}></button>
                 </OverlayTrigger>
             ))}
         </div>;
@@ -251,7 +254,7 @@ const Index = ({ auth, grupos }) => {
                                     <div className="centrador">
                                         <i className="perfil-checks__iconos icon-Paso-1-click"></i>
                                         <span className="perfil-checks__title">Editar actividad económica</span>
-                                        <input type="radio" name="radio" />
+                                        <input type="radio" name="radio" onChange={()=>setPaso(1)} checked={paso==1 ? true : false}/>
                                         <span className="perfil-checks__mark"></span>
                                     </div>
                                 </label>
@@ -259,7 +262,7 @@ const Index = ({ auth, grupos }) => {
                                     <div className="centrador">
                                         <i className="perfil-checks__iconos icon-Paso-2-click"></i>
                                         <span className="perfil-checks__title">Editar modalidad</span>
-                                        <input type="radio" name="radio" />
+                                        <input type="radio" name="radio" onChange={()=>setPaso(2)}/>
                                         <span className="perfil-checks__mark"></span>
                                     </div>
                                 </label>
@@ -267,7 +270,7 @@ const Index = ({ auth, grupos }) => {
                                     <div className="centrador">
                                         <i className="perfil-checks__iconos icon-Paso-3-click"></i>
                                         <span className="perfil-checks__title">Editar ubicación</span>
-                                        <input type="radio" name="radio" />
+                                        <input type="radio" name="radio" onChange={()=>setPaso(3)}/>
                                         <span className="perfil-checks__mark"></span>
                                     </div>
                                 </label>
@@ -275,7 +278,7 @@ const Index = ({ auth, grupos }) => {
                                     <div className="centrador">
                                         <i className="perfil-checks__iconos icon-Paso-4-click"></i>
                                         <span className="perfil-checks__title">Editar rangos de cuantía</span>
-                                        <input type="radio" name="radio" />
+                                        <input type="radio" name="radio" onChange={()=>setPaso(4)}/>
                                         <span className="perfil-checks__mark"></span>
                                     </div>
                                 </label>
@@ -283,7 +286,7 @@ const Index = ({ auth, grupos }) => {
                                     <div className="centrador">
                                         <i className="perfil-checks__iconos icon-Paso-5-click"></i>
                                         <span className="perfil-checks__title">Preferencias del perfil</span>
-                                        <input type="radio" name="radio" />
+                                        <input type="radio" name="radio" onChange={()=>setPaso(5)}/>
                                         <span className="perfil-checks__mark"></span>
                                     </div>
                                 </label>
@@ -299,7 +302,7 @@ const Index = ({ auth, grupos }) => {
                                         <h5>Información del perfil</h5>
                                         <div class="contenedor">
                                             <img src="https://col.licitaciones.info/storage/banco-imagenes/artistas/Licitaciones/perfil-amarillo.svg" id="img-perfil" />
-                                            <span class="nombreWeb">PRIMER2</span>
+                                            <span class="nombreWeb">{filtroSelected.nombre_filtro}</span>
 
                                         </div>
                                     </div>
@@ -381,7 +384,7 @@ const Index = ({ auth, grupos }) => {
                         {idModal == "modal_edit_perfil" &&
                             <div>
                                 <button class="btnRadius btn-new-gray">Atrás</button>
-                                <button class="btnRadius btn-new-blue">Editar perfil</button>
+                                <a href={`/cliente/grupo/editar/${filtroSelected.id}?paso=${paso}`} class="btnRadius btn-new-blue">Editar perfil</a>
                             </div>
                         }
                         {idModal == "modalEliminarPerfil" &&

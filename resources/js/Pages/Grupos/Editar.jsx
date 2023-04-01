@@ -29,7 +29,9 @@ const Editar = ({
     actividades_economicas_actuales,
     tiposcompras_actuales,
     localizaciones_actuales,
-    perfil
+    perfil,
+    pasos_seleccionados,
+    paso_actual
 }) => {
 
     const [showToast, setShowToast] = useState(false);
@@ -67,8 +69,9 @@ const Editar = ({
         }
     }
 
-    const [container, setContainer] = useState(1);
-    const [iconosPerfiles, setIconosPerfiles] = useState([]);
+    console.log("paso_actual", paso_actual)
+    const [container, setContainer] = useState(paso_actual);
+    const [iconosPerfiles, setIconosPerfiles] = useState(pasos_seleccionados);
 
     const changeContent = (id) => {
         if (id == 2 && checkedsActividadesEconomicas.length == 0) {
@@ -254,7 +257,7 @@ const Editar = ({
                     </div>
                     <div id="container-grupo">
                         <div id="perfil-user">
-                            <button id="btn-cancelar-global-perfiles" class="btn btn-new-danger btnRadius">Cancelar</button>
+                            <a href="/cliente/grupo" id="btn-cancelar-global-perfiles" class="btn btn-new-danger btnRadius">Cancelar</a>
                             <div className="perfil-guias">
                                 <ul>
                                     <li>
