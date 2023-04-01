@@ -28,21 +28,20 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 /*Tooltips */
 
-const Index = ({ auth, grupos }) => {
-    const [filtroSelected, setFiltroSelected] = useState([])
+const Index = ({ auth, grupos, created_updated }) => {
+    const [filtroSelected, setFiltroSelected] = useState({})
     const [paso, setPaso] = useState(1)
     /*Tooltip */
     const [showTooltip, setshowTooltip] = useState(true)
     /*Tooltip */
 
     /*Modals */
-    const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(created_updated);
     const handleCloseModal = () => setShowModal(false);
-    const [idModal, setIdModal] = useState("")
+    const [idModal, setIdModal] = useState(created_updated ? "modalCreateSuccess" : "")//TEMPORAL
     //const handleShowModal = () => setShowModal(true);
 
     const handleShowModal = (idModal, perfil) => {
-        console.log(perfil)
         setIdModal(idModal)
         setShowModal(true)
         setFiltroSelected(perfil)
@@ -98,11 +97,11 @@ const Index = ({ auth, grupos }) => {
     };
 
     const [toolTips, setToolTips] = useState([
-        { 'name': 'editar', text: 'Editar perfil', 'icon': 'icon-Editar icon-pd-editar', modal: 'modal_edit_perfil' },
+        { 'name': 'editar', text: 'Editar perfil', 'icon': 'icon-Editar icon-pd-editar', modal: 'modalEditarPerfil' },
         { 'name': 'eliminar', text: 'Eliminar perfil', 'icon': 'icon-Eliminar icon-pd-eliminar', modal: 'modalEliminarPerfil' },
-        { 'name': 'duplicar', text: 'Duplicar perfil', 'icon': 'icon-Duplicar icon-pd-duplicar', modal: '__BVID__16' },
-        { 'name': 'leidos', text: 'Marcar como leídos', 'icon': 'icon-Leidos icon-pd-leidos', modal: 'modalConfirm' },
-        { 'name': 'info', text: 'Ver más información', 'icon': 'icon-Informacin-click icon-pd-info', modal: 'modal-informacion-perfil' }
+        { 'name': 'duplicar', text: 'Duplicar perfil', 'icon': 'icon-Duplicar icon-pd-duplicar', modal: 'modalDuplicarPerfil' },
+        { 'name': 'leidos', text: 'Marcar como leídos', 'icon': 'icon-Leidos icon-pd-leidos', modal: 'modalLeidosPerfil' },
+        { 'name': 'info', text: 'Ver más información', 'icon': 'icon-Informacin-click icon-pd-info', modal: 'modalInformacionPerfil' }
     ])
 
     const accionesBodyTemplate = (grupo) => {
@@ -146,7 +145,6 @@ const Index = ({ auth, grupos }) => {
 
 
     const CustomFilter = (column) => {
-        console.log(column)
         return (
             <div className="p-input-icon-right">
                 <i className={`icon-Cancelar clearfilter_grid`}></i>
@@ -157,6 +155,61 @@ const Index = ({ auth, grupos }) => {
                 />
             </div>
         );
+    };
+
+    const refInputCopyFilterName  = useRef("")
+    const [nameCopyFilter, setNameCopyFilter] = useState(filtroSelected.nombre_filtro)
+    useEffect(() => {
+      if(idModal == "modalDuplicarPerfil"){
+        console.log("cargo modal")
+        setNameCopyFilter(filtroSelected.nombre_filtro)
+      }
+    }, [showModal])
+    
+    
+    const Copy = () => {
+        var payload = {
+            'perfil': filtroSelected.id,
+            'nombre_filtro': nameCopyFilter,
+        };
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.post('/cliente/grupo/duplicar', {
+            data: payload
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token.content}`
+            }
+        })
+            .then(response => {
+                setData(getGrupos(response.data))
+                handleCloseModal()
+            })
+            .catch(error => {
+                // Handle error
+                console.log(error);
+              });
+    };
+
+    const Delete = () => {
+        var payload = {
+            'perfil': filtroSelected.id,
+        };
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.post('/cliente/grupo/destroy', {
+            data: payload
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token.content}`
+            }
+        })
+            .then(response => {
+                setData(getGrupos(response.data))
+                handleCloseModal()
+            })
+            .catch(error => {
+                // Handle error
+                console.log(error);
+              });
     };
     return (
         <>
@@ -228,27 +281,35 @@ const Index = ({ auth, grupos }) => {
                 <Modal show={showModal} onHide={handleCloseModal} animation={true} id={idModal} centered>
                     <Modal.Header>
 
-                        {idModal == "modal_edit_perfil" &&
+                        {idModal == "modalEditarPerfil" &&
                             <h4 class="modal-title title-dinamico">¿ Qué paso(s) desea(s) <span>editar</span> en tu perfil ?</h4>
                         }
                         {idModal == "modalEliminarPerfil" &&
                             <h4 class="modal-title">¿Deseas <b class="text-rojo">eliminar</b> el perfil de negocio?</h4>
                         }
-                        {idModal == "__BVID__16" &&
+                        {idModal == "modalDuplicarPerfil" &&
                             <h4 class="modal-title texto-dinamico">¿Deseas <span class="color-blue">duplicar</span> el perfil de negocio?</h4>
                         }
-                        {idModal == "modalConfirm" &&
+                        {idModal == "modalLeidosPerfil" &&
                             <h4 class="modal-title">¿Deseas marcar como leídos los procesos de este perfil?</h4>
                         }
-                        {idModal == "modal-informacion-perfil" &&
+                        {idModal == "modalInformacionPerfil" &&
                             <h4 class="modal-title">Información general</h4>
+                        }
+                        {idModal == "modalCreateSuccess" &&
+                            <>
+                            <div class="modal-save__img">
+                                <img src="https://col.licitaciones.info/img/usuario/perfiles/perfil-creado.png"/>
+                            </div>
+                            <h4 class="modal-title">Estamos configurando tu perfil de negocio.</h4>
+                            </>
                         }
                         <button type="button" aria-label="Close" class="close icon-Cerrar-modal icon-Cerrar-modal-click" onClick={handleCloseModal}>
                             <span class="path1"></span><span class="path2"></span>
                         </button>
                     </Modal.Header>
                     <Modal.Body>
-                        {idModal == "modal_edit_perfil" &&
+                        {idModal == "modalEditarPerfil" &&
                             <div>
                                 <label className="perfil-checks">
                                     <div className="centrador">
@@ -301,35 +362,41 @@ const Index = ({ auth, grupos }) => {
                                     <div class="info-sub principal">
                                         <h5>Información del perfil</h5>
                                         <div class="contenedor">
-                                            <img src="https://col.licitaciones.info/storage/banco-imagenes/artistas/Licitaciones/perfil-amarillo.svg" id="img-perfil" />
+                                            <img src={filtroSelected.imagen_filtro} id="img-perfil" />
                                             <span class="nombreWeb">{filtroSelected.nombre_filtro}</span>
-
                                         </div>
                                     </div>
                                     <div class="info-sub secundario">
                                         <h5>Procesos almacenados</h5>
-                                        <p class="text-rojo">4</p>
+                                        <p class="text-rojo">0</p>
                                     </div>
                                 </div>
                             </>
                         }
-                        {idModal == "__BVID__16" &&
+                        {idModal == "modalDuplicarPerfil" &&
                             <div class="form-group modal-duplicar__input">
                                 <label class="modal_save--label"> Dale un nombre a tu nuevo perfil:</label>
-                                <input type="text" name="nombre_duplicado" class="form-control inputs_form padd-peq" />
+                                <input 
+                                    ref={refInputCopyFilterName}
+                                    type="text" 
+                                    name="nombre_duplicado" 
+                                    class="form-control inputs_form padd-peq" 
+                                    value={nameCopyFilter} 
+                                    onChange={(e)=>setNameCopyFilter(e.target.value)}
+                                />
                             </div>
                         }
-                        {idModal == "modalConfirm" &&
+                        {idModal == "modalLeidosPerfil" &&
                             <p class="modal-message">Todos los procesos contenidos en este perfil se marcarán como <span class="text-color">leídos</span>.</p>
                         }
-                        {idModal == "modal-informacion-perfil" &&
+                        {idModal == "modalInformacionPerfil" &&
                             <>
                                 <div className="row modal-info__inicio text-center pb-3">
                                     <div className="modal-info__logo">
-                                        <img src="https://col.licitaciones.info/storage/banco-imagenes/artistas/Licitaciones/perfil-amarillo.svg" />
+                                        <img src={filtroSelected.imagen_filtro} />
                                     </div>
                                     <div className="modal-info__nombre">
-                                        <label>PRIMER2</label>
+                                        <label>{filtroSelected.nombre_filtro}</label>
                                     </div>
                                 </div>
                                 <div className="row py-4">
@@ -338,7 +405,7 @@ const Index = ({ auth, grupos }) => {
                                     </div>
                                     <div className="col-5 col-md-6 modal-info__info text-right">
                                         <div className="modal-info__data my-1">
-                                            <span>28/03/2023</span>
+                                            <span>{new Date(filtroSelected.created_at).toLocaleDateString('en-GB')}</span>
                                         </div>
                                     </div>
                                     <div className="col-5 modal-info__info">
@@ -347,7 +414,7 @@ const Index = ({ auth, grupos }) => {
                                     <div className="col-7 ml-auto modal-info__info text-right row">
                                         <div className="modal-info_tags">
                                             <img src="https://col.licitaciones.info/img/filtros/asesorias.svg" className="modal-info__icon" />
-                                            <p className="modal-info__counter">25</p>
+                                            <p className="modal-info__counter">0</p>
                                         </div>
                                     </div>
                                     <div className="col-7 col-md-6 modal-info__info">
@@ -355,7 +422,7 @@ const Index = ({ auth, grupos }) => {
                                     </div>
                                     <div className="col-5 col-md-6 modal-info__info text-right">
                                         <div className="modal-info__data my-1">
-                                            <span className="modal-info__data--green">5</span> <span>procesos</span>
+                                            <span className="modal-info__data--green">0</span> <span>procesos</span>
                                         </div>
                                     </div>
                                     <div className="col-7 col-md-6 modal-info__info">
@@ -377,35 +444,41 @@ const Index = ({ auth, grupos }) => {
                                 </div>
                             </>
                         }
-
+                        {idModal == "modalCreateSuccess" &&
+                            <div>
+                                <label class="modal-save__label"> Este proceso dependerá de la complejidad del perfil, te notificaremos por medio de la campana cuando todo este listo.</label>
+                            </div>
+                        }
 
                     </Modal.Body>
                     <Modal.Footer>
-                        {idModal == "modal_edit_perfil" &&
+                        {idModal == "modalEditarPerfil" &&
                             <div>
-                                <button class="btnRadius btn-new-gray">Atrás</button>
+                                <button class="btnRadius btn-new-gray" onClick={handleCloseModal}>Atrás</button>
                                 <a href={`/cliente/grupo/editar/${filtroSelected.id}?paso=${paso}`} class="btnRadius btn-new-blue">Editar perfil</a>
                             </div>
                         }
                         {idModal == "modalEliminarPerfil" &&
-                            <button class="btnRadius btn-new-danger">Eliminar</button>
+                            <button class="btnRadius btn-new-danger" onClick={Delete}>Eliminar</button>
                         }
-                        {idModal == "__BVID__16" &&
+                        {idModal == "modalDuplicarPerfil" &&
                             <>
-                                <button class="btnRadius btn-new-green">Duplicar</button>
-                                <button class="btnRadius btn-new-danger">Cancelar</button>
+                                <button class="btnRadius btn-new-green" onClick={Copy}>Duplicar</button>
+                                <button class="btnRadius btn-new-danger" onClick={handleCloseModal}>Cancelar</button>
                             </>
                         }
-                        {idModal == "modalConfirm" &&
+                        {idModal == "modalLeidosPerfil" &&
                             <>
-                                <button class="btnRadius btn-action btn-new-danger">Cancelar</button>
+                                <button class="btnRadius btn-action btn-new-danger" onClick={handleCloseModal}>Cancelar</button>
                                 <button class="btnRadius btn-new-green">Marcar</button>
                             </>
                         }
-                        {idModal == "modal-informacion-perfil" &&
+                        {idModal == "modalInformacionPerfil" &&
                             <button class="btnRadius btn-new-blue"><i class="icon-Resumen"></i>Ver resumen</button>
                         }
-
+                        {idModal == "modalCreateSuccess" &&
+                            <button class="btnRadius btn-new-green" onClick={handleCloseModal}>Entendido</button>
+                        }
                     </Modal.Footer>
                 </Modal>
             </AuthenticatedLayout>

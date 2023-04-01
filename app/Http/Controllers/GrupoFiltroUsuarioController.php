@@ -14,11 +14,16 @@ use Inertia\Inertia;
 
 class GrupoFiltroUsuarioController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $created_updated = false;
+        if(!is_null($request->create)){
+            $created_updated = true;
+        }
         $grupos = GrupoFiltroUsuario::where('id_usuario', Auth::id())->get();
         return Inertia::render('Grupos/Index', [
-            'grupos' => $grupos
+            'grupos' => $grupos,
+            'created_updated' => $created_updated
         ]);
     }
 
@@ -38,7 +43,9 @@ class GrupoFiltroUsuarioController extends Controller
         $model->sin_presupuesto = $request->data['sin_presupuesto'];
         $model->envio_alertas = $request->data['envio_alertas'];
         $model->imagen_filtro = $request->data['imagen_filtro'];
-        $model->historico = $request->data['historico_contratacion'];
+        if($request->data['historico_contratacion'] != "Sin Historico"){
+            $model->historico = $request->data['historico_contratacion'];
+        }
         $model->limite_inferior_cuantia = $this->parseInt($request->data['limite_inferior_cuantia']);
         $model->limite_superior_cuantia = $this->parseInt($request->data['limite_superior_cuantia']);
 
@@ -61,6 +68,7 @@ class GrupoFiltroUsuarioController extends Controller
         } else {
             return "No se creo el filtro de usuario";
         }
+        return Inertia::render('Grupos/Crear');
     }
 
     public function saveGrupoFiltroUsuariosHasSubCategoria($id_perfil, $id_sub_categoria)
@@ -83,49 +91,36 @@ class GrupoFiltroUsuarioController extends Controller
 
     public function create()
     {
-        /* Parte 1 ACTIVIDADES ECONOMICAS */
-
-        $actividades_economicas = SubCategoria::where('tipo_categoria', 1)
-            ->orderBy('updated_at', 'DESC')
-            ->with('parent', 'childs')
-            ->get();
-
-        //Buscar id del grandparent y agregarlo a la actividad economica
-        foreach ($actividades_economicas as $key => $ac) {
-            $model = SubCategoria::find($ac->id);
-            $ac->id_abuelo_sub_categoria = null;
-            if ($model->id_padre_sub_categoria != null) {
-                $parent = SubCategoria::find($model->id_padre_sub_categoria);
-                if ($parent->id_padre_sub_categoria != null) {
-                    $grandparent = SubCategoria::find($parent->id_padre_sub_categoria);
-                    $ac->id_abuelo_sub_categoria = $grandparent->id;
-                }
-            }
-        }
-
-        /* Parte 1 ACTIVIDADES ECONOMICAS */
-
-        /* Parte 2 LOCALIZACIONES */
-        $localizaciones = SubCategoria::where('tipo_categoria', 3)
-            ->orderBy('updated_at', 'DESC')
-            ->with('parent', 'childs')
-            ->get();
-
-        /* Parte 2 LOCALIZACIONES */
-
-
-
-        /* Parte 3 TIPO COMPRAS */
-        $tiposcompras = SubCategoria::where('tipo_categoria', 5)
-            ->orderBy('updated_at', 'DESC')
-            ->with('parent', 'childs')
-            ->get();
-        /* Parte 3 TIPO COMPRAS  */
+        $actividades_economicas = $this->getSubCategorias(1);
+        $localizaciones = $this->getSubCategorias(3);
+        $tiposcompras = $this->getSubCategorias(5);
         return Inertia::render('Grupos/Crear', [
             'actividades_economicas' => $actividades_economicas,
             'localizaciones' => $localizaciones,
             'tiposcompras' => $tiposcompras
         ]);
+    }
+
+    public function getSubCategorias($type){
+        $actividades_economicas = SubCategoria::where('tipo_categoria', $type)
+            ->orderBy('updated_at', 'DESC')
+            ->with('parent', 'childs')
+            ->get();
+
+        if($type == 1){//Actividad economica
+            foreach ($actividades_economicas as $key => $ac) {
+                $model = SubCategoria::find($ac->id);
+                $ac->id_abuelo_sub_categoria = null;
+                if ($model->id_padre_sub_categoria != null) {
+                    $parent = SubCategoria::find($model->id_padre_sub_categoria);
+                    if ($parent->id_padre_sub_categoria != null) {
+                        $grandparent = SubCategoria::find($parent->id_padre_sub_categoria);
+                        $ac->id_abuelo_sub_categoria = $grandparent->id;
+                    }
+                }
+            }
+        }
+        return $actividades_economicas;
     }
 
     public function edit($id, Request $request){
@@ -156,44 +151,10 @@ class GrupoFiltroUsuarioController extends Controller
             }
         }
 
-        /* Parte 1 ACTIVIDADES ECONOMICAS */
-
-        $actividades_economicas = SubCategoria::where('tipo_categoria', 1)
-            ->orderBy('updated_at', 'DESC')
-            ->with('parent', 'childs')
-            ->get();
-
-        //Buscar id del grandparent y agregarlo a la actividad economica
-        foreach ($actividades_economicas as $key => $ac) {
-            $model = SubCategoria::find($ac->id);
-            $ac->id_abuelo_sub_categoria = null;
-            if ($model->id_padre_sub_categoria != null) {
-                $parent = SubCategoria::find($model->id_padre_sub_categoria);
-                if ($parent->id_padre_sub_categoria != null) {
-                    $grandparent = SubCategoria::find($parent->id_padre_sub_categoria);
-                    $ac->id_abuelo_sub_categoria = $grandparent->id;
-                }
-            }
-        }
-
-        /* Parte 1 ACTIVIDADES ECONOMICAS */
-
-        /* Parte 2 LOCALIZACIONES */
-        $localizaciones = SubCategoria::where('tipo_categoria', 3)
-            ->orderBy('updated_at', 'DESC')
-            ->with('parent', 'childs')
-            ->get();
-
-        /* Parte 2 LOCALIZACIONES */
-
-
-
-        /* Parte 3 TIPO COMPRAS */
-        $tiposcompras = SubCategoria::where('tipo_categoria', 5)
-            ->orderBy('updated_at', 'DESC')
-            ->with('parent', 'childs')
-            ->get();
-        /* Parte 3 TIPO COMPRAS  */
+        $actividades_economicas = $this->getSubCategorias(1);
+        $localizaciones = $this->getSubCategorias(3);
+        $tiposcompras = $this->getSubCategorias(5);
+        
         return Inertia::render('Grupos/Editar', [
             'actividades_economicas' => $actividades_economicas,
             'localizaciones' => $localizaciones,
@@ -216,8 +177,6 @@ class GrupoFiltroUsuarioController extends Controller
         if (sizeof($actividades_economicas) == 0) {
             return "Debes tener mínimo 1 Actividad Económica seleccionada";
         }
-
-        
         $model = GrupoFiltroUsuario::find($request->data['perfil']);
         $model->nombre_filtro = $request->data['nombre_filtro'];
         $model->descripcion_filtro = $request->data['descripcion_filtro'];
@@ -236,7 +195,6 @@ class GrupoFiltroUsuarioController extends Controller
             dd($e->getMessage());
         }
 
-        
         //Eliminar SubCategorias
         $actividades_economicas_anteriores = GrupoFiltroUsuariosHasSubCategoria::where('id_perfil', $model->id)->get();
         foreach ($actividades_economicas_anteriores as $ae) {
@@ -257,5 +215,42 @@ class GrupoFiltroUsuarioController extends Controller
         } else {
             return "No se creo el filtro de usuario";
         }
+    }
+
+
+    public function copy(Request $request){
+        //Copiar Modelo
+        $original = GrupoFiltroUsuario::find($request->data['perfil']);
+        $copy_model = $original->replicate();
+        $copy_model->nombre_filtro = $request->data['nombre_filtro'];
+        try {
+            $copy_model->save();
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        } 
+        //Guardar SubCategorias
+        $actividades_economicas_original = GrupoFiltroUsuariosHasSubCategoria::where('id_perfil', $request->data['perfil'])->get();
+        foreach ($actividades_economicas_original as $key => $ae) {
+            $this->saveGrupoFiltroUsuariosHasSubCategoria($copy_model->id, $ae->id_sub_categoria);
+        }
+        $grupos = GrupoFiltroUsuario::where('id_usuario', Auth::id())->orderBy('id', 'DESC')->get();
+        return response()->json($grupos);
+    }
+
+    public function delete(Request $request){
+        //Eliminar SubCategorias
+        $actividades_economicas = GrupoFiltroUsuariosHasSubCategoria::where('id_perfil', $request->data['perfil'])->get();
+        foreach ($actividades_economicas as $ae) {
+            $ae->delete();
+        }
+
+        $model = GrupoFiltroUsuario::find($request->data['perfil']);
+        try {
+            $model->delete();
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        } 
+        $grupos = GrupoFiltroUsuario::where('id_usuario', Auth::id())->orderBy('id', 'DESC')->get();
+        return response()->json($grupos);
     }
 }

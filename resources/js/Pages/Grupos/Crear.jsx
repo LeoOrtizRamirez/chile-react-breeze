@@ -180,7 +180,7 @@ const Crear = ({
             'nombre_filtro': inputNombrePerfil,
             'descripcion_filtro': inputDescripcionPerfil,
             'sin_presupuesto': switchSinPresupuestoAsignado,
-            'historico_contratacion': switchHistorico,
+            'historico_contratacion': fechaHistorico,
             'envio_alertas': switchEmail,
             'imagen_filtro': iconCheckSelected,
         };
@@ -194,9 +194,11 @@ const Crear = ({
         })
             .then(response => {
                 console.log(response)
+                window.location.href = "/cliente/grupo?create=success";
             })
             .catch(error => {
-                console.log('error')
+                // Handle error
+                console.log(error.response.data);
             });
     };
     /*Calendar*/

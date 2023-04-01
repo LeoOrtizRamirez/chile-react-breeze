@@ -167,7 +167,8 @@ Route::get('/cliente/grupo', [GrupoFiltroUsuarioController::class, 'index'])->mi
 Route::get('/cliente/grupo/crear', [GrupoFiltroUsuarioController::class, 'create'])->middleware(['auth', 'verified']);
 Route::get('/cliente/grupo/editar/{id}', [GrupoFiltroUsuarioController::class, 'edit'])->middleware(['auth', 'verified']);
 Route::post('/cliente/grupo/update', [GrupoFiltroUsuarioController::class, 'update'])->middleware(['auth', 'verified']);
-
+Route::post('/cliente/grupo/duplicar', [GrupoFiltroUsuarioController::class, 'copy'])->middleware(['auth', 'verified']);
+Route::post('/cliente/grupo/destroy', [GrupoFiltroUsuarioController::class, 'delete'])->middleware(['auth', 'verified']);
 
 Route::post('grupo-filtro-usuarios/store', [GrupoFiltroUsuarioController::class, 'store'])->middleware(['auth', 'verified']);
 
