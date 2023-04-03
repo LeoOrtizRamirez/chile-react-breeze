@@ -1,0 +1,1 @@
+import{r,j as o,F as s,a as t}from"./app-0d6b3333.js";/* empty css                      *//* empty css              */import{H as i,F as n}from"./Footer-6235e564.js";function h({auth:e,header:c,children:a,page:u}){return r.exports.useState(!1),o(s,{children:[t(i,{user:e}),a,t(n,{})]})}export{h as A};
