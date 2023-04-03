@@ -5,6 +5,7 @@ import "./Index.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Modal from "react-bootstrap/Modal";
+import ResumenPerfil from "@/Components/ResumenPerfil";
 
 /*Toast*/
 import Toast from "react-bootstrap/Toast";
@@ -46,6 +47,27 @@ const Index = ({ auth, grupos, created_updated }) => {
         setShowModal(true)
         setFiltroSelected(perfil)
     }
+
+    /*Resumen Perfil */
+    const [showModalResumenPerfil, setShowModalResumenPerfil] = useState(false);
+    const [resumenFiltroSelected, setResumenFiltroSelected] = useState([]);
+
+    const handleOpenModalResumenPerfil  = () => {
+            axios.get(`/cliente/grupo/subcategorias/${filtroSelected.id}`)
+            .then(response => {
+                setResumenFiltroSelected(response.data)
+            })
+            .catch(error => {
+                console.log(error);
+            });            
+        setShowModalResumenPerfil(true);
+    };
+
+
+
+    const handleCloseModalResumenPerfil = () => {
+        setShowModalResumenPerfil(false);
+      };
     /*Modals */
 
     /*Borrar filtros*/
@@ -157,16 +179,16 @@ const Index = ({ auth, grupos, created_updated }) => {
         );
     };
 
-    const refInputCopyFilterName  = useRef("")
+    const refInputCopyFilterName = useRef("")
     const [nameCopyFilter, setNameCopyFilter] = useState(filtroSelected.nombre_filtro)
     useEffect(() => {
-      if(idModal == "modalDuplicarPerfil"){
-        console.log("cargo modal")
-        setNameCopyFilter(filtroSelected.nombre_filtro)
-      }
+        if (idModal == "modalDuplicarPerfil") {
+            console.log("cargo modal")
+            setNameCopyFilter(filtroSelected.nombre_filtro)
+        }
     }, [showModal])
-    
-    
+
+
     const Copy = () => {
         var payload = {
             'perfil': filtroSelected.id,
@@ -187,7 +209,7 @@ const Index = ({ auth, grupos, created_updated }) => {
             .catch(error => {
                 // Handle error
                 console.log(error);
-              });
+            });
     };
 
     const Delete = () => {
@@ -209,7 +231,7 @@ const Index = ({ auth, grupos, created_updated }) => {
             .catch(error => {
                 // Handle error
                 console.log(error);
-              });
+            });
     };
     return (
         <>
@@ -298,10 +320,10 @@ const Index = ({ auth, grupos, created_updated }) => {
                         }
                         {idModal == "modalCreateSuccess" &&
                             <>
-                            <div class="modal-save__img">
-                                <img src="https://col.licitaciones.info/img/usuario/perfiles/perfil-creado.png"/>
-                            </div>
-                            <h4 class="modal-title">Estamos configurando tu perfil de negocio.</h4>
+                                <div class="modal-save__img">
+                                    <img src="https://col.licitaciones.info/img/usuario/perfiles/perfil-creado.png" />
+                                </div>
+                                <h4 class="modal-title">Estamos configurando tu perfil de negocio.</h4>
                             </>
                         }
                         <button type="button" aria-label="Close" class="close icon-Cerrar-modal icon-Cerrar-modal-click" onClick={handleCloseModal}>
@@ -315,7 +337,7 @@ const Index = ({ auth, grupos, created_updated }) => {
                                     <div className="centrador">
                                         <i className="perfil-checks__iconos icon-Paso-1-click"></i>
                                         <span className="perfil-checks__title">Editar actividad económica</span>
-                                        <input type="radio" name="radio" onChange={()=>setPaso(1)} checked={paso==1 ? true : false}/>
+                                        <input type="radio" name="radio" onChange={() => setPaso(1)} checked={paso == 1 ? true : false} />
                                         <span className="perfil-checks__mark"></span>
                                     </div>
                                 </label>
@@ -323,7 +345,7 @@ const Index = ({ auth, grupos, created_updated }) => {
                                     <div className="centrador">
                                         <i className="perfil-checks__iconos icon-Paso-2-click"></i>
                                         <span className="perfil-checks__title">Editar modalidad</span>
-                                        <input type="radio" name="radio" onChange={()=>setPaso(2)}/>
+                                        <input type="radio" name="radio" onChange={() => setPaso(2)} />
                                         <span className="perfil-checks__mark"></span>
                                     </div>
                                 </label>
@@ -331,7 +353,7 @@ const Index = ({ auth, grupos, created_updated }) => {
                                     <div className="centrador">
                                         <i className="perfil-checks__iconos icon-Paso-3-click"></i>
                                         <span className="perfil-checks__title">Editar ubicación</span>
-                                        <input type="radio" name="radio" onChange={()=>setPaso(3)}/>
+                                        <input type="radio" name="radio" onChange={() => setPaso(3)} />
                                         <span className="perfil-checks__mark"></span>
                                     </div>
                                 </label>
@@ -339,7 +361,7 @@ const Index = ({ auth, grupos, created_updated }) => {
                                     <div className="centrador">
                                         <i className="perfil-checks__iconos icon-Paso-4-click"></i>
                                         <span className="perfil-checks__title">Editar rangos de cuantía</span>
-                                        <input type="radio" name="radio" onChange={()=>setPaso(4)}/>
+                                        <input type="radio" name="radio" onChange={() => setPaso(4)} />
                                         <span className="perfil-checks__mark"></span>
                                     </div>
                                 </label>
@@ -347,7 +369,7 @@ const Index = ({ auth, grupos, created_updated }) => {
                                     <div className="centrador">
                                         <i className="perfil-checks__iconos icon-Paso-5-click"></i>
                                         <span className="perfil-checks__title">Preferencias del perfil</span>
-                                        <input type="radio" name="radio" onChange={()=>setPaso(5)}/>
+                                        <input type="radio" name="radio" onChange={() => setPaso(5)} />
                                         <span className="perfil-checks__mark"></span>
                                     </div>
                                 </label>
@@ -376,13 +398,13 @@ const Index = ({ auth, grupos, created_updated }) => {
                         {idModal == "modalDuplicarPerfil" &&
                             <div class="form-group modal-duplicar__input">
                                 <label class="modal_save--label"> Dale un nombre a tu nuevo perfil:</label>
-                                <input 
+                                <input
                                     ref={refInputCopyFilterName}
-                                    type="text" 
-                                    name="nombre_duplicado" 
-                                    class="form-control inputs_form padd-peq" 
-                                    value={nameCopyFilter} 
-                                    onChange={(e)=>setNameCopyFilter(e.target.value)}
+                                    type="text"
+                                    name="nombre_duplicado"
+                                    class="form-control inputs_form padd-peq"
+                                    value={nameCopyFilter}
+                                    onChange={(e) => setNameCopyFilter(e.target.value)}
                                 />
                             </div>
                         }
@@ -474,13 +496,14 @@ const Index = ({ auth, grupos, created_updated }) => {
                             </>
                         }
                         {idModal == "modalInformacionPerfil" &&
-                            <button class="btnRadius btn-new-blue"><i class="icon-Resumen"></i>Ver resumen</button>
+                            <button class="btnRadius btn-new-blue" onClick={handleOpenModalResumenPerfil} ><i class="icon-Resumen"></i>Ver resumen</button>
                         }
                         {idModal == "modalCreateSuccess" &&
                             <button class="btnRadius btn-new-green" onClick={handleCloseModal}>Entendido</button>
                         }
                     </Modal.Footer>
                 </Modal>
+                <ResumenPerfil showModal={showModalResumenPerfil} handleCloseModal={handleCloseModalResumenPerfil} data={resumenFiltroSelected}/>
             </AuthenticatedLayout>
         </>
     );

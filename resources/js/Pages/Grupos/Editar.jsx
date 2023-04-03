@@ -201,6 +201,7 @@ const Editar = ({
         })
             .then(response => {
                 console.log(response)
+                window.location.href = "/cliente/grupo?create=success";
             })
             .catch(error => {
                 console.log('error')
@@ -448,7 +449,6 @@ const Editar = ({
                                                                     <img src={iconCheckSelected} alt="Avatar" className="imagen__avatar" />
                                                                     <button className="imagen__cambiar-avatar-button" onClick={handleShowFilter}>
                                                                         <span className="icon-Editar"></span>
-                                                                        <img src="/public/images/Web/icon-Editar.svg" alt="Editar" className="" />
                                                                     </button>
                                                                 </div>
                                                             </div>

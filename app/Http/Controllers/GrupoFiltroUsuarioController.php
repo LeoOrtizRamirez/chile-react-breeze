@@ -17,7 +17,7 @@ class GrupoFiltroUsuarioController extends Controller
     public function index(Request $request)
     {
         $created_updated = false;
-        if(!is_null($request->create)){
+        if (!is_null($request->create)) {
             $created_updated = true;
         }
         $grupos = GrupoFiltroUsuario::where('id_usuario', Auth::id())->get();
@@ -43,7 +43,7 @@ class GrupoFiltroUsuarioController extends Controller
         $model->sin_presupuesto = $request->data['sin_presupuesto'];
         $model->envio_alertas = $request->data['envio_alertas'];
         $model->imagen_filtro = $request->data['imagen_filtro'];
-        if($request->data['historico_contratacion'] != "Sin Historico"){
+        if ($request->data['historico_contratacion'] != "Sin Historico") {
             $model->historico = $request->data['historico_contratacion'];
         }
         $model->limite_inferior_cuantia = $this->parseInt($request->data['limite_inferior_cuantia']);
@@ -101,13 +101,14 @@ class GrupoFiltroUsuarioController extends Controller
         ]);
     }
 
-    public function getSubCategorias($type){
+    public function getSubCategorias($type)
+    {
         $actividades_economicas = SubCategoria::where('tipo_categoria', $type)
             ->orderBy('updated_at', 'DESC')
             ->with('parent', 'childs')
             ->get();
 
-        if($type == 1){//Actividad economica
+        if ($type == 1) { //Actividad economica
             foreach ($actividades_economicas as $key => $ac) {
                 $model = SubCategoria::find($ac->id);
                 $ac->id_abuelo_sub_categoria = null;
@@ -123,12 +124,13 @@ class GrupoFiltroUsuarioController extends Controller
         return $actividades_economicas;
     }
 
-    public function edit($id, Request $request){
+    public function edit($id, Request $request)
+    {
         $pasos_seleccionados = [];
-        for ($i=1; $i <= $request->paso; $i++) { 
+        for ($i = 1; $i <= $request->paso; $i++) {
             array_push($pasos_seleccionados, $i);
         }
-         
+
         $perfil = GrupoFiltroUsuario::find($id);
         $actividades_economicas_perfil = GrupoFiltroUsuariosHasSubCategoria::where('id_perfil', $id)->with('subcategoria')->get();
         $actividades_economicas_actuales = [];
@@ -154,7 +156,7 @@ class GrupoFiltroUsuarioController extends Controller
         $actividades_economicas = $this->getSubCategorias(1);
         $localizaciones = $this->getSubCategorias(3);
         $tiposcompras = $this->getSubCategorias(5);
-        
+
         return Inertia::render('Grupos/Editar', [
             'actividades_economicas' => $actividades_economicas,
             'localizaciones' => $localizaciones,
@@ -183,12 +185,12 @@ class GrupoFiltroUsuarioController extends Controller
         $model->sin_presupuesto = $request->data['sin_presupuesto'];
         $model->envio_alertas = $request->data['envio_alertas'];
         $model->imagen_filtro = $request->data['imagen_filtro'];
-        if($request->data['historico_contratacion'] != "Sin Historico"){
+        if ($request->data['historico_contratacion'] != "Sin Historico") {
             $model->historico = $request->data['historico_contratacion'];
         }
         $model->limite_inferior_cuantia = $this->parseInt($request->data['limite_inferior_cuantia']);
         $model->limite_superior_cuantia = $this->parseInt($request->data['limite_superior_cuantia']);
-        
+
         try {
             $model->save();
         } catch (Exception $e) {
@@ -218,7 +220,8 @@ class GrupoFiltroUsuarioController extends Controller
     }
 
 
-    public function copy(Request $request){
+    public function copy(Request $request)
+    {
         //Copiar Modelo
         $original = GrupoFiltroUsuario::find($request->data['perfil']);
         $copy_model = $original->replicate();
@@ -227,7 +230,7 @@ class GrupoFiltroUsuarioController extends Controller
             $copy_model->save();
         } catch (Exception $e) {
             dd($e->getMessage());
-        } 
+        }
         //Guardar SubCategorias
         $actividades_economicas_original = GrupoFiltroUsuariosHasSubCategoria::where('id_perfil', $request->data['perfil'])->get();
         foreach ($actividades_economicas_original as $key => $ae) {
@@ -237,7 +240,8 @@ class GrupoFiltroUsuarioController extends Controller
         return response()->json($grupos);
     }
 
-    public function delete(Request $request){
+    public function delete(Request $request)
+    {
         //Eliminar SubCategorias
         $actividades_economicas = GrupoFiltroUsuariosHasSubCategoria::where('id_perfil', $request->data['perfil'])->get();
         foreach ($actividades_economicas as $ae) {
@@ -249,8 +253,39 @@ class GrupoFiltroUsuarioController extends Controller
             $model->delete();
         } catch (Exception $e) {
             dd($e->getMessage());
-        } 
+        }
         $grupos = GrupoFiltroUsuario::where('id_usuario', Auth::id())->orderBy('id', 'DESC')->get();
         return response()->json($grupos);
+    }
+
+    public function subcategorias($id)
+    {
+        $perfil = GrupoFiltroUsuario::find($id);
+        $subcategorias = GrupoFiltroUsuariosHasSubCategoria::where('id_perfil', $id)->with('subcategoria', 'perfil')->get();
+        $data = [];
+        $actividades_economicas = [];
+        $tipos_compras = [];
+        $localizaciones = [];
+
+        foreach ($subcategorias as $key => $value) {
+            switch ($value->subcategoria->tipo_categoria) {
+                case 1:
+                    array_push($actividades_economicas, $value->subcategoria->nombre);
+                    break;
+                case 3:
+                    array_push($tipos_compras, $value->subcategoria->nombre);
+                    break;
+                case 5:
+                    array_push($localizaciones, $value->subcategoria->nombre);
+                    break;
+                default:
+                    break;
+            }
+        }
+        $data['perfil'] = $perfil;
+        $data['actividades_economicas'] = $actividades_economicas;
+        $data['tiposcompras'] = $tipos_compras;
+        $data['localizaciones'] = $localizaciones;
+        return $data;
     }
 }
