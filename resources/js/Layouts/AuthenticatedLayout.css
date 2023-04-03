@@ -194,8 +194,8 @@ a.btnRadius {
 
 /*Botones*/
 .btn-new-gray {
-    color: #686868;
-    border: 1px solid #686868;
+    color: #686868 !important;
+    border: 1px solid #686868 !important;
 }
 
 .btn-new-gray:focus, .btn-new-gray:hover {
@@ -204,8 +204,8 @@ a.btnRadius {
 }
 
 .btn-new-blue {
-    color: #00a1c9;
-    border: 1px solid #00a1c9;
+    color: #00a1c9 !important;
+    border: 1px solid #00a1c9 !important;
 }
 
 .btn-new-blue:focus, .btn-new-blue:hover {

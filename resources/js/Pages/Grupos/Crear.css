@@ -122,7 +122,7 @@
 #perfiles a {
     text-align: center;
     font-weight: bold;
-    color: unset !important;
+    /* color: unset !important; */
     text-decoration: none !important;
 }
 
@@ -224,30 +224,6 @@ html {
     font-size: 25px;
     display: flex;
     justify-content: center;
-}
-
-#perfiles .btn-new-blue {
-    color: #00a1c9 !important;
-    border: 1px solid #00a1c9 !important;
-}
-
-#perfiles .btnRadius {
-    border-radius: 40px !important;
-}
-
-#perfiles .btn-new-blue:hover {
-    background: #00a1c9 !important;
-    color: #fff !important;
-}
-
-#perfiles .btn-new-red {
-    color: #dc3545 !important;
-    border: 1px solid #dc3545 !important;
-}
-
-#perfiles .btn-new-red:hover {
-    background: #dc3545 !important;
-    color: #fff !important;
 }
 
 #perfiles .infinite-scroll {
@@ -783,42 +759,6 @@ html {
 
 div#resultados {
     padding-top: 20px;
-}
-
-.btn-new-green {
-    color: #73c914;
-    border: 1px solid #73c914;
-}
-
-.btnRadius {
-    border-radius: 40px;
-}
-
-.btn-new-green, .btn-new-gray {
-    cursor: pointer;
-    font-family: Nexa-bold, sans-serif;
-    text-decoration: none !important;
-    font-size: 17px;
-    white-space: normal !important;
-    background: #fff;
-    padding: 3px 24px;
-    outline: none !important;
-    font-weight: bold;
-}
-
-.btn-new-green:hover {
-    background: #73c914!important;
-    color: #fff!important;
-}
-
-.btn-new-gray {
-    color: #686868;
-    border: 1px solid #686868;
-}
-
-.btn-new-gray:hover {
-    background: #686868!important;
-    color: #fff!important;
 }
 
  .modal-footer .btn-new-gray {

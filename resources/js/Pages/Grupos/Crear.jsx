@@ -15,6 +15,7 @@ import Header from "@/Components/Header/HeaderLite";
 /* HEADER*/
 
 import Modal from 'react-bootstrap/Modal';
+import ResumenPerfil from "@/Components/ResumenPerfil";
 
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -232,6 +233,59 @@ const Crear = ({
         handleCloseFilter()
     }
     /*Filter */
+
+    /*ResumenPerfil */
+    const [showModalResumenPerfil, setShowModalResumenPerfil] = useState(false);
+    const [resumenFiltroSelected, setResumenFiltroSelected] = useState([]);
+
+    const handleOpenModalResumenPerfil = () => {
+        const sub_actividades_economicas = sectores.filter(function (sector) {
+            return checkedsActividadesEconomicas.some(function (actividad_economica) {
+                return sector.id === actividad_economica;
+            });
+        }).map(function(sector) {
+            return sector.nombre;
+        });
+        
+        const sub_tiposcompras = tiposcompras.filter(function (sector) {
+            return checkedsTiposCompras.some(function (tipocompra) {
+                return sector.id === tipocompra;
+            });
+        }).map(function(sector) {
+            return sector.nombre;
+        });
+        
+        const sub_localizaciones = localizaciones.filter(function (sector) {
+            return checkedsLocalizaciones.some(function (localizacion) {
+                return sector.id === localizacion;
+            });
+        }).map(function(sector) {
+            return sector.nombre;
+        });
+
+        var data = {
+            'actividades_economicas': sub_actividades_economicas,
+            'tiposcompras': sub_tiposcompras,
+            'localizaciones': sub_localizaciones,
+            'perfil': {
+                'limite_inferior_cuantia': cuantiaDesde,
+                'limite_superior_cuantia': cuantiaHasta,
+                'nombre_filtro': inputNombrePerfil,
+                'descripcion_filtro': inputDescripcionPerfil,
+                'sin_presupuesto': switchSinPresupuestoAsignado,
+                'historico_contratacion': fechaHistorico,
+                'envio_alertas': switchEmail,
+                'imagen_filtro': iconCheckSelected,
+            }
+        };
+        setResumenFiltroSelected(data)
+        setShowModalResumenPerfil(true);
+    };
+
+    const handleCloseModalResumenPerfil = () => {
+        setShowModalResumenPerfil(false);
+    };
+    /*ResumenPerfil */
     return (
         <>
             <AuthenticatedLayout auth={auth} page={'perfiles'}>
@@ -541,57 +595,57 @@ const Crear = ({
                             <div className="perfil-bottons-footer position-relative text-center mt-4">
                                 {/* BOTONES RETURN */}
 
-                                <>{/* Volver ActividadesEconomicas */}
+                                <>{/* Atrás ActividadesEconomicas */}
                                     {container == 2 && (
                                         <a
                                             onClick={() => changeContent(1)}
-                                            className="btn btnRadius btn-new-blue"
+                                            className="btn btnRadius btn-new-gray"
                                             id="btn-return-tc"
                                         >
                                             <span className="bloque__info-header-cuenta-text--modifier">
-                                                Volver
+                                                Atrás
                                             </span>
                                         </a>
                                     )}
                                 </>
 
-                                <>{/* Volver TipoCompra */}
+                                <>{/* Atrás TipoCompra */}
                                     {container == 3 && (
                                         <a
                                             onClick={() => changeContent(2)}
-                                            className="btn btnRadius btn-new-blue"
+                                            className="btn btnRadius btn-new-gray"
                                             id="btn-return-lc"
                                         >
                                             <span className="bloque__info-header-cuenta-text--modifier">
-                                                Volver
+                                                Atrás
                                             </span>
                                         </a>
                                     )}
                                 </>
 
-                                <>{/* Volver Localizaciones */}
+                                <>{/* Atrás Localizaciones */}
                                     {container == 4 && (
                                         <a
                                             onClick={() => changeContent(3)}
-                                            className="btn btnRadius btn-new-blue"
+                                            className="btn btnRadius btn-new-gray"
                                             id="btn-return-cu"
                                         >
                                             <span className="bloque__info-header-cuenta-text--modifier">
-                                                Volver
+                                                Atrás
                                             </span>
                                         </a>
                                     )}
                                 </>
 
-                                <>{/* Volver Cuantia */}
+                                <>{/* Atrás Cuantia */}
                                     {container == 5 && (
                                         <a
                                             onClick={() => changeContent(4)}
-                                            className="btn btnRadius btn-new-blue"
+                                            className="btn btnRadius btn-new-gray"
                                             id="btn-return-te"
                                         >
                                             <span className="bloque__info-header-cuenta-text--modifier">
-                                                Volver
+                                                Atrás
                                             </span>
                                         </a>
                                     )}
@@ -651,15 +705,20 @@ const Crear = ({
                                 </>
                                 <>{/* GUARDAR*/}
                                     {container == 5 && (
-                                        <a
-                                            onClick={Guardar}
-                                            className="btn btnRadius btn-new-blue"
-                                            id="btn-next-cu"
-                                        >
-                                            <span className="bloque__info-header-cuenta-text--modifier">
-                                                Guardar
-                                            </span>
-                                        </a>
+                                        <>
+                                            <a
+                                                onClick={Guardar}
+                                                className="btn btnRadius btn-new-green"
+                                                id="btn-next-cu"
+                                            >
+                                                <span className="bloque__info-header-cuenta-text--modifier">
+                                                    Crear perfil de negocio
+                                                </span>
+                                            </a>
+                                            <button type="button" class="btn btnRadius btn-new-blue" onClick={handleOpenModalResumenPerfil}>
+                                                <i class="icon-Resumen"></i> Ver resumen
+                                            </button>
+                                        </>
                                     )}
                                 </>
                             </div>
@@ -801,6 +860,7 @@ const Crear = ({
                                 </button>
                             </Modal.Footer>
                         </Modal>
+                        <ResumenPerfil showModal={showModalResumenPerfil} handleCloseModal={handleCloseModalResumenPerfil} data={resumenFiltroSelected} />
                     </div>
                 </div>
                 <ToastContainer position="bottom-start">
