@@ -53,6 +53,7 @@ const Index = ({ auth, grupos, created_updated }) => {
     const [resumenFiltroSelected, setResumenFiltroSelected] = useState([]);
 
     const handleOpenModalResumenPerfil  = () => {
+        handleCloseModal()
             axios.get(`/cliente/grupo/subcategorias/${filtroSelected.id}`)
             .then(response => {
                 setResumenFiltroSelected(response.data)
@@ -63,9 +64,9 @@ const Index = ({ auth, grupos, created_updated }) => {
         setShowModalResumenPerfil(true);
     };
 
-
-
     const handleCloseModalResumenPerfil = () => {
+        setIdModal("modalInformacionPerfil")
+        setShowModal(true)
         setShowModalResumenPerfil(false);
       };
     /*Modals */
