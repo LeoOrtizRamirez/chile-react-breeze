@@ -380,3 +380,11 @@
     font-size: 18px;
     color: #686868;
 }
+
+#menu-lateral i.icon-Crear.icon-boton {
+    color: #73c914 !important;
+}
+
+#menu-lateral a.btn-new-green:hover i.icon-Crear.icon-boton {
+    color: #fff !important;
+}

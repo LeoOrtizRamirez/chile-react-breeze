@@ -76,8 +76,8 @@ const MenuLateral = () => {
                             </div>
                         </div>
                         <div className="botones-dropdown-menu">
-                            <a href="https://col.licitaciones.info/cliente/grupo" className="btn-new-gray text-center activeli">Administrar perfil(es)</a>
-                            <a href="https://col.licitaciones.info/cliente/grupo/crear" className="btn-new-green text-center"><i className="icon-Crear icon-boton"></i>Crear perfil</a>
+                            <a href="/cliente/grupo" className="btn-new-gray text-center activeli">Administrar perfil(es)</a>
+                            <a href="/cliente/grupo/crear" className="btn-new-green text-center"><i className="icon-Crear icon-boton"></i>Crear perfil</a>
                         </div>
                     </div>
                 </NavDropdown>
