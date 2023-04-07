@@ -360,7 +360,7 @@ html {
 /*Cuantia*/
 
 #perfiles #campos-cuantias .campos-cuantias__form {
-    padding: 0 20px;
+    padding: 0 20px !important;
 }
 
 #perfiles #campos-cuantias .campos-cuantias__icon {

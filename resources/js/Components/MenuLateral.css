@@ -39,7 +39,7 @@
     height: 100px;
 }
 
-#menu-lateral .new-menu li>a, #menu-lateral .new-menu li>button {
+#menu-lateral .new-menu li>a, #menu-lateral .new-menu li>button, #item_menu-misperfiles {
     cursor: pointer;
     padding: 23px 4px 13px;
     border: 0;
@@ -56,9 +56,29 @@
     color: #686868 !important;
     text-decoration: none!important;
     top: 10px;
+    white-space: unset;
 }
 
-#menu-lateral .new-menu li>a:before, #menu-lateral .new-menu li>button:before {
+/* .item-title-menu{
+    cursor: pointer;
+    padding: 23px 4px 13px;
+    border: 0;
+    -webkit-box-shadow: none!important;
+    box-shadow: none!important;
+    outline: none!important;
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    font-family: Nexa-regular;
+    font-size: 11px;
+    width: 100%;
+    background: none;
+    color: #686868 !important;
+    text-decoration: none!important;
+    top: 10px;
+} */
+
+#menu-lateral .new-menu li>a:before, #menu-lateral .new-menu li>button:before{
     content: "";
     position: absolute;
     top: -5px;
@@ -77,11 +97,11 @@
     font-size: 22px;
 } */
 
-#menu-lateral .new-menu li>a [class^=icon-], #menu-lateral .new-menu li>button [class^=icon-] {
+#menu-lateral [class^=icon-] {
     color: #afafaf;
 }
 
-#menu-lateral .new-menu li>a>span:first-of-type, #menu-lateral .new-menu li>button>span:first-of-type {
+#menu-lateral .new-menu li>a>span:first-of-type, #menu-lateral .new-menu li>button>span:first-of-type, .icon-Mis-perfiles {
     font-size: 22px;
 }
 
@@ -89,17 +109,31 @@
     display: block;
 }
 
-#menu-lateral .new-menu li>a .item-title-menu, #menu-lateral .new-menu li>button .item-title-menu {
+#menu-lateral .item-title-menu {
     line-height: 1.3;
     padding-top: 7px;
     word-wrap: break-word;
 }
 
-#menu-lateral .new-menu li>a .flechas-menu, #menu-lateral .new-menu li>button .flechas-menu {
+#menu-lateral .flechas-menu {
     position: absolute;
     font-size: 22px;
     right: 5px;
     top: 30%;
+}
+
+#menu-lateral .dropend .dropdown-toggle::after{
+    display: none !important;
+}
+
+#menu-lateral #item_menu-misperfiles span {
+    display: block;
+}
+
+#menu-lateral .nav-item.dropend {
+    width: 100%;
+    height: 100px;
+    position: relative;
 }
 
 #menu-lateral .new-menu li>a.activeli>span, #menu-lateral .new-menu li>a.activeli span:before, #menu-lateral .new-menu li>a.item_menu-active>span, #menu-lateral .new-menu li>a.item_menu-active span:before, #menu-lateral .new-menu li>a:hover>span, #menu-lateral .new-menu li>a:hover span:before, #menu-lateral .new-menu li>button.activeli>span, #menu-lateral .new-menu li>button.activeli span:before, #menu-lateral .new-menu li>button.item_menu-active>span, #menu-lateral .new-menu li>button.item_menu-active span:before, #menu-lateral .new-menu li>button:hover>span, #menu-lateral .new-menu li>button:hover span:before {
@@ -153,3 +187,196 @@
 .scroll_fit::-webkit-scrollbar-track:hover{
     background:#dedede}
 .scroll_fit::-webkit-scrollbar-corner{background:transparent}
+
+
+#item_menu-misperfiles ~ div{
+    position: fixed !important;
+    margin-top: 20px;
+    margin-left: 22px;
+    padding: 0;
+    border-radius: 9px;
+    border: 0;
+    -webkit-box-shadow: 0 2px 3px 5px rgb(52 45 45 / 10%);
+    box-shadow: 0 2px 3px 5px rgb(52 45 45 / 10%);
+    min-width: 372px;
+    max-width: 372px;
+}
+
+#menu-lateral .drop-perfiles {
+    display: block;
+    padding: 15px 15px 27px 18px;
+}
+
+#menu-lateral .icon-Contraer-campana-click {
+    position: absolute;
+    right: 8px;
+    top: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 3;
+    color: #00a1c9;
+}
+
+#menu-lateral .item-checkbox-menu-subtitle {
+    margin: 2px 0;
+    padding: 7px 80px 7px 56px!important;
+}
+
+#menu-lateral .item-checkbox-menu {
+    cursor: move;
+    padding: 14px 68px 14px 110px !important;
+    z-index: 0;
+    margin: 7px 0;
+    display: block;
+}
+
+#menu-lateral .item-checkbox-menu-subtitle .body_checkbox {
+    top: 7px;
+    left: 23px;
+}
+
+#menu-lateral .item-checkbox-menu>.body_checkbox {
+    position: absolute;
+    left: 15px;
+    top: 9px;
+}
+
+#menu-lateral .item-checkbox-menu.item-icon-menu .content-img--img {
+    position: relative;
+    height: 43px;
+    width: 43px;
+    padding: 12px;
+    background-color: #f3f3f3;
+    border-radius: 80px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+#menu-lateral .body-all-perfiles:after, #menu-lateral .body-all-perfiles:before {
+    background: #f0f0f0;
+    width: 85%;
+    height: 2px;
+    content: "";
+    display: block;
+    margin-left: 20px;
+}
+
+#menu-lateral .item-checkbox-menu-subtitle>label {
+    text-align: center;
+    font-family: Nexa-bold!important;
+    font-size: 15px!important;
+    max-width: 215px;
+}
+
+#menu-lateral input[type="checkbox"]{
+    width: 17px;
+    height: 17px;
+    color: #73c914 !important;
+}
+
+#menu-lateral .botones-dropdown-menu>a, #menu-lateral .botones-dropdown-menu>button {
+    padding: 5px 10px;
+    font-size: 11px;
+    border-radius: 30px;
+    margin-top: 15px;
+    display: block;
+    outline: none!important;
+    text-decoration: none!important;
+    width: 100%;
+}
+
+#menu-lateral .botones-dropdown-menu {
+    padding-top: 7px;
+    display: block;
+    margin: 0 auto;
+    max-width: 175px;
+    padding-right: 15px;
+}
+
+#menu-lateral .botones-dropdown-menu>a, #menu-lateral .botones-dropdown-menu>button {
+    padding: 5px 10px;
+    font-size: 11px;
+    border-radius: 30px;
+    margin-top: 15px;
+    display: block;
+    outline: none!important;
+    text-decoration: none!important;
+    width: 100%;
+}
+
+#menu-lateral .item-checkbox-menu-subtitle {
+    margin: 2px 0;
+    padding: 7px 80px 7px 56px!important;
+}
+
+#menu-lateral .body-all-perfiles>div {
+    padding-top: 1px;
+    max-height: calc(90vh - 220px);
+    overflow-y: auto;
+    padding-right: 15px;
+    /* padding-left: 8px; */
+}
+
+#menu-lateral .item-checkbox-menu.item-icon-menu .indic-item-menu {
+    top: 14px;
+    min-width: 35px;
+}
+
+#menu-lateral .item-checkbox-menu .indic-item-menu {
+    position: absolute;
+    right: 0;
+    top: 5px;
+    z-index: 1;
+}
+
+#menu-lateral .item-checkbox-menu .indic-item-menu i.contadores_nuevos_point {
+    font-size: 9px;
+    background: #c9003d;
+    border-radius: 33px;
+    padding: 0 6px;
+}
+
+#menu-lateral .item-checkbox-menu>label {
+    font-size: 13px;
+    font-family: Nexa-regular;
+    margin: 0!important;
+    color: #686868;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 150px;
+    vertical-align: middle;
+}
+
+#menu-lateral .item-checkbox-menu {
+    position: relative;
+    display: block;
+    padding: 7px 70px 7px 43px;
+    margin: 7px 0;
+}
+
+
+
+#menu-lateral .item-checkbox-menu.item-icon-menu .content-img {
+    display: inline-block;
+    position: absolute;
+    left: 46px;
+    top: 5px;
+}
+
+#menu-lateral .botones-dropdown-menu .icon-boton {
+    padding-right: 12px;
+}
+
+#menu-lateral .item-checkbox-menu.item-icon-menu .icono-arrastre {
+    display: none;
+    position: absolute;
+    right: 5px;
+    bottom: -8px;
+    font-size: 18px;
+    color: #686868;
+}

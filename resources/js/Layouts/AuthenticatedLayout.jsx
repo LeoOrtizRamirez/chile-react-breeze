@@ -11,6 +11,7 @@ import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
 
 import "../../css/font-web.css";
+import "../../css/font-nexa-bold.css";
 
 export default function Authenticated({ auth, header, children, page }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
