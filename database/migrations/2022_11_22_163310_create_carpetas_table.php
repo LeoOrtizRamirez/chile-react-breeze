@@ -21,9 +21,8 @@ class CreateCarpetasTable extends Migration
                 ->on('users')
                 ->onDelete('set null');
             $table->text('nombre_carpeta');
-            $table->text('icono');
             $table->text('color');
-            $table->integer('orden');
+            $table->integer('orden')->nullable();
             $table->timestamps();
         });
     }

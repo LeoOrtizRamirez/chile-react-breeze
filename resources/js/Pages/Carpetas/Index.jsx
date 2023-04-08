@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 
 const Index = ({ auth, carpetas }) => {
+    console.log(carpetas)
     return (
         <>
             <AuthenticatedLayout auth={auth} page={'carpetas'}>
@@ -47,23 +48,27 @@ const Index = ({ auth, carpetas }) => {
                                         <span class="carpeta__nombre--papelera">Papelera</span>
                                     </div>
                                 </div>
-                                <div class="list-carpetas__cont">
-                                    <div class="carpeta">
-                                        <div class="carpeta__cont-icon">
-                                            <span class="icon-Mis-carpetas carpeta__icon" style={{color: "rgb(0, 161, 201);"}}>
-                                                <span class="path1">
+
+                                {carpetas.map((carpeta) => (
+                                    <div class="list-carpetas__cont">
+                                        <div class="carpeta">
+                                            <div class="carpeta__cont-icon">
+                                                <span class="icon-Mis-carpetas carpeta__icon" style={{ color: carpeta.color }}>
+                                                    <span class="path1">
+                                                    </span>
+                                                    <span class="path2">
+                                                    </span>
                                                 </span>
-                                                <span class="path2">
-                                                </span>
-                                            </span>
-                                        </div>
-                                        <span class="carpeta__nombre">Carpeta 1</span>
-                                        <div class="carpeta__acciones">
-                                            <i class="icon-Editar carpeta__btn-editar"></i>
-                                            <i class="icon-Eliminar carpeta__btn-eliminar"></i>
+                                            </div>
+                                            <span class="carpeta__nombre">{carpeta.nombre_carpeta}</span>
+                                            <div class="carpeta__acciones">
+                                                <i class="icon-Editar carpeta__btn-editar"></i>
+                                                <i class="icon-Eliminar carpeta__btn-eliminar"></i>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                )
+                                )}
                             </div>
                         </div>
                     </div>

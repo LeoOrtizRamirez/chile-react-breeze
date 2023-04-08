@@ -171,3 +171,7 @@
 #carpetas input.form-control::placeholder {
     color: #bab9b9;
 }
+
+#carpetas .carpeta__nombre {
+    color: #686868;
+}

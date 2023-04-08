@@ -290,6 +290,18 @@ input[type='radio']:checked {
 
 input[type='radio']:focus{ box-shadow: none; outline: none !important; }
 
+.input-error{
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #dc3545;
+}
+
+.is-invalid {
+    border-color: #dc3545 !important;
+}
+
+
 /* .content-flex {
     display: flex !important;
     flex-direction: row !important;

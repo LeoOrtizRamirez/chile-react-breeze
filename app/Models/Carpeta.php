@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Carpeta extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'nombre_carpeta',
+        'id_usuario',
+        'color',
+        'orden',
+    ];
 }

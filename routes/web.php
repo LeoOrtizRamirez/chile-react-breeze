@@ -175,6 +175,8 @@ Route::post('grupo-filtro-usuarios/store', [GrupoFiltroUsuarioController::class,
 
 
 /*Carpetas */
-Route::get('/cliente/carpeta/administrar-carpetas', [CarpetasController::class, 'index'])->middleware(['auth', 'verified']);
+Route::get('/cliente/carpeta/administrar-carpetas', [CarpetasController::class, 'index'])->middleware(['auth', 'verified'])->name('carpetas.index');
+Route::post('/cliente/carpeta/store', [CarpetasController::class, 'store'])->middleware(['auth', 'verified'])->name('carpetas.store');
 
-Route::POST('register/modal', [RegisteredUserController::class, 'registerModal'])->name('registerModal');
+
+Route::post('register/modal', [RegisteredUserController::class, 'registerModal'])->name('registerModal');

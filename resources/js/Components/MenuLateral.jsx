@@ -1,9 +1,16 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './MenuLateral.css'
-import { Dropdown, DropdownButton } from 'react-bootstrap';
-import { Nav, NavItem, NavDropdown } from 'react-bootstrap';
-import { ListGroup, Button } from 'react-bootstrap';
+import { Nav, NavDropdown } from 'react-bootstrap';
+
+import CrearCarpeta from './CrearCarpeta';
 const MenuLateral = () => {
+    const [showModalCrearCarpeta, setShowModalCrearCarpeta] = useState(false);
+    const handleOpenModalCrearCarpeta = () => {
+        setShowModalCrearCarpeta(true);
+    };
+    const handleCloseModalCrearCarpeta = () => {
+        setShowModalCrearCarpeta(false);
+    };
     return (
         <div id="menu-lateral" className="fixed-top">
             <Nav className="new-menu scroll_fit">
@@ -125,7 +132,7 @@ const MenuLateral = () => {
                                     <div>
                                         <div class="item-checkbox-menu item-icon-menu">
                                             <span class="body_checkbox">
-                                                <div class="radio" style={{margin: 0 + 'px;'}}>
+                                                <div class="radio" style={{ margin: 0 + 'px;' }}>
                                                     <label>
                                                         <input type="radio" name="radiocontratos" id="radioContratosFavoritos" class="input_carpeta_val" value="F" />
                                                     </label>
@@ -134,7 +141,7 @@ const MenuLateral = () => {
                                             <label for="radioContratosFavoritos" id="">
                                                 <div class="content-img">
                                                     <div class="content-img--img">
-                                                        <span class="icon-Favorito-click content-img--img__iconos" style={{color: 'rgb(253, 203, 54);'}}>
+                                                        <span class="icon-Favorito-click content-img--img__iconos" style={{ color: 'rgb(253, 203, 54);' }}>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -143,7 +150,7 @@ const MenuLateral = () => {
                                         </div>
                                         <div class="item-checkbox-menu item-icon-menu">
                                             <span class="body_checkbox">
-                                                <div class="radio" style={{margin: 0 + 'px;'}}>
+                                                <div class="radio" style={{ margin: 0 + 'px;' }}>
                                                     <label>
                                                         <input type="radio" name="radiocontratos" id="radioContratosFavoritos" class="input_carpeta_val" value="F" />
                                                     </label>
@@ -152,7 +159,7 @@ const MenuLateral = () => {
                                             <label for="radioContratosFavoritos" id="">
                                                 <div class="content-img">
                                                     <div class="content-img--img">
-                                                    <span class="icon-Eliminar content-img--img__iconos" style={{color: 'rgb(209, 49, 97)'}}></span>
+                                                        <span class="icon-Eliminar content-img--img__iconos" style={{ color: 'rgb(209, 49, 97)' }}></span>
                                                     </div>
                                                 </div>
                                                 Papelera
@@ -187,7 +194,7 @@ const MenuLateral = () => {
                         </div>
                         <div className="botones-dropdown-menu">
                             <a href="/cliente/carpeta/administrar-carpetas" className="btn-new-gray text-center activeli">Administrar carpetas</a>
-                            <a href="#" className="btn-new-green text-center">
+                            <a className="btn-new-green text-center" onClick={handleOpenModalCrearCarpeta}>
                                 <i className="icon-Crear icon-boton"></i>Crear carpeta</a>
                         </div>
                     </div>
@@ -220,6 +227,7 @@ const MenuLateral = () => {
             <ul className="new-menu scroll_fit ">
 
             </ul>
+            <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} />
         </div>
     )
 }

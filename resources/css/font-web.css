@@ -1157,7 +1157,7 @@
   }
   .icon-Mis-carpetas .path1:before {
     content: "\eaa5";
-    color: rgb(104, 104, 104);
+    color: inherit;
     opacity: 1;
   }
   .icon-Mis-carpetas .path2:before {
