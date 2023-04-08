@@ -8,7 +8,7 @@ const MenuLateral = () => {
         <div id="menu-lateral" className="fixed-top">
             <Nav className="new-menu scroll_fit">
                 <NavDropdown
-                drop={'end'}
+                    drop={'end'}
                     id="item_menu-misperfiles"
                     className=""
                     title={
@@ -40,8 +40,6 @@ const MenuLateral = () => {
                             <span className="body_checkbox">
                                 <div className="checkbox" style={{ margin: 0 + 'px' }}><label>
                                     <input type="checkbox" id="checkboxPerfilAll" className="input_perfil_val" value="0" />
-{/*                                     <span className="cr" style={{ border: 2 + 'px solid rgb(156, 155, 155);' }}><i className="cr-icon icon-Check"></i> <i className="cr-square"></i>
-                                    </span> */}
                                 </label>
                                 </div>
                             </span> <label htmlFor="checkboxPerfilAll" id="visita_0" className="d-block">Mis perfiles
@@ -53,11 +51,7 @@ const MenuLateral = () => {
                                     <div className="contenedor_perfiles"><div>
                                         <div className="item-checkbox-menu item-icon-menu">
                                             <span className="body_checkbox">
-                                                
-                                                    <input type="checkbox" id="checkboxPerfil0" className="input_perfil_val" value="256058" />
-                                                    {/* <span className="cr"><i className="cr-icon icon-Check"></i>
-                                                    </span> */}
-                                                
+                                                <input type="checkbox" id="checkboxPerfil0" className="input_perfil_val" value="256058" />
                                             </span> <label id="visita_256058" className="">
                                                 <div className="content-img">
                                                     <div className="content-img--img imgperfil">
@@ -90,91 +84,114 @@ const MenuLateral = () => {
                         <i className="contadores_menu" style={{ display: "none;" }}></i>
                     </button>
                 </li>
-                <li id="item_menu-carpetas_li" className="dropright"><button type="button" id="item_menu-carpetas" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="viewport" className="">
-                    <span className="icon-Mis-carpetas">
-                        <span className="path1">
-                        </span>
-                        <span className="path2">
-                        </span>
-                        <span className="path3">
-                        </span>
-                        <span className="path4">
-                        </span>
-                        <span className="path5">
-                        </span>
-                        <span className="path6">
-                        </span>
-                        <span className="path7">
-                        </span>
-                    </span>
-                    <span className="item-title-menu">
-                        Carpetas
-
-                    </span>
-                    <span className="icon-Flujo flechas-menu">
-                    </span></button>
-                    <div aria-labelledby="item_menu-carpetas" className="dropdown-menu dropdown-menu-right dropdown-menu-new">
-                        <span className="angle_dropdown_menu">
-                        </span>
-                        <div className="drop-perfiles drop-carpetas position-relative">
-                            <span className="icon-Contraer-campana-click">
+                <NavDropdown
+                    drop={'end'}
+                    id="item_menu-carpetas_li"
+                    className=""
+                    title={
+                        <>
+                            <span className="icon-Mis-carpetas">
+                                <span className="path1">
+                                </span>
+                                <span className="path2">
+                                </span>
+                                <span className="path3">
+                                </span>
+                                <span className="path4">
+                                </span>
+                                <span className="path5">
+                                </span>
+                                <span className="path6">
+                                </span>
+                                <span className="path7">
+                                </span>
                             </span>
-                            <div className="item-checkbox-menu item-checkbox-menu-subtitle"><label className="d-block">Carpetas
-                            </label>
-                            </div>
-                            <div className="body-all-perfiles">
-                                <div className="scroll_fit">
-                                    <div className="contenedor_carpetas"><div>
-                                        <div className="item-checkbox-menu item-icon-menu">
-                                            <span className="body_checkbox">
-                                                <div className="radio" style={{ margin: 0 + 'px' }}><label>
-                                                    <input type="radio" name="radiocontratos" id="radioContratosFavoritos" className="input_carpeta_val" value="F" />
-                                                    <span className="cr"><i className="cr-icon icon-Check"></i>
-                                                    </span>
-                                                </label>
-                                                </div>
-                                            </span> <label htmlFor="radioContratosFavoritos" id="">
-                                                <div className="content-img">
-                                                    <div className="content-img--img">
-                                                        <span className="icon-Favorito-click content-img--img__iconos" style={{ color: 'rgb(253, 203, 54)' }}>
+                            <span className="item-title-menu">Carpetas</span>
+                            <i className="contadores_menu contadores_menu_top" style={{ display: "none" }}></i>
+                            <span className="icon-Flujo flechas-menu"></span>
+                        </>
+                    }>
 
+                    <span className="angle_dropdown_menu" style={{ top: 0.8 + 'px' }}>
+                    </span>
+                    <div className="drop-perfiles position-relative">
+                        <span className="icon-Contraer-campana-click"></span>
+                        <div class="item-checkbox-menu item-checkbox-menu-subtitle">
+                            <label class="d-block">Carpetas</label>
+                        </div>
+                        <div className="body-all-perfiles">
+                            <div className="scroll_fit">
+                                <div className="contenedor_carpetas">
+                                    <div>
+                                        <div class="item-checkbox-menu item-icon-menu">
+                                            <span class="body_checkbox">
+                                                <div class="radio" style={{margin: 0 + 'px;'}}>
+                                                    <label>
+                                                        <input type="radio" name="radiocontratos" id="radioContratosFavoritos" class="input_carpeta_val" value="F" />
+                                                    </label>
+                                                </div>
+                                            </span>
+                                            <label for="radioContratosFavoritos" id="">
+                                                <div class="content-img">
+                                                    <div class="content-img--img">
+                                                        <span class="icon-Favorito-click content-img--img__iconos" style={{color: 'rgb(253, 203, 54);'}}>
                                                         </span>
                                                     </div>
                                                 </div>
                                                 Favoritos
-
-                                            </label> <i className="icono-arrastre icon-Mover"></i>
+                                            </label> <i class="icono-arrastre icon-Mover"></i>
                                         </div>
-                                        <div className="item-checkbox-menu item-icon-menu">
-                                            <span className="body_checkbox">
-                                                <div className="radio" style={{ margin: 0 + 'px' }}><label>
-                                                    <input type="radio" name="radiocontratos" id="radioContratosEliminados" className="input_carpeta_val" value="E" />
-                                                    <span className="cr"><i className="cr-icon icon-Check"></i>
-                                                    </span>
-                                                </label>
+                                        <div class="item-checkbox-menu item-icon-menu">
+                                            <span class="body_checkbox">
+                                                <div class="radio" style={{margin: 0 + 'px;'}}>
+                                                    <label>
+                                                        <input type="radio" name="radiocontratos" id="radioContratosFavoritos" class="input_carpeta_val" value="F" />
+                                                    </label>
                                                 </div>
-                                            </span> <label htmlFor="radioContratosEliminados" id="">
-                                                <div className="content-img">
-                                                    <div className="content-img--img">
-                                                        <span className="icon-Eliminar content-img--img__iconos" style={{ color: 'rgb(209, 49, 97)' }}>
-
-                                                        </span>
+                                            </span>
+                                            <label for="radioContratosFavoritos" id="">
+                                                <div class="content-img">
+                                                    <div class="content-img--img">
+                                                    <span class="icon-Eliminar content-img--img__iconos" style={{color: 'rgb(209, 49, 97)'}}></span>
                                                     </div>
                                                 </div>
                                                 Papelera
-
-                                            </label> <i className="icono-arrastre icon-Mover"></i>
+                                            </label> <i class="icono-arrastre icon-Mover"></i>
                                         </div>
-                                    </div>
+                                        <div class="item-checkbox-menu item-icon-menu">
+                                            <span class="body_checkbox">
+                                                <div class="radio" style={{ margin: 0 + 'px;' }}>
+                                                    <label>
+                                                        <input type="radio" name="radiocontratos" id="checkboxCarpeta0" class="input_carpeta_val" value="21956" />
+                                                    </label>
+                                                </div>
+                                            </span>
+                                            <label for="checkboxCarpeta0" id="carpeta_21956">
+                                                <div class="content-img">
+                                                    <div class="content-img--img">
+                                                        <span class="icon-Mis-carpetas content-img--img__iconos" style={{ color: 'rgb(0, 161, 201)' }}>
+                                                            <span class="path1">
+                                                            </span>
+                                                            <span class="path2">
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                Carpeta 1
+                                            </label>
+                                            <i class="icono-arrastre icon-Mover"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="botones-dropdown-menu">
-                                <a href="https://col.licitaciones.info/cliente/carpeta/administrar-carpetas" className="btn-new-gray text-center">Administrar carpetas</a> <button className="btn-new-green text-center"><i className="icon-Crear icon-boton"></i> Crear carpeta</button>
-                            </div>
+                        </div>
+                        <div className="botones-dropdown-menu">
+                            <a href="/cliente/carpeta/administrar-carpetas" className="btn-new-gray text-center activeli">Administrar carpetas</a>
+                            <a href="#" className="btn-new-green text-center">
+                                <i className="icon-Crear icon-boton"></i>Crear carpeta</a>
                         </div>
                     </div>
-                </li>
+                </NavDropdown>
                 <li id="item_menu-todos-li">
                     <button type="button" id="item_menu-todos" className="">
                         <span className="icon-Todos-los-contratos"></span>
