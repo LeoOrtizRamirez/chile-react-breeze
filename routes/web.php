@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\CarpetasController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\GrupoFiltroUsuarioController;
 use App\Http\Controllers\MailController;
@@ -170,8 +171,10 @@ Route::post('/cliente/grupo/update', [GrupoFiltroUsuarioController::class, 'upda
 Route::post('/cliente/grupo/duplicar', [GrupoFiltroUsuarioController::class, 'copy'])->middleware(['auth', 'verified']);
 Route::post('/cliente/grupo/destroy', [GrupoFiltroUsuarioController::class, 'delete'])->middleware(['auth', 'verified']);
 Route::get('/cliente/grupo/subcategorias/{id}', [GrupoFiltroUsuarioController::class, 'subcategorias'])->middleware(['auth', 'verified']);
-
 Route::post('grupo-filtro-usuarios/store', [GrupoFiltroUsuarioController::class, 'store'])->middleware(['auth', 'verified']);
 
+
+/*Carpetas */
+Route::get('/cliente/carpeta/administrar-carpetas', [CarpetasController::class, 'index'])->middleware(['auth', 'verified']);
 
 Route::POST('register/modal', [RegisteredUserController::class, 'registerModal'])->name('registerModal');
