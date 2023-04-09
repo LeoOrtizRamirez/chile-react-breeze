@@ -1,9 +1,14 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import './MenuLateral.css'
 import { Nav, NavDropdown } from 'react-bootstrap';
 
 import CrearCarpeta from './CrearCarpeta';
 const MenuLateral = () => {
+    const { carpeta, setCarpeta} = useState({
+        nombre_carpeta: "",
+        color: "",
+        orden: "",
+    });
     const [showModalCrearCarpeta, setShowModalCrearCarpeta] = useState(false);
     const handleOpenModalCrearCarpeta = () => {
         setShowModalCrearCarpeta(true);
@@ -227,7 +232,7 @@ const MenuLateral = () => {
             <ul className="new-menu scroll_fit ">
 
             </ul>
-            <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} />
+            <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} carpeta={carpeta}/>
         </div>
     )
 }

@@ -13,7 +13,7 @@ class CarpetasController extends Controller
 {
     public function index(Request $request)
     {
-        $carpetas = Carpeta::where('id_usuario', Auth::id())->get();
+        $carpetas = Carpeta::where('id_usuario', Auth::id())->orderBy('orden', 'ASC')->get();
         return Inertia::render('Carpetas/Index', [
             'carpetas' => $carpetas
         ]);
@@ -40,8 +40,36 @@ class CarpetasController extends Controller
         } catch (Exception $e) {
             dd($e->getMessage());
         }
-        
+        return redirect(route('carpetas.index'));
+    }
 
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'nombre_carpeta' => 'required',
+        ]);
+
+        $carpeta = Carpeta::find($request->id);
+        $carpeta->nombre_carpeta = $request->nombre_carpeta;
+        if(is_null($request->color)){
+            $carpeta->color = "#ffc107";
+        }else{
+            $carpeta->color = $request->color;
+        }
+        $carpeta->orden = $request->orden;
+        $carpeta->id_usuario = $request->id_usuario;
+
+        try {
+            $carpeta->update();
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+        return redirect(route('carpetas.index'));
+    }
+
+    public function delete(Request $request){
+        $carpeta = Carpeta::find($request->id);
+        $carpeta->delete();
         return redirect(route('carpetas.index'));
     }
 }
