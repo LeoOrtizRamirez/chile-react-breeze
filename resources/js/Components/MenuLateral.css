@@ -397,6 +397,14 @@
     max-width: 372px;
 }
 
+#menu-lateral #item_menu-carpetas_li ~ div{
+    margin-top: -5px !important;
+}
+
+#item_menu-carpetas_li ~ div span.angle_dropdown_menu:before{
+    top: 150px !important;
+}
+
 #menu-lateral span.item-title-menu {
     display: block;
 }
@@ -420,4 +428,8 @@
 
 #menu-lateral  span.icon-Eliminar.content-img--img__iconos {
     font-size: 17px;
+}
+
+.dropdown-toggle.show.nav-link .icon-Flujo.flechas-menu:before {
+    color: #00a1c9;
 }
