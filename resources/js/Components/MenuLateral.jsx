@@ -1,10 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './MenuLateral.css'
 import { Nav, NavDropdown } from 'react-bootstrap';
 
 import CrearCarpeta from './CrearCarpeta';
 const MenuLateral = () => {
-    const { carpeta, setCarpeta} = useState({
+    const [carpetas, setCarpetas] = useState([])
+    useEffect(() => {
+        axios.get(`/cliente/carpeta/carpetas-user`)
+            .then(response => {
+                setCarpetas(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    }, [])
+
+    const { carpeta, setCarpeta } = useState({
         nombre_carpeta: "",
         color: "",
         orden: "",
@@ -170,29 +181,31 @@ const MenuLateral = () => {
                                                 Papelera
                                             </label> <i class="icono-arrastre icon-Mover"></i>
                                         </div>
-                                        <div class="item-checkbox-menu item-icon-menu">
-                                            <span class="body_checkbox">
-                                                <div class="radio" style={{ margin: 0 + 'px;' }}>
-                                                    <label>
-                                                        <input type="radio" name="radiocontratos" id="checkboxCarpeta0" class="input_carpeta_val" value="21956" />
-                                                    </label>
-                                                </div>
-                                            </span>
-                                            <label for="checkboxCarpeta0" id="carpeta_21956">
-                                                <div class="content-img">
-                                                    <div class="content-img--img">
-                                                        <span class="icon-Mis-carpetas content-img--img__iconos" style={{ color: 'rgb(0, 161, 201)' }}>
-                                                            <span class="path1">
-                                                            </span>
-                                                            <span class="path2">
-                                                            </span>
-                                                        </span>
+                                        {carpetas.map((carpeta, index) => (
+                                            <div class="item-checkbox-menu item-icon-menu" key={index}>
+                                                <span class="body_checkbox">
+                                                    <div class="radio" style={{ margin: 0 + 'px;' }}>
+                                                        <label>
+                                                            <input type="radio" name="radiocontratos" id="checkboxCarpeta0" class="input_carpeta_val" value="21956" />
+                                                        </label>
                                                     </div>
-                                                </div>
-                                                Carpeta 1
-                                            </label>
-                                            <i class="icono-arrastre icon-Mover"></i>
-                                        </div>
+                                                </span>
+                                                <label for="checkboxCarpeta0" id="carpeta_21956">
+                                                    <div class="content-img">
+                                                        <div class="content-img--img">
+                                                            <span class="icon-Mis-carpetas content-img--img__iconos" style={{ color: carpeta.color }}>
+                                                                <span class="path1">
+                                                                </span>
+                                                                <span class="path2">
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    {carpeta.nombre_carpeta}
+                                                </label>
+                                                <i class="icono-arrastre icon-Mover"></i>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
@@ -232,7 +245,7 @@ const MenuLateral = () => {
             <ul className="new-menu scroll_fit ">
 
             </ul>
-            <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} carpeta={carpeta}/>
+            <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} carpeta={carpeta} />
         </div>
     )
 }

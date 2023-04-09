@@ -4,8 +4,6 @@ import Accordion from 'react-bootstrap/Accordion';
 import './ResumenPerfil.css';
 
 const ResumenPerfil = ({ showModal, handleCloseModal, data }) => {
-    console.log(data)
-
     return (
         <Modal show={showModal} onHide={handleCloseModal} centered size='lg' id="modal-resumen-perfil">
             <Modal.Header>

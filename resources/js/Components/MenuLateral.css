@@ -60,7 +60,7 @@
     top: 10px;
 } */
 
-#menu-lateral .new-menu li>a:before, #menu-lateral .new-menu li>button:before{
+#menu-lateral .new-menu li>a:before, #menu-lateral .new-menu li>button:before, a#item_menu-carpetas_li:before{
     content: "";
     position: absolute;
     top: -5px;
@@ -109,7 +109,7 @@
 #menu-lateral .nav-item.dropend {
     width: 100%;
     height: 100px;
-    position: relative;
+    position: static;
 }
 
 #menu-lateral .new-menu li>a.activeli>span, #menu-lateral .new-menu li>a.activeli span:before, #menu-lateral .new-menu li>a.item_menu-active>span, #menu-lateral .new-menu li>a.item_menu-active span:before, #menu-lateral .new-menu li>a:hover>span, #menu-lateral .new-menu li>a:hover span:before, #menu-lateral .new-menu li>button.activeli>span, #menu-lateral .new-menu li>button.activeli span:before, #menu-lateral .new-menu li>button.item_menu-active>span, #menu-lateral .new-menu li>button.item_menu-active span:before, #menu-lateral .new-menu li>button:hover>span, #menu-lateral .new-menu li>button:hover span:before {
@@ -362,7 +362,7 @@
 }
 
 #menu-lateral #item_menu-misperfiles:before, #menu-lateral #item_menu-carpetas_li:before{
-    display: none;
+    /* display: none; */
 }
 
 #menu-lateral .new-menu li>a, #menu-lateral .new-menu li>button, #menu-lateral #item_menu-misperfiles, #menu-lateral #item_menu-carpetas_li {
@@ -386,7 +386,6 @@
 }
 
 #menu-lateral #item_menu-misperfiles ~ div, #menu-lateral #item_menu-carpetas_li ~ div{
-    position: fixed !important;
     margin-top: 20px;
     margin-left: 22px;
     padding: 0;

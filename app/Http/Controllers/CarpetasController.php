@@ -19,6 +19,12 @@ class CarpetasController extends Controller
         ]);
     }
 
+    public function getCarpetas(Request $request)
+    {
+        $carpetas = Carpeta::where('id_usuario', Auth::id())->orderBy('orden', 'ASC')->get();
+        return $carpetas;
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
