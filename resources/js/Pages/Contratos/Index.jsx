@@ -21,6 +21,9 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 /*Tooltips */
 
+import { Modal } from 'react-bootstrap';
+import ActividadEconomica from "@/Components/ActividadEconomica";
+
 import Loader from "@/Components/Loader";
 const Index = ({ auth, contratos }) => {
     // let queryStringBusquedaAvanzada = "";
@@ -317,7 +320,7 @@ const Index = ({ auth, contratos }) => {
     const clearTemplate = (options) => {
         return (
             <>
-            {/* <div className="VueTables__selecciones-filter-wrapper">
+                {/* <div className="VueTables__selecciones-filter-wrapper">
                 <span>
                     <div className="selecciones-nuevo-diseno">
                         
@@ -327,22 +330,22 @@ const Index = ({ auth, contratos }) => {
                     </div>
                 </span>
             </div> */}
-            <div className="VueTables__selecciones-filter-wrapper">
-                <span>
-                    <div className="selecciones-nuevo-diseno">
-                        <button id="limpiar" type="button" className="icon-Limpiar-click borrador-grid" onClick={handleClearFilters}>
-                            <span className="path1"></span>
-                            <span className="path2"></span>
-                            <span className="path3"></span>
-                            <span className="path4"></span>
-                            <span className="path5"></span>
-                            <span className="path6"></span>
-                            <span className="path7"></span>
-                            <span className="path8"></span>
-                        </button>
-                    </div>
-                </span>
-            </div>
+                <div className="VueTables__selecciones-filter-wrapper">
+                    <span>
+                        <div className="selecciones-nuevo-diseno">
+                            <button id="limpiar" type="button" className="icon-Limpiar-click borrador-grid" onClick={handleClearFilters}>
+                                <span className="path1"></span>
+                                <span className="path2"></span>
+                                <span className="path3"></span>
+                                <span className="path4"></span>
+                                <span className="path5"></span>
+                                <span className="path6"></span>
+                                <span className="path7"></span>
+                                <span className="path8"></span>
+                            </button>
+                        </div>
+                    </span>
+                </div>
             </>
         );
     };
@@ -361,15 +364,15 @@ const Index = ({ auth, contratos }) => {
         toast.current.show({ severity: 'success', summary: 'Product Collapsed', detail: event.data.actividad_economica, life: 3000 });
     };
 
-    
+
     const expandAll = () => {
         let _expandedRows = {};
         data.forEach((p) => (_expandedRows[`${p.id}`] = true));
         setExpandedRows(_expandedRows);
     };
-    useEffect(()=>{
+    useEffect(() => {
         expandAll()
-    },[])
+    }, [])
 
     const collapseAll = () => {
         setExpandedRows(null);
@@ -478,6 +481,112 @@ const Index = ({ auth, contratos }) => {
             </div>
         );
     };
+
+
+    const handleColumnFilterClick = (event, column) => {
+        // Do something with the event and column
+        console.log('Clicked on column filter', column);
+    };
+    const columnFilterOpenModal = (column) => {
+        return (
+            <input
+                type="text"
+                className="p-inputtext p-component p-column-filter column_ver_mas columna_actividad rounded_right"
+                placeholder="Seleccionar"
+                /* onClick={(event) => handleColumnFilterClick(event, column)} */
+                onClick={() => handleShowModalSubCategoria(column.field)}
+                onInput={(e) => {
+                    dt.current.filter(e.target.value, 'actividad_economica', 'contains');
+                }}
+            />
+        );
+    };
+
+    const [showModalSubCategoria, setShowModalSubCategoria] = useState(false);
+    const [modalOpened, setModalOpened] = useState("")
+    const handleCloseModalSubCategoria = () => setShowModalSubCategoria(false);
+    const handleShowModalSubCategoria = (input) => {
+        setModalOpened(input)
+        setShowModalSubCategoria(true);
+    }
+
+
+
+
+
+    const [sectores, setSectores] = useState([]);
+    const [tiposcompras, setTiposCompras] = useState([]);
+    const [localizaciones, setLocalizaciones] = useState([]);
+    const [checkedsActividadesEconomicas, setCheckedsActividadesEconomicas] = useState([])
+    const [checkedsLocalizaciones, setCheckedsLocalizaciones] = useState([])
+    const [checkedsTiposCompras, setCheckedsTiposCompras] = useState([])
+
+    useEffect(() => {
+        async function fetchActividades() {
+            try {
+                const response = await fetch(
+                    "/actividades-economicas/json"
+                );
+                const data = await response.json();
+                setSectores(data);
+            } catch (err) {
+                console.log("Solicitud fallida", err);
+            }
+        }
+        fetchActividades();
+        async function fetchLocalizaciones() {
+            try {
+                const response = await fetch(
+                    "/localizacion/json"
+                );
+                const data = await response.json();
+                setLocalizaciones(data);
+            } catch (err) {
+                console.log("Solicitud fallida", err);
+            }
+        }
+        fetchLocalizaciones();
+        async function fetchTipoCompras() {
+            try {
+                const response = await fetch(
+                    "/tiposcompras/json"
+                );
+                const data = await response.json();
+                setTiposCompras(data);
+            } catch (err) {
+                console.log("Solicitud fallida", err);
+            }
+        }
+        fetchTipoCompras();
+    }, []);
+
+    const onHandleSectores = (data, tipo) => {
+        switch (tipo) {
+            case "ActividadEconomica":
+                if (data.length > 0) {
+                    setCheckedsActividadesEconomicas(data)
+                } else {
+                    setCheckedsActividadesEconomicas([])
+                }
+                break;
+            case "Localizaciones":
+                if (data.length > 0) {
+                    setCheckedsLocalizaciones(data)
+                } else {
+                    setCheckedsLocalizaciones([])
+                }
+                break;
+            case "TiposCompras":
+                if (data.length > 0) {
+                    setCheckedsTiposCompras(data)
+                } else {
+                    setCheckedsTiposCompras([])
+                }
+                break;
+        }
+    }
+
+
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'}>
             <div className="content_not_blank_interno">
@@ -490,23 +599,23 @@ const Index = ({ auth, contratos }) => {
                         expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)}
                         onRowExpand={onRowExpand} onRowCollapse={onRowCollapse} rowExpansionTemplate={rowExpansionTemplate}
                         /* header={header} */
-                        
-                        selectionMode={rowClick ? null : 'checkbox'} 
-                        selection={selectedProducts} 
+
+                        selectionMode={rowClick ? null : 'checkbox'}
+                        selection={selectedProducts}
                         onSelectionChange={(e) => setSelectedProducts(e.value)}
-                        >
+                    >
                         <Column selectionMode="multiple" className='columna_seleccion columna_pequena' filter filterElement={clearTemplate}></Column>
                         {/* <Column filter className='columna_seleccion columna_pequena'  /> */}
                         <Column field="fuente.alias_portal" header="Portal" filter filterPlaceholder="Todos" className="rounded_left columna_tipo_secop" body={portalBodyTemplate} />
                         <Column field="entidad_contratante" header="Entidad" filter filterPlaceholder="Buscar" className="columna_entidad columna_120" body={entidadBodyTemplate} />
                         <Column field="objeto" header="Obejto" filter filterPlaceholder="Buscar" className="objeto_columna" body={objetoBodyTemplate} />
                         <Column field="valor" header="Cuantía" filter filterPlaceholder="Buscar" className="rangedropdown columna_120 columna_cuantia" body={cuantiaBodyTemplate} />
-                        <Column field="modalidad" header="Modalidad" filter filterPlaceholder="Seleccionar" className="columna_100 columna_modalidad" />
+                        <Column field="modalidad" header="Modalidad" filter filterPlaceholder="Seleccionar" className="columna_100 columna_modalidad" filterElement={columnFilterOpenModal} />
                         <Column field="codigo_proceso" header="Número" filter filterPlaceholder="Buscar" className="columna_numero" />
                         <Column field="estado_proceso" header="Estado" filter filterPlaceholder="Buscar" className="columna_estado" body={estadoBodyTemplate} />
                         <Column field="fecha_publicacion" header="Publicada" filter filterPlaceholder="Buscar" className="columna_fecha" />
-                        <Column field="ubicacion" header="Ubicación" filter filterPlaceholder="Seleccionar" className="columna_ubicacion" body={ubicacionBodyTemplate}/>
-                        <Column field="actividad_economica" header="Actividad Económica" filter filterPlaceholder="Seleccionar" className="column_ver_mas columna_actividad rounded_right" />
+                        <Column field="ubicacion" header="Ubicación" filter filterPlaceholder="Seleccionar" className="columna_ubicacion" body={ubicacionBodyTemplate} filterElement={columnFilterOpenModal} />
+                        <Column field="actividad_economica" header="Actividad Económica" filter filterElement={columnFilterOpenModal} />
                     </DataTable>
                 </div>
             </div>
@@ -517,7 +626,53 @@ const Index = ({ auth, contratos }) => {
 
 
 
+            <Modal show={showModalSubCategoria} onHide={handleCloseModalSubCategoria} id="modal_actividades">
+                <Modal.Header>
+                    {modalOpened == "actividad_economica" &&
+                        <h4 class="modal-title">Selecciona la(s) actividad(es) económica(s) de tu interés.</h4>
+                    }
+                    {modalOpened == "modalidad" &&
+                        <h4 class="modal-title">Selecciona la modalidad.</h4>
+                    }
+                    {modalOpened == "ubicacion" &&
+                        <h4 class="modal-title">Selecciona la ubicación.</h4>
+                    }
 
+                    <button type="button" aria-label="Close" class="close icon-Cerrar-modal" onClick={handleCloseModalSubCategoria}></button>
+                </Modal.Header>
+                <Modal.Body>
+                    {modalOpened == "actividad_economica" &&
+                        <ActividadEconomica
+                            subcategorias={sectores}
+                            nameBuscador={"Busca por actividad económica o UNSPSC"}
+                            onHandleSectores={onHandleSectores}
+                            tipo={"ActividadEconomica"}
+                            checkeds={checkedsActividadesEconomicas}
+                        />
+                    }
+                    {modalOpened == "modalidad" &&
+                        <ActividadEconomica
+                            subcategorias={tiposcompras}
+                            nameBuscador={"Buscar Tipo de Compra"}
+                            onHandleSectores={onHandleSectores}
+                            tipo={"TiposCompras"}
+                            checkeds={checkedsTiposCompras}
+                        />
+                    }
+                    {modalOpened == "ubicacion" &&
+                        <ActividadEconomica
+                            subcategorias={localizaciones}
+                            nameBuscador={"Buscar Localización"}
+                            onHandleSectores={onHandleSectores}
+                            tipo={"Localizaciones"}
+                            checkeds={checkedsLocalizaciones}
+                        />
+                    }
+                </Modal.Body>
+                <Modal.Footer>
+                    <button type="button" class="btnRadius btn-new-green">Seleccionar</button>
+                </Modal.Footer>
+            </Modal>
         </AuthenticatedLayout>
     );
 };

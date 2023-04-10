@@ -12,7 +12,7 @@
     margin-top: 30px;
 }
 
-input.form-control.busqueda-input {
+#SubCategorias  input.form-control.busqueda-input {
     width: 50%;
 }
 
@@ -29,14 +29,14 @@ input.form-control.busqueda-input {
 
 }
 
-#SubCategorias .tree_categorias__busqueda input {
+#SubCategorias __busqueda input {
     padding: 10px 10px 10px 10px;
     font-size: 15px;
     color: #73c914;
 }
 
 
-#SubCategorias .tree_categorias__busqueda button {
+#SubCategorias __busqueda button {
     background: none;
     padding: 7px 2px;
     font-size: 19px;
@@ -58,6 +58,7 @@ input.form-control.busqueda-input {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    white-space: pre-line;
 }
 
 /* #SubCategorias .tree-arrow {
@@ -162,7 +163,7 @@ input.form-control.busqueda-input {
     padding: 0 9px 0 20px;
 }
 
-#SubCategorias .tree_categorias .tree-root .tree-children:first-of-type .tree-node.has-child>.tree-content .tree-division__title {
+#SubCategorias  .tree-root .tree-children:first-of-type .tree-node.has-child>.tree-content .tree-division__title {
     font-size: 14px;
     color: #00a1c9;
     font-family: Nexa-bold, sans-serif;
@@ -243,7 +244,7 @@ input.form-control.busqueda-input {
     min-width: 100%;
 }
 
-#SubCategorias .tree_categorias .tree-root .tree-children:first-of-type .tree-node.has-child {
+#SubCategorias  .tree-root .tree-children:first-of-type .tree-node.has-child {
     min-width: 50%;
     max-width: 50%;
     padding: 6px 26px 5px;
@@ -261,7 +262,7 @@ input.form-control.busqueda-input {
     padding: 12px 20px !important;
 }
 
-#SubCategorias .tree_categorias .tree-root .tree-children:first-of-type {
+#SubCategorias  .tree-root .tree-children:first-of-type {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -272,21 +273,21 @@ input.form-control.busqueda-input {
     overflow: auto;
 }
 
-#SubCategorias .tree_categorias .tree-root .tree-children {
+#SubCategorias  .tree-root .tree-children {
     padding: 12px 20px !important;
 }
 
-#SubCategorias .tree_categorias .tree-root .tree-children:first-of-type .tree-node.has-child.expanded {
+#SubCategorias  .tree-root .tree-children:first-of-type .tree-node.has-child.expanded {
     min-width: 100%;
 }
 
 
-.tree_categorias .tree-root .tree-children .tree-node {
+#SubCategorias .tree-root .tree-children .tree-node {
     min-width: 100%;
     max-width: 100%;
 }
 
-#SubCategorias .tree_categorias__busqueda input {
+#SubCategorias __busqueda input {
     padding: 4px 60px 4px 13px;
     font-size: 15px;
 }
@@ -316,7 +317,7 @@ input.form-control.busqueda-input {
 }
 
 @media (min-width: 768px) {
-    .tree_categorias .tree-root>.tree-node>.tree-content .tree-division__img {
+    #SubCategorias .tree-root>.tree-node>.tree-content .tree-division__img {
         position: relative;
         height: 48px;
         width: 48px;
@@ -334,18 +335,18 @@ input.form-control.busqueda-input {
 }
 
 @media (min-width: 768px) and (min-width: 768px){
-.tree_categorias .tree-root>.tree-node>.tree-content .tree-anchor {
+    #SubCategorias .tree-root>.tree-node>.tree-content .tree-anchor {
     padding: 0 5px 0 26px;
 }
 }
 
-.tree-arrow:after, .tree-checkbox:after {
+#SubCategorias .tree-arrow:after, #SubCategorias .tree-checkbox:after {
     position: absolute;
     display: block;
     content: "";
 }
 
-.tree_categorias .tree-root>.tree-node .tree-arrow:after {
+#SubCategorias .tree-root>.tree-node .tree-arrow:after {
     -webkit-transform: rotate(44deg) translateY(-50%) translateX(0);
     transform: rotate(44deg) translateY(-50%) translateX(0);
     top: 6px;
@@ -356,7 +357,7 @@ input.form-control.busqueda-input {
     border-width: 0.13rem;
 }
 
-.tree-arrow.has-child:after {
+#SubCategorias .tree-arrow.has-child:after {
     border: 1.5px solid #494646;
     position: absolute;
     border-left: 0;
@@ -370,11 +371,11 @@ input.form-control.busqueda-input {
     transform-origin: center;
 }
 
-.tree_categorias .tree-root>.tree-node>.tree-content .tree-arrow::after {
+#SubCategorias .tree-root>.tree-node>.tree-content .tree-arrow::after {
     border-color: #fff!important;
 }
 
-.tree_categorias .tree-root>.tree-node .tree-arrow {
+#SubCategorias .tree-root>.tree-node .tree-arrow {
     position: absolute;
     right: 29px;
     margin-left: 0;
@@ -382,7 +383,7 @@ input.form-control.busqueda-input {
     height: 16px;
 }
 
-.tree-node.expanded > div >i:after {
+#SubCategorias .tree-node.expanded > div >i:after {
     border-color: #00a1c9;
     left: 6px;
     -webkit-transform: rotate(-135deg) translateY(-40%) translateX(0);
@@ -390,12 +391,44 @@ input.form-control.busqueda-input {
 }
 
 
-.tree_categorias .tree-root .segmento input[type="checkbox"]{
+#SubCategorias .tree-root .segmento input[type="checkbox"]{
     width: 19px;
     height: 19px;
 }
 
-.tree_categorias .tree-root .tree-children:first-of-type .tree-node.has-child>.tree-content {
+#SubCategorias .tree-root .tree-children:first-of-type .tree-node.has-child>.tree-content {
     border-bottom: 2px solid #e6e5e5;
     padding: 7px 18px 14px!important;
+}
+
+#SubCategorias .tree-content.actividad-economica .children .tree-division__title {
+    font-family: Nexa-regular !important;
+}
+
+#SubCategorias .tree_categorias__busqueda>div {
+    position: relative;
+    display: block;
+    max-width: 550px;
+}
+
+#SubCategorias .tree_categorias__busqueda button {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    background: none;
+    padding: 1px 2px;
+    font-size: 19px;
+    color: #00a1c9;
+    border: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+#SubCategorias .tree_categorias__busqueda input {
+    padding: 4px 60px 4px 13px;
+    font-size: 15px;
+}
+
+#SubCategorias .tree_categorias__busqueda input::placeholder {
+    color: #a4a4a4;
 }

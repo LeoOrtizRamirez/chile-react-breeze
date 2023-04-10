@@ -659,7 +659,19 @@ element.id_padre_sub_categoria
     };
     return (
         <div id="SubCategorias">
-            <div className="mx-60 mt-30 d-flex">
+            <div class="tree_categorias__busqueda mb-3 mb-md-4">
+                <div class="mx-auto">
+                    <input
+                        type="text"
+                        placeholder="Busca por actividad económica o UNSPSC"
+                        class="form-control"
+                        onKeyDown={inputSearchActividadEconomica}
+                    />
+                    <i class="icon-Cancelar" style={{ display: 'none' }}></i>
+                    <button type="button" class="icon-Buscar-click"></button>
+                </div>
+            </div>
+            {/* <div className="mx-60 mt-30 d-flex">
                 <button
                     button
                     type="button"
@@ -681,8 +693,7 @@ element.id_padre_sub_categoria
                         alt="Bandera Chile"
                     />
                 </h2>
-            </div>
-            <br></br>
+            </div> */}
             <ul className={`tree-root ${tipo}`} id={id}>
                 {sectores.map((sector) => (
                     <>
