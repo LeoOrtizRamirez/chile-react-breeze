@@ -1,28 +1,17 @@
 import React, { useState, useEffect, useRef, Suspense, lazy } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import Compartir from "../../Components/Acciones/Compartir";
-import Eliminar from "../../Components/Acciones/Eliminar";
-import Enviar from "../../Components/Acciones/Enviar";
-import Favoritos from "../../Components/Acciones/Favoritos";
-import Pdf from "../../Components/Acciones/Pdf";
-import Visualizar from "../../Components/Acciones/Visualizar";
-import Paginador from "@/Components/PaginadorContratos";
-import ModalBusquedaAvanzada from "@/Components/Modals/ModalBusquedaAvanzada/ModalBusquedaAvanzada";
-import $ from "jquery";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 import "../../../css/font-web.css";
 import "./Index.css";
-import "@fontsource/poppins";
 
 
 /*PRIMEFACES */
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
-import { Paginator } from 'primereact/paginator';
 import { Column } from 'primereact/column';
 import { Dropdown } from 'primereact/dropdown';
-import { InputText } from 'primereact/inputtext';
-import { Tag } from 'primereact/tag';
+import { Button } from 'primereact/button';
+import { Toast } from 'primereact/toast';
 import "primereact/resources/themes/lara-light-indigo/theme.css";//theme
 import "primereact/resources/primereact.min.css";//core
 import "primeicons/primeicons.css";//icons
@@ -40,48 +29,6 @@ const Index = ({ auth, contratos }) => {
 
     const [tableContratos, setTableContratos] = useState(contratos.data);
 
-    // Inicio Ordenar tabla por columna
-    $("th").click(function () {
-        var table = $(this).parents("table").eq(0);
-        var rows = table
-            .find("tr:gt(0)")
-            .toArray()
-            .sort(comparer($(this).index()));
-        this.asc = !this.asc;
-        if (!this.asc) {
-            rows = rows.reverse();
-        }
-        for (var i = 0; i < rows.length; i++) {
-            table.append(rows[i]);
-        }
-        setIcon($(this), this.asc);
-    });
-
-    function comparer(index) {
-        return function (a, b) {
-            var valA = getCellValue(a, index),
-                valB = getCellValue(b, index);
-            return $.isNumeric(valA) && $.isNumeric(valB)
-                ? valA - valB
-                : valA.localeCompare(valB);
-        };
-    }
-
-    function getCellValue(row, index) {
-        return $(row).children("td").eq(index).html();
-    }
-
-    function setIcon(element, asc) {
-        $("th").each(function (index) {
-            $(this).removeClass("sorting");
-            $(this).removeClass("asc");
-            $(this).removeClass("desc");
-        });
-        element.addClass("sorting");
-        if (asc) element.addClass("asc");
-        else element.addClass("desc");
-    }
-    // Fin Ordenar tabla por columna
 
     /*Inicio - ver más, ver menos */
     const [showLess, setShowLess] = useState(true);
@@ -331,8 +278,8 @@ const Index = ({ auth, contratos }) => {
     const nombreFiltroBodyTemplate = (grupo) => {
         return (
             <>
-                <div class="columna_nombre--content-img">
-                    <div class="columna_nombre--img">
+                <div className="columna_nombre--content-img">
+                    <div className="columna_nombre--img">
                         <img src={`${grupo.imagen_filtro}`} />
                     </div>
                 </div>
@@ -369,6 +316,17 @@ const Index = ({ auth, contratos }) => {
 
     const clearTemplate = (options) => {
         return (
+            <>
+            {/* <div className="VueTables__selecciones-filter-wrapper">
+                <span>
+                    <div className="selecciones-nuevo-diseno">
+                        
+                        <button type="button" className="borrador-grid borrador-new-style" onClick={handleClearFilters}>
+                            <img src="/images/borrador-azul.svg" alt="Borrar búsquedas" title="Borrar búsquedas" />
+                        </button>
+                    </div>
+                </span>
+            </div> */}
             <div className="VueTables__selecciones-filter-wrapper">
                 <span>
                     <div className="selecciones-nuevo-diseno">
@@ -385,27 +343,170 @@ const Index = ({ auth, contratos }) => {
                     </div>
                 </span>
             </div>
+            </>
+        );
+    };
+
+
+
+
+    /*Tr child */
+    const [expandedRows, setExpandedRows] = useState(null);
+    const toast = useRef(null);
+    const onRowExpand = (event) => {
+        toast.current.show({ severity: 'info', summary: 'Product Expanded', detail: event.data.actividad_economica, life: 3000 });
+    };
+
+    const onRowCollapse = (event) => {
+        toast.current.show({ severity: 'success', summary: 'Product Collapsed', detail: event.data.actividad_economica, life: 3000 });
+    };
+
+    
+    const expandAll = () => {
+        let _expandedRows = {};
+        data.forEach((p) => (_expandedRows[`${p.id}`] = true));
+        setExpandedRows(_expandedRows);
+    };
+    useEffect(()=>{
+        expandAll()
+    },[])
+
+    const collapseAll = () => {
+        setExpandedRows(null);
+    };
+
+    const rowExpansionTemplate = (data) => {
+        return (
+            <span className="div_iconos_functions_grid">
+                <a className="btnVerDocumentos d-inline-flex align-items-center">
+                    <i className="icon-Ver-documentos"></i>
+                    <span>Ver documentos</span>
+                    <i className="icon-Siguiente1"></i>
+                </a>
+                <div id="iconos_functions_8103864" className="iconos_functions_grid iconos_acciones_contratos">
+                    <button id="btnContratosFavorito-8103864" type="button" className="icon-Favorito-click btn_contratos_favoritos">
+                    </button>
+                    <button id="btnContratosSeguimiento-8103864" type="button" className="btn_contratos_seguimientos icon-Seguimientos">
+                        <span className="path1">
+                        </span>
+                        <span className="path2">
+                        </span>
+                        <span className="path3">
+                        </span>
+                    </button>
+                    <button id="btnContratosCarpeta-8103864" type="button" className="icon-Mis-carpetas btn_contratos_carpeta d-inline-flex">
+                        <span className="path1">
+                        </span>
+                        <span className="path2">
+                        </span>
+                    </button>
+                    <button id="btnContratosExternal-8103864" className="icon-Ir-a-la-fuente-click btn_contratos_external">
+                    </button>
+                    <button id="btnContratosCompartir-8103864" className="icon-Compartir-click btn_contratos_compartir">
+                    </button>
+                    <button id="btnContratoNotas-8103864" className="btn_contratos_notas">
+                        <img src="/images/notas/nota.svg" alt="Nota" className="without-notes" />
+                    </button>
+                </div>
+                <button type="button" className="btnRadius ver-menos-detalle" style={{ display: "none" }}>
+                    Ver menos<i className="icon-Desplegar-click"></i>
+                </button>
+            </span>
+        );
+    };
+
+    const header = (
+        <div className="flex flex-wrap justify-content-end gap-2">
+            <Button icon="pi pi-plus" label="Expand All" onClick={expandAll} text />
+            <Button icon="pi pi-minus" label="Collapse All" onClick={collapseAll} text />
+        </div>
+    );
+
+    /*Checks */
+    const [selectedProducts, setSelectedProducts] = useState(null);
+    const [rowClick, setRowClick] = useState(true);
+    /*Checks */
+
+    const portalBodyTemplate = (grupo) => {
+        return (
+            <>
+                <span className="icon_tipo_secop">
+                    <i className="icono_fuente__list">{grupo.fuente.alias_portal}</i>
+                </span>
+            </>
+        );
+    };
+    const entidadBodyTemplate = (grupo) => {
+        return (
+            <div className="content_ver_mas_grid entidad_grid">
+                <p className="span_grid">{grupo.entidad_contratante}</p>
+            </div>
+        );
+    };
+    const objetoBodyTemplate = (grupo) => {
+        return (
+            <div className="content_ver_mas_grid objeto_grid">
+                <p className="objeto_grid_p">
+                    <span className="objeto_grid_span">
+                        <span className="tt-uppercase">{grupo.objeto}</span>
+                        <a className="vermas text-right mr-0 mt-0">Ver más<i className="icon-Desplegar"></i></a>
+                    </span>
+                </p>
+            </div>
+        );
+    };
+    const cuantiaBodyTemplate = (grupo) => {
+        return (
+            <span className="valor_range--estandar d-flex justify-content-center">
+                <i className="valor_range__moneda sin-min-width">$</i>{grupo.valor}
+            </span>
+        );
+    };
+    const estadoBodyTemplate = (grupo) => {
+        return (
+            <span style={{ fontFamily: "Nexa-bold", color: "rgb(115, 201, 20)" }}>{grupo.estado_proceso}</span>
+        );
+    };
+    const ubicacionBodyTemplate = (grupo) => {
+        return (
+            <div className="content_ver_mas_grid ubicaciones_grid">
+                <p className="scroll_fit">
+                    <span>
+                        <span>{grupo.ubicacion}</span>
+                    </span>
+                </p>
+            </div>
         );
     };
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'}>
             <div className="content_not_blank_interno">
                 <div id="bodycontenido" className="col contratos_row px-0">
-                    <DataTable ref={dt} value={data} paginator rows={10} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
+                    <DataTable ref={dt} value={data} paginator rows={30} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
                         globalFilterFields={['name', 'representative.name', 'status']} emptyMessage="No se encontraron registros"
                         paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink NextPageLink LastPageLink CurrentPageReport"
-                        currentPageReportTemplate="{first} a {last} de {totalRecords}">
-                        <Column filter className='columna_seleccion columna_pequena' filterElement={clearTemplate}/>
-                        <Column field="fuente.alias_portal" header="Portal" filter filterPlaceholder="Buscar" className="columna_grande" />
-                        <Column field="entidad_contratante" header="Entidad" filter filterPlaceholder="Buscar" className="columna_grande" />
-                        <Column field="objeto" header="Obejto" filter filterPlaceholder="Buscar" className="columna_promedio" />
-                        <Column field="valor" header="Cuantía" filter filterPlaceholder="Buscar" className="columna_promedio" />
-                        <Column field="modalidad" header="Modalidad" filter filterPlaceholder="Buscar" className="columna_promedio" />
-                        <Column field="codigo_proceso" header="Número" filter filterPlaceholder="Buscar" className="columna_notificaciones" />
-                        <Column field="estado_proceso" header="Estado" filter filterPlaceholder="Buscar" className="columna_promedio" />
-                        <Column field="fecha_publicacion" header="Publicada" filter filterPlaceholder="Buscar" className="columna_promedio" />
-                        <Column field="ubicacion" header="Ubicación" filter filterPlaceholder="Buscar" className="columna_promedio" />
-                        <Column field="actividad_economica" header="Actividad Económica" filter filterPlaceholder="Buscar" className="columna_promedio" />
+                        currentPageReportTemplate="{first} a {last} de {totalRecords}"
+
+                        expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)}
+                        onRowExpand={onRowExpand} onRowCollapse={onRowCollapse} rowExpansionTemplate={rowExpansionTemplate}
+                        /* header={header} */
+                        
+                        selectionMode={rowClick ? null : 'checkbox'} 
+                        selection={selectedProducts} 
+                        onSelectionChange={(e) => setSelectedProducts(e.value)}
+                        >
+                        <Column selectionMode="multiple" className='columna_seleccion columna_pequena' filter filterElement={clearTemplate}></Column>
+                        {/* <Column filter className='columna_seleccion columna_pequena'  /> */}
+                        <Column field="fuente.alias_portal" header="Portal" filter filterPlaceholder="Todos" className="rounded_left columna_tipo_secop" body={portalBodyTemplate} />
+                        <Column field="entidad_contratante" header="Entidad" filter filterPlaceholder="Buscar" className="columna_entidad columna_120" body={entidadBodyTemplate} />
+                        <Column field="objeto" header="Obejto" filter filterPlaceholder="Buscar" className="objeto_columna" body={objetoBodyTemplate} />
+                        <Column field="valor" header="Cuantía" filter filterPlaceholder="Buscar" className="rangedropdown columna_120 columna_cuantia" body={cuantiaBodyTemplate} />
+                        <Column field="modalidad" header="Modalidad" filter filterPlaceholder="Seleccionar" className="columna_100 columna_modalidad" />
+                        <Column field="codigo_proceso" header="Número" filter filterPlaceholder="Buscar" className="columna_numero" />
+                        <Column field="estado_proceso" header="Estado" filter filterPlaceholder="Buscar" className="columna_estado" body={estadoBodyTemplate} />
+                        <Column field="fecha_publicacion" header="Publicada" filter filterPlaceholder="Buscar" className="columna_fecha" />
+                        <Column field="ubicacion" header="Ubicación" filter filterPlaceholder="Seleccionar" className="columna_ubicacion" body={ubicacionBodyTemplate}/>
+                        <Column field="actividad_economica" header="Actividad Económica" filter filterPlaceholder="Seleccionar" className="column_ver_mas columna_actividad rounded_right" />
                     </DataTable>
                 </div>
             </div>
