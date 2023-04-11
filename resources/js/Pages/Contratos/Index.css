@@ -329,7 +329,7 @@ div#wrapper1 {
 
 
 
- #contratos .p-column-filter.p-fluid.p-column-filter-row button {
+#contratos .p-column-filter.p-fluid.p-column-filter-row button {
     display: none;
 }
 
@@ -364,7 +364,7 @@ div#wrapper1 {
 }
 
 #contratos .p-datatable .p-datatable-thead>tr:nth-child(2)>th {
-    padding: 6px 0 !important;
+    padding: 0px !important;
     border: 0px;
     border-width: 0px;
 }
@@ -375,15 +375,19 @@ div#wrapper1 {
 }
 
 #contratos .p-datatable .p-datatable-tbody>tr {
-    -webkit-box-shadow: 1px 0 1px 2px #f5f5f5;
-    box-shadow: 1px 0 1px 2px #f5f5f5;
+    /* -webkit-box-shadow: 1px 0 1px 2px #f5f5f5;
+    box-shadow: 1px 0 1px 2px #f5f5f5; */
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    height: 85px;
+    /* height: 85px; */
+}
+
+#contratos .p-datatable .p-datatable-tbody>tr:hover {
+    background-color: #e3e3e3 !important;
 }
 
 .p-datatable .p-datatable-thead>tr>th {
-    background-color: #fff !important;
+    background-color: #f5f5f5 !important;
 }
 
 .p-inputtext:enabled:hover,
@@ -437,7 +441,7 @@ select:focus {
 #contratos .p-inputtext::placeholder,
 #contratos .p-dropdown-label {
     text-align: center;
-    font-weight: bold;
+    /* font-weight: bold; */
     font-size: 11px;
     padding: 4px 0px 3.5px 10px;
     vertical-align: middle;
@@ -453,15 +457,18 @@ select:focus {
 }
 
 #contratos .p-datatable .p-datatable-tbody>tr>td {
-    padding: 20px 0px 0px 5px;
+    padding: 20px 6px 14px;
     min-width: 150px !important;
     background: #fff;
     vertical-align: middle !important;
     text-align: center;
     font-size: 13px !important;
-    font-family: Nexa-bold, sans-serif !important;
+    font-family: Nexa-regular, sans-serif !important;
     color: #686868;
-    border: 0px;
+    /* border: 0px; */
+    border-top: 0.5px solid #d6d6d6!important;
+    border-bottom: 0!important;
+    border-right: 1px solid #eeefef!important;
     border-width: 0px;
 }
 
@@ -554,7 +561,7 @@ select:focus {
 }
 
 #contratos .iconos_functions_grid button {
-    margin: 0 5px;
+    /* margin: 0 5px; */
 }
 
 #contratos .icon-pd-editar {
@@ -656,7 +663,7 @@ select:focus {
 
 #contratos .p-inputtext {
     font-size: 11px;
-    font-weight: bold;
+    font-family: "Nexa-regular";
 }
 
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
@@ -1294,4 +1301,458 @@ input.p-inputtext.p-component.p-column-filter:not(:placeholder-shown)::before {
 
 .color-blue {
     color: #003dc9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*DataTable*/
+#contratos .div_iconos_functions_grid {
+    display: block;
+    text-align: left!important;
+    padding-left: 46px!important;
+    margin-bottom: 4px;
+}
+
+#contratos .div_iconos_functions_grid>a {
+    margin-top: 3px;
+    vertical-align: top!important;
+    margin-right: 34px;
+}
+
+#contratos a:not([href]):not([tabindex]) {
+    color: inherit;
+    text-decoration: none;
+}
+
+#contratos .btnVerDocumentos {
+    display: inline-block;
+    font-family: Nexa-bold,sans-serif;
+    color: #000!important;
+    border: 1px solid #60c3dc;
+    border-radius: 25px;
+    text-align: center;
+    padding: 0 0 0 10px;
+    font-size: 13px;
+    font-weight: 400!important;
+    vertical-align: bottom;
+}
+
+#contratos .btnVerDocumentos i {
+    font-style: normal!important;
+    font-size: 11px;
+    margin-right: 5px;
+    margin-top: 0;
+    display: inline-block;
+    line-height: 10px;
+    color: #60c3dc;
+    padding: 5px;
+}
+
+#contratos .btnVerDocumentos>span {
+    color: #686868!important;
+}
+
+#contratos .btnVerDocumentos span {
+    padding: 2px 5px!important;
+}
+
+#contratos .btnVerDocumentos .icon-Siguiente1 {
+    font-size: 9px;
+    padding-bottom: 4px;
+}
+
+#contratos .div_iconos_functions_grid .iconos_functions_grid {
+    vertical-align: top;
+    margin-top: 3px;
+    margin-bottom: 2px;
+    padding: 5px 0;
+}
+
+#contratos .iconos_functions_grid {
+    display: inline-block;
+}
+
+#contratos .iconos_functions_grid {
+    border-radius: 20px;
+    padding: 2px 6px;
+}
+
+#contratos .iconos_functions_grid .icon-Favorito-click {
+    font-size: 18px;
+    padding-left: 0;
+}
+
+#contratos .iconos_functions_grid a, #contratos .iconos_functions_grid button {
+    display: inline-block;
+    background: none;
+    border: 0;
+    font-size: 16px;
+    color: #9c9b9b;
+    vertical-align: middle;
+    cursor: pointer;
+    outline: none!important;
+    text-decoration: none!important;
+    padding: 0 9px;
+}
+
+#contratos .btn_contratos_notas img.without-notes {
+    -webkit-filter: grayscale(1);
+    -moz-filter: grayscale(1);
+    -ms-filter: grayscale(1);
+    -o-filter: grayscale(1);
+    filter: grayscale(1);
+}
+
+#contratos .btn_contratos_notas img {
+    height: 22px;
+    width: 22px;
+}
+
+#contratos .icono_fuente__list {
+    width: 28px;
+    height: 28px;
+    font-size: 11px;
+}
+
+#contratos .icono_fuente__list {
+    border-radius: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 36px;
+    height: 36px;
+    font-family: Nexa-regular;
+    font-size: 15px;
+    font-style: normal;
+    color: #fff;
+    background-color: rgb(0, 61, 201);
+    text-align: center;
+    font-weight: 400!important;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    vertical-align: middle;
+    line-height: 1;
+    padding-top: 1px;
+}
+
+#contratos .icono_fuente__list {
+    width: 28px;
+    height: 28px;
+    font-size: 11px;
+}
+
+#contratos .p-datatable .p-datatable-tbody>tr>td.columna_seleccion {
+    min-width: 2% !important;
+    padding: 0px !important;
+    border-left: 1px solid #d6d6d6!important;
+    border-right: 0px !important;
+}
+
+#contratos td.columna_seleccion {
+   /*  border-top-left-radius: 12px; */
+}
+
+#contratos .p-datatable .p-datatable-tbody>tr>td.columna_tipo_secop {
+    min-width: 1% !important;
+    padding: 0px !important;
+}
+
+#contratos .p-datatable .p-datatable-tbody>tr>td.columna_entidad{
+    width: 11%!important;
+}
+
+#contratos .p-datatable .p-datatable-tbody>tr>td.objeto_columna,
+#contratos .p-datatable .p-datatable-tbody>tr>td.columna_actividad{
+    width: 16%!important;
+}
+
+#contratos .p-datatable .p-datatable-tbody>tr>td.columna_actividad{
+    border-right: 1px solid #d6d6d6!important;
+}
+
+#contratos .p-datatable .p-datatable-tbody>tr>td.columna_cuantia,
+#contratos .p-datatable .p-datatable-tbody>tr>td.columna_modalidad,
+#contratos .p-datatable .p-datatable-tbody>tr>td.columna_numero,
+#contratos .p-datatable .p-datatable-tbody>tr>td.columna_estado,
+#contratos .p-datatable .p-datatable-tbody>tr>td.columna_fecha,
+#contratos .p-datatable .p-datatable-tbody>tr>td.columna_publicacion{
+    width: 9%!important;
+}
+
+#contratos .p-datatable .p-datatable-tbody>tr td,
+#contratos .p-datatable .p-datatable-tbody>tr p, 
+#contratos .p-datatable .p-datatable-tbody>tr span:not(.icon-Mis-carpetas):not(.path1):not(.path2):not(.path3){
+    color: #000;
+}
+
+#contratos .objeto_grid_p{
+    max-height: calc(170px);
+    overflow: hidden;
+}
+
+#contratos .objeto_grid_span{
+    box-shadow: transparent 0px 0px;
+}
+
+#contratos .content_ver_mas_grid a.vermas {
+    color: #00a1c9;
+    font-family: Nexa-bold,sans-serif;
+    font-size: 12px;
+    display: inline-block;
+    padding-left: 5px;
+}
+
+#contratos .content_ver_mas_grid a.vermas i {
+    color: #00a1c9;
+    margin-right: 4px;
+    font-size: 9px;
+    margin-left: 2px;
+    vertical-align: top;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+#contratos .tt-uppercase{
+    text-transform: uppercase;
+}
+
+#contratos .valor_range--estandar i {
+    color: #73c914;
+    min-width: 28px;
+    padding-right: 6px;
+}
+
+#contratos .valor_range__moneda {
+    font-weight: 400;
+    font-family: Nexa-bold;
+    font-style: normal!important;
+}
+
+#contratos .sin-min-width {
+    min-width: auto!important;
+}
+
+#contratos .ubicaciones_grid p:before {
+    font-family: Web!important;
+    content: "\E995";
+    padding-top: 5px;
+    color: #686868;
+}
+
+#contratos .selecciones-nuevo-diseno {
+    display: block;
+    position: relative;
+    text-align: center;
+}
+
+#contratos .borrador-new-style {
+    padding: 5px!important;
+}
+
+#contratos .borrador-new-style img {
+    display: inline-block;
+    width: 18px;
+}
+
+#contratos .borrador-grid {
+    border: 0!important;
+    background: none!important;
+    -webkit-box-shadow: none!important;
+    box-shadow: none!important;
+    outline: none!important;
+    cursor: pointer;
+    padding: 9px!important;
+    font-size: 21px;
+    color: #9c9b9b;
+}
+
+#contratos tr:nth-child(2) > th.p-filter-column.columna_seleccion.columna_pequena > div.p-checkbox.p-component {
+    position: absolute;
+    top: 7px;
+    left: 8px;
+}
+
+#contratos .p-checkbox.p-component {
+    justify-content: space-evenly;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+#contratos .p-checkbox .p-checkbox-box.p-highlight {
+    border-color: #73c914!important;
+    background: #73c914!important;
+}
+
+#contratos .p-checkbox .p-checkbox-box{
+    border: 1px solid #b1b2b2 !important;
+    border-radius: 0.25em !important;
+    color: #fff !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
+#contratos .pi {
+    font-size: 11px;
+    color: #fff !important;
+    font-weight: bold;
+}
+
+#contratos .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus{
+    box-shadow: none !important;
+}
+
+#contratos tr.p-datatable-row-expansion {
+    cursor: pointer;
+}
+
+#contratos .p-datatable .p-datatable-tbody>tr.p-datatable-row-expansion>td {
+    padding: 0px !important;
+    border-bottom-left-radius: 0!important;
+    border-bottom-right-radius: 0!important;
+    background: #fafafa!important;
+
+
+    border-left: 1px solid #d6d6d6!important;
+    border-left-width: 1px !important;
+    border-left-style: solid !important;
+    border-left-color: rgb(214, 214, 214) !important;
+    border-right: 1px solid #d6d6d6!important;
+    border-right-width: 1px !important;
+    border-right-style: solid !important;
+    border-right-color: rgb(214, 214, 214) !important;
+
+
+    border-top: 0px !important;
+}
+
+#contratos table > thead > tr:nth-child(2) > th.p-filter-column.rounded_left.columna_tipo_secop input {
+    border-top-left-radius: 16px !important;
+    border-bottom-left-radius: 16px !important;
+}
+
+#contratos table > thead > tr:nth-child(2) > th:nth-child(11) input{
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    border-right: 1px solid #d3d3d3!important;
+}
+
+#contratos input.p-inputtext.p-component.p-column-filter {
+    padding-right: 23px!important;
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
+    padding-left: 0.75rem !important;
+}
+
+#contratos input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]{
+    padding-right: 0px!important;
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
+    padding-left: 0px !important;
+    margin-right: 33px !important;
+}
+
+input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder {
+    text-align: left !important;
+    padding: 0px !important;
+}
+
+#modal_actividades .modal-header .modal-title {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    font-family: Nexa-bold;
+    font-weight: 400;
+    color: #686868;
+    font-size: 20px;
+    padding-top: 8px;
+    line-height: 1.3;
+}
+
+#modal_actividades {
+    max-width: 1160px;
+}
+
+#modal_actividades .modal-content {
+    border-radius: 17px;
+    border: 0;
+}
+
+#modal_actividades .modal-header {
+    position: relative;
+    text-align: center;
+    padding-right: 48px!important;
+    border: 0!important;
+}
+
+#modal_actividades .modal-body, .modal_filter_grid .modal-body2 {
+    padding: 35px 55px 28px;
+    text-align: center;
+}
+
+#modal_actividades .modal-header .icon-Cerrar-modal{
+    right: 17px !important;
+}
+
+#modal_actividades #SubCategorias .tree-content .tree-division__title{
+    font-size: 14px !important;
+}
+
+#modal_actividades .modal-footer {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    border-top: 0;
+    padding-top: 0;
+    padding-bottom: 35px;
 }

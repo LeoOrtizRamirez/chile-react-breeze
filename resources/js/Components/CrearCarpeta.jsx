@@ -48,7 +48,7 @@ const CrearCarpeta = ({ showModal, handleCloseModal, carpeta }) => {
                 <form novalidate="novalidate" className="text-center" onSubmit={submit}>
                     <div className="crear_carpeta__cuerpo">
                         <p>
-                            <img src="/images/bombillo.svg" width="35px" />
+                            <img src="/public/images/bombillo.svg" width="35px" />
                             <span>Las carpetas te permiten mantener organizada toda tu información de interés y en un solo lugar.</span>
                         </p>
                         <div class="form">
@@ -75,7 +75,7 @@ const CrearCarpeta = ({ showModal, handleCloseModal, carpeta }) => {
                                 <div className="crear_carpeta__item_colors">
                                     <label className="color_active">
                                         <input type="radio" name="color" value="" onClick={(e) => setData("color", e.target.value)} checked={data?.color == "" || data?.color == undefined || data?.color == "#ffc107" ? true : false} />
-                                        <img src="/images/carpetas/Aleatorio.svg" title="Aleatorio" alt="Aleatorio" />
+                                        <img src="/public/images/carpetas/Aleatorio.svg" title="Aleatorio" alt="Aleatorio" />
                                     </label>
                                     <label className="">
                                         <input type="radio" name="color" value="#00A1C9" onClick={(e) => setData("color", e.target.value)} checked={data?.color == "#00A1C9" ? true : false} />
