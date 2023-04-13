@@ -1,33 +1,32 @@
-h1, h2, h3, h4, h4, h5, h6, span, p {
+#welcome h1, #welcome h2, #welcome h3, #welcome h4, #welcome h5, #welcome h6, #welcome span, #welcome p {
     font-family: 'Poppins';
 }
 
-.row>* {
+#welcome .row>* {
     width: unset !important;
 }
 
-.c-blue{
+#welcome .c-blue{
     color: #1a2fc9;
 }
 
-.c-blue-ligth{
+#welcome .c-blue-ligth{
     color: #00a1c9;
 }
 
-.c-yellow{
+#welcome .c-yellow{
     color: #ffc107;
 }
 
-.c-gray{
+#welcome .c-gray{
     color: #686868;
 }
 
-.td-none{
+#welcome .td-none{
     text-decoration: none;
 }
 
-
-.banner-video-paises{
+#welcome .banner-video-paises{
     height:100%;
     position:relative;
     width:auto;
@@ -35,7 +34,7 @@ h1, h2, h3, h4, h4, h5, h6, span, p {
     background:#28b0d2
 }
 
-.banner-video-paises__video{
+#welcome .banner-video-paises__video{
     height:100%;
     position:absolute;
     max-height:100%;
@@ -45,13 +44,13 @@ h1, h2, h3, h4, h4, h5, h6, span, p {
     width:100%
 }
 
-.banner-video-paises .banner-video-paises__content-banner>div.row{
+#welcome .banner-video-paises .banner-video-paises__content-banner>div.row{
     min-height:540px;
     flex-direction:column;
     padding-bottom:16px
 }
 
-.banner-video-paises .banner-video-paises__content-banner .row{
+#welcome .banner-video-paises .banner-video-paises__content-banner .row{
     position:relative;
     width:100%;
     height:100%;
@@ -61,7 +60,7 @@ h1, h2, h3, h4, h4, h5, h6, span, p {
     align-content:center
 }
 
-.banner-video-paises div>h2{
+#welcome .banner-video-paises div>h2{
     color:#fff;
     font-family:Poppins;
     font-size:2.813rem;
@@ -69,7 +68,7 @@ h1, h2, h3, h4, h4, h5, h6, span, p {
     text-align:center
 }
 
-.banner-video-paises div>p{
+#welcome .banner-video-paises div>p{
     color:#fff;
     font-family:Roboto;
     font-size:1.125rem;
@@ -77,15 +76,15 @@ h1, h2, h3, h4, h4, h5, h6, span, p {
     text-align:center
 }
 
-.banner-video-paises .banner-video-paises__title,.banner-video-paises .banner-video-paises__franja{
+#welcome .banner-video-paises .banner-video-paises__title, #welcome .banner-video-paises .banner-video-paises__franja{
     margin-top:auto
 }
 
-.banner-video-paises .banner-video-paises__button{
+#welcome .banner-video-paises .banner-video-paises__button{
     margin-top:27px
 }
 
-.franja-fuentes{
+#welcome .franja-fuentes{
     background:transparent linear-gradient(118deg,#ffffff66 0%,#ffffff0d 100%) 0% 0% no-repeat padding-box;
     border-radius:12px;
     backdrop-filter:blur(26px);
@@ -94,12 +93,12 @@ h1, h2, h3, h4, h4, h5, h6, span, p {
     max-width:100%
 }
 
-.franja-fuentes .fraja-fuentes__item{
+#welcome .franja-fuentes .fraja-fuentes__item{
     padding:0 12px;
     position:relative
 }
 
-.franja-fuentes .fraja-fuentes__item:after{
+#welcome .franja-fuentes .fraja-fuentes__item:after{
     content:'';
     width:4px;
     position:absolute;
@@ -110,38 +109,39 @@ h1, h2, h3, h4, h4, h5, h6, span, p {
     top:6px
 }
 
-.franja-fuentes .fraja-fuentes__item.fraja-fuentes__item--line:after,.franja-fuentes .fraja-fuentes__item:last-child:after{
+#welcome .franja-fuentes .fraja-fuentes__item.fraja-fuentes__item--line:after,
+#welcome .franja-fuentes .fraja-fuentes__item:last-child:after{
     content:inherit
 }
 
-.franja-fuentes .fraja-fuentes__item:first-child{
+#welcome .franja-fuentes .fraja-fuentes__item:first-child{
     padding-left:0
 }
 
-.franja-fuentes .fraja-fuentes__item:last-child{
+#welcome .franja-fuentes .fraja-fuentes__item:last-child{
     padding-right:0
 }
 
-.franja-fuentes .fraja-fuentes__item.fraja-fuentes__item--line{
+#welcome .franja-fuentes .fraja-fuentes__item.fraja-fuentes__item--line{
     padding-right:8px
 }
 
-.franja-fuentes .fraja-fuentes__item .fraja-fuentes__contador{
+#welcome .franja-fuentes .fraja-fuentes__item .fraja-fuentes__contador{
     cursor:pointer;
     text-decoration:none
 }
 
-.franja-fuentes .fraja-fuentes__item .fraja-fuentes__contador:hover i.icon-up{
+#welcome .franja-fuentes .fraja-fuentes__item .fraja-fuentes__contador:hover i.icon-up{
     color:#fff;
     transform:rotate(0deg);
     font-size:1.125rem
 }
 
-.franja-fuentes .fraja-fuentes__item .fraja-fuentes__contador:hover i.icon-up:before{
+#welcome .franja-fuentes .fraja-fuentes__item .fraja-fuentes__contador:hover i.icon-up:before{
     content:"\e941"
 }
 
-.franja-fuentes .fraja-fuentes__item span{
+#welcome .franja-fuentes .fraja-fuentes__item span{
     color:#fff;
     font-family:Poppins;
     font-size:.8125rem;
@@ -149,14 +149,14 @@ h1, h2, h3, h4, h4, h5, h6, span, p {
     line-height:1
 }
 
-.franja-fuentes .fraja-fuentes__item .fraja-fuentes__item--claro{
+#welcome .franja-fuentes .fraja-fuentes__item .fraja-fuentes__item--claro{
     font-family:Roboto;
     font-weight:400;
     margin-left:9px;
     margin-right:7px
 }
 
-.franja-fuentes .fraja-fuentes__item .icon-up{
+#welcome .franja-fuentes .fraja-fuentes__item .icon-up{
     color:#fff;
     font-size:.438rem;
     transform:rotate(90deg);
@@ -165,37 +165,37 @@ h1, h2, h3, h4, h4, h5, h6, span, p {
     margin-right:3px
 }
 
-.franja-fuentes .fraja-fuentes__item-hour{
+#welcome .franja-fuentes .fraja-fuentes__item-hour{
     display:flex;
     justify-content:center;
     align-items:center
 }
 
-.franja-fuentes .fraja-fuentes__item-hour i{
+#welcome .franja-fuentes .fraja-fuentes__item-hour i{
     font-size:1.375rem;
     margin-right:10px
 }
 
-.franja-fuentes .fraja-fuentes__item-hour i.icon-sun{
+#welcome .franja-fuentes .fraja-fuentes__item-hour i.icon-sun{
     color:#ffc107
 }
 
-.franja-fuentes .fraja-fuentes__item-hour i.icon-night{
+#welcome .franja-fuentes .fraja-fuentes__item-hour i.icon-night{
     color:#1a2fc9
 }
 
-.franja-fuentes .fraja-fuentes__item-hour img{
+#welcome .franja-fuentes .fraja-fuentes__item-hour img{
     width:31px;
     margin-top:-7px;
     margin-right:10px
 }
 
-.franja-fuentes .fraja-fuentes__item-saludo{
+#welcome .franja-fuentes .fraja-fuentes__item-saludo{
     margin-right:30px;
     position:relative
 }
 
-.franja-fuentes .fraja-fuentes__item-saludo:after{
+#welcome .franja-fuentes .fraja-fuentes__item-saludo:after{
     content:'';
     width:10px;
     position:absolute;
@@ -207,10 +207,10 @@ h1, h2, h3, h4, h4, h5, h6, span, p {
 }
 
 @media(max-width:767px){
-    .franja-fuentes .fraja-fuentes__item:after{
+    #welcome .franja-fuentes .fraja-fuentes__item:after{
         content:inherit
     }
-    .franja-fuentes .fraja-fuentes__item.fraja-fuentes__item--line{
+    #welcome .franja-fuentes .fraja-fuentes__item.fraja-fuentes__item--line{
         width:100%;
         text-align:center
     }

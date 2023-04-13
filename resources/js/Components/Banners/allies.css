@@ -1,4 +1,4 @@
-.img-allies {
+#allies .img-allies {
     background-color: white !important;
     border-radius: 25px;
     -webkit-border-radius: 25px;
@@ -8,7 +8,7 @@
     box-shadow: 0 0 0.25em 0.25em rgba(139, 139, 139, 0.25);
 }
 
-img {
+#allies img {
     object-fit: scale-down;
     width: 75%;
     margin-left: 13px;

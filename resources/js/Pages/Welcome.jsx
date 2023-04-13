@@ -58,7 +58,7 @@ export default function Welcome({auth, contratos}) {
 
     {/* FIN BANNER */ }
     return (
-        <WithOutAuthenticatedLayout auth={auth} page={'perfiles'}>
+        <WithOutAuthenticatedLayout auth={auth} page={'welcome'}>
             <Head title="Home" />
             
             {/* INICIO BANNER */}

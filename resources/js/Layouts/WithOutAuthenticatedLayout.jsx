@@ -12,7 +12,9 @@ export default function Authenticated({ auth, header, children, page }) {
     return (
         <>
             <Header user={auth}></Header>
-            {children}
+            <div id={page}>
+                {children}
+            </div>
             <Footer></Footer>
         </>
     );
