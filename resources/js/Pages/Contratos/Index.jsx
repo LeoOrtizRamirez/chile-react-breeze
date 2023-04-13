@@ -387,29 +387,41 @@ const Index = ({ auth, contratos }) => {
                     <i className="icon-Siguiente1"></i>
                 </a>
                 <div id="iconos_functions_8103864" className="iconos_functions_grid iconos_acciones_contratos">
-                    <button id="btnContratosFavorito-8103864" type="button" className="icon-Favorito-click btn_contratos_favoritos">
-                    </button>
-                    <button id="btnContratosSeguimiento-8103864" type="button" className="btn_contratos_seguimientos icon-Seguimientos">
-                        <span className="path1">
-                        </span>
-                        <span className="path2">
-                        </span>
-                        <span className="path3">
-                        </span>
-                    </button>
-                    <button id="btnContratosCarpeta-8103864" type="button" className="icon-Mis-carpetas btn_contratos_carpeta d-inline-flex">
-                        <span className="path1">
-                        </span>
-                        <span className="path2">
-                        </span>
-                    </button>
-                    <button id="btnContratosExternal-8103864" className="icon-Ir-a-la-fuente-click btn_contratos_external">
-                    </button>
-                    <button id="btnContratosCompartir-8103864" className="icon-Compartir-click btn_contratos_compartir">
-                    </button>
-                    <button id="btnContratoNotas-8103864" className="btn_contratos_notas">
-                        <img src="/images/notas/nota.svg" alt="Nota" className="without-notes" />
-                    </button>
+                    <div class="custom-tooltip yellow" data-tooltip="Agregar A Favoritos">
+                        <button id="btnContratosFavorito-8103864" type="button" className="icon-Favorito-click btn_contratos_favoritos" />
+                    </div>
+                    <div class="custom-tooltip green" data-tooltip="Agregar A Seguimientos">
+                        <button id="btnContratosSeguimiento-8103864" type="button" className="btn_contratos_seguimientos icon-Seguimientos">
+                            <span className="path1">
+                            </span>
+                            <span className="path2">
+                            </span>
+                            <span className="path3">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="custom-tooltip blue" data-tooltip="Agregar A Carpeta(S)">
+                        <button id="btnContratosCarpeta-8103864" type="button" className="icon-Mis-carpetas btn_contratos_carpeta d-inline-flex">
+                            <span className="path1">
+                            </span>
+                            <span className="path2">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="custom-tooltip red" data-tooltip="Agregar A Papelera">
+                        <button id="btnContratosDelete-8114846" type="button" class="icon-Eliminar btn_contratos_delete" />
+                    </div>
+                    <div class="custom-tooltip dark" data-tooltip="Ir A La Fuente">
+                        <button id="btnContratosExternal-8103864" className="icon-Ir-a-la-fuente-click btn_contratos_external" />
+                    </div>
+                    <div class="custom-tooltip purple" data-tooltip="Compartir">
+                        <button id="btnContratosCompartir-8103864" className="icon-Compartir-click btn_contratos_compartir" />
+                    </div>
+                    <div class="custom-tooltip gray" data-tooltip="Crear Primer Nota">
+                        <button id="btnContratoNotas-8103864" className="btn_contratos_notas custom-tooltip gray">
+                            <img src="/images/notas/nota.svg" alt="Nota" className="without-notes" />
+                        </button>
+                    </div>
                 </div>
                 <button type="button" className="btnRadius ver-menos-detalle" style={{ display: "none" }}>
                     Ver menos<i className="icon-Desplegar-click"></i>
@@ -587,6 +599,7 @@ const Index = ({ auth, contratos }) => {
     }
 
 
+    const [isTooltipVisible, setTooltipVisible] = useState(false);
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'}>
             <div className="content_not_blank_interno">

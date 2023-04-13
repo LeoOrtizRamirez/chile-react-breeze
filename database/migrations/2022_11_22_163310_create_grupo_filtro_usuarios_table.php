@@ -21,10 +21,13 @@ class CreateGrupoFiltroUsuariosTable extends Migration
                 ->on('users')
                 ->onDelete('set null');
             $table->text('nombre_filtro');
+            $table->text('imagen_filtro');
             $table->text('descripcion_filtro')->nullable();
             $table->boolean('envio_alertas')->comment('Alertas de correo electronico - 0: Falso, 1: Verdadero');
+            $table->boolean('sin_presupuesto')->comment('0: Falso, 1: Verdadero');
             $table->integer('limite_inferior_cuantia');
             $table->integer('limite_superior_cuantia')->nullable();
+            $table->date('historico');
             $table->timestamps();
         });
     }

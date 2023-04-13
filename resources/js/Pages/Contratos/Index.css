@@ -1756,3 +1756,134 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     padding-top: 0;
     padding-bottom: 35px;
 }
+
+
+
+
+
+/*Tooltips*/
+#contratos .custom-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+#contratos .custom-tooltip:hover:after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -200%;
+    left: 50%;
+    transform: translate(-50%, 5px);
+    white-space: nowrap;
+    font-size: 11px;
+    max-width: 250px;
+    padding: 8px 10px;
+    border-radius: 4px;
+    color: #fff;
+    text-transform: capitalize;
+    -webkit-box-shadow: 0 0 10px 3px hsl(0deg 5% 65% / 39%);
+    -ms-box-shadow: 0 0 10px 3px hsla(0,5%,65%,.39);
+    -o-box-shadow: 0 0 10px 3px hsla(0,5%,65%,.39);
+    box-shadow: 0 0 10px 3px hsl(0deg 5% 65% / 39%);
+    font-family: Nexa-regular;
+    text-align: left;
+    background-color: #000;
+}
+
+#contratos .custom-tooltip:hover:before {
+    content: "";
+    position: absolute;
+    top: -14%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-style: solid;
+    border-width: 6px 6px 0 6px;
+    border-color: #292929 transparent transparent transparent;
+}
+
+#contratos .custom-tooltip.yellow:hover:after {
+    background-color: #ffc107;
+}
+
+#contratos .custom-tooltip.yellow:hover:before {
+    border-color: #ffc107 transparent transparent transparent;
+}
+
+#contratos .custom-tooltip.green:hover:after {
+    background-color: #73c914;
+}
+
+#contratos .custom-tooltip.green:hover:before {
+    border-color: #73c914 transparent transparent transparent;
+}
+
+#contratos .custom-tooltip.red:hover:after {
+    background-color: #c9003d;
+}
+
+#contratos .custom-tooltip.red:hover:before {
+    border-color: #c9003d transparent transparent transparent;
+}
+
+#contratos .custom-tooltip.blue:hover:after {
+    background-color: #003dc9;
+}
+
+#contratos .custom-tooltip.blue:hover:before {
+    border-color: #003dc9 transparent transparent transparent;
+}
+
+#contratos .custom-tooltip.purple:hover:after {
+    background-color: #8c00c9;
+}
+
+#contratos .custom-tooltip.purple:hover:before {
+    border-color: #8c00c9 transparent transparent transparent;
+}
+
+#contratos .custom-tooltip.gray:hover:after {
+    background-color: #9c9b9b;
+}
+
+#contratos .custom-tooltip.gray:hover:before {
+    border-color: #9c9b9b transparent transparent transparent;
+}
+
+#contratos .custom-tooltip.dark:hover:after {
+    background-color: #686868;
+}
+
+#contratos .custom-tooltip.dark:hover:before {
+    border-color: #686868 transparent transparent transparent;
+}
+
+#contratos .icon-Favorito-click:hover{
+    color: #ffc107 !important;
+}
+
+#contratos .icon-Seguimientos:hover{
+    color: #73c914 !important;
+}
+
+#contratos .icon-Mis-carpetas:hover{
+    color: #003dc9 !important;
+}
+
+#contratos .icon-Ir-a-la-fuente-click:hover{
+    color: #686868 !important;
+}
+
+#contratos .icon-Eliminar:hover{
+    color: #c9003d !important;
+}
+
+#contratos .icon-Compartir-click:hover{
+    color: #8c00c9 !important;
+}
+
+#contratos .custom-tooltip.gray:hover:after{
+    top: -185%;
+}
+
+#contratos .custom-tooltip.yellow:hover:before, #contratos .custom-tooltip.yellow:hover:after{
+    left: 34%;
+}
