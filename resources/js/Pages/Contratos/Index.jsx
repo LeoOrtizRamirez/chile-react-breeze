@@ -4,14 +4,17 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import "../../../css/font-web.css";
 import "./Index.css";
 
+import { Dropdown, DropdownButton } from 'react-bootstrap';
+import { Nav, NavItem, NavDropdown } from 'react-bootstrap';
 
 /*PRIMEFACES */
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { Dropdown } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
+import { InputText } from 'primereact/inputtext';
+
 import "primereact/resources/themes/lara-light-indigo/theme.css";//theme
 import "primereact/resources/primereact.min.css";//core
 import "primeicons/primeicons.css";//icons
@@ -26,6 +29,25 @@ import ActividadEconomica from "@/Components/ActividadEconomica";
 
 import Loader from "@/Components/Loader";
 const Index = ({ auth, contratos }) => {
+
+    const [tabla, setTabla] = useState(contratos);
+    const [pageSize, setPageSize] = useState(tabla.last_page + 1);
+    const [pageNumber, setPageNumber] = useState(0);
+
+    const paginator = (page, url) => {
+        axios.get(url + '&type=fetch')
+            .then(response => {
+                setTabla(response.data)
+                setPageNumber(response.data.current_page - 1)
+                setPageSize(tabla.last_page + 1);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+
+
     // let queryStringBusquedaAvanzada = "";
     const [queryStringBusquedaAvanzada, setqueryStringBusquedaAvanzada] =
         useState("");
@@ -89,6 +111,14 @@ const Index = ({ auth, contratos }) => {
     const [prevPage, setPrevPage] = useState(contratos.prev_page_url);
     const [inputSearch, setInputSearch] = useState("");
     const [inputFechaPublicacion, setInputFechaPublicacion] = useState("");
+
+    // Define pagination properties
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+
+    const onPageChange = event => setCurrentPage(event.first / event.rows);
+    const onRowsChange = event => setRowsPerPage(event.target.value);
+
+    const totalRecords = contratos.data.length;
 
     const getUrlParams = () => {
         //Obtener inputs de formulario y guardarlos en objeto
@@ -249,18 +279,7 @@ const Index = ({ auth, contratos }) => {
     }
     /*Borrar filtros*/
 
-    const getGrupos = (data) => {
-        return [...(data || [])].map((d) => {
-            if (d.envio_alertas == 1) {
-                d.envio_alertas = "Si"
-            } else {
-                d.envio_alertas = "No"
-            }
-            return d;
-        });
-    };
-
-    const [data, setData] = useState(getGrupos(contratos.data));
+    const [data, setData] = useState(contratos.data);
     const [filters, setFilters] = useState({
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
         'fuente.alias_portal': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -309,12 +328,6 @@ const Index = ({ auth, contratos }) => {
                 </OverlayTrigger>
             ))}
         </div>;
-    };
-
-    const statusRowFilterTemplate = (options) => {
-        return (
-            <Dropdown value={options.value} options={statuses} onChange={(e) => options.filterApplyCallback(e.value)} placeholder="Seleccionar Notificaciones" className="p-column-filter" showEditModalClear />
-        );
     };
 
     const clearTemplate = (options) => {
@@ -367,7 +380,7 @@ const Index = ({ auth, contratos }) => {
 
     const expandAll = () => {
         let _expandedRows = {};
-        data.forEach((p) => (_expandedRows[`${p.id}`] = true));
+        tabla.data.forEach((p) => (_expandedRows[`${p.id}`] = true));
         setExpandedRows(_expandedRows);
     };
     useEffect(() => {
@@ -387,29 +400,41 @@ const Index = ({ auth, contratos }) => {
                     <i className="icon-Siguiente1"></i>
                 </a>
                 <div id="iconos_functions_8103864" className="iconos_functions_grid iconos_acciones_contratos">
-                    <button id="btnContratosFavorito-8103864" type="button" className="icon-Favorito-click btn_contratos_favoritos">
-                    </button>
-                    <button id="btnContratosSeguimiento-8103864" type="button" className="btn_contratos_seguimientos icon-Seguimientos">
-                        <span className="path1">
-                        </span>
-                        <span className="path2">
-                        </span>
-                        <span className="path3">
-                        </span>
-                    </button>
-                    <button id="btnContratosCarpeta-8103864" type="button" className="icon-Mis-carpetas btn_contratos_carpeta d-inline-flex">
-                        <span className="path1">
-                        </span>
-                        <span className="path2">
-                        </span>
-                    </button>
-                    <button id="btnContratosExternal-8103864" className="icon-Ir-a-la-fuente-click btn_contratos_external">
-                    </button>
-                    <button id="btnContratosCompartir-8103864" className="icon-Compartir-click btn_contratos_compartir">
-                    </button>
-                    <button id="btnContratoNotas-8103864" className="btn_contratos_notas">
-                        <img src="/images/notas/nota.svg" alt="Nota" className="without-notes" />
-                    </button>
+                    <div class="custom-tooltip yellow" data-tooltip="Agregar A Favoritos">
+                        <button id="btnContratosFavorito-8103864" type="button" className="icon-Favorito-click btn_contratos_favoritos" />
+                    </div>
+                    <div class="custom-tooltip green" data-tooltip="Agregar A Seguimientos">
+                        <button id="btnContratosSeguimiento-8103864" type="button" className="btn_contratos_seguimientos icon-Seguimientos">
+                            <span className="path1">
+                            </span>
+                            <span className="path2">
+                            </span>
+                            <span className="path3">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="custom-tooltip blue" data-tooltip="Agregar A Carpeta(S)">
+                        <button id="btnContratosCarpeta-8103864" type="button" className="icon-Mis-carpetas btn_contratos_carpeta d-inline-flex">
+                            <span className="path1">
+                            </span>
+                            <span className="path2">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="custom-tooltip red" data-tooltip="Agregar A Papelera">
+                        <button id="btnContratosDelete-8114846" type="button" class="icon-Eliminar btn_contratos_delete" />
+                    </div>
+                    <div class="custom-tooltip dark" data-tooltip="Ir A La Fuente">
+                        <button id="btnContratosExternal-8103864" className="icon-Ir-a-la-fuente-click btn_contratos_external" />
+                    </div>
+                    <div class="custom-tooltip purple" data-tooltip="Compartir">
+                        <button id="btnContratosCompartir-8103864" className="icon-Compartir-click btn_contratos_compartir" />
+                    </div>
+                    <div class="custom-tooltip gray" data-tooltip="Crear Primer Nota">
+                        <button id="btnContratoNotas-8103864" className="btn_contratos_notas custom-tooltip gray">
+                            <img src="/public/images/notas/nota.svg" alt="Nota" className="without-notes" />
+                        </button>
+                    </div>
                 </div>
                 <button type="button" className="btnRadius ver-menos-detalle" style={{ display: "none" }}>
                     Ver menos<i className="icon-Desplegar-click"></i>
@@ -418,12 +443,12 @@ const Index = ({ auth, contratos }) => {
         );
     };
 
-    const header = (
-        <div className="flex flex-wrap justify-content-end gap-2">
-            <Button icon="pi pi-plus" label="Expand All" onClick={expandAll} text />
-            <Button icon="pi pi-minus" label="Collapse All" onClick={collapseAll} text />
-        </div>
-    );
+    /*     const header = (
+            <div className="flex flex-wrap justify-content-end gap-2">
+                <Button icon="pi pi-plus" label="Expand All" onClick={expandAll} text />
+                <Button icon="pi pi-minus" label="Collapse All" onClick={collapseAll} text />
+            </div>
+        ); */
 
     /*Checks */
     const [selectedProducts, setSelectedProducts] = useState(null);
@@ -587,22 +612,132 @@ const Index = ({ auth, contratos }) => {
     }
 
 
+    const [globalFilterValue, setGlobalFilterValue] = useState('');
+
+    const onGlobalFilterChange = (e) => {
+        const value = e.target.value;
+        let _filters = { ...filters };
+
+        _filters['global'].value = value;
+
+        setFilters(_filters);
+        setGlobalFilterValue(value);
+    };
+
+    const renderHeader = () => {
+        return (
+            <div className="m-0 w-100">
+                <div className="text-left reloadTable row" style={{ margin: 0 + 'px' }}>
+                    <div id="top-botones" className="mb-2 mb-lg-0">
+                        <div className="franja-busqueda-rapida">
+                            <div className="input-busqueda-rapida">
+                                <input value={globalFilterValue} onChange={onGlobalFilterChange} type="text" name="rapida" placeholder="Búsqueda rápida" className="form-control" />
+                                <button type="button" className="submit-busqueda-rapida icon-Buscar-click"></button>
+                            </div>
+                            <div className="select-busqueda-rapida ml-4">
+                                <Nav id="dropdown-filtro-nuevos">
+                                    <NavDropdown id="dropdown-filtro" className='nav-link pl-0' title={<><span className="ver-filtros">
+                                        <span className="mr-2 visualizar">Visualizar:</span>
+                                        <span className="text-ver-filtros d-inline-flex pl-3 bg-white">
+                                            <span className="align-self-center d-inline-flex iconOrdenamientoGrid">
+                                                <span className="icon-Todos"></span>
+                                            </span>
+                                            <span className="text-ver-filtros__text text-left">Todos</span>
+                                        </span>
+                                    </span></>} >
+                                        <Dropdown.Item href="#" className='dropdown-item'>
+                                            <span className="icon-options-order">
+                                                <span className="icon-Vistos-recientemente"></span>
+                                            </span>
+                                            <span className="text-options-order">Vistos recientemente</span>
+                                        </Dropdown.Item>
+                                        <Dropdown.Item href="#" className='dropdown-item'>
+                                            <span className="icon-options-order">
+                                                <span className="icon-Contratos"></span>
+                                            </span>
+                                            <span className="text-options-order">Notas creadas</span>
+                                        </Dropdown.Item>
+                                    </NavDropdown>
+                                </Nav>
+
+                                {/* <div id="dropdown-filtro-nuevos" className="dropdown d-inline-block dropdown_filtros show">
+                                    <button type="button" id="dropdown-filtro" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="true" className="btn ml-2 dropdown-toggle btn-gris">
+                                        <span className="ver-filtros">
+                                            <span className="mr-2">Visualizar:</span>
+                                            <span className="text-ver-filtros d-inline-flex pl-3 bg-white">
+                                                <span className="align-self-center d-inline-flex iconOrdenamientoGrid">
+                                                    <span className="icon-Todos"></span>
+                                                </span>
+                                                <span className="text-ver-filtros__text text-left">Todos</span>
+                                            </span>
+                                        </span>
+                                    </button>
+                                    <div aria-labelledby="dropdown-filtro" className="dropdown-menu show" x-placement="bottom-start">
+                                        <button type="button" className="dropdown-item" style={{ display: 'none' }}>
+                                            <span className="icon-options-order">
+                                                <span className="icon-Todos"></span>
+                                            </span>
+                                            <span className="text-options-order">Todos</span>
+                                        </button>
+                                        <button type="button" className="dropdown-item">
+                                            <span className="icon-options-order">
+                                                <span className="icon-Vistos-recientemente"></span></span>
+                                            <span className="text-options-order">Vistos recientemente</span></button>
+                                        <button type="button" className="dropdown-item">
+                                            <span className="icon-options-order"><span className="icon-Contratos"></span>
+                                            </span>
+                                            <span className="text-options-order">Notas creadas</span>
+                                        </button>
+                                    </div>
+                                </div> */}
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div className="col-12 col-lg-7 col-xl-6 p-0 paginacion_grid text-right text-lg-right ">
+                        <span className="paginator">
+                            <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-double-left" onClick={() => paginator(0, tabla.first_page_url)} />
+                            <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-left" onClick={() => paginator(tabla.current_page - 1, tabla.prev_page_url)} />
+                            <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-right" onClick={() => paginator(tabla.current_page + 1, tabla.next_page_url)} />
+                            <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-double-right" onClick={() => paginator(5, tabla.last_page_url)} />
+                            <span className="p-paginator-current">{`${tabla.from} - ${tabla.to} de ${tabla.total}`}</span>
+                        </span>
+                    </div>
+                </div>
+                {/* <div className="custom_scroll_superior">
+                    <button id="custom_scroll--btn_atras" className="btn"></button>
+                    <div className="scroll_superior">
+                        <div className="content_scroll_superior" style={{ width: 1526 + 'px' }}></div>
+                    </div>
+                    <button id="custom_scroll--btn_adelante" className="btn"></button>
+                </div> */}
+            </div>
+
+        );
+    };
+    const header = renderHeader();
+
+
+
+
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'}>
             <div className="content_not_blank_interno">
                 <div id="bodycontenido" className="col contratos_row px-0">
-                    <DataTable ref={dt} value={data} paginator rows={30} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
-                        globalFilterFields={['name', 'representative.name', 'status']} emptyMessage="No se encontraron registros"
-                        paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink NextPageLink LastPageLink CurrentPageReport"
-                        currentPageReportTemplate="{first} a {last} de {totalRecords}"
+                    <DataTable ref={dt} value={tabla.data} rows={pageSize} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
+                        globalFilterFields={['fuente.alias_portal', 'entidad_contratante', 'objeto', 'valor', 'modalidad', 'codigo_proceso', 'estado_proceso', 'fecha_publicacion', 'ubicacion', 'actividad_economica']} emptyMessage="No se encontraron registros"
 
                         expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)}
                         onRowExpand={onRowExpand} onRowCollapse={onRowCollapse} rowExpansionTemplate={rowExpansionTemplate}
-                        /* header={header} */
+                        header={header}
 
                         selectionMode={rowClick ? null : 'checkbox'}
                         selection={selectedProducts}
                         onSelectionChange={(e) => setSelectedProducts(e.value)}
+
+                        first={pageNumber * pageSize}
                     >
                         <Column selectionMode="multiple" className='columna_seleccion columna_pequena' filter filterElement={clearTemplate}></Column>
                         {/* <Column filter className='columna_seleccion columna_pequena'  /> */}
@@ -617,6 +752,7 @@ const Index = ({ auth, contratos }) => {
                         <Column field="ubicacion" header="Ubicación" filter filterPlaceholder="Seleccionar" className="columna_ubicacion" body={ubicacionBodyTemplate} filterElement={columnFilterOpenModal} />
                         <Column field="actividad_economica" header="Actividad Económica" filter filterElement={columnFilterOpenModal} />
                     </DataTable>
+
                 </div>
             </div>
 

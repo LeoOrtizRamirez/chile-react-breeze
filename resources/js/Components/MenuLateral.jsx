@@ -78,7 +78,7 @@ const MenuLateral = () => {
                                             </span> <label id="visita_256058" className="">
                                                 <div className="content-img">
                                                     <div className="content-img--img imgperfil">
-                                                        <img src="https://col.licitaciones.info/storage/banco-imagenes/artistas/Licitaciones/perfil-amarillo.svg" />
+                                                        <img src="/storage/banco-imagenes/artistas/Licitaciones/perfil-amarillo.svg" />
                                                     </div>
                                                 </div>
                                                 <span title="PRIMER" alt="PRIMER" className="cursor-type-pointer">PRIMER
@@ -218,25 +218,25 @@ const MenuLateral = () => {
                     </div>
                 </NavDropdown>
                 <li id="item_menu-todos-li">
-                    <button type="button" id="item_menu-todos" className="">
+                    <a href="/contratos" id="item_menu-todos" className="">
                         <span className="icon-Todos-los-contratos"></span>
                         <span className="item-title-menu">Todos los contratos</span>
-                    </button>
+                    </a>
                 </li>
                 <li id="item_menu-ajustes-li">
-                    <a href="https://col.licitaciones.info/cliente/notificacion-correo" id="item_menu-publicidad">
+                    <a href="/cliente/notificacion-correo" id="item_menu-publicidad">
                         <span className="icon-Ajustes"></span>
                         <span className="item-title-menu">Ajustes</span>
                     </a>
                 </li>
                 <li id="item_menu-publicarcontrato-li" className="dropright">
-                    <a id="item_menu-publicarcontrato" href="https://col.licitaciones.info/cliente/contrato">
+                    <a id="item_menu-publicarcontrato" href="/cliente/contrato">
                         <span className="icon-Publicar-click"></span>
                         <span className="item-title-menu">Publicar contrato</span>
                     </a>
                 </li>
                 <li id="item_menu-sugerencia-li">
-                    <a id="item_menu-sugerencia" href="https://col.licitaciones.info/cliente/sugerencias">
+                    <a id="item_menu-sugerencia" href="/cliente/sugerencias">
                         <span className="icon-Sugerencia"></span>
                         <span className="item-title-menu">Sugerencia de entidades</span>
                     </a>
