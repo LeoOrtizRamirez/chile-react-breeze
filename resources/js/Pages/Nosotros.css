@@ -1,21 +1,22 @@
-.customers.container.rounded-container {
+#nosotros .customers.container.rounded-container {
     display: flex;
     align-items: center;
 }
 
-.customers-cta, .customers-list-carrousel {
+#nosotros .customers-cta,
+#nosotros .customers-list-carrousel {
     width: 50%;
 }
 
-span.seccion__trayectoria-titulo-modifier {
+#nosotros span.seccion__trayectoria-titulo-modifier {
     font-size: 1.57rem;
 }
 
-#nosotros-view #banner-top {
+#nosotros #nosotros-view #banner-top {
     padding: 32px 17px 22px;
 }
 
-#nosotros-view #banner-top #banner-top--img {
+#nosotros #nosotros-view #banner-top #banner-top--img {
     background: url('/public/images/nosotros/banner.png') center no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -27,49 +28,49 @@ span.seccion__trayectoria-titulo-modifier {
 }
 
 @media(max-width: 1400px) {
-    #nosotros-view #banner-top #banner-top--img {
+    #nosotros #nosotros-view #banner-top #banner-top--img {
         background-position: 0px -100px;
     }
 }
 
 @media(max-width: 992px) {
-    #nosotros-view #banner-top #banner-top--img {
+    #nosotros #nosotros-view #banner-top #banner-top--img {
         background-position: 0px -25px;
     }
 }
 
 @media(max-width: 600px) {
-    #nosotros-view #banner-top #banner-top--img {
+    #nosotros #nosotros-view #banner-top #banner-top--img {
         background-position: 0px 0px;
     }
 }
 
-#nosotros-view #banner-top--text-container {
+#nosotros #nosotros-view #banner-top--text-container {
     min-height: 264px;
     align-items: flex-end;
     color: white;
     padding-bottom: 29px;
 }
 
-#nosotros-view #banner-top--text-container .banner-top--white-title {
+#nosotros #nosotros-view #banner-top--text-container .banner-top--white-title {
     font-size: 2.5rem;
     font-weight: bold;
     font-family: Poppins;
     margin-bottom: 0;
 }
 
-#nosotros-view #banner-top--text-container .banner-top--white-text {
+#nosotros #nosotros-view #banner-top--text-container .banner-top--white-text {
     font-size: 1.25rem;
     font-weight: normal;
     font-family: Roboto;
     margin-bottom: 0;
 }
 
-#nosotros-somos{
+#nosotros #nosotros-somos{
     margin-top: 30px;
 }
 
-#nosotros-somos .potenciamos__subtitulo{
+#nosotros #nosotros-somos .potenciamos__subtitulo{
     font-size: 0.88rem;
     font-weight: bold;
     font-family: Poppins;
@@ -77,7 +78,7 @@ span.seccion__trayectoria-titulo-modifier {
     text-align: center;
 }
 
-#nosotros-somos .potenciamos__titulo{
+#nosotros #nosotros-somos .potenciamos__titulo{
     font-size: 1.6rem;
     font-weight: bold;
     font-family: Poppins;
@@ -85,15 +86,15 @@ span.seccion__trayectoria-titulo-modifier {
     text-align: center;
 }
 
-#nosotros-somos .somos{
+#nosotros #nosotros-somos .somos{
     margin-top: 69px;
 }
 
-#nosotros-somos .somos__texto{
+#nosotros #nosotros-somos .somos__texto{
     padding: 25px 55px;
 }
 
-#nosotros-somos .somos__texto-decisiones, #nosotros-somos .somos__texto-plataforma{
+#nosotros #nosotros-somos .somos__texto-decisiones, #nosotros-somos .somos__texto-plataforma{
     font-size: 1.13rem;
     font-weight: normal;
     font-family: Roboto;
@@ -102,24 +103,24 @@ span.seccion__trayectoria-titulo-modifier {
     line-height: 1.8;
 }
 
-#nosotros-somos .somos__imagen{
+#nosotros #nosotros-somos .somos__imagen{
     display: flex;
     justify-content: center;
 }
 
-#nosotros-somos .somos__imagen-somos{
+#nosotros #nosotros-somos .somos__imagen-somos{
     width: 100%;
     max-width: 522px;
     border-radius: 17px;
 }
 
-#nosotros-elementos{
+#nosotros #nosotros-elementos{
     padding-top: 69px;
     width: 100%;
     max-width: 980px;
 }
 
-#nosotros-elementos .elementos__texto{
+#nosotros #nosotros-elementos .elementos__texto{
     font-size: 1.4rem;
     font-weight: normal;
     font-family: Roboto;
@@ -127,29 +128,29 @@ span.seccion__trayectoria-titulo-modifier {
     text-align: justify;
 }
 
-#nosotros-elementos .elementos__texto-modifier{
+#nosotros #nosotros-elementos .elementos__texto-modifier{
     font-size: 1.4rem;
     font-weight: bold;
     font-family: Poppins;
     color: #686868;
 }
 
-#nosotros-elementos .motivos{
+#nosotros #nosotros-elementos .motivos{
     margin-top: 60px;
 }
 
-#nosotros-elementos .motivos__informacion-imagen{
+#nosotros #nosotros-elementos .motivos__informacion-imagen{
     margin-bottom: 15px;
 }
 
-#nosotros-elementos .motivos__informacion-titulo{
+#nosotros #nosotros-elementos .motivos__informacion-titulo{
     font-size: 1.13rem;
     font-weight: bold;
     font-family: Poppins;
     color: #686868;
 }
 
-#nosotros-elementos .motivos__informacion-texto{
+#nosotros #nosotros-elementos .motivos__informacion-texto{
     font-size: 1.13rem;
     font-weight: normal;
     font-family: Roboto;
@@ -157,18 +158,18 @@ span.seccion__trayectoria-titulo-modifier {
     color: #686868;
 }
 
-#nosotros-elementos .motivos__razon{
+#nosotros #nosotros-elementos .motivos__razon{
     margin-top: 22px;
 }
 
-#nosotros-elementos .motivos__razon-titulo{
+#nosotros #nosotros-elementos .motivos__razon-titulo{
     font-size: 1.13rem;
     font-weight: bold;
     font-family: Poppins;
     color: #00A1C9;
 }
 
-#nosotros-elementos .motivos__razon-texto{
+#nosotros #nosotros-elementos .motivos__razon-texto{
     font-size: 1.13rem;
     font-weight: normal;
     font-family: Roboto;
@@ -176,12 +177,12 @@ span.seccion__trayectoria-titulo-modifier {
     color: #686868;
 }
 
-#nosotros-elementos .motivos-volumenes{
+#nosotros #nosotros-elementos .motivos-volumenes{
     padding-right: 65px;
     position: relative;
 }
 
-#nosotros-elementos .motivos-volumenes::before{
+#nosotros #nosotros-elementos .motivos-volumenes::before{
     content: '';
     width: 2px;
     height: 305px;
@@ -192,36 +193,36 @@ span.seccion__trayectoria-titulo-modifier {
     right: 0;
 }
 
-#nosotros-elementos .motivos-clasificacion{
+#nosotros #nosotros-elementos .motivos-clasificacion{
     padding-left: 65px;
 }
 
-#nosotros-trayectoria{
+#nosotros #nosotros-trayectoria{
     margin-top: 80px;
 }
 
-#nosotros-trayectoria .trayectoria{
+#nosotros #nosotros-trayectoria .trayectoria{
     background-color: rgba(218, 218, 218, 0.15);
     padding-top: 60px;
     padding-bottom: 60px;
 }
 
-#nosotros-trayectoria .seccion__trayectoria{
+#nosotros #nosotros-trayectoria .seccion__trayectoria{
     padding: 50px 60px 0px;
 }
 
-#nosotros-trayectoria .seccion__trayectoria-titulo{
+#nosotros #nosotros-trayectoria .seccion__trayectoria-titulo{
     font-size: 1.57rem;
     font-weight: bold;
     font-family: Poppins;
     color: #686868;
 }
 
-#nosotros-trayectoria .seccion__trayectoria-titulo-modifier{    
+#nosotros #nosotros-trayectoria .seccion__trayectoria-titulo-modifier{    
     color: #00A1C9;
 }
 
-#nosotros-trayectoria .seccion__trayectoria-texto{
+#nosotros #nosotros-trayectoria .seccion__trayectoria-texto{
     font-size: 1.13rem;
     font-weight: normal;
     font-family: Roboto;
@@ -230,16 +231,16 @@ span.seccion__trayectoria-titulo-modifier {
     line-height: 2.4;
 }
 
-#nosotros-trayectoria .seccion__imagen img{
+#nosotros #nosotros-trayectoria .seccion__imagen img{
     width: 100%;
     max-width: 495px;
 }
 
-#nosotros-trayectoria .valor{
+#nosotros #nosotros-trayectoria .valor{
     padding: 40px 55px 0px;
 }
 
-#nosotros-trayectoria .valor__titulo{
+#nosotros #nosotros-trayectoria .valor__titulo{
     font-size: 1.25rem;
     font-weight: bold;
     font-family: Poppins;
@@ -248,13 +249,13 @@ span.seccion__trayectoria-titulo-modifier {
     margin-left: 22px;
 }
 
-#nosotros-trayectoria .valor__empresa-titulo{
+#nosotros #nosotros-trayectoria .valor__empresa-titulo{
     display: flex;
     align-items: center;
     margin-bottom: 24px;
 }
 
-#nosotros-trayectoria .valor__empresa-texto{
+#nosotros #nosotros-trayectoria .valor__empresa-texto{
     font-size: 1.13rem;
     font-weight: normal;
     font-family: Roboto;
@@ -266,92 +267,129 @@ span.seccion__trayectoria-titulo-modifier {
 }
 
 @media(max-width: 992px){
-    #nosotros-somos .somos{
+    #nosotros #nosotros-somos .somos{
         margin-top: 0px;
     }
 
-    #nosotros-somos .somos__texto{
+    #nosotros #nosotros-somos .somos__texto{
         padding: 25px 0px;
     }
 
-    #nosotros-elementos{
+    #nosotros #nosotros-elementos{
         padding: 69px 90px;
     }
 
-    #nosotros-elementos .motivos-volumenes{
+    #nosotros #nosotros-elementos .motivos-volumenes{
         padding: 0px;
     }
 
-    #nosotros-elementos .motivos-volumenes::before{
+    #nosotros #nosotros-elementos .motivos-volumenes::before{
         display: none;
     }
 
-    #nosotros-elementos .motivos-clasificacion{
+    #nosotros #nosotros-elementos .motivos-clasificacion{
         margin-top: 60px;
         padding: 0px;
     }
 
-    #nosotros-trayectoria{
+    #nosotros #nosotros-trayectoria{
         padding-top: 30px;
         margin-top: 20px;
     }
 
-    #nosotros-trayectoria .seccion__imagen{
+    #nosotros #nosotros-trayectoria .seccion__imagen{
         display: flex;
         justify-content: center;
         margin-top: 30px;
     }
 
-    #nosotros-trayectoria .valor{
+    #nosotros #nosotros-trayectoria .valor{
         margin-top: 0px;
         padding-top: 0px;
     }
 
-    #nosotros-trayectoria .valor__empresa-titulo{
+    #nosotros #nosotros-trayectoria .valor__empresa-titulo{
         margin-top: 40px;
         margin-bottom: 0px;
     }
 
-    #nosotros-trayectoria .valor__empresa-texto{
+    #nosotros #nosotros-trayectoria .valor__empresa-texto{
         max-width: unset;
     }
 }
 
 
 @media (max-width: 768px) {
-    #nosotros-view #banner-top--text-container {
+    #nosotros #nosotros-view #banner-top--text-container {
         min-height: 200px;
     }
 
-    #nosotros-elementos{
+    #nosotros #nosotros-elementos{
         padding: 69px 60px;
     }
 }
 
 @media (max-width: 592px) {
-    #nosotros-view #banner-top--text-container .banner-top--white-title {
+    #nosotros #nosotros-view #banner-top--text-container .banner-top--white-title {
         text-align: center;
     }
     
-    #nosotros-view #banner-top--text-container .banner-top--white-text {
+    #nosotros #nosotros-view #banner-top--text-container .banner-top--white-text {
         text-align: center;
     }
 
-    #nosotros-trayectoria .seccion__trayectoria{
+    #nosotros #nosotros-trayectoria .seccion__trayectoria{
         padding: 0;
     }
 
-    #nosotros-trayectoria .seccion__imagen{
+    #nosotros #nosotros-trayectoria .seccion__imagen{
         display: flex;
         justify-content: center;
         margin-top: 35px;
     }
 
-    #nosotros-trayectoria .valor__empresa-titulo{
+    #nosotros #nosotros-trayectoria .valor__empresa-titulo{
         margin-top: 40px;
     }
 
-    #nosotros-trayectoria .valor__empresa-texto{
+    #nosotros #nosotros-trayectoria .valor__empresa-texto{
         max-width: unset;
     }
 } 
+
+#nosotros .customers {
+    align-items: center;
+    box-shadow: 0px 0px 20px #6868681c;
+    display: flex;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    padding: 26px 30px;
+}
+
+#nosotros .customers-cta-count-statistics {
+    color: #686868;
+    font-size: 20pt;
+    font-family: Poppins;
+    font-weight: bold;
+    line-height: 25px;
+}
+
+#nosotros .contenta-a {
+    padding-right: 10%;
+}
+
+#nosotros .customers-cta {
+    padding-left: 40px;
+}
+
+#nosotros .cta-button {
+    border: 1px solid;
+}
+
+#nosotros .cta-button:hover {
+    border: 0px solid;
+}
+
+#nosotros .col-12 {
+    margin-top: 25px;
+}

@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import WithOutAuthenticatedLayout from "@/Layouts/WithOutAuthenticatedLayout";
 import {Head} from "@inertiajs/inertia-react";
 import './Welcome.css'
-import "../../css/estilos-carousel-publica.css";
 import BotonRegistrarse from '@/Components/BotonRegistrarse';
 import BotonAsesor from '@/Components/BotonHablarAsesor';
 import CarouselImagenes from '@/Components/CarouselImagenes';
