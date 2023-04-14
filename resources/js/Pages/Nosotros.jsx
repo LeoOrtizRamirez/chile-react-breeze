@@ -1,7 +1,6 @@
 import { Head } from "@inertiajs/inertia-react";
 import WithOutAuthenticatedLayout from "@/Layouts/WithOutAuthenticatedLayout";
 import CarouselImagenes from '@/Components/CarouselImagenes';
-import "../../css/estilos-carousel-publica.css";
 import BotonRegistrarse from '@/Components/BotonRegistrarse';
 import BotonAsesor from '@/Components/BotonHablarAsesor';
 import './Nosotros.css';
@@ -9,7 +8,7 @@ import './Nosotros.css';
 export default function Nosotros({auth}) {
 
     return (
-        <WithOutAuthenticatedLayout auth={auth}>
+        <WithOutAuthenticatedLayout auth={auth} page={'nosotros'}>
             <Head title="Nosotros" />
             <div id="nosotros-view">
                 <div id="banner-top">

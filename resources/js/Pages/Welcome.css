@@ -215,3 +215,53 @@
         text-align:center
     }
 }
+
+#welcome .customers-cta-since-year {
+    color: #00A1C9;
+    font-size: 22px;
+    font-family: Poppins;
+    font-weight: bold;
+    display: block;
+}
+
+#welcome .customers {
+    align-items: center;
+    box-shadow: 0px 0px 20px #6868681c;
+    display: flex;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    padding: 26px 30px;
+}
+
+#welcome .customers.container.rounded-container {
+    display: flex;
+    align-items: center;
+}
+
+#welcome .customers-cta-count-statistics {
+    color: #686868;
+    font-size: 20pt;
+    font-family: Poppins;
+    font-weight: bold;
+    line-height: 25px;
+}
+
+#welcome .contenta-a {
+    padding-right: 10%;
+}
+
+#welcome .customers-cta {
+    padding-left: 40px;
+}
+
+#welcome .cta-button {
+    border: 1px solid;
+}
+
+#welcome .cta-button:hover {
+    border: 0px solid;
+}
+
+#welcome .col-12 {
+    margin-top: 25px;
+}
