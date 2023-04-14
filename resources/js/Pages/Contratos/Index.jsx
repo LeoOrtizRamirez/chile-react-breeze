@@ -432,7 +432,7 @@ const Index = ({ auth, contratos }) => {
                     </div>
                     <div class="custom-tooltip gray" data-tooltip="Crear Primer Nota">
                         <button id="btnContratoNotas-8103864" className="btn_contratos_notas custom-tooltip gray">
-                            <img src="/images/notas/nota.svg" alt="Nota" className="without-notes" />
+                            <img src="/public/images/notas/nota.svg" alt="Nota" className="without-notes" />
                         </button>
                     </div>
                 </div>
