@@ -10,7 +10,6 @@ import { Nav, NavItem, NavDropdown } from 'react-bootstrap';
 /*PRIMEFACES */
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
-import { Paginator } from 'primereact/paginator';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
@@ -30,6 +29,25 @@ import ActividadEconomica from "@/Components/ActividadEconomica";
 
 import Loader from "@/Components/Loader";
 const Index = ({ auth, contratos }) => {
+
+    const [tabla, setTabla] = useState(contratos);
+    const [pageSize, setPageSize] = useState(tabla.last_page + 1);
+    const [pageNumber, setPageNumber] = useState(0);
+
+    const paginator = (page, url) => {
+        axios.get(url + '&type=fetch')
+            .then(response => {
+                setTabla(response.data)
+                setPageNumber(response.data.current_page - 1)
+                setPageSize(tabla.last_page + 1);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+
+
     // let queryStringBusquedaAvanzada = "";
     const [queryStringBusquedaAvanzada, setqueryStringBusquedaAvanzada] =
         useState("");
@@ -261,18 +279,7 @@ const Index = ({ auth, contratos }) => {
     }
     /*Borrar filtros*/
 
-    const getGrupos = (data) => {
-        return [...(data || [])].map((d) => {
-            if (d.envio_alertas == 1) {
-                d.envio_alertas = "Si"
-            } else {
-                d.envio_alertas = "No"
-            }
-            return d;
-        });
-    };
-
-    const [data, setData] = useState(getGrupos(contratos.data));
+    const [data, setData] = useState(contratos.data);
     const [filters, setFilters] = useState({
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
         'fuente.alias_portal': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -373,7 +380,7 @@ const Index = ({ auth, contratos }) => {
 
     const expandAll = () => {
         let _expandedRows = {};
-        data.forEach((p) => (_expandedRows[`${p.id}`] = true));
+        tabla.data.forEach((p) => (_expandedRows[`${p.id}`] = true));
         setExpandedRows(_expandedRows);
     };
     useEffect(() => {
@@ -685,23 +692,27 @@ const Index = ({ auth, contratos }) => {
                                     </div>
                                 </div> */}
                             </div>
+
+
                         </div>
                     </div>
-                    <div className="col-12 col-lg-7 col-xl-6 p-0 paginacion_grid text-center text-lg-right ">
-                        <Paginator rows={rowsPerPage} totalRecords={totalRecords}
-                            pageLinkSize={3} onPageChange={onPageChange}
-                            onRowsChange={onRowsChange}
-                            paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink NextPageLink LastPageLink CurrentPageReport"
-                            currentPageReportTemplate="{currentPage} of {totalPages}" />
+                    <div className="col-12 col-lg-7 col-xl-6 p-0 paginacion_grid text-right text-lg-right ">
+                        <span className="paginator">
+                            <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-double-left" onClick={() => paginator(0, tabla.first_page_url)} />
+                            <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-left" onClick={() => paginator(tabla.current_page - 1, tabla.prev_page_url)} />
+                            <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-right" onClick={() => paginator(tabla.current_page + 1, tabla.next_page_url)} />
+                            <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-double-right" onClick={() => paginator(5, tabla.last_page_url)} />
+                            <span className="p-paginator-current">{`${tabla.from} - ${tabla.to} de ${tabla.total}`}</span>
+                        </span>
                     </div>
                 </div>
-                <div className="custom_scroll_superior">
+                {/* <div className="custom_scroll_superior">
                     <button id="custom_scroll--btn_atras" className="btn"></button>
                     <div className="scroll_superior">
                         <div className="content_scroll_superior" style={{ width: 1526 + 'px' }}></div>
                     </div>
                     <button id="custom_scroll--btn_adelante" className="btn"></button>
-                </div>
+                </div> */}
             </div>
 
         );
@@ -709,15 +720,14 @@ const Index = ({ auth, contratos }) => {
     const header = renderHeader();
 
 
+
+
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'}>
             <div className="content_not_blank_interno">
                 <div id="bodycontenido" className="col contratos_row px-0">
-                    <DataTable ref={dt} value={data} paginator={true} rows={20} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
+                    <DataTable ref={dt} value={tabla.data} rows={pageSize} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
                         globalFilterFields={['fuente.alias_portal', 'entidad_contratante', 'objeto', 'valor', 'modalidad', 'codigo_proceso', 'estado_proceso', 'fecha_publicacion', 'ubicacion', 'actividad_economica']} emptyMessage="No se encontraron registros"
-
-                        paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink NextPageLink LastPageLink CurrentPageReport"
-                        currentPageReportTemplate="{first} a {last} de {totalRecords}"
 
                         expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)}
                         onRowExpand={onRowExpand} onRowCollapse={onRowCollapse} rowExpansionTemplate={rowExpansionTemplate}
@@ -726,6 +736,8 @@ const Index = ({ auth, contratos }) => {
                         selectionMode={rowClick ? null : 'checkbox'}
                         selection={selectedProducts}
                         onSelectionChange={(e) => setSelectedProducts(e.value)}
+
+                        first={pageNumber * pageSize}
                     >
                         <Column selectionMode="multiple" className='columna_seleccion columna_pequena' filter filterElement={clearTemplate}></Column>
                         {/* <Column filter className='columna_seleccion columna_pequena'  /> */}
