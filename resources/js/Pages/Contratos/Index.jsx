@@ -4,14 +4,18 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import "../../../css/font-web.css";
 import "./Index.css";
 
+import { Dropdown, DropdownButton } from 'react-bootstrap';
+import { Nav, NavItem, NavDropdown } from 'react-bootstrap';
 
 /*PRIMEFACES */
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
+import { Paginator } from 'primereact/paginator';
 import { Column } from 'primereact/column';
-import { Dropdown } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
+import { InputText } from 'primereact/inputtext';
+
 import "primereact/resources/themes/lara-light-indigo/theme.css";//theme
 import "primereact/resources/primereact.min.css";//core
 import "primeicons/primeicons.css";//icons
@@ -89,6 +93,14 @@ const Index = ({ auth, contratos }) => {
     const [prevPage, setPrevPage] = useState(contratos.prev_page_url);
     const [inputSearch, setInputSearch] = useState("");
     const [inputFechaPublicacion, setInputFechaPublicacion] = useState("");
+
+    // Define pagination properties
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+
+    const onPageChange = event => setCurrentPage(event.first / event.rows);
+    const onRowsChange = event => setRowsPerPage(event.target.value);
+
+    const totalRecords = contratos.data.length;
 
     const getUrlParams = () => {
         //Obtener inputs de formulario y guardarlos en objeto
@@ -311,12 +323,6 @@ const Index = ({ auth, contratos }) => {
         </div>;
     };
 
-    const statusRowFilterTemplate = (options) => {
-        return (
-            <Dropdown value={options.value} options={statuses} onChange={(e) => options.filterApplyCallback(e.value)} placeholder="Seleccionar Notificaciones" className="p-column-filter" showEditModalClear />
-        );
-    };
-
     const clearTemplate = (options) => {
         return (
             <>
@@ -430,12 +436,12 @@ const Index = ({ auth, contratos }) => {
         );
     };
 
-    const header = (
-        <div className="flex flex-wrap justify-content-end gap-2">
-            <Button icon="pi pi-plus" label="Expand All" onClick={expandAll} text />
-            <Button icon="pi pi-minus" label="Collapse All" onClick={collapseAll} text />
-        </div>
-    );
+    /*     const header = (
+            <div className="flex flex-wrap justify-content-end gap-2">
+                <Button icon="pi pi-plus" label="Expand All" onClick={expandAll} text />
+                <Button icon="pi pi-minus" label="Collapse All" onClick={collapseAll} text />
+            </div>
+        ); */
 
     /*Checks */
     const [selectedProducts, setSelectedProducts] = useState(null);
@@ -599,19 +605,123 @@ const Index = ({ auth, contratos }) => {
     }
 
 
-    const [isTooltipVisible, setTooltipVisible] = useState(false);
+    const [globalFilterValue, setGlobalFilterValue] = useState('');
+
+    const onGlobalFilterChange = (e) => {
+        const value = e.target.value;
+        let _filters = { ...filters };
+
+        _filters['global'].value = value;
+
+        setFilters(_filters);
+        setGlobalFilterValue(value);
+    };
+
+    const renderHeader = () => {
+        return (
+            <div className="m-0 w-100">
+                <div className="text-left reloadTable row" style={{ margin: 0 + 'px' }}>
+                    <div id="top-botones" className="mb-2 mb-lg-0">
+                        <div className="franja-busqueda-rapida">
+                            <div className="input-busqueda-rapida">
+                                <input value={globalFilterValue} onChange={onGlobalFilterChange} type="text" name="rapida" placeholder="Búsqueda rápida" className="form-control" />
+                                <button type="button" className="submit-busqueda-rapida icon-Buscar-click"></button>
+                            </div>
+                            <div className="select-busqueda-rapida ml-4">
+                                <Nav id="dropdown-filtro-nuevos">
+                                    <NavDropdown id="dropdown-filtro" className='nav-link pl-0' title={<><span className="ver-filtros">
+                                        <span className="mr-2 visualizar">Visualizar:</span>
+                                        <span className="text-ver-filtros d-inline-flex pl-3 bg-white">
+                                            <span className="align-self-center d-inline-flex iconOrdenamientoGrid">
+                                                <span className="icon-Todos"></span>
+                                            </span>
+                                            <span className="text-ver-filtros__text text-left">Todos</span>
+                                        </span>
+                                    </span></>} >
+                                        <Dropdown.Item href="#" className='dropdown-item'>
+                                            <span className="icon-options-order">
+                                                <span className="icon-Vistos-recientemente"></span>
+                                            </span>
+                                            <span className="text-options-order">Vistos recientemente</span>
+                                        </Dropdown.Item>
+                                        <Dropdown.Item href="#" className='dropdown-item'>
+                                            <span className="icon-options-order">
+                                                <span className="icon-Contratos"></span>
+                                            </span>
+                                            <span className="text-options-order">Notas creadas</span>
+                                        </Dropdown.Item>
+                                    </NavDropdown>
+                                </Nav>
+
+                                {/* <div id="dropdown-filtro-nuevos" className="dropdown d-inline-block dropdown_filtros show">
+                                    <button type="button" id="dropdown-filtro" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="true" className="btn ml-2 dropdown-toggle btn-gris">
+                                        <span className="ver-filtros">
+                                            <span className="mr-2">Visualizar:</span>
+                                            <span className="text-ver-filtros d-inline-flex pl-3 bg-white">
+                                                <span className="align-self-center d-inline-flex iconOrdenamientoGrid">
+                                                    <span className="icon-Todos"></span>
+                                                </span>
+                                                <span className="text-ver-filtros__text text-left">Todos</span>
+                                            </span>
+                                        </span>
+                                    </button>
+                                    <div aria-labelledby="dropdown-filtro" className="dropdown-menu show" x-placement="bottom-start">
+                                        <button type="button" className="dropdown-item" style={{ display: 'none' }}>
+                                            <span className="icon-options-order">
+                                                <span className="icon-Todos"></span>
+                                            </span>
+                                            <span className="text-options-order">Todos</span>
+                                        </button>
+                                        <button type="button" className="dropdown-item">
+                                            <span className="icon-options-order">
+                                                <span className="icon-Vistos-recientemente"></span></span>
+                                            <span className="text-options-order">Vistos recientemente</span></button>
+                                        <button type="button" className="dropdown-item">
+                                            <span className="icon-options-order"><span className="icon-Contratos"></span>
+                                            </span>
+                                            <span className="text-options-order">Notas creadas</span>
+                                        </button>
+                                    </div>
+                                </div> */}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-12 col-lg-7 col-xl-6 p-0 paginacion_grid text-center text-lg-right ">
+                        <Paginator rows={rowsPerPage} totalRecords={totalRecords}
+                            pageLinkSize={3} onPageChange={onPageChange}
+                            onRowsChange={onRowsChange}
+                            paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink NextPageLink LastPageLink CurrentPageReport"
+                            currentPageReportTemplate="{currentPage} of {totalPages}" />
+                    </div>
+                </div>
+                <div className="custom_scroll_superior">
+                    <button id="custom_scroll--btn_atras" className="btn"></button>
+                    <div className="scroll_superior">
+                        <div className="content_scroll_superior" style={{ width: 1526 + 'px' }}></div>
+                    </div>
+                    <button id="custom_scroll--btn_adelante" className="btn"></button>
+                </div>
+            </div>
+
+        );
+    };
+    const header = renderHeader();
+
+
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'}>
             <div className="content_not_blank_interno">
                 <div id="bodycontenido" className="col contratos_row px-0">
-                    <DataTable ref={dt} value={data} paginator rows={30} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
-                        globalFilterFields={['name', 'representative.name', 'status']} emptyMessage="No se encontraron registros"
+                    <DataTable ref={dt} value={data} paginator={true} rows={20} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
+                        globalFilterFields={['fuente.alias_portal', 'entidad_contratante', 'objeto', 'valor', 'modalidad', 'codigo_proceso', 'estado_proceso', 'fecha_publicacion', 'ubicacion', 'actividad_economica']} emptyMessage="No se encontraron registros"
+
                         paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink NextPageLink LastPageLink CurrentPageReport"
                         currentPageReportTemplate="{first} a {last} de {totalRecords}"
 
                         expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)}
                         onRowExpand={onRowExpand} onRowCollapse={onRowCollapse} rowExpansionTemplate={rowExpansionTemplate}
-                        /* header={header} */
+                        header={header}
 
                         selectionMode={rowClick ? null : 'checkbox'}
                         selection={selectedProducts}
@@ -630,6 +740,7 @@ const Index = ({ auth, contratos }) => {
                         <Column field="ubicacion" header="Ubicación" filter filterPlaceholder="Seleccionar" className="columna_ubicacion" body={ubicacionBodyTemplate} filterElement={columnFilterOpenModal} />
                         <Column field="actividad_economica" header="Actividad Económica" filter filterElement={columnFilterOpenModal} />
                     </DataTable>
+
                 </div>
             </div>
 
