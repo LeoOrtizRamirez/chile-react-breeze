@@ -787,12 +787,60 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas }) => {
         });
     };
 
+    const renderEmptyMessage = () => {
+        return (
+            <>
+                {nombre_carpeta === "" &&
+                    <p>No se encontraron registros</p>
+                }
+                {nombre_carpeta === "Papelera" &&
+                    <div id="mensajes-personalizado-papelera" class="container-fluid content_blank_interno">
+                        <div class="row  align-items-end">
+                            <div class="col-md-4 offset-md-1">
+                                <img src="https://col.licitaciones.info/img/mensajes-personalisados/sin-papelera.png" alt="" class="img-fluid" />
+                            </div>
+                            <div class="col-md-6 offset-md-1">
+                                <div class="estructura-mensaje-personalisado">
+                                    <h4 class="text-center titulo-personalizado">¡Nada por aqui! no tienes procesos de contratacion en <b class="text-rojo">papelera</b></h4>
+                                    <div class="position-relative">
+                                        <span class="icon-Bombillo mensaje-icono "></span>
+                                        <p class="mensaje-personalizado text-justify d-block">Recuerda que aquí se ponen los procesos que has eliminado, si deseas puedes restaurarlos desde esta sección.</p>
+                                    </div> <a href="/cliente/carpeta/administrar-carpetas" class="btn-new-gray btnRadius d-inline-block text-center btn-volver-carpetas">Regresar a carpetas</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                {nombre_carpeta == "Favoritos" &&
+                    <div id="mensajes-personalizado-favoritos" class="container-fluid content_blank_interno">
+                        <div class="row  align-items-end">
+                            <div class="col-md-3 offset-md-2">
+                                <img src="https://col.licitaciones.info/img/mensajes-personalisados/sin-favoritos.png" alt="" class="img-fluid" />
+                            </div>
+                            <div class="col-md-6 offset-md-1">
+                                <div class="estructura-mensaje-personalisado">
+                                    <h4 class="text-center titulo-personalizado">No has agregado procesos de contratación <b class="text-naranja">favoritos</b> a esta sección</h4>
+                                    <div class="position-relative">
+                                        <span class="icon-Bombillo  mensaje-icono "></span>
+                                        <p class="mensaje-personalizado d-block text-justify">Recuerda que aquí puedes almacenar los procesos que más te interesen. Sólo debes ir al icono de favoritos &nbsp;<span class="icon-Favorito-click" id="icono-mensaje"></span>&nbsp; que se encuentra en la parte inferior de cada proceso y listo, podrás visualisarlos y administrarlos en esta seccion.</p>
+                                    </div> <a href="/carpeta/administrar-carpetas" class="btn btn-new-gray btnRadius mx-auto d-block btn-sin-perfil-crear">Regresar a carpetas</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </>
+        );
+    };
+
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'}>
             <div className="content_not_blank_interno">
                 <div id="bodycontenido" className="col contratos_row px-0">
                     <DataTable id="datatableContratos" ref={dt} value={tabla.data} rows={pageSize} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
-                        globalFilterFields={['fuente.alias_portal', 'entidad_contratante', 'objeto', 'valor', 'modalidad', 'codigo_proceso', 'estado_proceso', 'fecha_publicacion', 'ubicacion', 'actividad_economica']} emptyMessage="No se encontraron registros"
+                        globalFilterFields={['fuente.alias_portal', 'entidad_contratante', 'objeto', 'valor', 'modalidad', 'codigo_proceso', 'estado_proceso', 'fecha_publicacion', 'ubicacion', 'actividad_economica']} emptyMessage={renderEmptyMessage()}
 
                         expandedRows={expandedRows} /* onRowToggle={(e) => setExpandedRows(e.data)}
                         onRowExpand={onRowExpand} onRowCollapse={onRowCollapse} */ rowExpansionTemplate={rowExpansionTemplate}
