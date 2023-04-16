@@ -23,12 +23,12 @@ const Index = ({ auth, carpetas }) => {
         setShowModalCrearCarpeta(true)
     }
 
-    const eliminarCarpeta = () =>{
-        Inertia.post('/cliente/carpeta/eliminar', carpetaSelected,{
+    const eliminarCarpeta = () => {
+        Inertia.post('/cliente/carpeta/eliminar', carpetaSelected, {
             onSuccess: () => {
                 handleCloseEliminarCarpeta()
             }
-      });
+        });
     }
 
     /*Modal Eliminar carpeta */
@@ -103,11 +103,33 @@ const Index = ({ auth, carpetas }) => {
                                 )}
                             </div>
                         </div>
+                        <div className="mensajes-busqueda">
+                            {carpetas.length == 0 &&
+                                <div className="mensajes-busqueda">
+                                    <div id="mensajes-sin-carpeta" className="container content_blank_intern">
+                                        <div className="row">
+                                            <div className="col-12 col-lg-5 text-center">
+                                                <img src="/public/images/mensajes-personalizados/sin-carpetas-modal.svg" alt="sin carpetas" className="img-fluid imagen-sin-carpetas" />
+                                            </div>
+                                            <div className="col-12 col-lg-7 my-auto">
+                                                <h5 className="text-center titulo-personalizado">Aún no has creado una carpeta.</h5>
+                                                <div className="cont-mensaje-personalizado"><i className="icon-Bombillo"></i>
+                                                    <p className="mensaje-personalizado">Las carpetas te permiten mantener organizada toda tu información de interés y en un solo lugar.</p>
+                                                </div>
+                                                <button className="btn btn-new-green btnRadius mx-auto d-block btn-sin-perfil-crear" onClick={handleOpenModalCrearCarpeta}>
+                                                    <i className="icon-Crear"></i> Crea tu primera carpeta
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
-                
-                <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} carpeta={carpetaSelected}/>
-                
+
+                <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} carpeta={carpetaSelected} />
+
                 <Modal show={showModalEliminarCarpeta} onHide={handleCloseEliminarCarpeta} id="modal_eliminar_carpeta" size="lg" centered>
                     <Modal.Header >
                         <h4 className="modal-title">¿Deseas eliminar la carpeta?</h4>
