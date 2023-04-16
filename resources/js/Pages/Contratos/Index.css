@@ -128,6 +128,24 @@
     padding: 0px;
 }
 
+#contratos .seccion-estas-en {
+    font-family: Nexa-bold,sans-serif;
+    color: #686868;
+    margin-left: 60px;
+    font-size: 13px;
+}
+
+#contratos .seccion-estas-en .icon-Favorito-click {
+    color: #ffc107;
+    font-size: 14px;
+}
+
+#contratos .seccion-estas-en .texto-estas-en {
+    text-transform: capitalize;
+    font-family: Nexa-regular,sans-serif;
+    font-weight: initial;
+}
+
 #contratos .icon-options-order,
 #contratos .text-options-order {
     vertical-align: middle;

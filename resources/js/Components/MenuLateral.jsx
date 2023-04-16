@@ -2,17 +2,28 @@ import React, { useEffect, useState } from 'react'
 import './MenuLateral.css'
 import { Nav, NavDropdown } from 'react-bootstrap';
 
+import { Inertia } from '@inertiajs/inertia'
+
 import CrearCarpeta from './CrearCarpeta';
-const MenuLateral = () => {
-    const [carpetas, setCarpetas] = useState([])
+const MenuLateral = ({carpetas = []}) => {
+    const [folders, setFolders] = useState(carpetas == null ? [] : carpetas)
     useEffect(() => {
-        axios.get(`/cliente/carpeta/carpetas-user`)
+        if(carpetas != null){
+            setFolders(carpetas)
+        }
+    }, [carpetas])
+    
+    useEffect(() => {
+        if(carpetas == null){
+            console.log("null")
+            axios.get(`/cliente/carpeta/carpetas-user`)
             .then(response => {
-                setCarpetas(response.data)
+                setFolders(response.data)
             })
             .catch(error => {
                 console.log(error)
             });
+        }
     }, [])
 
     const { carpeta, setCarpeta } = useState({
@@ -27,6 +38,16 @@ const MenuLateral = () => {
     const handleCloseModalCrearCarpeta = () => {
         setShowModalCrearCarpeta(false);
     };
+
+    const changePage = (tipo) =>{
+        var token = document.querySelector('meta[name="csrf-token"]')
+        Inertia.post(`cliente/contratos/get-info/${tipo}`, {
+            headers: {
+                'Authorization': `Bearer ${token.content}`
+            }
+        });
+    }
+
     return (
         <div id="menu-lateral" className="fixed-top">
             <Nav className="new-menu scroll_fit">
@@ -150,7 +171,7 @@ const MenuLateral = () => {
                                             <span class="body_checkbox">
                                                 <div class="radio" style={{ margin: 0 + 'px;' }}>
                                                     <label>
-                                                        <input type="radio" name="radiocontratos" id="radioContratosFavoritos" class="input_carpeta_val" value="F" />
+                                                        <input type="radio" name="radiocontratos" id="radioContratosFavoritos" class="input_carpeta_val" value="F" onClick={() => changePage('F')} />
                                                     </label>
                                                 </div>
                                             </span>
@@ -168,11 +189,11 @@ const MenuLateral = () => {
                                             <span class="body_checkbox">
                                                 <div class="radio" style={{ margin: 0 + 'px;' }}>
                                                     <label>
-                                                        <input type="radio" name="radiocontratos" id="radioContratosFavoritos" class="input_carpeta_val" value="F" />
+                                                        <input type="radio" name="radiocontratos" id="radioContratosEliminados" class="input_carpeta_val" value="E" onClick={() => changePage('E')} />
                                                     </label>
                                                 </div>
                                             </span>
-                                            <label for="radioContratosFavoritos" id="">
+                                            <label for="radioContratosEliminados" id="">
                                                 <div class="content-img">
                                                     <div class="content-img--img">
                                                         <span class="icon-Eliminar content-img--img__iconos" style={{ color: 'rgb(209, 49, 97)' }}></span>
@@ -181,7 +202,7 @@ const MenuLateral = () => {
                                                 Papelera
                                             </label> <i class="icono-arrastre icon-Mover"></i>
                                         </div>
-                                        {carpetas.map((carpeta, index) => (
+                                        {folders.map((carpeta, index) => (
                                             <div class="item-checkbox-menu item-icon-menu" key={index}>
                                                 <span class="body_checkbox">
                                                     <div class="radio" style={{ margin: 0 + 'px;' }}>

@@ -38,7 +38,7 @@ class ContratoController extends Controller
                         ->orWhere('modalidad', 'like', '%' . $buscador_rapido . '%')
                         ->orWhere('ubicacion', 'like', '%' . $buscador_rapido . '%');
                 }
-// Inicio condiciones modal filtro avanzado
+                // Inicio condiciones modal filtro avanzado
                 if (!is_null($entidad_contratante) && $entidad_contratante != "") {
                     $query->where('entidad_contratante', 'like', '%' . $entidad_contratante . '%');
                 }
@@ -66,7 +66,7 @@ class ContratoController extends Controller
                 if (!is_null($estado_proceso) && $estado_proceso != "") {
                     $query->whereIn('estado_proceso', explode(",", $estado_proceso));
                 }
-// Fin condiciones modal filtro avanzado
+                // Fin condiciones modal filtro avanzado
             })
             ->where(function ($query) use ($fecha_publicacion) {
                 if (!is_null($fecha_publicacion) && $fecha_publicacion != "") {
@@ -88,29 +88,32 @@ class ContratoController extends Controller
             }
 
             $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'F')->first();
-            if(is_null($carpeta)){
+            if (is_null($carpeta)) {
                 $value->favorito = false;
-            }else{
+            } else {
                 $favorito = CarpetasHasContrato::where('id_contrato', $value->id)->where('id_carpeta', $carpeta->id)->first();
-                if(is_null($favorito)){
+                if (is_null($favorito)) {
                     $value->favorito = false;
-                }else{
+                } else {
                     $value->favorito = true;
                 }
             }
-            
         }
 
         if (request()->has("type") /* && request('type') == "fetch" */) { //dd(request('type'));
             return json_encode($contratos);
         } else {
             return Inertia::render(
-                'Contratos/Index', ['contratos' => $contratos]
+                'Contratos/Index',[
+                    'contratos' => $contratos,
+                    'favorito' => false,
+                    'total_carpetas' => 0,
+                ]
             );
         }
     }
 
-    public function paginador($idContrato, $page, $estado)
+    /*     public function paginador($idContrato, $page, $estado)
     {
         $pagina = 1;
         $numElementosPagina = 30;
@@ -168,7 +171,7 @@ class ContratoController extends Controller
             })
             ->count();
 
-        $contratos = Contrato::with('fuente' /*, 'clasificaciones', 'contratistas'*/)
+        $contratos = Contrato::with('fuente')
             ->where(function ($query) use ($estado, $idContrato) {
                 if ($estado == "next") {
                     $query->where('id', '>', $idContrato);
@@ -252,7 +255,7 @@ class ContratoController extends Controller
                 'totalElemetosPaginados' => $totalElemetosPaginados,
             ]
         );
-    }
+    } */
 
     public function create()
     {
@@ -288,5 +291,58 @@ class ContratoController extends Controller
     {
         $contrato->delete();
         return Redirect::route('contratos.index');
+    }
+
+    public function carpeta($tipo)
+    {
+        $contratos = Contrato::with('fuente')->where('id', 0)->paginate(30);
+        $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', $tipo)->first();
+        $total_carpetas = 0;
+
+        if ($carpeta) {
+            $carpeta_has_contrato = CarpetasHasContrato::where('id_carpeta', $carpeta->id)->get();
+            $total_carpetas = sizeof($carpeta_has_contrato);
+            if ($total_carpetas > 0) {
+                foreach ($carpeta_has_contrato as $key => $value) {
+                    $ids_contratos[] = $value->id_contrato;
+                }
+
+                $contratos = Contrato::with('fuente')->whereIn('id', $ids_contratos)->paginate(30);
+                foreach ($contratos as $key => $value) {
+                    $contratista = ContratistaContrato::where('id_contrato', $value->id)->first();
+                    if ($contratista) {
+                        $value->contratista = $contratista->nombre;
+                    }
+
+                    $actividad_economica = ClasificacionContrato::where('id_contrato', $value->id)->first();
+                    if ($actividad_economica) {
+                        $sub_categoria = SubCategoria::find($actividad_economica->id_sub_categoria);
+                        $value->actividad_economica = $sub_categoria->nombre;
+                    }
+
+                    $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'F')->first();
+                    if (is_null($carpeta)) {
+                        $value->favorito = false;
+                    } else {
+                        $favorito = CarpetasHasContrato::where('id_contrato', $value->id)->where('id_carpeta', $carpeta->id)->first();
+                        if (is_null($favorito)) {
+                            $value->favorito = false;
+                        } else {
+                            $value->favorito = true;
+                        }
+                    }
+                }
+            }
+        }
+        return Inertia::render(
+            'Contratos/Index',[
+                'contratos' => $contratos,
+                'favorito' => true,
+                'total_carpetas' => $total_carpetas,
+            ]
+        );
+        /* return Inertia::render(
+            'Contratos/Index', ['contratos' => $contratos]
+        ); */
     }
 }

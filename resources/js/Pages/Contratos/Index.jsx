@@ -31,7 +31,7 @@ import Loader from "@/Components/Loader";
 
 import { Inertia } from '@inertiajs/inertia'
 
-const Index = ({ auth, contratos }) => {
+const Index = ({ auth, contratos, favorito, total_carpetas }) => {
     const [tabla, setTabla] = useState(contratos);
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
@@ -716,17 +716,29 @@ const Index = ({ auth, contratos }) => {
                                     </div>
                                 </div> */}
                             </div>
+                            {favorito &&
+                                <div class="d-inline-block seccion-estas-en">
+                                    <p class="my-1">Estás en: <span class="mx-1 icon-Favorito-click"></span>
+                                        <span class="texto-estas-en">mis favoritos</span>
+                                    </p>
+                                </div>
+                            }
 
 
                         </div>
                     </div>
                     <div className="col-12 col-lg-7 col-xl-6 p-0 paginacion_grid text-right text-lg-right ">
                         <span className="paginator">
-                            <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-double-left" onClick={() => paginator(0, tabla.first_page_url)} />
-                            <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-left" onClick={() => paginator(tabla.current_page - 1, tabla.prev_page_url)} />
-                            <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-right" onClick={() => paginator(tabla.current_page + 1, tabla.next_page_url)} />
-                            <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-double-right" onClick={() => paginator(5, tabla.last_page_url)} />
-                            <span className="p-paginator-current">{`${tabla.from} - ${tabla.to} de ${tabla.total}`}</span>
+                            {favorito ?
+                                <span className="p-paginator-current">{total_carpetas} registros</span>
+                                : <>
+                                    <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-double-left" onClick={() => paginator(0, tabla.first_page_url)} />
+                                    <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-left" onClick={() => paginator(tabla.current_page - 1, tabla.prev_page_url)} />
+                                    <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-right" onClick={() => paginator(tabla.current_page + 1, tabla.next_page_url)} />
+                                    <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-double-right" onClick={() => paginator(5, tabla.last_page_url)} />
+                                    <span className="p-paginator-current">{`${tabla.from} - ${tabla.to} de ${tabla.total}`}</span>
+                                </>
+                            }
                         </span>
                     </div>
                 </div>
@@ -808,7 +820,7 @@ const Index = ({ auth, contratos }) => {
 
 
 
-            <Modal show={showModal} onHide={handleCloseModal} id={modalId}>
+            <Modal show={showModal} onHide={handleCloseModal} id={modalId} centered>
                 <Modal.Header>
                     {modalOpened == "actividad_economica" &&
                         <h4 class="modal-title">Selecciona la(s) actividad(es) económica(s) de tu interés.</h4>

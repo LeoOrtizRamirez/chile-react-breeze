@@ -14,7 +14,7 @@ class CarpetasController extends Controller
 {
     public function index(Request $request)
     {
-        $carpetas = Carpeta::where('id_usuario', Auth::id())->orderBy('orden', 'ASC')->get();
+        $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
         return Inertia::render('Carpetas/Index', [
             'carpetas' => $carpetas
         ]);
@@ -22,7 +22,7 @@ class CarpetasController extends Controller
 
     public function getCarpetas(Request $request)
     {
-        $carpetas = Carpeta::where('id_usuario', Auth::id())->orderBy('orden', 'ASC')->get();
+        $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
         return $carpetas;
     }
 

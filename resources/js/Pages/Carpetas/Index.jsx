@@ -42,7 +42,7 @@ const Index = ({ auth, carpetas }) => {
     /*Modal Eliminar carpeta */
     return (
         <>
-            <AuthenticatedLayout auth={auth} page={'carpetas'}>
+            <AuthenticatedLayout auth={auth} page={'carpetas'} carpetas={carpetas}>
                 <div className="content_blank_interno margin_left_layout">
                     <div className="col">
                         <h2 className="name_seccion_app">Administrar carpetas</h2>
