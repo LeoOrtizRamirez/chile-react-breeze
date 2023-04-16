@@ -31,7 +31,8 @@ import Loader from "@/Components/Loader";
 
 import { Inertia } from '@inertiajs/inertia'
 
-const Index = ({ auth, contratos, nombre_carpeta, total_carpetas }) => {
+const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) => {
+    console.log("carpetas", carpetas)
     const [tabla, setTabla] = useState(contratos);
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
@@ -408,16 +409,16 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas }) => {
                 <div className="iconos_functions_grid iconos_acciones_contratos">
 
                     {data.favorito ?
-                        <div class="custom-tooltip yellow" data-tooltip="Eliminar De Favoritos">
+                        <div className="custom-tooltip yellow" data-tooltip="Eliminar De Favoritos">
                             <button id={`favorito_${data.id}`} type="button" className="icon-Favorito-click btn_contratos_favoritos favorito_active" onClick={() => handleShowModal("modal_confirm_delete", data)}></button>
                         </div>
                         :
-                        <div class="custom-tooltip yellow" data-tooltip="Agregar A Favoritos">
+                        <div className="custom-tooltip yellow" data-tooltip="Agregar A Favoritos">
                             <button id={`favorito_${data.id}`} type="button" className="icon-Favorito-click btn_contratos_favoritos" onClick={() => addFavorito(data.id)} />
                         </div>
                     }
 
-                    <div class="custom-tooltip green" data-tooltip="Agregar A Seguimientos">
+                    <div className="custom-tooltip green" data-tooltip="Agregar A Seguimientos">
                         <button type="button" className="btn_contratos_seguimientos icon-Seguimientos">
                             <span className="path1">
                             </span>
@@ -427,7 +428,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas }) => {
                             </span>
                         </button>
                     </div>
-                    <div class="custom-tooltip blue" data-tooltip="Agregar A Carpeta(S)">
+                    <div className="custom-tooltip blue" data-tooltip="Agregar A Carpeta(S)" onClick={() => handleShowModal("modal_seleccion_carpeta")}>
                         <button type="button" className="icon-Mis-carpetas btn_contratos_carpeta d-inline-flex">
                             <span className="path1">
                             </span>
@@ -435,16 +436,16 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas }) => {
                             </span>
                         </button>
                     </div>
-                    <div class="custom-tooltip red" data-tooltip="Agregar A Papelera">
-                        <button id="btnContratosDelete-8114846" type="button" class="icon-Eliminar btn_contratos_delete" />
+                    <div className="custom-tooltip red" data-tooltip="Agregar A Papelera">
+                        <button id="btnContratosDelete-8114846" type="button" className="icon-Eliminar btn_contratos_delete" />
                     </div>
-                    <div class="custom-tooltip dark" data-tooltip="Ir A La Fuente">
+                    <div className="custom-tooltip dark" data-tooltip="Ir A La Fuente">
                         <button className="icon-Ir-a-la-fuente-click btn_contratos_external" />
                     </div>
-                    <div class="custom-tooltip purple" data-tooltip="Compartir">
+                    <div className="custom-tooltip purple" data-tooltip="Compartir">
                         <button className="icon-Compartir-click btn_contratos_compartir" />
                     </div>
-                    <div class="custom-tooltip gray" data-tooltip="Crear Primer Nota">
+                    <div className="custom-tooltip gray" data-tooltip="Crear Primer Nota">
                         <button className="btn_contratos_notas custom-tooltip gray">
                             <img src="/public/images/notas/nota.svg" alt="Nota" className="without-notes" />
                         </button>
@@ -717,25 +718,25 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas }) => {
                                 </div> */}
                             </div>
                             {nombre_carpeta == "Favoritos" &&
-                                <div class="d-inline-block seccion-estas-en">
-                                    <p class="my-1">Estás en: <span class="mx-1 icon-Favorito-click"></span>
-                                        <span class="texto-estas-en">mis favoritos</span>
+                                <div className="d-inline-block seccion-estas-en">
+                                    <p className="my-1">Estás en: <span className="mx-1 icon-Favorito-click"></span>
+                                        <span className="texto-estas-en">mis favoritos</span>
                                     </p>
                                 </div>
                             }
                             {nombre_carpeta == "Papelera" &&
-                                <div class="d-inline-block seccion-estas-en">
-                                    <p class="my-1">Estás en: <span class="mx-1 icon-Eliminar"></span>
-                                        <span class="texto-estas-en">{nombre_carpeta}</span>
+                                <div className="d-inline-block seccion-estas-en">
+                                    <p className="my-1">Estás en: <span className="mx-1 icon-Eliminar"></span>
+                                        <span className="texto-estas-en">{nombre_carpeta}</span>
                                     </p>
                                 </div>
                             }
                             {nombre_carpeta != "Favoritos" && nombre_carpeta != "Papelera" && nombre_carpeta != "" &&
-                                <div class="d-inline-block seccion-estas-en">
-                                    <p class="my-1">
+                                <div className="d-inline-block seccion-estas-en">
+                                    <p className="my-1">
                                         Estás en:
-                                        <img src="https://col.licitaciones.info/img/listado/carpeta_azul_claro.svg" width="14" alt="icon-carpeta" class="mx-1" />
-                                        <span class="texto-estas-en">{nombre_carpeta}</span>
+                                        <img src="https://col.licitaciones.info/img/listado/carpeta_azul_claro.svg" width="14" alt="icon-carpeta" className="mx-1" />
+                                        <span className="texto-estas-en">{nombre_carpeta}</span>
                                     </p>
                                 </div>
                             }
@@ -801,18 +802,18 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas }) => {
                     <p>No se encontraron registros</p>
                 }
                 {nombre_carpeta === "Papelera" &&
-                    <div id="mensajes-personalizado-papelera" class="container-fluid content_blank_interno">
-                        <div class="row  align-items-end">
-                            <div class="col-md-4 offset-md-1">
-                                <img src="https://col.licitaciones.info/img/mensajes-personalisados/sin-papelera.png" alt="" class="img-fluid" />
+                    <div id="mensajes-personalizado-papelera" className="container-fluid content_blank_interno">
+                        <div className="row  align-items-end">
+                            <div className="col-md-4 offset-md-1">
+                                <img src="https://col.licitaciones.info/img/mensajes-personalisados/sin-papelera.png" alt="" className="img-fluid" />
                             </div>
-                            <div class="col-md-6 offset-md-1">
-                                <div class="estructura-mensaje-personalisado">
-                                    <h4 class="text-center titulo-personalizado">¡Nada por aqui! no tienes procesos de contratacion en <b class="text-rojo">papelera</b></h4>
-                                    <div class="position-relative">
-                                        <span class="icon-Bombillo mensaje-icono "></span>
-                                        <p class="mensaje-personalizado text-justify d-block">Recuerda que aquí se ponen los procesos que has eliminado, si deseas puedes restaurarlos desde esta sección.</p>
-                                    </div> <a href="/cliente/carpeta/administrar-carpetas" class="btn-new-gray btnRadius d-inline-block text-center btn-volver-carpetas">Regresar a carpetas</a>
+                            <div className="col-md-6 offset-md-1">
+                                <div className="estructura-mensaje-personalisado">
+                                    <h4 className="text-center titulo-personalizado">¡Nada por aqui! no tienes procesos de contratacion en <b className="text-rojo">papelera</b></h4>
+                                    <div className="position-relative">
+                                        <span className="icon-Bombillo mensaje-icono "></span>
+                                        <p className="mensaje-personalizado text-justify d-block">Recuerda que aquí se ponen los procesos que has eliminado, si deseas puedes restaurarlos desde esta sección.</p>
+                                    </div> <a href="/cliente/carpeta/administrar-carpetas" className="btn-new-gray btnRadius d-inline-block text-center btn-volver-carpetas">Regresar a carpetas</a>
                                 </div>
                             </div>
                         </div>
@@ -820,18 +821,18 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas }) => {
                 }
 
                 {nombre_carpeta == "Favoritos" &&
-                    <div id="mensajes-personalizado-favoritos" class="container-fluid content_blank_interno">
-                        <div class="row  align-items-end">
-                            <div class="col-md-3 offset-md-2">
-                                <img src="https://col.licitaciones.info/img/mensajes-personalisados/sin-favoritos.png" alt="" class="img-fluid" />
+                    <div id="mensajes-personalizado-favoritos" className="container-fluid content_blank_interno">
+                        <div className="row  align-items-end">
+                            <div className="col-md-3 offset-md-2">
+                                <img src="https://col.licitaciones.info/img/mensajes-personalisados/sin-favoritos.png" alt="" className="img-fluid" />
                             </div>
-                            <div class="col-md-6 offset-md-1">
-                                <div class="estructura-mensaje-personalisado">
-                                    <h4 class="text-center titulo-personalizado">No has agregado procesos de contratación <b class="text-naranja">favoritos</b> a esta sección</h4>
-                                    <div class="position-relative">
-                                        <span class="icon-Bombillo  mensaje-icono "></span>
-                                        <p class="mensaje-personalizado d-block text-justify">Recuerda que aquí puedes almacenar los procesos que más te interesen. Sólo debes ir al icono de favoritos &nbsp;<span class="icon-Favorito-click" id="icono-mensaje"></span>&nbsp; que se encuentra en la parte inferior de cada proceso y listo, podrás visualisarlos y administrarlos en esta seccion.</p>
-                                    </div> <a href="/carpeta/administrar-carpetas" class="btn btn-new-gray btnRadius mx-auto d-block btn-sin-perfil-crear">Regresar a carpetas</a>
+                            <div className="col-md-6 offset-md-1">
+                                <div className="estructura-mensaje-personalisado">
+                                    <h4 className="text-center titulo-personalizado">No has agregado procesos de contratación <b className="text-naranja">favoritos</b> a esta sección</h4>
+                                    <div className="position-relative">
+                                        <span className="icon-Bombillo  mensaje-icono "></span>
+                                        <p className="mensaje-personalizado d-block text-justify">Recuerda que aquí puedes almacenar los procesos que más te interesen. Sólo debes ir al icono de favoritos &nbsp;<span className="icon-Favorito-click" id="icono-mensaje"></span>&nbsp; que se encuentra en la parte inferior de cada proceso y listo, podrás visualisarlos y administrarlos en esta seccion.</p>
+                                    </div> <a href="/carpeta/administrar-carpetas" className="btn btn-new-gray btnRadius mx-auto d-block btn-sin-perfil-crear">Regresar a carpetas</a>
                                 </div>
                             </div>
                         </div>
@@ -839,15 +840,15 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas }) => {
                 }
 
                 {nombre_carpeta != "Papelera" && nombre_carpeta != "Favoritos" && nombre_carpeta != "" &&
-                    <div id="mensajes-personalizado-sin-contratos-carpeta" class="container content_blank_interno">
-                        <div class="row  align-items-center">
-                            <div class="col-md-4 text-center">
-                                <img src="https://col.licitaciones.info/img/mensajes-personalisados/sin-procesos.png" alt="" class="img-fluid" />
+                    <div id="mensajes-personalizado-sin-contratos-carpeta" className="container content_blank_interno">
+                        <div className="row  align-items-center">
+                            <div className="col-md-4 text-center">
+                                <img src="https://col.licitaciones.info/img/mensajes-personalisados/sin-procesos.png" alt="" className="img-fluid" />
                             </div>
-                            <div class="col-md-6 offset-md-1 margen-mensaje-personalizado">
-                                <h4 class="text-center titulo-personalizado">No tienes procesos de contratación en esta <b class="texto-personalisado-azul">carpeta</b>.</h4>
-                                <p class="mensaje-personalizado text-justify">Recuerda que aquí se pueden agregar lo procesos de contratacíon de forma organizada y en un solo lugar.</p>
-                                <a href="/cliente/carpeta/administrar-carpetas" class="btn btn-new-gray btnRadius mx-auto d-block btn-volver-carpetas">Regresar a carpetas</a>
+                            <div className="col-md-6 offset-md-1 margen-mensaje-personalizado">
+                                <h4 className="text-center titulo-personalizado">No tienes procesos de contratación en esta <b className="texto-personalisado-azul">carpeta</b>.</h4>
+                                <p className="mensaje-personalizado text-justify">Recuerda que aquí se pueden agregar lo procesos de contratacíon de forma organizada y en un solo lugar.</p>
+                                <a href="/cliente/carpeta/administrar-carpetas" className="btn btn-new-gray btnRadius mx-auto d-block btn-volver-carpetas">Regresar a carpetas</a>
                             </div>
                         </div>
                     </div>
@@ -900,19 +901,22 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas }) => {
             <Modal show={showModal} onHide={handleCloseModal} id={modalId} centered>
                 <Modal.Header>
                     {modalOpened == "actividad_economica" &&
-                        <h4 class="modal-title">Selecciona la(s) actividad(es) económica(s) de tu interés.</h4>
+                        <h4 className="modal-title">Selecciona la(s) actividad(es) económica(s) de tu interés.</h4>
                     }
                     {modalOpened == "modalidad" &&
-                        <h4 class="modal-title">Selecciona la modalidad.</h4>
+                        <h4 className="modal-title">Selecciona la modalidad.</h4>
                     }
                     {modalOpened == "ubicacion" &&
-                        <h4 class="modal-title">Selecciona la ubicación.</h4>
+                        <h4 className="modal-title">Selecciona la ubicación.</h4>
                     }
                     {modalOpened == "modal_confirm_delete" &&
-                        <h4 class="modal-title">¿Deseas <span class="text_color_red">eliminar</span> el/los proceso(s) de tus favoritos?</h4>
+                        <h4 className="modal-title">¿Deseas <span className="text_color_red">eliminar</span> el/los proceso(s) de tus favoritos?</h4>
+                    }
+                    {modalOpened == "modal_seleccion_carpeta" &&
+                        <h4 className="modal-title">Selecciona carpeta(s) destino</h4>
                     }
 
-                    <button type="button" aria-label="Close" class="close icon-Cerrar-modal" onClick={handleCloseModal}></button>
+                    <button type="button" aria-label="Close" className="close icon-Cerrar-modal" onClick={handleCloseModal}></button>
                 </Modal.Header>
                 <Modal.Body>
                     {modalOpened == "actividad_economica" &&
@@ -944,40 +948,40 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas }) => {
                     }
                     {modalOpened == "modal_confirm_delete" &&
                         <>
-                            <div class="descripcion_delete">
+                            <div className="descripcion_delete">
                                 <p>Al aceptar esto el proceso se eliminará junto con el siguiente contenido:</p>
                             </div>
-                            <div class="informacion_contratos">
-                                <table class="w-100">
-                                    <thead class="informacion_contratos--cabeceras">
-                                        <th class="columna_informacion">
+                            <div className="informacion_contratos">
+                                <table className="w-100">
+                                    <thead className="informacion_contratos--cabeceras">
+                                        <th className="columna_informacion">
                                             <span>Información del proceso</span>
                                         </th>
-                                        <th class="columna_icono">
+                                        <th className="columna_icono">
                                             <span>Favoritos</span>
                                         </th>
                                     </thead>
                                     <tbody>
-                                        <tr class="informacion_contratos--listado">
-                                            <td class="informacion_contratos--contrato_info columna_informacion">
+                                        <tr className="informacion_contratos--listado">
+                                            <td className="informacion_contratos--contrato_info columna_informacion">
                                                 <div>
-                                                    {/* <div class="checkbox informacion_contratos--contrato_check" style="display: none;">
+                                                    {/* <div className="checkbox informacion_contratos--contrato_check" style="display: none;">
                                                         <label>
-                                                            <input type="checkbox" id="contratoCheckbox0" class="input_perfil_val" value="8119752" />
-                                                            <span class="cr">
-                                                                <i class="cr-icon icon-Check"></i>
+                                                            <input type="checkbox" id="contratoCheckbox0" className="input_perfil_val" value="8119752" />
+                                                            <span className="cr">
+                                                                <i className="cr-icon icon-Check"></i>
                                                             </span>
                                                         </label>
                                                     </div> */}
-                                                    <i id="iconFuente-8119752" class="icono_fuente__list" style={{ background: 'rgb(0, 61, 201)' }}>MP</i>
-                                                    <div class="informacion_contratos--contrato_nombre">
+                                                    <i id="iconFuente-8119752" className="icono_fuente__list" style={{ background: 'rgb(0, 61, 201)' }}>MP</i>
+                                                    <div className="informacion_contratos--contrato_nombre">
                                                         <b>{contratoSelected.entidad_contratante}</b>
                                                         <br />
                                                         <span>{contratoSelected.objeto}</span>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="informacion_contratos--icono columna_icono">
+                                            <td className="informacion_contratos--icono columna_icono">
                                                 <img src="https://col.licitaciones.info/img/listado/quitar_favoritos.svg" />
                                             </td>
                                         </tr>
@@ -986,14 +990,42 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas }) => {
                             </div>
                         </>
                     }
+                    {modalOpened == "modal_seleccion_carpeta" &&
+                        <div className="contenedor_carpetas_seleccion">
+                            <div className="carpetas_list_seleccion">
+                                <ul className="row scroll_fit">
+                                    {carpetas.map((carpeta) => (
+                                        <li className="align-items-center col-md-3 col-sm-4 col-xs-12 d-flex selected_carpeta">
+                                            <span class="body_checkbox">
+                                                <input type="checkbox" id="carpeta_mover" name="carpeta_mover" class="input_perfil_val" value={carpeta.id} />
+                                            </span>
+                                            <div className="body_icono_carpeta">
+                                                <span title="Carpeta 1" className="ico-carpeta icon-Mis-carpetas" style={{ color: carpeta.color }}>
+                                                    <span className="path1"></span>
+                                                    <span className="path2"></span>
+                                                </span>
+                                                <span title="Carpeta 1" className="title_icono_carpeta">{carpeta.nombre_carpeta}</span>
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    }
                 </Modal.Body>
                 <Modal.Footer>
-                    {modalOpened == "modal_confirm_delete" ?
-                        <button class="btnRadius btn-action btn-new-danger" onClick={() => deleteFavorito(contratoSelected.id)}>Eliminar</button>
-                        :
-                        <button type="button" class="btnRadius btn-new-green">Seleccionar</button>
+                    {modalOpened == "modal_confirm_delete" &&
+                        <button className="btnRadius btn-action btn-new-danger" onClick={() => deleteFavorito(contratoSelected.id)}>Eliminar</button>
                     }
-
+                    {modalOpened == "ubicacion" || modalOpened == "modalidad" || modalOpened == "actividad_economica" &&
+                        <button type="button" className="btnRadius btn-new-green">Seleccionar</button>
+                    }
+                    {modalOpened == "modal_seleccion_carpeta" &&
+                        <div class="actions-buttons-modal buttons-modal-carpetas">
+                            <button type="button" class="btn-new-green btnRadius text-center">Crear carpeta</button>
+                            <button type="button" class="btn-new-blue btnRadius text-center disable_button">Guardar en</button>
+                        </div>
+                    }
                 </Modal.Footer>
             </Modal>
         </AuthenticatedLayout >

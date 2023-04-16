@@ -247,7 +247,7 @@ const MenuLateral = ({carpetas = []}) => {
                     </div>
                 </NavDropdown>
                 <li id="item_menu-todos-li">
-                    <a href="/contratos" id="item_menu-todos" className="">
+                    <a href="/cliente/contratos" id="item_menu-todos" className="">
                         <span className="icon-Todos-los-contratos"></span>
                         <span className="item-title-menu">Todos los contratos</span>
                     </a>

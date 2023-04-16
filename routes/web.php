@@ -91,10 +91,10 @@ Route::resource('contratos', ContratoController::class)
     ->middleware(['auth', 'verified']);
 
 
-Route::get('/contratos/{idContrato}/{pagina}/{estado}', [ContratoController::class, 'paginador']);
-Route::post('cliente/contratos/add_favorito', [CarpetasController::class, 'addFavorito']);
-Route::post('cliente/contratos/delete_favorito', [CarpetasController::class, 'deleteFavorito']);
-Route::post('cliente/contratos/get-info/{tipo}', [ContratoController::class, 'carpeta']);
+Route::get('cliente/contratos', [ContratoController::class, 'index'])->middleware(['auth', 'verified']);
+Route::post('cliente/contratos/add_favorito', [CarpetasController::class, 'addFavorito'])->middleware(['auth', 'verified']);
+Route::post('cliente/contratos/delete_favorito', [CarpetasController::class, 'deleteFavorito'])->middleware(['auth', 'verified']);
+Route::post('cliente/contratos/get-info/{tipo}', [ContratoController::class, 'carpeta'])->middleware(['auth', 'verified']);
 
 
 

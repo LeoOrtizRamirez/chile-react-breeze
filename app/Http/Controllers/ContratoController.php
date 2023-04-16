@@ -100,6 +100,7 @@ class ContratoController extends Controller
             }
         }
 
+        $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
         if (request()->has("type") /* && request('type') == "fetch" */) { //dd(request('type'));
             return json_encode($contratos);
         } else {
@@ -109,6 +110,7 @@ class ContratoController extends Controller
                     'contratos' => $contratos,
                     'total_carpetas' => 0,
                     'nombre_carpeta' => '',
+                    'carpetas' => $carpetas
                 ]
             );
         }
@@ -356,12 +358,15 @@ class ContratoController extends Controller
                 }
             }
         }
+
+        $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
         return Inertia::render(
             'Contratos/Index',
             [
                 'contratos' => $contratos,
                 'nombre_carpeta' => $nombre_carpeta,
                 'total_carpetas' => $total_carpetas,
+                'carpetas' => $carpetas
             ]
         );
         /* return Inertia::render(

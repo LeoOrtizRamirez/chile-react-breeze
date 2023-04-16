@@ -1843,6 +1843,104 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     border: 0;
 }
 
+#modal_seleccion_carpeta {
+    max-width: 700px;
+}
+
+#modal_seleccion_carpeta .modal-content {
+    border-radius: 17px;
+    border: 0;
+}
+
+#modal_seleccion_carpeta .modal-header {
+    border: 0!important;
+}
+
+#modal_seleccion_carpeta .modal-body {
+    padding: 35px 55px 28px;
+    text-align: center;
+}
+
+#modal_seleccion_carpeta .modal-header .modal-title {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    font-family: Nexa-bold;
+    font-weight: 400;
+    color: #686868;
+    font-size: 20px;
+    padding-top: 8px;
+    line-height: 1.3;
+}
+
+#modal_seleccion_carpeta .modal-header .icon-Cerrar-modal{
+    right: 17px;
+}
+
+#modal_seleccion_carpeta .carpetas_list_seleccion {
+    padding: 0 30px;
+}
+
+#modal_seleccion_carpeta .carpetas_list_seleccion ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0;
+    overflow-y: auto;
+    max-height: 70vh;
+}
+
+#modal_seleccion_carpeta  .carpetas_list_seleccion ul li {
+    margin-bottom: 24px;
+}
+
+#modal_seleccion_carpeta .carpetas_list_seleccion ul .body_icono_carpeta {
+    min-width: 106px;
+}
+
+#modal_seleccion_carpeta .carpetas_list_seleccion ul .body_checkbox,
+#modal_seleccion_carpeta .carpetas_list_seleccion ul .body_icono_carpeta {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#modal_seleccion_carpeta .carpetas_list_seleccion ul .body_icono_carpeta>.ico-carpeta {
+    font-size: 65px;
+}
+
+#modal_seleccion_carpeta .carpetas_list_seleccion ul .body_icono_carpeta>span {
+    display: block;
+}
+
+#modal_seleccion_carpeta .carpetas_list_seleccion ul .body_icono_carpeta>.title_icono_carpeta {
+    font-size: 14px;
+    font-family: Nexa-bold!important;
+    color: #686868;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#modal_seleccion_carpeta .modal-footer{
+    text-align: center;
+    justify-content: center;
+    border: 0;
+}
+
+#modal_seleccion_carpeta .buttons-modal-carpetas button {
+    padding: 1px 30px;
+    margin: 5px 20px;
+    display: inline-block;
+    background: #fff;
+    font-size: 15px;
+    outline: none!important;
+}
+
+#modal_seleccion_carpeta input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    color: #73c914 !important;
+}
+
 /*Tooltips*/
 #contratos .custom-tooltip {
     position: relative;
