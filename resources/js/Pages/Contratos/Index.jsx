@@ -31,8 +31,9 @@ import Loader from "@/Components/Loader";
 
 import { Inertia } from '@inertiajs/inertia'
 
+import CrearCarpeta from "@/Components/CrearCarpeta";
+
 const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) => {
-    console.log("carpetas", carpetas)
     const [tabla, setTabla] = useState(contratos);
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
@@ -858,6 +859,23 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
         );
     };
 
+
+    const [folders, setFolders] = useState(carpetas)
+    const [showModalCrearCarpeta, setShowModalCrearCarpeta] = useState(false);
+    const handleOpenModalCrearCarpeta = () => {
+        setShowModalCrearCarpeta(true);
+    };
+    const handleCloseModalCrearCarpeta = () => {
+        setCarpetaSelected(null)
+        setShowModalCrearCarpeta(false);
+    };
+
+    const [carpetaSelected, setCarpetaSelected] = useState([])
+
+    const handleCarpetas = (carpetas) =>{
+        setFolders(carpetas)
+        setShowModalCrearCarpeta(false)
+    }
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'}>
             <div className="content_not_blank_interno">
@@ -913,7 +931,13 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                         <h4 className="modal-title">¿Deseas <span className="text_color_red">eliminar</span> el/los proceso(s) de tus favoritos?</h4>
                     }
                     {modalOpened == "modal_seleccion_carpeta" &&
-                        <h4 className="modal-title">Selecciona carpeta(s) destino</h4>
+                        <>
+                            {folders.length == 0 ?
+                                <h4 className="modal-title">Aún no tienes carpetas creadas</h4>
+                                :
+                                <h4 className="modal-title">Selecciona carpeta(s) destino</h4>
+                            }
+                        </>
                     }
 
                     <button type="button" aria-label="Close" className="close icon-Cerrar-modal" onClick={handleCloseModal}></button>
@@ -992,24 +1016,31 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                     }
                     {modalOpened == "modal_seleccion_carpeta" &&
                         <div className="contenedor_carpetas_seleccion">
-                            <div className="carpetas_list_seleccion">
-                                <ul className="row scroll_fit">
-                                    {carpetas.map((carpeta) => (
-                                        <li className="align-items-center col-md-3 col-sm-4 col-xs-12 d-flex selected_carpeta">
-                                            <span class="body_checkbox">
-                                                <input type="checkbox" id="carpeta_mover" name="carpeta_mover" class="input_perfil_val" value={carpeta.id} />
-                                            </span>
-                                            <div className="body_icono_carpeta">
-                                                <span title="Carpeta 1" className="ico-carpeta icon-Mis-carpetas" style={{ color: carpeta.color }}>
-                                                    <span className="path1"></span>
-                                                    <span className="path2"></span>
+                            {folders.length == 0 ?
+                                <div id="mensajes-sin-carpetas" class="container content_blank_intern">
+                                    <img src="/images/mensajes-personalizados/sin-carpetas-modal.svg" alt="" class="imagen-sin-carpetas"/>
+                                        <p>Añade tu primer carpeta</p>
+                                </div>
+                                :
+                                <div className="carpetas_list_seleccion">
+                                    <ul className="row scroll_fit">
+                                        {folders.map((carpeta) => (
+                                            <li className="align-items-center col-md-3 col-sm-4 col-xs-12 d-flex selected_carpeta">
+                                                <span class="body_checkbox">
+                                                    <input type="checkbox" id="carpeta_mover" name="carpeta_mover" class="input_perfil_val" value={carpeta.id} />
                                                 </span>
-                                                <span title="Carpeta 1" className="title_icono_carpeta">{carpeta.nombre_carpeta}</span>
-                                            </div>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                                                <div className="body_icono_carpeta">
+                                                    <span title="Carpeta 1" className="ico-carpeta icon-Mis-carpetas" style={{ color: carpeta.color }}>
+                                                        <span className="path1"></span>
+                                                        <span className="path2"></span>
+                                                    </span>
+                                                    <span title="Carpeta 1" className="title_icono_carpeta">{carpeta.nombre_carpeta}</span>
+                                                </div>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            }
                         </div>
                     }
                 </Modal.Body>
@@ -1022,12 +1053,13 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                     }
                     {modalOpened == "modal_seleccion_carpeta" &&
                         <div class="actions-buttons-modal buttons-modal-carpetas">
-                            <button type="button" class="btn-new-green btnRadius text-center">Crear carpeta</button>
+                            <button type="button" class="btn-new-green btnRadius text-center" onClick={handleOpenModalCrearCarpeta}>Crear carpeta</button>
                             <button type="button" class="btn-new-blue btnRadius text-center disable_button">Guardar en</button>
                         </div>
                     }
                 </Modal.Footer>
             </Modal>
+            <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} carpeta={carpetaSelected} other_page={true} handleCarpetas={handleCarpetas}/>
         </AuthenticatedLayout >
     );
 };

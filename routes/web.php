@@ -86,10 +86,6 @@ Route::resource('posts', PostController::class)
     ->middleware(['auth', 'verified']);
 
 
-Route::resource('contratos', ContratoController::class)
-    ->only(['index'])
-    ->middleware(['auth', 'verified']);
-
 
 Route::get('cliente/contratos', [ContratoController::class, 'index'])->middleware(['auth', 'verified']);
 Route::post('cliente/contratos/add_favorito', [CarpetasController::class, 'addFavorito'])->middleware(['auth', 'verified']);
@@ -183,6 +179,7 @@ Route::post('grupo-filtro-usuarios/store', [GrupoFiltroUsuarioController::class,
 /*Carpetas */
 Route::get('/cliente/carpeta/administrar-carpetas', [CarpetasController::class, 'index'])->middleware(['auth', 'verified'])->name('carpetas.index');
 Route::post('/cliente/carpeta/store', [CarpetasController::class, 'store'])->middleware(['auth', 'verified'])->name('carpetas.store');
+Route::post('/cliente/carpeta/crear', [CarpetasController::class, 'crear'])->middleware(['auth', 'verified'])->name('carpetas.crear');
 Route::post('/cliente/carpeta/update', [CarpetasController::class, 'update'])->middleware(['auth', 'verified'])->name('carpetas.update');
 Route::post('/cliente/carpeta/eliminar', [CarpetasController::class, 'delete'])->middleware(['auth', 'verified'])->name('carpetas.delete');
 Route::get('/cliente/carpeta/carpetas-user', [CarpetasController::class, 'getCarpetas'])->middleware(['auth', 'verified']);

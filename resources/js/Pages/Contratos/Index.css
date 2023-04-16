@@ -1941,6 +1941,22 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     color: #73c914 !important;
 }
 
+#modal_seleccion_carpeta #mensajes-sin-carpetas .imagen-sin-carpetas {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto;
+}
+
+#modal_seleccion_carpeta #mensajes-sin-carpetas p {
+    margin-top: 35px;
+    margin-bottom: 0px;
+    font-size: 22px;
+}
+
+#modal_seleccion_carpeta #mensajes-sin-carpetas p {
+    font-family: Nexa-regular,sans-serif!important;
+    color: #686868;
+}
 /*Tooltips*/
 #contratos .custom-tooltip {
     position: relative;

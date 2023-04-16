@@ -50,6 +50,32 @@ class CarpetasController extends Controller
         return redirect(route('carpetas.index'));
     }
 
+    public function crear(Request $request)
+    {
+        $validated = $request->validate([
+            'nombre_carpeta' => 'required',
+        ]);
+
+        $last_orden = Carpeta::max('orden');
+
+        if(is_null($request->color)){
+            $validated['color'] = "#ffc107";
+        }else{
+            $validated['color'] = $request->color;
+        }
+        $validated['orden'] = $last_orden + 1;
+        $validated['id_usuario'] = Auth::id();
+
+        try {
+            Carpeta::Create($validated);
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+
+        $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
+        return $carpetas;
+    }
+
     public function update(Request $request)
     {
         $validated = $request->validate([

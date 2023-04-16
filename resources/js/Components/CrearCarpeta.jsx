@@ -4,7 +4,7 @@ import './CrearCarpeta.css';
 import { useForm, Head } from "@inertiajs/inertia-react";
 import InputError from "@/Components/InputError";
 
-const CrearCarpeta = ({ showModal, handleCloseModal, carpeta }) => {
+const CrearCarpeta = ({ showModal, handleCloseModal, carpeta, other_page = false, handleCarpetas}) => {
     const { data, setData, post, processing, reset, errors } = useForm({
         id: "",
         id_usuario: "",
@@ -12,14 +12,26 @@ const CrearCarpeta = ({ showModal, handleCloseModal, carpeta }) => {
         color: "",
         orden: "",
     });
+
+
     const submit = (e) => {
         e.preventDefault();
-        if(data?.id != undefined){
-            post(route("carpetas.update"), { onSuccess: () => handleCloseModal() });
-        }else{
-            post(route("carpetas.store"), { onSuccess: () => handleCloseModal() });
+        if (other_page) {
+            var token = document.querySelector('meta[name="csrf-token"]')
+            axios.post('/cliente/carpeta/crear', data, { 'Authorization': `Bearer ${token}` })
+                .then(response => {
+                    handleCarpetas(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        } else {
+            if (data?.id != undefined) {
+                post(route("carpetas.update"), { onSuccess: () => handleCloseModal() });
+            } else {
+                post(route("carpetas.store"), { onSuccess: () => handleCloseModal() });
+            }
         }
-        
     };
 
     useEffect(() => {
