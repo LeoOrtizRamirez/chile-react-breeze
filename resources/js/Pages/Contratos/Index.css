@@ -135,6 +135,21 @@
     font-size: 13px;
 }
 
+#contratos .seccion-estas-en p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 300px;
+    display: inline-block;
+}
+
+#contratos .seccion-estas-en img {
+    vertical-align: top;
+    margin-top: 2px;
+    width: 13px;
+    display: inline-block;
+}
+
 #contratos .seccion-estas-en .icon-Favorito-click {
     color: #ffc107;
     font-size: 14px;
@@ -2033,24 +2048,25 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     margin-bottom: 8px;
 }
 
-#mensajes-personalizado-favoritos {
+#contratos #mensajes-personalizado-favoritos {
     padding-bottom: 1.4rem;
 }
 
-#mensajes-personalizado-favoritos .estructura-mensaje-personalisado {
+#contratos #mensajes-personalizado-favoritos .estructura-mensaje-personalisado {
     max-width: 500px;
 }
 
-#mensajes-personalizado-favoritos .titulo-personalizado {
+#contratos #mensajes-personalizado-favoritos .titulo-personalizado {
     padding-bottom: 3.75rem;
 }
 
-#mensajes-personalizado-favoritos #titulo-movil-personalizado, #mensajes-personalizado-favoritos .titulo-personalizado {
+#contratos #mensajes-personalizado-favoritos #titulo-movil-personalizado, 
+#contratos #mensajes-personalizado-favoritos .titulo-personalizado {
     font-family: Nexa-bold,sans-serif!important;
     color: #686868;
 }
 
-#mensajes-personalizado-favoritos .mensaje-icono {
+#contratos #mensajes-personalizado-favoritos .mensaje-icono {
     font-size: 35px!important;
     color: #ffc107 !important;
     position: absolute;
@@ -2066,18 +2082,18 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     height: 100%;
 }
 
-#mensajes-personalizado-favoritos .mensaje-personalizado {
+#contratos #mensajes-personalizado-favoritos .mensaje-personalizado {
     font-size: 19px!important;
     max-width: 475px;
     margin-bottom: 0;
 }
 
-#mensajes-personalizado-favoritos .mensaje-personalizado {
+#contratos #mensajes-personalizado-favoritos .mensaje-personalizado {
     font-family: Nexa-regular,sans-serif!important;
     color: #686868 !important;
 }
 
-#mensajes-personalizado-favoritos #icono-mensaje {
+#contratos #mensajes-personalizado-favoritos #icono-mensaje {
     font-size: 15px!important;
     vertical-align: top!important;
     padding: 1px 0 0!important;
@@ -2085,10 +2101,57 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     color: #686868 !important;
 }
 
-#mensajes-personalizado-favoritos .btn-sin-perfil-crear {
+#contratos #mensajes-personalizado-favoritos .btn-sin-perfil-crear {
     opacity: .6;
     margin-top: 40px;
     max-width: 200px;
     padding: 2px 10px;
     margin-bottom: 8px;
 }
+
+#contratos #mensajes-personalizado-sin-contratos-carpeta {
+    max-width: 98%!important;
+    padding: 3rem 0;
+}
+
+#contratos #mensajes-personalizado-sin-contratos-carpeta .margen-mensaje-personalizado {
+    margin-top: 4rem;
+}
+
+#contratos #mensajes-personalizado-sin-contratos-carpeta .titulo-personalizado {
+    max-width: 458px;
+    margin: auto;
+    padding: 2rem;
+}
+
+#contratos #mensajes-personalizado-sin-contratos-carpeta #titulo-movil-personalizado, 
+#contratos #mensajes-personalizado-sin-contratos-carpeta .titulo-personalizado {
+    font-family: Nexa-bold,sans-serif!important;
+    color: #686868;
+}
+
+#contratos #mensajes-personalizado-sin-contratos-carpeta .texto-personalisado-azul {
+    color: #0f85d6;
+}
+
+#contratos #mensajes-personalizado-sin-contratos-carpeta .mensaje-personalizado {
+    line-height: 1.2;
+    margin-bottom: 0;
+    max-width: 500px!important;
+    font-size: 20px!important;
+    text-align: left;
+}
+
+#contratos #mensajes-personalizado-sin-contratos-carpeta .mensaje-personalizado {
+    font-family: Nexa-regular,sans-serif!important;
+    color: #686868 !important;
+}
+
+#contratos #mensajes-personalizado-sin-contratos-carpeta .btn-volver-carpetas {
+    margin-top: 40px;
+    max-width: 200px;
+    padding: 2px 10px;
+    margin-bottom: 8px;
+    font-family: Nexa-bold, sans-serif;
+}
+

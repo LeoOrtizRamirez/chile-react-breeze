@@ -39,13 +39,21 @@ const MenuLateral = ({carpetas = []}) => {
         setShowModalCrearCarpeta(false);
     };
 
-    const changePage = (tipo) =>{
+    const changePage = (tipo, id = null) =>{
         var token = document.querySelector('meta[name="csrf-token"]')
-        Inertia.post(`cliente/contratos/get-info/${tipo}`, {
-            headers: {
-                'Authorization': `Bearer ${token.content}`
-            }
-        });
+        if(id == null){
+            Inertia.post(`/cliente/contratos/get-info/${tipo}`, {
+                headers: {
+                    'Authorization': `Bearer ${token.content}`
+                }
+            });
+        }else{
+            Inertia.post(`/cliente/contratos/get-info/${tipo}?carpeta=${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token.content}`
+                }
+            });
+        }
     }
 
     return (
@@ -207,7 +215,7 @@ const MenuLateral = ({carpetas = []}) => {
                                                 <span class="body_checkbox">
                                                     <div class="radio" style={{ margin: 0 + 'px;' }}>
                                                         <label>
-                                                            <input type="radio" name="radiocontratos" id="checkboxCarpeta0" class="input_carpeta_val" value="21956" />
+                                                            <input type="radio" name="radiocontratos" id="checkboxCarpeta0" class="input_carpeta_val" value="21956" onClick={() => changePage('C', carpeta.id)} />
                                                         </label>
                                                     </div>
                                                 </span>

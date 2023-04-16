@@ -730,13 +730,20 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas }) => {
                                     </p>
                                 </div>
                             }
-
-
+                            {nombre_carpeta != "Favoritos" && nombre_carpeta != "Papelera" && nombre_carpeta != "" &&
+                                <div class="d-inline-block seccion-estas-en">
+                                    <p class="my-1">
+                                        Estás en:
+                                        <img src="https://col.licitaciones.info/img/listado/carpeta_azul_claro.svg" width="14" alt="icon-carpeta" class="mx-1" />
+                                        <span class="texto-estas-en">{nombre_carpeta}</span>
+                                    </p>
+                                </div>
+                            }
                         </div>
                     </div>
                     <div className="col-12 col-lg-7 col-xl-6 p-0 paginacion_grid text-right text-lg-right ">
                         <span className="paginator">
-                            {nombre_carpeta == "Favoritos" || nombre_carpeta == "Papelera" ?
+                            {nombre_carpeta != "" ?
                                 <span className="p-paginator-current">{total_carpetas} registros</span>
                                 : <>
                                     <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-double-left" onClick={() => paginator(0, tabla.first_page_url)} />
@@ -826,6 +833,21 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas }) => {
                                         <p class="mensaje-personalizado d-block text-justify">Recuerda que aquí puedes almacenar los procesos que más te interesen. Sólo debes ir al icono de favoritos &nbsp;<span class="icon-Favorito-click" id="icono-mensaje"></span>&nbsp; que se encuentra en la parte inferior de cada proceso y listo, podrás visualisarlos y administrarlos en esta seccion.</p>
                                     </div> <a href="/carpeta/administrar-carpetas" class="btn btn-new-gray btnRadius mx-auto d-block btn-sin-perfil-crear">Regresar a carpetas</a>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                {nombre_carpeta != "Papelera" && nombre_carpeta != "Favoritos" && nombre_carpeta != "" &&
+                    <div id="mensajes-personalizado-sin-contratos-carpeta" class="container content_blank_interno">
+                        <div class="row  align-items-center">
+                            <div class="col-md-4 text-center">
+                                <img src="https://col.licitaciones.info/img/mensajes-personalisados/sin-procesos.png" alt="" class="img-fluid" />
+                            </div>
+                            <div class="col-md-6 offset-md-1 margen-mensaje-personalizado">
+                                <h4 class="text-center titulo-personalizado">No tienes procesos de contratación en esta <b class="texto-personalisado-azul">carpeta</b>.</h4>
+                                <p class="mensaje-personalizado text-justify">Recuerda que aquí se pueden agregar lo procesos de contratacíon de forma organizada y en un solo lugar.</p>
+                                <a href="/cliente/carpeta/administrar-carpetas" class="btn btn-new-gray btnRadius mx-auto d-block btn-volver-carpetas">Regresar a carpetas</a>
                             </div>
                         </div>
                     </div>

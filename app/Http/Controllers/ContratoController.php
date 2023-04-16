@@ -294,8 +294,14 @@ class ContratoController extends Controller
         return Redirect::route('contratos.index');
     }
 
-    public function carpeta($tipo)
+    public function carpeta($tipo, Request $request)
     {
+        if (isset($request->carpeta) && !is_null($request->carpeta)) {
+            $carpeta = Carpeta::find($request->carpeta);
+        } else {
+            $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', $tipo)->first();
+        }
+
         switch ($tipo) {
             case 'F':
                 $nombre_carpeta = "Favoritos";
@@ -303,17 +309,20 @@ class ContratoController extends Controller
             case 'E':
                 $nombre_carpeta = "Papelera";
                 break;
+            case 'C':
+                $nombre_carpeta = $carpeta->nombre_carpeta;
+                break;
 
             default:
                 # code...
                 break;
         }
-        $contratos = Contrato::with('fuente')->where('id', 0)->paginate(30);
-        $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', $tipo)->first();
-        $total_carpetas = 0;
+        $contratos = Contrato::with('fuente')->where('id', 0)->paginate(30); //Se busca el id 0 para que no retorne nada pero conserve la estructura que genera el paginate() y no se generen conflictos en el renderizado
 
+        $total_carpetas = 0;
         if ($carpeta) {
             $carpeta_has_contrato = CarpetasHasContrato::where('id_carpeta', $carpeta->id)->get();
+
             $total_carpetas = sizeof($carpeta_has_contrato);
             if ($total_carpetas > 0) {
                 foreach ($carpeta_has_contrato as $key => $value) {
