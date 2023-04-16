@@ -140,6 +140,11 @@
     font-size: 14px;
 }
 
+#contratos .seccion-estas-en .icon-Eliminar {
+    color: #c9003d;
+    font-size: 14px;
+}
+
 #contratos .seccion-estas-en .texto-estas-en {
     text-transform: capitalize;
     font-family: Nexa-regular,sans-serif;

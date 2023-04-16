@@ -104,10 +104,11 @@ class ContratoController extends Controller
             return json_encode($contratos);
         } else {
             return Inertia::render(
-                'Contratos/Index',[
+                'Contratos/Index',
+                [
                     'contratos' => $contratos,
-                    'favorito' => false,
                     'total_carpetas' => 0,
+                    'nombre_carpeta' => '',
                 ]
             );
         }
@@ -295,6 +296,18 @@ class ContratoController extends Controller
 
     public function carpeta($tipo)
     {
+        switch ($tipo) {
+            case 'F':
+                $nombre_carpeta = "Favoritos";
+                break;
+            case 'E':
+                $nombre_carpeta = "Papelera";
+                break;
+
+            default:
+                # code...
+                break;
+        }
         $contratos = Contrato::with('fuente')->where('id', 0)->paginate(30);
         $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', $tipo)->first();
         $total_carpetas = 0;
@@ -335,9 +348,10 @@ class ContratoController extends Controller
             }
         }
         return Inertia::render(
-            'Contratos/Index',[
+            'Contratos/Index',
+            [
                 'contratos' => $contratos,
-                'favorito' => true,
+                'nombre_carpeta' => $nombre_carpeta,
                 'total_carpetas' => $total_carpetas,
             ]
         );

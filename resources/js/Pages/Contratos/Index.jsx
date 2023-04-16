@@ -31,7 +31,7 @@ import Loader from "@/Components/Loader";
 
 import { Inertia } from '@inertiajs/inertia'
 
-const Index = ({ auth, contratos, favorito, total_carpetas }) => {
+const Index = ({ auth, contratos, nombre_carpeta, total_carpetas }) => {
     const [tabla, setTabla] = useState(contratos);
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
@@ -716,10 +716,17 @@ const Index = ({ auth, contratos, favorito, total_carpetas }) => {
                                     </div>
                                 </div> */}
                             </div>
-                            {favorito &&
+                            {nombre_carpeta == "Favoritos" &&
                                 <div class="d-inline-block seccion-estas-en">
                                     <p class="my-1">Estás en: <span class="mx-1 icon-Favorito-click"></span>
                                         <span class="texto-estas-en">mis favoritos</span>
+                                    </p>
+                                </div>
+                            }
+                            {nombre_carpeta == "Papelera" &&
+                                <div class="d-inline-block seccion-estas-en">
+                                    <p class="my-1">Estás en: <span class="mx-1 icon-Eliminar"></span>
+                                        <span class="texto-estas-en">{nombre_carpeta}</span>
                                     </p>
                                 </div>
                             }
@@ -729,7 +736,7 @@ const Index = ({ auth, contratos, favorito, total_carpetas }) => {
                     </div>
                     <div className="col-12 col-lg-7 col-xl-6 p-0 paginacion_grid text-right text-lg-right ">
                         <span className="paginator">
-                            {favorito ?
+                            {nombre_carpeta == "Favoritos" || nombre_carpeta == "Papelera" ?
                                 <span className="p-paginator-current">{total_carpetas} registros</span>
                                 : <>
                                     <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-double-left" onClick={() => paginator(0, tabla.first_page_url)} />
