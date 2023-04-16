@@ -92,6 +92,10 @@ Route::resource('contratos', ContratoController::class)
 
 
 Route::get('/contratos/{idContrato}/{pagina}/{estado}', [ContratoController::class, 'paginador']);
+Route::post('cliente/contratos/add_favorito', [CarpetasController::class, 'addFavorito']);
+Route::post('cliente/contratos/delete_favorito', [CarpetasController::class, 'deleteFavorito']);
+
+
 Route::resource('planes', PlaneController::class)
     ->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);

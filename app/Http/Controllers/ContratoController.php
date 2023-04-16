@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
+use App\Models\Carpeta;
+use App\Models\CarpetasHasContrato;
+use Illuminate\Support\Facades\Auth;
+
 class ContratoController extends Controller
 {
 
@@ -82,6 +86,19 @@ class ContratoController extends Controller
                 $sub_categoria = SubCategoria::find($actividad_economica->id_sub_categoria);
                 $value->actividad_economica = $sub_categoria->nombre;
             }
+
+            $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'F')->first();
+            if(is_null($carpeta)){
+                $value->favorito = false;
+            }else{
+                $favorito = CarpetasHasContrato::where('id_contrato', $value->id)->where('id_carpeta', $carpeta->id)->first();
+                if(is_null($favorito)){
+                    $value->favorito = false;
+                }else{
+                    $value->favorito = true;
+                }
+            }
+            
         }
 
         if (request()->has("type") /* && request('type') == "fetch" */) { //dd(request('type'));

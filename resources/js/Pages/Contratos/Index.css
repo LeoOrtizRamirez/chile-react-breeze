@@ -1654,8 +1654,156 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
 }
 
 
+#modal_confirm_delete {
+    max-width: 636px;
+}
 
+#modal_confirm_delete .modal-content {
+    border-radius: 17px;
+    border: 0;
+}
 
+#modal_confirm_delete .modal-header {
+    padding: 20px 48px!important;
+    position: relative;
+    text-align: center;
+    padding-right: 48px!important;
+    border: 0!important;
+}
+
+#modal_confirm_delete .modal-header .modal-title {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    font-family: Nexa-bold;
+    font-weight: 400;
+    color: #686868;
+    font-size: 20px;
+    padding-top: 8px;
+    line-height: 1.3;
+}
+
+#modal_confirm_delete .modal-header .modal-title .text_color_red {
+    color: #c9003d;
+}
+
+#modal_confirm_delete .modal-header .icon-Cerrar-modal{
+    right: 17px;
+}
+
+#modal_confirm_delete .modal-body .descripcion_delete {
+    font-family: Nexa-regular,sans-serif;
+    font-size: 17px;
+    text-align: center;
+    color: #686868;
+    margin-bottom: 30px;
+}
+
+#modal_confirm_delete .modal-body .descripcion_delete p {
+    border-bottom: 1px solid hsla(0,1%,61%,.15);
+    padding-bottom: 25px;
+}
+
+#modal_confirm_delete .modal-body {
+    padding: 35px 55px 28px;
+    text-align: center;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos {
+    padding: 0 5px 0 20px;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos--icono img {
+    width: 28px;
+    margin: auto;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos--cabeceras {
+    font-family: Nexa-regular,sans-serif;
+    font-size: 18px;
+    color: #9c9b9b;
+    text-align: left;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos .columna_informacion {
+    max-width: 400px;
+    min-width: 179px;
+    word-break: break-word;
+    padding: 0;
+    text-align: left;
+}
+
+#modal_confirm_delete .icono_fuente__list {
+    border-radius: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 36px;
+    height: 36px;
+    font-family: Nexa-regular;
+    font-size: 15px;
+    font-style: normal;
+    color: #fff;
+    text-align: center;
+    font-weight: 400!important;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    vertical-align: middle;
+    line-height: 1;
+    padding-top: 1px;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos--listado .informacion_contratos--contrato_nombre {
+    text-align: left;
+    margin: 20px 0 0 20px;
+    max-width: 335px;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos--listado .informacion_contratos--contrato_nombre b {
+    font-size: 15px;
+    color: #686868;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    max-width: 300px;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos--listado .informacion_contratos--contrato_nombre span {
+    font-family: Nexa-regular,sans-serif;
+    font-size: 13px;
+    color: #686868;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    max-width: 300px;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos--listado .informacion_contratos--contrato_info>div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos--listado {
+    padding-bottom: 5px;
+}
+
+#modal_confirm_delete .modal-footer {
+    text-align: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    border: 0;
+}
 
 /*Tooltips*/
 #contratos .custom-tooltip {
@@ -1787,4 +1935,9 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
 
 #contratos .p-datatable>.p-datatable-wrapper{
     overflow: unset !important;
+}
+
+#contratos .iconos_acciones_contratos .favorito_active:before, 
+#contratos .iconos_acciones_contratos .icon-Favorito-click:hover:before {
+    color: #ffc107!important;
 }

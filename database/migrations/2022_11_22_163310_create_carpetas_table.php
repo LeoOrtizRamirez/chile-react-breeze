@@ -23,6 +23,7 @@ class CreateCarpetasTable extends Migration
             $table->text('nombre_carpeta');
             $table->text('color');
             $table->integer('orden')->nullable();
+            $table->char('tipo', 1)->default('C')->comment('C: Contrato, F: Favorito, P: Papelera');;
             $table->timestamps();
         });
     }

@@ -28,11 +28,17 @@ import { Modal } from 'react-bootstrap';
 import ActividadEconomica from "@/Components/ActividadEconomica";
 
 import Loader from "@/Components/Loader";
-const Index = ({ auth, contratos }) => {
 
+import { Inertia } from '@inertiajs/inertia'
+
+const Index = ({ auth, contratos }) => {
     const [tabla, setTabla] = useState(contratos);
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
+
+    useEffect(() => {
+        setTabla(contratos)
+    }, [contratos])
 
     const paginator = (page, url) => {
         axios.get(url + '&type=fetch')
@@ -399,12 +405,20 @@ const Index = ({ auth, contratos }) => {
                     <span>Ver documentos</span>
                     <i className="icon-Siguiente1"></i>
                 </a>
-                <div id="iconos_functions_8103864" className="iconos_functions_grid iconos_acciones_contratos">
-                    <div class="custom-tooltip yellow" data-tooltip="Agregar A Favoritos">
-                        <button id="btnContratosFavorito-8103864" type="button" className="icon-Favorito-click btn_contratos_favoritos" />
-                    </div>
+                <div className="iconos_functions_grid iconos_acciones_contratos">
+
+                    {data.favorito ?
+                        <div class="custom-tooltip yellow" data-tooltip="Eliminar De Favoritos">
+                            <button id={`favorito_${data.id}`} type="button" className="icon-Favorito-click btn_contratos_favoritos favorito_active" onClick={() => handleShowModal("modal_confirm_delete", data)}></button>
+                        </div>
+                        :
+                        <div class="custom-tooltip yellow" data-tooltip="Agregar A Favoritos">
+                            <button id={`favorito_${data.id}`} type="button" className="icon-Favorito-click btn_contratos_favoritos" onClick={() => addFavorito(data.id)} />
+                        </div>
+                    }
+
                     <div class="custom-tooltip green" data-tooltip="Agregar A Seguimientos">
-                        <button id="btnContratosSeguimiento-8103864" type="button" className="btn_contratos_seguimientos icon-Seguimientos">
+                        <button type="button" className="btn_contratos_seguimientos icon-Seguimientos">
                             <span className="path1">
                             </span>
                             <span className="path2">
@@ -414,7 +428,7 @@ const Index = ({ auth, contratos }) => {
                         </button>
                     </div>
                     <div class="custom-tooltip blue" data-tooltip="Agregar A Carpeta(S)">
-                        <button id="btnContratosCarpeta-8103864" type="button" className="icon-Mis-carpetas btn_contratos_carpeta d-inline-flex">
+                        <button type="button" className="icon-Mis-carpetas btn_contratos_carpeta d-inline-flex">
                             <span className="path1">
                             </span>
                             <span className="path2">
@@ -425,13 +439,13 @@ const Index = ({ auth, contratos }) => {
                         <button id="btnContratosDelete-8114846" type="button" class="icon-Eliminar btn_contratos_delete" />
                     </div>
                     <div class="custom-tooltip dark" data-tooltip="Ir A La Fuente">
-                        <button id="btnContratosExternal-8103864" className="icon-Ir-a-la-fuente-click btn_contratos_external" />
+                        <button className="icon-Ir-a-la-fuente-click btn_contratos_external" />
                     </div>
                     <div class="custom-tooltip purple" data-tooltip="Compartir">
-                        <button id="btnContratosCompartir-8103864" className="icon-Compartir-click btn_contratos_compartir" />
+                        <button className="icon-Compartir-click btn_contratos_compartir" />
                     </div>
                     <div class="custom-tooltip gray" data-tooltip="Crear Primer Nota">
-                        <button id="btnContratoNotas-8103864" className="btn_contratos_notas custom-tooltip gray">
+                        <button className="btn_contratos_notas custom-tooltip gray">
                             <img src="/public/images/notas/nota.svg" alt="Nota" className="without-notes" />
                         </button>
                     </div>
@@ -519,7 +533,7 @@ const Index = ({ auth, contratos }) => {
                 className="p-inputtext p-component p-column-filter column_ver_mas columna_actividad rounded_right"
                 placeholder="Seleccionar"
                 /* onClick={(event) => handleColumnFilterClick(event, column)} */
-                onClick={() => handleShowModalSubCategoria(column.field)}
+                onClick={() => handleShowModal(column.field)}
                 onInput={(e) => {
                     dt.current.filter(e.target.value, 'actividad_economica', 'contains');
                 }}
@@ -527,12 +541,22 @@ const Index = ({ auth, contratos }) => {
         );
     };
 
-    const [showModalSubCategoria, setShowModalSubCategoria] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const [modalOpened, setModalOpened] = useState("")
-    const handleCloseModalSubCategoria = () => setShowModalSubCategoria(false);
-    const handleShowModalSubCategoria = (input) => {
-        setModalOpened(input)
-        setShowModalSubCategoria(true);
+    const [modalId, setModalId] = useState("")
+    const [contratoSelected, setContratoSelected] = useState([])
+    const handleCloseModal = () => setShowModal(false);
+    const handleShowModal = (modal_open, data = null) => {
+        console.log(modal_open)
+        if (modal_open == "actividad_economica" || modal_open == "modalidad" || modal_open == "ubicacion") {
+            setModalId("modal_actividades")
+            setModalOpened(modal_open)
+        } else {
+            setModalId(modal_open)
+            setModalOpened(modal_open)
+            setContratoSelected(data)
+        }
+        setShowModal(true);
     }
 
 
@@ -720,7 +744,29 @@ const Index = ({ auth, contratos }) => {
     const header = renderHeader();
 
 
+    const addFavorito = (contrato) => {
+        var token = document.querySelector('meta[name="csrf-token"]')
+        Inertia.post('/cliente/contratos/add_favorito', { contrato: contrato }, {
+            headers: {
+                'Authorization': `Bearer ${token.content}`
+            }
+        });
+    };
 
+    const deleteFavorito = (contrato) => {
+        /* var payload = {
+            'contrato': contrato
+        }; */
+        var token = document.querySelector('meta[name="csrf-token"]')
+        Inertia.post('/cliente/contratos/delete_favorito', { contrato: contrato }, {
+            headers: {
+                'Authorization': `Bearer ${token.content}`
+            },
+            onSuccess: (response) => {
+                setShowModal(false)
+            }
+        });
+    };
 
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'}>
@@ -729,8 +775,8 @@ const Index = ({ auth, contratos }) => {
                     <DataTable id="datatableContratos" ref={dt} value={tabla.data} rows={pageSize} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
                         globalFilterFields={['fuente.alias_portal', 'entidad_contratante', 'objeto', 'valor', 'modalidad', 'codigo_proceso', 'estado_proceso', 'fecha_publicacion', 'ubicacion', 'actividad_economica']} emptyMessage="No se encontraron registros"
 
-                        expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)}
-                        onRowExpand={onRowExpand} onRowCollapse={onRowCollapse} rowExpansionTemplate={rowExpansionTemplate}
+                        expandedRows={expandedRows} /* onRowToggle={(e) => setExpandedRows(e.data)}
+                        onRowExpand={onRowExpand} onRowCollapse={onRowCollapse} */ rowExpansionTemplate={rowExpansionTemplate}
                         header={header}
 
                         selectionMode={rowClick ? null : 'checkbox'}
@@ -762,7 +808,7 @@ const Index = ({ auth, contratos }) => {
 
 
 
-            <Modal show={showModalSubCategoria} onHide={handleCloseModalSubCategoria} id="modal_actividades">
+            <Modal show={showModal} onHide={handleCloseModal} id={modalId}>
                 <Modal.Header>
                     {modalOpened == "actividad_economica" &&
                         <h4 class="modal-title">Selecciona la(s) actividad(es) económica(s) de tu interés.</h4>
@@ -773,8 +819,11 @@ const Index = ({ auth, contratos }) => {
                     {modalOpened == "ubicacion" &&
                         <h4 class="modal-title">Selecciona la ubicación.</h4>
                     }
+                    {modalOpened == "modal_confirm_delete" &&
+                        <h4 class="modal-title">¿Deseas <span class="text_color_red">eliminar</span> el/los proceso(s) de tus favoritos?</h4>
+                    }
 
-                    <button type="button" aria-label="Close" class="close icon-Cerrar-modal" onClick={handleCloseModalSubCategoria}></button>
+                    <button type="button" aria-label="Close" class="close icon-Cerrar-modal" onClick={handleCloseModal}></button>
                 </Modal.Header>
                 <Modal.Body>
                     {modalOpened == "actividad_economica" &&
@@ -804,12 +853,61 @@ const Index = ({ auth, contratos }) => {
                             checkeds={checkedsLocalizaciones}
                         />
                     }
+                    {modalOpened == "modal_confirm_delete" &&
+                        <>
+                            <div class="descripcion_delete">
+                                <p>Al aceptar esto el proceso se eliminará junto con el siguiente contenido:</p>
+                            </div>
+                            <div class="informacion_contratos">
+                                <table class="w-100">
+                                    <thead class="informacion_contratos--cabeceras">
+                                        <th class="columna_informacion">
+                                            <span>Información del proceso</span>
+                                        </th>
+                                        <th class="columna_icono">
+                                            <span>Favoritos</span>
+                                        </th>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="informacion_contratos--listado">
+                                            <td class="informacion_contratos--contrato_info columna_informacion">
+                                                <div>
+                                                    {/* <div class="checkbox informacion_contratos--contrato_check" style="display: none;">
+                                                        <label>
+                                                            <input type="checkbox" id="contratoCheckbox0" class="input_perfil_val" value="8119752" />
+                                                            <span class="cr">
+                                                                <i class="cr-icon icon-Check"></i>
+                                                            </span>
+                                                        </label>
+                                                    </div> */}
+                                                    <i id="iconFuente-8119752" class="icono_fuente__list" style={{ background: 'rgb(0, 61, 201)' }}>MP</i>
+                                                    <div class="informacion_contratos--contrato_nombre">
+                                                        <b>{contratoSelected.entidad_contratante}</b>
+                                                        <br />
+                                                        <span>{contratoSelected.objeto}</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="informacion_contratos--icono columna_icono">
+                                                <img src="https://col.licitaciones.info/img/listado/quitar_favoritos.svg" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </>
+                    }
                 </Modal.Body>
                 <Modal.Footer>
-                    <button type="button" class="btnRadius btn-new-green">Seleccionar</button>
+                    {modalOpened == "modal_confirm_delete" ?
+                        <button class="btnRadius btn-action btn-new-danger" onClick={() => deleteFavorito(contratoSelected.id)}>Eliminar</button>
+                        :
+                        <button type="button" class="btnRadius btn-new-green">Seleccionar</button>
+                    }
+
                 </Modal.Footer>
             </Modal>
-        </AuthenticatedLayout>
+        </AuthenticatedLayout >
     );
 };
 
