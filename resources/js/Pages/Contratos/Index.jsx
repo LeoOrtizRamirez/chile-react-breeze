@@ -877,7 +877,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
         setShowModalCrearCarpeta(false)
     }
     return (
-        <AuthenticatedLayout auth={auth} page={'contratos'}>
+        <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders}>
             <div className="content_not_blank_interno">
                 <div id="bodycontenido" className="col contratos_row px-0">
                     <DataTable id="datatableContratos" ref={dt} value={tabla.data} rows={pageSize} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
