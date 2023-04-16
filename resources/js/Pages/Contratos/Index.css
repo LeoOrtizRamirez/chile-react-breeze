@@ -2269,3 +2269,12 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     font-family: Nexa-bold, sans-serif;
 }
 
+
+
+body > div.fade.modal-backdrop.show:nth-child(5) {
+    z-index: 1234;
+}
+
+.fade.modal.show {
+    z-index: 1234;
+}
