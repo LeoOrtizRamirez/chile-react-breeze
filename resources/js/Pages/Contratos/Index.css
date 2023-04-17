@@ -128,6 +128,44 @@
     padding: 0px;
 }
 
+#contratos .seccion-estas-en {
+    font-family: Nexa-bold, sans-serif;
+    color: #686868;
+    margin-left: 60px;
+    font-size: 13px;
+}
+
+#contratos .seccion-estas-en p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 300px;
+    display: inline-block;
+}
+
+#contratos .seccion-estas-en img {
+    vertical-align: top;
+    margin-top: 2px;
+    width: 13px;
+    display: inline-block;
+}
+
+#contratos .seccion-estas-en .icon-Favorito-click {
+    color: #ffc107;
+    font-size: 14px;
+}
+
+#contratos .seccion-estas-en .icon-Eliminar {
+    color: #c9003d;
+    font-size: 14px;
+}
+
+#contratos .seccion-estas-en .texto-estas-en {
+    text-transform: capitalize;
+    font-family: Nexa-regular, sans-serif;
+    font-weight: initial;
+}
+
 #contratos .icon-options-order,
 #contratos .text-options-order {
     vertical-align: middle;
@@ -323,7 +361,8 @@ select:focus {
     /* border: 0px; */
     border-top: 0.5px solid #d6d6d6 !important;
     border-bottom: 0 !important;
-    border-right: 1px solid #eeefef !important;
+    /* border-right: 1px solid #eeefef !important; */
+    border-right: 0.5px solid #d6d6d6 !important;
     border-width: 0px;
 }
 
@@ -1317,6 +1356,73 @@ input.p-inputtext.p-component.p-column-filter:not(:placeholder-shown)::before {
     width: 22px;
 }
 
+#contratos .div_iconos_functions_grid .separator_docs {
+    margin: 9px 16px 5px 24px !important;
+    vertical-align: top !important;
+
+    background: #ebebeb;
+    padding: 0 !important;
+    width: 2px;
+    height: 16px;
+    display: inline-block;
+    opacity: 1;
+    margin: -2px 16px 0 28px;
+}
+
+
+#contratos .div_iconos_functions_grid .tags_carpetas {
+    vertical-align: top!important;
+    padding: 0!important;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+#contratos .scroll_carpetas {
+    display: inline-block;
+}
+
+#contratos .scroll_carpetas > div {
+    background-color: white;
+    border: 1px #9C9B9B solid;
+    border-radius: 50px;
+    position: relative;
+    font-family: Nexa-bold !important;
+    color: #9C9B9B;
+    display: inline-block;
+    text-align: center;
+    font-size: 12px;
+    min-width: 90px;
+    padding: 1px 25px 1px 10px;
+    vertical-align: middle;
+    margin-right: 15px;
+}
+
+#contratos .scroll_carpetas .icon-Mis-carpetas {
+    font-size: 14px;
+    vertical-align: inherit;
+    margin-top: 2px;
+}
+
+#contratos .scroll_carpetas > div > button {
+    font-family: Nexa-bold;
+    background: none;
+    border: 0px;
+    padding: 0px 5px;
+    color: #c9003d;
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    line-height: 18px;
+    font-size: 13px;
+    height: 100%;
+}
+
+#contratos  .scroll_carpetas > div > button.icon-Siguiente1 {
+    color: #003DC9;
+    font-size: 11px;
+}
+
 #contratos .icono_fuente__list {
     width: 28px;
     height: 28px;
@@ -1561,8 +1667,8 @@ input.p-inputtext.p-component.p-column-filter:not(:placeholder-shown)::before {
     border-left-width: 1px !important;
     border-left-style: solid !important;
     border-left-color: rgb(214, 214, 214) !important;
-    border-right: 1px solid #d6d6d6 !important;
-    border-right-width: 1px !important;
+    border-right: 0.5px solid #d6d6d6 !important;
+    border-right-width: 0.5px !important;
     border-right-style: solid !important;
     border-right-color: rgb(214, 214, 214) !important;
 
@@ -1653,7 +1759,276 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
 }
 
 
+#modal_confirm_delete {
+    max-width: 636px;
+}
 
+#modal_confirm_delete .modal-content {
+    border-radius: 17px;
+    border: 0;
+}
+
+#modal_confirm_delete .modal-header {
+    padding: 20px 48px !important;
+    position: relative;
+    text-align: center;
+    padding-right: 48px !important;
+    border: 0 !important;
+}
+
+#modal_confirm_delete .modal-header .modal-title {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    font-family: Nexa-bold;
+    font-weight: 400;
+    color: #686868;
+    font-size: 20px;
+    padding-top: 8px;
+    line-height: 1.3;
+}
+
+#modal_confirm_delete .modal-header .modal-title .text_color_red {
+    color: #c9003d;
+}
+
+#modal_confirm_delete .modal-header .icon-Cerrar-modal {
+    right: 17px;
+}
+
+#modal_confirm_delete .modal-body .descripcion_delete {
+    font-family: Nexa-regular, sans-serif;
+    font-size: 17px;
+    text-align: center;
+    color: #686868;
+    margin-bottom: 30px;
+}
+
+#modal_confirm_delete .modal-body .descripcion_delete p {
+    border-bottom: 1px solid hsla(0, 1%, 61%, .15);
+    padding-bottom: 25px;
+}
+
+#modal_confirm_delete .modal-body {
+    padding: 35px 55px 28px;
+    text-align: center;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos {
+    padding: 0 5px 0 20px;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos--icono img {
+    width: 28px;
+    margin: auto;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos--cabeceras {
+    font-family: Nexa-regular, sans-serif;
+    font-size: 18px;
+    color: #9c9b9b;
+    text-align: left;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos .columna_informacion {
+    max-width: 400px;
+    min-width: 179px;
+    word-break: break-word;
+    padding: 0;
+    text-align: left;
+}
+
+#modal_confirm_delete .icono_fuente__list {
+    border-radius: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 36px;
+    height: 36px;
+    font-family: Nexa-regular;
+    font-size: 15px;
+    font-style: normal;
+    color: #fff;
+    text-align: center;
+    font-weight: 400 !important;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    vertical-align: middle;
+    line-height: 1;
+    padding-top: 1px;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos--listado .informacion_contratos--contrato_nombre {
+    text-align: left;
+    margin: 20px 0 0 20px;
+    max-width: 335px;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos--listado .informacion_contratos--contrato_nombre b {
+    font-size: 15px;
+    color: #686868;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    max-width: 300px;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos--listado .informacion_contratos--contrato_nombre span {
+    font-family: Nexa-regular, sans-serif;
+    font-size: 13px;
+    color: #686868;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    max-width: 300px;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos--listado .informacion_contratos--contrato_info>div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos--listado {
+    padding-bottom: 5px;
+}
+
+#modal_confirm_delete .modal-footer {
+    text-align: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    border: 0;
+}
+
+#modal_seleccion_carpeta {
+    max-width: 700px;
+}
+
+#modal_seleccion_carpeta .modal-content {
+    border-radius: 17px;
+    border: 0;
+}
+
+#modal_seleccion_carpeta .modal-header {
+    border: 0 !important;
+}
+
+#modal_seleccion_carpeta .modal-body {
+    padding: 35px 55px 28px;
+    text-align: center;
+}
+
+#modal_seleccion_carpeta .modal-header .modal-title {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    font-family: Nexa-bold;
+    font-weight: 400;
+    color: #686868;
+    font-size: 20px;
+    padding-top: 8px;
+    line-height: 1.3;
+}
+
+#modal_seleccion_carpeta .modal-header .icon-Cerrar-modal {
+    right: 17px;
+}
+
+#modal_seleccion_carpeta .carpetas_list_seleccion {
+    padding: 0 30px;
+}
+
+#modal_seleccion_carpeta .carpetas_list_seleccion ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0;
+    overflow-y: auto;
+    max-height: 70vh;
+}
+
+#modal_seleccion_carpeta .carpetas_list_seleccion ul li {
+    margin-bottom: 24px;
+}
+
+#modal_seleccion_carpeta .carpetas_list_seleccion ul .body_icono_carpeta {
+    min-width: 106px;
+}
+
+#modal_seleccion_carpeta .carpetas_list_seleccion ul .body_checkbox,
+#modal_seleccion_carpeta .carpetas_list_seleccion ul .body_icono_carpeta {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#modal_seleccion_carpeta .carpetas_list_seleccion ul .body_icono_carpeta>.ico-carpeta {
+    font-size: 65px;
+}
+
+#modal_seleccion_carpeta .carpetas_list_seleccion ul .body_icono_carpeta>span {
+    display: block;
+}
+
+#modal_seleccion_carpeta .carpetas_list_seleccion ul .body_icono_carpeta>.title_icono_carpeta {
+    font-size: 14px;
+    font-family: Nexa-bold !important;
+    color: #686868;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#modal_seleccion_carpeta .modal-footer {
+    text-align: center;
+    justify-content: center;
+    border: 0;
+}
+
+#modal_seleccion_carpeta .buttons-modal-carpetas button {
+    padding: 1px 30px;
+    margin: 5px 20px;
+    display: inline-block;
+    background: #fff;
+    font-size: 15px;
+    outline: none !important;
+}
+
+#modal_seleccion_carpeta input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    color: #73c914 !important;
+}
+
+#modal_seleccion_carpeta #mensajes-sin-carpetas .imagen-sin-carpetas {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto;
+}
+
+#modal_seleccion_carpeta #mensajes-sin-carpetas p {
+    margin-top: 35px;
+    margin-bottom: 0px;
+    font-size: 22px;
+}
+
+#modal_seleccion_carpeta #mensajes-sin-carpetas p {
+    font-family: Nexa-regular, sans-serif !important;
+    color: #686868;
+}
+
+#modal_seleccion_carpeta button[disabled] {
+    opacity: .3;
+    pointer-events: none;
+}
 
 
 /*Tooltips*/
@@ -1783,3 +2158,240 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
 #contratos .custom-tooltip.yellow:hover:after {
     left: 34%;
 }
+
+#contratos .p-datatable>.p-datatable-wrapper {
+    overflow: unset !important;
+}
+
+#contratos .iconos_acciones_contratos .favorito_active:before,
+#contratos .iconos_acciones_contratos .icon-Favorito-click:hover:before {
+    color: #ffc107 !important;
+}
+
+#contratos .content_blank_interno {
+    background: #fff;
+    margin-top: 24px;
+    border-radius: 14px;
+    margin-bottom: 60px;
+}
+
+#contratos #mensajes-personalizado-papelera {
+    padding-bottom: 1.4rem;
+}
+
+#contratos #mensajes-personalizado-papelera .titulo-personalizado {
+    margin: 0;
+    padding-bottom: 3.75rem;
+}
+
+#contratos #mensajes-personalizado-papelera #titulo-movil-personalizado,
+#contratos #mensajes-personalizado-papelera .titulo-personalizado {
+    font-family: Nexa-bold, sans-serif !important;
+    color: #686868;
+}
+
+#contratos .text-rojo {
+    color: #c9003d !important;
+}
+
+#contratos .text-naranja {
+    color: #ffc107 !important;
+}
+
+#contratos #mensajes-personalizado-papelera .mensaje-icono {
+    font-size: 35px !important;
+    color: #ffc107 !important;
+    position: absolute;
+    right: 100%;
+    margin-right: 7px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    top: 0;
+    height: 100%;
+}
+
+#contratos #mensajes-personalizado-papelera .mensaje-personalizado {
+    font-size: 19px !important;
+    margin-bottom: 0;
+}
+
+#contratos #mensajes-personalizado-papelera .mensaje-personalizado {
+    font-family: Nexa-regular, sans-serif !important;
+    color: #686868 !important;
+}
+
+#contratos #mensajes-personalizado-papelera .estructura-mensaje-personalisado {
+    max-width: 500px;
+}
+
+#contratos #mensajes-personalizado-papelera .btn-volver-carpetas {
+    opacity: .6;
+    margin-top: 40px;
+    max-width: 200px;
+    padding: 2px 10px;
+    margin-bottom: 8px;
+}
+
+#contratos #mensajes-personalizado-favoritos {
+    padding-bottom: 1.4rem;
+}
+
+#contratos #mensajes-personalizado-favoritos .estructura-mensaje-personalisado {
+    max-width: 500px;
+}
+
+#contratos #mensajes-personalizado-favoritos .titulo-personalizado {
+    padding-bottom: 3.75rem;
+}
+
+#contratos #mensajes-personalizado-favoritos #titulo-movil-personalizado,
+#contratos #mensajes-personalizado-favoritos .titulo-personalizado {
+    font-family: Nexa-bold, sans-serif !important;
+    color: #686868;
+}
+
+#contratos #mensajes-personalizado-favoritos .mensaje-icono {
+    font-size: 35px !important;
+    color: #ffc107 !important;
+    position: absolute;
+    right: 100%;
+    margin-right: 7px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    top: 0;
+    height: 100%;
+}
+
+#contratos #mensajes-personalizado-favoritos .mensaje-personalizado {
+    font-size: 19px !important;
+    max-width: 475px;
+    margin-bottom: 0;
+}
+
+#contratos #mensajes-personalizado-favoritos .mensaje-personalizado {
+    font-family: Nexa-regular, sans-serif !important;
+    color: #686868 !important;
+}
+
+#contratos #mensajes-personalizado-favoritos #icono-mensaje {
+    font-size: 15px !important;
+    vertical-align: top !important;
+    padding: 1px 0 0 !important;
+    display: inline-block;
+    color: #686868 !important;
+}
+
+#contratos #mensajes-personalizado-favoritos .btn-sin-perfil-crear {
+    opacity: .6;
+    margin-top: 40px;
+    max-width: 200px;
+    padding: 2px 10px;
+    margin-bottom: 8px;
+}
+
+#contratos #mensajes-personalizado-sin-contratos-carpeta {
+    max-width: 98% !important;
+    padding: 3rem 0;
+}
+
+#contratos #mensajes-personalizado-sin-contratos-carpeta .margen-mensaje-personalizado {
+    margin-top: 4rem;
+}
+
+#contratos #mensajes-personalizado-sin-contratos-carpeta .titulo-personalizado {
+    max-width: 458px;
+    margin: auto;
+    padding: 2rem;
+}
+
+#contratos #mensajes-personalizado-sin-contratos-carpeta #titulo-movil-personalizado,
+#contratos #mensajes-personalizado-sin-contratos-carpeta .titulo-personalizado {
+    font-family: Nexa-bold, sans-serif !important;
+    color: #686868;
+}
+
+#contratos #mensajes-personalizado-sin-contratos-carpeta .texto-personalisado-azul {
+    color: #0f85d6;
+}
+
+#contratos #mensajes-personalizado-sin-contratos-carpeta .mensaje-personalizado {
+    line-height: 1.2;
+    margin-bottom: 0;
+    max-width: 500px !important;
+    font-size: 20px !important;
+    text-align: left;
+}
+
+#contratos #mensajes-personalizado-sin-contratos-carpeta .mensaje-personalizado {
+    font-family: Nexa-regular, sans-serif !important;
+    color: #686868 !important;
+}
+
+#contratos #mensajes-personalizado-sin-contratos-carpeta .btn-volver-carpetas {
+    margin-top: 40px;
+    max-width: 200px;
+    padding: 2px 10px;
+    margin-bottom: 8px;
+    font-family: Nexa-bold, sans-serif;
+}
+
+
+#modal_seleccion_carpeta .checkbox label input[type=checkbox] {
+    display: none;
+}
+
+.body_checkbox .checkbox>label {
+    margin-bottom: 0!important;
+}
+
+.carpetas_list_seleccion ul .body_checkbox .quitar_carpeta {
+    position: absolute;
+    z-index: 2;
+    background: #c9003d;
+    top: 3px;
+    left: 0;
+    font-size: 9px;
+    width: 100%;
+    text-align: center;
+    height: 15px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-style: normal!important;
+}
+
+.carpetas_list_seleccion ul .body_checkbox .checkbox {
+    position: relative;
+}
+
+.body_checkbox .checkbox {
+    margin: 0!important;
+}
+
+.carpetas_list_seleccion ul .body_checkbox, .carpetas_list_seleccion ul .body_icono_carpeta {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.carpetas_list_seleccion ul .body_checkbox .quitar_carpeta:before {
+    color: #fff!important;
+}
+
+
+
+/*Modals seleccionar carpetas y crear carpeta en vista contratos*/
+body>div.fade.modal-backdrop.show:nth-child(5) {
+    z-index: 1234;
+}
+
+.fade.modal.show {
+    z-index: 1234;
+}
+

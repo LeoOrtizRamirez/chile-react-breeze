@@ -86,12 +86,14 @@ Route::resource('posts', PostController::class)
     ->middleware(['auth', 'verified']);
 
 
-Route::resource('contratos', ContratoController::class)
-    ->only(['index'])
-    ->middleware(['auth', 'verified']);
+
+Route::get('cliente/contratos', [ContratoController::class, 'index'])->middleware(['auth', 'verified'])->name('contratos.index');
+Route::post('cliente/contratos/add_favorito', [CarpetasController::class, 'addFavorito'])->middleware(['auth', 'verified']);
+Route::post('cliente/contratos/delete_favorito', [CarpetasController::class, 'deleteFavorito'])->middleware(['auth', 'verified']);
+Route::post('cliente/contratos/get-info/{tipo}', [ContratoController::class, 'carpeta'])->middleware(['auth', 'verified']);
 
 
-Route::get('/contratos/{idContrato}/{pagina}/{estado}', [ContratoController::class, 'paginador']);
+
 Route::resource('planes', PlaneController::class)
     ->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
@@ -177,8 +179,13 @@ Route::post('grupo-filtro-usuarios/store', [GrupoFiltroUsuarioController::class,
 /*Carpetas */
 Route::get('/cliente/carpeta/administrar-carpetas', [CarpetasController::class, 'index'])->middleware(['auth', 'verified'])->name('carpetas.index');
 Route::post('/cliente/carpeta/store', [CarpetasController::class, 'store'])->middleware(['auth', 'verified'])->name('carpetas.store');
+Route::post('/cliente/carpeta/crear', [CarpetasController::class, 'crear'])->middleware(['auth', 'verified'])->name('carpetas.crear');
 Route::post('/cliente/carpeta/update', [CarpetasController::class, 'update'])->middleware(['auth', 'verified'])->name('carpetas.update');
 Route::post('/cliente/carpeta/eliminar', [CarpetasController::class, 'delete'])->middleware(['auth', 'verified'])->name('carpetas.delete');
 Route::get('/cliente/carpeta/carpetas-user', [CarpetasController::class, 'getCarpetas'])->middleware(['auth', 'verified']);
+
+Route::post('/cliente/carpeta/add-contrato', [CarpetasController::class, 'addContrato'])->middleware(['auth', 'verified']);
+Route::post('/cliente/carpeta/delete-contrato', [CarpetasController::class, 'deleteContrato'])->middleware(['auth', 'verified']);
+
 
 Route::post('register/modal', [RegisteredUserController::class, 'registerModal'])->name('registerModal');

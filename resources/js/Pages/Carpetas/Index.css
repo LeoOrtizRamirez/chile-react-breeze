@@ -271,3 +271,80 @@
     opacity: .7;
     cursor: pointer;
 }
+
+#carpetas .mensajes-busqueda {
+    background-image: -webkit-gradient(linear, left top, right top, from(#e1e1e1), color-stop(50%, #e1e1e1), color-stop(50%, transparent));
+    background-image: linear-gradient(90deg, #e1e1e1 0, #e1e1e1 50%, transparent 0);
+    background-size: 16px 2px;
+    background-position: top;
+    background-repeat: repeat-x;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+@media (min-width: 992px) {
+    #carpetas #mensajes-sin-carpeta {
+        padding-top: 70px;
+    }
+}
+
+#carpetas #mensajes-sin-carpeta {
+    padding-bottom: 35px;
+}
+
+#carpetas #mensajes-sin-carpeta .imagen-sin-carpetas {
+    max-width: 300px;
+    margin: auto;
+}
+
+#carpetas #mensajes-sin-carpeta .titulo-personalizado {
+    padding: 1.6rem 0;
+    font-size: 21px;
+    margin: 0;
+    font-family: Nexa-bold, sans-serif !important;
+    color: #686868;
+}
+
+#carpetas #mensajes-sin-carpeta .cont-mensaje-personalizado {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-left: 1.5rem;
+    margin-bottom: 2.8rem;
+}
+
+#carpetas #mensajes-sin-carpeta .cont-mensaje-personalizado i {
+    padding-right: 20px;
+    font-size: 30px;
+    padding-bottom: 25px;
+    color: #ffc107;
+}
+
+@media (min-width: 992px) {
+    #carpetas #mensajes-sin-carpeta .mensaje-personalizado {
+        font-size: 20px;
+        max-width: 445px;
+    }
+}
+
+#carpetas #mensajes-sin-carpeta .mensaje-personalizado {
+    text-align: justify;
+    line-height: 1.2;
+}
+
+#carpetas #mensajes-sin-carpeta .mensaje-personalizado {
+    font-family: Nexa-regular, sans-serif !important;
+    color: #686868;
+}
+
+#carpetas #mensajes-sin-carpeta .btn-sin-perfil-crear {
+    min-width: 194px;
+    font-size: 17px;
+    padding: 0.2rem 1.8rem;
+    font-size: 16px;
+    position: relative;
+    font-family: Nexa-bold,sans-serif;
+}
