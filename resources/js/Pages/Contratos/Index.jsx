@@ -441,7 +441,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                         <button id="btnContratosDelete-8114846" type="button" className="icon-Eliminar btn_contratos_delete" />
                     </div>
                     <div className="custom-tooltip dark" data-tooltip="Ir A La Fuente">
-                        <button className="icon-Ir-a-la-fuente-click btn_contratos_external" />
+                        <a href={data.link} target="_blank" rel="noopener noreferrer" className="icon-Ir-a-la-fuente-click btn_contratos_external"></a>
                     </div>
                     <div className="custom-tooltip purple" data-tooltip="Compartir">
                         <button className="icon-Compartir-click btn_contratos_compartir" />
