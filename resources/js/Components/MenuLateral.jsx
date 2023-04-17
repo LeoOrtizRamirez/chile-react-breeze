@@ -197,7 +197,7 @@ const MenuLateral = ({carpetas = []}) => {
                                             <span class="body_checkbox">
                                                 <div class="radio" style={{ margin: 0 + 'px;' }}>
                                                     <label>
-                                                        <input type="radio" name="radiocontratos" id="radioContratosEliminados" class="input_carpeta_val" value="E" onClick={() => changePage('E')} />
+                                                        <input type="radio" name="radiocontratos" id="radioContratosEliminados" class="input_carpeta_val" value="E" onClick={() => changePage('P')} />
                                                     </label>
                                                 </div>
                                             </span>

@@ -438,9 +438,19 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                             </span>
                         </button>
                     </div>
-                    <div className="custom-tooltip red" data-tooltip="Agregar A Papelera">
-                        <button id="btnContratosDelete-8114846" type="button" className="icon-Eliminar btn_contratos_delete" />
-                    </div>
+
+
+                    {data.papelera ?
+                        <div className="custom-tooltip red" data-tooltip="Eliminar de Papelera">
+                            <button id="btnContratosDelete-8114846" type="button" className="icon-Eliminar btn_contratos_delete papelera_active" onClick={() => deletePapelera(data.id)} />
+                        </div>
+                        :
+                        <div className="custom-tooltip red" data-tooltip="Agregar A Papelera">
+                            <button id="btnContratosDelete-8114846" type="button" className="icon-Eliminar btn_contratos_delete" onClick={() => addPapelera(data.id)} />
+                        </div>
+                    }
+
+
                     <div className="custom-tooltip dark" data-tooltip="Ir A La Fuente">
                         <a href={data.link} target="_blank" rel="noopener noreferrer" className="icon-Ir-a-la-fuente-click btn_contratos_external"></a>
                     </div>
@@ -814,9 +824,6 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
     };
 
     const deleteFavorito = (contrato) => {
-        /* var payload = {
-            'contrato': contrato
-        }; */
         var token = document.querySelector('meta[name="csrf-token"]')
         Inertia.post('/cliente/contratos/delete_favorito', { contrato: contrato }, {
             headers: {
@@ -828,6 +835,27 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
         });
     };
 
+
+    const addPapelera = (contrato) => {
+        var token = document.querySelector('meta[name="csrf-token"]')
+        Inertia.post('/cliente/contratos/add_papelera', { contrato: contrato }, {
+            headers: {
+                'Authorization': `Bearer ${token.content}`
+            }
+        });
+    };
+
+    const deletePapelera = (contrato) => {
+        var token = document.querySelector('meta[name="csrf-token"]')
+        Inertia.post('/cliente/contratos/delete_papelera', { contrato: contrato }, {
+            headers: {
+                'Authorization': `Bearer ${token.content}`
+            },
+            onSuccess: (response) => {
+                setShowModal(false)
+            }
+        });
+    };
 
     const renderEmptyMessage = () => {
         return (
@@ -966,7 +994,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
     useEffect(() => {
         setCarpetasSeleccionadas([])
     }, [showModal])
-    
+
 
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders}>

@@ -90,6 +90,8 @@ Route::resource('posts', PostController::class)
 Route::get('cliente/contratos', [ContratoController::class, 'index'])->middleware(['auth', 'verified'])->name('contratos.index');
 Route::post('cliente/contratos/add_favorito', [CarpetasController::class, 'addFavorito'])->middleware(['auth', 'verified']);
 Route::post('cliente/contratos/delete_favorito', [CarpetasController::class, 'deleteFavorito'])->middleware(['auth', 'verified']);
+Route::post('cliente/contratos/add_papelera', [CarpetasController::class, 'addPapelera'])->middleware(['auth', 'verified']);
+Route::post('cliente/contratos/delete_papelera', [CarpetasController::class, 'deletePapelera'])->middleware(['auth', 'verified']);
 Route::post('cliente/contratos/get-info/{tipo}', [ContratoController::class, 'carpeta'])->middleware(['auth', 'verified']);
 
 
