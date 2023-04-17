@@ -2168,6 +2168,10 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     color: #ffc107 !important;
 }
 
+#contratos .iconos_acciones_contratos .papelera_active:before{
+    color: #c9003d !important;
+}
+
 #contratos .content_blank_interno {
     background: #fff;
     margin-top: 24px;
