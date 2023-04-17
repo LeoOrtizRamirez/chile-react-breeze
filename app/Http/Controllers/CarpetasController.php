@@ -102,6 +102,12 @@ class CarpetasController extends Controller
 
     public function delete(Request $request)
     {
+        //Buscar si hay contratos en la carpeta y eliminar
+        $carpetas_has_contrato = CarpetasHasContrato::where('id_carpeta', $request->id)->get();
+        foreach ($carpetas_has_contrato as $key => $value) {
+            $value->delete();
+        }
+        
         $carpeta = Carpeta::find($request->id);
         $carpeta->delete();
         return redirect(route('carpetas.index'));
