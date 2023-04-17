@@ -87,7 +87,7 @@ Route::resource('posts', PostController::class)
 
 
 
-Route::get('cliente/contratos', [ContratoController::class, 'index'])->middleware(['auth', 'verified']);
+Route::get('cliente/contratos', [ContratoController::class, 'index'])->middleware(['auth', 'verified'])->name('contratos.index');
 Route::post('cliente/contratos/add_favorito', [CarpetasController::class, 'addFavorito'])->middleware(['auth', 'verified']);
 Route::post('cliente/contratos/delete_favorito', [CarpetasController::class, 'deleteFavorito'])->middleware(['auth', 'verified']);
 Route::post('cliente/contratos/get-info/{tipo}', [ContratoController::class, 'carpeta'])->middleware(['auth', 'verified']);
@@ -183,5 +183,8 @@ Route::post('/cliente/carpeta/crear', [CarpetasController::class, 'crear'])->mid
 Route::post('/cliente/carpeta/update', [CarpetasController::class, 'update'])->middleware(['auth', 'verified'])->name('carpetas.update');
 Route::post('/cliente/carpeta/eliminar', [CarpetasController::class, 'delete'])->middleware(['auth', 'verified'])->name('carpetas.delete');
 Route::get('/cliente/carpeta/carpetas-user', [CarpetasController::class, 'getCarpetas'])->middleware(['auth', 'verified']);
+
+Route::post('/cliente/carpeta/add-contrato', [CarpetasController::class, 'addContrato'])->middleware(['auth', 'verified']);
+
 
 Route::post('register/modal', [RegisteredUserController::class, 'registerModal'])->name('registerModal');

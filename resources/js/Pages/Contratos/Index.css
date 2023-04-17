@@ -1957,6 +1957,13 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     font-family: Nexa-regular,sans-serif!important;
     color: #686868;
 }
+
+#modal_seleccion_carpeta button[disabled] {
+    opacity: .3;
+    pointer-events: none;
+}
+
+
 /*Tooltips*/
 #contratos .custom-tooltip {
     position: relative;
@@ -2271,6 +2278,7 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
 
 
 
+/*Modals seleccionar carpetas y crear carpeta en vista contratos*/
 body > div.fade.modal-backdrop.show:nth-child(5) {
     z-index: 1234;
 }

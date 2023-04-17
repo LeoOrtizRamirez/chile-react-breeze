@@ -34,9 +34,9 @@ class CarpetasController extends Controller
 
         $last_orden = Carpeta::max('orden');
 
-        if(is_null($request->color)){
+        if (is_null($request->color)) {
             $validated['color'] = "#ffc107";
-        }else{
+        } else {
             $validated['color'] = $request->color;
         }
         $validated['orden'] = $last_orden + 1;
@@ -58,9 +58,9 @@ class CarpetasController extends Controller
 
         $last_orden = Carpeta::max('orden');
 
-        if(is_null($request->color)){
+        if (is_null($request->color)) {
             $validated['color'] = "#ffc107";
-        }else{
+        } else {
             $validated['color'] = $request->color;
         }
         $validated['orden'] = $last_orden + 1;
@@ -84,9 +84,9 @@ class CarpetasController extends Controller
 
         $carpeta = Carpeta::find($request->id);
         $carpeta->nombre_carpeta = $request->nombre_carpeta;
-        if(is_null($request->color)){
+        if (is_null($request->color)) {
             $carpeta->color = "#ffc107";
-        }else{
+        } else {
             $carpeta->color = $request->color;
         }
         $carpeta->orden = $request->orden;
@@ -100,17 +100,19 @@ class CarpetasController extends Controller
         return redirect(route('carpetas.index'));
     }
 
-    public function delete(Request $request){
+    public function delete(Request $request)
+    {
         $carpeta = Carpeta::find($request->id);
         $carpeta->delete();
         return redirect(route('carpetas.index'));
     }
 
-    public function addFavorito(Request $request){
+    public function addFavorito(Request $request)
+    {
         //Buscar si ya tiene carpeta de favoritos
         $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'F')->first();
-        
-        if(is_null($carpeta)){
+
+        if (is_null($carpeta)) {
             $carpeta = new Carpeta;
             $carpeta->id_usuario = Auth::id();
             $carpeta->tipo = 'F';
@@ -138,7 +140,8 @@ class CarpetasController extends Controller
         return redirect()->route('contratos.index')->with('message', "Has agregado el proceso de contratación a tus <b class=\"text-naranja\">favoritos<\/b>.");
     }
 
-    public function deleteFavorito(Request $request){
+    public function deleteFavorito(Request $request)
+    {
         //Buscar si ya tiene carpeta de favoritos
         $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'F')->first();
         $carpeta_has_contrato = CarpetasHasContrato::where('id_contrato', $request->contrato)->where('id_carpeta', $carpeta->id)->first();
@@ -155,7 +158,32 @@ class CarpetasController extends Controller
         return redirect()->route('contratos.index');
     }
 
-    public function findCarpeta(){
+    public function addContrato(Request $request)
+    {
 
+        foreach ($request->carpetas as $key => $value) {
+            //Buscar si ya existe
+            $validator = CarpetasHasContrato::where('id_contrato', $request->contrato)->where('id_carpeta', $value)->first();
+            if (!$validator) {
+                $carpeta_has_contrato = new CarpetasHasContrato;
+                $carpeta_has_contrato->id_contrato = $request->contrato;
+                $carpeta_has_contrato->id_carpeta = $value;
+                try {
+                    $carpeta_has_contrato->save();
+                } catch (Exception $e) {
+                    dd($e->getMessage());
+                }
+            }
+        }
+        $response = [
+            'status' => 1,
+            'mesaje' => "Has agregado el proceso de contratación a tus <b class=\"text-azul-oscuro\">carpetas</b>."
+        ];
+
+        return redirect()->route('contratos.index');
+    }
+
+    public function findCarpeta()
+    {
     }
 }

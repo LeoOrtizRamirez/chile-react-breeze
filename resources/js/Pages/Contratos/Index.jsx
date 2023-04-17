@@ -429,7 +429,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                             </span>
                         </button>
                     </div>
-                    <div className="custom-tooltip blue" data-tooltip="Agregar A Carpeta(S)" onClick={() => handleShowModal("modal_seleccion_carpeta")}>
+                    <div className="custom-tooltip blue" data-tooltip="Agregar A Carpeta(S)" onClick={() => handleShowModal("modal_seleccion_carpeta", data)}>
                         <button type="button" className="icon-Mis-carpetas btn_contratos_carpeta d-inline-flex">
                             <span className="path1">
                             </span>
@@ -872,10 +872,39 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
 
     const [carpetaSelected, setCarpetaSelected] = useState([])
 
-    const handleCarpetas = (carpetas) =>{
+    const handleCarpetas = (carpetas) => {
         setFolders(carpetas)
         setShowModalCrearCarpeta(false)
     }
+
+    const [carpetasSeleccionadas, setCarpetasSeleccionadas] = useState([])
+
+    const toggleCarpetasSeleccionadas = (e, id_carpeta) => {
+        if (e.target.checked) {
+            if (!carpetasSeleccionadas.includes(id_carpeta)) {
+                setCarpetasSeleccionadas([...carpetasSeleccionadas, id_carpeta]);
+            }
+        } else {
+            const newCarpetas = carpetasSeleccionadas.filter((item) => item !== id_carpeta);
+            setCarpetasSeleccionadas(newCarpetas);
+        }
+    }
+
+    const saveCarpetasSeleccionadas = () => {
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.post('/cliente/carpeta/add-contrato', {
+                contrato: contratoSelected.id,
+                carpetas: carpetasSeleccionadas
+            },
+            { 'Authorization': `Bearer ${token}` })
+            .then(response => {
+                setShowModal(false)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders}>
             <div className="content_not_blank_interno">
@@ -1018,8 +1047,8 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                         <div className="contenedor_carpetas_seleccion">
                             {folders.length == 0 ?
                                 <div id="mensajes-sin-carpetas" class="container content_blank_intern">
-                                    <img src="/images/mensajes-personalizados/sin-carpetas-modal.svg" alt="" class="imagen-sin-carpetas"/>
-                                        <p>Añade tu primer carpeta</p>
+                                    <img src="/images/mensajes-personalizados/sin-carpetas-modal.svg" alt="" class="imagen-sin-carpetas" />
+                                    <p>Añade tu primer carpeta</p>
                                 </div>
                                 :
                                 <div className="carpetas_list_seleccion">
@@ -1027,7 +1056,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                                         {folders.map((carpeta) => (
                                             <li className="align-items-center col-md-3 col-sm-4 col-xs-12 d-flex selected_carpeta">
                                                 <span class="body_checkbox">
-                                                    <input type="checkbox" id="carpeta_mover" name="carpeta_mover" class="input_perfil_val" value={carpeta.id} />
+                                                    <input type="checkbox" id="carpeta_mover" name="carpeta_mover" class="input_perfil_val" value={carpeta.id} onClick={(e) => toggleCarpetasSeleccionadas(e, carpeta.id)} />
                                                 </span>
                                                 <div className="body_icono_carpeta">
                                                     <span title="Carpeta 1" className="ico-carpeta icon-Mis-carpetas" style={{ color: carpeta.color }}>
@@ -1054,12 +1083,12 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                     {modalOpened == "modal_seleccion_carpeta" &&
                         <div class="actions-buttons-modal buttons-modal-carpetas">
                             <button type="button" class="btn-new-green btnRadius text-center" onClick={handleOpenModalCrearCarpeta}>Crear carpeta</button>
-                            <button type="button" class="btn-new-blue btnRadius text-center disable_button">Guardar en</button>
+                            <button type="button" class="btn-new-blue btnRadius text-center disable_button" disabled={carpetasSeleccionadas.length == 0} onClick={saveCarpetasSeleccionadas}>Guardar en</button>
                         </div>
                     }
                 </Modal.Footer>
             </Modal>
-            <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} carpeta={carpetaSelected} other_page={true} handleCarpetas={handleCarpetas}/>
+            <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} carpeta={carpetaSelected} other_page={true} handleCarpetas={handleCarpetas} />
         </AuthenticatedLayout >
     );
 };
