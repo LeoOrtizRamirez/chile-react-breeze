@@ -432,3 +432,7 @@
 #SubCategorias .tree_categorias__busqueda input::placeholder {
     color: #a4a4a4;
 }
+
+#SubCategorias .Localizaciones i.tree-arrow.expanded.has-child.ltr {
+    display: none;
+}
