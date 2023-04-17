@@ -470,7 +470,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                                                     <span class="path2"></span>
                                                 </span>
                                                 <p class="p-0 m-0 d-inline-block">{carpeta.nombre_carpeta}</p>
-                                                <button type="button" class="icon-Cancelar" onClick={() => deleteContrato(carpeta.id)}></button>
+                                                <button type="button" class="icon-Cancelar" onClick={() => deleteContrato(carpeta.id, data.id)}></button>
                                             </div>
                                         }
                                     </>
@@ -948,12 +948,12 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
         });
     }
 
-    const deleteContrato = (carpeta) => {
+    const deleteContrato = (carpeta, contrato) => {
         /* var payload = {
             'contrato': contrato
         }; */
         var token = document.querySelector('meta[name="csrf-token"]')
-        Inertia.post('/cliente/carpeta/delete-contrato', { contrato: contratoSelected.id, carpeta: carpeta }, {
+        Inertia.post('/cliente/carpeta/delete-contrato', { contrato: contrato, carpeta: carpeta }, {
             headers: {
                 'Authorization': `Bearer ${token.content}`
             },
@@ -1110,7 +1110,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                         <div className="contenedor_carpetas_seleccion">
                             {folders.length == 0 ?
                                 <div id="mensajes-sin-carpetas" class="container content_blank_intern">
-                                    <img src="/images/mensajes-personalizados/sin-carpetas-modal.svg" alt="" class="imagen-sin-carpetas" />
+                                    <img src="/public/images/mensajes-personalizados/sin-carpetas-modal.svg" alt="" class="imagen-sin-carpetas" />
                                     <p>Añade tu primer carpeta</p>
                                 </div>
                                 :
@@ -1120,7 +1120,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                                             <li className="align-items-center col-md-3 col-sm-4 col-xs-12 d-flex selected_carpeta">
                                                 <span class="body_checkbox">
                                                     {contratoSelected.carpetas_ids.includes(carpeta.id) ?
-                                                        <div class="checkbox" style={{ margin: 0 + 'px' }} onClick={() => deleteContrato(carpeta.id)}>
+                                                        <div class="checkbox" style={{ margin: 0 + 'px' }} onClick={() => deleteContrato(carpeta.id, contratoSelected.id)}>
                                                             <i class="align-items-center cr-icon d-flex fa fa-times justify-content-center quitar_carpeta"></i>
                                                             <label>
                                                                 <input type="checkbox" name="carpeta_mover" value="22101" />

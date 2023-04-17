@@ -75,39 +75,39 @@ class ContratoController extends Controller
             })
             ->paginate(30);
 
-        foreach ($contratos as $key => $value) {
-            $contratista = ContratistaContrato::where('id_contrato', $value->id)->first();
-            if ($contratista) {
-                $value->contratista = $contratista->nombre;
-            }
+            foreach ($contratos as $key => $value) {
+                $contratista = ContratistaContrato::where('id_contrato', $value->id)->first();
+                if ($contratista) {
+                    $value->contratista = $contratista->nombre;
+                }
 
-            $actividad_economica = ClasificacionContrato::where('id_contrato', $value->id)->first();
-            if ($actividad_economica) {
-                $sub_categoria = SubCategoria::find($actividad_economica->id_sub_categoria);
-                $value->actividad_economica = $sub_categoria->nombre;
-            }
+                $actividad_economica = ClasificacionContrato::where('id_contrato', $value->id)->first();
+                if ($actividad_economica) {
+                    $sub_categoria = SubCategoria::find($actividad_economica->id_sub_categoria);
+                    $value->actividad_economica = $sub_categoria->nombre;
+                }
 
-            $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'F')->first();
-            if (is_null($carpeta)) {
-                $value->favorito = false;
-            } else {
-                $favorito = CarpetasHasContrato::where('id_contrato', $value->id)->where('id_carpeta', $carpeta->id)->first();
-                if (is_null($favorito)) {
+                $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'F')->first();
+                if (is_null($carpeta)) {
                     $value->favorito = false;
                 } else {
-                    $value->favorito = true;
+                    $favorito = CarpetasHasContrato::where('id_contrato', $value->id)->where('id_carpeta', $carpeta->id)->first();
+                    if (is_null($favorito)) {
+                        $value->favorito = false;
+                    } else {
+                        $value->favorito = true;
+                    }
                 }
-            }
 
-            //Buscar si el contrato esta guardado en carpetas
-            $carpetas = CarpetasHasContrato::join('carpetas', 'carpetas.id', 'carpetas_has_contratos.id_carpeta')->where('id_contrato', $value->id)->get();
-            $value->carpetas = $carpetas;
-            $carpetas_ids = [];
-            foreach ($carpetas as $item => $key) {
-                $carpetas_ids[] = $key->id_carpeta;
+                //Buscar si el contrato esta guardado en carpetas
+                $carpetas = CarpetasHasContrato::join('carpetas', 'carpetas.id', 'carpetas_has_contratos.id_carpeta')->where('id_contrato', $value->id)->whereNotIn('carpetas.tipo', ['F','P'])->get();
+                $value->carpetas = $carpetas;
+                $carpetas_ids = [];
+                foreach ($carpetas as $item => $key) {
+                    $carpetas_ids[] = $key->id_carpeta;
+                }
+                $value->carpetas_ids = $carpetas_ids;
             }
-            $value->carpetas_ids = $carpetas_ids;
-        }
 
         $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
         if (request()->has("type") /* && request('type') == "fetch" */) { //dd(request('type'));
@@ -366,7 +366,7 @@ class ContratoController extends Controller
                     }
 
                     //Buscar si el contrato esta guardado en carpetas
-                    $carpetas = CarpetasHasContrato::join('carpetas', 'carpetas.id', 'carpetas_has_contratos.id_carpeta')->where('id_contrato', $value->id)->get();
+                    $carpetas = CarpetasHasContrato::join('carpetas', 'carpetas.id', 'carpetas_has_contratos.id_carpeta')->where('id_contrato', $value->id)->whereNotIn('carpetas.tipo', ['F','P'])->get();
                     $value->carpetas = $carpetas;
                     $carpetas_ids = [];
                     foreach ($carpetas as $item => $key) {
