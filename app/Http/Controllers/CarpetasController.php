@@ -183,6 +183,20 @@ class CarpetasController extends Controller
         return redirect()->route('contratos.index');
     }
 
+    public function deleteContrato(Request $request)
+    {
+        $validator = CarpetasHasContrato::where('id_contrato', $request->contrato)->where('id_carpeta', $request->carpeta)->first();
+        if ($validator) {
+            try {
+                $validator->delete();
+            } catch (Exception $e) {
+                dd($e->getMessage());
+            }
+        }
+        return redirect()->route('contratos.index');
+
+    }
+
     public function findCarpeta()
     {
     }

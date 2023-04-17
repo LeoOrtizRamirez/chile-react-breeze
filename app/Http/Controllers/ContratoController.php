@@ -98,6 +98,15 @@ class ContratoController extends Controller
                     $value->favorito = true;
                 }
             }
+
+            //Buscar si el contrato esta guardado en carpetas
+            $carpetas = CarpetasHasContrato::join('carpetas', 'carpetas.id', 'carpetas_has_contratos.id_carpeta')->where('id_contrato', $value->id)->get();
+            $value->carpetas = $carpetas;
+            $carpetas_ids = [];
+            foreach ($carpetas as $item => $key) {
+                $carpetas_ids[] = $key->id_carpeta;
+            }
+            $value->carpetas_ids = $carpetas_ids;
         }
 
         $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
@@ -355,6 +364,15 @@ class ContratoController extends Controller
                             $value->favorito = true;
                         }
                     }
+
+                    //Buscar si el contrato esta guardado en carpetas
+                    $carpetas = CarpetasHasContrato::join('carpetas', 'carpetas.id', 'carpetas_has_contratos.id_carpeta')->where('id_contrato', $value->id)->get();
+                    $value->carpetas = $carpetas;
+                    $carpetas_ids = [];
+                    foreach ($carpetas as $item => $key) {
+                        $carpetas_ids[] = $key->id_carpeta;
+                    }
+                    $value->carpetas_ids = $carpetas_ids;
                 }
             }
         }

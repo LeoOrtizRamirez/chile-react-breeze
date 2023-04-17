@@ -185,6 +185,7 @@ Route::post('/cliente/carpeta/eliminar', [CarpetasController::class, 'delete'])-
 Route::get('/cliente/carpeta/carpetas-user', [CarpetasController::class, 'getCarpetas'])->middleware(['auth', 'verified']);
 
 Route::post('/cliente/carpeta/add-contrato', [CarpetasController::class, 'addContrato'])->middleware(['auth', 'verified']);
+Route::post('/cliente/carpeta/delete-contrato', [CarpetasController::class, 'deleteContrato'])->middleware(['auth', 'verified']);
 
 
 Route::post('register/modal', [RegisteredUserController::class, 'registerModal'])->name('registerModal');

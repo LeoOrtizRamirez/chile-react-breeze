@@ -129,7 +129,7 @@
 }
 
 #contratos .seccion-estas-en {
-    font-family: Nexa-bold,sans-serif;
+    font-family: Nexa-bold, sans-serif;
     color: #686868;
     margin-left: 60px;
     font-size: 13px;
@@ -162,7 +162,7 @@
 
 #contratos .seccion-estas-en .texto-estas-en {
     text-transform: capitalize;
-    font-family: Nexa-regular,sans-serif;
+    font-family: Nexa-regular, sans-serif;
     font-weight: initial;
 }
 
@@ -1356,6 +1356,73 @@ input.p-inputtext.p-component.p-column-filter:not(:placeholder-shown)::before {
     width: 22px;
 }
 
+#contratos .div_iconos_functions_grid .separator_docs {
+    margin: 9px 16px 5px 24px !important;
+    vertical-align: top !important;
+
+    background: #ebebeb;
+    padding: 0 !important;
+    width: 2px;
+    height: 16px;
+    display: inline-block;
+    opacity: 1;
+    margin: -2px 16px 0 28px;
+}
+
+
+#contratos .div_iconos_functions_grid .tags_carpetas {
+    vertical-align: top!important;
+    padding: 0!important;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+#contratos .scroll_carpetas {
+    display: inline-block;
+}
+
+#contratos .scroll_carpetas > div {
+    background-color: white;
+    border: 1px #9C9B9B solid;
+    border-radius: 50px;
+    position: relative;
+    font-family: Nexa-bold !important;
+    color: #9C9B9B;
+    display: inline-block;
+    text-align: center;
+    font-size: 12px;
+    min-width: 90px;
+    padding: 1px 25px 1px 10px;
+    vertical-align: middle;
+    margin-right: 15px;
+}
+
+#contratos .scroll_carpetas .icon-Mis-carpetas {
+    font-size: 14px;
+    vertical-align: inherit;
+    margin-top: 2px;
+}
+
+#contratos .scroll_carpetas > div > button {
+    font-family: Nexa-bold;
+    background: none;
+    border: 0px;
+    padding: 0px 5px;
+    color: #c9003d;
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    line-height: 18px;
+    font-size: 13px;
+    height: 100%;
+}
+
+#contratos  .scroll_carpetas > div > button.icon-Siguiente1 {
+    color: #003DC9;
+    font-size: 11px;
+}
+
 #contratos .icono_fuente__list {
     width: 28px;
     height: 28px;
@@ -1702,11 +1769,11 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
 }
 
 #modal_confirm_delete .modal-header {
-    padding: 20px 48px!important;
+    padding: 20px 48px !important;
     position: relative;
     text-align: center;
-    padding-right: 48px!important;
-    border: 0!important;
+    padding-right: 48px !important;
+    border: 0 !important;
 }
 
 #modal_confirm_delete .modal-header .modal-title {
@@ -1725,12 +1792,12 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     color: #c9003d;
 }
 
-#modal_confirm_delete .modal-header .icon-Cerrar-modal{
+#modal_confirm_delete .modal-header .icon-Cerrar-modal {
     right: 17px;
 }
 
 #modal_confirm_delete .modal-body .descripcion_delete {
-    font-family: Nexa-regular,sans-serif;
+    font-family: Nexa-regular, sans-serif;
     font-size: 17px;
     text-align: center;
     color: #686868;
@@ -1738,7 +1805,7 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
 }
 
 #modal_confirm_delete .modal-body .descripcion_delete p {
-    border-bottom: 1px solid hsla(0,1%,61%,.15);
+    border-bottom: 1px solid hsla(0, 1%, 61%, .15);
     padding-bottom: 25px;
 }
 
@@ -1757,7 +1824,7 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
 }
 
 #modal_confirm_delete .modal-body .informacion_contratos--cabeceras {
-    font-family: Nexa-regular,sans-serif;
+    font-family: Nexa-regular, sans-serif;
     font-size: 18px;
     color: #9c9b9b;
     text-align: left;
@@ -1783,7 +1850,7 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     font-style: normal;
     color: #fff;
     text-align: center;
-    font-weight: 400!important;
+    font-weight: 400 !important;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
@@ -1812,7 +1879,7 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
 }
 
 #modal_confirm_delete .modal-body .informacion_contratos--listado .informacion_contratos--contrato_nombre span {
-    font-family: Nexa-regular,sans-serif;
+    font-family: Nexa-regular, sans-serif;
     font-size: 13px;
     color: #686868;
     overflow: hidden;
@@ -1853,7 +1920,7 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
 }
 
 #modal_seleccion_carpeta .modal-header {
-    border: 0!important;
+    border: 0 !important;
 }
 
 #modal_seleccion_carpeta .modal-body {
@@ -1873,7 +1940,7 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     line-height: 1.3;
 }
 
-#modal_seleccion_carpeta .modal-header .icon-Cerrar-modal{
+#modal_seleccion_carpeta .modal-header .icon-Cerrar-modal {
     right: 17px;
 }
 
@@ -1889,7 +1956,7 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     max-height: 70vh;
 }
 
-#modal_seleccion_carpeta  .carpetas_list_seleccion ul li {
+#modal_seleccion_carpeta .carpetas_list_seleccion ul li {
     margin-bottom: 24px;
 }
 
@@ -1913,14 +1980,14 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
 
 #modal_seleccion_carpeta .carpetas_list_seleccion ul .body_icono_carpeta>.title_icono_carpeta {
     font-size: 14px;
-    font-family: Nexa-bold!important;
+    font-family: Nexa-bold !important;
     color: #686868;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-#modal_seleccion_carpeta .modal-footer{
+#modal_seleccion_carpeta .modal-footer {
     text-align: center;
     justify-content: center;
     border: 0;
@@ -1932,7 +1999,7 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     display: inline-block;
     background: #fff;
     font-size: 15px;
-    outline: none!important;
+    outline: none !important;
 }
 
 #modal_seleccion_carpeta input[type="checkbox"] {
@@ -1954,7 +2021,7 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
 }
 
 #modal_seleccion_carpeta #mensajes-sin-carpetas p {
-    font-family: Nexa-regular,sans-serif!important;
+    font-family: Nexa-regular, sans-serif !important;
     color: #686868;
 }
 
@@ -2092,13 +2159,13 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     left: 34%;
 }
 
-#contratos .p-datatable>.p-datatable-wrapper{
+#contratos .p-datatable>.p-datatable-wrapper {
     overflow: unset !important;
 }
 
-#contratos .iconos_acciones_contratos .favorito_active:before, 
+#contratos .iconos_acciones_contratos .favorito_active:before,
 #contratos .iconos_acciones_contratos .icon-Favorito-click:hover:before {
-    color: #ffc107!important;
+    color: #ffc107 !important;
 }
 
 #contratos .content_blank_interno {
@@ -2117,22 +2184,22 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     padding-bottom: 3.75rem;
 }
 
-#contratos #mensajes-personalizado-papelera #titulo-movil-personalizado, 
+#contratos #mensajes-personalizado-papelera #titulo-movil-personalizado,
 #contratos #mensajes-personalizado-papelera .titulo-personalizado {
-    font-family: Nexa-bold,sans-serif!important;
+    font-family: Nexa-bold, sans-serif !important;
     color: #686868;
 }
 
 #contratos .text-rojo {
-    color: #c9003d!important;
+    color: #c9003d !important;
 }
 
 #contratos .text-naranja {
-    color: #ffc107!important;
+    color: #ffc107 !important;
 }
 
 #contratos #mensajes-personalizado-papelera .mensaje-icono {
-    font-size: 35px!important;
+    font-size: 35px !important;
     color: #ffc107 !important;
     position: absolute;
     right: 100%;
@@ -2148,12 +2215,12 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
 }
 
 #contratos #mensajes-personalizado-papelera .mensaje-personalizado {
-    font-size: 19px!important;
+    font-size: 19px !important;
     margin-bottom: 0;
 }
 
 #contratos #mensajes-personalizado-papelera .mensaje-personalizado {
-    font-family: Nexa-regular,sans-serif!important;
+    font-family: Nexa-regular, sans-serif !important;
     color: #686868 !important;
 }
 
@@ -2181,14 +2248,14 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     padding-bottom: 3.75rem;
 }
 
-#contratos #mensajes-personalizado-favoritos #titulo-movil-personalizado, 
+#contratos #mensajes-personalizado-favoritos #titulo-movil-personalizado,
 #contratos #mensajes-personalizado-favoritos .titulo-personalizado {
-    font-family: Nexa-bold,sans-serif!important;
+    font-family: Nexa-bold, sans-serif !important;
     color: #686868;
 }
 
 #contratos #mensajes-personalizado-favoritos .mensaje-icono {
-    font-size: 35px!important;
+    font-size: 35px !important;
     color: #ffc107 !important;
     position: absolute;
     right: 100%;
@@ -2204,20 +2271,20 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
 }
 
 #contratos #mensajes-personalizado-favoritos .mensaje-personalizado {
-    font-size: 19px!important;
+    font-size: 19px !important;
     max-width: 475px;
     margin-bottom: 0;
 }
 
 #contratos #mensajes-personalizado-favoritos .mensaje-personalizado {
-    font-family: Nexa-regular,sans-serif!important;
+    font-family: Nexa-regular, sans-serif !important;
     color: #686868 !important;
 }
 
 #contratos #mensajes-personalizado-favoritos #icono-mensaje {
-    font-size: 15px!important;
-    vertical-align: top!important;
-    padding: 1px 0 0!important;
+    font-size: 15px !important;
+    vertical-align: top !important;
+    padding: 1px 0 0 !important;
     display: inline-block;
     color: #686868 !important;
 }
@@ -2231,7 +2298,7 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
 }
 
 #contratos #mensajes-personalizado-sin-contratos-carpeta {
-    max-width: 98%!important;
+    max-width: 98% !important;
     padding: 3rem 0;
 }
 
@@ -2245,9 +2312,9 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     padding: 2rem;
 }
 
-#contratos #mensajes-personalizado-sin-contratos-carpeta #titulo-movil-personalizado, 
+#contratos #mensajes-personalizado-sin-contratos-carpeta #titulo-movil-personalizado,
 #contratos #mensajes-personalizado-sin-contratos-carpeta .titulo-personalizado {
-    font-family: Nexa-bold,sans-serif!important;
+    font-family: Nexa-bold, sans-serif !important;
     color: #686868;
 }
 
@@ -2258,13 +2325,13 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
 #contratos #mensajes-personalizado-sin-contratos-carpeta .mensaje-personalizado {
     line-height: 1.2;
     margin-bottom: 0;
-    max-width: 500px!important;
-    font-size: 20px!important;
+    max-width: 500px !important;
+    font-size: 20px !important;
     text-align: left;
 }
 
 #contratos #mensajes-personalizado-sin-contratos-carpeta .mensaje-personalizado {
-    font-family: Nexa-regular,sans-serif!important;
+    font-family: Nexa-regular, sans-serif !important;
     color: #686868 !important;
 }
 
@@ -2277,12 +2344,54 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
 }
 
 
+#modal_seleccion_carpeta .checkbox label input[type=checkbox] {
+    display: none;
+}
+
+.body_checkbox .checkbox>label {
+    margin-bottom: 0!important;
+}
+
+.carpetas_list_seleccion ul .body_checkbox .quitar_carpeta {
+    position: absolute;
+    z-index: 2;
+    background: #c9003d;
+    top: 3px;
+    left: 0;
+    font-size: 9px;
+    width: 100%;
+    text-align: center;
+    height: 15px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-style: normal!important;
+}
+
+.carpetas_list_seleccion ul .body_checkbox .checkbox {
+    position: relative;
+}
+
+.body_checkbox .checkbox {
+    margin: 0!important;
+}
+
+.carpetas_list_seleccion ul .body_checkbox, .carpetas_list_seleccion ul .body_icono_carpeta {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.carpetas_list_seleccion ul .body_checkbox .quitar_carpeta:before {
+    color: #fff!important;
+}
+
+
 
 /*Modals seleccionar carpetas y crear carpeta en vista contratos*/
-body > div.fade.modal-backdrop.show:nth-child(5) {
+body>div.fade.modal-backdrop.show:nth-child(5) {
     z-index: 1234;
 }
 
 .fade.modal.show {
     z-index: 1234;
 }
+

@@ -34,6 +34,7 @@ import { Inertia } from '@inertiajs/inertia'
 import CrearCarpeta from "@/Components/CrearCarpeta";
 
 const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) => {
+    console.log(contratos)
     const [tabla, setTabla] = useState(contratos);
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
@@ -455,6 +456,38 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                 <button type="button" className="btnRadius ver-menos-detalle" style={{ display: "none" }}>
                     Ver menos<i className="icon-Desplegar-click"></i>
                 </button>
+                {data.carpetas.length > 0 &&
+                    <>
+                        <span class="separator_docs"></span>
+                        <span class="tags_carpetas">
+                            <div class="scroll_carpetas">
+                                {data.carpetas.map((carpeta, index) => (
+                                    <>
+                                        {index <= 1 &&
+                                            <div class="d-inline-flex">
+                                                <span class="icon-Mis-carpetas mr-2" style={{ color: carpeta.color }}>
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </span>
+                                                <p class="p-0 m-0 d-inline-block">{carpeta.nombre_carpeta}</p>
+                                                <button type="button" class="icon-Cancelar" onClick={() => deleteContrato(carpeta.id)}></button>
+                                            </div>
+                                        }
+                                    </>
+                                ))}
+                                {data.carpetas.length > 2 &&
+                                    <div class="ver_mas_carpetas" onClick={() => handleShowModal("modal_seleccion_carpeta", data)}>
+                                        <span class="icon-Mis-carpetas mr-2" style={{ color: 'rgb(0, 61, 201)' }}>
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </span>Ver más carpetas <button type="button" class="icon-Siguiente1"></button>
+                                    </div>
+                                }
+                            </div>
+                        </span>
+                    </>
+                }
+
             </span>
         );
     };
@@ -549,7 +582,6 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
     const [contratoSelected, setContratoSelected] = useState([])
     const handleCloseModal = () => setShowModal(false);
     const handleShowModal = (modal_open, data = null) => {
-        console.log(modal_open)
         if (modal_open == "actividad_economica" || modal_open == "modalidad" || modal_open == "ubicacion") {
             setModalId("modal_actividades")
             setModalOpened(modal_open)
@@ -796,6 +828,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
         });
     };
 
+
     const renderEmptyMessage = () => {
         return (
             <>
@@ -891,19 +924,49 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
     }
 
     const saveCarpetasSeleccionadas = () => {
-        var token = document.querySelector('meta[name="csrf-token"]')
+        /* var token = document.querySelector('meta[name="csrf-token"]')
         axios.post('/cliente/carpeta/add-contrato', {
-                contrato: contratoSelected.id,
-                carpetas: carpetasSeleccionadas
-            },
+            contrato: contratoSelected.id,
+            carpetas: carpetasSeleccionadas
+        },
             { 'Authorization': `Bearer ${token}` })
             .then(response => {
                 setShowModal(false)
             })
             .catch(error => {
                 console.log(error)
-            })
+            }) */
+
+        var token = document.querySelector('meta[name="csrf-token"]')
+        Inertia.post('/cliente/carpeta/add-contrato', { contrato: contratoSelected.id, carpetas: carpetasSeleccionadas }, {
+            headers: {
+                'Authorization': `Bearer ${token.content}`
+            },
+            onSuccess: (response) => {
+                setShowModal(false)
+            }
+        });
     }
+
+    const deleteContrato = (carpeta) => {
+        /* var payload = {
+            'contrato': contrato
+        }; */
+        var token = document.querySelector('meta[name="csrf-token"]')
+        Inertia.post('/cliente/carpeta/delete-contrato', { contrato: contratoSelected.id, carpeta: carpeta }, {
+            headers: {
+                'Authorization': `Bearer ${token.content}`
+            },
+            onSuccess: (response) => {
+                setShowModal(false)
+            }
+        });
+    };
+
+    useEffect(() => {
+        setCarpetasSeleccionadas([])
+    }, [showModal])
+    
 
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders}>
@@ -1056,7 +1119,19 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                                         {folders.map((carpeta) => (
                                             <li className="align-items-center col-md-3 col-sm-4 col-xs-12 d-flex selected_carpeta">
                                                 <span class="body_checkbox">
-                                                    <input type="checkbox" id="carpeta_mover" name="carpeta_mover" class="input_perfil_val" value={carpeta.id} onClick={(e) => toggleCarpetasSeleccionadas(e, carpeta.id)} />
+                                                    {contratoSelected.carpetas_ids.includes(carpeta.id) ?
+                                                        <div class="checkbox" style={{ margin: 0 + 'px' }} onClick={() => deleteContrato(carpeta.id)}>
+                                                            <i class="align-items-center cr-icon d-flex fa fa-times justify-content-center quitar_carpeta"></i>
+                                                            <label>
+                                                                <input type="checkbox" name="carpeta_mover" value="22101" />
+                                                                <span class="cr">
+                                                                    <i class="cr-icon fa fa-check"></i>
+                                                                </span>
+                                                            </label>
+                                                        </div>
+                                                        :
+                                                        <input type="checkbox" id="carpeta_mover" name="carpeta_mover" class="input_perfil_val" value={carpeta.id} onClick={(e) => toggleCarpetasSeleccionadas(e, carpeta.id)} />
+                                                    }
                                                 </span>
                                                 <div className="body_icono_carpeta">
                                                     <span title="Carpeta 1" className="ico-carpeta icon-Mis-carpetas" style={{ color: carpeta.color }}>
