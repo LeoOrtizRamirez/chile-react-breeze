@@ -19,7 +19,7 @@ class ContratoController extends Controller
 
     public function index()
     {
-        $buscador_rapido = request("buscador_rapido");
+        $buscador_rapido = request("rapida");
         $entidad_contratante = request("entidad_contratante");
         $objeto = request("objeto");
         $codigo_proceso = request("codigo_proceso");
@@ -32,12 +32,12 @@ class ContratoController extends Controller
         $fecha_publicacion = request("fecha_publicacion");
         $contratos = Contrato::with('fuente')
             ->where(function ($query) use ($buscador_rapido, $entidad_contratante, $objeto, $codigo_proceso, $fecha_desde, $fecha_hasta, $cuantia_desde, $cuantia_hasta, $estado_proceso) {
-                if (!is_null($buscador_rapido) && $buscador_rapido != "") {
+                /* if (!is_null($buscador_rapido) && $buscador_rapido != "") {
                     $query->where('entidad_contratante', 'like', '%' . $buscador_rapido . '%')
                         ->orWhere('objeto', 'like', '%' . $buscador_rapido . '%')
                         ->orWhere('modalidad', 'like', '%' . $buscador_rapido . '%')
                         ->orWhere('ubicacion', 'like', '%' . $buscador_rapido . '%');
-                }
+                } */
                 // Inicio condiciones modal filtro avanzado
                 if (!is_null($entidad_contratante) && $entidad_contratante != "") {
                     $query->where('entidad_contratante', 'like', '%' . $entidad_contratante . '%');

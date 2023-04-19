@@ -34,7 +34,6 @@ import { Inertia } from '@inertiajs/inertia'
 import CrearCarpeta from "@/Components/CrearCarpeta";
 
 const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) => {
-    console.log(contratos)
     const [tabla, setTabla] = useState(contratos);
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
@@ -43,8 +42,11 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
         setTabla(contratos)
     }, [contratos])
 
-    const paginator = (page, url) => {
-        axios.get(url + '&type=fetch')
+    const paginator = (url) => {
+
+        console.log("paginator")
+        let _url = url + getUrlParams()
+        axios.get(_url)
             .then(response => {
                 setTabla(response.data)
                 setPageNumber(response.data.current_page - 1)
@@ -55,6 +57,21 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
             });
     }
 
+    const getUrlParams = () => {
+        let rapida = document.querySelector('input[name="rapida"]')?.value
+
+        let portal = document.querySelector('input[name="fuente.alias_portal"]')?.value
+        let entidad_contratante = document.querySelector('input[name="entidad_contratante"]')?.value
+        let objeto = document.querySelector('input[name="objeto"]')?.value
+        let valor = document.querySelector('input[name="valor"]')?.value
+        let modalidad = document.querySelector('input[name="modalidad"]')?.value
+        let codigo_proceso = document.querySelector('input[name="codigo_proceso"]')?.value
+        let estado_proceso = document.querySelector('input[name="estado_proceso"]')?.value
+        let fecha_publicacion = document.querySelector('input[name="fecha_publicacion"]')?.value
+        let ubicacion = document.querySelector('input[name="ubicacion"]')?.value
+        let actividad_economica = document.querySelector('input[name="actividad_economica"]')?.value
+        return `&type=fetch&rapida=${rapida}&portal=${portal}&entidad_contratante=${entidad_contratante}&objeto=${objeto}&valor=${valor}&modalidad=${modalidad}&codigo_proceso=${codigo_proceso}&estado_proceso=${estado_proceso}&fecha_publicacion=${fecha_publicacion}&ubicacion=${ubicacion}&actividad_economica=${actividad_economica}`
+    }
 
 
     // let queryStringBusquedaAvanzada = "";
@@ -66,13 +83,43 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
 
     /*Inicio - ver más, ver menos */
     const [showLess, setShowLess] = useState(true);
-    const [showMoreSelected, setShowMoreSelected] = useState(0);
-    const getData = (data) => {
-        setShowMoreSelected(data.id);
+    const [showMoreSelecteds, setShowMoreSelecteds] = useState([]);
+    const onHandleShowMoreSelecteds = (data, type) => {
+        switch (type) {
+            case "add":
+                if (!showMoreSelecteds.includes(data)) {
+                    setShowMoreSelecteds([...showMoreSelecteds, data]);
+                }
+                break;
+            case "delete":
+                if (showMoreSelecteds.includes(data)) {
+                    setShowMoreSelecteds(showMoreSelecteds.filter(item => item != data));
+                }
+                break;
+            default:
+                break;
+        }
+
     };
 
+    useEffect(()=>{
+        tabla.data.forEach(element =>{
+            let contrato_parent = document.querySelector(`.row-${element.id}`)
+            console.log(contrato_parent)
+            if(contrato_parent){
+                contrato_parent.style.display = "contents";
+            }
+        })
+        showMoreSelecteds.forEach(element => {
+            let contrato_parent = document.querySelector(`.row-${element}`)
+            if(contrato_parent){
+                contrato_parent.style.display = "none";
+            }
+        });
+    },[showMoreSelecteds])
+
     const hideData = () => {
-        setShowMoreSelected(0);
+        setShowMoreSelected([]);
     };
     /*Fin - ver más, ver menos */
 
@@ -129,7 +176,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
 
     const totalRecords = contratos.data.length;
 
-    const getUrlParams = () => {
+    /* const getUrlParams = () => {
         //Obtener inputs de formulario y guardarlos en objeto
         var form = document.getElementById("form_busqueda_rapida");
         let formData = new FormData(form);
@@ -139,7 +186,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
         });
         const querystring = encodeQueryData(object);
         return querystring;
-    };
+    }; */
 
     const encodeQueryData = (data) => {
         //Convertir objeto en url
@@ -295,49 +342,17 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
         entidad_contratante: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
         objeto: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
         valor: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        modalidad: { value: null, matchMode: FilterMatchMode.CONTAINS },
-        codigo_proceso: { value: null, matchMode: FilterMatchMode.EQUALS },
-        estado_proceso: { value: null, matchMode: FilterMatchMode.EQUALS },
-        fecha_publicacion: { value: null, matchMode: FilterMatchMode.EQUALS },
-        ubicacion: { value: null, matchMode: FilterMatchMode.EQUALS },
-        actividad_economica: { value: null, matchMode: FilterMatchMode.EQUALS },
+        modalidad: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        codigo_proceso: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        estado_proceso: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        fecha_publicacion: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        ubicacion: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        actividad_economica: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
     });
 
     //const [loading, setLoading] = useState(false);
     const [statuses] = useState(['No', 'Si']);
 
-    const nombreFiltroBodyTemplate = (grupo) => {
-        return (
-            <>
-                <div className="columna_nombre--content-img">
-                    <div className="columna_nombre--img">
-                        <img src={`${grupo.imagen_filtro}`} />
-                    </div>
-                </div>
-                <span>{grupo.nombre_filtro}</span>
-            </>
-        );
-    };
-
-    const [toolTips, setToolTips] = useState([
-        { 'name': 'editar', text: 'Editar perfil', 'icon': 'icon-Editar icon-pd-editar', modal: 'modalEditarPerfil' },
-        { 'name': 'eliminar', text: 'Eliminar perfil', 'icon': 'icon-Eliminar icon-pd-eliminar', modal: 'modalEliminarPerfil' },
-        { 'name': 'duplicar', text: 'Duplicar perfil', 'icon': 'icon-Duplicar icon-pd-duplicar', modal: 'modalDuplicarPerfil' },
-        { 'name': 'leidos', text: 'Marcar como leídos', 'icon': 'icon-Leidos icon-pd-leidos', modal: 'modalLeidosPerfil' },
-        { 'name': 'info', text: 'Ver más información', 'icon': 'icon-Informacin-click icon-pd-info', modal: 'modalInformacionPerfil' }
-    ])
-
-    const accionesBodyTemplate = (grupo) => {
-        return <div className="iconos_functions_grid">
-            {toolTips.map((placement, index) => (
-                <OverlayTrigger rootClose={true} key={index} overlay={
-                    <Tooltip id={`tooltip-${placement.name}-${grupo.id}`} className={`tooltip tooltip-${placement.name}`}>{placement.text}</Tooltip>
-                }>
-                    <button type="button" id={`${placement.name}-btn${grupo.id}`} className={`${placement.icon}`} onClick={() => handleShowModal(placement.modal)}></button>
-                </OverlayTrigger>
-            ))}
-        </div>;
-    };
 
     const clearTemplate = (options) => {
         return (
@@ -402,103 +417,164 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
 
     const rowExpansionTemplate = (data) => {
         return (
-            <span className="div_iconos_functions_grid">
-                <a className="btnVerDocumentos d-inline-flex align-items-center">
-                    <i className="icon-Ver-documentos"></i>
-                    <span>Ver documentos</span>
-                    <i className="icon-Siguiente1"></i>
-                </a>
-                <div className="iconos_functions_grid iconos_acciones_contratos">
-
-                    {data.favorito ?
-                        <div className="custom-tooltip yellow" data-tooltip="Eliminar De Favoritos">
-                            <button id={`favorito_${data.id}`} type="button" className="icon-Favorito-click btn_contratos_favoritos favorito_active" onClick={() => handleShowModal("modal_confirm_delete", data)}></button>
-                        </div>
-                        :
-                        <div className="custom-tooltip yellow" data-tooltip="Agregar A Favoritos">
-                            <button id={`favorito_${data.id}`} type="button" className="icon-Favorito-click btn_contratos_favoritos" onClick={() => addFavorito(data.id)} />
-                        </div>
-                    }
-
-                    <div className="custom-tooltip green" data-tooltip="Agregar A Seguimientos">
-                        <button type="button" className="btn_contratos_seguimientos icon-Seguimientos">
-                            <span className="path1">
-                            </span>
-                            <span className="path2">
-                            </span>
-                            <span className="path3">
-                            </span>
-                        </button>
-                    </div>
-                    <div className="custom-tooltip blue" data-tooltip="Agregar A Carpeta(S)" onClick={() => handleShowModal("modal_seleccion_carpeta", data)}>
-                        <button type="button" className="icon-Mis-carpetas btn_contratos_carpeta d-inline-flex">
-                            <span className="path1">
-                            </span>
-                            <span className="path2">
-                            </span>
-                        </button>
-                    </div>
-
-
-                    {data.papelera ?
-                        <div className="custom-tooltip red" data-tooltip="Eliminar de Papelera">
-                            <button id="btnContratosDelete-8114846" type="button" className="icon-Eliminar btn_contratos_delete papelera_active" onClick={() => deletePapelera(data.id)} />
-                        </div>
-                        :
-                        <div className="custom-tooltip red" data-tooltip="Agregar A Papelera">
-                            <button id="btnContratosDelete-8114846" type="button" className="icon-Eliminar btn_contratos_delete" onClick={() => addPapelera(data.id)} />
-                        </div>
-                    }
-
-
-                    <div className="custom-tooltip dark" data-tooltip="Ir A La Fuente">
-                        <a href={data.link} target="_blank" rel="noopener noreferrer" className="icon-Ir-a-la-fuente-click btn_contratos_external"></a>
-                    </div>
-                    <div className="custom-tooltip purple" data-tooltip="Compartir">
-                        <button className="icon-Compartir-click btn_contratos_compartir" />
-                    </div>
-                    <div className="custom-tooltip gray" data-tooltip="Crear Primer Nota">
-                        <button className="btn_contratos_notas custom-tooltip gray">
-                            <img src="/public/images/notas/nota.svg" alt="Nota" className="without-notes" />
-                        </button>
-                    </div>
-                </div>
-                <button type="button" className="btnRadius ver-menos-detalle" style={{ display: "none" }}>
-                    Ver menos<i className="icon-Desplegar-click"></i>
-                </button>
-                {data.carpetas.length > 0 &&
-                    <>
-                        <span class="separator_docs"></span>
-                        <span class="tags_carpetas">
-                            <div class="scroll_carpetas">
-                                {data.carpetas.map((carpeta, index) => (
-                                    <>
-                                        {index <= 1 &&
-                                            <div class="d-inline-flex">
-                                                <span class="icon-Mis-carpetas mr-2" style={{ color: carpeta.color }}>
-                                                    <span class="path1"></span>
-                                                    <span class="path2"></span>
-                                                </span>
-                                                <p class="p-0 m-0 d-inline-block">{carpeta.nombre_carpeta}</p>
-                                                <button type="button" class="icon-Cancelar" onClick={() => deleteContrato(carpeta.id, data.id)}></button>
-                                            </div>
-                                        }
-                                    </>
-                                ))}
-                                {data.carpetas.length > 2 &&
-                                    <div class="ver_mas_carpetas" onClick={() => handleShowModal("modal_seleccion_carpeta", data)}>
-                                        <span class="icon-Mis-carpetas mr-2" style={{ color: 'rgb(0, 61, 201)' }}>
-                                            <span class="path1"></span>
-                                            <span class="path2"></span>
-                                        </span>Ver más carpetas <button type="button" class="icon-Siguiente1"></button>
-                                    </div>
-                                }
+            <>
+                {showMoreSelecteds.includes(data.id) &&
+                    <div className="proceso__detail">
+                        <div className="proceso__detail_infoentidad">
+                            <div className="proceso__detail_infoentidad_principal">
+                                <span class="body_checkbox">
+                                    <input type="checkbox" id="checkboxPerfil0" class="input_perfil_val" value="256058" />
+                                </span>
+                                <span className="icon_tipo_secop">
+                                    <i id="iconFuente-8125395" className="icono_fuente__list" style={{ background: 'rgb(0, 61, 201)' }}>MP</i>
+                                </span>
+                                <span className="proceso_detail_infoentidad__entidad">{data.entidad_contratante}</span>
+                                <i>No leído</i>
                             </div>
-                        </span>
-                    </>
+                        </div>
+                        <div className="proceso__detail_infofull position-relative">
+                            <div className="row">
+                                <div className="col-6">
+                                    <div className="d-flex text-left"><strong>Objeto:</strong>
+                                        <p>{data.objeto}</p>
+                                    </div>
+                                    <div className="d-flex valor_range--estandar text-left"><strong>Cuantía:</strong>
+                                        <p><i className="valor_range__moneda">$</i>
+                                            {data.valor}
+                                        </p>
+                                    </div>
+                                    <div className="d-flex text-left"><strong>Modalidad:</strong>
+                                        <p>{data.modalidad}</p>
+                                    </div>
+                                    <div className="d-flex text-left"><strong>Número:</strong>
+                                        <p>{data.codigo_proceso}</p>
+                                    </div>
+                                </div>
+                                <div className="col-6">
+                                    <div className="d-flex text-left"><strong>Estado:</strong>
+                                        <p className="estado-contrato" style={{ color: 'rgb(115, 201, 20) !important' }}>
+                                            {data.estado_proceso}
+                                        </p>
+                                    </div>
+                                    <div className="d-flex text-left"><strong>F. publicación:</strong>
+                                        <p>{data.fecha_publicacion}</p>
+                                    </div>
+                                    <div className="d-flex text-left"><strong>Ubicación:</strong>
+                                        <p><i className="icon-Ubicacin-grid"></i>{data.ubicacion}</p>
+                                    </div>
+                                    <div className="d-flex text-left"><strong>Actividad<br />económica:</strong>
+                                        <p>Litografía e Impresión a gran formato, -Impresiones, fotocopiado y alquiler de fotocopiadoras,-Encuadernación, empastado y argollado</p>
+                                    </div>
+                                    <div className="d-flex text-left"><strong>Contratista(s):</strong>
+                                        <div className="columna_contratista_expand__sin-ganador">
+                                            <p>Proceso aun sin adjudicar</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 }
+                <span className="div_iconos_functions_grid">
+                    <a className="btnVerDocumentos d-inline-flex align-items-center">
+                        <i className="icon-Ver-documentos"></i>
+                        <span>Ver documentos</span>
+                        <i className="icon-Siguiente1"></i>
+                    </a>
+                    <div className="iconos_functions_grid iconos_acciones_contratos">
 
-            </span>
+                        {data.favorito ?
+                            <div className="custom-tooltip yellow" data-tooltip="Eliminar De Favoritos">
+                                <button id={`favorito_${data.id}`} type="button" className="icon-Favorito-click btn_contratos_favoritos favorito_active" onClick={() => handleShowModal("modal_confirm_delete", data)}></button>
+                            </div>
+                            :
+                            <div className="custom-tooltip yellow" data-tooltip="Agregar A Favoritos">
+                                <button id={`favorito_${data.id}`} type="button" className="icon-Favorito-click btn_contratos_favoritos" onClick={() => addFavorito(data.id)} />
+                            </div>
+                        }
+
+                        <div className="custom-tooltip green" data-tooltip="Agregar A Seguimientos">
+                            <button type="button" className="btn_contratos_seguimientos icon-Seguimientos">
+                                <span className="path1">
+                                </span>
+                                <span className="path2">
+                                </span>
+                                <span className="path3">
+                                </span>
+                            </button>
+                        </div>
+                        <div className="custom-tooltip blue" data-tooltip="Agregar A Carpeta(S)" onClick={() => handleShowModal("modal_seleccion_carpeta", data)}>
+                            <button type="button" className="icon-Mis-carpetas btn_contratos_carpeta d-inline-flex">
+                                <span className="path1">
+                                </span>
+                                <span className="path2">
+                                </span>
+                            </button>
+                        </div>
+
+
+                        {data.papelera ?
+                            <div className="custom-tooltip red" data-tooltip="Eliminar de Papelera">
+                                <button id="btnContratosDelete-8114846" type="button" className="icon-Eliminar btn_contratos_delete papelera_active" onClick={() => deletePapelera(data.id)} />
+                            </div>
+                            :
+                            <div className="custom-tooltip red" data-tooltip="Agregar A Papelera">
+                                <button id="btnContratosDelete-8114846" type="button" className="icon-Eliminar btn_contratos_delete" onClick={() => addPapelera(data.id)} />
+                            </div>
+                        }
+
+
+                        <div className="custom-tooltip dark" data-tooltip="Ir A La Fuente">
+                            <a href={data.link} target="_blank" rel="noopener noreferrer" className="icon-Ir-a-la-fuente-click btn_contratos_external"></a>
+                        </div>
+                        <div className="custom-tooltip purple" data-tooltip="Compartir">
+                            <button className="icon-Compartir-click btn_contratos_compartir" />
+                        </div>
+                        <div className="custom-tooltip gray" data-tooltip="Crear Primer Nota">
+                            <button className="btn_contratos_notas custom-tooltip gray">
+                                <img src="/public/images/notas/nota.svg" alt="Nota" className="without-notes" />
+                            </button>
+                        </div>
+                    </div>
+                    {showMoreSelecteds.includes(data.id) &&
+                        <button type="button" className="btnRadius ver-menos-detalle" onClick={() => onHandleShowMoreSelecteds(data.id, 'delete')}>
+                            Ver menos<i className="icon-Desplegar-click"></i>
+                        </button>
+                    }
+                    {data.carpetas.length > 0 &&
+                        <>
+                            <span class="separator_docs"></span>
+                            <span class="tags_carpetas">
+                                <div class="scroll_carpetas">
+                                    {data.carpetas.map((carpeta, index) => (
+                                        <>
+                                            {index <= 1 &&
+                                                <div class="d-inline-flex">
+                                                    <span class="icon-Mis-carpetas mr-2" style={{ color: carpeta.color }}>
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                    </span>
+                                                    <p class="p-0 m-0 d-inline-block">{carpeta.nombre_carpeta}</p>
+                                                    <button type="button" class="icon-Cancelar" onClick={() => deleteContrato(carpeta.id, data.id)}></button>
+                                                </div>
+                                            }
+                                        </>
+                                    ))}
+                                    {data.carpetas.length > 2 &&
+                                        <div class="ver_mas_carpetas" onClick={() => handleShowModal("modal_seleccion_carpeta", data)}>
+                                            <span class="icon-Mis-carpetas mr-2" style={{ color: 'rgb(0, 61, 201)' }}>
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </span>Ver más carpetas <button type="button" class="icon-Siguiente1"></button>
+                                        </div>
+                                    }
+                                </div>
+                            </span>
+                        </>
+                    }
+
+                </span>
+            </>
         );
     };
 
@@ -536,7 +612,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                 <p className="objeto_grid_p">
                     <span className="objeto_grid_span">
                         <span className="tt-uppercase">{grupo.objeto}</span>
-                        <a className="vermas text-right mr-0 mt-0">Ver más<i className="icon-Desplegar"></i></a>
+                        <a className="vermas text-right mr-0 mt-0" onClick={() => onHandleShowMoreSelecteds(grupo.id, 'add')}>Ver más<i className="icon-Desplegar"></i></a>
                     </span>
                 </p>
             </div>
@@ -583,6 +659,37 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                     dt.current.filter(e.target.value, 'actividad_economica', 'contains');
                 }}
             />
+        );
+    };
+
+    const columnFilterTemplate = (column) => {
+        return (
+            <>
+                {column.field == "modalidad" || column.field == "ubicacion" || column.field == "actividad_economica" ?
+                    <input
+                        type="text"
+                        className="p-inputtext p-component p-column-filter"
+                        placeholder="Seleccionar"
+                        name={column.field}
+                        onClick={() => handleShowModal(column.field)}
+                        onInput={(e) => {
+                            dt.current.filter(e.target.value, column.field, 'contains');
+                        }}
+                    />
+                    :
+                    <input
+                        type="text"
+                        className="p-inputtext p-component p-column-filter"
+                        placeholder="Buscar"
+                        name={column.field}
+                        /* onKeyPress={()=>paginator(`${tabla.path}?page=${tabla.current_page}`)} */
+                        onChange={(e) => onGlobalFilterChange(e, column.field)}
+                        onInput={(e) => {
+                            dt.current.filter(e.target.value, column.field, 'contains');
+                        }}
+                    />
+                }
+            </>
         );
     };
 
@@ -682,14 +789,28 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
 
     const [globalFilterValue, setGlobalFilterValue] = useState('');
 
-    const onGlobalFilterChange = (e) => {
-        const value = e.target.value;
-        let _filters = { ...filters };
+    const onGlobalFilterChange = (e, input_name) => {
+        if (input_name == "global") {
+            const value = e.target.value;
+            let _filters = { ...filters };
+            _filters[input_name].value = value;
+            setFilters(_filters);
+            setGlobalFilterValue(value);
+        }
+        console.log("input_name", input_name)
 
-        _filters['global'].value = value;
 
-        setFilters(_filters);
-        setGlobalFilterValue(value);
+        let _url = `${tabla.path}?page=${tabla.current_page}` + getUrlParams()
+        axios.get(_url)
+            .then(response => {
+                console.log("response", response.data)
+                setTabla(response.data)
+                setPageNumber(response.data.current_page - 1)
+                setPageSize(tabla.last_page + 1);
+            })
+            .catch(error => {
+                console.log(error);
+            });
     };
 
     const renderHeader = () => {
@@ -699,7 +820,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                     <div id="top-botones" className="mb-2 mb-lg-0">
                         <div className="franja-busqueda-rapida">
                             <div className="input-busqueda-rapida">
-                                <input value={globalFilterValue} onChange={onGlobalFilterChange} type="text" name="rapida" placeholder="Búsqueda rápida" className="form-control" />
+                                <input value={globalFilterValue} onChange={(e) => onGlobalFilterChange(e, 'global')} type="text" name="rapida" placeholder="Búsqueda rápida" className="form-control" />
                                 <button type="button" className="submit-busqueda-rapida icon-Buscar-click"></button>
                             </div>
                             <div className="select-busqueda-rapida ml-4">
@@ -790,10 +911,10 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                             {nombre_carpeta != "" ?
                                 <span className="p-paginator-current">{total_carpetas} registros</span>
                                 : <>
-                                    <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-double-left" onClick={() => paginator(0, tabla.first_page_url)} />
-                                    <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-left" onClick={() => paginator(tabla.current_page - 1, tabla.prev_page_url)} />
-                                    <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-right" onClick={() => paginator(tabla.current_page + 1, tabla.next_page_url)} />
-                                    <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-double-right" onClick={() => paginator(5, tabla.last_page_url)} />
+                                    <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-double-left" onClick={() => paginator(tabla.first_page_url)} />
+                                    <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-left" onClick={() => paginator(tabla.prev_page_url)} />
+                                    <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-right" onClick={() => paginator(tabla.next_page_url)} />
+                                    <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-double-right" onClick={() => paginator(tabla.last_page_url)} />
                                     <span className="p-paginator-current">{`${tabla.from} - ${tabla.to} de ${tabla.total}`}</span>
                                 </>
                             }
@@ -995,36 +1116,37 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
         setCarpetasSeleccionadas([])
     }, [showModal])
 
-
+    const rowClassName = (rowData) => {
+        console.log("add-class")
+        return `row-${rowData.id}`;
+    }
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders}>
             <div className="content_not_blank_interno">
                 <div id="bodycontenido" className="col contratos_row px-0">
                     <DataTable id="datatableContratos" ref={dt} value={tabla.data} rows={pageSize} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
                         globalFilterFields={['fuente.alias_portal', 'entidad_contratante', 'objeto', 'valor', 'modalidad', 'codigo_proceso', 'estado_proceso', 'fecha_publicacion', 'ubicacion', 'actividad_economica']} emptyMessage={renderEmptyMessage()}
-
                         expandedRows={expandedRows} /* onRowToggle={(e) => setExpandedRows(e.data)}
                         onRowExpand={onRowExpand} onRowCollapse={onRowCollapse} */ rowExpansionTemplate={rowExpansionTemplate}
                         header={header}
-
                         selectionMode={rowClick ? null : 'checkbox'}
                         selection={selectedProducts}
                         onSelectionChange={(e) => setSelectedProducts(e.value)}
-
                         first={pageNumber * pageSize}
+                        rowClassName={rowClassName}
                     >
                         <Column selectionMode="multiple" className='columna_seleccion columna_pequena' filter filterElement={clearTemplate}></Column>
                         {/* <Column filter className='columna_seleccion columna_pequena'  /> */}
-                        <Column field="fuente.alias_portal" header="Portal" filter filterPlaceholder="Todos" className="rounded_left columna_tipo_secop" body={portalBodyTemplate} />
-                        <Column field="entidad_contratante" header="Entidad" filter filterPlaceholder="Buscar" className="columna_entidad columna_120" body={entidadBodyTemplate} />
-                        <Column field="objeto" header="Obejto" filter filterPlaceholder="Buscar" className="objeto_columna" body={objetoBodyTemplate} />
-                        <Column field="valor" header="Cuantía" filter filterPlaceholder="Buscar" className="rangedropdown columna_120 columna_cuantia" body={cuantiaBodyTemplate} />
-                        <Column field="modalidad" header="Modalidad" filter filterPlaceholder="Seleccionar" className="columna_100 columna_modalidad" filterElement={columnFilterOpenModal} />
-                        <Column field="codigo_proceso" header="Número" filter filterPlaceholder="Buscar" className="columna_numero" />
-                        <Column field="estado_proceso" header="Estado" filter filterPlaceholder="Buscar" className="columna_estado" body={estadoBodyTemplate} />
-                        <Column field="fecha_publicacion" header="Publicada" filter filterPlaceholder="Buscar" className="columna_fecha" />
-                        <Column field="ubicacion" header="Ubicación" filter filterPlaceholder="Seleccionar" className="columna_ubicacion" body={ubicacionBodyTemplate} filterElement={columnFilterOpenModal} />
-                        <Column field="actividad_economica" header="Actividad Económica" filter filterElement={columnFilterOpenModal} />
+                        <Column field="fuente.alias_portal" header="Portal" filter filterPlaceholder="Todos" className="rounded_left columna_tipo_secop" body={portalBodyTemplate} filterElement={columnFilterTemplate} />
+                        <Column field="entidad_contratante" header="Entidad" filter filterPlaceholder="Buscar" className="columna_entidad columna_120" body={entidadBodyTemplate} filterElement={columnFilterTemplate} />
+                        <Column field="objeto" header="Obejto" filter filterPlaceholder="Buscar" className="objeto_columna" body={objetoBodyTemplate} filterElement={columnFilterTemplate} />
+                        <Column field="valor" header="Cuantía" filter filterPlaceholder="Buscar" className="rangedropdown columna_120 columna_cuantia" body={cuantiaBodyTemplate} filterElement={columnFilterTemplate} />
+                        <Column field="modalidad" header="Modalidad" filter filterPlaceholder="Seleccionar" className="columna_100 columna_modalidad" filterElement={columnFilterTemplate} />
+                        <Column field="codigo_proceso" header="Número" filter filterPlaceholder="Buscar" className="columna_numero" filterElement={columnFilterTemplate} />
+                        <Column field="estado_proceso" header="Estado" filter filterPlaceholder="Buscar" className="columna_estado" body={estadoBodyTemplate} filterElement={columnFilterTemplate} />
+                        <Column field="fecha_publicacion" header="Publicada" filter filterPlaceholder="Buscar" className="columna_fecha" filterElement={columnFilterTemplate} />
+                        <Column field="ubicacion" header="Ubicación" filter filterPlaceholder="Seleccionar" className="columna_ubicacion" body={ubicacionBodyTemplate} filterElement={columnFilterTemplate} />
+                        <Column field="actividad_economica" header="Actividad Económica" filter filterElement={columnFilterTemplate} />
                     </DataTable>
 
                 </div>

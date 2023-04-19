@@ -1253,6 +1253,147 @@ input.p-inputtext.p-component.p-column-filter:not(:placeholder-shown)::before {
 
 
 /*DataTable*/
+#contratos .proceso__detail {
+    background: #f5f5f5;
+    padding-top: 11px;
+    overflow: hidden;
+}
+
+#contratos .proceso__detail .proceso__detail_infoentidad {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    text-align: left;
+    padding: 14px 0 12px;
+    position: relative;
+}
+
+#contratos .proceso__detail>div {
+    background: #fff;
+}
+
+#contratos .proceso_detail_infoentidad__entidad,
+#contratos .tags_carpetas p {
+    color: #000!important;
+    vertical-align: middle!important;
+    text-align: center;
+    font-size: 13px!important;
+    font-family: Nexa-bold,sans-serif;
+    padding: 5px 0;
+}
+
+#contratos .proceso__detail .proceso__detail_infoentidad .proceso__detail_infoentidad_principal .proceso_detail_infoentidad__entidad {
+    margin-left: 17px;
+    margin-right: 8px;
+    margin-top: 1px;
+    display: inline-block;
+}
+
+#contratos .contrato_noleido .columna_seleccion::before,
+#contratos .proceso__detail_infoentidad_principal > i {
+    background: #eaf6db;
+    color: #73C914;
+    border-radius: 20px;
+    padding: 3px 6px;
+    font-family: Nexa-bold;
+    font-size: 9px;
+    width: 58px;
+    display: inline-block;
+    text-align: center;
+    font-style: normal !important;
+}
+
+#contratos .proceso__detail .proceso__detail_infofull:before {
+    content: "";
+    width: 97%;
+    position: absolute;
+    background: #f6f6f6;
+    height: 2px;
+    top: 0;
+    left: 1.5%;
+}
+
+#contratos .proceso__detail .proceso__detail_infofull .d-flex {
+    padding-bottom: 12px;
+}
+
+#contratos .proceso__detail .proceso__detail_infofull strong {
+    font-family: Nexa-bold;
+    min-width: 82px;
+    font-size: 12px;
+    color: #686868;
+    font-weight: 400!important;
+    line-height: 1.2;
+}
+
+#contratos .proceso__detail .proceso__detail_infofull p {
+    margin: 0;
+    padding: 0 10px!important;
+    font-family: Nexa-regular!important;
+    text-align: left!important;
+    color: #686868 !important;
+    line-height: 1.3;
+}
+
+#contratos .col-6 {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+#contratos .proceso__detail .proceso__detail_infofull p.estado-contrato{
+    color: rgb(115, 201, 20) !important;
+}
+
+#contratos .proceso__detail .proceso__detail_infoentidad .proceso__detail_infoentidad_principal>span.body_checkbox {
+    display: inline-block;
+    margin-right: 7px;
+    margin-left: 7px;
+}
+
+#contratos input[type="checkbox"]{
+    border: 0.5px solid #b1b2b2;
+    height: 16px;
+    width: 15px;
+    color: #73c914;
+}
+
+#contratos .proceso__detail .icono_fuente__list{
+    display: inline-flex !important;
+}
+
+#contratos .div_iconos_functions_grid>.ver-menos-detalle {
+    font-family: Nexa-bold,sans-serif;
+    font-size: 11px;
+    border: 1px solid #686868;
+    line-height: 20px;
+    color: #686868;
+    display: inline-block;
+    background: transparent;
+    /* position: absolute;
+    top: 10px;
+    right: 15px; */
+    float: right;
+    margin-right: 10px;
+    cursor: pointer;
+    padding: 1px 12px;
+}
+
+#contratos .div_iconos_functions_grid>.ver-menos-detalle i {
+    font-size: 8px;
+    color: #c9003d;
+    font-weight: 700;
+    margin-left: 8px;
+    display: inline-block;
+}
+
+
+
+#contratos .proceso__detail .proceso__detail_infofull {
+    padding: 20px 74px 4px;
+}
+
+
+
+
 #contratos .div_iconos_functions_grid {
     display: block;
     text-align: left !important;
