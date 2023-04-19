@@ -1,6 +1,6 @@
 /*** --- FUENTES NUEVAS ---****/
 
-@font-face {
+/* @font-face {
     font-family: 'Roboto-black';
     src: url('/public/fonts/Roboto/Roboto-black-webfont.eot?#iefix') format('embedded-opentype'),
         url('/public/fonts/Roboto/roboto_Black.otf') format('opentype'),
@@ -58,10 +58,10 @@
         url('/public/fonts/Roboto/Roboto-Light-webfont.svg#Roboto-light') format('svg');
     font-weight: normal;
     font-style: normal;
-}
+} */
 
 /*** --- FUENTES NUEVAS PUBLICA ---****/
-@font-face {
+/* @font-face {
     font-family: 'SourceSansPro-Black';
     src: url('/public/fonts/SourceSansPro/sourcesanspro-black-webfont.eot?#iefix') format('embedded-opentype'),
         url('/public/fonts/SourceSansPro/SourceSansPro-Black.otf') format('opentype'),
@@ -137,7 +137,7 @@
     font-weight: normal;
     font-style: normal;
     font-display: fallback;
-}
+} */
 
 /*** --- Nuevos estilos ---****/
 /*@font-face {

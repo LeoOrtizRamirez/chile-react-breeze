@@ -43,8 +43,6 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
     }, [contratos])
 
     const paginator = (url) => {
-
-        console.log("paginator")
         let _url = url + getUrlParams()
         axios.get(_url)
             .then(response => {
@@ -105,7 +103,6 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
     useEffect(()=>{
         tabla.data.forEach(element =>{
             let contrato_parent = document.querySelector(`.row-${element.id}`)
-            console.log(contrato_parent)
             if(contrato_parent){
                 contrato_parent.style.display = "contents";
             }
@@ -404,12 +401,13 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
 
     const expandAll = () => {
         let _expandedRows = {};
-        tabla.data.forEach((p) => (_expandedRows[`${p.id}`] = true));
+        tabla.data.forEach((p) => {(_expandedRows[`${p.id}`] = true); console.log("tabla", p)});
+        
         setExpandedRows(_expandedRows);
     };
     useEffect(() => {
         expandAll()
-    }, [])
+    }, [tabla])
 
     const collapseAll = () => {
         setExpandedRows(null);
@@ -797,7 +795,6 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
             setFilters(_filters);
             setGlobalFilterValue(value);
         }
-        console.log("input_name", input_name)
 
 
         let _url = `${tabla.path}?page=${tabla.current_page}` + getUrlParams()
@@ -1117,7 +1114,6 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
     }, [showModal])
 
     const rowClassName = (rowData) => {
-        console.log("add-class")
         return `row-${rowData.id}`;
     }
     return (
