@@ -14,6 +14,7 @@ import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import { InputText } from 'primereact/inputtext';
+import { Sidebar } from 'primereact/sidebar';
 
 import "primereact/resources/themes/lara-light-indigo/theme.css";//theme
 import "primereact/resources/primereact.min.css";//core
@@ -100,20 +101,20 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
 
     };
 
-    useEffect(()=>{
-        tabla.data.forEach(element =>{
+    useEffect(() => {
+        tabla.data.forEach(element => {
             let contrato_parent = document.querySelector(`.row-${element.id}`)
-            if(contrato_parent){
+            if (contrato_parent) {
                 contrato_parent.style.display = "contents";
             }
         })
         showMoreSelecteds.forEach(element => {
             let contrato_parent = document.querySelector(`.row-${element}`)
-            if(contrato_parent){
+            if (contrato_parent) {
                 contrato_parent.style.display = "none";
             }
         });
-    },[showMoreSelecteds])
+    }, [showMoreSelecteds])
 
     const hideData = () => {
         setShowMoreSelected([]);
@@ -401,8 +402,8 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
 
     const expandAll = () => {
         let _expandedRows = {};
-        tabla.data.forEach((p) => {(_expandedRows[`${p.id}`] = true); console.log("tabla", p)});
-        
+        tabla.data.forEach((p) => { (_expandedRows[`${p.id}`] = true) });
+
         setExpandedRows(_expandedRows);
     };
     useEffect(() => {
@@ -530,7 +531,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                         </div>
                         <div className="custom-tooltip gray" data-tooltip="Crear Primer Nota">
                             <button className="btn_contratos_notas custom-tooltip gray">
-                                <img src="/public/images/notas/nota.svg" alt="Nota" className="without-notes" />
+                                <img src="/public/images/notas/nota.svg" alt="Nota" className="without-notes" onClick={() => setsideBarNotas(true)} />
                             </button>
                         </div>
                     </div>
@@ -1116,6 +1117,10 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
     const rowClassName = (rowData) => {
         return `row-${rowData.id}`;
     }
+
+    const [sideBarNotas, setsideBarNotas] = useState(false);
+    const [creatingNote, setCreatingNote] = useState(false)
+
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders}>
             <div className="content_not_blank_interno">
@@ -1310,6 +1315,102 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                 </Modal.Footer>
             </Modal>
             <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} carpeta={carpetaSelected} other_page={true} handleCarpetas={handleCarpetas} />
+            <Sidebar id="sidebar-notes" visible={sideBarNotas} position="right" onHide={() => setsideBarNotas(false)}>
+                <div className="b-sidebar-body notes-content">
+                    <div className="wrapper"><a className="close-sidebar icon-Flujo"></a>
+                        <div tabindex="0" className="notes-content__header">
+                            <h4>Mis notas</h4>
+                        </div>
+                        <div tabindex="1" className={`notes-content__create ${creatingNote ? "on-creating" : ""}`} onClick={() => setCreatingNote(true)}>
+                            <div className="notes-header">
+                                {creatingNote &&
+                                    <div class="notes-title">
+                                        <input onClick={() => setCreatingNote(true)} placeholder="Escribe un título aquí." type="text" class="noteTitle" aria-required="true" aria-invalid="true" />
+                                    </div>
+                                }
+                                <div className={`notes-opts ${creatingNote ? "on-expand" : ""}`}>
+                                    <span id="timeNota" className="icon-Hora text-fecha">
+                                        <span className="text-fecha__hora">Hoy 12:46 pm</span>
+                                    </span><a id="tlpBorrarNota" className="icon-Limpiar-click"></a>
+                                </div>
+                            </div>
+                            <div className="textarea-container">
+                                <textarea onClick={() => setCreatingNote(true)} name="note" id="note" placeholder="Crear una nota" className="mt-2"></textarea>
+                            </div>
+                            {creatingNote &&
+                                <div class="button-create-container">
+                                    <button class="button-create btn-new-green btnRadius">Crear nota</button>
+                                </div>
+                            }
+                        </div>
+                        <div tabindex="2" className="notes-content__zone">
+                            <div className="notes-content__zone-input-search">
+                                <div className="form-group">
+                                    <div className="input-container">
+                                        <input onClick={() => setCreatingNote(false)} type="text" placeholder="Buscar nota" /> <span
+                                            className="icon-Cancelar" style={{ display: 'none' }}></span> <span className="icon-Buscar-click"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="notes-content__zone-list-notes">
+                                <ul>
+                                    <div>
+                                        <li className="note">
+                                            <div className="note-data">
+                                                <div className="note-icon">
+                                                    <img src="https://col.licitaciones.info/img/notas/note_icon.svg" alt="Nota icon" /></div>
+                                                <div className="note-description">
+                                                    <div className="notes-drag"><span className="note-description__title">Seguimi</span>
+                                                        <div className="notes-opts"><span id="timeNota" className="icon-Hora text-fecha"><span
+                                                            className="text-fecha__hora">Hoy 11:38 am</span></span></div>
+                                                    </div>
+                                                    <p className="note-descrition__body">Seg</p>
+                                                </div>
+                                            </div>
+                                            <div className="note-actions">
+                                                <div className="direct-access-controls"><a className="hover-icon icon-Eliminar"></a></div>
+                                            </div>
+                                        </li>
+                                        <li className="note">
+                                            <div className="note-data">
+                                                <div className="note-icon">
+                                                    <img src="https://col.licitaciones.info/img/notas/note_icon.svg" alt="Nota icon" />
+                                                </div>
+                                                <div className="note-description">
+                                                    <div className="notes-drag"><span className="note-description__title">Seguimineo</span>
+                                                        <div className="notes-opts"><span id="timeNota" className="icon-Hora text-fecha"><span
+                                                            className="text-fecha__hora">Hoy 10:52 am</span></span></div>
+                                                    </div>
+                                                    <p className="note-descrition__body">test</p>
+                                                </div>
+                                            </div>
+                                            <div className="note-actions">
+                                                <div className="direct-access-controls"><a className="hover-icon icon-Eliminar"></a></div>
+                                            </div>
+                                        </li>
+                                    </div>
+                                    <div data-v-358985eb="" className="infinite-loading-container">
+                                        <div data-v-358985eb="" className="infinite-status-prompt"
+                                            style={{ color: 'rgb(102, 102, 102)', fontSize: 14 + 'px', padding: 10 + 'px 0px', display: 'none' }}><i
+                                                data-v-46b20d22="" data-v-358985eb="" className="loading-default"></i></div>
+                                        <div data-v-358985eb="" className="infinite-status-prompt">
+                                            <div data-v-358985eb="" className="infinite--no-data">No hay más notas</div>
+                                        </div>
+                                        <div data-v-358985eb="" className="infinite-status-prompt" style={{ display: 'none' }}><span
+                                            data-v-358985eb="" className="infinite--no-data">No hay más notas</span></div>
+                                        <div data-v-358985eb="" className="infinite-status-prompt"
+                                            style={{ color: 'rgb(102, 102, 102)', fontSize: 14 + 'px', padding: 10 + 'px 0px', display: 'none' }}>
+                                            Opps, something went wrong :(
+                                            <br data-v-358985eb="" />
+                                            <button data-v-358985eb="" className="btn-try-infinite">Retry</button>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </Sidebar>
         </AuthenticatedLayout >
     );
 };
