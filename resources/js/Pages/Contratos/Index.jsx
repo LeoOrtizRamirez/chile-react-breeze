@@ -20,11 +20,6 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";//theme
 import "primereact/resources/primereact.min.css";//core
 import "primeicons/primeicons.css";//icons
 
-/*Tooltips */
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
-/*Tooltips */
-
 import { Modal } from 'react-bootstrap';
 import ActividadEconomica from "@/Components/ActividadEconomica";
 
@@ -44,12 +39,14 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
     }, [contratos])
 
     const paginator = (url) => {
+        setLoading(true)
         let _url = url + getUrlParams()
         axios.get(_url)
             .then(response => {
                 setTabla(response.data)
                 setPageNumber(response.data.current_page - 1)
                 setPageSize(tabla.last_page + 1);
+                setLoading(false)
             })
             .catch(error => {
                 console.log(error);
@@ -1125,6 +1122,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
         <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders}>
             <div className="content_not_blank_interno">
                 <div id="bodycontenido" className="col contratos_row px-0">
+                    <Loader loading={loading}></Loader>
                     <DataTable id="datatableContratos" ref={dt} value={tabla.data} rows={pageSize} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
                         globalFilterFields={['fuente.alias_portal', 'entidad_contratante', 'objeto', 'valor', 'modalidad', 'codigo_proceso', 'estado_proceso', 'fecha_publicacion', 'ubicacion', 'actividad_economica']} emptyMessage={renderEmptyMessage()}
                         expandedRows={expandedRows} /* onRowToggle={(e) => setExpandedRows(e.data)}
@@ -1317,11 +1315,12 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
             <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} carpeta={carpetaSelected} other_page={true} handleCarpetas={handleCarpetas} />
             <Sidebar id="sidebar-notes" visible={sideBarNotas} position="right" onHide={() => setsideBarNotas(false)}>
                 <div className="b-sidebar-body notes-content">
-                    <div className="wrapper"><a className="close-sidebar icon-Flujo"></a>
-                        <div tabindex="0" className="notes-content__header">
+                    <div className="wrapper">
+                        <a className="close-sidebar icon-Flujo" onClick={() => setsideBarNotas(false)}></a>
+                        <div className="notes-content__header">
                             <h4>Mis notas</h4>
                         </div>
-                        <div tabindex="1" className={`notes-content__create ${creatingNote ? "on-creating" : ""}`} onClick={() => setCreatingNote(true)}>
+                        <div className={`notes-content__create ${creatingNote ? "on-creating" : ""}`} onClick={() => setCreatingNote(true)}>
                             <div className="notes-header">
                                 {creatingNote &&
                                     <div class="notes-title">
@@ -1331,7 +1330,10 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                                 <div className={`notes-opts ${creatingNote ? "on-expand" : ""}`}>
                                     <span id="timeNota" className="icon-Hora text-fecha">
                                         <span className="text-fecha__hora">Hoy 12:46 pm</span>
-                                    </span><a id="tlpBorrarNota" className="icon-Limpiar-click"></a>
+                                    </span>
+                                    <div className="custom-tooltip red" data-tooltip="Borrar contenido">
+                                        <a id="tlpBorrarNota" className="icon-Limpiar-click"></a>
+                                    </div>
                                 </div>
                             </div>
                             <div className="textarea-container">
@@ -1343,7 +1345,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                                 </div>
                             }
                         </div>
-                        <div tabindex="2" className="notes-content__zone">
+                        <div className="notes-content__zone">
                             <div className="notes-content__zone-input-search">
                                 <div className="form-group">
                                     <div className="input-container">
