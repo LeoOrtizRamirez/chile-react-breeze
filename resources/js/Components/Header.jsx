@@ -45,13 +45,17 @@ const Header = () => {
                         </Nav>
 
                         <Nav id="paises" className='dropdown-paises'>
-                            <NavDropdown id="navbarDropdownPaises" className='nav-link pl-0' title={<><img src="https://col.licitaciones.info/img/banderas/col.svg" alt="icono bandera" width="22" /><span class='nav-title'>Colombia</span><i class="position-relative icon-Desplegar"></i></>} >
+                            <NavDropdown id="navbarDropdownPaises" className='nav-link pl-0' title={<><img src="/images/banderas/listado_nombres/CHL.svg" alt="icono bandera" width="22" /><span class='nav-title'>Chile</span><i class="position-relative icon-Desplegar"></i></>} >
                                 <Dropdown.Item href="#" className='dropdown-item'>
-                                    <img src="https://col.licitaciones.info/img/banderas/ecu.svg" alt="icono bandera" width="22" className='inline-block' /> <span>Ecuador</span>
+                                    <img src="/images/banderas/listado_nombres/col.svg" alt="icono bandera" width="22" className='inline-block' /> <span>Colombia</span>
                                 </Dropdown.Item>
                                 <Dropdown.Divider />
                                 <Dropdown.Item href="#" className='dropdown-item'>
-                                    <img src="https://col.licitaciones.info/img/banderas/pan.svg" alt="icono bandera" width="22" className='inline-block' /> <span>Panama</span>
+                                    <img src="/images/banderas/listado_nombres/ecu.svg" alt="icono bandera" width="22" className='inline-block' /> <span>Ecuador</span>
+                                </Dropdown.Item>
+                                <Dropdown.Divider />
+                                <Dropdown.Item href="#" className='dropdown-item'>
+                                    <img src="/images/banderas/listado_nombres/pan.svg" alt="icono bandera" width="22" className='inline-block' /> <span>Panama</span>
                                 </Dropdown.Item>
                             </NavDropdown>
                         </Nav>

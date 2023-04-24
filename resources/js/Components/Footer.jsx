@@ -27,14 +27,14 @@ const Footer = () => {
                         </div>
                         <div class="col_lg_1_footer separadores_footer"></div>
                         <div class="col_lg_3_apps text-center footer_licitaciones_apps">
-                            <div class="d-block block_appmovil"><p>App móvil</p>
+                            {/* <div class="d-block block_appmovil"><p>App móvil</p>
                                 <div class="d-flex justify-content-center">
                                     <a href="https://play.google.com/store/apps/details?id=com.setcon.licitacionesinfo" target="_blank">
                                         <img src="https://col.licitaciones.info/img/playstore@2x.png" alt="Google Play Store" class="img mb-1 img-fluid"/></a> 
                                         <a href="https://itunes.apple.com/us/app/licitaciones/id1210052711?mt=8" target="_blank">
                                     <img src="https://col.licitaciones.info/img/appstore@2x.png" alt="App Store" class="img mb-1 img-fluid" /></a>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                         <div class="col_lg_1_footer separadores_footer"></div>
                         <div class="col-lg-2 text-center footer_licitaciones_redes">
