@@ -1035,3 +1035,52 @@ input.p-inputtext.p-component.p-column-filter:not(:placeholder-shown)::before {
 .color-blue {
     color: #003dc9;
 }
+
+#grupos .content_blank_interno {
+    background: #fff;
+    margin-top: 24px;
+    border-radius: 14px;
+    margin-bottom: 60px;
+}
+
+#grupos #mensajes-personalizado-sin-perfil {
+    padding: 5rem 0 3rem;
+}
+
+#grupos #mensajes-personalizado-sin-perfil .titulo-personalizado {
+    padding: 5rem 0 2rem;
+    max-width: 307px;
+    margin: 0 auto;
+}
+
+#grupos #mensajes-personalizado-sin-perfil #titulo-movil-personalizado-perfil, 
+#grupos #mensajes-personalizado-sin-perfil .titulo-personalizado {
+    font-family: Nexa-bold,sans-serif!important;
+    color: #686868;
+}
+
+#grupos #mensajes-personalizado-sin-perfil .mensaje-icono {
+    font-size: 32px!important;
+    margin-right: 17px;
+    color: #ffc107;
+}
+
+#grupos #mensajes-personalizado-sin-perfil .mensaje-personalizado {
+    font-size: 20px!important;
+    line-height: 1.2;
+    margin-bottom: 0;
+    max-width: 435px;
+}
+
+#grupos #mensajes-personalizado-sin-perfil .mensaje-personalizado {
+    font-family: Nexa-regular,sans-serif!important;
+    color: #686868;
+}
+
+#grupos .m-auto{
+    margin: auto;
+}
+
+#grupos a.btn.btn-new-green.btnRadius {
+    font-family: 'Nexa-bold';
+}

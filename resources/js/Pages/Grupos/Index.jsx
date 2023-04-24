@@ -52,15 +52,15 @@ const Index = ({ auth, grupos, created_updated }) => {
     const [showModalResumenPerfil, setShowModalResumenPerfil] = useState(false);
     const [resumenFiltroSelected, setResumenFiltroSelected] = useState([]);
 
-    const handleOpenModalResumenPerfil  = () => {
+    const handleOpenModalResumenPerfil = () => {
         handleCloseModal()
-            axios.get(`/cliente/grupo/subcategorias/${filtroSelected.id}`)
+        axios.get(`/cliente/grupo/subcategorias/${filtroSelected.id}`)
             .then(response => {
                 setResumenFiltroSelected(response.data)
             })
             .catch(error => {
                 console.log(error);
-            });            
+            });
         setShowModalResumenPerfil(true);
     };
 
@@ -68,7 +68,7 @@ const Index = ({ auth, grupos, created_updated }) => {
         setIdModal("modalInformacionPerfil")
         setShowModal(true)
         setShowModalResumenPerfil(false);
-      };
+    };
     /*Modals */
 
     /*Borrar filtros*/
@@ -239,64 +239,86 @@ const Index = ({ auth, grupos, created_updated }) => {
             <AuthenticatedLayout auth={auth} page={'grupos'}>
 
                 <div className="content_blank_interno margin_left_layout">
-                    <div className="col">
-                        <h2 className="name_seccion_app">Administrar perfil (es) de negocio</h2>
-                    </div>
+                    {data.length > 0 &&
+                        <div className="col">
+                            <h2 className="name_seccion_app">Administrar perfil (es) de negocio</h2>
+                        </div>
+                    }
                     <div className="col">
                         <div id="perfil-list" className="">
-                            <div className="tablescoop position-relative tablebordeada">
-                                <div className="cargando_tables" style={{ display: 'none' }}>
-                                    <div className="col">
-                                        <img src="https://col.licitaciones.info/img/loading.gif" className="img-col" />
-                                        <p>Cargando</p>
+                            {data.length > 0 ?
+                                <div className="tablescoop position-relative tablebordeada">
+                                    <div className="cargando_tables" style={{ display: 'none' }}>
+                                        <div className="col">
+                                            <img src="https://col.licitaciones.info/img/loading.gif" className="img-col" />
+                                            <p>Cargando</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="befor_table">
-                                </div>
-                                <div className="VueTables VueTables--server">
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            <div className="form-group form-inline float-left VueTables__search">
+                                    <div className="befor_table">
+                                    </div>
+                                    <div className="VueTables VueTables--server">
+                                        <div className="row">
+                                            <div className="col-md-12">
+                                                <div className="form-group form-inline float-left VueTables__search">
 
-                                            </div>
-                                            <div className="form-group form-inline float-right VueTables__limit">
-                                                <div className="m-0 w-100">
-                                                    <div className="text-left reloadTable row" style={{ margin: 0 + 'px !important;' }}>
-                                                        <div id="top-botones" className="mb-2 mb-lg-0">
-                                                            <a role="button" ></a>
-                                                            <a href="/cliente/grupo/crear" role="button" className="btn btn-new-green btnRadius"><span className="icon-Crear volver_icon">
-                                                            </span> Crear perfil </a>
-                                                        </div>
-                                                        <div className="col-12 col-lg-7 col-xl-6 p-0 paginacion_grid text-center text-lg-right ">
+                                                </div>
+                                                <div className="form-group form-inline float-right VueTables__limit">
+                                                    <div className="m-0 w-100">
+                                                        <div className="text-left reloadTable row" style={{ margin: 0 + 'px !important;' }}>
+                                                            <div id="top-botones" className="mb-2 mb-lg-0">
+                                                                <a role="button" ></a>
+                                                                <a href="/cliente/grupo/crear" role="button" className="btn btn-new-green btnRadius"><span className="icon-Crear volver_icon">
+                                                                </span> Crear perfil </a>
+                                                            </div>
+                                                            <div className="col-12 col-lg-7 col-xl-6 p-0 paginacion_grid text-center text-lg-right ">
 
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="table-responsive">
-                                        <DataTable ref={dt} value={data} paginator rows={10} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
-                                            globalFilterFields={['name', 'representative.name', 'status']} emptyMessage="No se encontraron registros">
-                                            <Column style={{ maxWidth: 600 + 'px' }} filter className='columna_seleccion columna_pequena' filterElement={clearTemplate} />
-                                            <Column field="nombre_filtro" body={nombreFiltroBodyTemplate} header="Nombre" filter filterPlaceholder="Buscar" className="columna_nombre" />
-                                            <Column field="descripcion_filtro" header="Descripción" filter filterPlaceholder="Buscar" className="columna_grande" />
-                                            <Column field="limite_inferior_cuantia" header="Cuantia inferior" filter filterPlaceholder="Buscar" className="columna_promedio" />
-                                            <Column field="limite_superior_cuantia" header="Cuantia superior" filter filterPlaceholder="Buscar" className="columna_promedio" />
-                                            <Column field="historico" header="Histórico" filter filterPlaceholder="Buscar" className="columna_promedio" />
-                                            <Column field="envio_alertas" header="Notificaciones" showFilterMenu={false} filter filterElement={statusRowFilterTemplate} className="columna_notificaciones" />
-                                            <Column body={accionesBodyTemplate} filter className="v-hidden columna_acciones" />
+                                        <div className="table-responsive">
+                                            <DataTable ref={dt} value={data} paginator rows={10} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
+                                                globalFilterFields={['name', 'representative.name', 'status']} emptyMessage="No se encontraron registros">
+                                                <Column style={{ maxWidth: 600 + 'px' }} filter className='columna_seleccion columna_pequena' filterElement={clearTemplate} />
+                                                <Column field="nombre_filtro" body={nombreFiltroBodyTemplate} header="Nombre" filter filterPlaceholder="Buscar" className="columna_nombre" />
+                                                <Column field="descripcion_filtro" header="Descripción" filter filterPlaceholder="Buscar" className="columna_grande" />
+                                                <Column field="limite_inferior_cuantia" header="Cuantia inferior" filter filterPlaceholder="Buscar" className="columna_promedio" />
+                                                <Column field="limite_superior_cuantia" header="Cuantia superior" filter filterPlaceholder="Buscar" className="columna_promedio" />
+                                                <Column field="historico" header="Histórico" filter filterPlaceholder="Buscar" className="columna_promedio" />
+                                                <Column field="envio_alertas" header="Notificaciones" showFilterMenu={false} filter filterElement={statusRowFilterTemplate} className="columna_notificaciones" />
+                                                <Column body={accionesBodyTemplate} filter className="v-hidden columna_acciones" />
 
 
-                                            {/* <Column field="nombre_filtro" header="Brand" filter filterPlaceholder="Search by brand" filterMatchMode="custom" filterElement={CustomFilter} /> */}
-                                        </DataTable>
-                                    </div>
-                                    <div className="paginacion_grid">
+                                                {/* <Column field="nombre_filtro" header="Brand" filter filterPlaceholder="Search by brand" filterMatchMode="custom" filterElement={CustomFilter} /> */}
+                                            </DataTable>
+                                        </div>
+                                        <div className="paginacion_grid">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div>
-                            </div>
+                                :
+                                <div id="mensajes-personalizado-sin-perfil" class="content_blank_interno">
+                                    <div class="row  align-items-center">
+                                        <div class="col-md-5 text-center">
+                                            <img src="https://col.licitaciones.info/img/mensajes-personalisados/sin-perfil.png" alt="" class="img-fluid" />
+                                        </div>
+                                        <div class="col-md-6 offset-md-1">
+                                            <h4 class="text-center titulo-personalizado">Aún no has creado un perfil de negocio.</h4>
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <span class="icon-Bombillo d-block mensaje-icono"></span>
+                                                <p class="mensaje-personalizado text-justify">Crea un perfil basado en las oportunidades  más adecuadas para tu negocio.</p>
+                                            </div>
+                                            <div class="justify-content-center aling-items-center mt-5 d-flex m-auto">
+                                                <a href="/cliente/grupo/crear" class="btn btn-new-green btnRadius">
+                                                    <i class="icon-Datos-adicionales mr-2"></i>Crear tu primer perfil</a>
+                                                <br />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -504,7 +526,7 @@ const Index = ({ auth, grupos, created_updated }) => {
                         }
                     </Modal.Footer>
                 </Modal>
-                <ResumenPerfil showModal={showModalResumenPerfil} handleCloseModal={handleCloseModalResumenPerfil} data={resumenFiltroSelected}/>
+                <ResumenPerfil showModal={showModalResumenPerfil} handleCloseModal={handleCloseModalResumenPerfil} data={resumenFiltroSelected} />
             </AuthenticatedLayout>
         </>
     );
