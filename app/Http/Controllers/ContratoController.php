@@ -130,7 +130,7 @@ class ContratoController extends Controller
                 [
                     'contratos' => $contratos,
                     'total_carpetas' => 0,
-                    'nombre_carpeta' => '',
+                    'nombre_carpeta' => 'ALL',
                     'carpetas' => $carpetas
                 ]
             );

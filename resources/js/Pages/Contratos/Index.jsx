@@ -418,8 +418,8 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                     <div className="proceso__detail">
                         <div className="proceso__detail_infoentidad">
                             <div className="proceso__detail_infoentidad_principal">
-                                <span class="body_checkbox">
-                                    <input type="checkbox" id="checkboxPerfil0" class="input_perfil_val" value="256058" />
+                                <span className="body_checkbox">
+                                    <input type="checkbox" id="checkboxPerfil0" className="input_perfil_val" value="256058" />
                                 </span>
                                 <span className="icon_tipo_secop">
                                     <i id="iconFuente-8125395" className="icono_fuente__list" style={{ background: 'rgb(0, 61, 201)' }}>MP</i>
@@ -528,7 +528,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                         </div>
                         <div className="custom-tooltip gray" data-tooltip="Crear Primer Nota">
                             <button className="btn_contratos_notas custom-tooltip gray">
-                                <img src="/public/images/notas/nota.svg" alt="Nota" className="without-notes" onClick={() => setsideBarNotas(true)} />
+                                <img src="/images/notas/nota.svg" alt="Nota" className="without-notes" onClick={() => onHandleCrearNota(data)} />
                             </button>
                         </div>
                     </div>
@@ -539,29 +539,29 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                     }
                     {data.carpetas.length > 0 &&
                         <>
-                            <span class="separator_docs"></span>
-                            <span class="tags_carpetas">
-                                <div class="scroll_carpetas">
+                            <span className="separator_docs"></span>
+                            <span className="tags_carpetas">
+                                <div className="scroll_carpetas">
                                     {data.carpetas.map((carpeta, index) => (
                                         <>
                                             {index <= 1 &&
-                                                <div class="d-inline-flex">
-                                                    <span class="icon-Mis-carpetas mr-2" style={{ color: carpeta.color }}>
-                                                        <span class="path1"></span>
-                                                        <span class="path2"></span>
+                                                <div className="d-inline-flex">
+                                                    <span className="icon-Mis-carpetas mr-2" style={{ color: carpeta.color }}>
+                                                        <span className="path1"></span>
+                                                        <span className="path2"></span>
                                                     </span>
-                                                    <p class="p-0 m-0 d-inline-block">{carpeta.nombre_carpeta}</p>
-                                                    <button type="button" class="icon-Cancelar" onClick={() => deleteContrato(carpeta.id, data.id)}></button>
+                                                    <p className="p-0 m-0 d-inline-block">{carpeta.nombre_carpeta}</p>
+                                                    <button type="button" className="icon-Cancelar" onClick={() => deleteContrato(carpeta.id, data.id)}></button>
                                                 </div>
                                             }
                                         </>
                                     ))}
                                     {data.carpetas.length > 2 &&
-                                        <div class="ver_mas_carpetas" onClick={() => handleShowModal("modal_seleccion_carpeta", data)}>
-                                            <span class="icon-Mis-carpetas mr-2" style={{ color: 'rgb(0, 61, 201)' }}>
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </span>Ver más carpetas <button type="button" class="icon-Siguiente1"></button>
+                                        <div className="ver_mas_carpetas" onClick={() => handleShowModal("modal_seleccion_carpeta", data)}>
+                                            <span className="icon-Mis-carpetas mr-2" style={{ color: 'rgb(0, 61, 201)' }}>
+                                                <span className="path1"></span>
+                                                <span className="path2"></span>
+                                            </span>Ver más carpetas <button type="button" className="icon-Siguiente1"></button>
                                         </div>
                                     }
                                 </div>
@@ -890,7 +890,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                                     </p>
                                 </div>
                             }
-                            {nombre_carpeta != "Favoritos" && nombre_carpeta != "Papelera" && nombre_carpeta != "" &&
+                            {nombre_carpeta != "Favoritos" && nombre_carpeta != "Papelera" && nombre_carpeta != "ALL" &&
                                 <div className="d-inline-block seccion-estas-en">
                                     <p className="my-1">
                                         Estás en:
@@ -903,7 +903,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                     </div>
                     <div className="col-12 col-lg-7 col-xl-6 p-0 paginacion_grid text-right text-lg-right ">
                         <span className="paginator">
-                            {nombre_carpeta != "" ?
+                            {nombre_carpeta != "ALL" ?
                                 <span className="p-paginator-current">{total_carpetas} registros</span>
                                 : <>
                                     <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-double-left" onClick={() => paginator(tabla.first_page_url)} />
@@ -1115,8 +1115,100 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
         return `row-${rowData.id}`;
     }
 
+    const [notas, setNotas] = useState([])
     const [sideBarNotas, setsideBarNotas] = useState(false);
     const [creatingNote, setCreatingNote] = useState(false)
+    const [editingNote, setEditingNote] = useState(null)
+
+    
+
+    const onHandleCrearNota = (contrato) => {
+        setNotas([])
+        setContratoSelected(contrato)
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.get('/cliente/notas/get-notes?idContrato=' + contrato.id, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then(response => {
+                console.log('Request successful:', response.data);
+                setNotas(response.data)
+            })
+            .catch(error => {
+                console.error('Request failed:', error.response.status, error.response.data);
+            });
+        setsideBarNotas(true)
+    }
+
+    const refInputText = useRef()
+    const refInputTitle = useRef()
+    const [inputTextEdit, setInputTextEdit] = useState("")
+    const [inputTitleEdit, setInputTitleEdit] = useState("")
+
+    const onHandleEditingNote = (nota) =>{
+        setInputTextEdit(nota.text)
+        setInputTitleEdit(nota.title)
+        setEditingNote(nota.id)
+    }
+
+    const saveNota = () => {
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.post('/cliente/notas/admin-note', {
+            idContrato: contratoSelected.id,
+            pinned: 0,
+            text: refInputText.current.value,
+            title: refInputTitle.current.value,
+            zona: nombre_carpeta
+        },
+            { 'Authorization': `Bearer ${token}` })
+            .then(response => {
+                setNotas(response.data)
+                setCreatingNote(false)
+                refInputText.current.value = ""
+                refInputTitle.current.value = ""
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    const updateNota = (id_nota) => {
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.post('/cliente/notas/actualizar', {
+            id:id_nota,
+            idContrato: contratoSelected.id,
+            pinned: 0,
+            text: inputTextEdit,
+            title: inputTitleEdit,
+            zona: nombre_carpeta
+        },
+            { 'Authorization': `Bearer ${token}` })
+            .then(response => {
+                setNotas(response.data)
+                setEditingNote(false)
+                setInputTextEdit("")
+                setInputTitleEdit("")
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    const deleteNota = (id_nota) => {
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.post('/cliente/notas/eliminar', {
+            idContrato: contratoSelected.id,
+            id: id_nota
+        },
+            { 'Authorization': `Bearer ${token}` })
+            .then(response => {
+                setNotas(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
 
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders}>
@@ -1258,8 +1350,8 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                     {modalOpened == "modal_seleccion_carpeta" &&
                         <div className="contenedor_carpetas_seleccion">
                             {folders.length == 0 ?
-                                <div id="mensajes-sin-carpetas" class="container content_blank_intern">
-                                    <img src="/public/images/mensajes-personalizados/sin-carpetas-modal.svg" alt="" class="imagen-sin-carpetas" />
+                                <div id="mensajes-sin-carpetas" className="container content_blank_intern">
+                                    <img src="/public/images/mensajes-personalizados/sin-carpetas-modal.svg" alt="" className="imagen-sin-carpetas" />
                                     <p>Añade tu primer carpeta</p>
                                 </div>
                                 :
@@ -1267,19 +1359,19 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                                     <ul className="row scroll_fit">
                                         {folders.map((carpeta) => (
                                             <li className="align-items-center col-md-3 col-sm-4 col-xs-12 d-flex selected_carpeta">
-                                                <span class="body_checkbox">
+                                                <span className="body_checkbox">
                                                     {contratoSelected.carpetas_ids.includes(carpeta.id) ?
-                                                        <div class="checkbox" style={{ margin: 0 + 'px' }} onClick={() => deleteContrato(carpeta.id, contratoSelected.id)}>
-                                                            <i class="align-items-center cr-icon d-flex fa fa-times justify-content-center quitar_carpeta"></i>
+                                                        <div className="checkbox" style={{ margin: 0 + 'px' }} onClick={() => deleteContrato(carpeta.id, contratoSelected.id)}>
+                                                            <i className="align-items-center cr-icon d-flex fa fa-times justify-content-center quitar_carpeta"></i>
                                                             <label>
                                                                 <input type="checkbox" name="carpeta_mover" value="22101" />
-                                                                <span class="cr">
-                                                                    <i class="cr-icon fa fa-check"></i>
+                                                                <span className="cr">
+                                                                    <i className="cr-icon fa fa-check"></i>
                                                                 </span>
                                                             </label>
                                                         </div>
                                                         :
-                                                        <input type="checkbox" id="carpeta_mover" name="carpeta_mover" class="input_perfil_val" value={carpeta.id} onClick={(e) => toggleCarpetasSeleccionadas(e, carpeta.id)} />
+                                                        <input type="checkbox" id="carpeta_mover" name="carpeta_mover" className="input_perfil_val" value={carpeta.id} onClick={(e) => toggleCarpetasSeleccionadas(e, carpeta.id)} />
                                                     }
                                                 </span>
                                                 <div className="body_icono_carpeta">
@@ -1305,9 +1397,9 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                         <button type="button" className="btnRadius btn-new-green">Seleccionar</button>
                     }
                     {modalOpened == "modal_seleccion_carpeta" &&
-                        <div class="actions-buttons-modal buttons-modal-carpetas">
-                            <button type="button" class="btn-new-green btnRadius text-center" onClick={handleOpenModalCrearCarpeta}>Crear carpeta</button>
-                            <button type="button" class="btn-new-blue btnRadius text-center disable_button" disabled={carpetasSeleccionadas.length == 0} onClick={saveCarpetasSeleccionadas}>Guardar en</button>
+                        <div className="actions-buttons-modal buttons-modal-carpetas">
+                            <button type="button" className="btn-new-green btnRadius text-center" onClick={handleOpenModalCrearCarpeta}>Crear carpeta</button>
+                            <button type="button" className="btn-new-blue btnRadius text-center disable_button" disabled={carpetasSeleccionadas.length == 0} onClick={saveCarpetasSeleccionadas}>Guardar en</button>
                         </div>
                     }
                 </Modal.Footer>
@@ -1323,8 +1415,8 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                         <div className={`notes-content__create ${creatingNote ? "on-creating" : ""}`} onClick={() => setCreatingNote(true)}>
                             <div className="notes-header">
                                 {creatingNote &&
-                                    <div class="notes-title">
-                                        <input onClick={() => setCreatingNote(true)} placeholder="Escribe un título aquí." type="text" class="noteTitle" aria-required="true" aria-invalid="true" />
+                                    <div className="notes-title">
+                                        <input ref={refInputTitle} onClick={() => setCreatingNote(true)} placeholder="Escribe un título aquí." type="text" className="noteTitle" aria-required="true" aria-invalid="true" />
                                     </div>
                                 }
                                 <div className={`notes-opts ${creatingNote ? "on-expand" : ""}`}>
@@ -1337,79 +1429,117 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                                 </div>
                             </div>
                             <div className="textarea-container">
-                                <textarea onClick={() => setCreatingNote(true)} name="note" id="note" placeholder="Crear una nota" className="mt-2"></textarea>
+                                <textarea ref={refInputText} onClick={() => setCreatingNote(true)} name="note" id="note" placeholder="Crear una nota" className="mt-2"></textarea>
                             </div>
                             {creatingNote &&
-                                <div class="button-create-container">
-                                    <button class="button-create btn-new-green btnRadius">Crear nota</button>
+                                <div className="button-create-container">
+                                    <button className="button-create btn-new-green btnRadius" onClick={saveNota}>Crear nota</button>
                                 </div>
                             }
                         </div>
-                        <div className="notes-content__zone">
-                            <div className="notes-content__zone-input-search">
-                                <div className="form-group">
-                                    <div className="input-container">
-                                        <input onClick={() => setCreatingNote(false)} type="text" placeholder="Buscar nota" /> <span
-                                            className="icon-Cancelar" style={{ display: 'none' }}></span> <span className="icon-Buscar-click"></span>
+                        {notas.length > 0 ?
+                            <div className="notes-content__zone">
+                                <div className="notes-content__zone-input-search">
+                                    <div className="form-group">
+                                        <div className="input-container">
+                                            <input onClick={() => setCreatingNote(false)} type="text" placeholder="Buscar nota" /> <span
+                                                className="icon-Cancelar" style={{ display: 'none' }}></span> <span className="icon-Buscar-click"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="notes-content__zone-list-notes">
-                                <ul>
-                                    <div>
-                                        <li className="note">
-                                            <div className="note-data">
-                                                <div className="note-icon">
-                                                    <img src="https://col.licitaciones.info/img/notas/note_icon.svg" alt="Nota icon" /></div>
-                                                <div className="note-description">
-                                                    <div className="notes-drag"><span className="note-description__title">Seguimi</span>
-                                                        <div className="notes-opts"><span id="timeNota" className="icon-Hora text-fecha"><span
-                                                            className="text-fecha__hora">Hoy 11:38 am</span></span></div>
+                                <div className="notes-content__zone-list-notes">
+                                    <ul>
+                                        <div>
+                                            {notas.map((nota, index) => (
+                                                <li className={`note ${editingNote == nota.id ? "on-edit" : ""}`}>
+                                                    {editingNote == nota.id &&
+                                                        <div className="note-header-opts">
+                                                            <div className="controls">
+                                                                <a className="icon-Limpiar-click"></a>
+                                                                <a className="hover-icon icon-Eliminar"></a>
+                                                                <span id="timeNota" className="icon-Hora text-fecha">
+                                                                    <span className="text-fecha__hora">Hoy 1:21 pm
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    <div className="note-data">
+                                                        <div className="note-icon">
+                                                            <img src="https://col.licitaciones.info/img/notas/note_icon.svg" alt="Nota icon" /></div>
+                                                        <div className="note-description" onClick={() => onHandleEditingNote(nota)}>
+                                                            {editingNote == nota.id ?
+                                                                <>
+                                                                    <input placeholder="Agrega un título" type="text" className="onEditTitleNote" aria-required="true" aria-invalid="false" value={inputTitleEdit} onChange={(e)=>setInputTitleEdit(e.target.value)}/>
+                                                                    <textarea placeholder="Agrega una descripción" className="onEditNote" style={{height: 26 + 'px'}} onChange={(e)=>setInputTextEdit(e.target.value)}>{inputTextEdit}</textarea>
+                                                                </>
+                                                                :
+                                                                <>
+                                                                    <div className="notes-drag">
+                                                                        <span className="note-description__title">{nota.title}</span>
+                                                                        <div className="notes-opts">
+                                                                            <span id="timeNota" className="icon-Hora text-fecha">
+                                                                                <span className="text-fecha__hora">Hoy 11:38 am</span>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p className="note-descrition__body">{nota.text}</p>
+                                                                </>
+                                                            }
+                                                        </div>
                                                     </div>
-                                                    <p className="note-descrition__body">Seg</p>
-                                                </div>
-                                            </div>
-                                            <div className="note-actions">
-                                                <div className="direct-access-controls"><a className="hover-icon icon-Eliminar"></a></div>
-                                            </div>
-                                        </li>
-                                        <li className="note">
-                                            <div className="note-data">
-                                                <div className="note-icon">
-                                                    <img src="https://col.licitaciones.info/img/notas/note_icon.svg" alt="Nota icon" />
-                                                </div>
-                                                <div className="note-description">
-                                                    <div className="notes-drag"><span className="note-description__title">Seguimineo</span>
-                                                        <div className="notes-opts"><span id="timeNota" className="icon-Hora text-fecha"><span
-                                                            className="text-fecha__hora">Hoy 10:52 am</span></span></div>
-                                                    </div>
-                                                    <p className="note-descrition__body">test</p>
-                                                </div>
-                                            </div>
-                                            <div className="note-actions">
-                                                <div className="direct-access-controls"><a className="hover-icon icon-Eliminar"></a></div>
-                                            </div>
-                                        </li>
-                                    </div>
-                                    <div data-v-358985eb="" className="infinite-loading-container">
-                                        <div data-v-358985eb="" className="infinite-status-prompt"
-                                            style={{ color: 'rgb(102, 102, 102)', fontSize: 14 + 'px', padding: 10 + 'px 0px', display: 'none' }}><i
-                                                data-v-46b20d22="" data-v-358985eb="" className="loading-default"></i></div>
-                                        <div data-v-358985eb="" className="infinite-status-prompt">
-                                            <div data-v-358985eb="" className="infinite--no-data">No hay más notas</div>
+                                                    {editingNote == nota.id ?
+                                                        <div className="note-actions">
+                                                            <div className="manual-controls">
+                                                                <a className="btn-new-green btnRadius" draggable="false" href="#!" onClick={()=>updateNota(nota.id)}>
+                                                                    <i className="icon-Check"></i>
+                                                                    <span>Guardar</span>
+                                                                </a>
+                                                                <a href="#!" className="btn-new-danger btnRadius" onClick={()=>setEditingNote(false)}>
+                                                                    <i className="icon-Cancelar"></i> <span>Descartar</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        :
+                                                        <div className="note-actions">
+                                                            <div className="direct-access-controls">
+                                                                <a className="hover-icon icon-Eliminar" onClick={() => deleteNota(nota.id)}></a>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </li>
+                                            ))}
                                         </div>
-                                        <div data-v-358985eb="" className="infinite-status-prompt" style={{ display: 'none' }}><span
-                                            data-v-358985eb="" className="infinite--no-data">No hay más notas</span></div>
-                                        <div data-v-358985eb="" className="infinite-status-prompt"
-                                            style={{ color: 'rgb(102, 102, 102)', fontSize: 14 + 'px', padding: 10 + 'px 0px', display: 'none' }}>
-                                            Opps, something went wrong :(
-                                            <br data-v-358985eb="" />
-                                            <button data-v-358985eb="" className="btn-try-infinite">Retry</button>
+                                        <div className="infinite-loading-container">
+                                            <div className="infinite-status-prompt"
+                                                style={{ color: 'rgb(102, 102, 102)', fontSize: 14 + 'px', padding: 10 + 'px 0px', display: 'none' }}><i
+                                                    data-v-46b20d22="" className="loading-default"></i></div>
+                                            <div className="infinite-status-prompt">
+                                                <div className="infinite--no-data">No hay más notas</div>
+                                            </div>
+                                            <div className="infinite-status-prompt" style={{ display: 'none' }}><span
+                                                className="infinite--no-data">No hay más notas</span></div>
+                                            <div className="infinite-status-prompt"
+                                                style={{ color: 'rgb(102, 102, 102)', fontSize: 14 + 'px', padding: 10 + 'px 0px', display: 'none' }}>
+                                                Opps, something went wrong :(
+                                                <br />
+                                                <button className="btn-try-infinite">Retry</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </ul>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
+                            :
+                            <div>
+                                <div className="workspace text-center">
+                                    <div className="workspace__image">
+                                        <img src="https://col.licitaciones.info/img/notas/workspace.png" alt="Nota Workspace" />
+                                    </div>
+                                    <p className="workspace__copy">No has creado tu primera nota.</p>
+                                </div>
+                            </div>
+                        }
+
                     </div>
                 </div>
             </Sidebar>

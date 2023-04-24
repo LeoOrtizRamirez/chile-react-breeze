@@ -2675,6 +2675,20 @@ body>div.fade.modal-backdrop.show:nth-child(5) {
     position: inherit;
 }
 
+#notasContainer .workspace, 
+#sidebar-notes .workspace {
+    padding: 0 2em;
+}
+
+#notasContainer .workspace__copy, 
+#sidebar-notes .workspace__copy {
+    color: #686868;
+    font-family: Nexa-regular,sans-serif;
+    font-size: 18px;
+    margin-top: 30px;
+    margin-bottom: 0;
+}
+
 #notasContainer .notes-content__create .notes-opts.on-expand, 
 #sidebar-notes .notes-content__create .notes-opts.on-expand {
     cursor: pointer;
@@ -2932,7 +2946,8 @@ body>div.fade.modal-backdrop.show:nth-child(5) {
     position: relative;
 }
 
-#notasContainer .notes-content__zone-list-notes ul li.note .note-actions .direct-access-controls, #sidebar-notes .notes-content__zone-list-notes ul li.note .note-actions .direct-access-controls {
+#notasContainer .notes-content__zone-list-notes ul li.note .note-actions .direct-access-controls, 
+#sidebar-notes .notes-content__zone-list-notes ul li.note .note-actions .direct-access-controls {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
@@ -2949,11 +2964,20 @@ body>div.fade.modal-backdrop.show:nth-child(5) {
     transition: all .2s ease-in;
 }
 
-#notasContainer .notes-content__zone-list-notes ul li.note .note-actions .direct-access-controls a.hover-icon, #sidebar-notes .notes-content__zone-list-notes ul li.note .note-actions .direct-access-controls a.hover-icon {
-    font-size: 18px;
+#notasContainer .notes-content__zone-list-notes ul li.note:hover .note-actions .direct-access-controls, 
+#sidebar-notes .notes-content__zone-list-notes ul li.note:hover .note-actions .direct-access-controls {
+    opacity: 1;
 }
 
-#notasContainer .notes-content__zone-list-notes ul li.note .note-actions a, #sidebar-notes .notes-content__zone-list-notes ul li.note .note-actions a {
+#notasContainer .notes-content__zone-list-notes ul li.note .note-actions .direct-access-controls a.hover-icon, 
+#sidebar-notes .notes-content__zone-list-notes ul li.note .note-actions .direct-access-controls a.hover-icon {
+    font-size: 18px;
+    color: inherit;
+    text-decoration: none;
+}
+
+#notasContainer .notes-content__zone-list-notes ul li.note .note-actions a, 
+#sidebar-notes .notes-content__zone-list-notes ul li.note .note-actions a {
     cursor: pointer;
     font-family: Nexa-regular,sans-serif;
     font-size: 14px;
@@ -3015,3 +3039,97 @@ body>div.fade.modal-backdrop.show:nth-child(5) {
     background:transparent;
 }
 
+
+#sidebar-notes .infinite--no-data {
+    text-align: center;
+}
+
+#notasContainer .notes-content__zone-list-notes ul li.note.on-edit, 
+#sidebar-notes .notes-content__zone-list-notes ul li.note.on-edit {
+    padding-top: 40px!important;
+    position: relative;
+}
+
+#notasContainer .notes-content__zone-list-notes ul li.note.on-edit .note-header-opts, 
+#sidebar-notes .notes-content__zone-list-notes ul li.note.on-edit .note-header-opts {
+    position: absolute;
+    top: 12px;
+    right: 0;
+}
+
+#notasContainer .notes-content__zone-list-notes ul li.note.on-edit .note-header-opts .controls, 
+#sidebar-notes .notes-content__zone-list-notes ul li.note.on-edit .note-header-opts .controls {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+#notasContainer .notes-content__zone-list-notes ul li.note.on-edit .note-header-opts .controls a, 
+#sidebar-notes .notes-content__zone-list-notes ul li.note.on-edit .note-header-opts .controls a {
+    color: hsla(0,0%,41%,.5);
+    font-size: 18px;
+    margin-right: 33px;
+}
+
+#notasContainer .notes-content__zone-list-notes ul li.note.on-edit .note-header-opts .controls a.icon-Eliminar, 
+#sidebar-notes .notes-content__zone-list-notes ul li.note.on-edit .note-header-opts .controls a.icon-Eliminar {
+    font-size: 16px;
+    text-decoration: none;
+}
+
+
+#notasContainer .notes-content__zone-list-notes ul li.note .note-data .note-description input.onEditTitleNote, 
+#sidebar-notes .notes-content__zone-list-notes ul li.note .note-data .note-description input.onEditTitleNote {
+    border: none;
+    color: #686868;
+    font-family: Nexa-bold,sans-serif;
+    outline: none;
+    width: 100%;
+    padding: 0px;
+}
+
+#notasContainer .notes-content__zone-list-notes ul li.note .note-data .note-description textarea.onEditNote, 
+#sidebar-notes .notes-content__zone-list-notes ul li.note .note-data .note-description textarea.onEditNote {
+    border: none;
+    color: #686868;
+    font-family: Nexa-regular,sans-serif;
+    line-height: 1.3;
+    min-height: 40px;
+    outline: none;
+    padding-right: 15px;
+    padding-top: 8px;
+    padding-left: 0px;
+    resize: none;
+    width: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: #9c9b9b #eee;
+}
+
+#notasContainer .notes-content__zone-list-notes ul li.note .note-data .note-description textarea.onEditNote:focus, 
+#sidebar-notes .notes-content__zone-list-notes ul li.note .note-data .note-description textarea.onEditNote:focus,
+#notasContainer .notes-content__zone-list-notes ul li.note .note-data .note-description input.onEditTitleNote:focus, 
+#sidebar-notes .notes-content__zone-list-notes ul li.note .note-data .note-description input.onEditTitleNote:focus{
+    border: none !important;
+}
+
+#notasContainer .notes-content__zone-list-notes ul li.note .note-actions .manual-controls a:first-of-type, 
+#sidebar-notes .notes-content__zone-list-notes ul li.note .note-actions .manual-controls a:first-of-type {
+    margin-right: 20px;
+}
+
+#notasContainer .notes-content__zone-list-notes ul li.note .note-actions .manual-controls a i, 
+#sidebar-notes .notes-content__zone-list-notes ul li.note .note-actions .manual-controls a i {
+    margin-right: 6px;
+}
+
+#notasContainer .notes-content__zone-list-notes ul li.note .note-actions .manual-controls a, 
+#sidebar-notes .notes-content__zone-list-notes ul li.note .note-actions .manual-controls a {
+    font-family: Nexa-regular,sans-serif;
+    font-size: 14px;
+    padding: 6px 12px;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+}

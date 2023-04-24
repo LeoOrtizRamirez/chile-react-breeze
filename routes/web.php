@@ -11,6 +11,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubCategoriaController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\NotaController;
 
 use App\Models\Contrato;
 use Illuminate\Foundation\Application;
@@ -189,5 +190,11 @@ Route::get('/cliente/carpeta/carpetas-user', [CarpetasController::class, 'getCar
 Route::post('/cliente/carpeta/add-contrato', [CarpetasController::class, 'addContrato'])->middleware(['auth', 'verified']);
 Route::post('/cliente/carpeta/delete-contrato', [CarpetasController::class, 'deleteContrato'])->middleware(['auth', 'verified']);
 
+
+/*Notas */
+Route::post('/cliente/notas/admin-note', [NotaController::class, 'create'])->middleware(['auth', 'verified']);
+Route::get('/cliente/notas/get-notes', [NotaController::class, 'getNotes'])->middleware(['auth', 'verified']);
+Route::post('/cliente/notas/eliminar', [NotaController::class, 'eliminar'])->middleware(['auth', 'verified']);
+Route::post('/cliente/notas/actualizar', [NotaController::class, 'actualizar'])->middleware(['auth', 'verified']);
 
 Route::post('register/modal', [RegisteredUserController::class, 'registerModal'])->name('registerModal');
