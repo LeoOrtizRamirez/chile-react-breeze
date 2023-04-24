@@ -2,7 +2,8 @@ import React from 'react'
 import './Header.css'
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import { Nav, NavItem, NavDropdown } from 'react-bootstrap';
-const Header = () => {
+const Header = ({auth}) => {
+    console.log("auth",auth)
     return (
         <div className="fixed-top new-header-licitaciones margin_left_layout" id="login-header">
             <nav id="nav-principal" className="navbar navbar-expand-lg navbar-light">
@@ -67,8 +68,8 @@ const Header = () => {
                                         <img id="dropdownAvatar" width="50" src="https://col.licitaciones.info/img/mi_cuenta/svg/default_avatar.svg" alt="Avatar" class="avatar-dropdown" />
                                     </div>
                                     <div class="w-100 pl-3 align-self-center">
-                                        <p class="mb-0">Leonardo Ortiz</p>
-                                        <p class="mb-0">lortizr@uniremingtonmanizales.edu.co</p>
+                                        <p class="mb-0">{auth.user.nombre_completo}</p>
+                                        <p class="mb-0">{auth.user.email}</p>
                                     </div>
                                 </div>
                                 <Dropdown.Divider />

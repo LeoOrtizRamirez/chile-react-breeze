@@ -1210,6 +1210,11 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
             })
     }
 
+    const cleanNota = () =>{
+        setInputTextEdit("")
+        setInputTitleEdit("")
+    }
+
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders}>
             <div className="content_not_blank_interno">
@@ -1455,8 +1460,8 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                                                     {editingNote == nota.id &&
                                                         <div className="note-header-opts">
                                                             <div className="controls">
-                                                                <a className="icon-Limpiar-click"></a>
-                                                                <a className="hover-icon icon-Eliminar"></a>
+                                                                <a className="icon-Limpiar-click" onClick={() => cleanNota()}></a>
+                                                                <a className="hover-icon icon-Eliminar" onClick={() => deleteNota(nota.id)}></a>
                                                                 <span id="timeNota" className="icon-Hora text-fecha">
                                                                     <span className="text-fecha__hora">Hoy 1:21 pm
                                                                     </span>
