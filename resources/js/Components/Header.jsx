@@ -2,7 +2,8 @@ import React from 'react'
 import './Header.css'
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import { Nav, NavItem, NavDropdown } from 'react-bootstrap';
-const Header = () => {
+const Header = ({auth}) => {
+    console.log("auth",auth)
     return (
         <div className="fixed-top new-header-licitaciones margin_left_layout" id="login-header">
             <nav id="nav-principal" className="navbar navbar-expand-lg navbar-light">
@@ -45,13 +46,17 @@ const Header = () => {
                         </Nav>
 
                         <Nav id="paises" className='dropdown-paises'>
-                            <NavDropdown id="navbarDropdownPaises" className='nav-link pl-0' title={<><img src="https://col.licitaciones.info/img/banderas/col.svg" alt="icono bandera" width="22" /><span class='nav-title'>Colombia</span><i class="position-relative icon-Desplegar"></i></>} >
+                            <NavDropdown id="navbarDropdownPaises" className='nav-link pl-0' title={<><img src="/images/banderas/listado_nombres/CHL.svg" alt="icono bandera" width="22" /><span class='nav-title'>Chile</span><i class="position-relative icon-Desplegar"></i></>} >
                                 <Dropdown.Item href="#" className='dropdown-item'>
-                                    <img src="https://col.licitaciones.info/img/banderas/ecu.svg" alt="icono bandera" width="22" className='inline-block' /> <span>Ecuador</span>
+                                    <img src="/images/banderas/listado_nombres/col.svg" alt="icono bandera" width="22" className='inline-block' /> <span>Colombia</span>
                                 </Dropdown.Item>
                                 <Dropdown.Divider />
                                 <Dropdown.Item href="#" className='dropdown-item'>
-                                    <img src="https://col.licitaciones.info/img/banderas/pan.svg" alt="icono bandera" width="22" className='inline-block' /> <span>Panama</span>
+                                    <img src="/images/banderas/listado_nombres/ecu.svg" alt="icono bandera" width="22" className='inline-block' /> <span>Ecuador</span>
+                                </Dropdown.Item>
+                                <Dropdown.Divider />
+                                <Dropdown.Item href="#" className='dropdown-item'>
+                                    <img src="/images/banderas/listado_nombres/pan.svg" alt="icono bandera" width="22" className='inline-block' /> <span>Panama</span>
                                 </Dropdown.Item>
                             </NavDropdown>
                         </Nav>
@@ -63,8 +68,8 @@ const Header = () => {
                                         <img id="dropdownAvatar" width="50" src="https://col.licitaciones.info/img/mi_cuenta/svg/default_avatar.svg" alt="Avatar" class="avatar-dropdown" />
                                     </div>
                                     <div class="w-100 pl-3 align-self-center">
-                                        <p class="mb-0">Leonardo Ortiz</p>
-                                        <p class="mb-0">lortizr@uniremingtonmanizales.edu.co</p>
+                                        <p class="mb-0">{auth.user.nombre_completo}</p>
+                                        <p class="mb-0">{auth.user.email}</p>
                                     </div>
                                 </div>
                                 <Dropdown.Divider />

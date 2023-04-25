@@ -1,14 +1,20 @@
 import React from 'react'
 
 import './Loader.css'
-const Loader = () => {
+const Loader = ({ loading=false }) => {
     return (
-        < div className="cargando_tables" >
-            <div className="col">
-                <img src="https://col.licitaciones.info/img/loading.gif" className="img-col" />
-                <p>Cargando</p>
-            </div>
-        </div >
+        <>
+            {loading &&
+                <div className="loader-component">
+                    <div class="cargando_tables visible_loading">
+                        <div class="col">
+                            <img src="https://col.licitaciones.info/img/loading.gif" class="img-col" />
+                            <p>Cargando</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </>
     )
 }
 

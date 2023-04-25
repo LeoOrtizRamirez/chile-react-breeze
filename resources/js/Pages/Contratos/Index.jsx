@@ -14,15 +14,11 @@ import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import { InputText } from 'primereact/inputtext';
+import { Sidebar } from 'primereact/sidebar';
 
 import "primereact/resources/themes/lara-light-indigo/theme.css";//theme
 import "primereact/resources/primereact.min.css";//core
 import "primeicons/primeicons.css";//icons
-
-/*Tooltips */
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
-/*Tooltips */
 
 import { Modal } from 'react-bootstrap';
 import ActividadEconomica from "@/Components/ActividadEconomica";
@@ -33,8 +29,7 @@ import { Inertia } from '@inertiajs/inertia'
 
 import CrearCarpeta from "@/Components/CrearCarpeta";
 
-const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) => {
-    console.log(contratos)
+const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, perfiles }) => {
     const [tabla, setTabla] = useState(contratos);
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
@@ -43,18 +38,36 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
         setTabla(contratos)
     }, [contratos])
 
-    const paginator = (page, url) => {
-        axios.get(url + '&type=fetch')
+    const paginator = (url) => {
+        setLoading(true)
+        let _url = url + getUrlParams()
+        axios.get(_url)
             .then(response => {
                 setTabla(response.data)
                 setPageNumber(response.data.current_page - 1)
                 setPageSize(tabla.last_page + 1);
+                setLoading(false)
             })
             .catch(error => {
                 console.log(error);
             });
     }
 
+    const getUrlParams = () => {
+        let rapida = document.querySelector('input[name="rapida"]')?.value
+
+        let portal = document.querySelector('input[name="fuente.alias_portal"]')?.value
+        let entidad_contratante = document.querySelector('input[name="entidad_contratante"]')?.value
+        let objeto = document.querySelector('input[name="objeto"]')?.value
+        let valor = document.querySelector('input[name="valor"]')?.value
+        let modalidad = document.querySelector('input[name="modalidad"]')?.value
+        let codigo_proceso = document.querySelector('input[name="codigo_proceso"]')?.value
+        let estado_proceso = document.querySelector('input[name="estado_proceso"]')?.value
+        let fecha_publicacion = document.querySelector('input[name="fecha_publicacion"]')?.value
+        let ubicacion = document.querySelector('input[name="ubicacion"]')?.value
+        let actividad_economica = document.querySelector('input[name="actividad_economica"]')?.value
+        return `&type=fetch&rapida=${rapida}&portal=${portal}&entidad_contratante=${entidad_contratante}&objeto=${objeto}&valor=${valor}&modalidad=${modalidad}&codigo_proceso=${codigo_proceso}&estado_proceso=${estado_proceso}&fecha_publicacion=${fecha_publicacion}&ubicacion=${ubicacion}&actividad_economica=${actividad_economica}`
+    }
 
 
     // let queryStringBusquedaAvanzada = "";
@@ -66,13 +79,42 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
 
     /*Inicio - ver más, ver menos */
     const [showLess, setShowLess] = useState(true);
-    const [showMoreSelected, setShowMoreSelected] = useState(0);
-    const getData = (data) => {
-        setShowMoreSelected(data.id);
+    const [showMoreSelecteds, setShowMoreSelecteds] = useState([]);
+    const onHandleShowMoreSelecteds = (data, type) => {
+        switch (type) {
+            case "add":
+                if (!showMoreSelecteds.includes(data)) {
+                    setShowMoreSelecteds([...showMoreSelecteds, data]);
+                }
+                break;
+            case "delete":
+                if (showMoreSelecteds.includes(data)) {
+                    setShowMoreSelecteds(showMoreSelecteds.filter(item => item != data));
+                }
+                break;
+            default:
+                break;
+        }
+
     };
 
+    useEffect(() => {
+        tabla.data.forEach(element => {
+            let contrato_parent = document.querySelector(`.row-${element.id}`)
+            if (contrato_parent) {
+                contrato_parent.style.display = "contents";
+            }
+        })
+        showMoreSelecteds.forEach(element => {
+            let contrato_parent = document.querySelector(`.row-${element}`)
+            if (contrato_parent) {
+                contrato_parent.style.display = "none";
+            }
+        });
+    }, [showMoreSelecteds])
+
     const hideData = () => {
-        setShowMoreSelected(0);
+        setShowMoreSelected([]);
     };
     /*Fin - ver más, ver menos */
 
@@ -129,7 +171,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
 
     const totalRecords = contratos.data.length;
 
-    const getUrlParams = () => {
+    /* const getUrlParams = () => {
         //Obtener inputs de formulario y guardarlos en objeto
         var form = document.getElementById("form_busqueda_rapida");
         let formData = new FormData(form);
@@ -139,7 +181,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
         });
         const querystring = encodeQueryData(object);
         return querystring;
-    };
+    }; */
 
     const encodeQueryData = (data) => {
         //Convertir objeto en url
@@ -295,49 +337,17 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
         entidad_contratante: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
         objeto: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
         valor: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        modalidad: { value: null, matchMode: FilterMatchMode.CONTAINS },
-        codigo_proceso: { value: null, matchMode: FilterMatchMode.EQUALS },
-        estado_proceso: { value: null, matchMode: FilterMatchMode.EQUALS },
-        fecha_publicacion: { value: null, matchMode: FilterMatchMode.EQUALS },
-        ubicacion: { value: null, matchMode: FilterMatchMode.EQUALS },
-        actividad_economica: { value: null, matchMode: FilterMatchMode.EQUALS },
+        modalidad: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        codigo_proceso: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        estado_proceso: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        fecha_publicacion: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        ubicacion: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        actividad_economica: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
     });
 
     //const [loading, setLoading] = useState(false);
     const [statuses] = useState(['No', 'Si']);
 
-    const nombreFiltroBodyTemplate = (grupo) => {
-        return (
-            <>
-                <div className="columna_nombre--content-img">
-                    <div className="columna_nombre--img">
-                        <img src={`${grupo.imagen_filtro}`} />
-                    </div>
-                </div>
-                <span>{grupo.nombre_filtro}</span>
-            </>
-        );
-    };
-
-    const [toolTips, setToolTips] = useState([
-        { 'name': 'editar', text: 'Editar perfil', 'icon': 'icon-Editar icon-pd-editar', modal: 'modalEditarPerfil' },
-        { 'name': 'eliminar', text: 'Eliminar perfil', 'icon': 'icon-Eliminar icon-pd-eliminar', modal: 'modalEliminarPerfil' },
-        { 'name': 'duplicar', text: 'Duplicar perfil', 'icon': 'icon-Duplicar icon-pd-duplicar', modal: 'modalDuplicarPerfil' },
-        { 'name': 'leidos', text: 'Marcar como leídos', 'icon': 'icon-Leidos icon-pd-leidos', modal: 'modalLeidosPerfil' },
-        { 'name': 'info', text: 'Ver más información', 'icon': 'icon-Informacin-click icon-pd-info', modal: 'modalInformacionPerfil' }
-    ])
-
-    const accionesBodyTemplate = (grupo) => {
-        return <div className="iconos_functions_grid">
-            {toolTips.map((placement, index) => (
-                <OverlayTrigger rootClose={true} key={index} overlay={
-                    <Tooltip id={`tooltip-${placement.name}-${grupo.id}`} className={`tooltip tooltip-${placement.name}`}>{placement.text}</Tooltip>
-                }>
-                    <button type="button" id={`${placement.name}-btn${grupo.id}`} className={`${placement.icon}`} onClick={() => handleShowModal(placement.modal)}></button>
-                </OverlayTrigger>
-            ))}
-        </div>;
-    };
 
     const clearTemplate = (options) => {
         return (
@@ -389,12 +399,13 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
 
     const expandAll = () => {
         let _expandedRows = {};
-        tabla.data.forEach((p) => (_expandedRows[`${p.id}`] = true));
+        tabla.data.forEach((p) => { (_expandedRows[`${p.id}`] = true) });
+
         setExpandedRows(_expandedRows);
     };
     useEffect(() => {
         expandAll()
-    }, [])
+    }, [tabla])
 
     const collapseAll = () => {
         setExpandedRows(null);
@@ -402,103 +413,164 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
 
     const rowExpansionTemplate = (data) => {
         return (
-            <span className="div_iconos_functions_grid">
-                <a className="btnVerDocumentos d-inline-flex align-items-center">
-                    <i className="icon-Ver-documentos"></i>
-                    <span>Ver documentos</span>
-                    <i className="icon-Siguiente1"></i>
-                </a>
-                <div className="iconos_functions_grid iconos_acciones_contratos">
-
-                    {data.favorito ?
-                        <div className="custom-tooltip yellow" data-tooltip="Eliminar De Favoritos">
-                            <button id={`favorito_${data.id}`} type="button" className="icon-Favorito-click btn_contratos_favoritos favorito_active" onClick={() => handleShowModal("modal_confirm_delete", data)}></button>
-                        </div>
-                        :
-                        <div className="custom-tooltip yellow" data-tooltip="Agregar A Favoritos">
-                            <button id={`favorito_${data.id}`} type="button" className="icon-Favorito-click btn_contratos_favoritos" onClick={() => addFavorito(data.id)} />
-                        </div>
-                    }
-
-                    <div className="custom-tooltip green" data-tooltip="Agregar A Seguimientos">
-                        <button type="button" className="btn_contratos_seguimientos icon-Seguimientos">
-                            <span className="path1">
-                            </span>
-                            <span className="path2">
-                            </span>
-                            <span className="path3">
-                            </span>
-                        </button>
-                    </div>
-                    <div className="custom-tooltip blue" data-tooltip="Agregar A Carpeta(S)" onClick={() => handleShowModal("modal_seleccion_carpeta", data)}>
-                        <button type="button" className="icon-Mis-carpetas btn_contratos_carpeta d-inline-flex">
-                            <span className="path1">
-                            </span>
-                            <span className="path2">
-                            </span>
-                        </button>
-                    </div>
-
-
-                    {data.papelera ?
-                        <div className="custom-tooltip red" data-tooltip="Eliminar de Papelera">
-                            <button id="btnContratosDelete-8114846" type="button" className="icon-Eliminar btn_contratos_delete papelera_active" onClick={() => deletePapelera(data.id)} />
-                        </div>
-                        :
-                        <div className="custom-tooltip red" data-tooltip="Agregar A Papelera">
-                            <button id="btnContratosDelete-8114846" type="button" className="icon-Eliminar btn_contratos_delete" onClick={() => addPapelera(data.id)} />
-                        </div>
-                    }
-
-
-                    <div className="custom-tooltip dark" data-tooltip="Ir A La Fuente">
-                        <a href={data.link} target="_blank" rel="noopener noreferrer" className="icon-Ir-a-la-fuente-click btn_contratos_external"></a>
-                    </div>
-                    <div className="custom-tooltip purple" data-tooltip="Compartir">
-                        <button className="icon-Compartir-click btn_contratos_compartir" />
-                    </div>
-                    <div className="custom-tooltip gray" data-tooltip="Crear Primer Nota">
-                        <button className="btn_contratos_notas custom-tooltip gray">
-                            <img src="/public/images/notas/nota.svg" alt="Nota" className="without-notes" />
-                        </button>
-                    </div>
-                </div>
-                <button type="button" className="btnRadius ver-menos-detalle" style={{ display: "none" }}>
-                    Ver menos<i className="icon-Desplegar-click"></i>
-                </button>
-                {data.carpetas.length > 0 &&
-                    <>
-                        <span class="separator_docs"></span>
-                        <span class="tags_carpetas">
-                            <div class="scroll_carpetas">
-                                {data.carpetas.map((carpeta, index) => (
-                                    <>
-                                        {index <= 1 &&
-                                            <div class="d-inline-flex">
-                                                <span class="icon-Mis-carpetas mr-2" style={{ color: carpeta.color }}>
-                                                    <span class="path1"></span>
-                                                    <span class="path2"></span>
-                                                </span>
-                                                <p class="p-0 m-0 d-inline-block">{carpeta.nombre_carpeta}</p>
-                                                <button type="button" class="icon-Cancelar" onClick={() => deleteContrato(carpeta.id, data.id)}></button>
-                                            </div>
-                                        }
-                                    </>
-                                ))}
-                                {data.carpetas.length > 2 &&
-                                    <div class="ver_mas_carpetas" onClick={() => handleShowModal("modal_seleccion_carpeta", data)}>
-                                        <span class="icon-Mis-carpetas mr-2" style={{ color: 'rgb(0, 61, 201)' }}>
-                                            <span class="path1"></span>
-                                            <span class="path2"></span>
-                                        </span>Ver más carpetas <button type="button" class="icon-Siguiente1"></button>
-                                    </div>
-                                }
+            <>
+                {showMoreSelecteds.includes(data.id) &&
+                    <div className="proceso__detail">
+                        <div className="proceso__detail_infoentidad">
+                            <div className="proceso__detail_infoentidad_principal">
+                                <span className="body_checkbox">
+                                    <input type="checkbox" id="checkboxPerfil0" className="input_perfil_val" value="256058" />
+                                </span>
+                                <span className="icon_tipo_secop">
+                                    <i id="iconFuente-8125395" className="icono_fuente__list" style={{ background: 'rgb(0, 61, 201)' }}>MP</i>
+                                </span>
+                                <span className="proceso_detail_infoentidad__entidad">{data.entidad_contratante}</span>
+                                <i>No leído</i>
                             </div>
-                        </span>
-                    </>
+                        </div>
+                        <div className="proceso__detail_infofull position-relative">
+                            <div className="row">
+                                <div className="col-6">
+                                    <div className="d-flex text-left"><strong>Objeto:</strong>
+                                        <p>{data.objeto}</p>
+                                    </div>
+                                    <div className="d-flex valor_range--estandar text-left"><strong>Cuantía:</strong>
+                                        <p><i className="valor_range__moneda">$</i>
+                                            {data.valor}
+                                        </p>
+                                    </div>
+                                    <div className="d-flex text-left"><strong>Modalidad:</strong>
+                                        <p>{data.modalidad}</p>
+                                    </div>
+                                    <div className="d-flex text-left"><strong>Número:</strong>
+                                        <p>{data.codigo_proceso}</p>
+                                    </div>
+                                </div>
+                                <div className="col-6">
+                                    <div className="d-flex text-left"><strong>Estado:</strong>
+                                        <p className="estado-contrato" style={{ color: 'rgb(115, 201, 20) !important' }}>
+                                            {data.estado_proceso}
+                                        </p>
+                                    </div>
+                                    <div className="d-flex text-left"><strong>F. publicación:</strong>
+                                        <p>{data.fecha_publicacion}</p>
+                                    </div>
+                                    <div className="d-flex text-left"><strong>Ubicación:</strong>
+                                        <p><i className="icon-Ubicacin-grid"></i>{data.ubicacion}</p>
+                                    </div>
+                                    <div className="d-flex text-left"><strong>Actividad<br />económica:</strong>
+                                        <p>Litografía e Impresión a gran formato, -Impresiones, fotocopiado y alquiler de fotocopiadoras,-Encuadernación, empastado y argollado</p>
+                                    </div>
+                                    <div className="d-flex text-left"><strong>Contratista(s):</strong>
+                                        <div className="columna_contratista_expand__sin-ganador">
+                                            <p>Proceso aun sin adjudicar</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 }
+                <span className="div_iconos_functions_grid">
+                    <a className="btnVerDocumentos d-inline-flex align-items-center">
+                        <i className="icon-Ver-documentos"></i>
+                        <span>Ver documentos</span>
+                        <i className="icon-Siguiente1"></i>
+                    </a>
+                    <div className="iconos_functions_grid iconos_acciones_contratos">
 
-            </span>
+                        {data.favorito ?
+                            <div className="custom-tooltip yellow" data-tooltip="Eliminar De Favoritos">
+                                <button id={`favorito_${data.id}`} type="button" className="icon-Favorito-click btn_contratos_favoritos favorito_active" onClick={() => handleShowModal("modal_confirm_delete", data)}></button>
+                            </div>
+                            :
+                            <div className="custom-tooltip yellow" data-tooltip="Agregar A Favoritos">
+                                <button id={`favorito_${data.id}`} type="button" className="icon-Favorito-click btn_contratos_favoritos" onClick={() => addFavorito(data.id)} />
+                            </div>
+                        }
+
+                        <div className="custom-tooltip green" data-tooltip="Agregar A Seguimientos">
+                            <button type="button" className="btn_contratos_seguimientos icon-Seguimientos">
+                                <span className="path1">
+                                </span>
+                                <span className="path2">
+                                </span>
+                                <span className="path3">
+                                </span>
+                            </button>
+                        </div>
+                        <div className="custom-tooltip blue" data-tooltip="Agregar A Carpeta(S)" onClick={() => handleShowModal("modal_seleccion_carpeta", data)}>
+                            <button type="button" className="icon-Mis-carpetas btn_contratos_carpeta d-inline-flex">
+                                <span className="path1">
+                                </span>
+                                <span className="path2">
+                                </span>
+                            </button>
+                        </div>
+
+
+                        {data.papelera ?
+                            <div className="custom-tooltip red" data-tooltip="Eliminar de Papelera">
+                                <button id="btnContratosDelete-8114846" type="button" className="icon-Eliminar btn_contratos_delete papelera_active" onClick={() => deletePapelera(data.id)} />
+                            </div>
+                            :
+                            <div className="custom-tooltip red" data-tooltip="Agregar A Papelera">
+                                <button id="btnContratosDelete-8114846" type="button" className="icon-Eliminar btn_contratos_delete" onClick={() => addPapelera(data.id)} />
+                            </div>
+                        }
+
+
+                        <div className="custom-tooltip dark" data-tooltip="Ir A La Fuente">
+                            <a href={data.link} target="_blank" rel="noopener noreferrer" className="icon-Ir-a-la-fuente-click btn_contratos_external"></a>
+                        </div>
+                        <div className="custom-tooltip purple" data-tooltip="Compartir">
+                            <button className="icon-Compartir-click btn_contratos_compartir" />
+                        </div>
+                        <div className="custom-tooltip gray" data-tooltip="Crear Primer Nota">
+                            <button className="btn_contratos_notas custom-tooltip gray">
+                                <img src="/public/images/notas/nota.svg" alt="Nota" className="without-notes" onClick={() => onHandleCrearNota(data)} />
+                            </button>
+                        </div>
+                    </div>
+                    {showMoreSelecteds.includes(data.id) &&
+                        <button type="button" className="btnRadius ver-menos-detalle" onClick={() => onHandleShowMoreSelecteds(data.id, 'delete')}>
+                            Ver menos<i className="icon-Desplegar-click"></i>
+                        </button>
+                    }
+                    {data.carpetas.length > 0 &&
+                        <>
+                            <span className="separator_docs"></span>
+                            <span className="tags_carpetas">
+                                <div className="scroll_carpetas">
+                                    {data.carpetas.map((carpeta, index) => (
+                                        <>
+                                            {index <= 1 &&
+                                                <div className="d-inline-flex">
+                                                    <span className="icon-Mis-carpetas mr-2" style={{ color: carpeta.color }}>
+                                                        <span className="path1"></span>
+                                                        <span className="path2"></span>
+                                                    </span>
+                                                    <p className="p-0 m-0 d-inline-block">{carpeta.nombre_carpeta}</p>
+                                                    <button type="button" className="icon-Cancelar" onClick={() => deleteContrato(carpeta.id, data.id)}></button>
+                                                </div>
+                                            }
+                                        </>
+                                    ))}
+                                    {data.carpetas.length > 2 &&
+                                        <div className="ver_mas_carpetas" onClick={() => handleShowModal("modal_seleccion_carpeta", data)}>
+                                            <span className="icon-Mis-carpetas mr-2" style={{ color: 'rgb(0, 61, 201)' }}>
+                                                <span className="path1"></span>
+                                                <span className="path2"></span>
+                                            </span>Ver más carpetas <button type="button" className="icon-Siguiente1"></button>
+                                        </div>
+                                    }
+                                </div>
+                            </span>
+                        </>
+                    }
+
+                </span>
+            </>
         );
     };
 
@@ -536,7 +608,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                 <p className="objeto_grid_p">
                     <span className="objeto_grid_span">
                         <span className="tt-uppercase">{grupo.objeto}</span>
-                        <a className="vermas text-right mr-0 mt-0">Ver más<i className="icon-Desplegar"></i></a>
+                        <a className="vermas text-right mr-0 mt-0" onClick={() => onHandleShowMoreSelecteds(grupo.id, 'add')}>Ver más<i className="icon-Desplegar"></i></a>
                     </span>
                 </p>
             </div>
@@ -583,6 +655,37 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                     dt.current.filter(e.target.value, 'actividad_economica', 'contains');
                 }}
             />
+        );
+    };
+
+    const columnFilterTemplate = (column) => {
+        return (
+            <>
+                {column.field == "modalidad" || column.field == "ubicacion" || column.field == "actividad_economica" ?
+                    <input
+                        type="text"
+                        className="p-inputtext p-component p-column-filter"
+                        placeholder="Seleccionar"
+                        name={column.field}
+                        onClick={() => handleShowModal(column.field)}
+                        onInput={(e) => {
+                            dt.current.filter(e.target.value, column.field, 'contains');
+                        }}
+                    />
+                    :
+                    <input
+                        type="text"
+                        className="p-inputtext p-component p-column-filter"
+                        placeholder="Buscar"
+                        name={column.field}
+                        /* onKeyPress={()=>paginator(`${tabla.path}?page=${tabla.current_page}`)} */
+                        onChange={(e) => onGlobalFilterChange(e, column.field)}
+                        onInput={(e) => {
+                            dt.current.filter(e.target.value, column.field, 'contains');
+                        }}
+                    />
+                }
+            </>
         );
     };
 
@@ -682,14 +785,27 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
 
     const [globalFilterValue, setGlobalFilterValue] = useState('');
 
-    const onGlobalFilterChange = (e) => {
-        const value = e.target.value;
-        let _filters = { ...filters };
+    const onGlobalFilterChange = (e, input_name) => {
+        if (input_name == "global") {
+            const value = e.target.value;
+            let _filters = { ...filters };
+            _filters[input_name].value = value;
+            setFilters(_filters);
+            setGlobalFilterValue(value);
+        }
 
-        _filters['global'].value = value;
 
-        setFilters(_filters);
-        setGlobalFilterValue(value);
+        let _url = `${tabla.path}?page=${tabla.current_page}` + getUrlParams()
+        axios.get(_url)
+            .then(response => {
+                console.log("response", response.data)
+                setTabla(response.data)
+                setPageNumber(response.data.current_page - 1)
+                setPageSize(tabla.last_page + 1);
+            })
+            .catch(error => {
+                console.log(error);
+            });
     };
 
     const renderHeader = () => {
@@ -699,7 +815,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                     <div id="top-botones" className="mb-2 mb-lg-0">
                         <div className="franja-busqueda-rapida">
                             <div className="input-busqueda-rapida">
-                                <input value={globalFilterValue} onChange={onGlobalFilterChange} type="text" name="rapida" placeholder="Búsqueda rápida" className="form-control" />
+                                <input value={globalFilterValue} onChange={(e) => onGlobalFilterChange(e, 'global')} type="text" name="rapida" placeholder="Búsqueda rápida" className="form-control" />
                                 <button type="button" className="submit-busqueda-rapida icon-Buscar-click"></button>
                             </div>
                             <div className="select-busqueda-rapida ml-4">
@@ -774,7 +890,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                                     </p>
                                 </div>
                             }
-                            {nombre_carpeta != "Favoritos" && nombre_carpeta != "Papelera" && nombre_carpeta != "" &&
+                            {nombre_carpeta != "Favoritos" && nombre_carpeta != "Papelera" && nombre_carpeta != "ALL" &&
                                 <div className="d-inline-block seccion-estas-en">
                                     <p className="my-1">
                                         Estás en:
@@ -787,13 +903,13 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                     </div>
                     <div className="col-12 col-lg-7 col-xl-6 p-0 paginacion_grid text-right text-lg-right ">
                         <span className="paginator">
-                            {nombre_carpeta != "" ?
+                            {nombre_carpeta != "ALL" ?
                                 <span className="p-paginator-current">{total_carpetas} registros</span>
                                 : <>
-                                    <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-double-left" onClick={() => paginator(0, tabla.first_page_url)} />
-                                    <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-left" onClick={() => paginator(tabla.current_page - 1, tabla.prev_page_url)} />
-                                    <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-right" onClick={() => paginator(tabla.current_page + 1, tabla.next_page_url)} />
-                                    <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-double-right" onClick={() => paginator(5, tabla.last_page_url)} />
+                                    <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-double-left" onClick={() => paginator(tabla.first_page_url)} />
+                                    <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-left" onClick={() => paginator(tabla.prev_page_url)} />
+                                    <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-right" onClick={() => paginator(tabla.next_page_url)} />
+                                    <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-double-right" onClick={() => paginator(tabla.last_page_url)} />
                                     <span className="p-paginator-current">{`${tabla.from} - ${tabla.to} de ${tabla.total}`}</span>
                                 </>
                             }
@@ -995,36 +1111,138 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
         setCarpetasSeleccionadas([])
     }, [showModal])
 
+    const rowClassName = (rowData) => {
+        return `row-${rowData.id}`;
+    }
+
+    const [notas, setNotas] = useState([])
+    const [sideBarNotas, setsideBarNotas] = useState(false);
+    const [creatingNote, setCreatingNote] = useState(false)
+    const [editingNote, setEditingNote] = useState(null)
+
+    
+
+    const onHandleCrearNota = (contrato) => {
+        setNotas([])
+        setContratoSelected(contrato)
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.get('/cliente/notas/get-notes?idContrato=' + contrato.id, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then(response => {
+                console.log('Request successful:', response.data);
+                setNotas(response.data)
+            })
+            .catch(error => {
+                console.error('Request failed:', error.response.status, error.response.data);
+            });
+        setsideBarNotas(true)
+    }
+
+    const refInputText = useRef()
+    const refInputTitle = useRef()
+    const [inputTextEdit, setInputTextEdit] = useState("")
+    const [inputTitleEdit, setInputTitleEdit] = useState("")
+
+    const onHandleEditingNote = (nota) =>{
+        setInputTextEdit(nota.text)
+        setInputTitleEdit(nota.title)
+        setEditingNote(nota.id)
+    }
+
+    const saveNota = () => {
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.post('/cliente/notas/admin-note', {
+            idContrato: contratoSelected.id,
+            pinned: 0,
+            text: refInputText.current.value,
+            title: refInputTitle.current.value,
+            zona: nombre_carpeta
+        },
+            { 'Authorization': `Bearer ${token}` })
+            .then(response => {
+                setNotas(response.data)
+                setCreatingNote(false)
+                refInputText.current.value = ""
+                refInputTitle.current.value = ""
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    const updateNota = (id_nota) => {
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.post('/cliente/notas/actualizar', {
+            id:id_nota,
+            idContrato: contratoSelected.id,
+            pinned: 0,
+            text: inputTextEdit,
+            title: inputTitleEdit,
+            zona: nombre_carpeta
+        },
+            { 'Authorization': `Bearer ${token}` })
+            .then(response => {
+                setNotas(response.data)
+                setEditingNote(false)
+                setInputTextEdit("")
+                setInputTitleEdit("")
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    const deleteNota = (id_nota) => {
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.post('/cliente/notas/eliminar', {
+            idContrato: contratoSelected.id,
+            id: id_nota
+        },
+            { 'Authorization': `Bearer ${token}` })
+            .then(response => {
+                setNotas(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    const cleanNota = () =>{
+        setInputTextEdit("")
+        setInputTitleEdit("")
+    }
 
     return (
-        <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders}>
+        <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders} perfiles={perfiles}>
             <div className="content_not_blank_interno">
                 <div id="bodycontenido" className="col contratos_row px-0">
+                    <Loader loading={loading}></Loader>
                     <DataTable id="datatableContratos" ref={dt} value={tabla.data} rows={pageSize} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
                         globalFilterFields={['fuente.alias_portal', 'entidad_contratante', 'objeto', 'valor', 'modalidad', 'codigo_proceso', 'estado_proceso', 'fecha_publicacion', 'ubicacion', 'actividad_economica']} emptyMessage={renderEmptyMessage()}
-
                         expandedRows={expandedRows} /* onRowToggle={(e) => setExpandedRows(e.data)}
                         onRowExpand={onRowExpand} onRowCollapse={onRowCollapse} */ rowExpansionTemplate={rowExpansionTemplate}
                         header={header}
-
                         selectionMode={rowClick ? null : 'checkbox'}
                         selection={selectedProducts}
                         onSelectionChange={(e) => setSelectedProducts(e.value)}
-
                         first={pageNumber * pageSize}
+                        rowClassName={rowClassName}
                     >
                         <Column selectionMode="multiple" className='columna_seleccion columna_pequena' filter filterElement={clearTemplate}></Column>
                         {/* <Column filter className='columna_seleccion columna_pequena'  /> */}
-                        <Column field="fuente.alias_portal" header="Portal" filter filterPlaceholder="Todos" className="rounded_left columna_tipo_secop" body={portalBodyTemplate} />
-                        <Column field="entidad_contratante" header="Entidad" filter filterPlaceholder="Buscar" className="columna_entidad columna_120" body={entidadBodyTemplate} />
-                        <Column field="objeto" header="Obejto" filter filterPlaceholder="Buscar" className="objeto_columna" body={objetoBodyTemplate} />
-                        <Column field="valor" header="Cuantía" filter filterPlaceholder="Buscar" className="rangedropdown columna_120 columna_cuantia" body={cuantiaBodyTemplate} />
-                        <Column field="modalidad" header="Modalidad" filter filterPlaceholder="Seleccionar" className="columna_100 columna_modalidad" filterElement={columnFilterOpenModal} />
-                        <Column field="codigo_proceso" header="Número" filter filterPlaceholder="Buscar" className="columna_numero" />
-                        <Column field="estado_proceso" header="Estado" filter filterPlaceholder="Buscar" className="columna_estado" body={estadoBodyTemplate} />
-                        <Column field="fecha_publicacion" header="Publicada" filter filterPlaceholder="Buscar" className="columna_fecha" />
-                        <Column field="ubicacion" header="Ubicación" filter filterPlaceholder="Seleccionar" className="columna_ubicacion" body={ubicacionBodyTemplate} filterElement={columnFilterOpenModal} />
-                        <Column field="actividad_economica" header="Actividad Económica" filter filterElement={columnFilterOpenModal} />
+                        <Column field="fuente.alias_portal" header="Portal" filter filterPlaceholder="Todos" className="rounded_left columna_tipo_secop" body={portalBodyTemplate} filterElement={columnFilterTemplate} />
+                        <Column field="entidad_contratante" header="Entidad" filter filterPlaceholder="Buscar" className="columna_entidad columna_120" body={entidadBodyTemplate} filterElement={columnFilterTemplate} />
+                        <Column field="objeto" header="Obejto" filter filterPlaceholder="Buscar" className="objeto_columna" body={objetoBodyTemplate} filterElement={columnFilterTemplate} />
+                        <Column field="valor" header="Cuantía" filter filterPlaceholder="Buscar" className="rangedropdown columna_120 columna_cuantia" body={cuantiaBodyTemplate} filterElement={columnFilterTemplate} />
+                        <Column field="modalidad" header="Modalidad" filter filterPlaceholder="Seleccionar" className="columna_100 columna_modalidad" filterElement={columnFilterTemplate} />
+                        <Column field="codigo_proceso" header="Número" filter filterPlaceholder="Buscar" className="columna_numero" filterElement={columnFilterTemplate} />
+                        <Column field="estado_proceso" header="Estado" filter filterPlaceholder="Buscar" className="columna_estado" body={estadoBodyTemplate} filterElement={columnFilterTemplate} />
+                        <Column field="fecha_publicacion" header="Publicada" filter filterPlaceholder="Buscar" className="columna_fecha" filterElement={columnFilterTemplate} />
+                        <Column field="ubicacion" header="Ubicación" filter filterPlaceholder="Seleccionar" className="columna_ubicacion" body={ubicacionBodyTemplate} filterElement={columnFilterTemplate} />
+                        <Column field="actividad_economica" header="Actividad Económica" filter filterElement={columnFilterTemplate} />
                     </DataTable>
 
                 </div>
@@ -1137,8 +1355,8 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                     {modalOpened == "modal_seleccion_carpeta" &&
                         <div className="contenedor_carpetas_seleccion">
                             {folders.length == 0 ?
-                                <div id="mensajes-sin-carpetas" class="container content_blank_intern">
-                                    <img src="/public/images/mensajes-personalizados/sin-carpetas-modal.svg" alt="" class="imagen-sin-carpetas" />
+                                <div id="mensajes-sin-carpetas" className="container content_blank_intern">
+                                    <img src="/public/images/mensajes-personalizados/sin-carpetas-modal.svg" alt="" className="imagen-sin-carpetas" />
                                     <p>Añade tu primer carpeta</p>
                                 </div>
                                 :
@@ -1146,19 +1364,19 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                                     <ul className="row scroll_fit">
                                         {folders.map((carpeta) => (
                                             <li className="align-items-center col-md-3 col-sm-4 col-xs-12 d-flex selected_carpeta">
-                                                <span class="body_checkbox">
+                                                <span className="body_checkbox">
                                                     {contratoSelected.carpetas_ids.includes(carpeta.id) ?
-                                                        <div class="checkbox" style={{ margin: 0 + 'px' }} onClick={() => deleteContrato(carpeta.id, contratoSelected.id)}>
-                                                            <i class="align-items-center cr-icon d-flex fa fa-times justify-content-center quitar_carpeta"></i>
+                                                        <div className="checkbox" style={{ margin: 0 + 'px' }} onClick={() => deleteContrato(carpeta.id, contratoSelected.id)}>
+                                                            <i className="align-items-center cr-icon d-flex fa fa-times justify-content-center quitar_carpeta"></i>
                                                             <label>
                                                                 <input type="checkbox" name="carpeta_mover" value="22101" />
-                                                                <span class="cr">
-                                                                    <i class="cr-icon fa fa-check"></i>
+                                                                <span className="cr">
+                                                                    <i className="cr-icon fa fa-check"></i>
                                                                 </span>
                                                             </label>
                                                         </div>
                                                         :
-                                                        <input type="checkbox" id="carpeta_mover" name="carpeta_mover" class="input_perfil_val" value={carpeta.id} onClick={(e) => toggleCarpetasSeleccionadas(e, carpeta.id)} />
+                                                        <input type="checkbox" id="carpeta_mover" name="carpeta_mover" className="input_perfil_val" value={carpeta.id} onClick={(e) => toggleCarpetasSeleccionadas(e, carpeta.id)} />
                                                     }
                                                 </span>
                                                 <div className="body_icono_carpeta">
@@ -1184,14 +1402,152 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                         <button type="button" className="btnRadius btn-new-green">Seleccionar</button>
                     }
                     {modalOpened == "modal_seleccion_carpeta" &&
-                        <div class="actions-buttons-modal buttons-modal-carpetas">
-                            <button type="button" class="btn-new-green btnRadius text-center" onClick={handleOpenModalCrearCarpeta}>Crear carpeta</button>
-                            <button type="button" class="btn-new-blue btnRadius text-center disable_button" disabled={carpetasSeleccionadas.length == 0} onClick={saveCarpetasSeleccionadas}>Guardar en</button>
+                        <div className="actions-buttons-modal buttons-modal-carpetas">
+                            <button type="button" className="btn-new-green btnRadius text-center" onClick={handleOpenModalCrearCarpeta}>Crear carpeta</button>
+                            <button type="button" className="btn-new-blue btnRadius text-center disable_button" disabled={carpetasSeleccionadas.length == 0} onClick={saveCarpetasSeleccionadas}>Guardar en</button>
                         </div>
                     }
                 </Modal.Footer>
             </Modal>
             <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} carpeta={carpetaSelected} other_page={true} handleCarpetas={handleCarpetas} />
+            <Sidebar id="sidebar-notes" visible={sideBarNotas} position="right" onHide={() => setsideBarNotas(false)}>
+                <div className="b-sidebar-body notes-content">
+                    <div className="wrapper">
+                        <a className="close-sidebar icon-Flujo" onClick={() => setsideBarNotas(false)}></a>
+                        <div className="notes-content__header">
+                            <h4>Mis notas</h4>
+                        </div>
+                        <div className={`notes-content__create ${creatingNote ? "on-creating" : ""}`} onClick={() => setCreatingNote(true)}>
+                            <div className="notes-header">
+                                {creatingNote &&
+                                    <div className="notes-title">
+                                        <input ref={refInputTitle} onClick={() => setCreatingNote(true)} placeholder="Escribe un título aquí." type="text" className="noteTitle" aria-required="true" aria-invalid="true" />
+                                    </div>
+                                }
+                                <div className={`notes-opts ${creatingNote ? "on-expand" : ""}`}>
+                                    <span id="timeNota" className="icon-Hora text-fecha">
+                                        <span className="text-fecha__hora">Hoy 12:46 pm</span>
+                                    </span>
+                                    <div className="custom-tooltip red" data-tooltip="Borrar contenido">
+                                        <a id="tlpBorrarNota" className="icon-Limpiar-click"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="textarea-container">
+                                <textarea ref={refInputText} onClick={() => setCreatingNote(true)} name="note" id="note" placeholder="Crear una nota" className="mt-2"></textarea>
+                            </div>
+                            {creatingNote &&
+                                <div className="button-create-container">
+                                    <button className="button-create btn-new-green btnRadius" onClick={saveNota}>Crear nota</button>
+                                </div>
+                            }
+                        </div>
+                        {notas.length > 0 ?
+                            <div className="notes-content__zone">
+                                <div className="notes-content__zone-input-search">
+                                    <div className="form-group">
+                                        <div className="input-container">
+                                            <input onClick={() => setCreatingNote(false)} type="text" placeholder="Buscar nota" /> <span
+                                                className="icon-Cancelar" style={{ display: 'none' }}></span> <span className="icon-Buscar-click"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="notes-content__zone-list-notes">
+                                    <ul>
+                                        <div>
+                                            {notas.map((nota, index) => (
+                                                <li className={`note ${editingNote == nota.id ? "on-edit" : ""}`}>
+                                                    {editingNote == nota.id &&
+                                                        <div className="note-header-opts">
+                                                            <div className="controls">
+                                                                <a className="icon-Limpiar-click" onClick={() => cleanNota()}></a>
+                                                                <a className="hover-icon icon-Eliminar" onClick={() => deleteNota(nota.id)}></a>
+                                                                <span id="timeNota" className="icon-Hora text-fecha">
+                                                                    <span className="text-fecha__hora">Hoy 1:21 pm
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    <div className="note-data">
+                                                        <div className="note-icon">
+                                                            <img src="https://col.licitaciones.info/img/notas/note_icon.svg" alt="Nota icon" /></div>
+                                                        <div className="note-description" onClick={() => onHandleEditingNote(nota)}>
+                                                            {editingNote == nota.id ?
+                                                                <>
+                                                                    <input placeholder="Agrega un título" type="text" className="onEditTitleNote" aria-required="true" aria-invalid="false" value={inputTitleEdit} onChange={(e)=>setInputTitleEdit(e.target.value)}/>
+                                                                    <textarea placeholder="Agrega una descripción" className="onEditNote" style={{height: 26 + 'px'}} onChange={(e)=>setInputTextEdit(e.target.value)}>{inputTextEdit}</textarea>
+                                                                </>
+                                                                :
+                                                                <>
+                                                                    <div className="notes-drag">
+                                                                        <span className="note-description__title">{nota.title}</span>
+                                                                        <div className="notes-opts">
+                                                                            <span id="timeNota" className="icon-Hora text-fecha">
+                                                                                <span className="text-fecha__hora">Hoy 11:38 am</span>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p className="note-descrition__body">{nota.text}</p>
+                                                                </>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    {editingNote == nota.id ?
+                                                        <div className="note-actions">
+                                                            <div className="manual-controls">
+                                                                <a className="btn-new-green btnRadius" draggable="false" href="#!" onClick={()=>updateNota(nota.id)}>
+                                                                    <i className="icon-Check"></i>
+                                                                    <span>Guardar</span>
+                                                                </a>
+                                                                <a href="#!" className="btn-new-danger btnRadius" onClick={()=>setEditingNote(false)}>
+                                                                    <i className="icon-Cancelar"></i> <span>Descartar</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        :
+                                                        <div className="note-actions">
+                                                            <div className="direct-access-controls">
+                                                                <a className="hover-icon icon-Eliminar" onClick={() => deleteNota(nota.id)}></a>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </li>
+                                            ))}
+                                        </div>
+                                        <div className="infinite-loading-container">
+                                            <div className="infinite-status-prompt"
+                                                style={{ color: 'rgb(102, 102, 102)', fontSize: 14 + 'px', padding: 10 + 'px 0px', display: 'none' }}><i
+                                                    data-v-46b20d22="" className="loading-default"></i></div>
+                                            <div className="infinite-status-prompt">
+                                                <div className="infinite--no-data">No hay más notas</div>
+                                            </div>
+                                            <div className="infinite-status-prompt" style={{ display: 'none' }}><span
+                                                className="infinite--no-data">No hay más notas</span></div>
+                                            <div className="infinite-status-prompt"
+                                                style={{ color: 'rgb(102, 102, 102)', fontSize: 14 + 'px', padding: 10 + 'px 0px', display: 'none' }}>
+                                                Opps, something went wrong :(
+                                                <br />
+                                                <button className="btn-try-infinite">Retry</button>
+                                            </div>
+                                        </div>
+                                    </ul>
+                                </div>
+                            </div>
+                            :
+                            <div>
+                                <div className="workspace text-center">
+                                    <div className="workspace__image">
+                                        <img src="https://col.licitaciones.info/img/notas/workspace.png" alt="Nota Workspace" />
+                                    </div>
+                                    <p className="workspace__copy">No has creado tu primera nota.</p>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </Sidebar>
         </AuthenticatedLayout >
     );
 };

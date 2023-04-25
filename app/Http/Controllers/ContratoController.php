@@ -12,6 +12,7 @@ use Inertia\Inertia;
 
 use App\Models\Carpeta;
 use App\Models\CarpetasHasContrato;
+use App\Models\GrupoFiltroUsuario;
 use Illuminate\Support\Facades\Auth;
 
 class ContratoController extends Controller
@@ -19,7 +20,7 @@ class ContratoController extends Controller
 
     public function index()
     {
-        $buscador_rapido = request("buscador_rapido");
+        $buscador_rapido = request("rapida");
         $entidad_contratante = request("entidad_contratante");
         $objeto = request("objeto");
         $codigo_proceso = request("codigo_proceso");
@@ -32,12 +33,12 @@ class ContratoController extends Controller
         $fecha_publicacion = request("fecha_publicacion");
         $contratos = Contrato::with('fuente')
             ->where(function ($query) use ($buscador_rapido, $entidad_contratante, $objeto, $codigo_proceso, $fecha_desde, $fecha_hasta, $cuantia_desde, $cuantia_hasta, $estado_proceso) {
-                if (!is_null($buscador_rapido) && $buscador_rapido != "") {
+                /* if (!is_null($buscador_rapido) && $buscador_rapido != "") {
                     $query->where('entidad_contratante', 'like', '%' . $buscador_rapido . '%')
                         ->orWhere('objeto', 'like', '%' . $buscador_rapido . '%')
                         ->orWhere('modalidad', 'like', '%' . $buscador_rapido . '%')
                         ->orWhere('ubicacion', 'like', '%' . $buscador_rapido . '%');
-                }
+                } */
                 // Inicio condiciones modal filtro avanzado
                 if (!is_null($entidad_contratante) && $entidad_contratante != "") {
                     $query->where('entidad_contratante', 'like', '%' . $entidad_contratante . '%');
@@ -122,6 +123,7 @@ class ContratoController extends Controller
         }
 
         $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
+        $grupos = GrupoFiltroUsuario::where('id_usuario', Auth::id())->orderBy('id', 'DESC')->get();
         if (request()->has("type") /* && request('type') == "fetch" */) { //dd(request('type'));
             return json_encode($contratos);
         } else {
@@ -130,8 +132,9 @@ class ContratoController extends Controller
                 [
                     'contratos' => $contratos,
                     'total_carpetas' => 0,
-                    'nombre_carpeta' => '',
-                    'carpetas' => $carpetas
+                    'nombre_carpeta' => 'ALL',
+                    'carpetas' => $carpetas,
+                    'perfiles' => $grupos
                 ]
             );
         }
@@ -402,13 +405,15 @@ class ContratoController extends Controller
         }
 
         $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
+        $grupos = GrupoFiltroUsuario::where('id_usuario', Auth::id())->orderBy('id', 'DESC')->get();
         return Inertia::render(
             'Contratos/Index',
             [
                 'contratos' => $contratos,
                 'nombre_carpeta' => $nombre_carpeta,
                 'total_carpetas' => $total_carpetas,
-                'carpetas' => $carpetas
+                'carpetas' => $carpetas,
+                'perfiles' => $grupos
             ]
         );
         /* return Inertia::render(
