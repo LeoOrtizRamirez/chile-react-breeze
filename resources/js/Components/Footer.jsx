@@ -16,13 +16,17 @@ const Footer = () => {
                         </div>
                         <div class="col_lg_1_footer separadores_footer"></div>
                         <div class="col-lg-2 text-center footer_licitaciones_internacional">
-                            <div class="d-block block_internacional"><p>Internacional</p>
-                            <a href="https://ecu.licitaciones.info/cliente/grupo">
-                                Ecuador
-                            </a>
-                            <a href="https://pan.licitaciones.info/cliente/grupo">
+                            <div class="d-block block_internacional">
+                                <p>Internacional</p>
+                                <a href="https://col.licitaciones.info/cliente/grupo">
+                                    Colombia
+                                </a>
+                                <a href="https://ecu.licitaciones.info/cliente/grupo">
+                                    Ecuador
+                                </a>
+                                <a href="https://pan.licitaciones.info/cliente/grupo">
                                     Panama
-                            </a>
+                                </a>
                             </div>
                         </div>
                         <div class="col_lg_1_footer separadores_footer"></div>
