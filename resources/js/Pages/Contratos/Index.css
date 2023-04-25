@@ -2203,7 +2203,7 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
 #contratos .custom-tooltip:hover:before {
     content: "";
     position: absolute;
-    top: -14%;
+    top: -15%;
     left: 50%;
     transform: translateX(-50%);
     border-style: solid;
