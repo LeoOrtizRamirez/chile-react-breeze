@@ -114,10 +114,10 @@ class ContratoController extends Controller
 
             //Buscar si el contrato esta guardado en carpetas del usuario actual
             $carpetas = CarpetasHasContrato::join('carpetas', 'carpetas.id', 'carpetas_has_contratos.id_carpeta')
-                    ->where('id_contrato', $value->id)
-                    ->where('carpetas.id_usuario', Auth::id())
-                    ->whereNotIn('carpetas.tipo', ['F', 'P'])
-                    ->get();
+                ->where('id_contrato', $value->id)
+                ->where('carpetas.id_usuario', Auth::id())
+                ->whereNotIn('carpetas.tipo', ['F', 'P'])
+                ->get();
             $value->carpetas = $carpetas;
             $carpetas_ids = [];
             foreach ($carpetas as $item => $key) {
@@ -396,8 +396,12 @@ class ContratoController extends Controller
                         }
                     }
 
-                    //Buscar si el contrato esta guardado en carpetas
-                    $carpetas = CarpetasHasContrato::join('carpetas', 'carpetas.id', 'carpetas_has_contratos.id_carpeta')->where('id_contrato', $value->id)->whereNotIn('carpetas.tipo', ['F', 'P'])->get();
+                    //Buscar si el contrato esta guardado en carpetas del usuario actual
+                    $carpetas = CarpetasHasContrato::join('carpetas', 'carpetas.id', 'carpetas_has_contratos.id_carpeta')
+                        ->where('id_contrato', $value->id)
+                        ->where('carpetas.id_usuario', Auth::id())
+                        ->whereNotIn('carpetas.tipo', ['F', 'P'])
+                        ->get();
                     $value->carpetas = $carpetas;
                     $carpetas_ids = [];
                     foreach ($carpetas as $item => $key) {
