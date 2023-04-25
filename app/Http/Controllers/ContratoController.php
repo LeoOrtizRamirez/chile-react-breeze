@@ -134,7 +134,7 @@ class ContratoController extends Controller
                     'total_carpetas' => 0,
                     'nombre_carpeta' => 'ALL',
                     'carpetas' => $carpetas,
-                    'perfiles' => $grupos
+                    'grupos' => $grupos
                 ]
             );
         }
@@ -413,7 +413,7 @@ class ContratoController extends Controller
                 'nombre_carpeta' => $nombre_carpeta,
                 'total_carpetas' => $total_carpetas,
                 'carpetas' => $carpetas,
-                'perfiles' => $grupos
+                'grupos' => $grupos
             ]
         );
         /* return Inertia::render(

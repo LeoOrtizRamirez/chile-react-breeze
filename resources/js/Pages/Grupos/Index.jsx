@@ -236,7 +236,7 @@ const Index = ({ auth, grupos, created_updated }) => {
     };
     return (
         <>
-            <AuthenticatedLayout auth={auth} page={'grupos'}>
+            <AuthenticatedLayout auth={auth} page={'grupos'} grupos={grupos}>
 
                 <div className="content_blank_interno margin_left_layout">
                     {data.length > 0 &&

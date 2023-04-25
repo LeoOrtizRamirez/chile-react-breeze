@@ -5,7 +5,7 @@ import { Nav, NavDropdown } from 'react-bootstrap';
 import { Inertia } from '@inertiajs/inertia'
 
 import CrearCarpeta from './CrearCarpeta';
-const MenuLateral = ({ carpetas = [], perfiles = [] }) => {
+const MenuLateral = ({ carpetas = [], grupos = [] }) => {
     const [folders, setFolders] = useState(carpetas == null ? [] : carpetas)
     useEffect(() => {
         if (carpetas != null) {
@@ -55,11 +55,12 @@ const MenuLateral = ({ carpetas = [], perfiles = [] }) => {
             });
         }
     }
+    console.log("grupos", grupos)
 
     return (
         <div id="menu-lateral" className="fixed-top">
             <Nav className="new-menu scroll_fit">
-                {perfiles.length > 0 ?
+                {grupos.length > 0 ?
                     <NavDropdown
                         drop={'end'}
                         id="item_menu-misperfiles"
@@ -102,14 +103,14 @@ const MenuLateral = ({ carpetas = [], perfiles = [] }) => {
                                 <div className="scroll_fit">
                                     <div id="menuperfiles_movil">
                                         <div className="contenedor_perfiles">
-                                            {perfiles.map((perfil, index) => (
+                                            {grupos.map((perfil, index) => (
                                                 <div className="item-checkbox-menu item-icon-menu">
                                                     <span className="body_checkbox">
                                                         <input type="checkbox" id="checkboxPerfil0" className="input_perfil_val" value="256058" />
                                                     </span> <label id="visita_256058" className="">
                                                         <div className="content-img">
                                                             <div className="content-img--img imgperfil">
-                                                                <img src="/storage/banco-imagenes/artistas/Licitaciones/perfil-amarillo.svg" />
+                                                                <img src={perfil.imagen_filtro} />
                                                             </div>
                                                         </div>
                                                         <span title="PRIMER" alt="PRIMER" className="cursor-type-pointer">{perfil.nombre_filtro}</span>

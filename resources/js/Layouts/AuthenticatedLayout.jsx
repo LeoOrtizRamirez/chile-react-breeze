@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../../css/font-web.css";
 import "../../css/font-nexa-bold.css";
 
-export default function Authenticated({ auth, header, children, page, carpetas=null }) {
+export default function Authenticated({ auth, header, children, page, carpetas=[], grupos=[] }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
@@ -16,7 +16,7 @@ export default function Authenticated({ auth, header, children, page, carpetas=n
             <Header auth={auth}></Header>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
             <div className="">
-                <MenuLateral carpetas={carpetas}/>
+                <MenuLateral carpetas={carpetas} grupos={grupos}/>
                 <div className="col contenido_internas " id={page}>
                     <div className="position-relative d-block">
                         {children}

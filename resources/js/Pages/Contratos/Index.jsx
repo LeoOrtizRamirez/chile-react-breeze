@@ -29,7 +29,7 @@ import { Inertia } from '@inertiajs/inertia'
 
 import CrearCarpeta from "@/Components/CrearCarpeta";
 
-const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, perfiles }) => {
+const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grupos }) => {
     const [tabla, setTabla] = useState(contratos);
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
@@ -1216,7 +1216,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, perf
     }
 
     return (
-        <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders} perfiles={perfiles}>
+        <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders} grupos={grupos}>
             <div className="content_not_blank_interno">
                 <div id="bodycontenido" className="col contratos_row px-0">
                     <Loader loading={loading}></Loader>
