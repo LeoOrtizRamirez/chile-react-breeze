@@ -509,7 +509,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
                         </div>
 
 
-                        {data.papelera ?
+                        {/* {data.papelera ?
                             <div className="custom-tooltip red" data-tooltip="Eliminar de Papelera">
                                 <button id="btnContratosDelete-8114846" type="button" className="icon-Eliminar btn_contratos_delete papelera_active" onClick={() => deletePapelera(data.id)} />
                             </div>
@@ -517,7 +517,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
                             <div className="custom-tooltip red" data-tooltip="Agregar A Papelera">
                                 <button id="btnContratosDelete-8114846" type="button" className="icon-Eliminar btn_contratos_delete" onClick={() => addPapelera(data.id)} />
                             </div>
-                        }
+                        } */}
 
 
                         <div className="custom-tooltip dark" data-tooltip="Ir A La Fuente">
