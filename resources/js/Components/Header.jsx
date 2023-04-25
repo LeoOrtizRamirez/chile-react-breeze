@@ -48,21 +48,21 @@ const Header = ({auth}) => {
                         <Nav id="paises" className='dropdown-paises'>
                             <NavDropdown id="navbarDropdownPaises" className='nav-link pl-0' title={<><img src="/public/images/banderas/listado_nombres/CHL.svg" alt="icono bandera" width="22" /><span class='nav-title'>Chile</span><i class="position-relative icon-Desplegar"></i></>} >
                                 <Dropdown.Item href="#" className='dropdown-item'>
-                                    <img src="/public/images/banderas/listado_nombres/col.svg" alt="icono bandera" width="22" className='inline-block' /> <span>Colombia</span>
+                                    <img src="/public/images/banderas/listado_nombres/COL.svg" alt="icono bandera" width="22" className='inline-block' /> <span>Colombia</span>
                                 </Dropdown.Item>
                                 <Dropdown.Divider />
                                 <Dropdown.Item href="#" className='dropdown-item'>
-                                    <img src="/public/images/banderas/listado_nombres/ecu.svg" alt="icono bandera" width="22" className='inline-block' /> <span>Ecuador</span>
+                                    <img src="/public/images/banderas/listado_nombres/ECU.svg" alt="icono bandera" width="22" className='inline-block' /> <span>Ecuador</span>
                                 </Dropdown.Item>
                                 <Dropdown.Divider />
                                 <Dropdown.Item href="#" className='dropdown-item'>
-                                    <img src="/public/images/banderas/listado_nombres/pan.svg" alt="icono bandera" width="22" className='inline-block' /> <span>Panama</span>
+                                    <img src="/public/images/banderas/listado_nombres/PAN.svg" alt="icono bandera" width="22" className='inline-block' /> <span>Panama</span>
                                 </Dropdown.Item>
                             </NavDropdown>
                         </Nav>
 
                         <Nav id="account" className='dropdown-perfil'>
-                            <NavDropdown id="inicialesUsuarioDropdown" className='nav-link pl-0' title={<><img id="dropdownAvatar" width="35" src="https://col.licitaciones.info/img/mi_cuenta/svg/default_avatar.svg" alt="Avatar" class="avatar-dropdown" /><span id="headerUserName" data-value="Leonardo Ortiz" class="name_header_title">Leonardo Ortiz</span><i class="position-relative icon-Desplegar"></i></>} >
+                            <NavDropdown id="inicialesUsuarioDropdown" className='nav-link pl-0' title={<><img id="dropdownAvatar" width="35" src="https://col.licitaciones.info/img/mi_cuenta/svg/default_avatar.svg" alt="Avatar" class="avatar-dropdown" /><span id="headerUserName" class="name_header_title">{auth.user.nombre_completo}</span><i class="position-relative icon-Desplegar"></i></>} >
                                 <div class="d-flex px-2">
                                     <div class="flex-shrink-1 align-self-center">
                                         <img id="dropdownAvatar" width="50" src="https://col.licitaciones.info/img/mi_cuenta/svg/default_avatar.svg" alt="Avatar" class="avatar-dropdown" />
