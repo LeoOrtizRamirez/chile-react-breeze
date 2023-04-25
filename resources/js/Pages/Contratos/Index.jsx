@@ -29,7 +29,7 @@ import { Inertia } from '@inertiajs/inertia'
 
 import CrearCarpeta from "@/Components/CrearCarpeta";
 
-const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) => {
+const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, perfiles }) => {
     const [tabla, setTabla] = useState(contratos);
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
@@ -528,7 +528,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
                         </div>
                         <div className="custom-tooltip gray" data-tooltip="Crear Primer Nota">
                             <button className="btn_contratos_notas custom-tooltip gray">
-                                <img src="/images/notas/nota.svg" alt="Nota" className="without-notes" onClick={() => onHandleCrearNota(data)} />
+                                <img src="/public/images/notas/nota.svg" alt="Nota" className="without-notes" onClick={() => onHandleCrearNota(data)} />
                             </button>
                         </div>
                     </div>
@@ -1216,7 +1216,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas }) =>
     }
 
     return (
-        <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders}>
+        <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders} perfiles={perfiles}>
             <div className="content_not_blank_interno">
                 <div id="bodycontenido" className="col contratos_row px-0">
                     <Loader loading={loading}></Loader>

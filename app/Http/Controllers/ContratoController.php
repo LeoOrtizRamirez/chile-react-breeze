@@ -12,6 +12,7 @@ use Inertia\Inertia;
 
 use App\Models\Carpeta;
 use App\Models\CarpetasHasContrato;
+use App\Models\GrupoFiltroUsuario;
 use Illuminate\Support\Facades\Auth;
 
 class ContratoController extends Controller
@@ -122,6 +123,7 @@ class ContratoController extends Controller
         }
 
         $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
+        $grupos = GrupoFiltroUsuario::where('id_usuario', Auth::id())->orderBy('id', 'DESC')->get();
         if (request()->has("type") /* && request('type') == "fetch" */) { //dd(request('type'));
             return json_encode($contratos);
         } else {
@@ -131,7 +133,8 @@ class ContratoController extends Controller
                     'contratos' => $contratos,
                     'total_carpetas' => 0,
                     'nombre_carpeta' => 'ALL',
-                    'carpetas' => $carpetas
+                    'carpetas' => $carpetas,
+                    'perfiles' => $grupos
                 ]
             );
         }
@@ -402,13 +405,15 @@ class ContratoController extends Controller
         }
 
         $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
+        $grupos = GrupoFiltroUsuario::where('id_usuario', Auth::id())->orderBy('id', 'DESC')->get();
         return Inertia::render(
             'Contratos/Index',
             [
                 'contratos' => $contratos,
                 'nombre_carpeta' => $nombre_carpeta,
                 'total_carpetas' => $total_carpetas,
-                'carpetas' => $carpetas
+                'carpetas' => $carpetas,
+                'perfiles' => $grupos
             ]
         );
         /* return Inertia::render(

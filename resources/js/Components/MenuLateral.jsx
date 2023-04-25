@@ -5,24 +5,24 @@ import { Nav, NavDropdown } from 'react-bootstrap';
 import { Inertia } from '@inertiajs/inertia'
 
 import CrearCarpeta from './CrearCarpeta';
-const MenuLateral = ({carpetas = []}) => {
+const MenuLateral = ({ carpetas = [], perfiles = [] }) => {
     const [folders, setFolders] = useState(carpetas == null ? [] : carpetas)
     useEffect(() => {
-        if(carpetas != null){
+        if (carpetas != null) {
             setFolders(carpetas)
         }
     }, [carpetas])
-    
+
     useEffect(() => {
-        if(carpetas == null){
+        if (carpetas == null) {
             console.log("null")
             axios.get(`/cliente/carpeta/carpetas-user`)
-            .then(response => {
-                setFolders(response.data)
-            })
-            .catch(error => {
-                console.log(error)
-            });
+                .then(response => {
+                    setFolders(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                });
         }
     }, [])
 
@@ -39,15 +39,15 @@ const MenuLateral = ({carpetas = []}) => {
         setShowModalCrearCarpeta(false);
     };
 
-    const changePage = (tipo, id = null) =>{
+    const changePage = (tipo, id = null) => {
         var token = document.querySelector('meta[name="csrf-token"]')
-        if(id == null){
+        if (id == null) {
             Inertia.post(`/cliente/contratos/get-info/${tipo}`, {
                 headers: {
                     'Authorization': `Bearer ${token.content}`
                 }
             });
-        }else{
+        } else {
             Inertia.post(`/cliente/contratos/get-info/${tipo}?carpeta=${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token.content}`
@@ -59,12 +59,79 @@ const MenuLateral = ({carpetas = []}) => {
     return (
         <div id="menu-lateral" className="fixed-top">
             <Nav className="new-menu scroll_fit">
-                <NavDropdown
-                    drop={'end'}
-                    id="item_menu-misperfiles"
-                    className=""
-                    title={
-                        <>
+                {perfiles.length > 0 ?
+                    <NavDropdown
+                        drop={'end'}
+                        id="item_menu-misperfiles"
+                        className=""
+                        title={
+                            <>
+                                <span className="icon-Mis-perfiles">
+                                    <span className="path1">
+                                    </span>
+                                    <span className="path2">
+                                    </span>
+                                    <span className="path3">
+                                    </span>
+                                    <span className="path4">
+                                    </span>
+                                    <span className="path5">
+                                    </span>
+                                </span>
+                                <span className="item-title-menu">Mis perfiles</span>
+                                <i className="contadores_menu contadores_menu_top" style={{ display: "none" }}></i>
+                                <span className="icon-Flujo flechas-menu"></span>
+                            </>
+                        }>
+
+                        <span className="angle_dropdown_menu" style={{ top: 0.8 + 'px' }}>
+                        </span>
+                        <div className="drop-perfiles position-relative">
+                            <span className="icon-Contraer-campana-click">
+                            </span>
+                            <div className="item-checkbox-menu item-checkbox-menu-subtitle">
+                                <span className="body_checkbox">
+                                    <div className="checkbox" style={{ margin: 0 + 'px' }}><label>
+                                        <input type="checkbox" id="checkboxPerfilAll" className="input_perfil_val" value="0" />
+                                    </label>
+                                    </div>
+                                </span> <label htmlFor="checkboxPerfilAll" id="visita_0" className="d-block">Mis perfiles
+                                </label>
+                            </div>
+                            <div className="body-all-perfiles">
+                                <div className="scroll_fit">
+                                    <div id="menuperfiles_movil">
+                                        <div className="contenedor_perfiles">
+                                            {perfiles.map((perfil, index) => (
+                                                <div className="item-checkbox-menu item-icon-menu">
+                                                    <span className="body_checkbox">
+                                                        <input type="checkbox" id="checkboxPerfil0" className="input_perfil_val" value="256058" />
+                                                    </span> <label id="visita_256058" className="">
+                                                        <div className="content-img">
+                                                            <div className="content-img--img imgperfil">
+                                                                <img src="/storage/banco-imagenes/artistas/Licitaciones/perfil-amarillo.svg" />
+                                                            </div>
+                                                        </div>
+                                                        <span title="PRIMER" alt="PRIMER" className="cursor-type-pointer">{perfil.nombre_filtro}</span>
+                                                    </label>
+                                                    <div className="indic-item-menu"><i className="contadores_nuevos_point"></i>
+                                                    </div> <i className="icono-arrastre icon-Mover"></i>
+                                                </div>
+                                            ))}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="botones-dropdown-menu">
+                                <a href="/cliente/grupo" className="btn-new-gray text-center activeli">Administrar perfil(es)</a>
+                                <a href="/cliente/grupo/crear" className="btn-new-green text-center"><i className="icon-Crear icon-boton"></i>Crear perfil</a>
+                            </div>
+                        </div>
+                    </NavDropdown>
+                    :
+                    <li id="item_menu-seguimiento-li">
+                        <a href="/cliente/grupo" id="item_menu-misperfiles" className="">
                             <span className="icon-Mis-perfiles">
                                 <span className="path1">
                                 </span>
@@ -77,56 +144,14 @@ const MenuLateral = ({carpetas = []}) => {
                                 <span className="path5">
                                 </span>
                             </span>
-                            <span className="item-title-menu">Mis perfiles</span>
-                            <i className="contadores_menu contadores_menu_top" style={{ display: "none" }}></i>
-                            <span className="icon-Flujo flechas-menu"></span>
-                        </>
-                    }>
+                            <span className="item-title-menu">
+                                Mis perfiles
+                            </span>
+                            <i className="contadores_menu" style={{ display: "none;" }}></i>
+                        </a>
+                    </li>
+                }
 
-                    <span className="angle_dropdown_menu" style={{ top: 0.8 + 'px' }}>
-                    </span>
-                    <div className="drop-perfiles position-relative">
-                        <span className="icon-Contraer-campana-click">
-                        </span>
-                        <div className="item-checkbox-menu item-checkbox-menu-subtitle">
-                            <span className="body_checkbox">
-                                <div className="checkbox" style={{ margin: 0 + 'px' }}><label>
-                                    <input type="checkbox" id="checkboxPerfilAll" className="input_perfil_val" value="0" />
-                                </label>
-                                </div>
-                            </span> <label htmlFor="checkboxPerfilAll" id="visita_0" className="d-block">Mis perfiles
-                            </label>
-                        </div>
-                        <div className="body-all-perfiles">
-                            <div className="scroll_fit">
-                                <div id="menuperfiles_movil">
-                                    <div className="contenedor_perfiles"><div>
-                                        <div className="item-checkbox-menu item-icon-menu">
-                                            <span className="body_checkbox">
-                                                <input type="checkbox" id="checkboxPerfil0" className="input_perfil_val" value="256058" />
-                                            </span> <label id="visita_256058" className="">
-                                                <div className="content-img">
-                                                    <div className="content-img--img imgperfil">
-                                                        <img src="/storage/banco-imagenes/artistas/Licitaciones/perfil-amarillo.svg" />
-                                                    </div>
-                                                </div>
-                                                <span title="PRIMER" alt="PRIMER" className="cursor-type-pointer">PRIMER
-                                                </span>
-                                            </label>
-                                            <div className="indic-item-menu"><i className="contadores_nuevos_point"></i>
-                                            </div> <i className="icono-arrastre icon-Mover"></i>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="botones-dropdown-menu">
-                            <a href="/cliente/grupo" className="btn-new-gray text-center activeli">Administrar perfil(es)</a>
-                            <a href="/cliente/grupo/crear" className="btn-new-green text-center"><i className="icon-Crear icon-boton"></i>Crear perfil</a>
-                        </div>
-                    </div>
-                </NavDropdown>
                 <li id="item_menu-seguimiento-li">
                     <button type="button" id="item_menu-seguimiento" className="">
                         <span className="icon-Seguimientos"></span>
