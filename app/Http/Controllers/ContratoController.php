@@ -13,13 +13,28 @@ use Inertia\Inertia;
 use App\Models\Carpeta;
 use App\Models\CarpetasHasContrato;
 use App\Models\GrupoFiltroUsuario;
+use Exception;
 use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Support\Facades\DB;
 
 class ContratoController extends Controller
 {
 
     public function index()
     {
+        $notas = request("filtrar_nuevos"); //4: Notas
+        $contratos_con_notas = [];
+        if (!is_null($notas) && $notas != "") {
+            $contratos_con_notas = DB::table('contratos')
+                ->join('notas', 'notas.id_contrato', '=', 'contratos.id')
+                ->where('notas.id_usuario', Auth::id())
+                ->select('contratos.id')
+                ->groupBy('contratos.id')
+                ->get()->pluck('id')->toArray();
+        }
+
+
         $buscador_rapido = request("rapida");
         $entidad_contratante = request("entidad_contratante");
         $objeto = request("objeto");
@@ -68,10 +83,14 @@ class ContratoController extends Controller
                     $query->whereIn('estado_proceso', explode(",", $estado_proceso));
                 }
                 // Fin condiciones modal filtro avanzado
+
+                if (!is_null($estado_proceso) && $estado_proceso != "") {
+                    $query->whereIn('estado_proceso', explode(",", $estado_proceso));
+                }
             })
-            ->where(function ($query) use ($fecha_publicacion) {
-                if (!is_null($fecha_publicacion) && $fecha_publicacion != "") {
-                    $query->where('fecha_publicacion', request("fecha_publicacion"));
+            ->where(function ($query) use ($notas, $contratos_con_notas) {
+                if (!is_null($notas) && $notas != "") {
+                    $query->whereIn('id', $contratos_con_notas);
                 }
             })
             ->paginate(30);

@@ -835,7 +835,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
                                             </span>
                                             <span className="text-options-order">Vistos recientemente</span>
                                         </Dropdown.Item>
-                                        <Dropdown.Item href="#" className='dropdown-item'>
+                                        <Dropdown.Item href="/cliente/contratos?filtrar_nuevos=4" className='dropdown-item'>
                                             <span className="icon-options-order">
                                                 <span className="icon-Contratos"></span>
                                             </span>
