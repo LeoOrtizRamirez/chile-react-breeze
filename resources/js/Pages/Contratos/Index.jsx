@@ -529,7 +529,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
                         {filter_notas ?
                             <div className="custom-tooltip yellow with-notes" data-tooltip="Ver Notas">
                                 <button className="btn_contratos_notas custom-tooltip yellow">
-                                    <img src="/images/notas/nota.svg" alt="Nota" onClick={() => onHandleCrearNota(data)} />
+                                    <img src="/public/images/notas/nota.svg" alt="Nota" onClick={() => onHandleCrearNota(data)} />
                                 </button>
                             </div>
                             :
