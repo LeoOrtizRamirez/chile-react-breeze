@@ -1119,8 +1119,13 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
     const [sideBarNotas, setsideBarNotas] = useState(false);
     const [creatingNote, setCreatingNote] = useState(false)
     const [editingNote, setEditingNote] = useState(null)
+    const [cleanNota, setCleanNota] = useState(false)
 
-    
+    const onHandleSetEditingNote = () => {
+        setEditingNote(false)
+        setInputTextEdit("")
+        setInputTitleEdit("")
+    }
 
     const onHandleCrearNota = (contrato) => {
         setNotas([])
@@ -1145,11 +1150,37 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
     const refInputTitle = useRef()
     const [inputTextEdit, setInputTextEdit] = useState("")
     const [inputTitleEdit, setInputTitleEdit] = useState("")
+    const [notaSelected, setNotaSelected] = useState({})
 
-    const onHandleEditingNote = (nota) =>{
-        setInputTextEdit(nota.text)
-        setInputTitleEdit(nota.title)
+    const onHandleEditingNote = (nota) => {
         setEditingNote(nota.id)
+        //Comparar si la nota seleccionada anteriormente es igual a la actual
+        if (JSON.stringify(nota) === JSON.stringify(notaSelected)) {
+            //Valida si se esta dando clic en el icono limpiar para no asignar valores en los inputs
+            if (cleanNota) {
+                return;
+            }
+            /* if (inputTextEdit == "" && inputTitleEdit == "") {
+                console.log("ifff")
+                if (inputTextEdit != nota.text) {
+                    setInputTextEdit(nota.text)
+                }
+                if (inputTitleEdit != nota.title) {
+                    setInputTitleEdit(nota.title)
+                }
+            } */
+        } else {
+            setNotaSelected(nota)
+            setInputTextEdit(nota.text)
+            setInputTitleEdit(nota.title)
+        }
+        //setCleanNota(false)
+    }
+
+    const onHandlecleanNota = () => {
+        setCleanNota(true)
+        setInputTextEdit("")
+        setInputTitleEdit("")
     }
 
     const saveNota = () => {
@@ -1176,7 +1207,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
     const updateNota = (id_nota) => {
         var token = document.querySelector('meta[name="csrf-token"]')
         axios.post('/cliente/notas/actualizar', {
-            id:id_nota,
+            id: id_nota,
             idContrato: contratoSelected.id,
             pinned: 0,
             text: inputTextEdit,
@@ -1210,10 +1241,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
             })
     }
 
-    const cleanNota = () =>{
-        setInputTextEdit("")
-        setInputTitleEdit("")
-    }
+
 
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders} grupos={grupos}>
@@ -1460,7 +1488,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
                                                     {editingNote == nota.id &&
                                                         <div className="note-header-opts">
                                                             <div className="controls">
-                                                                <a className="icon-Limpiar-click" onClick={() => cleanNota()}></a>
+                                                                <a className="icon-Limpiar-click" onClick={() => onHandlecleanNota()}></a>
                                                                 <a className="hover-icon icon-Eliminar" onClick={() => deleteNota(nota.id)}></a>
                                                                 <span id="timeNota" className="icon-Hora text-fecha">
                                                                     <span className="text-fecha__hora">Hoy 1:21 pm
@@ -1475,8 +1503,8 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
                                                         <div className="note-description" onClick={() => onHandleEditingNote(nota)}>
                                                             {editingNote == nota.id ?
                                                                 <>
-                                                                    <input placeholder="Agrega un título" type="text" className="onEditTitleNote" aria-required="true" aria-invalid="false" value={inputTitleEdit} onChange={(e)=>setInputTitleEdit(e.target.value)}/>
-                                                                    <textarea placeholder="Agrega una descripción" className="onEditNote" style={{height: 26 + 'px'}} onChange={(e)=>setInputTextEdit(e.target.value)}>{inputTextEdit}</textarea>
+                                                                    <input placeholder="Agrega un título" type="text" className="onEditTitleNote" aria-required="true" aria-invalid="false" value={inputTitleEdit} onChange={(e) => setInputTitleEdit(e.target.value)} />
+                                                                    <textarea placeholder="Agrega una descripción" className="onEditNote" style={{ height: 26 + 'px' }} value={inputTextEdit} onChange={(e) => setInputTextEdit(e.target.value)}></textarea>
                                                                 </>
                                                                 :
                                                                 <>
@@ -1496,11 +1524,11 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
                                                     {editingNote == nota.id ?
                                                         <div className="note-actions">
                                                             <div className="manual-controls">
-                                                                <a className="btn-new-green btnRadius" draggable="false" href="#!" onClick={()=>updateNota(nota.id)}>
+                                                                <a className="btn-new-green btnRadius" draggable="false" href="#!" onClick={() => updateNota(nota.id)}>
                                                                     <i className="icon-Check"></i>
                                                                     <span>Guardar</span>
                                                                 </a>
-                                                                <a href="#!" className="btn-new-danger btnRadius" onClick={()=>setEditingNote(false)}>
+                                                                <a href="#!" className="btn-new-danger btnRadius" onClick={() => onHandleSetEditingNote()}>
                                                                     <i className="icon-Cancelar"></i> <span>Descartar</span>
                                                                 </a>
                                                             </div>

@@ -3,7 +3,6 @@ import './Header.css'
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import { Nav, NavItem, NavDropdown } from 'react-bootstrap';
 const Header = ({auth}) => {
-    console.log("auth",auth)
     return (
         <div className="fixed-top new-header-licitaciones margin_left_layout" id="login-header">
             <nav id="nav-principal" className="navbar navbar-expand-lg navbar-light">

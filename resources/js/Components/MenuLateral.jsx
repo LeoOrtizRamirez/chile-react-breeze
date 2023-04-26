@@ -15,7 +15,6 @@ const MenuLateral = ({ carpetas = [], grupos = [] }) => {
 
     useEffect(() => {
         if (carpetas == null) {
-            console.log("null")
             axios.get(`/cliente/carpeta/carpetas-user`)
                 .then(response => {
                     setFolders(response.data)
@@ -55,7 +54,6 @@ const MenuLateral = ({ carpetas = [], grupos = [] }) => {
             });
         }
     }
-    console.log("grupos", grupos)
 
     return (
         <div id="menu-lateral" className="fixed-top">
