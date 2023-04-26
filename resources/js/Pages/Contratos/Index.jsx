@@ -399,6 +399,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
 
     const expandAll = () => {
         let _expandedRows = {};
+        console.log("expandAll tabla.data", tabla.data)
         tabla.data.forEach((p) => { (_expandedRows[`${p.id}`] = true) });
 
         setExpandedRows(_expandedRows);
@@ -1214,10 +1215,23 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
         },
             { 'Authorization': `Bearer ${token}` })
             .then(response => {
+
                 setNotas(response.data)
                 setCreatingNote(false)
                 refInputText.current.value = ""
                 refInputTitle.current.value = ""
+
+                setTabla(prevTabla => {
+                    const index = prevTabla.data.findIndex(item => item.id === contratoSelected.id);
+                    if (index === -1) {
+                        return prevTabla;
+                    } else {
+                        let item = prevTabla.data[index]
+                        item.notas = true
+                        prevTabla.data[index] = item;
+                        return prevTabla;
+                    }
+                });
             })
             .catch(error => {
                 console.log(error)
