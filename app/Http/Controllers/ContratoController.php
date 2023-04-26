@@ -24,19 +24,18 @@ class ContratoController extends Controller
     public function index()
     {
         $notas = request("filtrar_nuevos"); //4: Notas
-        $contratos_con_notas = [];
         $is_notas = false;
         if (!is_null($notas) && $notas != "") {
             $is_notas = true;
-            $contratos_con_notas = DB::table('contratos')
-                ->join('notas', 'notas.id_contrato', '=', 'contratos.id')
-                ->where('notas.id_usuario', Auth::id())
-                ->select('contratos.id')
-                ->groupBy('contratos.id')
-                ->get()->pluck('id')->toArray();
         }
 
-
+        $contratos_con_notas = DB::table('contratos')
+            ->join('notas', 'notas.id_contrato', '=', 'contratos.id')
+            ->where('notas.id_usuario', Auth::id())
+            ->select('contratos.id')
+            ->groupBy('contratos.id')
+            ->get()->pluck('id')->toArray();
+        
         $buscador_rapido = request("rapida");
         $entidad_contratante = request("entidad_contratante");
         $objeto = request("objeto");
@@ -145,6 +144,12 @@ class ContratoController extends Controller
                 $carpetas_ids[] = $key->id_carpeta;
             }
             $value->carpetas_ids = $carpetas_ids;
+
+            if(in_array($value->id, $contratos_con_notas)){
+                $value->notas = true;
+            }else{
+                $value->notas = false;
+            }
         }
 
         $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
