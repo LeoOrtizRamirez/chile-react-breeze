@@ -1507,6 +1507,21 @@ input.p-inputtext.p-component.p-column-filter:not(:placeholder-shown)::before {
     width: 22px;
 }
 
+#contratos .with-notes .btn_contratos_notas img {
+    height: 20px;
+    width: 21px;
+}
+
+#contratos .custom-tooltip.yellow.with-notes:hover:before,
+#contratos .custom-tooltip.yellow.with-notes:hover:after {
+    left: 50% !important;
+}
+
+#contratos .with-notes .custom-tooltip.yellow:hover:before,
+#contratos .with-notes .custom-tooltip.yellow:hover:after {
+    left: 50% !important;
+}
+
 #contratos .div_iconos_functions_grid .separator_docs {
     margin: 9px 16px 5px 24px !important;
     vertical-align: top !important;
@@ -2221,6 +2236,16 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     border-color: #292929 transparent transparent transparent;
 }
 
+/* #contratos .custom-tooltip.with-notes:hover:before{
+    top: -29% !important;
+    left: 50% !important; 
+}
+
+#contratos .custom-tooltip.yellow.with-notes:hover:before, 
+#contratos .custom-tooltip.yellow.with-notes:hover:after {
+    left: 50% !important;
+} */
+
 #contratos .custom-tooltip.yellow:hover:after {
     background-color: #ffc107;
 }
@@ -2301,7 +2326,8 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     color: #8c00c9 !important;
 }
 
-#contratos .custom-tooltip.gray:hover:after {
+#contratos .custom-tooltip.gray:hover:after
+{
     top: -185%;
 }
 
@@ -2309,6 +2335,11 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
 #contratos .custom-tooltip.yellow:hover:after {
     left: 34%;
 }
+
+/* #contratos .custom-tooltip.yellow.with-notes:hover:before,
+#contratos .custom-tooltip.yellow.with-notes:hover:after {
+    left: 49% !important;
+} */
 
 #contratos .p-datatable>.p-datatable-wrapper {
     overflow: unset !important;
@@ -3142,4 +3173,34 @@ body>div.fade.modal-backdrop.show:nth-child(5) {
     padding: 6px 12px;
     -webkit-transition: all .2s ease-in;
     transition: all .2s ease-in;
+}
+
+#sidebar-notes .notasCargando {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background-color: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    z-index: 20;
+}
+
+#notasContainer .notes-content, 
+#sidebar-notes .notes-content {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+#sidebar-notes img.loader-notas {
+    max-width: unset;
+    margin-top: -613px;
 }

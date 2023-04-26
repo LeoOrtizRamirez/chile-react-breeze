@@ -526,11 +526,20 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
                         <div className="custom-tooltip purple" data-tooltip="Compartir">
                             <button className="icon-Compartir-click btn_contratos_compartir" />
                         </div>
-                        <div className="custom-tooltip gray" data-tooltip="Crear Primer Nota">
-                            <button className="btn_contratos_notas custom-tooltip gray">
-                                <img src="/public/images/notas/nota.svg" alt="Nota" className="without-notes" onClick={() => onHandleCrearNota(data)} />
-                            </button>
-                        </div>
+                        {filter_notas ?
+                            <div className="custom-tooltip yellow with-notes" data-tooltip="Ver Notas">
+                                <button className="btn_contratos_notas custom-tooltip yellow">
+                                    <img src="/images/notas/nota.svg" alt="Nota" onClick={() => onHandleCrearNota(data)} />
+                                </button>
+                            </div>
+                            :
+                            <div className="custom-tooltip gray" data-tooltip="Crear Primer Nota">
+                                <button className="btn_contratos_notas custom-tooltip gray">
+                                    <img src="/public/images/notas/nota.svg" alt="Nota" className="without-notes" onClick={() => onHandleCrearNota(data)} />
+                                </button>
+                            </div>
+                        }
+
                     </div>
                     {showMoreSelecteds.includes(data.id) &&
                         <button type="button" className="btnRadius ver-menos-detalle" onClick={() => onHandleShowMoreSelecteds(data.id, 'delete')}>
@@ -907,7 +916,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
                                 <span className="p-paginator-current">{total_carpetas} registros</span>
                                 :
                                 <>
-                                    {filter_notas ? 
+                                    {filter_notas ?
                                         <span className="p-paginator-current">{filter_total_notas} registros</span>
                                         :
                                         <>
@@ -1124,6 +1133,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
     }
 
     const [notas, setNotas] = useState([])
+    const [loadingNotas, setLoadingNotas] = useState(false)
     const [sideBarNotas, setsideBarNotas] = useState(false);
     const [creatingNote, setCreatingNote] = useState(false)
     const [editingNote, setEditingNote] = useState(null)
@@ -1138,6 +1148,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
     const onHandleCrearNota = (contrato) => {
         setNotas([])
         setContratoSelected(contrato)
+        setLoadingNotas(true)
         var token = document.querySelector('meta[name="csrf-token"]')
         axios.get('/cliente/notas/get-notes?idContrato=' + contrato.id, {
             headers: {
@@ -1147,6 +1158,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
             .then(response => {
                 console.log('Request successful:', response.data);
                 setNotas(response.data)
+                setLoadingNotas(false)
             })
             .catch(error => {
                 console.error('Request failed:', error.response.status, error.response.data);
@@ -1448,6 +1460,11 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
             <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} carpeta={carpetaSelected} other_page={true} handleCarpetas={handleCarpetas} />
             <Sidebar id="sidebar-notes" visible={sideBarNotas} position="right" onHide={() => setsideBarNotas(false)}>
                 <div className="b-sidebar-body notes-content">
+                    {loadingNotas &&
+                        <div id="notasCarganos" className="notasCargando">
+                            <img src="https://col.licitaciones.info/img/loading.gif" className="loader-notas" />
+                        </div>
+                    }
                     <div className="wrapper">
                         <a className="close-sidebar icon-Flujo" onClick={() => setsideBarNotas(false)}></a>
                         <div className="notes-content__header">
