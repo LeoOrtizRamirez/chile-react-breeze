@@ -66,6 +66,16 @@
     color: #686868;
 }
 
+#contratos .dropdown-item.active, .dropdown-item:active {
+    color: #fff!important;
+    background-color: #1195d2 !important;
+}
+
+#contratos .dropdown-menu .dropdown-item:active span, 
+#contratos .dropdown-menu .dropdown-item:focus span {
+    color: white !important;
+}
+
 #contratos .visualizar {
     font-family: Roboto-regular;
     padding: 0.5rem 12px;
