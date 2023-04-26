@@ -29,7 +29,7 @@ import { Inertia } from '@inertiajs/inertia'
 
 import CrearCarpeta from "@/Components/CrearCarpeta";
 
-const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grupos }) => {
+const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grupos, filter_notas, filter_total_notas }) => {
     const [tabla, setTabla] = useState(contratos);
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
@@ -905,12 +905,20 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
                         <span className="paginator">
                             {nombre_carpeta != "ALL" ?
                                 <span className="p-paginator-current">{total_carpetas} registros</span>
-                                : <>
-                                    <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-double-left" onClick={() => paginator(tabla.first_page_url)} />
-                                    <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-left" onClick={() => paginator(tabla.prev_page_url)} />
-                                    <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-right" onClick={() => paginator(tabla.next_page_url)} />
-                                    <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-double-right" onClick={() => paginator(tabla.last_page_url)} />
-                                    <span className="p-paginator-current">{`${tabla.from} - ${tabla.to} de ${tabla.total}`}</span>
+                                :
+                                <>
+                                    {filter_notas ? 
+                                        <span className="p-paginator-current">{filter_total_notas} registros</span>
+                                        :
+                                        <>
+                                            <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-double-left" onClick={() => paginator(tabla.first_page_url)} />
+                                            <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-left" onClick={() => paginator(tabla.prev_page_url)} />
+                                            <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-right" onClick={() => paginator(tabla.next_page_url)} />
+                                            <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-double-right" onClick={() => paginator(tabla.last_page_url)} />
+                                            <span className="p-paginator-current">{`${tabla.from} - ${tabla.to} de ${tabla.total}`}</span>
+                                        </>
+                                    }
+
                                 </>
                             }
                         </span>
