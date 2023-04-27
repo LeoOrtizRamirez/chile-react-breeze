@@ -399,12 +399,11 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
 
     const expandAll = () => {
         let _expandedRows = {};
-        console.log("expandAll tabla.data", tabla.data)
         tabla.data.forEach((p) => { (_expandedRows[`${p.id}`] = true) });
-
         setExpandedRows(_expandedRows);
     };
     useEffect(() => {
+        console.log("cambio")
         expandAll()
     }, [tabla])
 
@@ -950,15 +949,32 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
 
     const addFavorito = (contrato) => {
         var token = document.querySelector('meta[name="csrf-token"]')
-        Inertia.post('/cliente/contratos/add_favorito', { contrato: contrato }, {
-            headers: {
-                'Authorization': `Bearer ${token.content}`
-            }
-        });
+        axios.post('/cliente/contratos/add_favorito', {
+            contrato: contrato
+        },
+            { 'Authorization': `Bearer ${token}` })
+            .then(response => {
+                setTabla(prevTabla => {
+                    console.log("prevTabla", prevTabla);
+                    console.log("id", contrato);
+                    const index = prevTabla.data.findIndex(item => item.id === contrato);
+                    console.log("index", index);
+                    if (index === -1) {
+                        return { ...prevTabla }; // return a new object reference
+                    } else {
+                        let newData = [...prevTabla.data]; // create a shallow copy of the data array
+                        newData[index] = { ...newData[index], favorito: true }; // modify the 'favorito' property
+                        return { ...prevTabla, data: newData }; // return a new object reference with the updated data
+                    }
+                });
+            })
+            .catch(error => {
+                console.log(error)
+            })
     };
 
     const deleteFavorito = (contrato) => {
-        var token = document.querySelector('meta[name="csrf-token"]')
+        /* var token = document.querySelector('meta[name="csrf-token"]')
         Inertia.post('/cliente/contratos/delete_favorito', { contrato: contrato }, {
             headers: {
                 'Authorization': `Bearer ${token.content}`
@@ -966,7 +982,32 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
             onSuccess: (response) => {
                 setShowModal(false)
             }
-        });
+        }); */
+
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.post('/cliente/contratos/delete_favorito', {
+            contrato: contrato
+        },
+            { 'Authorization': `Bearer ${token}` })
+            .then(response => {
+                setTabla(prevTabla => {
+                    console.log("prevTabla", prevTabla);
+                    console.log("id", contrato);
+                    const index = prevTabla.data.findIndex(item => item.id === contrato);
+                    console.log("index", index);
+                    if (index === -1) {
+                        return { ...prevTabla }; // return a new object reference
+                    } else {
+                        let newData = [...prevTabla.data]; // create a shallow copy of the data array
+                        newData[index] = { ...newData[index], favorito: false }; // modify the 'favorito' property
+                        return { ...prevTabla, data: newData }; // return a new object reference with the updated data
+                    }
+                });
+                setShowModal(false)
+            })
+            .catch(error => {
+                console.log(error)
+            })
     };
 
 

@@ -142,8 +142,8 @@ class CarpetasController extends Controller
             'status' => 1,
             'mesaje' => "Has agregado el proceso de contratación a tus <b class=\"text-naranja\">favoritos<\/b>."
         ];
-        //return $response;
-        return redirect()->route('contratos.index')->with('message', "Has agregado el proceso de contratación a tus <b class=\"text-naranja\">favoritos<\/b>.");
+        return $response;
+        //return redirect()->route('contratos.index')->with('message', "Has agregado el proceso de contratación a tus <b class=\"text-naranja\">favoritos<\/b>.");
     }
 
     public function deleteFavorito(Request $request)

@@ -122,10 +122,10 @@ class ContratoController extends Controller
 
             $papelera = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'P')->first();
             if (is_null($papelera)) {
-                $value->favorito = false;
+                $value->papelera = false;
             } else {
-                $favorito = CarpetasHasContrato::where('id_contrato', $value->id)->where('id_carpeta', $papelera->id)->first();
-                if (is_null($favorito)) {
+                $papelera = CarpetasHasContrato::where('id_contrato', $value->id)->where('id_carpeta', $papelera->id)->first();
+                if (is_null($papelera)) {
                     $value->papelera = false;
                 } else {
                     $value->papelera = true;
@@ -277,10 +277,10 @@ class ContratoController extends Controller
 
                     $papelera = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'P')->first();
                     if (is_null($papelera)) {
-                        $value->favorito = false;
+                        $value->papelera = false;
                     } else {
-                        $favorito = CarpetasHasContrato::where('id_contrato', $value->id)->where('id_carpeta', $papelera->id)->first();
-                        if (is_null($favorito)) {
+                        $papelera = CarpetasHasContrato::where('id_contrato', $value->id)->where('id_carpeta', $papelera->id)->first();
+                        if (is_null($papelera)) {
                             $value->papelera = false;
                         } else {
                             $value->papelera = true;
