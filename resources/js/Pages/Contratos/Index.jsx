@@ -1178,6 +1178,7 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
     }
 
     const [notas, setNotas] = useState([])
+    const [searchingNotas, setSearchingNotas] = useState(false)
     const [loadingNotas, setLoadingNotas] = useState(false)
     const [sideBarNotas, setsideBarNotas] = useState(false);
     const [creatingNote, setCreatingNote] = useState(false)
@@ -1191,6 +1192,7 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
     }
 
     const onHandleCrearNota = (contrato) => {
+        setSearchingNotas(false)
         setNotas([])
         setContratoSelected(contrato)
         setLoadingNotas(true)
@@ -1245,6 +1247,31 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
         setCleanNota(true)
         setInputTextEdit("")
         setInputTitleEdit("")
+    }
+
+    const [inputSearchNota, setInputSearchNota] = useState("")
+    const filterNotas = (event, clearNotas = false) => {
+        if (event?.key === 'Enter' || clearNotas) {
+            if(clearNotas){
+                setInputSearchNota("")
+            }
+            setLoadingNotas(true)
+            let token = document.querySelector('meta[name="csrf-token"]')
+            let search = clearNotas ? '' : inputSearchNota
+            axios.get('/cliente/notas/get-notes?idContrato=' + contratoSelected.id + '&search=' + search, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+                .then(response => {
+                    setSearchingNotas(true)
+                    setNotas(response.data)
+                    setLoadingNotas(false)
+                })
+                .catch(error => {
+                    console.error('Request failed:', error.response.status, error.response.data);
+                });
+        }
     }
 
     const saveNota = () => {
@@ -1571,14 +1598,21 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
                                 </div>
                             }
                         </div>
-                        {notas.length > 0 ?
-
+                        {notas.length > 0 || searchingNotas ?
                             <div className="notes-content__zone">
                                 <div className="notes-content__zone-input-search">
                                     <div className="form-group">
                                         <div className="input-container">
-                                            <input onClick={() => setCreatingNote(false)} type="text" placeholder="Buscar nota" /> <span
-                                                className="icon-Cancelar" style={{ display: 'none' }}></span> <span className="icon-Buscar-click"></span>
+                                            <input
+                                                onClick={() => setCreatingNote(false)}
+                                                onChange={(e) => setInputSearchNota(e.target.value)}
+                                                onKeyDown={filterNotas}
+                                                value={inputSearchNota}
+                                                type="text"
+                                                placeholder="Buscar nota"
+                                            />
+                                            <span onClick={(e)=>filterNotas(e, true)} className="icon-Cancelar" style={{ display: inputSearchNota == "" ? 'none' : 'unset' }}></span>
+                                            <span className="icon-Buscar-click"></span>
                                         </div>
                                     </div>
                                 </div>

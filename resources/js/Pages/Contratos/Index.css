@@ -2851,14 +2851,24 @@ body>div.fade.modal-backdrop.show:nth-child(5) {
     position: relative;
 }
 
-#notasContainer .notes-content__zone-input-search .input-container span.icon-Buscar-click, #sidebar-notes .notes-content__zone-input-search .input-container span.icon-Buscar-click {
+#notasContainer .notes-content__zone-input-search .input-container span.icon-Buscar-click, 
+#sidebar-notes .notes-content__zone-input-search .input-container span.icon-Buscar-click {
     color: #00a1c9;
     top: 8px;
     right: 12px;
     font-size: 20px;
 }
 
-#notasContainer .notes-content__zone-input-search .input-container span[class^=icon-], #sidebar-notes .notes-content__zone-input-search .input-container span[class^=icon-] {
+#notasContainer .notes-content__zone-input-search .input-container span.icon-Cancelar, 
+#sidebar-notes .notes-content__zone-input-search .input-container span.icon-Cancelar {
+    color: #c9003d;
+    right: 40px;
+    font-size: 18px;
+    top: 10px;
+}
+
+#notasContainer .notes-content__zone-input-search .input-container span[class^=icon-], 
+#sidebar-notes .notes-content__zone-input-search .input-container span[class^=icon-] {
     cursor: pointer;
     position: absolute;
 }

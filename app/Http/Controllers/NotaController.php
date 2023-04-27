@@ -10,11 +10,12 @@ use Illuminate\Support\Facades\Auth;
 
 class NotaController extends Controller
 {
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         //Obtener el maximo orden de las notas del contrato
         $max_orden = Nota::where('id_usuario', Auth::id())->where('id_contrato', $request->idContrato)->max('orden');
 
-        if(is_null($max_orden)){
+        if (is_null($max_orden)) {
             $max_orden = 0;
         }
 
@@ -36,12 +37,24 @@ class NotaController extends Controller
         return $notas;
     }
 
-    public function getNotes(Request $request){
-        $notas = Nota::where('id_usuario', Auth::id())->where('id_contrato', $request->idContrato)->orderBy('orden', 'ASC')->get();
+    public function getNotes(Request $request)
+    {
+        $search = request("search");
+        $notas = Nota::where('id_usuario', Auth::id())
+            ->where('id_contrato', $request->idContrato)
+            ->where(function ($query) use ($search) {
+                if (!is_null($search) && $search != "") {
+                    $query->where('title', 'like', '%' . $search . '%');
+                    $query->orWhere('text', 'like', '%' . $search . '%');
+                }
+            })
+            ->orderBy('orden', 'ASC')
+            ->get();
         return $notas;
     }
 
-    public function eliminar(Request $request){
+    public function eliminar(Request $request)
+    {
         $nota = Nota::find($request->id);
         try {
             $nota->delete();
@@ -52,7 +65,8 @@ class NotaController extends Controller
         return $notas;
     }
 
-    public function actualizar(Request $request){
+    public function actualizar(Request $request)
+    {
         $nota = Nota::find($request->id);
         $nota->id_contrato = $request->idContrato;
         $nota->id_usuario = Auth::id();
@@ -69,7 +83,8 @@ class NotaController extends Controller
         return $notas;
     }
 
-    public function ordenar(Request $request){
+    public function ordenar(Request $request)
+    {
         $idContrato =  $request->notas[0]['id_contrato'];
         foreach ($request->notas as $key => $value) {
             $nota = Nota::find($value["id"]);
