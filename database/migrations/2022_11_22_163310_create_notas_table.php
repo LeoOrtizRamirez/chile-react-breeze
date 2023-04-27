@@ -29,7 +29,7 @@ class CreateNotasTable extends Migration
             $table->text('text');
             $table->text('title');
             $table->char('zona', 3)->default('C')->comment('MP: Mis Perfiles, S: Seguimientos, C: Carpetas, ALL: Contratos');;
-            $table->integer('orden');
+            $table->integer('orden')->nullable();
             $table->timestamps();
         });
     }

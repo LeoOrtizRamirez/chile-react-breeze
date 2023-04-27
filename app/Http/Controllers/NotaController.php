@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Auth;
 class NotaController extends Controller
 {
     public function create(Request $request){
+        //Obtener el maximo orden de las notas del contrato
+        $max_orden = Nota::where('id_usuario', Auth::id())->where('id_contrato', $request->idContrato)->max('orden');
+
+        if(is_null($max_orden)){
+            $max_orden = 0;
+        }
+
         $nota = new Nota;
         $nota->id_contrato = $request->idContrato;
         $nota->id_usuario = Auth::id();
@@ -18,13 +25,14 @@ class NotaController extends Controller
         $nota->text = $request->text;
         $nota->title = $request->title;
         $nota->zona = $request->zona;
+        $nota->orden = $max_orden + 1;
 
         try {
             $nota->save();
         } catch (Exception $e) {
             dd($e->getMessage());
         }
-        $notas = Nota::where('id_usuario', Auth::id())->where('id_contrato', $request->idContrato)->orderBy('orden', 'ASC')->get();
+        $notas = Nota::where('id_usuario', Auth::id())->where('id_contrato', $request->idContrato)->orderBy('orden', 'DESC')->get();
         return $notas;
     }
 
