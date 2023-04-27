@@ -809,7 +809,6 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
         let _url = `${tabla.path}?page=${tabla.current_page}` + getUrlParams()
         axios.get(_url)
             .then(response => {
-                console.log("response", response.data)
                 setTabla(response.data)
                 setPageNumber(response.data.current_page - 1)
                 setPageSize(tabla.last_page + 1);
@@ -958,10 +957,7 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
             { 'Authorization': `Bearer ${token}` })
             .then(response => {
                 setTabla(prevTabla => {
-                    console.log("prevTabla", prevTabla);
-                    console.log("id", contrato);
                     const index = prevTabla.data.findIndex(item => item.id === contrato);
-                    console.log("index", index);
                     if (index === -1) {
                         return { ...prevTabla }; // return a new object reference
                     } else {
@@ -985,10 +981,7 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
             { 'Authorization': `Bearer ${token}` })
             .then(response => {
                 setTabla(prevTabla => {
-                    console.log("prevTabla", prevTabla);
-                    console.log("id", contrato);
                     const index = prevTabla.data.findIndex(item => item.id === contrato);
-                    console.log("index", index);
                     if (index === -1) {
                         return { ...prevTabla }; // return a new object reference
                     } else {
@@ -1252,7 +1245,7 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
     const [inputSearchNota, setInputSearchNota] = useState("")
     const filterNotas = (event, clearNotas = false) => {
         if (event?.key === 'Enter' || clearNotas) {
-            if(clearNotas){
+            if (clearNotas) {
                 setInputSearchNota("")
             }
             setLoadingNotas(true)
@@ -1339,6 +1332,19 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
             { 'Authorization': `Bearer ${token}` })
             .then(response => {
                 setNotas(response.data)
+                if (response.data.length == 0) {
+                    setTabla(prevTabla => {
+                        const index = prevTabla.data.findIndex(item => item.id === contratoSelected.id);
+                        if (index === -1) {
+                            return prevTabla;
+                        } else {
+                            let item = prevTabla.data[index]
+                            item.notas = false
+                            prevTabla.data[index] = item;
+                            return prevTabla;
+                        }
+                    });
+                }
             })
             .catch(error => {
                 console.log(error)
@@ -1611,7 +1617,7 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
                                                 type="text"
                                                 placeholder="Buscar nota"
                                             />
-                                            <span onClick={(e)=>filterNotas(e, true)} className="icon-Cancelar" style={{ display: inputSearchNota == "" ? 'none' : 'unset' }}></span>
+                                            <span onClick={(e) => filterNotas(e, true)} className="icon-Cancelar" style={{ display: inputSearchNota == "" ? 'none' : 'unset' }}></span>
                                             <span className="icon-Buscar-click"></span>
                                         </div>
                                     </div>
@@ -1633,14 +1639,8 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
                                             ) {
                                                 return;
                                             }
-
-                                            console.log("OLD notas", notas)
                                             setNotas((prevNotas) => reorder(prevNotas, source.index, destination.index));
-
-
                                             let notas_ordenadas = reorder(notas, source.index, destination.index)
-                                            console.log("current notas", notas_ordenadas)
-
                                             var token = document.querySelector('meta[name="csrf-token"]')
                                             axios.post('/cliente/notas/ordenar-notas', {
                                                 notas: notas_ordenadas
@@ -1652,9 +1652,6 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
                                                 .catch(error => {
                                                     console.log(error)
                                                 })
-
-
-
                                         }}
                                     >
                                         <Droppable droppableId="notas">
