@@ -161,12 +161,10 @@ class ContratoController extends Controller
                 'Contratos/Index',
                 [
                     'contratos' => $contratos,
-                    'total_carpetas' => 0,
                     'nombre_carpeta' => 'ALL',
                     'carpetas' => $carpetas,
                     'grupos' => $grupos,
-                    'filter_notas' => $is_notas,
-                    'filter_total_notas' => sizeof($contratos_con_notas)
+                    'filter_notas' => $is_notas
                 ]
             );
         }
@@ -316,15 +314,115 @@ class ContratoController extends Controller
             [
                 'contratos' => $contratos,
                 'nombre_carpeta' => $nombre_carpeta,
-                'total_carpetas' => $total_carpetas,
                 'carpetas' => $carpetas,
                 'grupos' => $grupos,
-                'filter_notas' => false,
-                'filter_total_notas' => 0
+                'filter_notas' => false
             ]
         );
         /* return Inertia::render(
             'Contratos/Index', ['contratos' => $contratos]
         ); */
+    }
+
+    public function addFavorito(Request $request)
+    {
+        //Buscar si ya tiene carpeta de favoritos
+        $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'F')->first();
+
+        if (is_null($carpeta)) {
+            $carpeta = new Carpeta;
+            $carpeta->id_usuario = Auth::id();
+            $carpeta->tipo = 'F';
+            $carpeta->nombre_carpeta = 'Favoritos';
+            $carpeta->color = '#fdcb36';
+            try {
+                $carpeta->save();
+            } catch (Exception $e) {
+                dd($e->getMessage());
+            }
+        }
+        $carpeta_has_contrato = new CarpetasHasContrato;
+        $carpeta_has_contrato->id_contrato = $request->contrato;
+        $carpeta_has_contrato->id_carpeta = $carpeta->id;
+        try {
+            $carpeta_has_contrato->save();
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+        $response = [
+            'status' => 1,
+            'mesaje' => "Has agregado el proceso de contratación a tus <b class=\"text-naranja\">favoritos<\/b>."
+        ];
+        return $response;
+        //return redirect()->route('contratos.index')->with('message', "Has agregado el proceso de contratación a tus <b class=\"text-naranja\">favoritos<\/b>.");
+    }
+
+    public function deleteFavorito(Request $request)
+    {
+        //Buscar si ya tiene carpeta de favoritos
+        $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'F')->first();
+        $carpeta_has_contrato = CarpetasHasContrato::where('id_contrato', $request->contrato)->where('id_carpeta', $carpeta->id)->first();
+        try {
+            $carpeta_has_contrato->delete();
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+        $response = [
+            'status' => 1,
+            'mesaje' => "Contratos eliminados de favoritos exitosamente."
+        ];
+        //return $response;
+        return redirect()->route('contratos.index');
+    }
+
+    public function addPapelera(Request $request)
+    {
+        //Buscar si ya tiene carpeta de favoritos
+        $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'P')->first();
+
+        if (is_null($carpeta)) {
+            $carpeta = new Carpeta;
+            $carpeta->id_usuario = Auth::id();
+            $carpeta->tipo = 'P';
+            $carpeta->nombre_carpeta = 'Papelera';
+            $carpeta->color = '#d13161';
+            try {
+                $carpeta->save();
+            } catch (Exception $e) {
+                dd($e->getMessage());
+            }
+        }
+        $carpeta_has_contrato = new CarpetasHasContrato;
+        $carpeta_has_contrato->id_contrato = $request->contrato;
+        $carpeta_has_contrato->id_carpeta = $carpeta->id;
+        try {
+            $carpeta_has_contrato->save();
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+        $response = [
+            'status' => 1,
+            'mesaje' => "Has agregado el proceso de contratación a tus <b class=\"text-naranja\">favoritos<\/b>."
+        ];
+        //return $response;
+        return redirect()->route('contratos.index')->with('message', "Has agregado el proceso de contratación a tus <b class=\"text-naranja\">favoritos<\/b>.");
+    }
+
+    public function deletePapelera(Request $request)
+    {
+        //Buscar si ya tiene carpeta de favoritos
+        $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'P')->first();
+        $carpeta_has_contrato = CarpetasHasContrato::where('id_contrato', $request->contrato)->where('id_carpeta', $carpeta->id)->first();
+        try {
+            $carpeta_has_contrato->delete();
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+        $response = [
+            'status' => 1,
+            'mesaje' => "Contratos eliminados de favoritos exitosamente."
+        ];
+        //return $response;
+        return redirect()->route('contratos.index');
     }
 }

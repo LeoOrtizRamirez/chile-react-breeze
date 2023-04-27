@@ -32,7 +32,7 @@ import CrearCarpeta from "@/Components/CrearCarpeta";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 
-const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grupos, filter_notas, filter_total_notas }) => {
+const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas }) => {
     const [tabla, setTabla] = useState(contratos);
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
@@ -915,11 +915,11 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
                     <div className="col-12 col-lg-7 col-xl-6 p-0 paginacion_grid text-right text-lg-right ">
                         <span className="paginator">
                             {nombre_carpeta != "ALL" ?
-                                <span className="p-paginator-current">{total_carpetas} registros</span>
+                                <span className="p-paginator-current">{tabla.data.length} registros</span>
                                 :
                                 <>
                                     {filter_notas ?
-                                        <span className="p-paginator-current">{filter_total_notas} registros</span>
+                                        <span className="p-paginator-current">{tabla.data.length} registros</span>
                                         :
                                         <>
                                             <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-double-left" onClick={() => paginator(tabla.first_page_url)} />
@@ -950,6 +950,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
 
 
     const addFavorito = (contrato) => {
+        setLoading(true)
         var token = document.querySelector('meta[name="csrf-token"]')
         axios.post('/cliente/contratos/add_favorito', {
             contrato: contrato
@@ -969,6 +970,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
                         return { ...prevTabla, data: newData }; // return a new object reference with the updated data
                     }
                 });
+                setLoading(false)
             })
             .catch(error => {
                 console.log(error)
@@ -990,9 +992,18 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
                     if (index === -1) {
                         return { ...prevTabla }; // return a new object reference
                     } else {
-                        let newData = [...prevTabla.data]; // create a shallow copy of the data array
-                        newData[index] = { ...newData[index], favorito: false }; // modify the 'favorito' property
-                        return { ...prevTabla, data: newData }; // return a new object reference with the updated data
+                        if (nombre_carpeta == "Favoritos") {//Si esta en la carpeta favoritos, elimina el indice
+                            const updatedData = [...prevTabla.data];
+                            updatedData.splice(index, 1);
+                            return {
+                                ...prevTabla,
+                                data: updatedData
+                            };
+                        } else {//Si esta en otra carpeta, cambia el estado del atributo favorito
+                            let newData = [...prevTabla.data]; // create a shallow copy of the data array
+                            newData[index] = { ...newData[index], favorito: false }; // modify the 'favorito' property
+                            return { ...prevTabla, data: newData }; // return a new object reference with the updated data
+                        }
                     }
                 });
                 setShowModal(false)
