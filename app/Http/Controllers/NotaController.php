@@ -24,12 +24,12 @@ class NotaController extends Controller
         } catch (Exception $e) {
             dd($e->getMessage());
         }
-        $notas = Nota::where('id_usuario', Auth::id())->where('id_contrato', $request->idContrato)->orderBy('created_at', 'DESC')->get();
+        $notas = Nota::where('id_usuario', Auth::id())->where('id_contrato', $request->idContrato)->orderBy('orden', 'ASC')->get();
         return $notas;
     }
 
     public function getNotes(Request $request){
-        $notas = Nota::where('id_usuario', Auth::id())->where('id_contrato', $request->idContrato)->orderBy('created_at', 'DESC')->get();
+        $notas = Nota::where('id_usuario', Auth::id())->where('id_contrato', $request->idContrato)->orderBy('orden', 'ASC')->get();
         return $notas;
     }
 
@@ -40,7 +40,7 @@ class NotaController extends Controller
         } catch (Exception $e) {
             dd($e->getMessage());
         }
-        $notas = Nota::where('id_usuario', Auth::id())->where('id_contrato', $request->idContrato)->orderBy('created_at', 'DESC')->get();
+        $notas = Nota::where('id_usuario', Auth::id())->where('id_contrato', $request->idContrato)->orderBy('orden', 'ASC')->get();
         return $notas;
     }
 
@@ -57,7 +57,18 @@ class NotaController extends Controller
         } catch (Exception $e) {
             dd($e->getMessage());
         }
-        $notas = Nota::where('id_usuario', Auth::id())->where('id_contrato', $request->idContrato)->orderBy('created_at', 'DESC')->get();
+        $notas = Nota::where('id_usuario', Auth::id())->where('id_contrato', $request->idContrato)->orderBy('orden', 'ASC')->get();
+        return $notas;
+    }
+
+    public function ordenar(Request $request){
+        $idContrato =  $request->notas[0]['id_contrato'];
+        foreach ($request->notas as $key => $value) {
+            $nota = Nota::find($value["id"]);
+            $nota->orden = $key;
+            $nota->save();
+        }
+        $notas = Nota::where('id_usuario', Auth::id())->where('id_contrato', $idContrato)->orderBy('orden', 'ASC')->get();
         return $notas;
     }
 }

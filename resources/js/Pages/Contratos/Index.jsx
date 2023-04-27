@@ -29,6 +29,9 @@ import { Inertia } from '@inertiajs/inertia'
 
 import CrearCarpeta from "@/Components/CrearCarpeta";
 
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
+
 const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grupos, filter_notas, filter_total_notas }) => {
     const [tabla, setTabla] = useState(contratos);
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
@@ -403,7 +406,6 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
         setExpandedRows(_expandedRows);
     };
     useEffect(() => {
-        console.log("cambio")
         expandAll()
     }, [tabla])
 
@@ -974,16 +976,6 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
     };
 
     const deleteFavorito = (contrato) => {
-        /* var token = document.querySelector('meta[name="csrf-token"]')
-        Inertia.post('/cliente/contratos/delete_favorito', { contrato: contrato }, {
-            headers: {
-                'Authorization': `Bearer ${token.content}`
-            },
-            onSuccess: (response) => {
-                setShowModal(false)
-            }
-        }); */
-
         var token = document.querySelector('meta[name="csrf-token"]')
         axios.post('/cliente/contratos/delete_favorito', {
             contrato: contrato
@@ -1198,7 +1190,6 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
             }
         })
             .then(response => {
-                console.log('Request successful:', response.data);
                 setNotas(response.data)
                 setLoadingNotas(false)
             })
@@ -1316,6 +1307,13 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
             })
     }
 
+
+    const reorder = (list, startIndex, endIndex) => {
+        const result = [...list];
+        const [removed] = result.splice(startIndex, 1);
+        result.splice(endIndex, 0, removed);
+        return result;
+    };
 
 
     return (
@@ -1551,6 +1549,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
                             }
                         </div>
                         {notas.length > 0 ?
+
                             <div className="notes-content__zone">
                                 <div className="notes-content__zone-input-search">
                                     <div className="form-group">
@@ -1561,85 +1560,146 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
                                     </div>
                                 </div>
                                 <div className="notes-content__zone-list-notes">
-                                    <ul>
-                                        <div>
-                                            {notas.map((nota, index) => (
-                                                <li className={`note ${editingNote == nota.id ? "on-edit" : ""}`}>
-                                                    {editingNote == nota.id &&
-                                                        <div className="note-header-opts">
-                                                            <div className="controls">
-                                                                <a className="icon-Limpiar-click" onClick={() => onHandlecleanNota()}></a>
-                                                                <a className="hover-icon icon-Eliminar" onClick={() => deleteNota(nota.id)}></a>
-                                                                <span id="timeNota" className="icon-Hora text-fecha">
-                                                                    <span className="text-fecha__hora">Hoy 1:21 pm
-                                                                    </span>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    }
-                                                    <div className="note-data">
-                                                        <div className="note-icon">
-                                                            <img src="https://col.licitaciones.info/img/notas/note_icon.svg" alt="Nota icon" /></div>
-                                                        <div className="note-description" onClick={() => onHandleEditingNote(nota)}>
-                                                            {editingNote == nota.id ?
-                                                                <>
-                                                                    <input placeholder="Agrega un título" type="text" className="onEditTitleNote" aria-required="true" aria-invalid="false" value={inputTitleEdit} onChange={(e) => setInputTitleEdit(e.target.value)} />
-                                                                    <textarea placeholder="Agrega una descripción" className="onEditNote" style={{ height: 26 + 'px' }} value={inputTextEdit} onChange={(e) => setInputTextEdit(e.target.value)}></textarea>
-                                                                </>
-                                                                :
-                                                                <>
-                                                                    <div className="notes-drag">
-                                                                        <span className="note-description__title">{nota.title}</span>
-                                                                        <div className="notes-opts">
-                                                                            <span id="timeNota" className="icon-Hora text-fecha">
-                                                                                <span className="text-fecha__hora">Hoy 11:38 am</span>
-                                                                            </span>
+
+
+
+
+                                    <DragDropContext
+                                        onDragEnd={(result) => {
+                                            const { source, destination } = result;
+                                            if (!destination) {
+                                                return;
+                                            }
+                                            if (
+                                                source.index === destination.index &&
+                                                source.droppableId === destination.droppableId
+                                            ) {
+                                                return;
+                                            }
+
+                                            console.log("OLD notas", notas)
+                                            setNotas((prevNotas) => reorder(prevNotas, source.index, destination.index));
+
+
+                                            let notas_ordenadas = reorder(notas, source.index, destination.index)
+                                            console.log("current notas",notas_ordenadas)
+
+                                            var token = document.querySelector('meta[name="csrf-token"]')
+                                            axios.post('/cliente/notas/ordenar-notas', {
+                                                notas: notas_ordenadas
+                                            },
+                                                { 'Authorization': `Bearer ${token}` })
+                                                .then(response => {
+                                                    
+                                                })
+                                                .catch(error => {
+                                                    console.log(error)
+                                                })
+
+
+
+                                        }}
+                                    >
+                                        <Droppable droppableId="notas">
+                                            {(droppableProvided) => (
+                                                <ul
+                                                    {...droppableProvided.droppableProps}
+                                                    ref={droppableProvided.innerRef}
+                                                    className="nota-container"
+                                                >
+                                                    <div>
+                                                        {notas.map((nota, index) => (
+                                                            <Draggable key={nota.id} draggableId={`nota_${nota.id}`} index={index}>
+                                                                {(draggableProvided) => (
+                                                                    <li
+                                                                        {...draggableProvided.draggableProps}
+                                                                        ref={draggableProvided.innerRef}
+                                                                        {...draggableProvided.dragHandleProps}
+                                                                        className={`note ${editingNote == nota.id ? "on-edit" : ""}`}
+                                                                    >
+                                                                        {editingNote == nota.id &&
+                                                                            <div className="note-header-opts">
+                                                                                <div className="controls">
+                                                                                    <a className="icon-Limpiar-click" onClick={() => onHandlecleanNota()}></a>
+                                                                                    <a className="hover-icon icon-Eliminar" onClick={() => deleteNota(nota.id)}></a>
+                                                                                    <span id="timeNota" className="icon-Hora text-fecha">
+                                                                                        <span className="text-fecha__hora">Hoy 1:21 pm
+                                                                                        </span>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+                                                                        <div className="note-data">
+                                                                            <div className="note-icon">
+                                                                                <img src="https://col.licitaciones.info/img/notas/note_icon.svg" alt="Nota icon" /></div>
+                                                                            <div className="note-description" onClick={() => onHandleEditingNote(nota)}>
+                                                                                {editingNote == nota.id ?
+                                                                                    <>
+                                                                                        <input placeholder="Agrega un título" type="text" className="onEditTitleNote" aria-required="true" aria-invalid="false" value={inputTitleEdit} onChange={(e) => setInputTitleEdit(e.target.value)} />
+                                                                                        <textarea placeholder="Agrega una descripción" className="onEditNote" style={{ height: 26 + 'px' }} value={inputTextEdit} onChange={(e) => setInputTextEdit(e.target.value)}></textarea>
+                                                                                    </>
+                                                                                    :
+                                                                                    <>
+                                                                                        <div className="notes-drag">
+                                                                                            <span className="note-description__title">{nota.title}</span>
+                                                                                            <div className="notes-opts">
+                                                                                                <span id="timeNota" className="icon-Hora text-fecha">
+                                                                                                    <span className="text-fecha__hora">Hoy 11:38 am</span>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <p className="note-descrition__body">{nota.text}</p>
+                                                                                    </>
+                                                                                }
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <p className="note-descrition__body">{nota.text}</p>
-                                                                </>
-                                                            }
+                                                                        {editingNote == nota.id ?
+                                                                            <div className="note-actions">
+                                                                                <div className="manual-controls">
+                                                                                    <a className="btn-new-green btnRadius" draggable="false" href="#!" onClick={() => updateNota(nota.id)}>
+                                                                                        <i className="icon-Check"></i>
+                                                                                        <span>Guardar</span>
+                                                                                    </a>
+                                                                                    <a href="#!" className="btn-new-danger btnRadius" onClick={() => onHandleSetEditingNote()}>
+                                                                                        <i className="icon-Cancelar"></i> <span>Descartar</span>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                            :
+                                                                            <div className="note-actions">
+                                                                                <div className="direct-access-controls">
+                                                                                    <a className="hover-icon icon-Eliminar" onClick={() => deleteNota(nota.id)}></a>
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+                                                                    </li>
+                                                                )}
+                                                            </Draggable>
+
+                                                        ))}
+                                                    </div>
+                                                    {droppableProvided.placeholder}
+                                                    <div className="infinite-loading-container">
+                                                        <div className="infinite-status-prompt"
+                                                            style={{ color: 'rgb(102, 102, 102)', fontSize: 14 + 'px', padding: 10 + 'px 0px', display: 'none' }}><i
+                                                                data-v-46b20d22="" className="loading-default"></i></div>
+                                                        <div className="infinite-status-prompt">
+                                                            <div className="infinite--no-data">No hay más notas</div>
+                                                        </div>
+                                                        <div className="infinite-status-prompt" style={{ display: 'none' }}><span
+                                                            className="infinite--no-data">No hay más notas</span></div>
+                                                        <div className="infinite-status-prompt"
+                                                            style={{ color: 'rgb(102, 102, 102)', fontSize: 14 + 'px', padding: 10 + 'px 0px', display: 'none' }}>
+                                                            Opps, something went wrong :(
+                                                            <br />
+                                                            <button className="btn-try-infinite">Retry</button>
                                                         </div>
                                                     </div>
-                                                    {editingNote == nota.id ?
-                                                        <div className="note-actions">
-                                                            <div className="manual-controls">
-                                                                <a className="btn-new-green btnRadius" draggable="false" href="#!" onClick={() => updateNota(nota.id)}>
-                                                                    <i className="icon-Check"></i>
-                                                                    <span>Guardar</span>
-                                                                </a>
-                                                                <a href="#!" className="btn-new-danger btnRadius" onClick={() => onHandleSetEditingNote()}>
-                                                                    <i className="icon-Cancelar"></i> <span>Descartar</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        :
-                                                        <div className="note-actions">
-                                                            <div className="direct-access-controls">
-                                                                <a className="hover-icon icon-Eliminar" onClick={() => deleteNota(nota.id)}></a>
-                                                            </div>
-                                                        </div>
-                                                    }
-                                                </li>
-                                            ))}
-                                        </div>
-                                        <div className="infinite-loading-container">
-                                            <div className="infinite-status-prompt"
-                                                style={{ color: 'rgb(102, 102, 102)', fontSize: 14 + 'px', padding: 10 + 'px 0px', display: 'none' }}><i
-                                                    data-v-46b20d22="" className="loading-default"></i></div>
-                                            <div className="infinite-status-prompt">
-                                                <div className="infinite--no-data">No hay más notas</div>
-                                            </div>
-                                            <div className="infinite-status-prompt" style={{ display: 'none' }}><span
-                                                className="infinite--no-data">No hay más notas</span></div>
-                                            <div className="infinite-status-prompt"
-                                                style={{ color: 'rgb(102, 102, 102)', fontSize: 14 + 'px', padding: 10 + 'px 0px', display: 'none' }}>
-                                                Opps, something went wrong :(
-                                                <br />
-                                                <button className="btn-try-infinite">Retry</button>
-                                            </div>
-                                        </div>
-                                    </ul>
+
+                                                </ul>
+                                            )}
+                                        </Droppable>
+                                    </DragDropContext>
                                 </div>
                             </div>
                             :

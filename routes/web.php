@@ -196,5 +196,6 @@ Route::post('/cliente/notas/admin-note', [NotaController::class, 'create'])->mid
 Route::get('/cliente/notas/get-notes', [NotaController::class, 'getNotes'])->middleware(['auth', 'verified']);
 Route::post('/cliente/notas/eliminar', [NotaController::class, 'eliminar'])->middleware(['auth', 'verified']);
 Route::post('/cliente/notas/actualizar', [NotaController::class, 'actualizar'])->middleware(['auth', 'verified']);
+Route::post('/cliente/notas/ordenar-notas', [NotaController::class, 'ordenar'])->middleware(['auth', 'verified']);
 
 Route::post('register/modal', [RegisteredUserController::class, 'registerModal'])->name('registerModal');
