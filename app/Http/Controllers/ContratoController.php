@@ -210,6 +210,13 @@ class ContratoController extends Controller
 
     public function carpeta($tipo, Request $request)
     {
+        $contratos_con_notas = DB::table('contratos')
+            ->join('notas', 'notas.id_contrato', '=', 'contratos.id')
+            ->where('notas.id_usuario', Auth::id())
+            ->select('contratos.id')
+            ->groupBy('contratos.id')
+            ->get()->pluck('id')->toArray();
+
         if (isset($request->carpeta) && !is_null($request->carpeta)) {
             $carpeta = Carpeta::find($request->carpeta);
         } else {
@@ -292,6 +299,12 @@ class ContratoController extends Controller
                         $carpetas_ids[] = $key->id_carpeta;
                     }
                     $value->carpetas_ids = $carpetas_ids;
+
+                    if(in_array($value->id, $contratos_con_notas)){
+                        $value->notas = true;
+                    }else{
+                        $value->notas = false;
+                    }
                 }
             }
         }
