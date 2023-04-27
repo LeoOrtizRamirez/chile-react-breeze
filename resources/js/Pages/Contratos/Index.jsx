@@ -1236,10 +1236,15 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
         //setCleanNota(false)
     }
 
-    const onHandlecleanNota = () => {
+    const onHandlecleanEditarNota = () => {
         setCleanNota(true)
         setInputTextEdit("")
         setInputTitleEdit("")
+    }
+
+    const onHandlecleanCrearNota = () => {
+        refInputText.current.value = ""
+        refInputTitle.current.value = ""
     }
 
     const [inputSearchNota, setInputSearchNota] = useState("")
@@ -1591,7 +1596,7 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
                                         <span className="text-fecha__hora">{dateFormat()}</span>
                                     </span>
                                     <div className="custom-tooltip red" data-tooltip="Borrar contenido">
-                                        <a id="tlpBorrarNota" className="icon-Limpiar-click"></a>
+                                        <a id="tlpBorrarNota" className="icon-Limpiar-click" onClick={onHandlecleanCrearNota}></a>
                                     </div>
                                 </div>
                             </div>
@@ -1674,7 +1679,7 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
                                                                         {editingNote == nota.id &&
                                                                             <div className="note-header-opts">
                                                                                 <div className="controls">
-                                                                                    <a className="icon-Limpiar-click" onClick={() => onHandlecleanNota()}></a>
+                                                                                    <a className="icon-Limpiar-click" onClick={() => onHandlecleanEditarNota()}></a>
                                                                                     <a className="hover-icon icon-Eliminar" onClick={() => deleteNota(nota.id)}></a>
                                                                                     <span id="timeNota" className="icon-Hora text-fecha">
                                                                                         <span className="text-fecha__hora">
