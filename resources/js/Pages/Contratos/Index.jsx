@@ -1315,6 +1315,18 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
         return result;
     };
 
+    const dateFormat = (date = new Date()) => {
+        const createdAt = new Date(date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+            .replace(/^(\d{1}):/, '0$1:').replace(/(\s+)([aApP][mM])$/, '$1$2');
+        const today = new Date().toLocaleDateString('en-US');
+
+        if (new Date(date).toLocaleDateString('en-US') === today) {
+            return `Hoy ${createdAt}`;
+        } else {
+            return new Date(date).toLocaleDateString('en-US');
+        }
+    }
+
 
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders} grupos={grupos}>
@@ -1532,7 +1544,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
                                 }
                                 <div className={`notes-opts ${creatingNote ? "on-expand" : ""}`}>
                                     <span id="timeNota" className="icon-Hora text-fecha">
-                                        <span className="text-fecha__hora">Hoy 12:46 pm</span>
+                                        <span className="text-fecha__hora">{dateFormat()}</span>
                                     </span>
                                     <div className="custom-tooltip red" data-tooltip="Borrar contenido">
                                         <a id="tlpBorrarNota" className="icon-Limpiar-click"></a>
@@ -1582,7 +1594,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
 
 
                                             let notas_ordenadas = reorder(notas, source.index, destination.index)
-                                            console.log("current notas",notas_ordenadas)
+                                            console.log("current notas", notas_ordenadas)
 
                                             var token = document.querySelector('meta[name="csrf-token"]')
                                             axios.post('/cliente/notas/ordenar-notas', {
@@ -1590,7 +1602,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
                                             },
                                                 { 'Authorization': `Bearer ${token}` })
                                                 .then(response => {
-                                                    
+
                                                 })
                                                 .catch(error => {
                                                     console.log(error)
@@ -1623,7 +1635,8 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
                                                                                     <a className="icon-Limpiar-click" onClick={() => onHandlecleanNota()}></a>
                                                                                     <a className="hover-icon icon-Eliminar" onClick={() => deleteNota(nota.id)}></a>
                                                                                     <span id="timeNota" className="icon-Hora text-fecha">
-                                                                                        <span className="text-fecha__hora">Hoy 1:21 pm
+                                                                                        <span className="text-fecha__hora">
+                                                                                            {dateFormat(nota.created_at)}
                                                                                         </span>
                                                                                     </span>
                                                                                 </div>
@@ -1644,7 +1657,7 @@ const Index = ({ auth, contratos, nombre_carpeta, total_carpetas, carpetas, grup
                                                                                             <span className="note-description__title">{nota.title}</span>
                                                                                             <div className="notes-opts">
                                                                                                 <span id="timeNota" className="icon-Hora text-fecha">
-                                                                                                    <span className="text-fecha__hora">Hoy 11:38 am</span>
+                                                                                                    <span className="text-fecha__hora">{dateFormat(nota.created_at)}</span>
                                                                                                 </span>
                                                                                             </div>
                                                                                         </div>
