@@ -3214,3 +3214,139 @@ body>div.fade.modal-backdrop.show:nth-child(5) {
     max-width: unset;
     margin-top: -613px;
 }
+
+
+/*Boton flotante*/
+#contratos #accionesSeleccionGrid .pruebafixed {
+    z-index: 1101;
+    position: fixed;
+    bottom: 5px;
+    left: 0;
+    width: 100%;
+    padding: 1px 75px 5px 86px;
+    background: transparent;
+    text-align: center;
+}
+
+#contratos #accionesSeleccionGrid > div {
+    display: inline-block;
+    vertical-align: top;
+    background: white;
+    border-radius: 20px;
+    margin-top: 2px;
+    padding: 2px 5px;
+    position: relative;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante {
+    display: inline-block;
+    background: #fff;
+    -webkit-box-shadow: 0 0 13px 5px rgb(0 0 0 / 30%);
+    box-shadow: 0 0 13px 5px rgb(0 0 0 / 30%);
+    border-radius: 30px;
+    width: auto!important;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante .container-acciones {
+    height: 62px;
+}
+
+#contratos #accionesSeleccionGrid > div .container-acciones {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante .container-acciones>div {
+    cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante #contadorSeleccion {
+    margin-left: 15px!important;
+    margin-right: 10px!important;
+    font-size: 13px;
+    font-family: 'Nexa-regular';
+    color: #212529 !important;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante .container-acciones>div>p, 
+#contratos #accionesSeleccionGrid .menu-flotante .container-acciones>div>span {
+    vertical-align: middle;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante .contador-selecciones {
+    background-color: #ddd;
+    border-radius: 50%;
+    padding: 8px 12px 8px 10px;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante .nombre-especifico {
+    margin-bottom: 0!important;
+    margin-right: 18px!important;
+    display: inline-block;
+    font-family: Nexa-bold;
+    font-size: 12px;
+}
+
+#contratos #accionesSeleccionGrid .nombre-especifico.tlpCount-texto {
+    color: #686868!important;
+}
+
+#contratos #accionesSeleccionGrid .separador-busqueda-rapida {
+    color: #c8c8c8;
+    font-size: 16px;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    margin-top: 3px;
+    margin-bottom: 2px;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante .marg_first_separador {
+    margin-left: 0!important;
+    margin-right: 19px!important;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante .accion-tooltip {
+    margin-left: 0!important;
+    margin-right: 5px!important;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante #tlpExcel>img {
+    width: 30px;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante .tlpExcel-texto, 
+#contratos #accionesSeleccionGrid .menu-flotante .tlpRestaurarPapelera-texto {
+    color: #73c914;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante #tlpMoverContrato>img {
+    height: 35px;
+    width: 40px;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante .tlpMoverContrato-texto {
+    color: #003dc9;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante #tlpEliminarSeguimiento>img {
+    width: 50px;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante .tlpEliminarSeguimiento-texto, 
+#contratos #accionesSeleccionGrid .menu-flotante .tlpRestaurar-texto {
+    color: #c9003d;
+}
+
+/*Boton flotante*/

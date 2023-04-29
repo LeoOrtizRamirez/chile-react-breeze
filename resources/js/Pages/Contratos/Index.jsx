@@ -593,8 +593,8 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
         ); */
 
     /*Checks */
-    const [selectedProducts, setSelectedProducts] = useState(null);
-    const [rowClick, setRowClick] = useState(true);
+    const [selectedContratos, setSelectedContratos] = useState([]);
+    const [rowClick, setRowClick] = useState(false);
     /*Checks */
 
     const portalBodyTemplate = (grupo) => {
@@ -1123,29 +1123,43 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
     }
 
     const saveCarpetasSeleccionadas = () => {
-        /* var token = document.querySelector('meta[name="csrf-token"]')
+        var token = document.querySelector('meta[name="csrf-token"]')
+        var contratos = [];
+        if(contratoSelected.length == undefined){
+            contratos = [contratoSelected]
+        }else{
+            contratos = contratoSelected
+        }
         axios.post('/cliente/carpeta/add-contrato', {
-            contrato: contratoSelected.id,
+            contratos: contratos, 
             carpetas: carpetasSeleccionadas
         },
             { 'Authorization': `Bearer ${token}` })
             .then(response => {
+                if (response.data.status == 1) {
+                    setTabla(prevTabla => {
+                        const newData = [...prevTabla.data];
+                        contratos.forEach(contrato => {
+                            const index = prevTabla.data.findIndex(item => item.id === contrato.id);
+                            if (index === -1) {
+                                return { ...prevTabla };
+                            } else {
+                                const carpetas_contrato = carpetas.filter(carpeta => carpetasSeleccionadas.includes(carpeta.id));
+                                newData[index] = { ...newData[index], carpetas_ids: carpetasSeleccionadas };
+                                newData[index] = { ...newData[index], carpetas: carpetas_contrato };
+                            }
+                        })
+                        return { ...prevTabla, data: newData };
+                    });
+                }
                 setShowModal(false)
             })
             .catch(error => {
                 console.log(error)
-            }) */
-
-        var token = document.querySelector('meta[name="csrf-token"]')
-        Inertia.post('/cliente/carpeta/add-contrato', { contrato: contratoSelected.id, carpetas: carpetasSeleccionadas }, {
-            headers: {
-                'Authorization': `Bearer ${token.content}`
-            },
-            onSuccess: (response) => {
-                setShowModal(false)
-            }
-        });
+            })
     }
+
+
 
     const deleteContrato = (carpeta, contrato) => {
         /* var payload = {
@@ -1388,8 +1402,8 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
                         onRowExpand={onRowExpand} onRowCollapse={onRowCollapse} */ rowExpansionTemplate={rowExpansionTemplate}
                         header={header}
                         selectionMode={rowClick ? null : 'checkbox'}
-                        selection={selectedProducts}
-                        onSelectionChange={(e) => setSelectedProducts(e.value)}
+                        selection={selectedContratos}
+                        onSelectionChange={(e) => setSelectedContratos(e.value)}
                         first={pageNumber * pageSize}
                         rowClassName={rowClassName}
                     >
@@ -1410,7 +1424,39 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
                 </div>
             </div>
 
-
+            {selectedContratos.length > 0 &&
+                <div id="accionesSeleccionGrid" className="acciones-seleccion-grid">
+                    <div id="pruebaFixed" className="pruebafixed">
+                        <div className="menu-flotante">
+                            <div id="contenedorAcciones" className="container-acciones">
+                                <div>
+                                    <span id="contadorSeleccion" className="contador-selecciones">{selectedContratos.length}</span>
+                                    <p className="nombre-especifico tlpCount-texto">Proceso seleccionado</p>
+                                </div>
+                                <span className="separador-busqueda-rapida marg_first_separador icon-Separador-1"></span>
+                                <div className="">
+                                    <span id="tlpExcel" className="accion-tooltip">
+                                        <img width="20px" src="https://col.licitaciones.info/img/listado/excel_click.svg" alt="Descarga a Excel" />
+                                    </span>
+                                    <p className="nombre-especifico tlpExcel-texto">Exportar {selectedContratos.length} registro</p>
+                                </div>
+                                <span className="separador-busqueda-rapida marg_first_separador icon-Separador-1"></span>
+                                <div onClick={() => handleShowModal("modal_seleccion_carpeta", selectedContratos)}>
+                                    <span id="tlpMoverContrato" className="accion-tooltip">
+                                        <img width="20px" src="https://col.licitaciones.info/img/listado/carpeta_blue.svg" alt="Carpeta" /></span>
+                                    <p className="nombre-especifico tlpMoverContrato-texto">Mover proceso a</p>
+                                </div>
+                                <span className="separador-busqueda-rapida marg_first_separador icon-Separador-1"></span>
+                                <div>
+                                    <span id="tlpEliminarSeguimiento" className="accion-tooltip">
+                                        <img src="https://col.licitaciones.info/img/listado/eliminar-seguimientos.svg" alt="Eliminar Seguimiento" /></span>
+                                    <p className="nombre-especifico tlpEliminarSeguimiento-texto">Eliminar de mis seguimientos</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
 
 
 
@@ -1525,21 +1571,30 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
                                 <div className="carpetas_list_seleccion">
                                     <ul className="row scroll_fit">
                                         {folders.map((carpeta) => (
-                                            <li className="align-items-center col-md-3 col-sm-4 col-xs-12 d-flex selected_carpeta">
+                                            <li key={`carpeta_${carpeta.id}`} className="align-items-center col-md-3 col-sm-4 col-xs-12 d-flex selected_carpeta">
                                                 <span className="body_checkbox">
-                                                    {contratoSelected.carpetas_ids.includes(carpeta.id) ?
-                                                        <div className="checkbox" style={{ margin: 0 + 'px' }} onClick={() => deleteContrato(carpeta.id, contratoSelected.id)}>
-                                                            <i className="align-items-center cr-icon d-flex fa fa-times justify-content-center quitar_carpeta"></i>
-                                                            <label>
-                                                                <input type="checkbox" name="carpeta_mover" value="22101" />
-                                                                <span className="cr">
-                                                                    <i className="cr-icon fa fa-check"></i>
-                                                                </span>
-                                                            </label>
-                                                        </div>
-                                                        :
+
+                                                    {contratoSelected.length == undefined ? //Se selecciono la carpeta del contrato 
+                                                        <>
+                                                            {contratoSelected.carpetas_ids.includes(carpeta.id) ?
+                                                                <div className="checkbox" style={{ margin: 0 + 'px' }} onClick={() => deleteContrato(carpeta.id, contratoSelected.id)}>
+                                                                    <i className="align-items-center cr-icon d-flex fa fa-times justify-content-center quitar_carpeta"></i>
+                                                                    <label>
+                                                                        <input type="checkbox" name="carpeta_mover" value="22101" />
+                                                                        <span className="cr">
+                                                                            <i className="cr-icon fa fa-check"></i>
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                                :
+                                                                <input type="checkbox" id="carpeta_mover" name="carpeta_mover" className="input_perfil_val" value={carpeta.id} onClick={(e) => toggleCarpetasSeleccionadas(e, carpeta.id)} />
+                                                            }
+                                                        </>
+                                                        ://Se selecciono la carpeta del boton flotante
                                                         <input type="checkbox" id="carpeta_mover" name="carpeta_mover" className="input_perfil_val" value={carpeta.id} onClick={(e) => toggleCarpetasSeleccionadas(e, carpeta.id)} />
                                                     }
+
+
                                                 </span>
                                                 <div className="body_icono_carpeta">
                                                     <span title="Carpeta 1" className="ico-carpeta icon-Mis-carpetas" style={{ color: carpeta.color }}>

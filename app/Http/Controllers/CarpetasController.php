@@ -113,24 +113,25 @@ class CarpetasController extends Controller
         return redirect(route('carpetas.index'));
     }
 
-    
 
-    
+
+
 
     public function addContrato(Request $request)
     {
-
-        foreach ($request->carpetas as $key => $value) {
-            //Buscar si ya existe
-            $validator = CarpetasHasContrato::where('id_contrato', $request->contrato)->where('id_carpeta', $value)->first();
-            if (!$validator) {
-                $carpeta_has_contrato = new CarpetasHasContrato;
-                $carpeta_has_contrato->id_contrato = $request->contrato;
-                $carpeta_has_contrato->id_carpeta = $value;
-                try {
-                    $carpeta_has_contrato->save();
-                } catch (Exception $e) {
-                    dd($e->getMessage());
+        foreach ($request->carpetas as $key => $carpeta) {
+            foreach ($request->contratos as $key => $contrato) {
+                //Buscar si ya existe
+                $validator = CarpetasHasContrato::where('id_contrato', $contrato["id"])->where('id_carpeta', $carpeta)->first();
+                if (!$validator) {
+                    $carpeta_has_contrato = new CarpetasHasContrato;
+                    $carpeta_has_contrato->id_carpeta = $carpeta;
+                    $carpeta_has_contrato->id_contrato = $contrato["id"];
+                    try {
+                        $carpeta_has_contrato->save();
+                    } catch (Exception $e) {
+                        dd($e->getMessage());
+                    }
                 }
             }
         }
@@ -138,8 +139,8 @@ class CarpetasController extends Controller
             'status' => 1,
             'mesaje' => "Has agregado el proceso de contratación a tus <b class=\"text-azul-oscuro\">carpetas</b>."
         ];
-
-        return redirect()->route('contratos.index');
+        return $response;
+        //return redirect()->route('contratos.index');
     }
 
     public function deleteContrato(Request $request)
@@ -153,7 +154,6 @@ class CarpetasController extends Controller
             }
         }
         return redirect()->route('contratos.index');
-
     }
 
     public function findCarpeta()

@@ -192,71 +192,71 @@ const MenuLateral = ({ carpetas = [], grupos = [] }) => {
                     </span>
                     <div className="drop-perfiles position-relative">
                         <span className="icon-Contraer-campana-click"></span>
-                        <div class="item-checkbox-menu item-checkbox-menu-subtitle">
-                            <label class="d-block">Carpetas</label>
+                        <div className="item-checkbox-menu item-checkbox-menu-subtitle">
+                            <label className="d-block">Carpetas</label>
                         </div>
                         <div className="body-all-perfiles">
                             <div className="scroll_fit">
                                 <div className="contenedor_carpetas">
                                     <div>
-                                        <div class="item-checkbox-menu item-icon-menu">
-                                            <span class="body_checkbox">
-                                                <div class="radio" style={{ margin: 0 + 'px;' }}>
+                                        <div className="item-checkbox-menu item-icon-menu">
+                                            <span className="body_checkbox">
+                                                <div className="radio" style={{ margin: 0 + 'px;' }}>
                                                     <label>
-                                                        <input type="radio" name="radiocontratos" id="radioContratosFavoritos" class="input_carpeta_val" value="F" onClick={() => changePage('F')} />
+                                                        <input type="radio" name="radiocontratos" id="radioContratosFavoritos" className="input_carpeta_val" value="F" onClick={() => changePage('F')} />
                                                     </label>
                                                 </div>
                                             </span>
                                             <label for="radioContratosFavoritos" id="">
-                                                <div class="content-img">
-                                                    <div class="content-img--img">
-                                                        <span class="icon-Favorito-click content-img--img__iconos" style={{ color: 'rgb(253, 203, 54);' }}>
+                                                <div className="content-img">
+                                                    <div className="content-img--img">
+                                                        <span className="icon-Favorito-click content-img--img__iconos" style={{ color: 'rgb(253, 203, 54);' }}>
                                                         </span>
                                                     </div>
                                                 </div>
                                                 Favoritos
-                                            </label> <i class="icono-arrastre icon-Mover"></i>
+                                            </label> <i className="icono-arrastre icon-Mover"></i>
                                         </div>
-                                        <div class="item-checkbox-menu item-icon-menu">
-                                            <span class="body_checkbox">
-                                                <div class="radio" style={{ margin: 0 + 'px;' }}>
+                                        <div className="item-checkbox-menu item-icon-menu">
+                                            <span className="body_checkbox">
+                                                <div className="radio" style={{ margin: 0 + 'px;' }}>
                                                     <label>
-                                                        <input type="radio" name="radiocontratos" id="radioContratosEliminados" class="input_carpeta_val" value="E" onClick={() => changePage('P')} />
+                                                        <input type="radio" name="radiocontratos" id="radioContratosEliminados" className="input_carpeta_val" value="E" onClick={() => changePage('P')} />
                                                     </label>
                                                 </div>
                                             </span>
                                             <label for="radioContratosEliminados" id="">
-                                                <div class="content-img">
-                                                    <div class="content-img--img">
-                                                        <span class="icon-Eliminar content-img--img__iconos" style={{ color: 'rgb(209, 49, 97)' }}></span>
+                                                <div className="content-img">
+                                                    <div className="content-img--img">
+                                                        <span className="icon-Eliminar content-img--img__iconos" style={{ color: 'rgb(209, 49, 97)' }}></span>
                                                     </div>
                                                 </div>
                                                 Papelera
-                                            </label> <i class="icono-arrastre icon-Mover"></i>
+                                            </label> <i className="icono-arrastre icon-Mover"></i>
                                         </div>
                                         {folders.map((carpeta, index) => (
-                                            <div class="item-checkbox-menu item-icon-menu" key={index}>
-                                                <span class="body_checkbox">
-                                                    <div class="radio" style={{ margin: 0 + 'px;' }}>
+                                            <div className="item-checkbox-menu item-icon-menu" key={index}>
+                                                <span className="body_checkbox">
+                                                    <div className="radio" style={{ margin: 0 + 'px;' }}>
                                                         <label>
-                                                            <input type="radio" name="radiocontratos" id="checkboxCarpeta0" class="input_carpeta_val" value="21956" onClick={() => changePage('C', carpeta.id)} />
+                                                            <input type="radio" name="radiocontratos" id="checkboxCarpeta0" className="input_carpeta_val" value="21956" onClick={() => changePage('C', carpeta.id)} />
                                                         </label>
                                                     </div>
                                                 </span>
                                                 <label for="checkboxCarpeta0" id="carpeta_21956">
-                                                    <div class="content-img">
-                                                        <div class="content-img--img">
-                                                            <span class="icon-Mis-carpetas content-img--img__iconos" style={{ color: carpeta.color }}>
-                                                                <span class="path1">
+                                                    <div className="content-img">
+                                                        <div className="content-img--img">
+                                                            <span className="icon-Mis-carpetas content-img--img__iconos" style={{ color: carpeta.color }}>
+                                                                <span className="path1">
                                                                 </span>
-                                                                <span class="path2">
+                                                                <span className="path2">
                                                                 </span>
                                                             </span>
                                                         </div>
                                                     </div>
                                                     {carpeta.nombre_carpeta}
                                                 </label>
-                                                <i class="icono-arrastre icon-Mover"></i>
+                                                <i className="icono-arrastre icon-Mover"></i>
                                             </div>
                                         ))}
                                     </div>
