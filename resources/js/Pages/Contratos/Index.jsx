@@ -32,14 +32,14 @@ import CrearCarpeta from "@/Components/CrearCarpeta";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 
-const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas }) => {
+const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter_notas }) => {
     const [tabla, setTabla] = useState(contratos);
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
 
-    useEffect(() => {
-        setTabla(contratos)
-    }, [contratos])
+    /*     useEffect(() => {
+            setTabla(contratos)
+        }, [contratos]) */
 
     const paginator = (url) => {
         setLoading(true)
@@ -714,6 +714,14 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
             setModalOpened(modal_open)
             setContratoSelected(data)
         }
+
+        if (modal_open == "modal_confirm_delete") {
+            var checks = []
+            selectedContratos.forEach((contrato) => {
+                checks.push(parseInt(contrato.id))
+            })
+            setchecksContratos(checks)
+        }
         setShowModal(true);
     }
 
@@ -973,38 +981,83 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
             })
     };
 
-    const deleteFavorito = (contrato) => {
+    const deleteFavorito = (favoritos) => {
+        console.log("checksContratos", checksContratos)
+        console.log("favortitos", favoritos)
+
+        var contratos = [];
+        if (favoritos.length == undefined) {
+            contratos = [favoritos]
+        } else {
+            contratos = favoritos.filter(item => checksContratos.includes(item.id))
+        }
+
         var token = document.querySelector('meta[name="csrf-token"]')
         axios.post('/cliente/contratos/delete_favorito', {
-            contrato: contrato
+            contratos: contratos
         },
             { 'Authorization': `Bearer ${token}` })
             .then(response => {
-                setTabla(prevTabla => {
-                    const index = prevTabla.data.findIndex(item => item.id === contrato);
-                    if (index === -1) {
-                        return { ...prevTabla }; // return a new object reference
-                    } else {
-                        if (nombre_carpeta == "Favoritos") {//Si esta en la carpeta favoritos, elimina el indice
-                            const updatedData = [...prevTabla.data];
-                            updatedData.splice(index, 1);
-                            return {
-                                ...prevTabla,
-                                data: updatedData
-                            };
-                        } else {//Si esta en otra carpeta, cambia el estado del atributo favorito
-                            let newData = [...prevTabla.data]; // create a shallow copy of the data array
-                            newData[index] = { ...newData[index], favorito: false }; // modify the 'favorito' property
-                            return { ...prevTabla, data: newData }; // return a new object reference with the updated data
-                        }
-                    }
-                });
+                if (response.data.status == 1) {
+                    //const newSelectedContratos = selectedContratos.filter(item => !checksContratos.includes(item.id))
+                    setSelectedContratos([])
+                    setTabla(prevTabla => {
+                        var newData = [...prevTabla.data];
+                        contratos.forEach(contrato => {
+                            const index = prevTabla.data.findIndex(item => item.id === contrato.id);
+                            if (nombre_carpeta == "Favoritos") {//Si esta en la carpeta favoritos, elimina el indice
+                                newData = newData.filter(item => item.id != contrato.id)
+                            } else {//Si esta en otra carpeta, cambia el estado del atributo favorito
+                                newData[index] = { ...newData[index], favorito: false }; // modify the 'favorito' property
+                            }
+                        })
+                        return { ...prevTabla, data: newData };
+                    });
+                }
                 setShowModal(false)
             })
             .catch(error => {
                 console.log(error)
             })
     };
+
+
+    /* const removeFavoritos = () => {
+        var token = document.querySelector('meta[name="csrf-token"]')
+        var contratos = [];
+        if (contratoSelected.length == undefined) {
+            contratos = [contratoSelected]
+        } else {
+            contratos = contratoSelected
+        }
+        axios.post('/cliente/carpeta/add-contrato', {
+            contratos: contratos,
+            carpetas: carpetasSeleccionadas
+        },
+            { 'Authorization': `Bearer ${token}` })
+            .then(response => {
+                if (response.data.status == 1) {
+                    setTabla(prevTabla => {
+                        const newData = [...prevTabla.data];
+                        contratos.forEach(contrato => {
+                            const index = prevTabla.data.findIndex(item => item.id === contrato.id);
+                            if (index === -1) {
+                                return { ...prevTabla };
+                            } else {
+                                const carpetas_contrato = carpetas.filter(carpeta => carpetasSeleccionadas.includes(carpeta.id));
+                                newData[index] = { ...newData[index], carpetas_ids: carpetasSeleccionadas };
+                                newData[index] = { ...newData[index], carpetas: carpetas_contrato };
+                            }
+                        })
+                        return { ...prevTabla, data: newData };
+                    });
+                }
+                setShowModal(false)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    } */
 
 
     const addPapelera = (contrato) => {
@@ -1125,13 +1178,13 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
     const saveCarpetasSeleccionadas = () => {
         var token = document.querySelector('meta[name="csrf-token"]')
         var contratos = [];
-        if(contratoSelected.length == undefined){
+        if (contratoSelected.length == undefined) {
             contratos = [contratoSelected]
-        }else{
+        } else {
             contratos = contratoSelected
         }
         axios.post('/cliente/carpeta/add-contrato', {
-            contratos: contratos, 
+            contratos: contratos,
             carpetas: carpetasSeleccionadas
         },
             { 'Authorization': `Bearer ${token}` })
@@ -1162,18 +1215,33 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
 
 
     const deleteContrato = (carpeta, contrato) => {
-        /* var payload = {
-            'contrato': contrato
-        }; */
         var token = document.querySelector('meta[name="csrf-token"]')
-        Inertia.post('/cliente/carpeta/delete-contrato', { contrato: contrato, carpeta: carpeta }, {
-            headers: {
-                'Authorization': `Bearer ${token.content}`
-            },
-            onSuccess: (response) => {
-                setShowModal(false)
-            }
-        });
+        axios.post('/cliente/carpeta/delete-contrato', {
+            contrato: contrato,
+            carpeta: carpeta
+        },
+            { 'Authorization': `Bearer ${token}` })
+            .then(response => {
+                if (response.data.status == 1) {
+                    setTabla(prevTabla => {
+                        const newData = [...prevTabla.data];
+                        const index = prevTabla.data.findIndex(item => item.id === contrato);
+                        if (index === -1) {
+                            return { ...prevTabla };
+                        } else {
+                            const carpetas_ids = newData[index].carpetas_ids.filter(c => c != carpeta)
+                            const carpetas_contrato = newData[index].carpetas.filter(c => c.id != carpeta);
+                            newData[index] = { ...newData[index], carpetas_ids: carpetas_ids };
+                            newData[index] = { ...newData[index], carpetas: carpetas_contrato };
+                        }
+                        return { ...prevTabla, data: newData };
+                    });
+                }
+                //setShowModal(false)
+            })
+            .catch(error => {
+                console.log(error)
+            })
     };
 
     useEffect(() => {
@@ -1293,7 +1361,7 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
             pinned: 0,
             text: refInputText.current.value,
             title: refInputTitle.current.value,
-            zona: nombre_carpeta
+            zona: zona
         },
             { 'Authorization': `Bearer ${token}` })
             .then(response => {
@@ -1328,7 +1396,7 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
             pinned: 0,
             text: inputTextEdit,
             title: inputTitleEdit,
-            zona: nombre_carpeta
+            zona: zona
         },
             { 'Authorization': `Bearer ${token}` })
             .then(response => {
@@ -1390,6 +1458,15 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
         }
     }
 
+    const [checksContratos, setchecksContratos] = useState([])
+    const handleChecksContratos = (e) => {
+        if (!checksContratos.includes(parseInt(e.target.value))) {
+            setchecksContratos([...checksContratos, parseInt(e.target.value)])
+        } else {
+            let remove = checksContratos.filter(contrato => contrato != e.target.value)
+            setchecksContratos(remove)
+        }
+    }
 
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders} grupos={grupos}>
@@ -1446,12 +1523,51 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
                                         <img width="20px" src="https://col.licitaciones.info/img/listado/carpeta_blue.svg" alt="Carpeta" /></span>
                                     <p className="nombre-especifico tlpMoverContrato-texto">Mover proceso a</p>
                                 </div>
-                                <span className="separador-busqueda-rapida marg_first_separador icon-Separador-1"></span>
-                                <div>
-                                    <span id="tlpEliminarSeguimiento" className="accion-tooltip">
-                                        <img src="https://col.licitaciones.info/img/listado/eliminar-seguimientos.svg" alt="Eliminar Seguimiento" /></span>
-                                    <p className="nombre-especifico tlpEliminarSeguimiento-texto">Eliminar de mis seguimientos</p>
-                                </div>
+
+                                {nombre_carpeta == "Seguimientos" &&
+                                    <>
+                                        <span className="separador-busqueda-rapida marg_first_separador icon-Separador-1"></span>
+                                        <div>
+                                            <span id="tlpEliminarSeguimiento" className="accion-tooltip">
+                                                <img src="https://col.licitaciones.info/img/listado/eliminar-seguimientos.svg" alt="Eliminar Seguimiento" /></span>
+                                            <p className="nombre-especifico tlpEliminarSeguimiento-texto">Eliminar de mis seguimientos</p>
+                                        </div>
+                                    </>
+                                }
+
+                                {nombre_carpeta == "Seguimientos" &&
+                                    <>
+                                        <span className="separador-busqueda-rapida marg_first_separador icon-Separador-1"></span>
+                                        <div>
+                                            <span id="tlpMarcarNoLeido" className="svg-icon accion-tooltip">
+                                                <img width="24px" src="https://col.licitaciones.info/img/listado/no_leidos_click.svg" alt="No Leidos" /></span>
+                                            <p className="nombre-especifico tlpMarcarNoLeido-texto">Marcar como no leidos</p>
+                                        </div>
+                                    </>
+                                }
+
+                                {nombre_carpeta != "ALL" && nombre_carpeta != "Favoritos" && nombre_carpeta != "Papelera" &&
+                                    <>
+                                        <span className="separador-busqueda-rapida marg_first_separador icon-Separador-1"></span>
+                                        <div>
+                                            <span id="tlpEliminar" className="icon-Eliminar accion-tooltip"></span>
+                                            <p className="nombre-especifico tlpEliminar-texto">Eliminar de la carpeta</p>
+                                        </div>
+                                    </>
+                                }
+
+                                {nombre_carpeta == "Favoritos" &&
+                                    <>
+                                        <span className="separador-busqueda-rapida marg_first_separador icon-Separador-1"></span>
+                                        <div onClick={() => handleShowModal("modal_confirm_delete", selectedContratos)}>
+                                            <span id="tlpRestaurar" className="svg-icon accion-tooltip">
+                                                <img width="24px" src="https://col.licitaciones.info/img/listado/quitar_favoritos.svg" alt="Favoritos" />
+                                            </span>
+                                            <p className="nombre-especifico tlpRestaurar-texto">Eliminar de mis favoritos</p>
+                                        </div>
+                                    </>
+                                }
+
                             </div>
                         </div>
                     </div>
@@ -1532,29 +1648,54 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
                                         </th>
                                     </thead>
                                     <tbody>
-                                        <tr className="informacion_contratos--listado">
-                                            <td className="informacion_contratos--contrato_info columna_informacion">
-                                                <div>
-                                                    {/* <div className="checkbox informacion_contratos--contrato_check" style="display: none;">
-                                                        <label>
-                                                            <input type="checkbox" id="contratoCheckbox0" className="input_perfil_val" value="8119752" />
-                                                            <span className="cr">
-                                                                <i className="cr-icon icon-Check"></i>
-                                                            </span>
-                                                        </label>
-                                                    </div> */}
-                                                    <i id="iconFuente-8119752" className="icono_fuente__list" style={{ background: 'rgb(0, 61, 201)' }}>MP</i>
-                                                    <div className="informacion_contratos--contrato_nombre">
-                                                        <b>{contratoSelected.entidad_contratante}</b>
-                                                        <br />
-                                                        <span>{contratoSelected.objeto}</span>
+                                        {contratoSelected.length == undefined ?
+                                            <tr className="informacion_contratos--listado">
+                                                <td className="informacion_contratos--contrato_info columna_informacion">
+                                                    <div>
+                                                        <i id="iconFuente-8119752" className="icono_fuente__list" style={{ background: 'rgb(0, 61, 201)' }}>MP</i>
+                                                        <div className="informacion_contratos--contrato_nombre">
+                                                            <b>{contratoSelected.entidad_contratante}</b>
+                                                            <br />
+                                                            <span>{contratoSelected.objeto}</span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td className="informacion_contratos--icono columna_icono">
-                                                <img src="https://col.licitaciones.info/img/listado/quitar_favoritos.svg" />
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td className="informacion_contratos--icono columna_icono">
+                                                    <img src="https://col.licitaciones.info/img/listado/quitar_favoritos.svg" />
+                                                </td>
+                                            </tr>
+                                            :
+                                            <>
+                                                {selectedContratos.map((contrato, index) => (
+                                                    <tr className="informacion_contratos--listado borde">
+                                                        <td className="informacion_contratos--contrato_info columna_informacion">
+                                                            <div>
+                                                                <div className="checkbox informacion_contratos--contrato_check">
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        id="checkboxPerfil0"
+                                                                        class="input_perfil_val"
+                                                                        value={contrato.id}
+                                                                        checked={checksContratos.includes(contrato.id) ? true : false}
+                                                                        onChange={handleChecksContratos}
+                                                                        name="remove_favoritos"
+                                                                    />
+                                                                </div>
+                                                                <i id="iconFuente-8119752" className="icono_fuente__list" style={{ background: 'rgb(0, 61, 201)' }}>MP</i>
+                                                                <div className="informacion_contratos--contrato_nombre">
+                                                                    <b>{contrato.entidad_contratante}</b>
+                                                                    <br />
+                                                                    <span>{contrato.objeto}</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td className="informacion_contratos--icono columna_icono">
+                                                            <img src="https://col.licitaciones.info/img/listado/quitar_favoritos.svg" />
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </>
+                                        }
                                     </tbody>
                                 </table>
                             </div>
@@ -1613,7 +1754,7 @@ const Index = ({ auth, contratos, nombre_carpeta, carpetas, grupos, filter_notas
                 </Modal.Body>
                 <Modal.Footer>
                     {modalOpened == "modal_confirm_delete" &&
-                        <button className="btnRadius btn-action btn-new-danger" onClick={() => deleteFavorito(contratoSelected.id)}>Eliminar</button>
+                        <button className="btnRadius btn-action btn-new-danger" onClick={() => deleteFavorito(contratoSelected)}>Eliminar</button>
                     }
                     {modalOpened == "ubicacion" || modalOpened == "modalidad" || modalOpened == "actividad_economica" &&
                         <button type="button" className="btnRadius btn-new-green">Seleccionar</button>

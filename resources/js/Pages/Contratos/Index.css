@@ -1768,6 +1768,11 @@ input.p-inputtext.p-component.p-column-filter:not(:placeholder-shown)::before {
     background: #73c914 !important;
 }
 
+#contratos .p-checkbox-box.p-component.p-highlight.p-disabled {
+    border-color: #fff !important;
+    background-color: #fff !important;
+}
+
 #contratos .p-checkbox .p-checkbox-box {
     border: 1px solid #b1b2b2 !important;
     border-radius: 0.25em !important;
@@ -2074,6 +2079,24 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     -ms-flex-pack: center;
     justify-content: center;
     border: 0;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos .borde{
+    border-bottom: 1px solid hsla(0,1%,61%,.15);
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos .borde td {
+    padding: 15px 0;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos--listado .informacion_contratos--contrato_check {
+    margin: 0px 10px 0 -45px!important;
+}
+
+#modal_confirm_delete input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    color: #73c914 !important;
 }
 
 #modal_seleccion_carpeta {
@@ -3218,7 +3241,7 @@ body>div.fade.modal-backdrop.show:nth-child(5) {
 
 /*Boton flotante*/
 #contratos #accionesSeleccionGrid .pruebafixed {
-    z-index: 1101;
+    z-index: 1050;
     position: fixed;
     bottom: 5px;
     left: 0;
@@ -3349,4 +3372,22 @@ body>div.fade.modal-backdrop.show:nth-child(5) {
     color: #c9003d;
 }
 
+#contratos #accionesSeleccionGrid .menu-flotante #tlpEliminar {
+    color: #c9003d!important;
+    font-size: 32px!important;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante .tlpEliminar-texto {
+    color: #c9003d;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante #tlpRestaurar>img {
+    width: 40px;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante #tlpMarcarLeido>img, 
+#contratos #accionesSeleccionGrid .menu-flotante #tlpMarcarNoLeido>img {
+    height: 45px;
+    width: 45px;
+}
 /*Boton flotante*/

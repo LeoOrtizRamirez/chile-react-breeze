@@ -35,7 +35,7 @@ class ContratoController extends Controller
             ->select('contratos.id')
             ->groupBy('contratos.id')
             ->get()->pluck('id')->toArray();
-        
+
         $buscador_rapido = request("rapida");
         $entidad_contratante = request("entidad_contratante");
         $objeto = request("objeto");
@@ -145,9 +145,9 @@ class ContratoController extends Controller
             }
             $value->carpetas_ids = $carpetas_ids;
 
-            if(in_array($value->id, $contratos_con_notas)){
+            if (in_array($value->id, $contratos_con_notas)) {
                 $value->notas = true;
-            }else{
+            } else {
                 $value->notas = false;
             }
         }
@@ -162,6 +162,7 @@ class ContratoController extends Controller
                 [
                     'contratos' => $contratos,
                     'nombre_carpeta' => 'ALL',
+                    'zona' => 'ALL',
                     'carpetas' => $carpetas,
                     'grupos' => $grupos,
                     'filter_notas' => $is_notas
@@ -224,12 +225,19 @@ class ContratoController extends Controller
         switch ($tipo) {
             case 'F':
                 $nombre_carpeta = "Favoritos";
+                $zona = "F";
                 break;
             case 'P':
                 $nombre_carpeta = "Papelera";
+                $nombre_carpeta = "P";
+                break;
+            case 'S':
+                $nombre_carpeta = "Seguimientos";
+                $zona = "S";
                 break;
             case 'C':
                 $nombre_carpeta = $carpeta->nombre_carpeta;
+                $zona = "C";
                 break;
 
             default:
@@ -298,9 +306,9 @@ class ContratoController extends Controller
                     }
                     $value->carpetas_ids = $carpetas_ids;
 
-                    if(in_array($value->id, $contratos_con_notas)){
+                    if (in_array($value->id, $contratos_con_notas)) {
                         $value->notas = true;
-                    }else{
+                    } else {
                         $value->notas = false;
                     }
                 }
@@ -314,6 +322,7 @@ class ContratoController extends Controller
             [
                 'contratos' => $contratos,
                 'nombre_carpeta' => $nombre_carpeta,
+                'zona' => $zona,
                 'carpetas' => $carpetas,
                 'grupos' => $grupos,
                 'filter_notas' => false
@@ -359,20 +368,22 @@ class ContratoController extends Controller
 
     public function deleteFavorito(Request $request)
     {
-        //Buscar si ya tiene carpeta de favoritos
-        $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'F')->first();
-        $carpeta_has_contrato = CarpetasHasContrato::where('id_contrato', $request->contrato)->where('id_carpeta', $carpeta->id)->first();
-        try {
-            $carpeta_has_contrato->delete();
-        } catch (Exception $e) {
-            dd($e->getMessage());
+        foreach ($request->contratos as $key => $contrato) {
+            //Buscar si ya tiene carpeta de favoritos
+            $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'F')->first();
+            $carpeta_has_contrato = CarpetasHasContrato::where('id_contrato', $contrato["id"])->where('id_carpeta', $carpeta->id)->first();
+            try {
+                $carpeta_has_contrato->delete();
+            } catch (Exception $e) {
+                dd($e->getMessage());
+            }
         }
         $response = [
             'status' => 1,
             'mesaje' => "Contratos eliminados de favoritos exitosamente."
         ];
-        //return $response;
-        return redirect()->route('contratos.index');
+        return $response;
+        //return redirect()->route('contratos.index');
     }
 
     public function addPapelera(Request $request)

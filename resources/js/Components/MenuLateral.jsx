@@ -102,7 +102,7 @@ const MenuLateral = ({ carpetas = [], grupos = [] }) => {
                                     <div id="menuperfiles_movil">
                                         <div className="contenedor_perfiles">
                                             {grupos.map((perfil, index) => (
-                                                <div className="item-checkbox-menu item-icon-menu">
+                                                <div className="item-checkbox-menu item-icon-menu" key={`perfil_${index}`}>
                                                     <span className="body_checkbox">
                                                         <input type="checkbox" id="checkboxPerfil0" className="input_perfil_val" value="256058" />
                                                     </span> <label id="visita_256058" className="">
@@ -235,7 +235,7 @@ const MenuLateral = ({ carpetas = [], grupos = [] }) => {
                                             </label> <i className="icono-arrastre icon-Mover"></i>
                                         </div>
                                         {folders.map((carpeta, index) => (
-                                            <div className="item-checkbox-menu item-icon-menu" key={index}>
+                                            <div className="item-checkbox-menu item-icon-menu" key={`carpeta_${index}`}>
                                                 <span className="body_checkbox">
                                                     <div className="radio" style={{ margin: 0 + 'px;' }}>
                                                         <label>

@@ -12,7 +12,7 @@ const Header = ({auth}) => {
                     </a>
                     <div id="navbarSupportedContent" className="d-flex ml-auto position-relative">
                         <Nav id="ayuda">
-                            <NavDropdown title={<><span className="icon-Ayuda"></span><span class='nav-title'>Centro de ayuda</span><i className="position-relative icon-Desplegar"></i></>} >
+                            <NavDropdown title={<><span className="icon-Ayuda"></span><span className='nav-title'>Centro de ayuda</span><i className="position-relative icon-Desplegar"></i></>} >
                                 <NavItem href="#" className='submenu-text'>
                                     <img src="https://col.licitaciones.info/img/instructivos.svg" alt="Instructivos" />
                                     <span className="DropAyudaList_instructivos_texto">Instructivos</span>
@@ -45,7 +45,7 @@ const Header = ({auth}) => {
                         </Nav>
 
                         <Nav id="paises" className='dropdown-paises'>
-                            <NavDropdown id="navbarDropdownPaises" className='nav-link pl-0' title={<><img src="/public/images/banderas/listado_nombres/CHL.svg" alt="icono bandera" width="22" /><span class='nav-title'>Chile</span><i className="position-relative icon-Desplegar"></i></>} >
+                            <NavDropdown id="navbarDropdownPaises" className='nav-link pl-0' title={<><img src="/public/images/banderas/listado_nombres/CHL.svg" alt="icono bandera" width="22" /><span className='nav-title'>Chile</span><i className="position-relative icon-Desplegar"></i></>} >
                                 <Dropdown.Item href="#" className='dropdown-item'>
                                     <img src="/public/images/banderas/listado_nombres/COL.svg" alt="icono bandera" width="22" className='inline-block' /> <span>Colombia</span>
                                 </Dropdown.Item>

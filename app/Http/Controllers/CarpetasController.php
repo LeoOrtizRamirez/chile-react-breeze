@@ -153,7 +153,12 @@ class CarpetasController extends Controller
                 dd($e->getMessage());
             }
         }
-        return redirect()->route('contratos.index');
+        $response = [
+            'status' => 1,
+            'mesaje' => "Carpeta eliminada de contrato exitosamente."
+        ];
+        return $response;
+        //return redirect()->route('contratos.index');
     }
 
     public function findCarpeta()
