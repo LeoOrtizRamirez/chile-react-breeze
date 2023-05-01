@@ -1190,6 +1190,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
             { 'Authorization': `Bearer ${token}` })
             .then(response => {
                 if (response.data.status == 1) {
+                    setSelectedContratos([])
                     setTabla(prevTabla => {
                         const newData = [...prevTabla.data];
                         contratos.forEach(contrato => {
@@ -1197,9 +1198,19 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                             if (index === -1) {
                                 return { ...prevTabla };
                             } else {
-                                const carpetas_contrato = carpetas.filter(carpeta => carpetasSeleccionadas.includes(carpeta.id));
-                                newData[index] = { ...newData[index], carpetas_ids: carpetasSeleccionadas };
-                                newData[index] = { ...newData[index], carpetas: carpetas_contrato };
+                                const carpetas_actuales = newData[index].carpetas_ids
+                                const carpetas_contrato_actuales = newData[index].carpetas
+                                carpetasSeleccionadas.forEach(item =>{
+                                    if(!carpetas_actuales.includes(item)){
+                                        carpetas_actuales.push(item)
+                                    }
+                                    if(!carpetas_contrato_actuales.includes(item)){
+                                        const carpeta = folders.filter(c => c.id == item)[0]
+                                        carpetas_contrato_actuales.push(carpeta)
+                                    }
+                                })
+                                newData[index] = { ...newData[index], carpetas_ids: carpetas_actuales };
+                                newData[index] = { ...newData[index], carpetas: carpetas_contrato_actuales };
                             }
                         })
                         return { ...prevTabla, data: newData };
