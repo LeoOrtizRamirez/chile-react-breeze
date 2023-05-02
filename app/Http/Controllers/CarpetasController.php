@@ -145,14 +145,20 @@ class CarpetasController extends Controller
 
     public function deleteContrato(Request $request)
     {
-        $validator = CarpetasHasContrato::where('id_contrato', $request->contrato)->where('id_carpeta', $request->carpeta)->first();
-        if ($validator) {
-            try {
-                $validator->delete();
-            } catch (Exception $e) {
-                dd($e->getMessage());
+        //dd($request->contratos);
+        foreach ($request->contratos as $key => $contrato) {
+            $carpeta_has_contrato = CarpetasHasContrato::where('id_contrato', $contrato)->where('id_carpeta', $request->carpeta)->first();
+            //dd($carpeta_has_contrato);
+            if ($carpeta_has_contrato) {
+                try {
+                    $carpeta_has_contrato->delete();
+                } catch (Exception $e) {
+                    dd($e->getMessage());
+                }
             }
         }
+
+
         $response = [
             'status' => 1,
             'mesaje' => "Carpeta eliminada de contrato exitosamente."

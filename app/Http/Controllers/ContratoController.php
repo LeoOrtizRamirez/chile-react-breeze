@@ -165,7 +165,8 @@ class ContratoController extends Controller
                     'zona' => 'ALL',
                     'carpetas' => $carpetas,
                     'grupos' => $grupos,
-                    'filter_notas' => $is_notas
+                    'filter_notas' => $is_notas,
+                    'carpeta_actual' => null
                 ]
             );
         }
@@ -325,7 +326,8 @@ class ContratoController extends Controller
                 'zona' => $zona,
                 'carpetas' => $carpetas,
                 'grupos' => $grupos,
-                'filter_notas' => false
+                'filter_notas' => false,
+                'carpeta_actual' => $carpeta
             ]
         );
         /* return Inertia::render(

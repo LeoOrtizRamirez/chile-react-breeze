@@ -2060,6 +2060,17 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     max-width: 300px;
 }
 
+#modal_confirm_delete .modal-body .informacion_contratos--icono>span .icon-Mis-carpetas {
+    font-size: 17px;
+    vertical-align: middle;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos--icono>span {
+    font-family: Nexa-regular,sans-serif;
+    color: #686868;
+    font-size: 13px;
+}
+
 #modal_confirm_delete .modal-body .informacion_contratos--listado .informacion_contratos--contrato_info>div {
     display: -webkit-box;
     display: -ms-flexbox;

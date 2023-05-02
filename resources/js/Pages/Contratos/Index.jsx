@@ -32,7 +32,7 @@ import CrearCarpeta from "@/Components/CrearCarpeta";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 
-const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter_notas }) => {
+const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter_notas, carpeta_actual }) => {
     const [tabla, setTabla] = useState(contratos);
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
@@ -483,7 +483,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
 
                         {data.favorito ?
                             <div className="custom-tooltip yellow" data-tooltip="Eliminar De Favoritos">
-                                <button id={`favorito_${data.id}`} type="button" className="icon-Favorito-click btn_contratos_favoritos favorito_active" onClick={() => handleShowModal("modal_confirm_delete", data)}></button>
+                                <button id={`favorito_${data.id}`} type="button" className="icon-Favorito-click btn_contratos_favoritos favorito_active" onClick={() => handleShowModal("modal_confirm_delete", data, true)}></button>
                             </div>
                             :
                             <div className="custom-tooltip yellow" data-tooltip="Agregar A Favoritos">
@@ -705,7 +705,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
     const [modalId, setModalId] = useState("")
     const [contratoSelected, setContratoSelected] = useState([])
     const handleCloseModal = () => setShowModal(false);
-    const handleShowModal = (modal_open, data = null) => {
+    const handleShowModal = (modal_open, data = null, is_favorito = false) => {
         if (modal_open == "actividad_economica" || modal_open == "modalidad" || modal_open == "ubicacion") {
             setModalId("modal_actividades")
             setModalOpened(modal_open)
@@ -721,6 +721,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                 checks.push(parseInt(contrato.id))
             })
             setchecksContratos(checks)
+            setIsFavorito(is_favorito)
         }
         setShowModal(true);
     }
@@ -894,26 +895,26 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                     </div>
                                 </div> */}
                             </div>
-                            {nombre_carpeta == "Favoritos" &&
+                            {carpeta_actual?.nombre_carpeta == "Favoritos" &&
                                 <div className="d-inline-block seccion-estas-en">
                                     <p className="my-1">Estás en: <span className="mx-1 icon-Favorito-click"></span>
                                         <span className="texto-estas-en">mis favoritos</span>
                                     </p>
                                 </div>
                             }
-                            {nombre_carpeta == "Papelera" &&
+                            {carpeta_actual?.nombre_carpeta == "Papelera" &&
                                 <div className="d-inline-block seccion-estas-en">
                                     <p className="my-1">Estás en: <span className="mx-1 icon-Eliminar"></span>
-                                        <span className="texto-estas-en">{nombre_carpeta}</span>
+                                        <span className="texto-estas-en">{carpeta_actual?.nombre_carpeta}</span>
                                     </p>
                                 </div>
                             }
-                            {nombre_carpeta != "Favoritos" && nombre_carpeta != "Papelera" && nombre_carpeta != "ALL" &&
+                            {carpeta_actual?.nombre_carpeta != "Favoritos" && nombre_carpeta != "Papelera" && nombre_carpeta != "ALL" &&
                                 <div className="d-inline-block seccion-estas-en">
                                     <p className="my-1">
                                         Estás en:
                                         <img src="https://col.licitaciones.info/img/listado/carpeta_azul_claro.svg" width="14" alt="icon-carpeta" className="mx-1" />
-                                        <span className="texto-estas-en">{nombre_carpeta}</span>
+                                        <span className="texto-estas-en">{carpeta_actual?.nombre_carpeta}</span>
                                     </p>
                                 </div>
                             }
@@ -921,7 +922,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                     </div>
                     <div className="col-12 col-lg-7 col-xl-6 p-0 paginacion_grid text-right text-lg-right ">
                         <span className="paginator">
-                            {nombre_carpeta != "ALL" ?
+                            {zona != "ALL" ?
                                 <span className="p-paginator-current">{tabla.data.length} registros</span>
                                 :
                                 <>
@@ -981,6 +982,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
             })
     };
 
+    const [isFavorito, setIsFavorito] = useState(false)
     const deleteFavorito = (favoritos) => {
         console.log("checksContratos", checksContratos)
         console.log("favortitos", favoritos)
@@ -1084,10 +1086,10 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
     const renderEmptyMessage = () => {
         return (
             <>
-                {nombre_carpeta === "" &&
+                {carpeta_actual?.nombre_carpeta === "" &&
                     <p>No se encontraron registros</p>
                 }
-                {nombre_carpeta === "Papelera" &&
+                {carpeta_actual?.nombre_carpeta === "Papelera" &&
                     <div id="mensajes-personalizado-papelera" className="container-fluid content_blank_interno">
                         <div className="row  align-items-end">
                             <div className="col-md-4 offset-md-1">
@@ -1106,7 +1108,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                     </div>
                 }
 
-                {nombre_carpeta == "Favoritos" &&
+                {carpeta_actual?.nombre_carpeta == "Favoritos" &&
                     <div id="mensajes-personalizado-favoritos" className="container-fluid content_blank_interno">
                         <div className="row  align-items-end">
                             <div className="col-md-3 offset-md-2">
@@ -1125,7 +1127,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                     </div>
                 }
 
-                {nombre_carpeta != "Papelera" && nombre_carpeta != "Favoritos" && nombre_carpeta != "" &&
+                {carpeta_actual?.nombre_carpeta != "Papelera" && nombre_carpeta != "Favoritos" && nombre_carpeta != "" &&
                     <div id="mensajes-personalizado-sin-contratos-carpeta" className="container content_blank_interno">
                         <div className="row  align-items-center">
                             <div className="col-md-4 text-center">
@@ -1200,11 +1202,11 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                             } else {
                                 const carpetas_actuales = newData[index].carpetas_ids
                                 const carpetas_contrato_actuales = newData[index].carpetas
-                                carpetasSeleccionadas.forEach(item =>{
-                                    if(!carpetas_actuales.includes(item)){
+                                carpetasSeleccionadas.forEach(item => {
+                                    if (!carpetas_actuales.includes(item)) {
                                         carpetas_actuales.push(item)
                                     }
-                                    if(!carpetas_contrato_actuales.includes(item)){
+                                    if (!carpetas_contrato_actuales.includes(item)) {
                                         const carpeta = folders.filter(c => c.id == item)[0]
                                         carpetas_contrato_actuales.push(carpeta)
                                     }
@@ -1225,30 +1227,47 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
 
 
 
-    const deleteContrato = (carpeta, contrato) => {
+    const deleteContrato = (carpeta, contratos) => {
+        console.log("car", carpeta)
+        var _contratos = [];
+        if (contratos.length == undefined) {
+            _contratos = [contratos]
+        } else {
+            contratos.forEach(c => {
+                _contratos.push(c.id)
+            })
+        }
+
         var token = document.querySelector('meta[name="csrf-token"]')
         axios.post('/cliente/carpeta/delete-contrato', {
-            contrato: contrato,
+            contratos: _contratos,
             carpeta: carpeta
         },
             { 'Authorization': `Bearer ${token}` })
             .then(response => {
                 if (response.data.status == 1) {
+                    setSelectedContratos([])
                     setTabla(prevTabla => {
-                        const newData = [...prevTabla.data];
-                        const index = prevTabla.data.findIndex(item => item.id === contrato);
-                        if (index === -1) {
-                            return { ...prevTabla };
-                        } else {
-                            const carpetas_ids = newData[index].carpetas_ids.filter(c => c != carpeta)
-                            const carpetas_contrato = newData[index].carpetas.filter(c => c.id != carpeta);
-                            newData[index] = { ...newData[index], carpetas_ids: carpetas_ids };
-                            newData[index] = { ...newData[index], carpetas: carpetas_contrato };
-                        }
+                        var newData = [...prevTabla.data];
+                        _contratos.forEach(c => {
+                            const index = prevTabla.data.findIndex(item => item.id === c);
+                            if (index === -1) {
+                                return { ...prevTabla };
+                            } else {
+                                if (zona == "C" && carpeta_actual?.id == carpeta) {
+                                    newData = newData.filter(item => item.id != c)
+                                } else {
+                                    const carpetas_ids = newData[index].carpetas_ids.filter(c => c != carpeta)
+                                    const carpetas_contrato = newData[index].carpetas.filter(c => c.id != carpeta);
+                                    newData[index] = { ...newData[index], carpetas_ids: carpetas_ids };
+                                    newData[index] = { ...newData[index], carpetas: carpetas_contrato };
+                                }
+                            }
+                        })
                         return { ...prevTabla, data: newData };
                     });
                 }
-                //setShowModal(false)
+                setShowModal(false)
             })
             .catch(error => {
                 console.log(error)
@@ -1535,7 +1554,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                     <p className="nombre-especifico tlpMoverContrato-texto">Mover proceso a</p>
                                 </div>
 
-                                {nombre_carpeta == "Seguimientos" &&
+                                {carpeta_actual?.nombre_carpeta == "Seguimientos" &&
                                     <>
                                         <span className="separador-busqueda-rapida marg_first_separador icon-Separador-1"></span>
                                         <div>
@@ -1546,7 +1565,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                     </>
                                 }
 
-                                {nombre_carpeta == "Seguimientos" &&
+                                {carpeta_actual?.nombre_carpeta == "Seguimientos" &&
                                     <>
                                         <span className="separador-busqueda-rapida marg_first_separador icon-Separador-1"></span>
                                         <div>
@@ -1557,20 +1576,20 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                     </>
                                 }
 
-                                {nombre_carpeta != "ALL" && nombre_carpeta != "Favoritos" && nombre_carpeta != "Papelera" &&
+                                {zona == "C" &&
                                     <>
                                         <span className="separador-busqueda-rapida marg_first_separador icon-Separador-1"></span>
-                                        <div>
+                                        <div onClick={() => handleShowModal("modal_confirm_delete", selectedContratos)}>
                                             <span id="tlpEliminar" className="icon-Eliminar accion-tooltip"></span>
                                             <p className="nombre-especifico tlpEliminar-texto">Eliminar de la carpeta</p>
                                         </div>
                                     </>
                                 }
 
-                                {nombre_carpeta == "Favoritos" &&
+                                {carpeta_actual?.nombre_carpeta == "Favoritos" &&
                                     <>
                                         <span className="separador-busqueda-rapida marg_first_separador icon-Separador-1"></span>
-                                        <div onClick={() => handleShowModal("modal_confirm_delete", selectedContratos)}>
+                                        <div onClick={() => handleShowModal("modal_confirm_delete", selectedContratos, true)}>
                                             <span id="tlpRestaurar" className="svg-icon accion-tooltip">
                                                 <img width="24px" src="https://col.licitaciones.info/img/listado/quitar_favoritos.svg" alt="Favoritos" />
                                             </span>
@@ -1655,7 +1674,11 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                             <span>Información del proceso</span>
                                         </th>
                                         <th className="columna_icono">
-                                            <span>Favoritos</span>
+                                            {isFavorito?
+                                                <span>Favoritos</span>
+                                                :
+                                                <span>Carpeta</span>
+                                            }
                                         </th>
                                     </thead>
                                     <tbody>
@@ -1672,7 +1695,17 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                                     </div>
                                                 </td>
                                                 <td className="informacion_contratos--icono columna_icono">
-                                                    <img src="https://col.licitaciones.info/img/listado/quitar_favoritos.svg" />
+                                                    {isFavorito?
+                                                        <img src="https://col.licitaciones.info/img/listado/quitar_favoritos.svg" />
+                                                        :
+                                                        <span>
+                                                            <span class="icon-Mis-carpetas" style={{ color: carpeta_actual?.color }}>
+                                                                <span class="path1"></span>
+                                                                <span class="path2"></span>
+                                                            </span>
+                                                            {carpeta_actual?.nombre_carpeta}
+                                                        </span>
+                                                    }
                                                 </td>
                                             </tr>
                                             :
@@ -1701,7 +1734,17 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                                             </div>
                                                         </td>
                                                         <td className="informacion_contratos--icono columna_icono">
-                                                            <img src="https://col.licitaciones.info/img/listado/quitar_favoritos.svg" />
+                                                            {isFavorito?
+                                                                <img src="https://col.licitaciones.info/img/listado/quitar_favoritos.svg" />
+                                                                :
+                                                                <span>
+                                                                    <span class="icon-Mis-carpetas" style={{ color: carpeta_actual?.color }}>
+                                                                        <span class="path1"></span>
+                                                                        <span class="path2"></span>
+                                                                    </span>
+                                                                    {carpeta_actual?.nombre_carpeta}
+                                                                </span>
+                                                            }
                                                         </td>
                                                     </tr>
                                                 ))}
@@ -1765,7 +1808,13 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                 </Modal.Body>
                 <Modal.Footer>
                     {modalOpened == "modal_confirm_delete" &&
-                        <button className="btnRadius btn-action btn-new-danger" onClick={() => deleteFavorito(contratoSelected)}>Eliminar</button>
+                        <>
+                            {isFavorito?
+                                <button className="btnRadius btn-action btn-new-danger" onClick={() => deleteFavorito(contratoSelected)}>Eliminar</button>
+                                :
+                                <button className="btnRadius btn-action btn-new-danger" onClick={() => deleteContrato(carpeta_actual?.id, contratoSelected)}>Eliminar</button>
+                            }
+                        </>
                     }
                     {modalOpened == "ubicacion" || modalOpened == "modalidad" || modalOpened == "actividad_economica" &&
                         <button type="button" className="btnRadius btn-new-green">Seleccionar</button>
