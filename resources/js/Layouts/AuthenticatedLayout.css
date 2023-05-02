@@ -301,6 +301,25 @@ input[type='radio']:focus{ box-shadow: none; outline: none !important; }
     border-color: #dc3545 !important;
 }
 
+#cargandos, .cargando_tables {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999999;
+    background: hsla(0,0%,100%,.9);
+    width: 100%;
+    text-align: center;
+    height: 100%;
+    display: block;
+}
+
+#cargandos .img-col, #cargandos .img-ecu {
+    width: 250px;
+    max-width: 100%;
+    margin: 7% auto auto auto;
+}
+
+
 
 /* .content-flex {
     display: flex !important;

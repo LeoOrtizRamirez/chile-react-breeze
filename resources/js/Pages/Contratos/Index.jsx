@@ -984,9 +984,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
 
     const [isFavorito, setIsFavorito] = useState(false)
     const deleteFavorito = (favoritos) => {
-        console.log("checksContratos", checksContratos)
-        console.log("favortitos", favoritos)
-
+        setGlobalLoading(true)
         var contratos = [];
         if (favoritos.length == undefined) {
             contratos = [favoritos]
@@ -1007,7 +1005,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                         var newData = [...prevTabla.data];
                         contratos.forEach(contrato => {
                             const index = prevTabla.data.findIndex(item => item.id === contrato.id);
-                            if (nombre_carpeta == "Favoritos") {//Si esta en la carpeta favoritos, elimina el indice
+                            if (carpeta_actual?.nombre_carpeta == "Favoritos") {//Si esta en la carpeta favoritos, elimina el indice
                                 newData = newData.filter(item => item.id != contrato.id)
                             } else {//Si esta en otra carpeta, cambia el estado del atributo favorito
                                 newData[index] = { ...newData[index], favorito: false }; // modify the 'favorito' property
@@ -1016,6 +1014,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                         return { ...prevTabla, data: newData };
                     });
                 }
+                setGlobalLoading(false)
                 setShowModal(false)
             })
             .catch(error => {
@@ -1127,7 +1126,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                     </div>
                 }
 
-                {carpeta_actual?.nombre_carpeta != "Papelera" && nombre_carpeta != "Favoritos" && nombre_carpeta != "" &&
+                {carpeta_actual?.nombre_carpeta != "Papelera" && carpeta_actual?.nombre_carpeta != "Favoritos" && carpeta_actual?.nombre_carpeta != "" &&
                     <div id="mensajes-personalizado-sin-contratos-carpeta" className="container content_blank_interno">
                         <div className="row  align-items-center">
                             <div className="col-md-4 text-center">
@@ -1178,6 +1177,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
     }
 
     const saveCarpetasSeleccionadas = () => {
+        setGlobalLoading(true)
         var token = document.querySelector('meta[name="csrf-token"]')
         var contratos = [];
         if (contratoSelected.length == undefined) {
@@ -1218,6 +1218,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                         return { ...prevTabla, data: newData };
                     });
                 }
+                setGlobalLoading(false)
                 setShowModal(false)
             })
             .catch(error => {
@@ -1228,7 +1229,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
 
 
     const deleteContrato = (carpeta, contratos) => {
-        console.log("car", carpeta)
+        setGlobalLoading(true)
         var _contratos = [];
         if (contratos.length == undefined) {
             _contratos = [contratos]
@@ -1237,7 +1238,6 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                 _contratos.push(c.id)
             })
         }
-
         var token = document.querySelector('meta[name="csrf-token"]')
         axios.post('/cliente/carpeta/delete-contrato', {
             contratos: _contratos,
@@ -1267,6 +1267,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                         return { ...prevTabla, data: newData };
                     });
                 }
+                setGlobalLoading(false)
                 setShowModal(false)
             })
             .catch(error => {
@@ -1385,6 +1386,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
     }
 
     const saveNota = () => {
+        setGlobalLoading(true)
         var token = document.querySelector('meta[name="csrf-token"]')
         axios.post('/cliente/notas/admin-note', {
             idContrato: contratoSelected.id,
@@ -1412,6 +1414,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                         return prevTabla;
                     }
                 });
+                setGlobalLoading(false)
             })
             .catch(error => {
                 console.log(error)
@@ -1498,8 +1501,9 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
         }
     }
 
+    const [globalLoading, setGlobalLoading] = useState(false)
     return (
-        <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders} grupos={grupos}>
+        <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders} grupos={grupos} carpeta_actual={carpeta_actual} zona={zona} globalLoading={globalLoading}>
             <div className="content_not_blank_interno">
                 <div id="bodycontenido" className="col contratos_row px-0">
                     <Loader loading={loading}></Loader>

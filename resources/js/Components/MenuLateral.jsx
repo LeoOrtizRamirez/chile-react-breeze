@@ -5,7 +5,7 @@ import { Nav, NavDropdown } from 'react-bootstrap';
 import { Inertia } from '@inertiajs/inertia'
 
 import CrearCarpeta from './CrearCarpeta';
-const MenuLateral = ({ carpetas = [], grupos = [] }) => {
+const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, zona=null }) => {
     const [folders, setFolders] = useState(carpetas == null ? [] : carpetas)
     useEffect(() => {
         if (carpetas != null) {
@@ -41,17 +41,17 @@ const MenuLateral = ({ carpetas = [], grupos = [] }) => {
     const changePage = (tipo, id = null) => {
         var token = document.querySelector('meta[name="csrf-token"]')
         if (id == null) {
-            Inertia.post(`/cliente/contratos/get-info/${tipo}`, {
+            Inertia.get(`/cliente/contratos/get-info/${tipo}`/* , {
                 headers: {
                     'Authorization': `Bearer ${token.content}`
                 }
-            });
+            } */);
         } else {
-            Inertia.post(`/cliente/contratos/get-info/${tipo}?carpeta=${id}`, {
+            Inertia.get(`/cliente/contratos/get-info/${tipo}?carpeta=${id}`/* , {
                 headers: {
                     'Authorization': `Bearer ${token.content}`
                 }
-            });
+            } */);
         }
     }
 
@@ -203,7 +203,15 @@ const MenuLateral = ({ carpetas = [], grupos = [] }) => {
                                             <span className="body_checkbox">
                                                 <div className="radio" style={{ margin: 0 + 'px;' }}>
                                                     <label>
-                                                        <input type="radio" name="radiocontratos" id="radioContratosFavoritos" className="input_carpeta_val" value="F" onClick={() => changePage('F')} />
+                                                        <input 
+                                                            type="radio" 
+                                                            name="radiocontratos" 
+                                                            id="radioContratosFavoritos" 
+                                                            className="input_carpeta_val" 
+                                                            value="F" 
+                                                            checked={zona=="F"}
+                                                            onClick={() => changePage('F')} 
+                                                        />
                                                     </label>
                                                 </div>
                                             </span>
@@ -221,7 +229,15 @@ const MenuLateral = ({ carpetas = [], grupos = [] }) => {
                                             <span className="body_checkbox">
                                                 <div className="radio" style={{ margin: 0 + 'px;' }}>
                                                     <label>
-                                                        <input type="radio" name="radiocontratos" id="radioContratosEliminados" className="input_carpeta_val" value="E" onClick={() => changePage('P')} />
+                                                        <input 
+                                                            type="radio" 
+                                                            name="radiocontratos" 
+                                                            id="radioContratosEliminados" 
+                                                            className="input_carpeta_val" 
+                                                            value="P" 
+                                                            checked={zona=="P"}
+                                                            onClick={() => changePage('P')} 
+                                                        />
                                                     </label>
                                                 </div>
                                             </span>
@@ -239,7 +255,15 @@ const MenuLateral = ({ carpetas = [], grupos = [] }) => {
                                                 <span className="body_checkbox">
                                                     <div className="radio" style={{ margin: 0 + 'px;' }}>
                                                         <label>
-                                                            <input type="radio" name="radiocontratos" id="checkboxCarpeta0" className="input_carpeta_val" value="21956" onClick={() => changePage('C', carpeta.id)} />
+                                                            <input 
+                                                                type="radio" 
+                                                                name="radiocontratos" 
+                                                                id={`checkboxCarpeta${carpeta.id}`} 
+                                                                className="input_carpeta_val" 
+                                                                value={carpeta.id} 
+                                                                checked={carpeta.id==carpeta_actual?.id}
+                                                                onClick={() => changePage('C', carpeta.id)} 
+                                                            />
                                                         </label>
                                                     </div>
                                                 </span>

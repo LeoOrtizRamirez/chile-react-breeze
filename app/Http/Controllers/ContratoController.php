@@ -221,6 +221,30 @@ class ContratoController extends Controller
             $carpeta = Carpeta::find($request->carpeta);
         } else {
             $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', $tipo)->first();
+
+            if (is_null($carpeta)) {
+                $carpeta = new Carpeta;
+                $carpeta->id_usuario = Auth::id();
+                switch ($tipo) {
+                    case 'F':
+                        $carpeta->tipo = 'F';
+                        $carpeta->nombre_carpeta = 'Favoritos';
+                        $carpeta->color = '#fdcb36';
+                        break;
+                    case 'P':
+                        $carpeta->tipo = 'P';
+                        $carpeta->nombre_carpeta = 'Papelera';
+                        $carpeta->color = '#d13161';
+                        break;
+                    default:
+                        break;
+                }
+                try {
+                    $carpeta->save();
+                } catch (Exception $e) {
+                    dd($e->getMessage());
+                }
+            }
         }
 
         switch ($tipo) {
@@ -230,7 +254,7 @@ class ContratoController extends Controller
                 break;
             case 'P':
                 $nombre_carpeta = "Papelera";
-                $nombre_carpeta = "P";
+                $zona = "P";
                 break;
             case 'S':
                 $nombre_carpeta = "Seguimientos";
