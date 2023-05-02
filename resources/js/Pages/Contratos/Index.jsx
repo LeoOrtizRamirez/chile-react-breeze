@@ -1422,6 +1422,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
     }
 
     const updateNota = (id_nota) => {
+        setGlobalLoading(true)
         var token = document.querySelector('meta[name="csrf-token"]')
         axios.post('/cliente/notas/actualizar', {
             id: id_nota,
@@ -1437,6 +1438,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                 setEditingNote(false)
                 setInputTextEdit("")
                 setInputTitleEdit("")
+                setGlobalLoading(false)
             })
             .catch(error => {
                 console.log(error)
@@ -1444,6 +1446,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
     }
 
     const deleteNota = (id_nota) => {
+        setGlobalLoading(true)
         var token = document.querySelector('meta[name="csrf-token"]')
         axios.post('/cliente/notas/eliminar', {
             idContrato: contratoSelected.id,
@@ -1465,6 +1468,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                         }
                     });
                 }
+                setGlobalLoading(false)
             })
             .catch(error => {
                 console.log(error)
