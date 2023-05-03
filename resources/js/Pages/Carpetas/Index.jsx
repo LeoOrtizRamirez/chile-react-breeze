@@ -16,6 +16,10 @@ const Index = ({ auth, carpetas }) => {
         setShowModalCrearCarpeta(false);
     };
 
+    const handleGlobalLoading = (loading)=>{
+        setGlobalLoading(loading)
+    }
+
     const [carpetaSelected, setCarpetaSelected] = useState([])
 
     const editCarpeta = (carpeta) => {
@@ -24,9 +28,11 @@ const Index = ({ auth, carpetas }) => {
     }
 
     const eliminarCarpeta = () => {
+        setGlobalLoading(true)
         Inertia.post('/cliente/carpeta/eliminar', carpetaSelected, {
             onSuccess: () => {
                 handleCloseEliminarCarpeta()
+                setGlobalLoading(false)
             }
         });
     }
@@ -40,9 +46,15 @@ const Index = ({ auth, carpetas }) => {
         setShowModalEliminarCarpeta(true)
     };
     /*Modal Eliminar carpeta */
+
+    const [globalLoading, setGlobalLoading] = useState(false)
+
+    const handleCarpetas = (carpetas) =>{
+        setGlobalLoading(false)
+    }
     return (
         <>
-            <AuthenticatedLayout auth={auth} page={'carpetas'} carpetas={carpetas}>
+            <AuthenticatedLayout auth={auth} page={'carpetas'} carpetas={carpetas} globalLoading={globalLoading}>
                 <div className="content_blank_interno margin_left_layout">
                     <div className="col">
                         <h2 className="name_seccion_app">Administrar carpetas</h2>
@@ -128,7 +140,7 @@ const Index = ({ auth, carpetas }) => {
                     </div>
                 </div>
 
-                <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} carpeta={carpetaSelected} />
+                <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} carpeta={carpetaSelected} handleCarpetas={handleCarpetas} globalLoading={handleGlobalLoading}/>
 
                 <Modal show={showModalEliminarCarpeta} onHide={handleCloseEliminarCarpeta} id="modal_eliminar_carpeta" size="lg" centered>
                     <Modal.Header >

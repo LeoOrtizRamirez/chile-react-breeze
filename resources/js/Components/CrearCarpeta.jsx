@@ -4,7 +4,7 @@ import './CrearCarpeta.css';
 import { useForm, Head } from "@inertiajs/inertia-react";
 import InputError from "@/Components/InputError";
 
-const CrearCarpeta = ({ showModal, handleCloseModal, carpeta, other_page = false, handleCarpetas}) => {
+const CrearCarpeta = ({ showModal, handleCloseModal, carpeta, other_page = false, handleCarpetas, globalLoading }) => {
     const { data, setData, post, processing, reset, errors } = useForm({
         id: "",
         id_usuario: "",
@@ -16,36 +16,43 @@ const CrearCarpeta = ({ showModal, handleCloseModal, carpeta, other_page = false
 
     const submit = (e) => {
         e.preventDefault();
+        globalLoading(true)
         if (other_page) {
             var token = document.querySelector('meta[name="csrf-token"]')
             axios.post('/cliente/carpeta/crear', data, { 'Authorization': `Bearer ${token}` })
                 .then(response => {
                     setData(null)
                     handleCarpetas(response.data)
+                    globalLoading(false)
                 })
                 .catch(error => {
                     console.log(error)
                 })
         } else {
             if (data?.id != undefined) {
-                post(route("carpetas.update"), { onSuccess: () => {
+                post(route("carpetas.update"), {
+                    onSuccess: () => {
                         setData(null)
                         handleCloseModal()
-                    } 
+                        globalLoading(false)
+
+                    }
                 });
             } else {
-                post(route("carpetas.store"), { onSuccess: () => {
+                post(route("carpetas.store"), {
+                    onSuccess: () => {
                         setData(null)
-                        handleCloseModal() 
+                        handleCloseModal()
+                        globalLoading(false)
+
                     }
                 });
             }
         }
     };
 
-    
+
     useEffect(() => {
-        console.log("carpeta", carpeta)
         setData(carpeta)
     }, [carpeta])
 

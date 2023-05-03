@@ -1156,6 +1156,10 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
         setShowModalCrearCarpeta(false);
     };
 
+    const handleGlobalLoading = (loading)=>{
+        setGlobalLoading(loading)
+    }
+
     const [carpetaSelected, setCarpetaSelected] = useState([])
 
     const handleCarpetas = (carpetas) => {
@@ -1835,7 +1839,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                     }
                 </Modal.Footer>
             </Modal>
-            <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} carpeta={carpetaSelected} other_page={true} handleCarpetas={handleCarpetas} />
+            <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} carpeta={carpetaSelected} other_page={true} handleCarpetas={handleCarpetas} globalLoading={handleGlobalLoading}/>
             <Sidebar id="sidebar-notes" visible={sideBarNotas} position="right" onHide={() => setsideBarNotas(false)}>
                 <div className="b-sidebar-body notes-content">
                     {loadingNotas &&
