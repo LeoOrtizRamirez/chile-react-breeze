@@ -35,7 +35,7 @@ class CarpetasController extends Controller
         $last_orden = Carpeta::max('orden');
 
         if (is_null($request->color)) {
-            $validated['color'] = "#ffc107";
+            $validated['color'] = $this->getRandomColor();
         } else {
             $validated['color'] = $request->color;
         }
@@ -50,6 +50,12 @@ class CarpetasController extends Controller
         return redirect(route('carpetas.index'));
     }
 
+    public function getRandomColor(){
+        $colors = ["#00A1C9","#FFC107","#003DC9","#C900A1","#8C00C9","#C9003D","#73C914","#686868","#000000"];
+        $rand_index = array_rand($colors);
+        return $colors[$rand_index];
+    }
+
     public function crear(Request $request)
     {
         $validated = $request->validate([
@@ -59,7 +65,7 @@ class CarpetasController extends Controller
         $last_orden = Carpeta::max('orden');
 
         if (is_null($request->color)) {
-            $validated['color'] = "#ffc107";
+            $validated['color'] = $this->getRandomColor();
         } else {
             $validated['color'] = $request->color;
         }

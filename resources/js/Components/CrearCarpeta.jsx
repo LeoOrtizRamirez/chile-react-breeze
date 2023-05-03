@@ -20,6 +20,7 @@ const CrearCarpeta = ({ showModal, handleCloseModal, carpeta, other_page = false
             var token = document.querySelector('meta[name="csrf-token"]')
             axios.post('/cliente/carpeta/crear', data, { 'Authorization': `Bearer ${token}` })
                 .then(response => {
+                    setData(null)
                     handleCarpetas(response.data)
                 })
                 .catch(error => {
@@ -27,14 +28,24 @@ const CrearCarpeta = ({ showModal, handleCloseModal, carpeta, other_page = false
                 })
         } else {
             if (data?.id != undefined) {
-                post(route("carpetas.update"), { onSuccess: () => handleCloseModal() });
+                post(route("carpetas.update"), { onSuccess: () => {
+                        setData(null)
+                        handleCloseModal()
+                    } 
+                });
             } else {
-                post(route("carpetas.store"), { onSuccess: () => handleCloseModal() });
+                post(route("carpetas.store"), { onSuccess: () => {
+                        setData(null)
+                        handleCloseModal() 
+                    }
+                });
             }
         }
     };
 
+    
     useEffect(() => {
+        console.log("carpeta", carpeta)
         setData(carpeta)
     }, [carpeta])
 
@@ -137,7 +148,7 @@ const CrearCarpeta = ({ showModal, handleCloseModal, carpeta, other_page = false
                         </div>
                     </div>
                     <div class="btnsModal text-center">
-                        <button type="button" class="btnRadius btn-new-gray">Atrás</button>
+                        <button type="button" class="btnRadius btn-new-gray" onClick={handleCloseModal}>Atrás</button>
                         <button type="submit" class="btnRadius btn-new-green">
                             {data?.id != undefined ?
                                 "Editar"
