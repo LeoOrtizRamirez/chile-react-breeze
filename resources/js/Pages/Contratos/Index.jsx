@@ -42,6 +42,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
         }, [contratos]) */
 
     const paginator = (url) => {
+        console.log("selectedContratos", selectedContratos)
         setLoading(true)
         let _url = url + getUrlParams()
         axios.get(_url)
@@ -54,6 +55,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
             .catch(error => {
                 console.log(error);
             });
+        console.log("selectedContratos current", selectedContratos)
     }
 
     const getUrlParams = () => {
@@ -1156,7 +1158,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
         setShowModalCrearCarpeta(false);
     };
 
-    const handleGlobalLoading = (loading)=>{
+    const handleGlobalLoading = (loading) => {
         setGlobalLoading(loading)
     }
 
@@ -1510,6 +1512,18 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
     }
 
     const [globalLoading, setGlobalLoading] = useState(false)
+
+    const exportToCSV = () => {
+        dt.current.exportCSV({ selectionOnly: true });  // Export only the selected rows
+    };
+
+    const handleRowSelect = (event) => {
+        setSelectedContratos(prevSelectedContratos => [...prevSelectedContratos, event.data]);
+      };
+    
+      const handleRowUnselect = (event) => {
+        setSelectedContratos(prevSelectedContratos => prevSelectedContratos.filter(rowData => rowData !== event.data));
+      };
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders} grupos={grupos} carpeta_actual={carpeta_actual} zona={zona} globalLoading={globalLoading}>
             <div className="content_not_blank_interno">
@@ -1522,9 +1536,11 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                         header={header}
                         selectionMode={rowClick ? null : 'checkbox'}
                         selection={selectedContratos}
-                        onSelectionChange={(e) => setSelectedContratos(e.value)}
+                        onSelectionChange={ (e) => {setSelectedContratos(e.value)}}
                         first={pageNumber * pageSize}
                         rowClassName={rowClassName}
+                        onRowSelect={handleRowSelect}
+                        onRowUnselect={handleRowUnselect}
                     >
                         <Column selectionMode="multiple" className='columna_seleccion columna_pequena' filter filterElement={clearTemplate}></Column>
                         {/* <Column filter className='columna_seleccion columna_pequena'  /> */}
@@ -1553,7 +1569,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                     <p className="nombre-especifico tlpCount-texto">Proceso seleccionado</p>
                                 </div>
                                 <span className="separador-busqueda-rapida marg_first_separador icon-Separador-1"></span>
-                                <div className="">
+                                <div className="" onClick={exportToCSV}>
                                     <span id="tlpExcel" className="accion-tooltip">
                                         <img width="20px" src="https://col.licitaciones.info/img/listado/excel_click.svg" alt="Descarga a Excel" />
                                     </span>
@@ -1686,7 +1702,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                             <span>Información del proceso</span>
                                         </th>
                                         <th className="columna_icono">
-                                            {isFavorito?
+                                            {isFavorito ?
                                                 <span>Favoritos</span>
                                                 :
                                                 <span>Carpeta</span>
@@ -1707,7 +1723,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                                     </div>
                                                 </td>
                                                 <td className="informacion_contratos--icono columna_icono">
-                                                    {isFavorito?
+                                                    {isFavorito ?
                                                         <img src="https://col.licitaciones.info/img/listado/quitar_favoritos.svg" />
                                                         :
                                                         <span>
@@ -1746,7 +1762,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                                             </div>
                                                         </td>
                                                         <td className="informacion_contratos--icono columna_icono">
-                                                            {isFavorito?
+                                                            {isFavorito ?
                                                                 <img src="https://col.licitaciones.info/img/listado/quitar_favoritos.svg" />
                                                                 :
                                                                 <span>
@@ -1821,7 +1837,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                 <Modal.Footer>
                     {modalOpened == "modal_confirm_delete" &&
                         <>
-                            {isFavorito?
+                            {isFavorito ?
                                 <button className="btnRadius btn-action btn-new-danger" onClick={() => deleteFavorito(contratoSelected)}>Eliminar</button>
                                 :
                                 <button className="btnRadius btn-action btn-new-danger" onClick={() => deleteContrato(carpeta_actual?.id, contratoSelected)}>Eliminar</button>
@@ -1839,7 +1855,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                     }
                 </Modal.Footer>
             </Modal>
-            <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} carpeta={carpetaSelected} other_page={true} handleCarpetas={handleCarpetas} globalLoading={handleGlobalLoading}/>
+            <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} carpeta={carpetaSelected} other_page={true} handleCarpetas={handleCarpetas} globalLoading={handleGlobalLoading} />
             <Sidebar id="sidebar-notes" visible={sideBarNotas} position="right" onHide={() => setsideBarNotas(false)}>
                 <div className="b-sidebar-body notes-content">
                     {loadingNotas &&
