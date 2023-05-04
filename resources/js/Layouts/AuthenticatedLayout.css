@@ -319,6 +319,92 @@ input[type='radio']:focus{ box-shadow: none; outline: none !important; }
     margin: 7% auto auto auto;
 }
 
+/* .p-toast {
+    max-width: 33rem !important;
+} */
+
+.p-toast {
+    opacity: 1 !important;
+}
+
+.p-toast .p-toast-message .p-toast-message-content {
+    border-width: 0 0 0 0px !important;
+    padding: .7rem !important;
+}
+
+.p-toast .p-toast-message{
+    background-color: #fff !important;
+}
+
+.p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon {
+    font-size: 1.5rem !important;
+}
+
+span.p-toast-icon-close-icon.pi.pi-times {
+    font-size: unset !important;
+}
+
+.p-toast-message-content {
+    align-items: center !important;
+}
+
+span.p-toast-summary {
+    font-family: 'Nexa-bold' !important;
+    color: #686868 !important;
+}
+
+.p-toast .p-toast-message.p-toast-message-success {
+    border: solid #73c914 !important;
+    border-width: 0 0 0 6px !important;
+    color: #73c914 !important;
+}
+
+.p-toast .p-toast-message.p-toast-message-success .p-toast-message-icon{
+    background-color: #73c914 !important;
+    color: #fff !important;
+    border-radius: 50%;
+}
+
+.p-toast .p-toast-message.p-toast-message-error {
+    border: solid #c9003d !important;
+    border-width: 0 0 0 6px !important;
+    color: #c9003d !important;
+}
+
+.p-toast .p-toast-message.p-toast-message-error .p-toast-message-icon{
+    background-color: #c9003d !important;
+    color: #fff !important;
+    border-radius: 50%;
+}
+
+.p-toast .p-toast-message.p-toast-message-warn {
+    border: solid #ffc107 !important;
+    border-width: 0 0 0 6px !important;
+    color: #ffc107 !important;
+}
+
+.p-toast .p-toast-message.p-toast-message-warn .p-toast-message-icon{
+    background-color: #ffc107 !important;
+    color: #fff !important;
+    border-radius: 50%;
+}
+
+.p-toast .p-toast-message .p-toast-icon-close{
+    color: #686868 !important;
+    background-color: unset !important;
+}
+
+.p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon {
+    font-size: 15px !important;
+    padding: 7px;
+}
+
+.p-toast-message {
+    -webkit-box-shadow: 0 0 8px 4px rgb(0 0 0 / 43%) !important;
+    -ms-box-shadow: 0 0 8px 4px rgba(0, 0, 0, .431373) !important;
+    -o-box-shadow: 0 0 8px 4px rgba(0, 0, 0, .431373) !important;
+    box-shadow: 0 0 8px 4px rgb(0 0 0 / 43%) !important;
+}
 
 
 /* .content-flex {

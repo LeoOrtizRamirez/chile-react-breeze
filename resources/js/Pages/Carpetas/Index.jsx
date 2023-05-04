@@ -6,6 +6,8 @@ import CrearCarpeta from "@/Components/CrearCarpeta";
 import { Modal, Button } from 'react-bootstrap';
 import { Inertia } from '@inertiajs/inertia';
 
+import { Toast } from 'primereact/toast';
+
 const Index = ({ auth, carpetas }) => {
     const [showModalCrearCarpeta, setShowModalCrearCarpeta] = useState(false);
     const handleOpenModalCrearCarpeta = () => {
@@ -33,6 +35,7 @@ const Index = ({ auth, carpetas }) => {
             onSuccess: () => {
                 handleCloseEliminarCarpeta()
                 setGlobalLoading(false)
+                toastBL.current.show({ severity: 'success', summary: 'Carpeta eliminada exitosamente.'/* , detail: 'Message Content' */, life: 3000 });
             }
         });
     }
@@ -52,6 +55,8 @@ const Index = ({ auth, carpetas }) => {
     const handleCarpetas = (carpetas) =>{
         setGlobalLoading(false)
     }
+
+    const toastBL = useRef(null);
     return (
         <>
             <AuthenticatedLayout auth={auth} page={'carpetas'} carpetas={carpetas} globalLoading={globalLoading}>
@@ -64,7 +69,7 @@ const Index = ({ auth, carpetas }) => {
                             <button className="cabecera__btn-crear-carpeta btnRadius btn-new-green" onClick={handleOpenModalCrearCarpeta}>
                                 <i className="icon-Crear"></i> Crea una carpeta</button>
                             <div className="paginacion">
-                                <span className="paginacion__registros">1 - 5 de 5 registros</span>
+                                <span className="paginacion__registros">1 - {carpetas.length+2} de {carpetas.length+2} registros</span>
                             </div>
                         </div>
                         <div className="carpetas">
@@ -164,6 +169,7 @@ const Index = ({ auth, carpetas }) => {
                         </button>
                     </Modal.Footer>
                 </Modal>
+                <Toast ref={toastBL} position="bottom-left" />
             </AuthenticatedLayout>
         </>
     );

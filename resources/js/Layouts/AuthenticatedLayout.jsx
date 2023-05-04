@@ -7,6 +7,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../../css/font-web.css";
 import "../../css/font-nexa-bold.css";
 
+import "primereact/resources/themes/lara-light-indigo/theme.css";//theme
+import "primereact/resources/primereact.min.css";//core
+import "primeicons/primeicons.css";//icons
+
 export default function Authenticated({ auth, header, children, page, carpetas = [], grupos = [], carpeta_actual = null, zona = null, globalLoading=false}) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);

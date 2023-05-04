@@ -16,9 +16,7 @@ import { Toast } from 'primereact/toast';
 import { InputText } from 'primereact/inputtext';
 import { Sidebar } from 'primereact/sidebar';
 
-import "primereact/resources/themes/lara-light-indigo/theme.css";//theme
-import "primereact/resources/primereact.min.css";//core
-import "primeicons/primeicons.css";//icons
+
 
 import { Modal } from 'react-bootstrap';
 import ActividadEconomica from "@/Components/ActividadEconomica";
@@ -978,6 +976,8 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                     }
                 });
                 setLoading(false)
+                console.log(toastBL.current)
+                toastBL.current.show({ severity: 'success', summary: 'Has agregado el proceso de contratación a tus favoritos.'/* , detail: 'Message Content' */, life: 3000 });
             })
             .catch(error => {
                 console.log(error)
@@ -1018,6 +1018,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                 }
                 setGlobalLoading(false)
                 setShowModal(false)
+                toastBL.current.show({ severity: 'success', summary: 'Has eliminado el proceso de tus favoritos'/* , detail: 'Message Content' */, life: 3000 });
             })
             .catch(error => {
                 console.log(error)
@@ -1226,6 +1227,8 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                 }
                 setGlobalLoading(false)
                 setShowModal(false)
+                toastBL.current.show({ severity: 'success', summary: 'Has agregado el proceso de contratación a tus carpetas.'/* , detail: 'Message Content' */, life: 3000 });
+
             })
             .catch(error => {
                 console.log(error)
@@ -1275,6 +1278,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                 }
                 setGlobalLoading(false)
                 setShowModal(false)
+                toastBL.current.show({ severity: 'success', summary: 'Has eliminado el proceso de contratación de tus carpetas'/* , detail: 'Message Content' */, life: 3000 });
             })
             .catch(error => {
                 console.log(error)
@@ -1421,9 +1425,12 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                     }
                 });
                 setGlobalLoading(false)
+                toastBL.current.show({ severity: 'success', summary: 'Nota creada con éxito'/* , detail: 'Message Content' */, life: 3000 });
+
             })
             .catch(error => {
                 console.log(error)
+                toastBL.current.show({ severity: 'error', summary: error /* , detail: 'Message Content' */, life: 10000 });
             })
     }
 
@@ -1445,6 +1452,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                 setInputTextEdit("")
                 setInputTitleEdit("")
                 setGlobalLoading(false)
+                toastBL.current.show({ severity: 'success', summary: 'La nota ha sido actualizada'/* , detail: 'Message Content' */, life: 3000 });
             })
             .catch(error => {
                 console.log(error)
@@ -1475,6 +1483,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                     });
                 }
                 setGlobalLoading(false)
+                toastBL.current.show({ severity: 'error', summary: 'La nota ha sido eliminada'/* , detail: 'Message Content' */, life: 3000 });
             })
             .catch(error => {
                 console.log(error)
@@ -1519,11 +1528,14 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
 
     const handleRowSelect = (event) => {
         setSelectedContratos(prevSelectedContratos => [...prevSelectedContratos, event.data]);
-      };
-    
-      const handleRowUnselect = (event) => {
+    };
+
+    const handleRowUnselect = (event) => {
         setSelectedContratos(prevSelectedContratos => prevSelectedContratos.filter(rowData => rowData !== event.data));
-      };
+    };
+
+    const toastBL = useRef(null);
+
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders} grupos={grupos} carpeta_actual={carpeta_actual} zona={zona} globalLoading={globalLoading}>
             <div className="content_not_blank_interno">
@@ -1536,7 +1548,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                         header={header}
                         selectionMode={rowClick ? null : 'checkbox'}
                         selection={selectedContratos}
-                        onSelectionChange={ (e) => {setSelectedContratos(e.value)}}
+                        onSelectionChange={(e) => { setSelectedContratos(e.value) }}
                         first={pageNumber * pageSize}
                         rowClassName={rowClassName}
                         onRowSelect={handleRowSelect}
@@ -2060,6 +2072,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                     </div>
                 </div>
             </Sidebar>
+            <Toast ref={toastBL} position="bottom-left" />
         </AuthenticatedLayout >
     );
 };
