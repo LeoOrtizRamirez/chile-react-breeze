@@ -9,6 +9,7 @@ import { Inertia } from '@inertiajs/inertia';
 import { Toast } from 'primereact/toast';
 
 const Index = ({ auth, carpetas }) => {
+    const [folders, setFolders] = useState(carpetas)
     const [showModalCrearCarpeta, setShowModalCrearCarpeta] = useState(false);
     const handleOpenModalCrearCarpeta = () => {
         setShowModalCrearCarpeta(true);
@@ -18,7 +19,7 @@ const Index = ({ auth, carpetas }) => {
         setShowModalCrearCarpeta(false);
     };
 
-    const handleGlobalLoading = (loading)=>{
+    const handleGlobalLoading = (loading) => {
         setGlobalLoading(loading)
     }
 
@@ -52,11 +53,35 @@ const Index = ({ auth, carpetas }) => {
 
     const [globalLoading, setGlobalLoading] = useState(false)
 
-    const handleCarpetas = (carpetas) =>{
+    const handleCarpetas = (carpetas) => {
         setGlobalLoading(false)
     }
 
     const toastBL = useRef(null);
+
+    const refInputSearchFolder = useRef(null);
+    const [inputSearchFolder, setInputSearchFolder] = useState("")
+    const filterCarpetas = (event) => {
+        console.log(event)
+        if (event?.key === 'Enter' || event?.type == "click") {
+            setInputSearchFolder(refInputSearchFolder.current.value)
+            setGlobalLoading(true)
+            let token = document.querySelector('meta[name="csrf-token"]')
+            axios.get('/cliente/carpeta/get-carpetas-paginadas?filtroBusqueda=' + refInputSearchFolder.current.value, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+                .then(response => {
+                    console.log(response.data)
+                    setFolders(response.data)
+                    setGlobalLoading(false)
+                })
+                .catch(error => {
+                    console.error('Request failed:', error.response.status, error.response.data);
+                });
+        }
+    }
     return (
         <>
             <AuthenticatedLayout auth={auth} page={'carpetas'} carpetas={carpetas} globalLoading={globalLoading}>
@@ -68,60 +93,80 @@ const Index = ({ auth, carpetas }) => {
                         <div className="cabecera">
                             <button className="cabecera__btn-crear-carpeta btnRadius btn-new-green" onClick={handleOpenModalCrearCarpeta}>
                                 <i className="icon-Crear"></i> Crea una carpeta</button>
-                            <div className="paginacion">
-                                <span className="paginacion__registros">1 - {carpetas.length+2} de {carpetas.length+2} registros</span>
-                            </div>
+                            {inputSearchFolder != "" && folders.length > 0 && 
+                                <div className="paginacion">
+                                    {inputSearchFolder != "" ?
+                                        <span className="paginacion__registros">1 - {folders.length} de {folders.length} registros</span>
+                                        :
+                                        <span className="paginacion__registros">1 - {folders.length + 2} de {folders.length + 2} registros</span>
+                                    }
+                                </div>
+                            }
                         </div>
                         <div className="carpetas">
                             <div className="busqueda-rapida">
                                 <div className="busqueda-rapida__cont-buscar">
-                                    <input type="search" placeholder="Buscar carpeta" className="form-control" />
-                                    <button type="button" className="busqueda-rapida__btn-buscar icon-Buscar-click"></button>
+                                    <input
+                                        type="text"
+                                        placeholder="Buscar carpeta"
+                                        className="form-control"
+                                        /* onChange={(e) => setInputSearchFolder(e.target.value)} */
+                                        onKeyDown={filterCarpetas}
+                                        /* value={inputSearchFolder} */
+                                        ref={refInputSearchFolder}
+                                    />
+                                    <button type="button" className="busqueda-rapida__btn-buscar icon-Buscar-click" onClick={filterCarpetas}></button>
                                 </div>
                             </div>
-                            <div className="list-carpetas">
-                                <div className="list-carpetas__cont">
-                                    <div className="carpeta">
-                                        <div className="carpeta__cont-icon">
-                                            <span className="icon-Favorito-click carpeta__icon--favorito"></span>
-                                        </div>
-                                        <span className="carpeta__nombre--favorito">Mis Favoritos</span>
-                                    </div>
-                                </div>
-                                <div className="list-carpetas__cont">
-                                    <div className="carpeta">
-                                        <div className="carpeta__cont-icon">
-                                            <span className="icon-Eliminar carpeta__icon--papelera">
-                                            </span>
-                                        </div>
-                                        <span className="carpeta__nombre--papelera">Papelera</span>
-                                    </div>
-                                </div>
+                            {folders.length > 0 &&
+                                <div className="list-carpetas">
+                                    {inputSearchFolder == "" &&
+                                        <>
+                                            <div className="list-carpetas__cont">
+                                                <div className="carpeta">
+                                                    <div className="carpeta__cont-icon">
+                                                        <span className="icon-Favorito-click carpeta__icon--favorito"></span>
+                                                    </div>
+                                                    <span className="carpeta__nombre--favorito">Mis Favoritos</span>
+                                                </div>
+                                            </div>
+                                            <div className="list-carpetas__cont">
+                                                <div className="carpeta">
+                                                    <div className="carpeta__cont-icon">
+                                                        <span className="icon-Eliminar carpeta__icon--papelera">
+                                                        </span>
+                                                    </div>
+                                                    <span className="carpeta__nombre--papelera">Papelera</span>
+                                                </div>
+                                            </div>
+                                        </>
+                                    }
 
-                                {carpetas.map((carpeta, index) => (
-                                    <div className="list-carpetas__cont" key={index}>
-                                        <div className="carpeta">
-                                            <div className="carpeta__cont-icon">
-                                                <span className="icon-Mis-carpetas carpeta__icon" style={{ color: carpeta.color }}>
-                                                    <span className="path1">
+                                    {folders.map((carpeta, index) => (
+                                        <div className="list-carpetas__cont" key={index}>
+                                            <div className="carpeta">
+                                                <div className="carpeta__cont-icon">
+                                                    <span className="icon-Mis-carpetas carpeta__icon" style={{ color: carpeta.color }}>
+                                                        <span className="path1">
+                                                        </span>
+                                                        <span className="path2">
+                                                        </span>
                                                     </span>
-                                                    <span className="path2">
-                                                    </span>
-                                                </span>
-                                            </div>
-                                            <span className="carpeta__nombre">{carpeta.nombre_carpeta}</span>
-                                            <div className="carpeta__acciones">
-                                                <i className="icon-Editar carpeta__btn-editar" onClick={() => editCarpeta(carpeta)}></i>
-                                                <i className="icon-Eliminar carpeta__btn-eliminar" onClick={() => handleShowEliminarCarpeta(carpeta)}></i>
+                                                </div>
+                                                <span className="carpeta__nombre">{carpeta.nombre_carpeta}</span>
+                                                <div className="carpeta__acciones">
+                                                    <i className="icon-Editar carpeta__btn-editar" onClick={() => editCarpeta(carpeta)}></i>
+                                                    <i className="icon-Eliminar carpeta__btn-eliminar" onClick={() => handleShowEliminarCarpeta(carpeta)}></i>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                )
-                                )}
-                            </div>
+                                    )
+                                    )}
+                                </div>
+                            }
                         </div>
                         <div className="mensajes-busqueda">
-                            {carpetas.length == 0 &&
+                            {folders.length == 0 && inputSearchFolder == "" &&
                                 <div className="mensajes-busqueda">
                                     <div id="mensajes-sin-carpeta" className="container content_blank_intern">
                                         <div className="row">
@@ -141,11 +186,29 @@ const Index = ({ auth, carpetas }) => {
                                     </div>
                                 </div>
                             }
+                            {folders.length == 0 && inputSearchFolder != "" &&
+                                <div id="mensajes-personalizado-busqueda" className="container-fluid content_blank_interno">
+                                    <div className="row justify-content-center align-items-center">
+                                        <div className="col-md-4 col-sm-4 offset-md-1 offset-sm-1">
+                                            <img src="https://col.licitaciones.info/img/mensajes-personalisados/sin-resultados-busqueda.png" alt="" className="img-fluid mensaje-imagen" />
+                                        </div>
+                                        <div className="col-md-5 col-sm-5 offset-sm-1 offset-md-1">
+                                            <div className="estructura-mensaje-personalisado">
+                                                <h4 className="text-center titulo-personalizado"><b className="text-rojo">No se encontró</b> el resultado.</h4>
+                                                <div className="position-relative">
+                                                    <span className="icon-Bombillo mensaje-icono"></span>
+                                                    <p className="mensaje-personalizado d-block text-left">Prueba cambiando tus opciones de búsqueda e intentalo nuevamente.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
 
-                <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} carpeta={carpetaSelected} handleCarpetas={handleCarpetas} globalLoading={handleGlobalLoading}/>
+                <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} carpeta={carpetaSelected} handleCarpetas={handleCarpetas} globalLoading={handleGlobalLoading} />
 
                 <Modal show={showModalEliminarCarpeta} onHide={handleCloseEliminarCarpeta} id="modal_eliminar_carpeta" size="lg" centered>
                     <Modal.Header >
@@ -170,7 +233,7 @@ const Index = ({ auth, carpetas }) => {
                     </Modal.Footer>
                 </Modal>
                 <Toast ref={toastBL} position="bottom-left" />
-            </AuthenticatedLayout>
+            </AuthenticatedLayout >
         </>
     );
 };

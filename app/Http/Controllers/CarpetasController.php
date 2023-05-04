@@ -173,7 +173,18 @@ class CarpetasController extends Controller
         //return redirect()->route('contratos.index');
     }
 
-    public function findCarpeta()
+    public function getCarpetasPaginadas(Request $request)
     {
+        $search = request("filtroBusqueda");
+        $carpetas = Carpeta::where('id_usuario', Auth::id())
+            ->whereNotIn('tipo', ['F', 'P'])
+            ->where(function ($query) use ($search) {
+                if (!is_null($search) && $search != "") {
+                    $query->where('nombre_carpeta', 'like', '%' . $search . '%');
+                }
+            })
+            ->orderBy('orden', 'ASC')
+            ->get();
+        return $carpetas;
     }
 }
