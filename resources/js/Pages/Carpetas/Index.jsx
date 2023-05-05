@@ -205,7 +205,7 @@ const Index = ({ auth, carpetas }) => {
                                 <div id="mensajes-personalizado-busqueda" className="container-fluid content_blank_interno">
                                     <div className="row justify-content-center align-items-center">
                                         <div className="col-md-4 col-sm-4 offset-md-1 offset-sm-1">
-                                            <img src="https://col.licitaciones.info/img/mensajes-personalisados/sin-resultados-busqueda.png" alt="" className="img-fluid mensaje-imagen" />
+                                            <img src="/public/images/sin-resultados-busqueda.webp" alt="" className="img-fluid mensaje-imagen" />
                                         </div>
                                         <div className="col-md-5 col-sm-5 offset-sm-1 offset-md-1">
                                             <div className="estructura-mensaje-personalisado">
