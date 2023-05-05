@@ -32,13 +32,28 @@ const Index = ({ auth, carpetas }) => {
 
     const eliminarCarpeta = () => {
         setGlobalLoading(true)
-        Inertia.post('/cliente/carpeta/eliminar', carpetaSelected, {
+        /* Inertia.post('/cliente/carpeta/eliminar', carpetaSelected, {
             onSuccess: () => {
                 handleCloseEliminarCarpeta()
                 setGlobalLoading(false)
-                toastBL.current.show({ severity: 'success', summary: 'Carpeta eliminada exitosamente.'/* , detail: 'Message Content' */, life: 3000 });
+                toastBL.current.show({ severity: 'success', summary: 'Carpeta eliminada exitosamente.', life: 3000 });
             }
-        });
+        }); */
+
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.post('/cliente/carpeta/eliminar', carpetaSelected, { 'Authorization': `Bearer ${token}` })
+            .then(response => {
+                handleCarpetas(response.data)
+                handleCloseEliminarCarpeta()
+                setGlobalLoading(false)
+                toastBL.current.show({ severity: 'success', summary: 'Carpeta eliminada exitosamente.'/* , detail: 'Message Content' */, life: 3000 });
+                setCarpetaSelected([])
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
+
     }
 
     /*Modal Eliminar carpeta */
@@ -55,6 +70,7 @@ const Index = ({ auth, carpetas }) => {
 
     const handleCarpetas = (carpetas) => {
         setGlobalLoading(false)
+        setFolders(carpetas)
     }
 
     const toastBL = useRef(null);
@@ -62,7 +78,6 @@ const Index = ({ auth, carpetas }) => {
     const refInputSearchFolder = useRef(null);
     const [inputSearchFolder, setInputSearchFolder] = useState("")
     const filterCarpetas = (event) => {
-        console.log(event)
         if (event?.key === 'Enter' || event?.type == "click") {
             setInputSearchFolder(refInputSearchFolder.current.value)
             setGlobalLoading(true)
@@ -84,7 +99,7 @@ const Index = ({ auth, carpetas }) => {
     }
     return (
         <>
-            <AuthenticatedLayout auth={auth} page={'carpetas'} carpetas={carpetas} globalLoading={globalLoading}>
+            <AuthenticatedLayout auth={auth} page={'carpetas'} carpetas={folders} globalLoading={globalLoading}>
                 <div className="content_blank_interno margin_left_layout">
                     <div className="col">
                         <h2 className="name_seccion_app">Administrar carpetas</h2>
@@ -93,7 +108,7 @@ const Index = ({ auth, carpetas }) => {
                         <div className="cabecera">
                             <button className="cabecera__btn-crear-carpeta btnRadius btn-new-green" onClick={handleOpenModalCrearCarpeta}>
                                 <i className="icon-Crear"></i> Crea una carpeta</button>
-                            {inputSearchFolder != "" && folders.length > 0 && 
+                            {folders.length != 0 &&
                                 <div className="paginacion">
                                     {inputSearchFolder != "" ?
                                         <span className="paginacion__registros">1 - {folders.length} de {folders.length} registros</span>
@@ -118,52 +133,52 @@ const Index = ({ auth, carpetas }) => {
                                     <button type="button" className="busqueda-rapida__btn-buscar icon-Buscar-click" onClick={filterCarpetas}></button>
                                 </div>
                             </div>
-                            {folders.length > 0 &&
-                                <div className="list-carpetas">
-                                    {inputSearchFolder == "" &&
-                                        <>
-                                            <div className="list-carpetas__cont">
-                                                <div className="carpeta">
-                                                    <div className="carpeta__cont-icon">
-                                                        <span className="icon-Favorito-click carpeta__icon--favorito"></span>
-                                                    </div>
-                                                    <span className="carpeta__nombre--favorito">Mis Favoritos</span>
-                                                </div>
-                                            </div>
-                                            <div className="list-carpetas__cont">
-                                                <div className="carpeta">
-                                                    <div className="carpeta__cont-icon">
-                                                        <span className="icon-Eliminar carpeta__icon--papelera">
-                                                        </span>
-                                                    </div>
-                                                    <span className="carpeta__nombre--papelera">Papelera</span>
-                                                </div>
-                                            </div>
-                                        </>
-                                    }
-
-                                    {folders.map((carpeta, index) => (
-                                        <div className="list-carpetas__cont" key={index}>
+                            {/* {folders.length > 0 && */}
+                            <div className="list-carpetas">
+                                {inputSearchFolder == "" &&
+                                    <>
+                                        <div className="list-carpetas__cont">
                                             <div className="carpeta">
                                                 <div className="carpeta__cont-icon">
-                                                    <span className="icon-Mis-carpetas carpeta__icon" style={{ color: carpeta.color }}>
-                                                        <span className="path1">
-                                                        </span>
-                                                        <span className="path2">
-                                                        </span>
-                                                    </span>
+                                                    <span className="icon-Favorito-click carpeta__icon--favorito"></span>
                                                 </div>
-                                                <span className="carpeta__nombre">{carpeta.nombre_carpeta}</span>
-                                                <div className="carpeta__acciones">
-                                                    <i className="icon-Editar carpeta__btn-editar" onClick={() => editCarpeta(carpeta)}></i>
-                                                    <i className="icon-Eliminar carpeta__btn-eliminar" onClick={() => handleShowEliminarCarpeta(carpeta)}></i>
-                                                </div>
+                                                <span className="carpeta__nombre--favorito">Mis Favoritos</span>
                                             </div>
                                         </div>
-                                    )
-                                    )}
-                                </div>
-                            }
+                                        <div className="list-carpetas__cont">
+                                            <div className="carpeta">
+                                                <div className="carpeta__cont-icon">
+                                                    <span className="icon-Eliminar carpeta__icon--papelera">
+                                                    </span>
+                                                </div>
+                                                <span className="carpeta__nombre--papelera">Papelera</span>
+                                            </div>
+                                        </div>
+                                    </>
+                                }
+
+                                {folders.map((carpeta, index) => (
+                                    <div className="list-carpetas__cont" key={index}>
+                                        <div className="carpeta">
+                                            <div className="carpeta__cont-icon">
+                                                <span className="icon-Mis-carpetas carpeta__icon" style={{ color: carpeta.color }}>
+                                                    <span className="path1">
+                                                    </span>
+                                                    <span className="path2">
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <span className="carpeta__nombre">{carpeta.nombre_carpeta}</span>
+                                            <div className="carpeta__acciones">
+                                                <i className="icon-Editar carpeta__btn-editar" onClick={() => editCarpeta(carpeta)}></i>
+                                                <i className="icon-Eliminar carpeta__btn-eliminar" onClick={() => handleShowEliminarCarpeta(carpeta)}></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                                )}
+                            </div>
+                            {/*  } */}
                         </div>
                         <div className="mensajes-busqueda">
                             {folders.length == 0 && inputSearchFolder == "" &&

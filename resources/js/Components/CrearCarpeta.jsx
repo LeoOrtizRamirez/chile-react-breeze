@@ -33,23 +33,49 @@ const CrearCarpeta = ({ showModal, handleCloseModal, carpeta, other_page = false
                 })
         } else {
             if (data?.id != undefined) {
-                post(route("carpetas.update"), {
-                    onSuccess: () => {
+                /* post(route("carpetas.update"), {
+                    onSuccess: (response) => {
                         setData(null)
+                        handleCarpetas(response.data)
+                        handleCloseModal()
+                        globalLoading(false)
+                        toastBL.current.show({ severity: 'success', summary: 'Carpeta actualizada exitosamente.', life: 3000 });
+                    }
+                })*/
+                var token = document.querySelector('meta[name="csrf-token"]')
+                axios.post('/cliente/carpeta/update', data, { 'Authorization': `Bearer ${token}` })
+                    .then(response => {
+                        setData(null)
+                        handleCarpetas(response.data)
                         handleCloseModal()
                         globalLoading(false)
                         toastBL.current.show({ severity: 'success', summary: 'Carpeta actualizada exitosamente.'/* , detail: 'Message Content' */, life: 3000 });
-                    }
-                });
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
             } else {
-                post(route("carpetas.store"), {
-                    onSuccess: () => {
+                /* post(route("carpetas.store"), {
+                    onSuccess: (response) => {
                         setData(null)
+                        handleCarpetas(response.data)
+                        handleCloseModal()
+                        globalLoading(false)
+                        toastBL.current.show({ severity: 'success', summary: 'Carpeta creada exitosamente.', life: 3000 });
+                    }
+                }); */
+                var token = document.querySelector('meta[name="csrf-token"]')
+                axios.post('/cliente/carpeta/store', data, { 'Authorization': `Bearer ${token}` })
+                    .then(response => {
+                        setData(null)
+                        handleCarpetas(response.data)
                         handleCloseModal()
                         globalLoading(false)
                         toastBL.current.show({ severity: 'success', summary: 'Carpeta creada exitosamente.'/* , detail: 'Message Content' */, life: 3000 });
-                    }
-                });
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
             }
         }
     };

@@ -47,7 +47,9 @@ class CarpetasController extends Controller
         } catch (Exception $e) {
             dd($e->getMessage());
         }
-        return redirect(route('carpetas.index'));
+        //return redirect(route('carpetas.index'));
+        $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
+        return $carpetas;
     }
 
     public function getRandomColor(){
@@ -103,7 +105,9 @@ class CarpetasController extends Controller
         } catch (Exception $e) {
             dd($e->getMessage());
         }
-        return redirect(route('carpetas.index'));
+        /* return redirect(route('carpetas.index')); */
+        $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
+        return $carpetas;
     }
 
     public function delete(Request $request)
@@ -116,7 +120,10 @@ class CarpetasController extends Controller
 
         $carpeta = Carpeta::find($request->id);
         $carpeta->delete();
-        return redirect(route('carpetas.index'));
+
+        /* return redirect(route('carpetas.index')); */
+        $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
+        return $carpetas;
     }
 
 
