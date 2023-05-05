@@ -1,13 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 /* import "./Crear.css"; */
-/*Toast*/
-import Toast from "react-bootstrap/Toast";
-import ToastContainer from "react-bootstrap/ToastContainer";
-import "../../../css/estilos-toast.css";
 
 import ActividadEconomica from "@/Components/ActividadEconomica";
-/*Toast*/
+
 
 /* HEADER*/
 import { Head, useForm } from "@inertiajs/inertia-react";
@@ -22,6 +18,8 @@ import 'react-calendar/dist/Calendar.css';
 
 import './Crear.css'
 
+import { Toast } from 'primereact/toast';
+
 const Crear = ({
     auth,
     actividades_economicas,
@@ -29,9 +27,6 @@ const Crear = ({
     localizaciones,
 }) => {
 
-    const [showToast, setShowToast] = useState(false);
-    const [toastMessage, setToastMessage] = useState("");
-    const [toastIcon, setToastIcon] = useState("");
     const [sectores, setSectores] = useState(actividades_economicas);
 
     const [checkedsActividadesEconomicas, setCheckedsActividadesEconomicas] = useState([])
@@ -69,9 +64,7 @@ const Crear = ({
 
     const changeContent = (id) => {
         if (id == 2 && checkedsActividadesEconomicas.length == 0) {
-            setToastMessage("Debes seleccionar mínimo una actividad económica");
-            setToastIcon("icon-error");
-            setShowToast(true);
+            toastBL.current.show({ severity: 'error', summary: 'Debes seleccionar mínimo una actividad económica.'/* , detail: 'Message Content' */, life: 3000 });
         } else {
             setContainer(id)
             setIconosPerfiles([...iconosPerfiles, id])
@@ -150,10 +143,21 @@ const Crear = ({
     }
 
     const [inputNombrePerfil, setInputNombrePerfil] = useState("")
+    /* const inputNombrePerfil = useRef(null) */
     const [inputDescripcionPerfil, setInputDescripcionPerfil] = useState("")
     const [fechaHistorico, setFechaHistorico] = useState("")
 
-    const handleClickOutside = (event) => {
+    const handleInputNombrePerfil = (e) => {
+        var input_nombre_prefil = document.querySelector('#inputNombrePerfil')
+        if (e.target.value == "") {
+            input_nombre_prefil?.classList.add('is-invalid')
+        } else {
+            input_nombre_prefil?.classList.remove('is-invalid')
+        }
+        setInputNombrePerfil(e.target.value)
+
+    }
+    /* const handleClickOutside = (event) => {
         if (inputNombrePerfil.current && !inputNombrePerfil.current.contains(event.target)) {
             if (inputNombrePerfil.current.value == "") {
                 inputNombrePerfil.current.classList.add('is-invalid')
@@ -168,10 +172,16 @@ const Crear = ({
         return () => {
             document.removeEventListener('click', handleClickOutside, true);
         };
-    }, []);
+    }, []); */
 
 
     const Guardar = () => {
+        if (inputNombrePerfil == "") {
+            var input_nombre_prefil = document.querySelector('#inputNombrePerfil')
+            input_nombre_prefil?.classList.add('is-invalid')
+            toastBL.current.show({ severity: 'error', summary: 'Debes ingresar un nombre para el perfil.'/* , detail: 'Message Content' */, life: 3000 });
+            return;
+        }
         var payload = {
             'actividades_economicas': checkedsActividadesEconomicas,
             'tipos_compras': checkedsTiposCompras,
@@ -286,6 +296,8 @@ const Crear = ({
         setShowModalResumenPerfil(false);
     };
     /*ResumenPerfil */
+
+    const toastBL = useRef(null);
     return (
         <>
             <AuthenticatedLayout auth={auth} page={'perfiles'}>
@@ -492,15 +504,17 @@ const Crear = ({
                                                             <div className="perfil-preferencia__form1">
                                                                 <label id="nombre" className="perfil-preferencia__labels">Dale un nombre a tu perfil:</label>
                                                                 <input
+                                                                    id="inputNombrePerfil"
                                                                     value={inputNombrePerfil}
-                                                                    onChange={e => setInputNombrePerfil(e.target.value)}
+                                                                    onChange={handleInputNombrePerfil}
                                                                     type="text"
                                                                     name="nombre"
                                                                     className="form-control inputs_form padd-peq mb-0"
                                                                     required
+                                                                /*  ref={inputNombrePerfil} */
                                                                 />
-                                                                <div className="invalid-feedback mb-3">El campo nombre perfil es obligatorio.</div>
-                                                                <label id="descripcion" className="perfil-preferencia__labels">Descripción del perfil (opcional):</label>
+                                                                <div className="invalid-feedback">El campo nombre perfil es obligatorio.</div>
+                                                                <label id="descripcion" className="perfil-preferencia__labels mt-3">Descripción del perfil (opcional):</label>
                                                                 <textarea
                                                                     value={inputDescripcionPerfil}
                                                                     onChange={e => setInputDescripcionPerfil(e.target.value)}
@@ -860,34 +874,7 @@ const Crear = ({
                         <ResumenPerfil showModal={showModalResumenPerfil} handleCloseModal={handleCloseModalResumenPerfil} data={resumenFiltroSelected} />
                     </div>
                 </div>
-                <ToastContainer position="bottom-start">
-                    <Toast
-                        onClose={() => setShowToast(false)}
-                        show={showToast}
-                        delay={3000}
-                        autohide
-                    >
-                        <div
-                            className={`notification-toast ${toastIcon == "icon-error" ? "error" : "success"
-                                }`}
-                        >
-                            <span
-                                className={`toast-icon ${toastIcon == "icon-error"
-                                    ? "toast-danger"
-                                    : "toast-success"
-                                    }`}
-                            >
-                                <span className={toastIcon}></span>
-                            </span>
-                            <p className="title">{toastMessage}</p>
-                            <button
-                                type="button"
-                                className="icon-close m-auto"
-                                onClick={() => setShowToast(false)}
-                            />
-                        </div>
-                    </Toast>
-                </ToastContainer>
+                <Toast ref={toastBL} position="bottom-left" />
             </AuthenticatedLayout>
         </>
     );

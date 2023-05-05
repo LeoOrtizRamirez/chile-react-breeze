@@ -57,13 +57,19 @@ class GrupoFiltroUsuarioController extends Controller
 
         if (!is_null($model->id)) {
             foreach ($actividades_economicas as $ae) {
-                $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $ae);
+                if($this->isChild($ae)){
+                    $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $ae);
+                }
             }
             foreach ($localizaciones as $l) {
-                $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $l);
+                if($this->isChild($l)){
+                    $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $l);
+                }
             }
             foreach ($tipos_compras as $tc) {
-                $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $tc);
+                if($this->isChild($tc)){
+                    $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $tc);
+                }
             }
         } else {
             return "No se creo el filtro de usuario";
@@ -80,6 +86,21 @@ class GrupoFiltroUsuarioController extends Controller
             $grupo_filtro_usuarios_has_subcategoria->save();
         } catch (Exception $e) {
             dd($e->getMessage());
+        }
+    }
+
+    public function isChild($id_sub_categoria)
+    {
+        $subcategoria = SubCategoria::find($id_sub_categoria);
+        if ($subcategoria->id_padre_sub_categoria != null) {
+            $parent = SubCategoria::find($subcategoria->id_padre_sub_categoria);
+            if ($parent->id_padre_sub_categoria != null) {
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
         }
     }
 

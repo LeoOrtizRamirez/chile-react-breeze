@@ -319,7 +319,7 @@ const Index = ({ auth, grupos, created_updated }) => {
                                 <div id="mensajes-personalizado-sin-perfil" class="content_blank_interno">
                                     <div class="row  align-items-center">
                                         <div class="col-md-5 text-center">
-                                            <img src="https://col.licitaciones.info/img/mensajes-personalisados/sin-perfil.png" alt="" class="img-fluid" />
+                                            <img src="/public/images/mensajes-personalizados/sin-perfil.png" alt="" class="img-fluid" />
                                         </div>
                                         <div class="col-md-6 offset-md-1">
                                             <h4 class="text-center titulo-personalizado">Aún no has creado un perfil de negocio.</h4>
