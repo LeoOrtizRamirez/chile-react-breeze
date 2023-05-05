@@ -97,6 +97,15 @@ const Index = ({ auth, carpetas }) => {
                 });
         }
     }
+
+    const changePage = (url) =>{
+        Inertia.visit(url, {
+            method: 'get', // or 'post' if you want to send data as well
+            preserveState: true, // Keep the current state of the app
+            preserveScroll: true, // Keep the current scroll position
+        });
+    }
+
     return (
         <>
             <AuthenticatedLayout auth={auth} page={'carpetas'} carpetas={folders} globalLoading={globalLoading}>
@@ -137,8 +146,8 @@ const Index = ({ auth, carpetas }) => {
                             <div className="list-carpetas">
                                 {inputSearchFolder == "" &&
                                     <>
-                                        <div className="list-carpetas__cont">
-                                            <div className="carpeta">
+                                        <div className="list-carpetas__cont" >
+                                            <div className="carpeta" onClick={()=>changePage('/cliente/contratos/get-info/F')}>
                                                 <div className="carpeta__cont-icon">
                                                     <span className="icon-Favorito-click carpeta__icon--favorito"></span>
                                                 </div>
@@ -146,7 +155,7 @@ const Index = ({ auth, carpetas }) => {
                                             </div>
                                         </div>
                                         <div className="list-carpetas__cont">
-                                            <div className="carpeta">
+                                            <div className="carpeta" onClick={()=>changePage('/cliente/contratos/get-info/P')}>
                                                 <div className="carpeta__cont-icon">
                                                     <span className="icon-Eliminar carpeta__icon--papelera">
                                                     </span>
@@ -159,7 +168,7 @@ const Index = ({ auth, carpetas }) => {
 
                                 {folders.map((carpeta, index) => (
                                     <div className="list-carpetas__cont" key={index}>
-                                        <div className="carpeta">
+                                        <div className="carpeta" onClick={()=>changePage(`/cliente/contratos/get-info/C?carpeta=${carpeta.id}`)}>
                                             <div className="carpeta__cont-icon">
                                                 <span className="icon-Mis-carpetas carpeta__icon" style={{ color: carpeta.color }}>
                                                     <span className="path1">
