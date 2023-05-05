@@ -129,13 +129,30 @@ const Index = ({ auth, grupos, created_updated }) => {
 
     const accionesBodyTemplate = (grupo) => {
         return <div className="iconos_functions_grid">
-            {toolTips.map((placement, index) => (
+            <div className="custom-tooltip light-blue" data-tooltip="Editar perfil">
+                <a id="tlpBorrarNota" className="icon-Editar icon-pd-editar" onClick={() => handleShowModal('modalEditarPerfil', grupo)}></a>
+            </div>
+            <div className="custom-tooltip red" data-tooltip="Eliminar perfil">
+                <a id="tlpBorrarNota" className="icon-Eliminar icon-pd-eliminar" onClick={() => handleShowModal('modalEliminarPerfil', grupo)}></a>
+            </div>
+            <div className="custom-tooltip dark-blue" data-tooltip="Duplicar perfil">
+                <a id="tlpBorrarNota" className="icon-Duplicar icon-pd-duplicar" onClick={() => handleShowModal('modalDuplicarPerfil', grupo)}></a>
+            </div>
+            <div className="custom-tooltip aquamarine-blue" data-tooltip="Marcar como leídos">
+                <a id="tlpBorrarNota" className="icon-Leidos icon-pd-leidos" onClick={() => handleShowModal('modalLeidosPerfil', grupo)}></a>
+            </div>
+            <div className="custom-tooltip green ver-mas-informacion" data-tooltip="Ver más información">
+                <a id="tlpBorrarNota" className="icon-Informacin-click icon-pd-info" onClick={() => handleShowModal('modalInformacionPerfil', grupo)}></a>
+            </div>
+
+
+            {/* {toolTips.map((placement, index) => (
                 <OverlayTrigger rootClose={true} key={index} overlay={
                     <Tooltip id={`tooltip-${placement.name}-${grupo.id}`} className={`tooltip tooltip-${placement.name}`}>{placement.text}</Tooltip>
                 }>
                     <button type="button" id={`${placement.name}-btn${grupo.id}`} className={`${placement.icon}`} onClick={() => handleShowModal(placement.modal, grupo)}></button>
                 </OverlayTrigger>
-            ))}
+            ))} */}
         </div>;
     };
 
