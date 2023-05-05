@@ -1534,6 +1534,26 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
         setSelectedContratos(prevSelectedContratos => prevSelectedContratos.filter(rowData => rowData !== event.data));
     };
 
+    const handleSelectionChange = (event) => {
+        if (event.type == 'all') {
+            const previousSelection = selectedContratos.filter(record => !event.value.includes(record));
+            if (event.value.length == 0) {
+                const newSelection = [...previousSelection];
+                tabla.data.forEach((item) => {
+                    if (newSelection.includes(item)) {
+                        const index = newSelection.indexOf(item);
+                        newSelection.splice(index, 1);
+                    } else {
+                        newSelection.push(item);
+                    }
+                });
+                setSelectedContratos(newSelection);
+            }else{
+                setSelectedContratos([...previousSelection, ...event.value]);
+            }
+        }
+    }
+
     const toastBL = useRef(null);
 
     return (
@@ -1548,11 +1568,13 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                         header={header}
                         selectionMode={rowClick ? null : 'checkbox'}
                         selection={selectedContratos}
-                        onSelectionChange={(e) => { setSelectedContratos(e.value) }}
+                        /* onSelectionChange={(e) => { setSelectedContratos(e.value) }} */
                         first={pageNumber * pageSize}
                         rowClassName={rowClassName}
                         onRowSelect={handleRowSelect}
                         onRowUnselect={handleRowUnselect}
+                        /* onPageChange={handlePageChange} */
+                        onSelectionChange={handleSelectionChange}
                     >
                         <Column selectionMode="multiple" className='columna_seleccion columna_pequena' filter filterElement={clearTemplate}></Column>
                         {/* <Column filter className='columna_seleccion columna_pequena'  /> */}
