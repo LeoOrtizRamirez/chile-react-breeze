@@ -63,32 +63,51 @@ class GrupoFiltroUsuarioController extends Controller
                 }
             }
 
-            if (sizeof($localizaciones) == 0) {
-                $all_localizaciones = SubCategoria::where('tipo_categoria', 3)->get();
-                foreach ($all_localizaciones as $l) {
-                    if ($this->isChild($l->id, '1')) {
-                        $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $l->id);
-                    }
-                }
-            } else {
-                foreach ($localizaciones as $l) {
-                    if ($this->isChild($l, '1')) {
-                        $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $l);
-                    }
-                }
-            }
-
             if (sizeof($tipos_compras) == 0) {
                 $all_tipos_compras = SubCategoria::where('tipo_categoria', 5)->get();
                 foreach ($all_tipos_compras as $tc) {
                     if ($this->isChild($tc->id, '1')) {
                         $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $tc->id);
+                    } else {
+                        if (!$this->hasChilds($tc->id) /* && $tc->id != 126349 && $tc->id != 126350 */) {
+                            //dd($tc->id);
+                            $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $tc->id);
+                        }
                     }
                 }
             } else {
                 foreach ($tipos_compras as $tc) {
                     if ($this->isChild($tc, '1')) {
                         $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $tc);
+                    } else {
+                        if (!$this->hasChilds($tc)) {
+                            $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $tc);
+                        }
+                    }
+                }
+            }
+
+            if (sizeof($localizaciones) == 0) {
+                $all_localizaciones = SubCategoria::where('tipo_categoria', 3)->get();
+                foreach ($all_localizaciones as $l) {
+                    if ($this->isChild($l->id, '1')) {
+                        $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $l->id);
+                    } else {
+                        if (!$this->hasChilds($l->id)) {
+                            //dd($l->id);
+                            $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $l->id);
+                        }
+                    }
+                }
+            } else {
+                foreach ($localizaciones as $l) {
+                    if ($this->isChild($l, '1')) {
+                        $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $l);
+                    } else {
+                        if (!$this->hasChilds($l->id)) {
+                            //dd($l->id);
+                            $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $l);
+                        }
                     }
                 }
             }
@@ -138,6 +157,16 @@ class GrupoFiltroUsuarioController extends Controller
             default:
                 # code...
                 break;
+        }
+    }
+
+    public function hasChilds($id_sub_categoria)
+    {
+        $subcategorias = SubCategoria::where('id_padre_sub_categoria', $id_sub_categoria)->get();
+        if (sizeof($subcategorias) > 0) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -205,27 +234,33 @@ class GrupoFiltroUsuarioController extends Controller
                         $sector = SubCategoria::find($ac->subcategoria->id_padre_sub_categoria);
                         //Agregar sector
                         if (!in_array($sector->id_padre_sub_categoria, $actividades_economicas_actuales)) {
-                            $actividades_economicas_actuales[] =$sector->id_padre_sub_categoria;
+                            if ($ac->subcategoria->id_padre_sub_categoria != null) {
+                                $actividades_economicas_actuales[] = $sector->id_padre_sub_categoria;
+                            }
                         }
                     }
                     break;
                 case 3:
                     array_push($localizaciones_actuales, $ac->subcategoria->id);
-                    if (!in_array($ac->subcategoria->id_padre_sub_categoria, $localizaciones_actuales)) {
-                        $localizaciones_actuales[] = $ac->subcategoria->id_padre_sub_categoria;
+                    if ($ac->subcategoria->id_padre_sub_categoria != null) {
+                        if (!in_array($ac->subcategoria->id_padre_sub_categoria, $localizaciones_actuales)) {
+                            $localizaciones_actuales[] = $ac->subcategoria->id_padre_sub_categoria;
+                        }
                     }
                     break;
                 case 5:
                     array_push($tipos_compras_actuales, $ac->subcategoria->id);
-                    if (!in_array($ac->subcategoria->id_padre_sub_categoria, $tipos_compras_actuales)) {
-                        $tipos_compras_actuales[] = $ac->subcategoria->id_padre_sub_categoria;
+                    if ($ac->subcategoria->id_padre_sub_categoria != null) {
+                        if (!in_array($ac->subcategoria->id_padre_sub_categoria, $tipos_compras_actuales)) {
+                            $tipos_compras_actuales[] = $ac->subcategoria->id_padre_sub_categoria;
+                        }
                     }
                     break;
                 default:
                     break;
             }
         }
-        //dd($actividades_economicas_actuales);
+        //dd($tipos_compras_actuales);
 
         $actividades_economicas = $this->getSubCategorias(1);
         $localizaciones = $this->getSubCategorias(3);

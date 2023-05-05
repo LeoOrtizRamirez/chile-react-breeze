@@ -301,6 +301,10 @@ const Editar = ({
         setShowModalResumenPerfil(false);
     };
     /*ResumenPerfil */
+
+    console.log("checkedsActividadesEconomicas",checkedsActividadesEconomicas)
+    console.log("checkedsLocalizaciones",checkedsLocalizaciones)
+    console.log("checkedsTiposCompras",checkedsTiposCompras)
     return (
         <>
             <AuthenticatedLayout auth={auth} page={'perfiles'}>
