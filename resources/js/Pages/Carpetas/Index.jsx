@@ -9,6 +9,7 @@ import { Inertia } from '@inertiajs/inertia';
 import { Toast } from 'primereact/toast';
 
 const Index = ({ auth, carpetas }) => {
+    const [filteredFolders, setFilteredFolders] = useState(carpetas)
     const [folders, setFolders] = useState(carpetas)
     const [showModalCrearCarpeta, setShowModalCrearCarpeta] = useState(false);
     const handleOpenModalCrearCarpeta = () => {
@@ -70,6 +71,7 @@ const Index = ({ auth, carpetas }) => {
 
     const handleCarpetas = (carpetas) => {
         setGlobalLoading(false)
+        setFilteredFolders(carpetas)
         setFolders(carpetas)
     }
 
@@ -89,7 +91,7 @@ const Index = ({ auth, carpetas }) => {
             })
                 .then(response => {
                     console.log(response.data)
-                    setFolders(response.data)
+                    setFilteredFolders(response.data)
                     setGlobalLoading(false)
                 })
                 .catch(error => {
@@ -98,7 +100,7 @@ const Index = ({ auth, carpetas }) => {
         }
     }
 
-    const changePage = (url) =>{
+    const changePage = (url) => {
         Inertia.visit(url, {
             method: 'get', // or 'post' if you want to send data as well
             preserveState: true, // Keep the current state of the app
@@ -117,12 +119,12 @@ const Index = ({ auth, carpetas }) => {
                         <div className="cabecera">
                             <button className="cabecera__btn-crear-carpeta btnRadius btn-new-green" onClick={handleOpenModalCrearCarpeta}>
                                 <i className="icon-Crear"></i> Crea una carpeta</button>
-                            {folders.length != 0 &&
+                            {filteredFolders.length != 0 &&
                                 <div className="paginacion">
                                     {inputSearchFolder != "" ?
-                                        <span className="paginacion__registros">1 - {folders.length} de {folders.length} registros</span>
+                                        <span className="paginacion__registros">1 - {filteredFolders.length} de {filteredFolders.length} registros</span>
                                         :
-                                        <span className="paginacion__registros">1 - {folders.length + 2} de {folders.length + 2} registros</span>
+                                        <span className="paginacion__registros">1 - {filteredFolders.length + 2} de {filteredFolders.length + 2} registros</span>
                                     }
                                 </div>
                             }
@@ -142,12 +144,12 @@ const Index = ({ auth, carpetas }) => {
                                     <button type="button" className="busqueda-rapida__btn-buscar icon-Buscar-click" onClick={filterCarpetas}></button>
                                 </div>
                             </div>
-                            {/* {folders.length > 0 && */}
+                            {/* {filteredFolders.length > 0 && */}
                             <div className="list-carpetas">
                                 {inputSearchFolder == "" &&
                                     <>
                                         <div className="list-carpetas__cont" >
-                                            <div className="carpeta" onClick={()=>changePage('/cliente/contratos/get-info/F')}>
+                                            <div className="carpeta" onClick={() => changePage('/cliente/contratos/get-info/F')}>
                                                 <div className="carpeta__cont-icon">
                                                     <span className="icon-Favorito-click carpeta__icon--favorito"></span>
                                                 </div>
@@ -155,7 +157,7 @@ const Index = ({ auth, carpetas }) => {
                                             </div>
                                         </div>
                                         <div className="list-carpetas__cont">
-                                            <div className="carpeta" onClick={()=>changePage('/cliente/contratos/get-info/P')}>
+                                            <div className="carpeta" onClick={() => changePage('/cliente/contratos/get-info/P')}>
                                                 <div className="carpeta__cont-icon">
                                                     <span className="icon-Eliminar carpeta__icon--papelera">
                                                     </span>
@@ -166,9 +168,9 @@ const Index = ({ auth, carpetas }) => {
                                     </>
                                 }
 
-                                {folders.map((carpeta, index) => (
+                                {filteredFolders.map((carpeta, index) => (
                                     <div className="list-carpetas__cont" key={index}>
-                                        <div className="carpeta" onClick={()=>changePage(`/cliente/contratos/get-info/C?carpeta=${carpeta.id}`)}>
+                                        <div className="carpeta" onClick={() => changePage(`/cliente/contratos/get-info/C?carpeta=${carpeta.id}`)}>
                                             <div className="carpeta__cont-icon">
                                                 <span className="icon-Mis-carpetas carpeta__icon" style={{ color: carpeta.color }}>
                                                     <span className="path1">
@@ -179,8 +181,22 @@ const Index = ({ auth, carpetas }) => {
                                             </div>
                                             <span className="carpeta__nombre">{carpeta.nombre_carpeta}</span>
                                             <div className="carpeta__acciones">
-                                                <i className="icon-Editar carpeta__btn-editar" onClick={() => editCarpeta(carpeta)}></i>
-                                                <i className="icon-Eliminar carpeta__btn-eliminar" onClick={() => handleShowEliminarCarpeta(carpeta)}></i>
+                                                <i
+                                                    className="icon-Editar carpeta__btn-editar"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        editCarpeta(carpeta);
+                                                    }}
+                                                >
+                                                </i>
+                                                <i
+                                                    className="icon-Eliminar carpeta__btn-eliminar"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        handleShowEliminarCarpeta(carpeta);
+                                                    }}
+                                                >
+                                                </i>
                                             </div>
                                         </div>
                                     </div>
@@ -190,7 +206,7 @@ const Index = ({ auth, carpetas }) => {
                             {/*  } */}
                         </div>
                         <div className="mensajes-busqueda">
-                            {folders.length == 0 && inputSearchFolder == "" &&
+                            {filteredFolders.length == 0 && inputSearchFolder == "" &&
                                 <div className="mensajes-busqueda">
                                     <div id="mensajes-sin-carpeta" className="container content_blank_intern">
                                         <div className="row">
@@ -210,7 +226,7 @@ const Index = ({ auth, carpetas }) => {
                                     </div>
                                 </div>
                             }
-                            {folders.length == 0 && inputSearchFolder != "" &&
+                            {filteredFolders.length == 0 && inputSearchFolder != "" &&
                                 <div id="mensajes-personalizado-busqueda" className="container-fluid content_blank_interno">
                                     <div className="row justify-content-center align-items-center">
                                         <div className="col-md-4 col-sm-4 offset-md-1 offset-sm-1">
