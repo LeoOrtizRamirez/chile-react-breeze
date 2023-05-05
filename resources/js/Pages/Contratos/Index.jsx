@@ -1548,7 +1548,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                     }
                 });
                 setSelectedContratos(newSelection);
-            }else{
+            } else {
                 setSelectedContratos([...previousSelection, ...event.value]);
             }
         }
@@ -1603,12 +1603,21 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                     <p className="nombre-especifico tlpCount-texto">Proceso seleccionado</p>
                                 </div>
                                 <span className="separador-busqueda-rapida marg_first_separador icon-Separador-1"></span>
-                                <div className="" onClick={exportToCSV}>
-                                    <span id="tlpExcel" className="accion-tooltip">
-                                        <img width="20px" src="https://col.licitaciones.info/img/listado/excel_click.svg" alt="Descarga a Excel" />
-                                    </span>
-                                    <p className="nombre-especifico tlpExcel-texto">Exportar {selectedContratos.length} registro</p>
-                                </div>
+                                {selectedContratos.length <= 30 ?
+                                    <div className="" onClick={exportToCSV}>
+                                        <span id="tlpExcel" className="accion-tooltip">
+                                            <img width="20px" src="https://col.licitaciones.info/img/listado/excel_click.svg" alt="Descarga a Excel" />
+                                        </span>
+                                        <p className="nombre-especifico tlpExcel-texto">Exportar {selectedContratos.length} registros</p>
+                                    </div>
+                                    :
+                                    <div className="deshabilitar">
+                                        <span id="tlpExcel" className="accion-tooltip">
+                                            <img width="20px" src="https://col.licitaciones.info/img/listado/excel_click.svg" alt="Descarga a Excel" />
+                                        </span>
+                                        <p className="nombre-especifico tlpExcel-texto">Exportar {selectedContratos.length} registros</p>
+                                    </div>
+                                }
                                 <span className="separador-busqueda-rapida marg_first_separador icon-Separador-1"></span>
                                 <div onClick={() => handleShowModal("modal_seleccion_carpeta", selectedContratos)}>
                                     <span id="tlpMoverContrato" className="accion-tooltip">

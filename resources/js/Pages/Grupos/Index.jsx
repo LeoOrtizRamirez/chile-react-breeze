@@ -231,6 +231,7 @@ const Index = ({ auth, grupos, created_updated }) => {
     };
 
     const Delete = () => {
+        setGlobalLoading(true)
         var payload = {
             'perfil': filtroSelected.id,
         };
@@ -245,15 +246,17 @@ const Index = ({ auth, grupos, created_updated }) => {
             .then(response => {
                 setData(getGrupos(response.data))
                 handleCloseModal()
+                setGlobalLoading(false)
             })
             .catch(error => {
                 // Handle error
                 console.log(error);
             });
     };
+    const [globalLoading, setGlobalLoading] = useState(false)
     return (
         <>
-            <AuthenticatedLayout auth={auth} page={'grupos'} grupos={grupos}>
+            <AuthenticatedLayout auth={auth} page={'grupos'} grupos={grupos} globalLoading={globalLoading}>
 
                 <div className="content_blank_interno margin_left_layout">
                     {data.length > 0 &&

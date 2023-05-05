@@ -323,6 +323,7 @@ input[type='radio']:focus{ box-shadow: none; outline: none !important; }
     max-width: 33rem !important;
 } */
 
+/*TOAST*/
 .p-toast {
     opacity: 1 !important;
 }
@@ -406,6 +407,11 @@ span.p-toast-summary {
     box-shadow: 0 0 8px 4px rgb(0 0 0 / 43%) !important;
 }
 
+/*TOAST*/
+
+.deshabilitar p, .deshabilitar span {
+    opacity: .5;
+}
 
 /* .content-flex {
     display: flex !important;

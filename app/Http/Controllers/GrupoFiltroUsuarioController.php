@@ -32,6 +32,7 @@ class GrupoFiltroUsuarioController extends Controller
         $actividades_economicas = $request->data['actividades_economicas'];
         $tipos_compras = $request->data['tipos_compras'];
         $localizaciones = $request->data['localizaciones'];
+
         if (sizeof($actividades_economicas) == 0) {
             return "Debes tener mínimo 1 Actividad Económica seleccionada";
         }
@@ -57,18 +58,38 @@ class GrupoFiltroUsuarioController extends Controller
 
         if (!is_null($model->id)) {
             foreach ($actividades_economicas as $ae) {
-                if($this->isChild($ae)){
+                if($this->isChild($ae, '2')){
                     $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $ae);
                 }
             }
-            foreach ($localizaciones as $l) {
-                if($this->isChild($l)){
-                    $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $l);
+
+            if (sizeof($localizaciones) == 0) {
+                $all_localizaciones = SubCategoria::where('tipo_categoria', 3)->get();
+                foreach ($all_localizaciones as $l) {
+                    if ($this->isChild($l->id, '1')) {
+                        $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $l->id);
+                    }
+                }
+            } else {
+                foreach ($localizaciones as $l) {
+                    if ($this->isChild($l, '1')) {
+                        $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $l);
+                    }
                 }
             }
-            foreach ($tipos_compras as $tc) {
-                if($this->isChild($tc)){
-                    $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $tc);
+
+            if (sizeof($tipos_compras) == 0) {
+                $all_tipos_compras = SubCategoria::where('tipo_categoria', 5)->get();
+                foreach ($all_tipos_compras as $tc) {
+                    if ($this->isChild($tc->id, '1')) {
+                        $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $tc->id);
+                    }
+                }
+            } else {
+                foreach ($tipos_compras as $tc) {
+                    if ($this->isChild($tc, '1')) {
+                        $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $tc);
+                    }
                 }
             }
         } else {
@@ -89,18 +110,34 @@ class GrupoFiltroUsuarioController extends Controller
         }
     }
 
-    public function isChild($id_sub_categoria)
+    public function isChild($id_sub_categoria, $level)
     {
-        $subcategoria = SubCategoria::find($id_sub_categoria);
-        if ($subcategoria->id_padre_sub_categoria != null) {
-            $parent = SubCategoria::find($subcategoria->id_padre_sub_categoria);
-            if ($parent->id_padre_sub_categoria != null) {
-                return true;
-            }else{
-                return false;
-            }
-        }else{
-            return false;
+        switch ($level) {
+            case '1':
+                $subcategoria = SubCategoria::find($id_sub_categoria);
+                if ($subcategoria->id_padre_sub_categoria != null) {
+                    return true;
+                } else {
+                    return false;
+                }
+                break;
+            case '2':
+                $subcategoria = SubCategoria::find($id_sub_categoria);
+                if ($subcategoria->id_padre_sub_categoria != null) {
+                    $parent = SubCategoria::find($subcategoria->id_padre_sub_categoria);
+                    if ($parent->id_padre_sub_categoria != null) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+                break;
+
+            default:
+                # code...
+                break;
         }
     }
 

@@ -63,7 +63,7 @@ const Crear = ({
     const [iconosPerfiles, setIconosPerfiles] = useState([]);
 
     const changeContent = (id) => {
-        if (id == 2 && checkedsActividadesEconomicas.length == 0) {
+        if (checkedsActividadesEconomicas.length == 0) {
             toastBL.current.show({ severity: 'error', summary: 'Debes seleccionar mínimo una actividad económica.'/* , detail: 'Message Content' */, life: 3000 });
         } else {
             setContainer(id)
@@ -182,6 +182,8 @@ const Crear = ({
             toastBL.current.show({ severity: 'error', summary: 'Debes ingresar un nombre para el perfil.'/* , detail: 'Message Content' */, life: 3000 });
             return;
         }
+        setGlobalLoading(true)
+        
         var payload = {
             'actividades_economicas': checkedsActividadesEconomicas,
             'tipos_compras': checkedsTiposCompras,
@@ -204,6 +206,7 @@ const Crear = ({
             }
         })
             .then(response => {
+                setGlobalLoading(false)
                 console.log(response)
                 window.location.href = "/cliente/grupo?create=success";
             })
@@ -298,9 +301,11 @@ const Crear = ({
     /*ResumenPerfil */
 
     const toastBL = useRef(null);
+
+    const [globalLoading, setGlobalLoading] = useState(false)
     return (
         <>
-            <AuthenticatedLayout auth={auth} page={'perfiles'}>
+            <AuthenticatedLayout auth={auth} page={'perfiles'} globalLoading={globalLoading}>
                 <div className="content_blank_interno margin_left_layout">
                     <div class="col">
                         <h2 class="name_seccion_app">Crear perfil de negocio</h2>
