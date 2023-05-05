@@ -306,7 +306,7 @@ const Editar = ({
             <AuthenticatedLayout auth={auth} page={'perfiles'}>
                 <div className="content_blank_interno margin_left_layout">
                     <div class="col">
-                        <h2 class="name_seccion_app">Crear perfil de negocio</h2>
+                        <h2 class="name_seccion_app">Editar perfil de negocio</h2>
                     </div>
                     <div id="container-grupo">
                         <div id="perfil-user">

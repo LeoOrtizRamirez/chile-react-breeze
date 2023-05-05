@@ -58,7 +58,7 @@ class GrupoFiltroUsuarioController extends Controller
 
         if (!is_null($model->id)) {
             foreach ($actividades_economicas as $ae) {
-                if($this->isChild($ae, '2')){
+                if ($this->isChild($ae, '2')) {
                     $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $ae);
                 }
             }
@@ -199,17 +199,33 @@ class GrupoFiltroUsuarioController extends Controller
             switch ($ac->subcategoria->tipo_categoria) {
                 case 1:
                     array_push($actividades_economicas_actuales, $ac->subcategoria->id);
+                    //Agregar segmento
+                    if (!in_array($ac->subcategoria->id_padre_sub_categoria, $actividades_economicas_actuales)) {
+                        $actividades_economicas_actuales[] = $ac->subcategoria->id_padre_sub_categoria;
+                        $sector = SubCategoria::find($ac->subcategoria->id_padre_sub_categoria);
+                        //Agregar sector
+                        if (!in_array($sector->id_padre_sub_categoria, $actividades_economicas_actuales)) {
+                            $actividades_economicas_actuales[] =$sector->id_padre_sub_categoria;
+                        }
+                    }
                     break;
                 case 3:
                     array_push($localizaciones_actuales, $ac->subcategoria->id);
+                    if (!in_array($ac->subcategoria->id_padre_sub_categoria, $localizaciones_actuales)) {
+                        $localizaciones_actuales[] = $ac->subcategoria->id_padre_sub_categoria;
+                    }
                     break;
                 case 5:
                     array_push($tipos_compras_actuales, $ac->subcategoria->id);
+                    if (!in_array($ac->subcategoria->id_padre_sub_categoria, $tipos_compras_actuales)) {
+                        $tipos_compras_actuales[] = $ac->subcategoria->id_padre_sub_categoria;
+                    }
                     break;
                 default:
                     break;
             }
         }
+        //dd($actividades_economicas_actuales);
 
         $actividades_economicas = $this->getSubCategorias(1);
         $localizaciones = $this->getSubCategorias(3);
