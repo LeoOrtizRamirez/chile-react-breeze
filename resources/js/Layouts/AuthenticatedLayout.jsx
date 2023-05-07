@@ -11,7 +11,7 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";//theme
 import "primereact/resources/primereact.min.css";//core
 import "primeicons/primeicons.css";//icons
 
-export default function Authenticated({ auth, header, children, page, carpetas = [], grupos = [], carpeta_actual = null, zona = null, globalLoading=false}) {
+export default function Authenticated({ auth, header, children, page, carpetas = [], grupos = [], carpeta_actual = null, perfiles = null, zona = null, globalLoading=false}) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
@@ -20,7 +20,7 @@ export default function Authenticated({ auth, header, children, page, carpetas =
             <Header auth={auth}></Header>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
             <div className="">
-                <MenuLateral carpetas={carpetas} grupos={grupos} carpeta_actual={carpeta_actual} zona={zona} />
+                <MenuLateral carpetas={carpetas} grupos={grupos} carpeta_actual={carpeta_actual} perfiles={perfiles} zona={zona} />
                 <div className="col contenido_internas " id={page}>
                     <div className="position-relative d-block">
                         {children}

@@ -30,7 +30,7 @@ import CrearCarpeta from "@/Components/CrearCarpeta";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 
-const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter_notas, carpeta_actual }) => {
+const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter_notas, carpeta_actual, perfiles }) => {
     const [tabla, setTabla] = useState(contratos);
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
@@ -360,7 +360,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                     <div className="selecciones-nuevo-diseno">
                         
                         <button type="button" className="borrador-grid borrador-new-style" onClick={handleClearFilters}>
-                            <img src="/images/borrador-azul.svg" alt="Borrar búsquedas" title="Borrar búsquedas" />
+                            <img src="/public/images/borrador-azul.svg" alt="Borrar búsquedas" title="Borrar búsquedas" />
                         </button>
                     </div>
                 </span>
@@ -839,27 +839,85 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                             </div>
                             <div className="select-busqueda-rapida ml-4">
                                 <Nav id="dropdown-filtro-nuevos">
-                                    <NavDropdown id="dropdown-filtro" className='nav-link pl-0' title={<><span className="ver-filtros">
-                                        <span className="mr-2 visualizar">Visualizar:</span>
-                                        <span className="text-ver-filtros d-inline-flex pl-3 bg-white">
-                                            <span className="align-self-center d-inline-flex iconOrdenamientoGrid">
-                                                <span className="icon-Todos"></span>
-                                            </span>
-                                            <span className="text-ver-filtros__text text-left">Todos</span>
-                                        </span>
-                                    </span></>} >
-                                        <Dropdown.Item href="#" className='dropdown-item'>
-                                            <span className="icon-options-order">
-                                                <span className="icon-Vistos-recientemente"></span>
-                                            </span>
-                                            <span className="text-options-order">Vistos recientemente</span>
-                                        </Dropdown.Item>
-                                        <Dropdown.Item href="/cliente/contratos?filtrar_nuevos=4" className='dropdown-item'>
-                                            <span className="icon-options-order">
-                                                <span className="icon-Contratos"></span>
-                                            </span>
-                                            <span className="text-options-order">Notas creadas</span>
-                                        </Dropdown.Item>
+                                    <NavDropdown
+                                        id="dropdown-filtro"
+                                        className='nav-link pl-0'
+                                        title={
+                                            <>
+                                                <span className="ver-filtros">
+                                                    <span className="mr-2 visualizar">Visualizar:</span>
+                                                    <span className="text-ver-filtros d-inline-flex pl-3 bg-white">
+                                                        {zona == "ALL" &&
+                                                            <>
+                                                                <span className="align-self-center d-inline-flex iconOrdenamientoGrid">
+                                                                    <span className="icon-Todos"></span>
+                                                                </span>
+                                                                <span className="text-ver-filtros__text text-left">Todos</span>
+                                                            </>
+                                                        }
+                                                        {zona == "No leidos" &&
+                                                            <>
+                                                                <span className="align-self-center d-inline-flex iconOrdenamientoGrid">
+                                                                    <span className="icon-No-leidos"></span>
+                                                                </span>
+                                                                <span className="text-ver-filtros__text text-left">No leidos</span>
+                                                            </>
+                                                        }
+                                                        {zona == "Vistos recientemente" &&
+                                                            <>
+                                                                <span className="align-self-center d-inline-flex iconOrdenamientoGrid">
+                                                                <span className="icon-Vistos-recientemente"></span>
+                                                                </span>
+                                                                <span className="text-ver-filtros__text text-left">Vistos recientemente</span>
+                                                            </>
+                                                        }
+                                                        {zona == "Notas" &&
+                                                            <>
+                                                                <span className="align-self-center d-inline-flex iconOrdenamientoGrid">
+                                                                <span className="icon-Contratos"></span>
+                                                                </span>
+                                                                <span className="text-ver-filtros__text text-left">Notas creadas</span>
+                                                            </>
+                                                        }
+
+                                                    </span>
+                                                </span>
+                                            </>
+                                        }
+                                    >
+                                        {zona != "ALL" &&
+                                            <Dropdown.Item href="/cliente/contratos?filtrar_nuevos=0" className='dropdown-item'>
+                                                <span className="icon-options-order">
+                                                    <span className="icon-Todos"></span>
+                                                </span>
+                                                <span className="text-options-order">Todos</span>
+                                            </Dropdown.Item>
+                                        }
+                                        {zona != "No leidos" &&
+                                            <Dropdown.Item href="/cliente/contratos?filtrar_nuevos=1" className='dropdown-item'>
+                                                <span className="icon-options-order">
+                                                    <span className="icon-No-leidos"></span>
+                                                </span>
+                                                <span className="text-options-order">No leidos</span>
+                                            </Dropdown.Item>
+                                        }
+                                        {zona != "Vistos recientemente" &&
+                                            <Dropdown.Item href="/cliente/contratos?filtrar_nuevos=2" className='dropdown-item'>
+                                                <span className="icon-options-order">
+                                                    <span className="icon-Vistos-recientemente"></span>
+                                                </span>
+                                                <span className="text-options-order">Vistos recientemente</span>
+                                            </Dropdown.Item>
+                                        }
+                                        {zona != "Notas" &&
+                                            <Dropdown.Item href="/cliente/contratos?filtrar_nuevos=4" className='dropdown-item'>
+                                                <span className="icon-options-order">
+                                                    <span className="icon-Contratos"></span>
+                                                </span>
+                                                <span className="text-options-order">Notas creadas</span>
+                                            </Dropdown.Item>
+                                        }
+
                                     </NavDropdown>
                                 </Nav>
 
@@ -895,21 +953,21 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                     </div>
                                 </div> */}
                             </div>
-                            {carpeta_actual?.nombre_carpeta == "Favoritos" &&
+                            {zona == "F" &&
                                 <div className="d-inline-block seccion-estas-en">
                                     <p className="my-1">Estás en: <span className="mx-1 icon-Favorito-click"></span>
                                         <span className="texto-estas-en">mis favoritos</span>
                                     </p>
                                 </div>
                             }
-                            {carpeta_actual?.nombre_carpeta == "Papelera" &&
+                            {zona == "P" &&
                                 <div className="d-inline-block seccion-estas-en">
                                     <p className="my-1">Estás en: <span className="mx-1 icon-Eliminar"></span>
                                         <span className="texto-estas-en">{carpeta_actual?.nombre_carpeta}</span>
                                     </p>
                                 </div>
                             }
-                            {carpeta_actual?.nombre_carpeta != "Favoritos" && nombre_carpeta != "Papelera" && nombre_carpeta != "ALL" &&
+                            {zona == "C" &&
                                 <div className="d-inline-block seccion-estas-en">
                                     <p className="my-1">
                                         Estás en:
@@ -917,6 +975,41 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                         <span className="texto-estas-en">{carpeta_actual?.nombre_carpeta}</span>
                                     </p>
                                 </div>
+                            }
+                            {zona == "MP" &&
+                                <>
+                                    {perfiles.length == 1 ?
+                                        <div className="d-inline-block seccion-estas-en">
+                                            <p className="my-1">
+                                                Estás en:
+                                                <img src="https://col.licitaciones.info/storage/banco-imagenes/artistas/Licitaciones/perfil-invisible.svg" className="mx-1"></img>
+                                                <span className="texto-estas-en">{perfiles[0]?.nombre_filtro}</span>
+                                            </p>
+                                        </div>
+                                        :
+                                        <Nav id="dropdown-filtros" className="ml-4">
+                                            <NavDropdown id="dropdown-filtro" className='nav-link pl-0' title={<><span className="ver-filtros">
+                                                <span className="mr-2 visualizar">Estás en:</span>
+                                                <span className="text-ver-filtros d-inline-flex pl-3 bg-white">
+                                                    <span className="align-self-center d-inline-flex iconOrdenamientoGrid">
+                                                        <img src="https://col.licitaciones.info/storage/banco-imagenes/artistas/Licitaciones/sin_imagen_perfil.svg" />
+                                                    </span>
+                                                    <span className="text-ver-filtros__text text-left">{perfiles.length} Perfiles de negocio</span>
+                                                </span>
+                                            </span></>} >
+                                                {perfiles.map((perfil, index) => (
+                                                    <Dropdown.Item href="#" className='dropdown-item'>
+                                                        <span className="icon-options-order">
+                                                            <img src={perfil.imagen_filtro} />
+                                                        </span>
+                                                        <span className="text-options-order">{perfil.nombre_filtro}</span>
+                                                    </Dropdown.Item>
+                                                ))}
+                                            </NavDropdown>
+
+                                        </Nav>
+                                    }
+                                </>
                             }
                         </div>
                     </div>
@@ -1007,7 +1100,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                         var newData = [...prevTabla.data];
                         contratos.forEach(contrato => {
                             const index = prevTabla.data.findIndex(item => item.id === contrato.id);
-                            if (carpeta_actual?.nombre_carpeta == "Favoritos") {//Si esta en la carpeta favoritos, elimina el indice
+                            if (zona == "F") {//Si esta en la carpeta favoritos, elimina el indice
                                 newData = newData.filter(item => item.id != contrato.id)
                             } else {//Si esta en otra carpeta, cambia el estado del atributo favorito
                                 newData[index] = { ...newData[index], favorito: false }; // modify the 'favorito' property
@@ -1091,14 +1184,14 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                 {carpeta_actual?.nombre_carpeta === "" &&
                     <p>No se encontraron registros</p>
                 }
-                {carpeta_actual?.nombre_carpeta === "Papelera" &&
+                {zona === "P" &&
                     <div id="mensajes-personalizado-papelera" className="container-fluid content_blank_interno">
                         <div className="row  align-items-end">
                             <div className="col-md-4 offset-md-1">
-                                <img src="https://col.licitaciones.info/img/mensajes-personalisados/sin-papelera.png" alt="" className="img-fluid" />
+                                <img src="/public/images/mensajes-personalizados/sin-papelera.png" alt="" className="img-fluid" />
                             </div>
                             <div className="col-md-6 offset-md-1">
-                                <div className="estructura-mensaje-personalisado">
+                                <div className="estructura-mensaje-personalizado">
                                     <h4 className="text-center titulo-personalizado">¡Nada por aqui! no tienes procesos de contratacion en <b className="text-rojo">papelera</b></h4>
                                     <div className="position-relative">
                                         <span className="icon-Bombillo mensaje-icono "></span>
@@ -1110,14 +1203,14 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                     </div>
                 }
 
-                {carpeta_actual?.nombre_carpeta == "Favoritos" &&
+                {zona == "F" &&
                     <div id="mensajes-personalizado-favoritos" className="container-fluid content_blank_interno">
                         <div className="row  align-items-end">
                             <div className="col-md-3 offset-md-2">
-                                <img src="https://col.licitaciones.info/img/mensajes-personalisados/sin-favoritos.png" alt="" className="img-fluid" />
+                                <img src="/public/images/mensajes-personalizados/sin-favoritos.png" alt="" className="img-fluid" />
                             </div>
                             <div className="col-md-6 offset-md-1">
-                                <div className="estructura-mensaje-personalisado">
+                                <div className="estructura-mensaje-personalizado">
                                     <h4 className="text-center titulo-personalizado">No has agregado procesos de contratación <b className="text-naranja">favoritos</b> a esta sección</h4>
                                     <div className="position-relative">
                                         <span className="icon-Bombillo  mensaje-icono "></span>
@@ -1129,14 +1222,14 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                     </div>
                 }
 
-                {carpeta_actual?.nombre_carpeta != "Papelera" && carpeta_actual?.nombre_carpeta != "Favoritos" && carpeta_actual?.nombre_carpeta != "" &&
+                {zona == "C" &&
                     <div id="mensajes-personalizado-sin-contratos-carpeta" className="container content_blank_interno">
                         <div className="row  align-items-center">
                             <div className="col-md-4 text-center">
-                                <img src="https://col.licitaciones.info/img/mensajes-personalisados/sin-procesos.png" alt="" className="img-fluid" />
+                                <img src="/public/images/mensajes-personalizados/sin-procesos.png" alt="" className="img-fluid" />
                             </div>
                             <div className="col-md-6 offset-md-1 margen-mensaje-personalizado">
-                                <h4 className="text-center titulo-personalizado">No tienes procesos de contratación en esta <b className="texto-personalisado-azul">carpeta</b>.</h4>
+                                <h4 className="text-center titulo-personalizado">No tienes procesos de contratación en esta <b className="texto-personalizado-azul">carpeta</b>.</h4>
                                 <p className="mensaje-personalizado text-justify">Recuerda que aquí se pueden agregar lo procesos de contratacíon de forma organizada y en un solo lugar.</p>
                                 <a href="/cliente/carpeta/administrar-carpetas" className="btn btn-new-gray btnRadius mx-auto d-block btn-volver-carpetas">Regresar a carpetas</a>
                             </div>
@@ -1144,6 +1237,77 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                     </div>
                 }
 
+                {nombre_carpeta == "Perfiles" || zona == "ALL" &&
+                    <div id="mensajes-personalizado-perfil" className="container-fluid content_blank_interno">
+                        <div className="row justify-content-center align-items-center">
+                            <div className="col-md-4 col-sm-4 offset-md-1 offset-sm-1">
+                                <img src="/public/images/mensajes-personalizados/sin-resultados-busqueda.png" alt="" className="img-fluid mensaje-imagen" />
+                            </div>
+                            <div className="col-md-5 col-sm-5 offset-sm-1 offset-md-1">
+                                <div className="estructura-mensaje-personalizado">
+                                    <h4 className="text-center titulo-personalizado">Aún no tienes procesos de contratación.</h4>
+                                    <div className="position-relative">
+                                        <span className="icon-Bombillo mensaje-icono"></span>
+                                        <p className="mensaje-personalizado d-block text-left">Es posible que esto se deba a que no hay contratos nuevos que coincidan con los parámetros de tu perfil de negocio o porque no has activado la opción de incluir históricos de contratación.</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                {zona == "Notas" &&
+                    <div id="mensajes-personalizado-perfil" className="container-fluid content_blank_interno">
+                        <div className="row justify-content-center align-items-center">
+                            <div className="col-md-4 col-sm-4 offset-md-1 offset-sm-1">
+                                <img src="/public/images/mensajes-personalizados/sin-resultados-busqueda.png" alt="" className="img-fluid mensaje-imagen" />
+                            </div>
+                            <div className="col-md-5 col-sm-5 offset-sm-1 offset-md-1">
+                                <div className="estructura-mensaje-personalizado">
+                                    <h4 className="text-center titulo-personalizado">No se encontró el resultado.</h4>
+                                    <div className="position-relative">
+                                        <span className="icon-Bombillo mensaje-icono"></span>
+                                        <p className="mensaje-personalizado d-block text-left">Prueba cambiando tus opciones de búsqueda e intentalo nuevamente.</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                {zona == "No leidos" &&
+                    <div id="mensajes-personalizado-sin-leer" className="container-fluid content_blank_interno">
+                        <div className="row justify-content-center align-items-center">
+                            <div className="col-md-4 col-sm-4 offset-md-1 offset-sm-1">
+                                <img src="/public/images/mensajes-personalizados/no-leidos.png" alt="" className="img-fluid mensaje-imagen" />
+                            </div>
+                            <div className="col-md-5 col-sm-5 offset-sm-1 offset-md-1">
+                                <div className="estructura-mensaje-personalizado">
+                                    <h4 className="text-center titulo-personalizado">¡Estás al día! <b className="text-verde">has leído</b> todas las oportunidades seleccionadas para ti.</h4>
+                                    <div className="position-relative">
+                                        <span className="icon-Bombillo mensaje-icono"></span>
+                                        <p className="mensaje-personalizado d-block text-left">Recuerda que aquí se filtran tus procesos de contratación correspondientes sin leer.</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                {zona == "Vistos recientemente" &&
+                    <div id="mensajes-personalizado-visto-reciente" className="container-fluid content_blank_interno">
+                        <div className="row justify-content-center align-items-center">
+                            <div className="col-md-4 col-sm-4 offset-md-1 offset-sm-1">
+                                <img src="/public/images/mensajes-personalizados/vistos-recientemente.png" alt="" className="img-fluid mensaje-imagen" />
+                            </div>
+                            <div className="col-md-5 col-sm-5 offset-sm-1 offset-md-1">
+                                <div className="estructura-mensaje-personalizado">
+                                    <h4 className="text-center titulo-personalizado">Parece que aún <b className="text-naranja">no has visto</b> procesos de contratación de tu interés.</h4>
+                                    <div className="position-relative">
+                                        <span className="icon-Bombillo mensaje-icono"></span>
+                                        <p className="mensaje-personalizado d-block text-left">Recuerda que este es tu historial de procesos vistos recientemente.</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </>
         );
     };
@@ -1557,7 +1721,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
     const toastBL = useRef(null);
 
     return (
-        <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders} grupos={grupos} carpeta_actual={carpeta_actual} zona={zona} globalLoading={globalLoading}>
+        <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders} grupos={grupos} carpeta_actual={carpeta_actual} perfiles={perfiles} zona={zona} globalLoading={globalLoading}>
             <div className="content_not_blank_interno">
                 <div id="bodycontenido" className="col contratos_row px-0">
                     <Loader loading={loading}></Loader>
@@ -1657,7 +1821,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                     </>
                                 }
 
-                                {carpeta_actual?.nombre_carpeta == "Favoritos" &&
+                                {zona == "F" &&
                                     <>
                                         <span className="separador-busqueda-rapida marg_first_separador icon-Separador-1"></span>
                                         <div onClick={() => handleShowModal("modal_confirm_delete", selectedContratos, true)}>
@@ -1770,9 +1934,9 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                                         <img src="https://col.licitaciones.info/img/listado/quitar_favoritos.svg" />
                                                         :
                                                         <span>
-                                                            <span class="icon-Mis-carpetas" style={{ color: carpeta_actual?.color }}>
-                                                                <span class="path1"></span>
-                                                                <span class="path2"></span>
+                                                            <span className="icon-Mis-carpetas" style={{ color: carpeta_actual?.color }}>
+                                                                <span className="path1"></span>
+                                                                <span className="path2"></span>
                                                             </span>
                                                             {carpeta_actual?.nombre_carpeta}
                                                         </span>
@@ -1789,7 +1953,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                                                     <input
                                                                         type="checkbox"
                                                                         id="checkboxPerfil0"
-                                                                        class="input_perfil_val"
+                                                                        className="input_perfil_val"
                                                                         value={contrato.id}
                                                                         checked={checksContratos.includes(contrato.id) ? true : false}
                                                                         onChange={handleChecksContratos}
@@ -1809,9 +1973,9 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                                                 <img src="https://col.licitaciones.info/img/listado/quitar_favoritos.svg" />
                                                                 :
                                                                 <span>
-                                                                    <span class="icon-Mis-carpetas" style={{ color: carpeta_actual?.color }}>
-                                                                        <span class="path1"></span>
-                                                                        <span class="path2"></span>
+                                                                    <span className="icon-Mis-carpetas" style={{ color: carpeta_actual?.color }}>
+                                                                        <span className="path1"></span>
+                                                                        <span className="path2"></span>
                                                                     </span>
                                                                     {carpeta_actual?.nombre_carpeta}
                                                                 </span>

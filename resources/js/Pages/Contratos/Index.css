@@ -51,19 +51,24 @@
 }
 
 
-#contratos .select-busqueda-rapida .ver-filtros .text-ver-filtros .iconOrdenamientoGrid>span {
+#contratos .ver-filtros .text-ver-filtros .iconOrdenamientoGrid>span {
     font-size: 15px;
     color: #60c4dd;
     margin-right: 5px;
 }
 
-#contratos .select-busqueda-rapida .ver-filtros .text-ver-filtros__text {
+#contratos .ver-filtros .text-ver-filtros__text {
     min-width: 140px;
 }
 
-#contratos .select-busqueda-rapida .ver-filtros>span:first-child {
+#contratos .ver-filtros>span:first-child {
     font-family: Nexa-bold, sans-serif;
     color: #686868;
+}
+
+#contratos .ver-filtros .text-ver-filtros .iconOrdenamientoGrid>img {
+    width: 15px;
+    margin-right: 5px;
 }
 
 #contratos .dropdown-item.active, .dropdown-item:active {
@@ -134,8 +139,13 @@
     filter: drop-shadow(0px -2px 1px rgba(0, 0, 0, .2));
 }
 
-#contratos #dropdown-filtro-nuevos .nav-link {
+#contratos #dropdown-filtro-nuevos .nav-link,
+#contratos #dropdown-filtros .nav-link {
     padding: 0px;
+}
+
+#contratos #dropdown-filtros .dropdown-item:hover {
+    background-color: unset !important;
 }
 
 #contratos .seccion-estas-en {
@@ -194,7 +204,7 @@
     color: #c6c6c6;
 }
 
-#contratos .select-busqueda-rapida .ver-filtros .text-ver-filtros {
+#contratos .ver-filtros .text-ver-filtros {
     border-radius: 15px;
     padding: 6px 0;
     padding-left: 1rem;
@@ -2444,7 +2454,7 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     color: #686868 !important;
 }
 
-#contratos #mensajes-personalizado-papelera .estructura-mensaje-personalisado {
+#contratos #mensajes-personalizado-papelera .estructura-mensaje-personalizado {
     max-width: 500px;
 }
 
@@ -2460,7 +2470,7 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     padding-bottom: 1.4rem;
 }
 
-#contratos #mensajes-personalizado-favoritos .estructura-mensaje-personalisado {
+#contratos #mensajes-personalizado-favoritos .estructura-mensaje-personalizado {
     max-width: 500px;
 }
 
@@ -2538,7 +2548,7 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     color: #686868;
 }
 
-#contratos #mensajes-personalizado-sin-contratos-carpeta .texto-personalisado-azul {
+#contratos #mensajes-personalizado-sin-contratos-carpeta .texto-personalizado-azul {
     color: #0f85d6;
 }
 
@@ -2561,6 +2571,64 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     padding: 2px 10px;
     margin-bottom: 8px;
     font-family: Nexa-bold, sans-serif;
+}
+
+#mensajes-personalizado-perfil .titulo-personalizado {
+    padding-bottom: 3.75rem;
+    max-width: 447px;
+    margin: 0 auto;
+    color: #c9003d !important;
+}
+
+#mensajes-personalizado-sin-leer .titulo-personalizado,
+#mensajes-personalizado-visto-reciente .titulo-personalizado {
+    padding-bottom: 3.75rem;
+    max-width: 447px;
+    margin: 0 auto;
+}
+
+#mensajes-personalizado-perfil #titulo-movil-personalizado, 
+#mensajes-personalizado-perfil .titulo-personalizado,
+#mensajes-personalizado-sin-leer .titulo-personalizado,
+#mensajes-personalizado-visto-reciente .titulo-personalizado {
+    font-family: Nexa-bold,sans-serif!important;
+    color: #686868;
+}
+
+#mensajes-personalizado-perfil .mensaje-icono, 
+#mensajes-personalizado-sin-leer .mensaje-icono,
+#mensajes-personalizado-visto-reciente .mensaje-icono {
+    font-size: 35px!important;
+    color: #ffc107 !important;
+    position: absolute;
+    right: 100%;
+    margin-right: 7px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    top: 0;
+    height: 100%;
+}
+
+#mensajes-personalizado-perfil .mensaje-personalizado {
+    font-size: 18px!important;
+    max-width: 428px;
+    margin-bottom: 0;
+    line-height: 1.2;
+    font-family: Nexa-regular,sans-serif!important;
+    color: #686868 !important;
+}
+
+#mensajes-personalizado-sin-leer .mensaje-personalizado,
+#mensajes-personalizado-visto-reciente .mensaje-personalizado {
+    font-size: 19px!important;
+    max-width: 460px;
+    margin-bottom: 0;
+    font-family: Nexa-regular,sans-serif!important;
+    color: #686868 !important;
 }
 
 

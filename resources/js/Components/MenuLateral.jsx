@@ -5,7 +5,8 @@ import { Nav, NavDropdown } from 'react-bootstrap';
 import { Inertia } from '@inertiajs/inertia'
 
 import CrearCarpeta from './CrearCarpeta';
-const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, zona=null }) => {
+const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, perfiles=[], zona = null }) => {
+    console.log("perfiles",perfiles)
     const [folders, setFolders] = useState(carpetas == null ? [] : carpetas)
     useEffect(() => {
         if (carpetas != null) {
@@ -38,16 +39,16 @@ const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, zona=null }) 
         setShowModalCrearCarpeta(false);
     };
 
-    const changePage = (tipo, id = null) => {
+    const changePage = (zona, tipo=null, id = null) => {
         var token = document.querySelector('meta[name="csrf-token"]')
         if (id == null) {
-            Inertia.get(`/cliente/contratos/get-info/${tipo}`/* , {
+            Inertia.get(`/cliente/contratos/get-info/${zona}`/* , {
                 headers: {
                     'Authorization': `Bearer ${token.content}`
                 }
             } */);
         } else {
-            Inertia.get(`/cliente/contratos/get-info/${tipo}?carpeta=${id}`/* , {
+            Inertia.get(`/cliente/contratos/get-info/${zona}?${tipo}=${id}`/* , {
                 headers: {
                     'Authorization': `Bearer ${token.content}`
                 }
@@ -102,9 +103,15 @@ const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, zona=null }) 
                                     <div id="menuperfiles_movil">
                                         <div className="contenedor_perfiles">
                                             {grupos.map((perfil, index) => (
-                                                <div className="item-checkbox-menu item-icon-menu" key={`perfil_${index}`}>
+                                                <div className="item-checkbox-menu item-icon-menu" key={`perfil_${index}`} onClick={() => changePage('MP', 'perfiles',perfil.id)}>
                                                     <span className="body_checkbox">
-                                                        <input type="checkbox" id="checkboxPerfil0" className="input_perfil_val" value="256058" />
+                                                        <input
+                                                            type="checkbox"
+                                                            id="checkboxPerfil0"
+                                                            className="input_perfil_val"
+                                                            value="256058"
+                                                            checked={perfil.id==carpeta_actual?.id}
+                                                        />
                                                     </span> <label id="visita_256058" className="">
                                                         <div className="content-img">
                                                             <div className="content-img--img imgperfil">
@@ -113,8 +120,10 @@ const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, zona=null }) 
                                                         </div>
                                                         <span title="PRIMER" alt="PRIMER" className="cursor-type-pointer">{perfil.nombre_filtro}</span>
                                                     </label>
-                                                    <div className="indic-item-menu"><i className="contadores_nuevos_point"></i>
-                                                    </div> <i className="icono-arrastre icon-Mover"></i>
+                                                    {/* <div className="indic-item-menu">
+                                                        <i className="contadores_nuevos_point"></i>
+                                                    </div> */}
+                                                    <i className="icono-arrastre icon-Mover"></i>
                                                 </div>
                                             ))}
 
@@ -203,14 +212,14 @@ const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, zona=null }) 
                                             <span className="body_checkbox">
                                                 <div className="radio" style={{ margin: 0 + 'px;' }}>
                                                     <label>
-                                                        <input 
-                                                            type="radio" 
-                                                            name="radiocontratos" 
-                                                            id="radioContratosFavoritos" 
-                                                            className="input_carpeta_val" 
-                                                            value="F" 
-                                                            checked={zona=="F"}
-                                                            onClick={() => changePage('F')} 
+                                                        <input
+                                                            type="radio"
+                                                            name="radiocontratos"
+                                                            id="radioContratosFavoritos"
+                                                            className="input_carpeta_val"
+                                                            value="F"
+                                                            checked={zona == "F"}
+                                                            onClick={() => changePage('F')}
                                                         />
                                                     </label>
                                                 </div>
@@ -229,14 +238,14 @@ const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, zona=null }) 
                                             <span className="body_checkbox">
                                                 <div className="radio" style={{ margin: 0 + 'px;' }}>
                                                     <label>
-                                                        <input 
-                                                            type="radio" 
-                                                            name="radiocontratos" 
-                                                            id="radioContratosEliminados" 
-                                                            className="input_carpeta_val" 
-                                                            value="P" 
-                                                            checked={zona=="P"}
-                                                            onClick={() => changePage('P')} 
+                                                        <input
+                                                            type="radio"
+                                                            name="radiocontratos"
+                                                            id="radioContratosEliminados"
+                                                            className="input_carpeta_val"
+                                                            value="P"
+                                                            checked={zona == "P"}
+                                                            onClick={() => changePage('P')}
                                                         />
                                                     </label>
                                                 </div>
@@ -255,14 +264,14 @@ const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, zona=null }) 
                                                 <span className="body_checkbox">
                                                     <div className="radio" style={{ margin: 0 + 'px;' }}>
                                                         <label>
-                                                            <input 
-                                                                type="radio" 
-                                                                name="radiocontratos" 
-                                                                id={`checkboxCarpeta${carpeta.id}`} 
-                                                                className="input_carpeta_val" 
-                                                                value={carpeta.id} 
-                                                                checked={carpeta.id==carpeta_actual?.id}
-                                                                onClick={() => changePage('C', carpeta.id)} 
+                                                            <input
+                                                                type="radio"
+                                                                name="radiocontratos"
+                                                                id={`checkboxCarpeta${carpeta.id}`}
+                                                                className="input_carpeta_val"
+                                                                value={carpeta.id}
+                                                                checked={carpeta.id == carpeta_actual?.id}
+                                                                onClick={() => changePage('C', 'carpeta', carpeta.id)}
                                                             />
                                                         </label>
                                                     </div>

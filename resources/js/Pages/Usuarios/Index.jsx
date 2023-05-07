@@ -601,7 +601,7 @@ const Index = ({ auth, usuarios }) => {
                                             <div className="row justify-content-center align-items-center">
                                                 <div className="col-md-4 col-sm-4 offset-md-1 offset-sm-1">
                                                     <img
-                                                        src="https://col.licitaciones.info/img/mensajes-personalisados/sin-resultados-busqueda.png"
+                                                        src="/public/images/mensajes-personalizados/sin-resultados-busqueda.png"
                                                         alt=""
                                                         className="img-fluid mensaje-imagen"
                                                     />

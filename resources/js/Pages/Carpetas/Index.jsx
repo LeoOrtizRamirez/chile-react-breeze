@@ -233,7 +233,7 @@ const Index = ({ auth, carpetas }) => {
                                             <img src="/public/images/sin-resultados-busqueda.webp" alt="" className="img-fluid mensaje-imagen" />
                                         </div>
                                         <div className="col-md-5 col-sm-5 offset-sm-1 offset-md-1">
-                                            <div className="estructura-mensaje-personalisado">
+                                            <div className="estructura-mensaje-personalizado">
                                                 <h4 className="text-center titulo-personalizado"><b className="text-rojo">No se encontró</b> el resultado.</h4>
                                                 <div className="position-relative">
                                                     <span className="icon-Bombillo mensaje-icono"></span>

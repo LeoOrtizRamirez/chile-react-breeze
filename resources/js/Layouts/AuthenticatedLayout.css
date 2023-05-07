@@ -413,6 +413,10 @@ span.p-toast-summary {
     opacity: .5;
 }
 
+.text-verde {
+    color: #73c914!important;
+}
+
 /* .content-flex {
     display: flex !important;
     flex-direction: row !important;
