@@ -234,6 +234,7 @@ class ContratoController extends Controller
     {
         $carpeta = null;
         $perfiles = null;
+        $contratos = null;
         $contratos_con_notas = DB::table('contratos')
             ->join('notas', 'notas.id_contrato', '=', 'contratos.id')
             ->where('notas.id_usuario', Auth::id())
@@ -242,7 +243,8 @@ class ContratoController extends Controller
             ->get()->pluck('id')->toArray();
 
 
-        if ($tipo == 'F' || $tipo == 'E' || $tipo == 'C') {
+        if ($tipo == 'F' || $tipo == 'P' || $tipo == 'C') {
+            
             if (isset($request->carpeta) && !is_null($request->carpeta)) {
                 $carpeta = Carpeta::find($request->carpeta);
             } else {
@@ -280,7 +282,6 @@ class ContratoController extends Controller
                     foreach ($carpeta_has_contrato as $key => $value) {
                         $ids_contratos[] = $value->id_contrato;
                     }
-
                     $contratos = Contrato::with('fuente')->whereIn('id', $ids_contratos)->paginate(30);
                     foreach ($contratos as $key => $value) {
                         $contratista = ContratistaContrato::where('id_contrato', $value->id)->first();
@@ -337,17 +338,20 @@ class ContratoController extends Controller
                             $value->notas = false;
                         }
                     }
+                }else{
+                    $contratos = Contrato::with('fuente')->where('id', 0)->paginate(30); //Se busca el id 0 para que no retorne nada pero conserve la estructura que genera el paginate() y no se generen conflictos en el renderizado
                 }
             }
         }
 
+        
         if ($tipo == "MP") {
             $ids_perfiles = $request->perfiles;
             $perfiles = GrupoFiltroUsuario::whereIn('id', explode(",", $ids_perfiles))->get();
-            //dd($perfiles);
+            $contratos = Contrato::with('fuente')->where('id', 0)->paginate(30); //Se busca el id 0 para que no retorne nada pero conserve la estructura que genera el paginate() y no se generen conflictos en el renderizado
         }
 
-
+       
 
 
         switch ($tipo) {
@@ -377,13 +381,10 @@ class ContratoController extends Controller
                 break;
         }
 
-        $contratos = Contrato::with('fuente')->where('id', 0)->paginate(30); //Se busca el id 0 para que no retorne nada pero conserve la estructura que genera el paginate() y no se generen conflictos en el renderizado
-
-
 
         $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
         $grupos = GrupoFiltroUsuario::where('id_usuario', Auth::id())->orderBy('id', 'DESC')->get();
-        return Inertia::render(
+/*         return Inertia::render(
             'Contratos/Index',
             [
                 'contratos' => $contratos,
@@ -395,7 +396,28 @@ class ContratoController extends Controller
                 'carpeta_actual' => $carpeta,
                 'perfiles' => $perfiles
             ]
-        );
+        ); */
+
+
+        if (request()->has("type") /* && request('type') == "fetch" */) { //dd(request('type'));
+            return json_encode($contratos);
+        } else {
+            return Inertia::render(
+                'Contratos/Index',
+                [
+                    'contratos' => $contratos,
+                    'nombre_carpeta' => $nombre_carpeta,
+                    'zona' => $zona,
+                    'carpetas' => $carpetas,
+                    'grupos' => $grupos,
+                    'filter_notas' => false,
+                    'carpeta_actual' => $carpeta,
+                    'perfiles' => $perfiles
+                ]
+            );
+        }
+
+
         /* return Inertia::render(
             'Contratos/Index', ['contratos' => $contratos]
         ); */

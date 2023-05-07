@@ -58,6 +58,14 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
     }
 
     const getUrlParams = () => {
+        let paginador_zona = ''
+        switch (zona) {
+            case 'C':
+                paginador_zona = 'carpeta'
+                break;
+            default:
+                break;
+        }
         let rapida = document.querySelector('input[name="rapida"]')?.value
 
         let portal = document.querySelector('input[name="fuente.alias_portal"]')?.value
@@ -70,7 +78,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
         let fecha_publicacion = document.querySelector('input[name="fecha_publicacion"]')?.value
         let ubicacion = document.querySelector('input[name="ubicacion"]')?.value
         let actividad_economica = document.querySelector('input[name="actividad_economica"]')?.value
-        return `&type=fetch&rapida=${rapida}&portal=${portal}&entidad_contratante=${entidad_contratante}&objeto=${objeto}&valor=${valor}&modalidad=${modalidad}&codigo_proceso=${codigo_proceso}&estado_proceso=${estado_proceso}&fecha_publicacion=${fecha_publicacion}&ubicacion=${ubicacion}&actividad_economica=${actividad_economica}`
+        return `&${paginador_zona}=${carpeta_actual?.id}&type=fetch&rapida=${rapida}&portal=${portal}&entidad_contratante=${entidad_contratante}&objeto=${objeto}&valor=${valor}&modalidad=${modalidad}&codigo_proceso=${codigo_proceso}&estado_proceso=${estado_proceso}&fecha_publicacion=${fecha_publicacion}&ubicacion=${ubicacion}&actividad_economica=${actividad_economica}`
     }
 
 
@@ -1027,7 +1035,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                     </div>
                     <div className="col-12 col-lg-7 col-xl-6 p-0 paginacion_grid text-right text-lg-right ">
                         <span className="paginator">
-                            {zona != "ALL" ?
+                            {tabla.total <= 30 ?
                                 <span className="p-paginator-current">{tabla.data.length} registros</span>
                                 :
                                 <>
@@ -1045,6 +1053,9 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
 
                                 </>
                             }
+
+
+
                         </span>
                     </div>
                 </div>
@@ -1246,6 +1257,17 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                         "/public/images/mensajes-personalizados/sin-procesos.png",
                         'No tienes procesos de contratación en esta <b class="texto-personalizado-azul">carpeta</b>.',
                         'Recuerda que aquí se pueden agregar lo procesos de contratacíon de forma organizada y en un solo lugar.',
+                        false
+                    )
+                }
+
+                {zona == "MP" &&
+                    EmptyMessageTemplate(
+                        "mensajes-personalizado-perfil",
+                        "/public/images/mensajes-personalizados/sin-resultados-busqueda.png",
+                        'Aún no tienes procesos de contratación.',
+                        'Es posible que esto se deba a que no hay contratos nuevos que coincidan con los parámetros de tu perfil de negocio o porque no has activado la opción de incluir históricos de contratación.',
+                        true,
                         false
                     )
                 }
