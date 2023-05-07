@@ -31,6 +31,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 
 const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter_notas, carpeta_actual, perfiles }) => {
+    console.log(zona)
     const [tabla, setTabla] = useState(contratos);
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
@@ -1189,6 +1190,32 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
         });
     };
 
+    const EmptyMessageTemplate = (id, image, title, description, warning = true, btn_folders_redirect = true) => {
+        return (
+            <div id={id} className="container-fluid content_blank_interno">
+                <div className="row  align-items-end">
+                    <div className="col-md-4 offset-md-1">
+                        <img src={image} alt="" className="img-fluid" />
+                    </div>
+                    <div className="col-md-6 offset-md-1">
+                        <div className="estructura-mensaje-personalizado">
+                            <h4 className="text-center titulo-personalizado" dangerouslySetInnerHTML={{ __html: title }}></h4>
+                            <div className="position-relative">
+                                {warning &&
+                                    <span className="icon-Bombillo mensaje-icono "></span>
+                                }
+                                <p className="mensaje-personalizado text-justify d-block" dangerouslySetInnerHTML={{ __html: description }}></p>
+                            </div>
+                            {btn_folders_redirect &&
+                                <a href="/cliente/carpeta/administrar-carpetas" className="btn-new-gray btnRadius d-inline-block text-center btn-volver-carpetas">Regresar a carpetas</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     const renderEmptyMessage = () => {
         return (
             <>
@@ -1196,128 +1223,75 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                     <p>No se encontraron registros</p>
                 }
                 {zona === "P" &&
-                    <div id="mensajes-personalizado-papelera" className="container-fluid content_blank_interno">
-                        <div className="row  align-items-end">
-                            <div className="col-md-4 offset-md-1">
-                                <img src="/public/images/mensajes-personalizados/sin-papelera.png" alt="" className="img-fluid" />
-                            </div>
-                            <div className="col-md-6 offset-md-1">
-                                <div className="estructura-mensaje-personalizado">
-                                    <h4 className="text-center titulo-personalizado">¡Nada por aqui! no tienes procesos de contratacion en <b className="text-rojo">papelera</b></h4>
-                                    <div className="position-relative">
-                                        <span className="icon-Bombillo mensaje-icono "></span>
-                                        <p className="mensaje-personalizado text-justify d-block">Recuerda que aquí se ponen los procesos que has eliminado, si deseas puedes restaurarlos desde esta sección.</p>
-                                    </div> <a href="/cliente/carpeta/administrar-carpetas" className="btn-new-gray btnRadius d-inline-block text-center btn-volver-carpetas">Regresar a carpetas</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    EmptyMessageTemplate(
+                        "mensajes-personalizado-papelera",
+                        "/public/images/mensajes-personalizados/sin-papelera.png",
+                        '¡Nada por aqui! no tienes procesos de contratacion en <b class="text-rojo">papelera</b>',
+                        'Recuerda que aquí se ponen los procesos que has eliminado, si deseas puedes restaurarlos desde esta sección.'
+                    )
                 }
 
                 {zona == "F" &&
-                    <div id="mensajes-personalizado-favoritos" className="container-fluid content_blank_interno">
-                        <div className="row  align-items-end">
-                            <div className="col-md-3 offset-md-2">
-                                <img src="/public/images/mensajes-personalizados/sin-favoritos.png" alt="" className="img-fluid" />
-                            </div>
-                            <div className="col-md-6 offset-md-1">
-                                <div className="estructura-mensaje-personalizado">
-                                    <h4 className="text-center titulo-personalizado">No has agregado procesos de contratación <b className="text-naranja">favoritos</b> a esta sección</h4>
-                                    <div className="position-relative">
-                                        <span className="icon-Bombillo  mensaje-icono "></span>
-                                        <p className="mensaje-personalizado d-block text-justify">Recuerda que aquí puedes almacenar los procesos que más te interesen. Sólo debes ir al icono de favoritos &nbsp;<span className="icon-Favorito-click" id="icono-mensaje"></span>&nbsp; que se encuentra en la parte inferior de cada proceso y listo, podrás visualisarlos y administrarlos en esta seccion.</p>
-                                    </div> <a href="/carpeta/administrar-carpetas" className="btn btn-new-gray btnRadius mx-auto d-block btn-sin-perfil-crear">Regresar a carpetas</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    EmptyMessageTemplate(
+                        "mensajes-personalizado-favoritos",
+                        "/public/images/mensajes-personalizados/sin-favoritos.png",
+                        'No has agregado procesos de contratación <b class="text-naranja">favoritos</b> a esta sección',
+                        'Recuerda que aquí puedes almacenar los procesos que más te interesen. Sólo debes ir al icono de favoritos &nbsp;<span class="icon-Favorito-click" id="icono-mensaje"></span>&nbsp; que se encuentra en la parte inferior de cada proceso y listo, podrás visualisarlos y administrarlos en esta seccion.'
+                    )
                 }
 
                 {zona == "C" &&
-                    <div id="mensajes-personalizado-sin-contratos-carpeta" className="container content_blank_interno">
-                        <div className="row  align-items-center">
-                            <div className="col-md-4 text-center">
-                                <img src="/public/images/mensajes-personalizados/sin-procesos.png" alt="" className="img-fluid" />
-                            </div>
-                            <div className="col-md-6 offset-md-1 margen-mensaje-personalizado">
-                                <h4 className="text-center titulo-personalizado">No tienes procesos de contratación en esta <b className="texto-personalizado-azul">carpeta</b>.</h4>
-                                <p className="mensaje-personalizado text-justify">Recuerda que aquí se pueden agregar lo procesos de contratacíon de forma organizada y en un solo lugar.</p>
-                                <a href="/cliente/carpeta/administrar-carpetas" className="btn btn-new-gray btnRadius mx-auto d-block btn-volver-carpetas">Regresar a carpetas</a>
-                            </div>
-                        </div>
-                    </div>
+                    EmptyMessageTemplate(
+                        "mensajes-personalizado-sin-contratos-carpeta",
+                        "/public/images/mensajes-personalizados/sin-procesos.png",
+                        'No tienes procesos de contratación en esta <b class="texto-personalizado-azul">carpeta</b>.',
+                        'Recuerda que aquí se pueden agregar lo procesos de contratacíon de forma organizada y en un solo lugar.',
+                        false
+                    )
                 }
 
-                {zona == "ALL" || zona == "MP" &&
-                    <div id="mensajes-personalizado-perfil" className="container-fluid content_blank_interno">
-                        <div className="row justify-content-center align-items-center">
-                            <div className="col-md-4 col-sm-4 offset-md-1 offset-sm-1">
-                                <img src="/public/images/mensajes-personalizados/sin-resultados-busqueda.png" alt="" className="img-fluid mensaje-imagen" />
-                            </div>
-                            <div className="col-md-5 col-sm-5 offset-sm-1 offset-md-1">
-                                <div className="estructura-mensaje-personalizado">
-                                    <h4 className="text-center titulo-personalizado">Aún no tienes procesos de contratación.</h4>
-                                    <div className="position-relative">
-                                        <span className="icon-Bombillo mensaje-icono"></span>
-                                        <p className="mensaje-personalizado d-block text-left">Es posible que esto se deba a que no hay contratos nuevos que coincidan con los parámetros de tu perfil de negocio o porque no has activado la opción de incluir históricos de contratación.</p></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                {zona == "ALL" &&
+                    EmptyMessageTemplate(
+                        "mensajes-personalizado-perfil",
+                        "/public/images/mensajes-personalizados/sin-resultados-busqueda.png",
+                        'Aún no tienes procesos de contratación.',
+                        'Es posible que esto se deba a que no hay contratos nuevos que coincidan con los parámetros de tu perfil de negocio o porque no has activado la opción de incluir históricos de contratación.',
+                        true,
+                        false
+                    )
                 }
 
                 {zona == "Notas" &&
-                    <div id="mensajes-personalizado-perfil" className="container-fluid content_blank_interno">
-                        <div className="row justify-content-center align-items-center">
-                            <div className="col-md-4 col-sm-4 offset-md-1 offset-sm-1">
-                                <img src="/public/images/mensajes-personalizados/sin-resultados-busqueda.png" alt="" className="img-fluid mensaje-imagen" />
-                            </div>
-                            <div className="col-md-5 col-sm-5 offset-sm-1 offset-md-1">
-                                <div className="estructura-mensaje-personalizado">
-                                    <h4 className="text-center titulo-personalizado">No se encontró el resultado.</h4>
-                                    <div className="position-relative">
-                                        <span className="icon-Bombillo mensaje-icono"></span>
-                                        <p className="mensaje-personalizado d-block text-left">Prueba cambiando tus opciones de búsqueda e intentalo nuevamente.</p></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    EmptyMessageTemplate(
+                        "mensajes-personalizado-perfil",
+                        "/public/images/mensajes-personalizados/sin-resultados-busqueda.png",
+                        'No se encontró el resultado.',
+                        'Prueba cambiando tus opciones de búsqueda e intentalo nuevamente.',
+                        true,
+                        false
+                    )
                 }
 
                 {zona == "No leidos" &&
-                    <div id="mensajes-personalizado-sin-leer" className="container-fluid content_blank_interno">
-                        <div className="row justify-content-center align-items-center">
-                            <div className="col-md-4 col-sm-4 offset-md-1 offset-sm-1">
-                                <img src="/public/images/mensajes-personalizados/no-leidos.png" alt="" className="img-fluid mensaje-imagen" />
-                            </div>
-                            <div className="col-md-5 col-sm-5 offset-sm-1 offset-md-1">
-                                <div className="estructura-mensaje-personalizado">
-                                    <h4 className="text-center titulo-personalizado">¡Estás al día! <b className="text-verde">has leído</b> todas las oportunidades seleccionadas para ti.</h4>
-                                    <div className="position-relative">
-                                        <span className="icon-Bombillo mensaje-icono"></span>
-                                        <p className="mensaje-personalizado d-block text-left">Recuerda que aquí se filtran tus procesos de contratación correspondientes sin leer.</p></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    EmptyMessageTemplate(
+                        "mensajes-personalizado-sin-leer",
+                        "/public/images/mensajes-personalizados/no-leidos.png",
+                        '¡Estás al día! <b class="text-verde">has leído</b> todas las oportunidades seleccionadas para ti.',
+                        'Recuerda que aquí se filtran tus procesos de contratación correspondientes sin leer.',
+                        true,
+                        false
+                    )
                 }
 
                 {zona == "Vistos recientemente" &&
-                    <div id="mensajes-personalizado-visto-reciente" className="container-fluid content_blank_interno">
-                        <div className="row justify-content-center align-items-center">
-                            <div className="col-md-4 col-sm-4 offset-md-1 offset-sm-1">
-                                <img src="/public/images/mensajes-personalizados/vistos-recientemente.png" alt="" className="img-fluid mensaje-imagen" />
-                            </div>
-                            <div className="col-md-5 col-sm-5 offset-sm-1 offset-md-1">
-                                <div className="estructura-mensaje-personalizado">
-                                    <h4 className="text-center titulo-personalizado">Parece que aún <b className="text-naranja">no has visto</b> procesos de contratación de tu interés.</h4>
-                                    <div className="position-relative">
-                                        <span className="icon-Bombillo mensaje-icono"></span>
-                                        <p className="mensaje-personalizado d-block text-left">Recuerda que este es tu historial de procesos vistos recientemente.</p></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    EmptyMessageTemplate(
+                        "mensajes-personalizado-visto-reciente",
+                        "/public/images/mensajes-personalizados/vistos-recientemente.png",
+                        'Parece que aún <b class="text-naranja">no has visto</b> procesos de contratación de tu interés.',
+                        'Recuerda que este es tu historial de procesos vistos recientemente.',
+                        true,
+                        false
+                    )
                 }
             </>
         );
