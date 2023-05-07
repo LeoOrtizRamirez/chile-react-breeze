@@ -47,6 +47,7 @@ const ActividadEconomica = ({
             }
         });
         setSectoresIds(full_array);
+        console.log("full_array", full_array)
     }, []);
 
     const [checksActividadesEconomicas, setChecksActividadesEconomicas] =

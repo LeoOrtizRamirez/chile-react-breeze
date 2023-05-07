@@ -69,8 +69,7 @@ class GrupoFiltroUsuarioController extends Controller
                     if ($this->isChild($tc->id, '1')) {
                         $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $tc->id);
                     } else {
-                        if (!$this->hasChilds($tc->id) /* && $tc->id != 126349 && $tc->id != 126350 */) {
-                            //dd($tc->id);
+                        if (!$this->hasChilds($tc->id)) {
                             $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $tc->id);
                         }
                     }
@@ -87,26 +86,27 @@ class GrupoFiltroUsuarioController extends Controller
                 }
             }
 
+
             if (sizeof($localizaciones) == 0) {
                 $all_localizaciones = SubCategoria::where('tipo_categoria', 3)->get();
-                foreach ($all_localizaciones as $l) {
-                    if ($this->isChild($l->id, '1')) {
-                        $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $l->id);
+
+                foreach ($all_localizaciones as $all_localizacion) {
+                    if ($this->isChild($all_localizacion->id, '1')) {
+                        $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $all_localizacion->id);
                     } else {
-                        if (!$this->hasChilds($l->id)) {
-                            //dd($l->id);
-                            $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $l->id);
+                        if (!$this->hasChilds($all_localizacion->id)) {
+                            $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $all_localizacion->id);
                         }
                     }
                 }
             } else {
-                foreach ($localizaciones as $l) {
-                    if ($this->isChild($l, '1')) {
-                        $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $l);
+                foreach ($localizaciones as $localizacion) {
+
+                    if ($this->isChild($localizacion, '1')) {
+                        $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $localizacion);
                     } else {
-                        if (!$this->hasChilds($l->id)) {
-                            //dd($l->id);
-                            $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $l);
+                        if (!$this->hasChilds($localizacion)) {
+                            $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $localizacion);
                         }
                     }
                 }
@@ -228,39 +228,56 @@ class GrupoFiltroUsuarioController extends Controller
             switch ($ac->subcategoria->tipo_categoria) {
                 case 1:
                     array_push($actividades_economicas_actuales, $ac->subcategoria->id);
-                    //Agregar segmento
-                    if (!in_array($ac->subcategoria->id_padre_sub_categoria, $actividades_economicas_actuales)) {
-                        $actividades_economicas_actuales[] = $ac->subcategoria->id_padre_sub_categoria;
-                        $sector = SubCategoria::find($ac->subcategoria->id_padre_sub_categoria);
-                        //Agregar sector
-                        if (!in_array($sector->id_padre_sub_categoria, $actividades_economicas_actuales)) {
-                            if ($ac->subcategoria->id_padre_sub_categoria != null) {
-                                $actividades_economicas_actuales[] = $sector->id_padre_sub_categoria;
-                            }
-                        }
-                    }
                     break;
                 case 3:
                     array_push($localizaciones_actuales, $ac->subcategoria->id);
-                    if ($ac->subcategoria->id_padre_sub_categoria != null) {
-                        if (!in_array($ac->subcategoria->id_padre_sub_categoria, $localizaciones_actuales)) {
-                            $localizaciones_actuales[] = $ac->subcategoria->id_padre_sub_categoria;
-                        }
-                    }
                     break;
                 case 5:
                     array_push($tipos_compras_actuales, $ac->subcategoria->id);
-                    if ($ac->subcategoria->id_padre_sub_categoria != null) {
-                        if (!in_array($ac->subcategoria->id_padre_sub_categoria, $tipos_compras_actuales)) {
-                            $tipos_compras_actuales[] = $ac->subcategoria->id_padre_sub_categoria;
-                        }
-                    }
                     break;
                 default:
                     break;
             }
         }
-        //dd($tipos_compras_actuales);
+
+        $sectores_actividades_economicas = SubCategoria::whereNull('id_padre_sub_categoria')->where('tipo_categoria', 1)->get();
+        foreach ($sectores_actividades_economicas as $key => $sector) {
+            $ids_actividades_economicas_by_sector = $this->getIdsActividadesEconomicas($sector->id, 'sector');
+            $diferencia = array_diff($ids_actividades_economicas_by_sector, $actividades_economicas_actuales);
+            if (empty($diferencia)) {
+                $actividades_economicas_actuales[] = $sector->id;
+            }
+            $segmentos_actividades_economicas = SubCategoria::where('id_padre_sub_categoria', $sector->id)->where('tipo_categoria', 1)->get();
+            foreach ($segmentos_actividades_economicas as $key => $segmento) {
+                $ids_actividades_economicas_by_segmento = $this->getIdsActividadesEconomicas($segmento->id, 'segmento');
+                $diferencia = array_diff($ids_actividades_economicas_by_segmento, $actividades_economicas_actuales);
+                if (empty($diferencia)) {
+                    $actividades_economicas_actuales[] = $segmento->id;
+                }
+            }
+        }
+
+
+        $segmentos_localizaciones = SubCategoria::whereNull('id_padre_sub_categoria')->where('tipo_categoria', 3)->get();
+        foreach ($segmentos_localizaciones as $key => $segmento) {
+            $ids_actividades_economicas_by_segmento = $this->getIdsActividadesEconomicas($segmento->id, 'segmento');
+            $diferencia = array_diff($ids_actividades_economicas_by_segmento, $localizaciones_actuales);
+            if (empty($diferencia)) {
+                $localizaciones_actuales[] = $segmento->id;
+            }
+        }
+
+        $segmentos_tipos_compras = SubCategoria::whereNull('id_padre_sub_categoria')->where('tipo_categoria', 5)->get();
+        foreach ($segmentos_tipos_compras as $key => $segmento) {
+            $ids_actividades_economicas_by_segmento = $this->getIdsActividadesEconomicas($segmento->id, 'segmento');
+            if (sizeof($ids_actividades_economicas_by_segmento) > 0) {
+                $diferencia = array_diff($ids_actividades_economicas_by_segmento, $tipos_compras_actuales);
+                if (empty($diferencia)) {
+                    $tipos_compras_actuales[] = $segmento->id;
+                }
+            }
+        }
+
 
         $actividades_economicas = $this->getSubCategorias(1);
         $localizaciones = $this->getSubCategorias(3);
@@ -279,6 +296,27 @@ class GrupoFiltroUsuarioController extends Controller
         ]);
     }
 
+    public function getIdsActividadesEconomicas($sector_id, $type)
+    {
+        $actividades_economicas = [];
+        switch ($type) {
+            case 'sector':
+                $ids_segmentos = SubCategoria::where('id_padre_sub_categoria', $sector_id)->get()->pluck('id')->toArray();
+                foreach ($ids_segmentos as $key => $id_segmento) {
+                    $ids_actividades_economicas = SubCategoria::where('id_padre_sub_categoria', $id_segmento)->get()->pluck('id')->toArray();
+                    $actividades_economicas = array_merge($actividades_economicas, $ids_actividades_economicas);
+                }
+                break;
+            case 'segmento':
+                $actividades_economicas = SubCategoria::where('id_padre_sub_categoria', $sector_id)->get()->pluck('id')->toArray();
+                break;
+
+            default:
+                # code...
+                break;
+        }
+        return $actividades_economicas;
+    }
 
     public function update(Request $request)
     {
