@@ -208,6 +208,7 @@ const Index = ({ auth, grupos, created_updated }) => {
 
 
     const Copy = () => {
+        setGlobalLoading(true)
         var payload = {
             'perfil': filtroSelected.id,
             'nombre_filtro': nameCopyFilter,
@@ -223,6 +224,8 @@ const Index = ({ auth, grupos, created_updated }) => {
             .then(response => {
                 setData(getGrupos(response.data))
                 handleCloseModal()
+                setGlobalLoading(false)
+
             })
             .catch(error => {
                 // Handle error
