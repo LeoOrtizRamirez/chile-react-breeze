@@ -1,13 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 /* import "./Crear.css"; */
-/*Toast*/
-import Toast from "react-bootstrap/Toast";
-import ToastContainer from "react-bootstrap/ToastContainer";
-import "../../../css/estilos-toast.css";
 
 import ActividadEconomica from "@/Components/ActividadEconomica";
-/*Toast*/
 
 /* HEADER*/
 import { Head, useForm } from "@inertiajs/inertia-react";
@@ -22,6 +17,8 @@ import 'react-calendar/dist/Calendar.css';
 
 import './Crear.css'
 
+import { Toast } from 'primereact/toast';
+
 const Editar = ({
     auth,
     actividades_economicas,
@@ -35,9 +32,6 @@ const Editar = ({
     paso_actual
 }) => {
 
-    const [showToast, setShowToast] = useState(false);
-    const [toastMessage, setToastMessage] = useState("");
-    const [toastIcon, setToastIcon] = useState("");
     const [sectores, setSectores] = useState(actividades_economicas);
 
     const [checkedsActividadesEconomicas, setCheckedsActividadesEconomicas] = useState(actividades_economicas_actuales)
@@ -75,10 +69,8 @@ const Editar = ({
     const [iconosPerfiles, setIconosPerfiles] = useState(pasos_seleccionados);
 
     const changeContent = (id) => {
-        if (id == 2 && checkedsActividadesEconomicas.length == 0) {
-            setToastMessage("Debes seleccionar mínimo una actividad económica");
-            setToastIcon("icon-error");
-            setShowToast(true);
+        if (checkedsActividadesEconomicas.length == 0) {
+            toastBL.current.show({ severity: 'error', summary: 'Debes seleccionar mínimo una actividad económica.'/* , detail: 'Message Content' */, life: 3000 });
         } else {
             setContainer(id)
             setIconosPerfiles([...iconosPerfiles, id])
@@ -159,7 +151,18 @@ const Editar = ({
     const [inputDescripcionPerfil, setInputDescripcionPerfil] = useState(perfil.descripcion_filtro)
     const [fechaHistorico, setFechaHistorico] = useState(perfil.historico == null ? 'Sin Historico' : perfil.historico)
 
-    const handleClickOutside = (event) => {
+    const handleInputNombrePerfil = (e) => {
+        var input_nombre_prefil = document.querySelector('#inputNombrePerfil')
+        if (e.target.value == "") {
+            input_nombre_prefil?.classList.add('is-invalid')
+        } else {
+            input_nombre_prefil?.classList.remove('is-invalid')
+        }
+        setInputNombrePerfil(e.target.value)
+
+    }
+
+    /* const handleClickOutside = (event) => {
         if (inputNombrePerfil.current && !inputNombrePerfil.current.contains(event.target)) {
             if (inputNombrePerfil.current.value == "") {
                 inputNombrePerfil.current.classList.add('is-invalid')
@@ -174,10 +177,18 @@ const Editar = ({
         return () => {
             document.removeEventListener('click', handleClickOutside, true);
         };
-    }, []);
+    }, []); */
 
 
     const Guardar = () => {
+        if (inputNombrePerfil == "") {
+            var input_nombre_prefil = document.querySelector('#inputNombrePerfil')
+            input_nombre_prefil?.classList.add('is-invalid')
+            toastBL.current.show({ severity: 'error', summary: 'Debes ingresar un nombre para el perfil.'/* , detail: 'Message Content' */, life: 3000 });
+            return;
+        }
+        setGlobalLoading(true)
+
         var payload = {
             'perfil': perfil.id,
             'actividades_economicas': checkedsActividadesEconomicas,
@@ -302,12 +313,12 @@ const Editar = ({
     };
     /*ResumenPerfil */
 
-    /* console.log("checkedsActividadesEconomicas",checkedsActividadesEconomicas)
-    console.log("checkedsLocalizaciones",checkedsLocalizaciones)
-    console.log("checkedsTiposCompras",checkedsTiposCompras) */
+    const toastBL = useRef(null);
+
+    const [globalLoading, setGlobalLoading] = useState(false)
     return (
         <>
-            <AuthenticatedLayout auth={auth} page={'perfiles'}>
+            <AuthenticatedLayout auth={auth} page={'perfiles'} globalLoading={globalLoading}>
                 <div className="content_blank_interno margin_left_layout">
                     <div class="col">
                         <h2 class="name_seccion_app">Editar perfil de negocio</h2>
@@ -512,12 +523,14 @@ const Editar = ({
                                                                 <div className="perfil-preferencia__form1">
                                                                     <label id="nombre" className="perfil-preferencia__labels">Dale un nombre a tu perfil:</label>
                                                                     <input
+                                                                        id="inputNombrePerfil"
                                                                         value={inputNombrePerfil}
-                                                                        onChange={e => setInputNombrePerfil(e.target.value)}
+                                                                        onChange={handleInputNombrePerfil}
                                                                         type="text"
                                                                         name="nombre"
                                                                         className="form-control inputs_form padd-peq mb-0"
                                                                         required
+                                                                    /*  ref={inputNombrePerfil} */
                                                                     />
                                                                     <div className="invalid-feedback mb-3">El campo nombre perfil es obligatorio.</div>
                                                                     <label id="descripcion" className="perfil-preferencia__labels">Descripción del perfil (opcional):</label>
@@ -886,34 +899,7 @@ const Editar = ({
                         <ResumenPerfil showModal={showModalResumenPerfil} handleCloseModal={handleCloseModalResumenPerfil} data={resumenFiltroSelected} />
                     </div>
                 </div>
-                <ToastContainer position="bottom-start">
-                    <Toast
-                        onClose={() => setShowToast(false)}
-                        show={showToast}
-                        delay={3000}
-                        autohide
-                    >
-                        <div
-                            className={`notification-toast ${toastIcon == "icon-error" ? "error" : "success"
-                                }`}
-                        >
-                            <span
-                                className={`toast-icon ${toastIcon == "icon-error"
-                                    ? "toast-danger"
-                                    : "toast-success"
-                                    }`}
-                            >
-                                <span className={toastIcon}></span>
-                            </span>
-                            <p className="title">{toastMessage}</p>
-                            <button
-                                type="button"
-                                className="icon-close m-auto"
-                                onClick={() => setShowToast(false)}
-                            />
-                        </div>
-                    </Toast>
-                </ToastContainer>
+                <Toast ref={toastBL} position="bottom-left" />
             </AuthenticatedLayout>
         </>
     );

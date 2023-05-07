@@ -117,6 +117,99 @@ class GrupoFiltroUsuarioController extends Controller
         return Inertia::render('Grupos/Crear');
     }
 
+    public function update(Request $request)
+    {
+        $actividades_economicas = $request->data['actividades_economicas'];
+        $tipos_compras = $request->data['tipos_compras'];
+        $localizaciones = $request->data['localizaciones'];
+        if (sizeof($actividades_economicas) == 0) {
+            return "Debes tener mínimo 1 Actividad Económica seleccionada";
+        }
+        $model = GrupoFiltroUsuario::find($request->data['perfil']);
+        $model->nombre_filtro = $request->data['nombre_filtro'];
+        $model->descripcion_filtro = $request->data['descripcion_filtro'];
+        $model->sin_presupuesto = $request->data['sin_presupuesto'];
+        $model->envio_alertas = $request->data['envio_alertas'];
+        $model->imagen_filtro = $request->data['imagen_filtro'];
+        if ($request->data['historico_contratacion'] != "Sin Historico") {
+            $model->historico = $request->data['historico_contratacion'];
+        }
+        $model->limite_inferior_cuantia = $this->parseInt($request->data['limite_inferior_cuantia']);
+        $model->limite_superior_cuantia = $this->parseInt($request->data['limite_superior_cuantia']);
+
+        try {
+            $model->save();
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+
+        //Eliminar SubCategorias
+        $actividades_economicas_anteriores = GrupoFiltroUsuariosHasSubCategoria::where('id_perfil', $model->id)->get();
+        foreach ($actividades_economicas_anteriores as $ae) {
+            $ae->delete();
+        }
+
+        //Guardar SubCategorias
+        if (!is_null($model->id)) {
+            foreach ($actividades_economicas as $ae) {
+                if ($this->isChild($ae, '2')) {
+                    $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $ae);
+                }
+            }
+
+            if (sizeof($tipos_compras) == 0) {
+                $all_tipos_compras = SubCategoria::where('tipo_categoria', 5)->get();
+                foreach ($all_tipos_compras as $tc) {
+                    if ($this->isChild($tc->id, '1')) {
+                        $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $tc->id);
+                    } else {
+                        if (!$this->hasChilds($tc->id)) {
+                            $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $tc->id);
+                        }
+                    }
+                }
+            } else {
+                foreach ($tipos_compras as $tc) {
+                    if ($this->isChild($tc, '1')) {
+                        $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $tc);
+                    } else {
+                        if (!$this->hasChilds($tc)) {
+                            $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $tc);
+                        }
+                    }
+                }
+            }
+
+
+            if (sizeof($localizaciones) == 0) {
+                $all_localizaciones = SubCategoria::where('tipo_categoria', 3)->get();
+
+                foreach ($all_localizaciones as $all_localizacion) {
+                    if ($this->isChild($all_localizacion->id, '1')) {
+                        $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $all_localizacion->id);
+                    } else {
+                        if (!$this->hasChilds($all_localizacion->id)) {
+                            $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $all_localizacion->id);
+                        }
+                    }
+                }
+            } else {
+                foreach ($localizaciones as $localizacion) {
+
+                    if ($this->isChild($localizacion, '1')) {
+                        $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $localizacion);
+                    } else {
+                        if (!$this->hasChilds($localizacion)) {
+                            $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $localizacion);
+                        }
+                    }
+                }
+            }
+        } else {
+            return "No se creo el filtro de usuario";
+        }
+    }
+
     public function saveGrupoFiltroUsuariosHasSubCategoria($id_perfil, $id_sub_categoria)
     {
         try {
@@ -318,53 +411,7 @@ class GrupoFiltroUsuarioController extends Controller
         return $actividades_economicas;
     }
 
-    public function update(Request $request)
-    {
-        $actividades_economicas = $request->data['actividades_economicas'];
-        $tipos_compras = $request->data['tipos_compras'];
-        $localizaciones = $request->data['localizaciones'];
-        if (sizeof($actividades_economicas) == 0) {
-            return "Debes tener mínimo 1 Actividad Económica seleccionada";
-        }
-        $model = GrupoFiltroUsuario::find($request->data['perfil']);
-        $model->nombre_filtro = $request->data['nombre_filtro'];
-        $model->descripcion_filtro = $request->data['descripcion_filtro'];
-        $model->sin_presupuesto = $request->data['sin_presupuesto'];
-        $model->envio_alertas = $request->data['envio_alertas'];
-        $model->imagen_filtro = $request->data['imagen_filtro'];
-        if ($request->data['historico_contratacion'] != "Sin Historico") {
-            $model->historico = $request->data['historico_contratacion'];
-        }
-        $model->limite_inferior_cuantia = $this->parseInt($request->data['limite_inferior_cuantia']);
-        $model->limite_superior_cuantia = $this->parseInt($request->data['limite_superior_cuantia']);
-
-        try {
-            $model->save();
-        } catch (Exception $e) {
-            dd($e->getMessage());
-        }
-
-        //Eliminar SubCategorias
-        $actividades_economicas_anteriores = GrupoFiltroUsuariosHasSubCategoria::where('id_perfil', $model->id)->get();
-        foreach ($actividades_economicas_anteriores as $ae) {
-            $ae->delete();
-        }
-
-        //Guardar SubCategorias
-        if (!is_null($model->id)) {
-            foreach ($actividades_economicas as $ae) {
-                $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $ae);
-            }
-            foreach ($localizaciones as $l) {
-                $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $l);
-            }
-            foreach ($tipos_compras as $tc) {
-                $this->saveGrupoFiltroUsuariosHasSubCategoria($model->id, $tc);
-            }
-        } else {
-            return "No se creo el filtro de usuario";
-        }
-    }
+    
 
 
     public function copy(Request $request)
