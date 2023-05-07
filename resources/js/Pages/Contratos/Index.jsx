@@ -866,7 +866,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                                         {zona == "Vistos recientemente" &&
                                                             <>
                                                                 <span className="align-self-center d-inline-flex iconOrdenamientoGrid">
-                                                                <span className="icon-Vistos-recientemente"></span>
+                                                                    <span className="icon-Vistos-recientemente"></span>
                                                                 </span>
                                                                 <span className="text-ver-filtros__text text-left">Vistos recientemente</span>
                                                             </>
@@ -874,7 +874,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                                         {zona == "Notas" &&
                                                             <>
                                                                 <span className="align-self-center d-inline-flex iconOrdenamientoGrid">
-                                                                <span className="icon-Contratos"></span>
+                                                                    <span className="icon-Contratos"></span>
                                                                 </span>
                                                                 <span className="text-ver-filtros__text text-left">Notas creadas</span>
                                                             </>
@@ -991,10 +991,21 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                             <NavDropdown id="dropdown-filtro" className='nav-link pl-0' title={<><span className="ver-filtros">
                                                 <span className="mr-2 visualizar">Estás en:</span>
                                                 <span className="text-ver-filtros d-inline-flex pl-3 bg-white">
-                                                    <span className="align-self-center d-inline-flex iconOrdenamientoGrid">
-                                                        <img src="https://col.licitaciones.info/storage/banco-imagenes/artistas/Licitaciones/sin_imagen_perfil.svg" />
-                                                    </span>
-                                                    <span className="text-ver-filtros__text text-left">{perfiles.length} Perfiles de negocio</span>
+                                                    {perfiles.length == grupos.length ?
+                                                        <>
+                                                            <span className="align-self-center d-inline-flex iconOrdenamientoGrid">
+                                                                <img src="https://col.licitaciones.info/storage/banco-imagenes/artistas/Licitaciones/todos_los_perfiles.svg" />
+                                                            </span>
+                                                            <span className="text-ver-filtros__text text-left">Todos los Perfiles</span>
+                                                        </>
+                                                        :
+                                                        <>
+                                                            <span className="align-self-center d-inline-flex iconOrdenamientoGrid">
+                                                                <img src="https://col.licitaciones.info/storage/banco-imagenes/artistas/Licitaciones/sin_imagen_perfil.svg" />
+                                                            </span>
+                                                            <span className="text-ver-filtros__text text-left">{perfiles.length} Perfiles de negocio</span>
+                                                        </>
+                                                    }
                                                 </span>
                                             </span></>} >
                                                 {perfiles.map((perfil, index) => (
@@ -1237,7 +1248,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                     </div>
                 }
 
-                {nombre_carpeta == "Perfiles" || zona == "ALL" &&
+                {zona == "ALL" || zona == "MP" &&
                     <div id="mensajes-personalizado-perfil" className="container-fluid content_blank_interno">
                         <div className="row justify-content-center align-items-center">
                             <div className="col-md-4 col-sm-4 offset-md-1 offset-sm-1">

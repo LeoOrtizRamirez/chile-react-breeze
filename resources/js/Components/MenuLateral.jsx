@@ -5,8 +5,7 @@ import { Nav, NavDropdown } from 'react-bootstrap';
 import { Inertia } from '@inertiajs/inertia'
 
 import CrearCarpeta from './CrearCarpeta';
-const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, perfiles=[], zona = null }) => {
-    console.log("perfiles",perfiles)
+const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, perfiles = [], zona = null }) => {
     const [folders, setFolders] = useState(carpetas == null ? [] : carpetas)
     useEffect(() => {
         if (carpetas != null) {
@@ -39,21 +38,56 @@ const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, perfiles=[], 
         setShowModalCrearCarpeta(false);
     };
 
-    const changePage = (zona, tipo=null, id = null) => {
-        var token = document.querySelector('meta[name="csrf-token"]')
-        if (id == null) {
-            Inertia.get(`/cliente/contratos/get-info/${zona}`/* , {
-                headers: {
-                    'Authorization': `Bearer ${token.content}`
+    const changePage = (zona, tipo = null, array = null) => {
+        var url = '';
+        var idsArray = "";
+        if (array != null) {
+            if (Array.isArray(array)) {
+                idsArray = array.map((a) => a.id).join(',');
+            } else {
+                //Obtener ids de perfiles
+                if (perfiles?.length > 0) {
+                    var ids_perfiles = perfiles.map(item => item.id)
+                    if (ids_perfiles.includes(array.id)) {
+                        ids_perfiles = ids_perfiles.filter(item => item != array.id)
+                        idsArray = ids_perfiles.map((a) => a).join(',');
+                    }else{
+                        ids_perfiles.push(array.id)
+                        idsArray = ids_perfiles.map((a) => a).join(',');
+                    }
+                } else {
+                    idsArray = array.id;
                 }
-            } */);
-        } else {
-            Inertia.get(`/cliente/contratos/get-info/${zona}?${tipo}=${id}`/* , {
-                headers: {
-                    'Authorization': `Bearer ${token.content}`
-                }
-            } */);
+            }
         }
+        switch (zona) {
+            case 'Contratos':
+                url = `/cliente/contratos`
+                break;
+            case 'P':
+                url = `/cliente/contratos/get-info/${zona}`
+                break;
+            case 'F':
+                url = `/cliente/contratos/get-info/${zona}`
+                break;
+            case 'C':
+                if (tipo == null) {
+                    url = `/cliente/contratos/get-info/${zona}`
+                } else {
+                    url = `/cliente/contratos/get-info/${zona}?${tipo}=${idsArray}`
+                }
+                break;
+            case 'MP':
+                if(idsArray == ""){
+                    url = `/cliente/contratos`
+                }else{
+                    url = `/cliente/contratos/get-info/${zona}?${tipo}=${idsArray}`
+                }
+                break;
+            default:
+                break;
+        }
+        Inertia.get(url);
     }
 
     return (
@@ -92,7 +126,24 @@ const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, perfiles=[], 
                             <div className="item-checkbox-menu item-checkbox-menu-subtitle">
                                 <span className="body_checkbox">
                                     <div className="checkbox" style={{ margin: 0 + 'px' }}><label>
-                                        <input type="checkbox" id="checkboxPerfilAll" className="input_perfil_val" value="0" />
+                                        {perfiles?.length == grupos?.length ?
+                                            <input
+                                                type="checkbox"
+                                                id="checkboxPerfilAll"
+                                                className="input_perfil_val"
+                                                checked={true}
+                                                onClick={() => changePage('Contratos')}
+                                            />
+                                            :
+                                            <input
+                                                type="checkbox"
+                                                id="checkboxPerfilAll"
+                                                className="input_perfil_val"
+                                                onClick={() => changePage('MP', 'perfiles', grupos)}
+                                                style={{ backgroundColor: perfiles?.length > 0 ? '#73c914' : '' }}
+                                            />
+                                        }
+
                                     </label>
                                     </div>
                                 </span> <label htmlFor="checkboxPerfilAll" id="visita_0" className="d-block">Mis perfiles
@@ -102,23 +153,23 @@ const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, perfiles=[], 
                                 <div className="scroll_fit">
                                     <div id="menuperfiles_movil">
                                         <div className="contenedor_perfiles">
-                                            {grupos.map((perfil, index) => (
-                                                <div className="item-checkbox-menu item-icon-menu" key={`perfil_${index}`} onClick={() => changePage('MP', 'perfiles',perfil.id)}>
+                                            {grupos.map((grupo, index) => (
+                                                <div className="item-checkbox-menu item-icon-menu" key={`perfil_${index}`} onClick={() => changePage('MP', 'perfiles', grupo)}>
                                                     <span className="body_checkbox">
                                                         <input
                                                             type="checkbox"
                                                             id="checkboxPerfil0"
                                                             className="input_perfil_val"
                                                             value="256058"
-                                                            checked={perfil.id==carpeta_actual?.id}
+                                                            checked={perfiles?.find(perfil => perfil.id === grupo.id)}
                                                         />
                                                     </span> <label id="visita_256058" className="">
                                                         <div className="content-img">
                                                             <div className="content-img--img imgperfil">
-                                                                <img src={perfil.imagen_filtro} />
+                                                                <img src={grupo.imagen_filtro} />
                                                             </div>
                                                         </div>
-                                                        <span title="PRIMER" alt="PRIMER" className="cursor-type-pointer">{perfil.nombre_filtro}</span>
+                                                        <span title="PRIMER" alt="PRIMER" className="cursor-type-pointer">{grupo.nombre_filtro}</span>
                                                     </label>
                                                     {/* <div className="indic-item-menu">
                                                         <i className="contadores_nuevos_point"></i>
@@ -271,7 +322,7 @@ const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, perfiles=[], 
                                                                 className="input_carpeta_val"
                                                                 value={carpeta.id}
                                                                 checked={carpeta.id == carpeta_actual?.id}
-                                                                onClick={() => changePage('C', 'carpeta', carpeta.id)}
+                                                                onClick={() => changePage('C', 'carpeta', carpeta)}
                                                             />
                                                         </label>
                                                     </div>
