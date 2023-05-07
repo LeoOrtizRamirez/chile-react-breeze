@@ -991,7 +991,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                         <div className="d-inline-block seccion-estas-en">
                                             <p className="my-1">
                                                 Estás en:
-                                                <img src="https://col.licitaciones.info/storage/banco-imagenes/artistas/Licitaciones/perfil-invisible.svg" className="mx-1"></img>
+                                                <img src={perfiles[0]?.imagen_filtro}  className="mx-1"></img>
                                                 <span className="texto-estas-en">{perfiles[0]?.nombre_filtro}</span>
                                             </p>
                                         </div>
