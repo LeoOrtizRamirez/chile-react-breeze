@@ -1,0 +1,1 @@
+import{a,F as i,j as c}from"./app-d16cbf5d.js";const o=({loading:s=!1})=>a(i,{children:s&&a("div",{className:"loader-component",children:a("div",{class:"cargando_tables visible_loading",children:c("div",{class:"col",children:[a("img",{src:"https://col.licitaciones.info/img/loading.gif",class:"img-col"}),a("p",{children:"Cargando"})]})})})});export{o as L};
