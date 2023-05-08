@@ -5,7 +5,10 @@ import { Nav, NavDropdown } from 'react-bootstrap';
 import { Inertia } from '@inertiajs/inertia'
 
 import CrearCarpeta from './CrearCarpeta';
+
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, perfiles = [], zona = null }) => {
+    const [groups, setGroups] = useState(grupos)
     const [folders, setFolders] = useState(carpetas == null ? [] : carpetas)
     useEffect(() => {
         if (carpetas != null) {
@@ -51,7 +54,7 @@ const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, perfiles = []
                     if (ids_perfiles.includes(array.id)) {
                         ids_perfiles = ids_perfiles.filter(item => item != array.id)
                         idsArray = ids_perfiles.map((a) => a).join(',');
-                    }else{
+                    } else {
                         ids_perfiles.push(array.id)
                         idsArray = ids_perfiles.map((a) => a).join(',');
                     }
@@ -78,9 +81,9 @@ const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, perfiles = []
                 }
                 break;
             case 'MP':
-                if(idsArray == ""){
+                if (idsArray == "") {
                     url = `/cliente/contratos`
-                }else{
+                } else {
                     url = `/cliente/contratos/get-info/${zona}?${tipo}=${idsArray}`
                 }
                 break;
@@ -90,10 +93,37 @@ const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, perfiles = []
         Inertia.get(url);
     }
 
+
+    const initialTasks = [
+        {
+            id: "1",
+            text: "React.js",
+        },
+        {
+            id: "2",
+            text: "HTML/CSS",
+        },
+        {
+            id: "3",
+            text: "AWS",
+        },
+        {
+            id: "4",
+            text: "JavaScript",
+        },
+    ];
+    const reorder = (list, startIndex, endIndex) => {
+        const result = [...list];
+        const [removed] = result.splice(startIndex, 1);
+        result.splice(endIndex, 0, removed);
+        return result;
+    };
+    const [tasks, setTasks] = useState(initialTasks);
+
     return (
         <div id="menu-lateral" className="fixed-top">
             <Nav className="new-menu scroll_fit">
-                {grupos.length > 0 ?
+                {groups.length > 0 ?
                     <NavDropdown
                         drop={'end'}
                         id="item_menu-misperfiles"
@@ -126,7 +156,7 @@ const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, perfiles = []
                             <div className="item-checkbox-menu item-checkbox-menu-subtitle">
                                 <span className="body_checkbox">
                                     <div className="checkbox" style={{ margin: 0 + 'px' }}><label>
-                                        {perfiles?.length == grupos?.length ?
+                                        {perfiles?.length == groups?.length ?
                                             <input
                                                 type="checkbox"
                                                 id="checkboxPerfilAll"
@@ -139,7 +169,7 @@ const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, perfiles = []
                                                 type="checkbox"
                                                 id="checkboxPerfilAll"
                                                 className="input_perfil_val"
-                                                onClick={() => changePage('MP', 'perfiles', grupos)}
+                                                onClick={() => changePage('MP', 'perfiles', groups)}
                                                 style={{ backgroundColor: perfiles?.length > 0 ? '#73c914' : '' }}
                                             />
                                         }
@@ -149,45 +179,66 @@ const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, perfiles = []
                                 </span> <label htmlFor="checkboxPerfilAll" id="visita_0" className="d-block">Mis perfiles
                                 </label>
                             </div>
-                            <div className="body-all-perfiles">
-                                <div className="scroll_fit">
-                                    <div id="menuperfiles_movil">
-                                        <div className="contenedor_perfiles">
-                                            {grupos.map((grupo, index) => (
-                                                <div className="item-checkbox-menu item-icon-menu" key={`perfil_${index}`} onClick={() => changePage('MP', 'perfiles', grupo)}>
-                                                    <span className="body_checkbox">
-                                                        <input
-                                                            type="checkbox"
-                                                            id="checkboxPerfil0"
-                                                            className="input_perfil_val"
-                                                            value="256058"
-                                                            checked={perfiles?.find(perfil => perfil.id === grupo.id)}
-                                                        />
-                                                    </span> <label id="visita_256058" className="">
-                                                        <div className="content-img">
-                                                            <div className="content-img--img imgperfil">
-                                                                <img src={grupo.imagen_filtro} />
-                                                            </div>
-                                                        </div>
-                                                        <span title="PRIMER" alt="PRIMER" className="cursor-type-pointer">{grupo.nombre_filtro}</span>
-                                                    </label>
-                                                    {/* <div className="indic-item-menu">
+
+
+                            <DragDropContext onDragEnd={(result) => {
+                                const { source, destination } = result;
+                                if (!destination) { return; }
+                                if (source.index === destination.index && source.droppableId === destination.droppableId) { return; }
+                                setGroups((prevGroup) => reorder(prevGroup, source.index, destination.index));
+                            }}
+                            >
+                                <div className="body-all-perfiles">
+                                    <div className="scroll_fit">
+                                        <div id="menuperfiles_movil">
+                                            <Droppable droppableId="groups">
+                                                {(droppableProvided) => (
+                                                    <div {...droppableProvided.droppableProps} ref={droppableProvided.innerRef} className="contenedor_perfiles">
+                                                        {groups.map((group, index) => (
+                                                            <Draggable key={group.id} draggableId={`grupo_${group.id}`} index={index}>
+                                                                {(draggableProvided) => (
+                                                                    <div {...draggableProvided.draggableProps} ref={draggableProvided.innerRef}
+                                                                        {...draggableProvided.dragHandleProps} className="item-checkbox-menu item-icon-menu" /* key={`perfil_${index}`} */ onClick={() => changePage('MP', 'perfiles', grupo)}>
+                                                                        <span className="body_checkbox">
+                                                                            <input
+                                                                                type="checkbox"
+                                                                                id="checkboxPerfil0"
+                                                                                className="input_perfil_val"
+                                                                                value="256058"
+                                                                                checked={perfiles?.find(perfil => perfil.id === group.id)}
+                                                                            />
+                                                                        </span> <label id="visita_256058" className="">
+                                                                            <div className="content-img">
+                                                                                <div className="content-img--img imgperfil">
+                                                                                    <img src={group.imagen_filtro} />
+                                                                                </div>
+                                                                            </div>
+                                                                            <span title="PRIMER" alt="PRIMER" className="cursor-type-pointer">{group.nombre_filtro}</span>
+                                                                        </label>
+                                                                        {/* <div className="indic-item-menu">
                                                         <i className="contadores_nuevos_point"></i>
                                                     </div> */}
-                                                    <i className="icono-arrastre icon-Mover"></i>
-                                                </div>
-                                            ))}
-
+                                                                        <i className="icono-arrastre icon-Mover"></i>
+                                                                    </div>
+                                                                )}
+                                                            </Draggable>
+                                                        ))}
+                                                        {droppableProvided.placeholder}
+                                                    </div>
+                                                )}
+                                            </Droppable>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </DragDropContext>
+
+
                             <div className="botones-dropdown-menu">
                                 <a href="/cliente/grupo" className="btn-new-gray text-center activeli">Administrar perfil(es)</a>
                                 <a href="/cliente/grupo/crear" className="btn-new-green text-center"><i className="icon-Crear icon-boton"></i>Crear perfil</a>
                             </div>
                         </div>
-                    </NavDropdown>
+                    </NavDropdown >
                     :
                     <li id="item_menu-seguimiento-li">
                         <a href="/cliente/grupo" id="item_menu-misperfiles" className="">
@@ -378,12 +429,12 @@ const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, perfiles = []
                         <span className="item-title-menu">Sugerencia de entidades</span>
                     </a>
                 </li>
-            </Nav>
+            </Nav >
             <ul className="new-menu scroll_fit ">
 
             </ul>
             <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} carpeta={carpeta} />
-        </div>
+        </div >
     )
 }
 
