@@ -482,4 +482,15 @@ class GrupoFiltroUsuarioController extends Controller
         $data['localizaciones'] = $localizaciones;
         return $data;
     }
+
+    public function ordenar(Request $request)
+    {
+        foreach ($request->perfiles as $key => $value) {
+            $perfil = GrupoFiltroUsuario::find($value["id"]);
+            $perfil->orden = $key;
+            $perfil->save();
+        }
+        $perfiles = GrupoFiltroUsuario::where('id_usuario', Auth::id())->orderBy('orden', 'ASC')->get();
+        return $perfiles;
+    }
 }

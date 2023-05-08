@@ -177,7 +177,9 @@ Route::post('/cliente/grupo/update', [GrupoFiltroUsuarioController::class, 'upda
 Route::post('/cliente/grupo/duplicar', [GrupoFiltroUsuarioController::class, 'copy'])->middleware(['auth', 'verified']);
 Route::post('/cliente/grupo/destroy', [GrupoFiltroUsuarioController::class, 'delete'])->middleware(['auth', 'verified']);
 Route::get('/cliente/grupo/subcategorias/{id}', [GrupoFiltroUsuarioController::class, 'subcategorias'])->middleware(['auth', 'verified']);
+Route::post('/cliente/grupo/save-order', [GrupoFiltroUsuarioController::class, 'ordenar'])->middleware(['auth', 'verified']);
 Route::post('grupo-filtro-usuarios/store', [GrupoFiltroUsuarioController::class, 'store'])->middleware(['auth', 'verified']);
+
 
 
 /*Carpetas */

@@ -180,17 +180,29 @@ const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, perfiles = []
                                 </label>
                             </div>
 
+                            <div className="body-all-perfiles">
+                                <div className="scroll_fit">
+                                    <div id="menuperfiles_movil">
+                                        <DragDropContext onDragEnd={(result) => {
+                                            const { source, destination } = result;
+                                            if (!destination) { return; }
+                                            if (source.index === destination.index && source.droppableId === destination.droppableId) { return; }
+                                            setGroups((prevGroup) => reorder(prevGroup, source.index, destination.index));
+                                            let perfiles_ordenados = reorder(groups, source.index, destination.index)
+                                            var token = document.querySelector('meta[name="csrf-token"]')
+                                            axios.post('/cliente/grupo/save-order', {
+                                                perfiles: perfiles_ordenados
+                                            },
+                                                { 'Authorization': `Bearer ${token}` })
+                                                .then(response => {
 
-                            <DragDropContext onDragEnd={(result) => {
-                                const { source, destination } = result;
-                                if (!destination) { return; }
-                                if (source.index === destination.index && source.droppableId === destination.droppableId) { return; }
-                                setGroups((prevGroup) => reorder(prevGroup, source.index, destination.index));
-                            }}
-                            >
-                                <div className="body-all-perfiles">
-                                    <div className="scroll_fit">
-                                        <div id="menuperfiles_movil">
+                                                })
+                                                .catch(error => {
+                                                    console.log(error)
+                                                })
+                                        }}
+                                        >
+
                                             <Droppable droppableId="groups">
                                                 {(droppableProvided) => (
                                                     <div {...droppableProvided.droppableProps} ref={droppableProvided.innerRef} className="contenedor_perfiles">
@@ -198,7 +210,7 @@ const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, perfiles = []
                                                             <Draggable key={group.id} draggableId={`grupo_${group.id}`} index={index}>
                                                                 {(draggableProvided) => (
                                                                     <div {...draggableProvided.draggableProps} ref={draggableProvided.innerRef}
-                                                                        {...draggableProvided.dragHandleProps} className="item-checkbox-menu item-icon-menu" /* key={`perfil_${index}`} */ onClick={() => changePage('MP', 'perfiles', grupo)}>
+                                                                        {...draggableProvided.dragHandleProps} className="item-checkbox-menu item-icon-menu" /* key={`perfil_${index}`} */ onClick={() => changePage('MP', 'perfiles', group)}>
                                                                         <span className="body_checkbox">
                                                                             <input
                                                                                 type="checkbox"
@@ -227,11 +239,11 @@ const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, perfiles = []
                                                     </div>
                                                 )}
                                             </Droppable>
-                                        </div>
+
+                                        </DragDropContext>
                                     </div>
                                 </div>
-                            </DragDropContext>
-
+                            </div>
 
                             <div className="botones-dropdown-menu">
                                 <a href="/cliente/grupo" className="btn-new-gray text-center activeli">Administrar perfil(es)</a>

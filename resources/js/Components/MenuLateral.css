@@ -433,3 +433,9 @@
 .dropdown-toggle.show.nav-link .icon-Flujo.flechas-menu:before {
     color: #00a1c9;
 }
+
+#menu-lateral #item_menu-misperfiles ~ div{
+    inset: 20px auto auto 77.6px !important;
+    transform: unset !important;
+}
+
