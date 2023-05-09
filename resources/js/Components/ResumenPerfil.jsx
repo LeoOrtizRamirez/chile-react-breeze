@@ -56,7 +56,7 @@ const ResumenPerfil = ({ showModal, handleCloseModal, data }) => {
                             <Accordion.Body className="accordion-resumen--body">
                                 <div className='tree'>
                                     <div className='tree-root'>
-                                        {data?.tiposcompras?.length > 0 ?
+                                        {data?.tiposcompras?.length > 0 && data?.tiposcompras?.length < data?.total_tiposcompras ?
                                             <>
                                                 {
                                                     data.tiposcompras.map((ae) => (
@@ -89,7 +89,7 @@ const ResumenPerfil = ({ showModal, handleCloseModal, data }) => {
                             <Accordion.Body className="accordion-resumen--body">
                                 <div className='tree'>
                                     <div className='tree-root'>
-                                        {data?.localizaciones?.length > 0 ?
+                                        {data?.localizaciones?.length > 0 && data?.localizaciones?.length < data?.total_localizaciones ?
                                             <>
                                                 {
                                                     data.localizaciones.map((ae) => (

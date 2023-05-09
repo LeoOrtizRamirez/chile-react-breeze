@@ -436,3 +436,29 @@
 #SubCategorias .Localizaciones i.tree-arrow.expanded.has-child.ltr {
     display: none;
 }
+
+#SubCategorias .tree_categorias__check_personalizado {
+    position: relative;
+    display: block;
+    padding: 12px 0 24px;
+}
+
+#SubCategorias .tree_categorias__check_personalizado input[type=checkbox]+label {
+    cursor: pointer;
+    padding-left: 20px;
+    margin: 0;
+    display: inline;
+    position: relative;
+    font-size: 15px;
+    color: #00a1c9!important;
+    font-family: Nexa-bold,sans-serif;
+}
+
+#SubCategorias input#check_all2 {
+    margin-left: 12px;
+}
+
+#SubCategorias .form-check-input:checked {
+    background-color: #73c914 !important;
+    border-color: #73c914 !important;
+}

@@ -461,6 +461,9 @@ class GrupoFiltroUsuarioController extends Controller
         $tipos_compras = [];
         $localizaciones = [];
 
+        $total_localizaciones = sizeof($this->getSubCategorias(3));
+        $total_tiposcompras = sizeof($this->getSubCategorias(5));
+
         foreach ($subcategorias as $key => $value) {
             switch ($value->subcategoria->tipo_categoria) {
                 case 1:
@@ -480,6 +483,9 @@ class GrupoFiltroUsuarioController extends Controller
         $data['actividades_economicas'] = $actividades_economicas;
         $data['tiposcompras'] = $tipos_compras;
         $data['localizaciones'] = $localizaciones;
+        $data['total_tiposcompras'] = $total_tiposcompras;
+        $data['total_localizaciones'] = $total_localizaciones;
+        
         return $data;
     }
 

@@ -280,6 +280,8 @@ const Crear = ({
             'actividades_economicas': sub_actividades_economicas,
             'tiposcompras': sub_tiposcompras,
             'localizaciones': sub_localizaciones,
+            'total_tiposcompras': tiposcompras.length,
+            'total_localizaciones':localizaciones.length,
             'perfil': {
                 'limite_inferior_cuantia': cuantiaDesde,
                 'limite_superior_cuantia': cuantiaHasta,
@@ -325,7 +327,7 @@ const Crear = ({
                                         <li>
                                             <div className={`perfil-guias__indicador ${container == 2 ? "perfil-guias__indicador--activo" : ""}`} onClick={() => changeContent(2)}>
                                                 <i id="icon2" className={`icon-Paso-2-click ${container == 2 ? "c-activo-iconos" : ""}`} ></i>{" "}
-                                                <span id="span2" className={`${container == 2 ? "c-activo-texto-iconos" : ""}`}>Tipo de compra</span>
+                                                <span id="span2" className={`${container == 2 ? "c-activo-texto-iconos" : ""}`}>Modalidad</span>
                                             </div>
                                         </li>
                                     )}
@@ -367,6 +369,7 @@ const Crear = ({
                                                 onHandleSectores={onHandleSectores}
                                                 tipo={"ActividadEconomica"}
                                                 checkeds={checkedsActividadesEconomicas}
+                                                checkAllText={""}
                                             />
                                         )}
                                     </>
@@ -374,10 +377,11 @@ const Crear = ({
                                         {container == 2 && (
                                             <ActividadEconomica
                                                 subcategorias={tiposcompras}
-                                                nameBuscador={"Buscar Tipo de Compra"}
+                                                nameBuscador={"Buscar Modalidad"}
                                                 onHandleSectores={onHandleSectores}
                                                 tipo={"TiposCompras"}
                                                 checkeds={checkedsTiposCompras}
+                                                checkAllText={"Seleccionar todas las modalidades"}
                                             />
                                         )}
                                     </>
@@ -390,6 +394,7 @@ const Crear = ({
                                                 onHandleSectores={onHandleSectores}
                                                 tipo={"Localizaciones"}
                                                 checkeds={checkedsLocalizaciones}
+                                                checkAllText={"Todo el país - Colombia"}
                                             />
                                         )}
                                     </>

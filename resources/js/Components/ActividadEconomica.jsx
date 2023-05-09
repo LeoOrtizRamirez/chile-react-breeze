@@ -8,8 +8,10 @@ const ActividadEconomica = ({
     onHandleSectores,
     tipo,
     checkeds,
+    checkAllText
 }) => {
 
+    console.log("subcategorias", subcategorias)
     const [fakeSectores, setFakeSectores] = useState(subcategorias);
     const [sectores, setSectores] = useState(subcategorias);
     const [openSectores, setOpenSectores] = useState([]);
@@ -127,6 +129,16 @@ const ActividadEconomica = ({
             }
         });
     };
+
+    const checkAll = () => {
+        if (checksActividadesEconomicas.length < sectores.length) {
+            var all = sectores.map(sector => sector.id)
+            all = [...new Set(all)];
+            setChecksActividadesEconomicas(all);
+        } else {
+            setChecksActividadesEconomicas([]);
+        }
+    }
 
     const checked = (current) => {
         var array_checks = []; //Conserva el id de las actividades economicas
@@ -664,7 +676,7 @@ element.id_padre_sub_categoria
                 <div class="mx-auto">
                     <input
                         type="text"
-                        placeholder="Busca por actividad económica o UNSPSC"
+                        placeholder={nameBuscador}
                         class="form-control"
                         onKeyDown={inputSearchActividadEconomica}
                     />
@@ -695,6 +707,19 @@ element.id_padre_sub_categoria
                     />
                 </h2>
             </div> */}
+            {checkAllText != "" &&
+                <div class="tree_categorias__check_personalizado">
+                    <input
+                        type="checkbox"
+                        name="check_all2"
+                        id="check_all2"
+                        class="form-check-input filled-in"
+                        onChange={checkAll}
+                        checked={checksActividadesEconomicas.length == sectores.length}
+                    />
+                    <label for="check_all2">{checkAllText}</label>
+                </div>
+            }
             <ul className={`tree-root ${tipo}`} id={id}>
                 {sectores.map((sector) => (
                     <>
@@ -711,12 +736,7 @@ element.id_padre_sub_categoria
                                     className="tree-content sector"
                                     key={sector.id}
                                 >
-                                    <i
-                                        className={`tree-arrow has-child ${sector.childs.length > 0
-                                            ? "ltr"
-                                            : ""
-                                            }`}
-                                    ></i>
+                                    <i className={`${sector.childs.length > 0 ? "tree-arrow has-child ltr" : ""}`} ></i>
                                     <input
                                         id={"sector_check_" + sector.id}
                                         class={`${inputsCheckMinusClass.includes(
@@ -737,22 +757,37 @@ element.id_padre_sub_categoria
                                         }
                                     />
                                     <span className="tree-anchor">
-                                        <span
-                                            className="tree-division tree-division1"
-                                            onClick={() =>
-                                                getSegmento(sector.id)
-                                            }
-                                        >
-                                            {tipo == "ActividadEconomica" &&
-                                                <div class="tree-division__img">
-                                                    <img src={`/public/images/subcategorias/${sector.icon}`} width="35px" />
-                                                </div>
-                                            }
-
-                                            <span className="tree-division__title my-auto">
-                                                {sector.nombre}
+                                        {sector.childs.length > 0 ?
+                                            <span
+                                                className="tree-division tree-division1"
+                                                onClick={() =>
+                                                    getSegmento(sector.id)
+                                                }
+                                            >
+                                                {tipo == "ActividadEconomica" &&
+                                                    <div class="tree-division__img">
+                                                        <img src={`/public/images/subcategorias/${sector.icon}`} width="35px" />
+                                                    </div>
+                                                }
+                                                <span className="tree-division__title my-auto">
+                                                    {sector.nombre}
+                                                </span>
                                             </span>
-                                        </span>
+                                            :
+                                            <span
+                                                className="tree-division tree-division1"
+                                                onClick={() => checked(sector)}
+                                            >
+                                                {tipo == "ActividadEconomica" &&
+                                                    <div class="tree-division__img">
+                                                        <img src={`/public/images/subcategorias/${sector.icon}`} width="35px" />
+                                                    </div>
+                                                }
+                                                <span className="tree-division__title my-auto">
+                                                    {sector.nombre}
+                                                </span>
+                                            </span>
+                                        }
                                     </span>
                                 </div>
                                 {openSectores.includes(sector.id) && (
