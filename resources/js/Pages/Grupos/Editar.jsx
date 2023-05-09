@@ -293,6 +293,8 @@ const Editar = ({
             'actividades_economicas': sub_actividades_economicas,
             'tiposcompras': sub_tiposcompras,
             'localizaciones': sub_localizaciones,
+            'total_tiposcompras': tiposcompras.length,
+            'total_localizaciones': localizaciones.length,
             'perfil': {
                 'limite_inferior_cuantia': cuantiaDesde,
                 'limite_superior_cuantia': cuantiaHasta,
@@ -338,7 +340,7 @@ const Editar = ({
                                         <li>
                                             <div className={`perfil-guias__indicador ${container == 2 ? "perfil-guias__indicador--activo" : ""}`} onClick={() => changeContent(2)}>
                                                 <i id="icon2" className={`icon-Paso-2-click ${container == 2 ? "c-activo-iconos" : ""}`} ></i>{" "}
-                                                <span id="span2" className={`${container == 2 ? "c-activo-texto-iconos" : ""}`}>Tipo de compra</span>
+                                                <span id="span2" className={`${container == 2 ? "c-activo-texto-iconos" : ""}`}>Modalidad</span>
                                             </div>
                                         </li>
                                     )}
@@ -370,258 +372,258 @@ const Editar = ({
                             </div>
                             <div className="perfil-contenido">
                                 <div className="tree_categorias tree_1">
-                                    <div className="tree_categorias__busqueda mb-3 mb-md-4">
 
 
-                                        <>{/* Paso 1*/}
-                                            {container == 1 && (
-                                                <ActividadEconomica
-                                                    subcategorias={sectores}
-                                                    nameBuscador={"Busca por actividad económica o UNSPSC"}
-                                                    onHandleSectores={onHandleSectores}
-                                                    tipo={"ActividadEconomica"}
-                                                    checkeds={checkedsActividadesEconomicas}
-                                                />
-                                            )}
-                                        </>
-                                        <> {/* Paso 2 TIPO DE COMPRAS*/}
-                                            {container == 2 && (
-                                                <ActividadEconomica
-                                                    subcategorias={tiposcompras}
-                                                    nameBuscador={"Buscar Tipo de Compra"}
-                                                    onHandleSectores={onHandleSectores}
-                                                    tipo={"TiposCompras"}
-                                                    checkeds={checkedsTiposCompras}
-                                                />
-                                            )}
-                                        </>
+                                    <>{/* Paso 1*/}
+                                        {container == 1 && (
+                                            <ActividadEconomica
+                                                subcategorias={sectores}
+                                                nameBuscador={"Busca por actividad económica o UNSPSC"}
+                                                onHandleSectores={onHandleSectores}
+                                                tipo={"ActividadEconomica"}
+                                                checkeds={checkedsActividadesEconomicas}
+                                                checkAllText={""}
+                                            />
+                                        )}
+                                    </>
+                                    <> {/* Paso 2 TIPO DE COMPRAS*/}
+                                        {container == 2 && (
+                                            <ActividadEconomica
+                                                subcategorias={tiposcompras}
+                                                nameBuscador={"Buscar Modalidad"}
+                                                onHandleSectores={onHandleSectores}
+                                                tipo={"TiposCompras"}
+                                                checkeds={checkedsTiposCompras}
+                                                checkAllText={"Seleccionar todas las modalidades"}
+                                            />
+                                        )}
+                                    </>
 
-                                        <>{/* Paso 3 LOCALIZACIONES */}
-                                            {container == 3 && (
-                                                <ActividadEconomica
-                                                    subcategorias={localizaciones}
-                                                    nameBuscador={"Buscar Localización"}
-                                                    onHandleSectores={onHandleSectores}
-                                                    tipo={"Localizaciones"}
-                                                    checkeds={checkedsLocalizaciones}
-                                                />
-                                            )}
-                                        </>
+                                    <>{/* Paso 3 LOCALIZACIONES */}
+                                        {container == 3 && (
+                                            <ActividadEconomica
+                                                subcategorias={localizaciones}
+                                                nameBuscador={"Buscar Localización"}
+                                                onHandleSectores={onHandleSectores}
+                                                tipo={"Localizaciones"}
+                                                checkeds={checkedsLocalizaciones}
+                                                checkAllText={"Todo el país - Colombia"}
+                                            />
+                                        )}
+                                    </>
 
-                                        <>{/* Paso 4 Cuantia*/}
-                                            {container == 4 && (
-                                                <div className="perfil-cuantias">
-                                                    <div
-                                                        id="campos-cuantias"
-                                                        className="justify-content-center pt-2 pb-5 py-md-5 row"
-                                                    >
-                                                        <div className="col-10 col-sm-8 col-lg-4 col-md-5">
-                                                            <div className="form-group mb-5 mb-md-1 campos-cuantias__form">
-                                                                <span className="icon-Cuantia campos-cuantias__icon">
-                                                                    <span className="path1"></span>
-                                                                    <span className="path2"></span>
-                                                                    <span className="path3"></span>
-                                                                    <span className="path4"></span>
-                                                                </span>
-                                                                <label>
-                                                                    Cuantía desde:
-                                                                </label>
+                                    <>{/* Paso 4 Cuantia*/}
+                                        {container == 4 && (
+                                            <div className="perfil-cuantias">
+                                                <div
+                                                    id="campos-cuantias"
+                                                    className="justify-content-center pt-2 pb-5 py-md-5 row"
+                                                >
+                                                    <div className="col-10 col-sm-8 col-lg-4 col-md-5">
+                                                        <div className="form-group mb-5 mb-md-1 campos-cuantias__form">
+                                                            <span className="icon-Cuantia campos-cuantias__icon">
+                                                                <span className="path1"></span>
+                                                                <span className="path2"></span>
+                                                                <span className="path3"></span>
+                                                                <span className="path4"></span>
+                                                            </span>
+                                                            <label>
+                                                                Cuantía desde:
+                                                            </label>
+                                                            <input
+                                                                value={cuantiaDesde}
+                                                                onChange={
+                                                                    (e) => formatValue(e, 'desde')
+                                                                }
+                                                                type="text"
+                                                                id="cuantia_desde"
+                                                                name="cuantia_desde"
+                                                                placeholder="$"
+                                                                className="form-control inputs_form"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-10 col-sm-8 col-lg-4 col-md-5">
+                                                        <div className="form-group campos-cuantias__form">
+                                                            <span className="icon-Cuantia-2 campos-cuantias__icon">
+                                                                <span className="path1"></span>
+                                                                <span className="path2"></span>
+                                                                <span className="path3"></span>
+                                                                <span className="path4"></span>
+                                                            </span>
+                                                            <label id="descripcion">
+                                                                Cuantía hasta:
+                                                            </label>
+                                                            <input
+                                                                ref={refCuantiaHasta}
+                                                                value={cuantiaHasta}
+                                                                onChange={
+                                                                    (e) => formatValue(e, 'hasta')
+                                                                }
+                                                                type="text"
+                                                                id="cuantia_hasta"
+                                                                name="cuantia_hasta"
+                                                                placeholder="Sin limite superior"
+                                                                className="form-control inputs_form"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {toggleSwitchCuantiaDesde && (
+                                                    <div className="align-items-center col-11 col-lg-8 col-md-9 col-sm-10 justify-content-between campos-cuantias__block row">
+                                                        <div className="col-8 p-0">
+                                                            <p>
+                                                                ¿Deseas incluir
+                                                                contratos{" "}
+                                                                <span className="text_color">
+                                                                    sin presupuesto
+                                                                    asignado
+                                                                </span>{" "}
+                                                                o con cuantía de{" "}
+                                                                <span className="text_color">
+                                                                    $0
+                                                                </span>{" "}
+                                                                en este perfil?
+                                                            </p>
+                                                        </div>
+                                                        <div className="col-3 text-center">
+                                                            <label className="switch">
                                                                 <input
-                                                                    value={cuantiaDesde}
-                                                                    onChange={
-                                                                        (e) => formatValue(e, 'desde')
+                                                                    type="checkbox"
+                                                                    checked={
+                                                                        switchSinPresupuestoAsignado
                                                                     }
-                                                                    type="text"
-                                                                    id="cuantia_desde"
-                                                                    name="cuantia_desde"
-                                                                    placeholder="$"
-                                                                    className="form-control inputs_form"
+                                                                    onClick={() =>
+                                                                        setSwitchSinPresupuestoAsignado(
+                                                                            !switchSinPresupuestoAsignado
+                                                                        )
+                                                                    }
                                                                 />
+                                                                <span className="slider round"></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        )}
+                                    </>
+
+                                    <> {/* Paso 5*/}
+
+                                        {container == 5 && (
+                                            <div className="perfil-preferencia">
+                                                <div className="row pt-3 justify-content-center pb-lg-4">
+                                                    <div className="col-xs-12 col-sm-12 col-xl-6 px-4 contenedor-general row">
+                                                        <div className="col-3 col-md-3 col-xl-3">
+                                                            <div className="imagen">
+
+                                                                <img src={iconCheckSelected} alt="Avatar" className="imagen__avatar" />
+                                                                <button className="imagen__cambiar-avatar-button" onClick={handleShowFilter}>
+                                                                    <span className="icon-Editar"></span>
+                                                                </button>
                                                             </div>
                                                         </div>
-                                                        <div className="col-10 col-sm-8 col-lg-4 col-md-5">
-                                                            <div className="form-group campos-cuantias__form">
-                                                                <span className="icon-Cuantia-2 campos-cuantias__icon">
-                                                                    <span className="path1"></span>
-                                                                    <span className="path2"></span>
-                                                                    <span className="path3"></span>
-                                                                    <span className="path4"></span>
-                                                                </span>
-                                                                <label id="descripcion">
-                                                                    Cuantía hasta:
-                                                                </label>
+                                                        <div className="col-9 col-md-9 col-xl-9">
+                                                            <div className="perfil-preferencia__form1">
+                                                                <label id="nombre" className="perfil-preferencia__labels">Dale un nombre a tu perfil:</label>
                                                                 <input
-                                                                    ref={refCuantiaHasta}
-                                                                    value={cuantiaHasta}
-                                                                    onChange={
-                                                                        (e) => formatValue(e, 'hasta')
-                                                                    }
+                                                                    id="inputNombrePerfil"
+                                                                    value={inputNombrePerfil}
+                                                                    onChange={handleInputNombrePerfil}
                                                                     type="text"
-                                                                    id="cuantia_hasta"
-                                                                    name="cuantia_hasta"
-                                                                    placeholder="Sin limite superior"
-                                                                    className="form-control inputs_form"
+                                                                    name="nombre"
+                                                                    className="form-control inputs_form padd-peq mb-0"
+                                                                    required
+                                                                /*  ref={inputNombrePerfil} */
                                                                 />
+                                                                <div className="invalid-feedback mb-3">El campo nombre perfil es obligatorio.</div>
+                                                                <label id="descripcion" className="perfil-preferencia__labels">Descripción del perfil (opcional):</label>
+                                                                <textarea
+                                                                    value={inputDescripcionPerfil}
+                                                                    onChange={e => setInputDescripcionPerfil(e.target.value)}
+                                                                    type="text"
+                                                                    name="descripcion"
+                                                                    rows="3"
+                                                                    className="form-control inputs_form"
+                                                                ></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    {toggleSwitchCuantiaDesde && (
-                                                        <div className="align-items-center col-11 col-lg-8 col-md-9 col-sm-10 justify-content-between campos-cuantias__block row">
-                                                            <div className="col-8 p-0">
-                                                                <p>
-                                                                    ¿Deseas incluir
-                                                                    contratos{" "}
-                                                                    <span className="text_color">
-                                                                        sin presupuesto
-                                                                        asignado
-                                                                    </span>{" "}
-                                                                    o con cuantía de{" "}
-                                                                    <span className="text_color">
-                                                                        $0
-                                                                    </span>{" "}
-                                                                    en este perfil?
-                                                                </p>
+                                                    <div className="col-xs-12 col-sm-12 col-xl-6 px-4 contenedor-general__derecha">
+                                                        <div className="perfil-preferencia__historico pb-4 pb-lg-0 px-3 px-md-0">
+                                                            <div className="align-items-center d-flex justify-content-between perfil-preferencia__historico-row mb-3">
+                                                                <div className="perfil-preferencia__historico-row__icon d-flex">
+                                                                    <img src="/public/images/Web/icon-Historico.svg" alt="" width={30} />
+                                                                    <label>Histórico de procesos de contratación:</label>
+                                                                </div>
+                                                                <div className="perfil-preferencia__historico-row__toggleb">
+                                                                    <label className="switch">
+                                                                        <input
+                                                                            type="checkbox"
+                                                                            checked={
+                                                                                switchHistorico
+                                                                            }
+                                                                            onClick={() =>
+                                                                                setSwitchHistorico(
+                                                                                    !switchHistorico
+                                                                                )
+                                                                            }
+                                                                            onChange={onHandleSwitchHistorico}
+                                                                        />
+                                                                        <span className="slider round"></span>
+                                                                    </label>
+                                                                </div>
                                                             </div>
-                                                            <div className="col-3 text-center">
-                                                                <label className="switch">
-                                                                    <input
-                                                                        type="checkbox"
-                                                                        checked={
-                                                                            switchSinPresupuestoAsignado
-                                                                        }
-                                                                        onClick={() =>
-                                                                            setSwitchSinPresupuestoAsignado(
-                                                                                !switchSinPresupuestoAsignado
-                                                                            )
-                                                                        }
-                                                                    />
-                                                                    <span className="slider round"></span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            )}
-                                        </>
-
-                                        <> {/* Paso 5*/}
-
-                                            {container == 5 && (
-                                                <div className="perfil-preferencia">
-                                                    <div className="row pt-3 justify-content-center pb-lg-4">
-                                                        <div className="col-xs-12 col-sm-12 col-xl-6 px-4 contenedor-general row">
-                                                            <div className="col-3 col-md-3 col-xl-3">
-                                                                <div className="imagen">
-
-                                                                    <img src={iconCheckSelected} alt="Avatar" className="imagen__avatar" />
-                                                                    <button className="imagen__cambiar-avatar-button" onClick={handleShowFilter}>
-                                                                        <span className="icon-Editar"></span>
+                                                            <div className="align-items-center d-flex perfil-preferencia__historico-row mb-3">
+                                                                <div className="perfil-preferencia__historico-row__span">
+                                                                    <span className="perfil-preferencia__fecha-historico from-label">Desde: </span>
+                                                                </div>
+                                                                <div className="perfil-preferencia__historico-row__input d-flex">
+                                                                    <input disabled ref={refInputFechaHistorico} value={fechaHistorico} name='fecha_historico' className="perfil-preferencia__fecha-historico_input" />
+                                                                    <button
+                                                                        ref={btnCambiarFecha}
+                                                                        className={`btn btnRadius btn-new-blue button_change_date`}
+                                                                        onClick={handleShowCalendar}
+                                                                        style={{ visibility: perfil.historico == null ? 'hidden' : 'visible', }}
+                                                                    >
+                                                                        <img src="/public/images/Web/icon-Cambiar.svg" alt="icon-Cambiar" className="margin-right-5" /> Cambiar fecha
                                                                     </button>
                                                                 </div>
                                                             </div>
-                                                            <div className="col-9 col-md-9 col-xl-9">
-                                                                <div className="perfil-preferencia__form1">
-                                                                    <label id="nombre" className="perfil-preferencia__labels">Dale un nombre a tu perfil:</label>
-                                                                    <input
-                                                                        id="inputNombrePerfil"
-                                                                        value={inputNombrePerfil}
-                                                                        onChange={handleInputNombrePerfil}
-                                                                        type="text"
-                                                                        name="nombre"
-                                                                        className="form-control inputs_form padd-peq mb-0"
-                                                                        required
-                                                                    /*  ref={inputNombrePerfil} */
-                                                                    />
-                                                                    <div className="invalid-feedback mb-3">El campo nombre perfil es obligatorio.</div>
-                                                                    <label id="descripcion" className="perfil-preferencia__labels">Descripción del perfil (opcional):</label>
-                                                                    <textarea
-                                                                        value={inputDescripcionPerfil}
-                                                                        onChange={e => setInputDescripcionPerfil(e.target.value)}
-                                                                        type="text"
-                                                                        name="descripcion"
-                                                                        rows="3"
-                                                                        className="form-control inputs_form"
-                                                                    ></textarea>
-                                                                </div>
-                                                            </div>
                                                         </div>
-                                                        <div className="col-xs-12 col-sm-12 col-xl-6 px-4 contenedor-general__derecha">
-                                                            <div className="perfil-preferencia__historico pb-4 pb-lg-0 px-3 px-md-0">
-                                                                <div className="align-items-center d-flex justify-content-between perfil-preferencia__historico-row mb-3">
-                                                                    <div className="perfil-preferencia__historico-row__icon d-flex">
-                                                                        <img src="/public/images/Web/icon-Historico.svg" alt="" width={30} />
-                                                                        <label>Histórico de procesos de contratación:</label>
-                                                                    </div>
-                                                                    <div className="perfil-preferencia__historico-row__toggleb">
-                                                                        <label className="switch">
-                                                                            <input
-                                                                                type="checkbox"
-                                                                                checked={
-                                                                                    switchHistorico
-                                                                                }
-                                                                                onClick={() =>
-                                                                                    setSwitchHistorico(
-                                                                                        !switchHistorico
-                                                                                    )
-                                                                                }
-                                                                                onChange={onHandleSwitchHistorico}
-                                                                            />
-                                                                            <span className="slider round"></span>
-                                                                        </label>
-                                                                    </div>
+                                                        <div className="perfil-preferencia__form1">
+                                                            <div className="align-items-center d-flex justify-content-between perfil-preferencia__historico-row mb-3">
+                                                                <div className="perfil-preferencia__historico-row__icon d-flex">
+                                                                    <img src="/public/images/Web/icon-Email-noti.svg" alt="" width={30} />
+                                                                    <label>Notificaciones a tu email:</label>
                                                                 </div>
-                                                                <div className="align-items-center d-flex perfil-preferencia__historico-row mb-3">
-                                                                    <div className="perfil-preferencia__historico-row__span">
-                                                                        <span className="perfil-preferencia__fecha-historico from-label">Desde: </span>
-                                                                    </div>
-                                                                    <div className="perfil-preferencia__historico-row__input d-flex">
-                                                                        <input disabled ref={refInputFechaHistorico} value={fechaHistorico} name='fecha_historico' className="perfil-preferencia__fecha-historico_input" />
-                                                                        <button
-                                                                            ref={btnCambiarFecha}
-                                                                            className={`btn btnRadius btn-new-blue button_change_date`}
-                                                                            onClick={handleShowCalendar}
-                                                                            style={{ visibility: perfil.historico == null ? 'hidden' : 'visible', }}
-                                                                        >
-                                                                            <img src="/public/images/Web/icon-Cambiar.svg" alt="icon-Cambiar" className="margin-right-5" /> Cambiar fecha
-                                                                        </button>
-                                                                    </div>
+                                                                <div className="perfil-preferencia__historico-row__toggleb">
+                                                                    <label className="switch">
+                                                                        <input
+                                                                            className="Activado"
+                                                                            type="checkbox"
+                                                                            checked={
+                                                                                switchEmail
+                                                                            }
+                                                                            onClick={() =>
+                                                                                setSwitchEmail(
+                                                                                    !switchEmail
+                                                                                )
+                                                                            }
+                                                                        />
+                                                                        <span className="slider round"></span>
+                                                                    </label>
                                                                 </div>
                                                             </div>
-                                                            <div className="perfil-preferencia__form1">
-                                                                <div className="align-items-center d-flex justify-content-between perfil-preferencia__historico-row mb-3">
-                                                                    <div className="perfil-preferencia__historico-row__icon d-flex">
-                                                                        <img src="/public/images/Web/icon-Email-noti.svg" alt="" width={30} />
-                                                                        <label>Notificaciones a tu email:</label>
-                                                                    </div>
-                                                                    <div className="perfil-preferencia__historico-row__toggleb">
-                                                                        <label className="switch">
-                                                                            <input
-                                                                                className="Activado"
-                                                                                type="checkbox"
-                                                                                checked={
-                                                                                    switchEmail
-                                                                                }
-                                                                                onClick={() =>
-                                                                                    setSwitchEmail(
-                                                                                        !switchEmail
-                                                                                    )
-                                                                                }
-                                                                            />
-                                                                            <span className="slider round"></span>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="alineamiento-label d-flex pb-3 pb-lg-0 px-3 px-md-0">
-                                                                    <p className="mr5 text-justify">Te notificaríamos en tu <span className="text_color">correo</span> cuando encontremos una oportunidad que coincida con este perfil.</p>
-                                                                </div>
+                                                            <div className="alineamiento-label d-flex pb-3 pb-lg-0 px-3 px-md-0">
+                                                                <p className="mr5 text-justify">Te notificaríamos en tu <span className="text_color">correo</span> cuando encontremos una oportunidad que coincida con este perfil.</p>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            )}
-                                        </>
-
-                                    </div>
+                                            </div>
+                                        )}
+                                    </>
                                 </div>
                             </div>
 
