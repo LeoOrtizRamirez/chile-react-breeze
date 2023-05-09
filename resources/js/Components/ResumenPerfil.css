@@ -274,3 +274,10 @@
 #modal-resumen-perfil #cuantia_hasta {
     margin-left: 5px !important;
 }
+
+#modal-resumen-perfil .sin_items_resumen {
+    margin-left: 22px;
+    margin-top: 12px;
+    font-family: Nexa-bold,sans-serif!important;
+    color: #686868!important;
+}

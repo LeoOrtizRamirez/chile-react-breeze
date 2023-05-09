@@ -56,7 +56,7 @@ const ResumenPerfil = ({ showModal, handleCloseModal, data }) => {
                             <Accordion.Body className="accordion-resumen--body">
                                 <div className='tree'>
                                     <div className='tree-root'>
-                                        {data?.tiposcompras?.length > 0 &&
+                                        {data?.tiposcompras?.length > 0 ?
                                             <>
                                                 {
                                                     data.tiposcompras.map((ae) => (
@@ -74,6 +74,8 @@ const ResumenPerfil = ({ showModal, handleCloseModal, data }) => {
                                                     ))
                                                 }
                                             </>
+                                            :
+                                            <p class="sin_items_resumen">Todas las modalidades</p>
                                         }
                                     </div>
                                 </div>
@@ -87,7 +89,7 @@ const ResumenPerfil = ({ showModal, handleCloseModal, data }) => {
                             <Accordion.Body className="accordion-resumen--body">
                                 <div className='tree'>
                                     <div className='tree-root'>
-                                        {data?.localizaciones?.length > 0 &&
+                                        {data?.localizaciones?.length > 0 ?
                                             <>
                                                 {
                                                     data.localizaciones.map((ae) => (
@@ -105,6 +107,8 @@ const ResumenPerfil = ({ showModal, handleCloseModal, data }) => {
                                                     ))
                                                 }
                                             </>
+                                            :
+                                            <p class="sin_items_resumen">Todas las ubicaciones</p>
                                         }
                                     </div>
                                 </div>
@@ -127,7 +131,7 @@ const ResumenPerfil = ({ showModal, handleCloseModal, data }) => {
                                                 </span>
                                             </span>
                                             <label>Cuantía <span class="azul"> desde</span>:</label>
-                                            <span id="cuantia_desde" class="type_text"> $ {data?.perfil?.limite_inferior_cuantia}</span>
+                                            <span id="cuantia_desde" class="type_text"> {data?.perfil?.limite_inferior_cuantia}</span>
                                         </div>
                                     </div>
                                     <div class="col-10 col-sm-8 col-lg-4 col-md-5">
