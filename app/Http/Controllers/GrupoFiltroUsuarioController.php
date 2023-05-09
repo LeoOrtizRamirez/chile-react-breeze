@@ -467,10 +467,10 @@ class GrupoFiltroUsuarioController extends Controller
                     array_push($actividades_economicas, $value->subcategoria->nombre);
                     break;
                 case 3:
-                    array_push($tipos_compras, $value->subcategoria->nombre);
+                    array_push($localizaciones, $value->subcategoria->nombre);
                     break;
                 case 5:
-                    array_push($localizaciones, $value->subcategoria->nombre);
+                    array_push($tipos_compras, $value->subcategoria->nombre);
                     break;
                 default:
                     break;
