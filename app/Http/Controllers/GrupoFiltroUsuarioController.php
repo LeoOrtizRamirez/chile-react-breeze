@@ -304,6 +304,30 @@ class GrupoFiltroUsuarioController extends Controller
         return $actividades_economicas;
     }
 
+    public function getSubCategoriasWithoutParents($type)
+    {
+        $actividades_economicas = SubCategoria::where('tipo_categoria', $type)
+            ->whereNotNull('id_padre_sub_categoria')
+            ->orderBy('updated_at', 'DESC')
+            ->with('parent', 'childs')
+            ->get();
+
+        if ($type == 1) { //Actividad economica
+            foreach ($actividades_economicas as $key => $ac) {
+                $model = SubCategoria::find($ac->id);
+                $ac->id_abuelo_sub_categoria = null;
+                if ($model->id_padre_sub_categoria != null) {
+                    $parent = SubCategoria::find($model->id_padre_sub_categoria);
+                    if ($parent->id_padre_sub_categoria != null) {
+                        $grandparent = SubCategoria::find($parent->id_padre_sub_categoria);
+                        $ac->id_abuelo_sub_categoria = $grandparent->id;
+                    }
+                }
+            }
+        }
+        return $actividades_economicas;
+    }
+
     public function edit($id, Request $request)
     {
         $pasos_seleccionados = [];
@@ -411,9 +435,6 @@ class GrupoFiltroUsuarioController extends Controller
         return $actividades_economicas;
     }
 
-    
-
-
     public function copy(Request $request)
     {
         //Copiar Modelo
@@ -461,8 +482,11 @@ class GrupoFiltroUsuarioController extends Controller
         $tipos_compras = [];
         $localizaciones = [];
 
-        $total_localizaciones = sizeof($this->getSubCategorias(3));
-        $total_tiposcompras = sizeof($this->getSubCategorias(5));
+        $total_localizaciones = [];
+        $total_tiposcompras = [];
+
+        $segmentos_localizaciones = $this->getSubCategoriasWithoutParents(3);
+        $segmentos_tipos_compras = $this->getSubCategoriasWithoutParents(5);
 
         foreach ($subcategorias as $key => $value) {
             switch ($value->subcategoria->tipo_categoria) {
@@ -483,11 +507,12 @@ class GrupoFiltroUsuarioController extends Controller
         $data['actividades_economicas'] = $actividades_economicas;
         $data['tiposcompras'] = $tipos_compras;
         $data['localizaciones'] = $localizaciones;
-        $data['total_tiposcompras'] = $total_tiposcompras;
-        $data['total_localizaciones'] = $total_localizaciones;
+        $data['total_tiposcompras'] = sizeof($segmentos_tipos_compras);
+        $data['total_localizaciones'] = sizeof($segmentos_localizaciones);
         
         return $data;
     }
+    
 
     public function ordenar(Request $request)
     {

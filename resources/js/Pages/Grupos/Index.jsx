@@ -53,10 +53,12 @@ const Index = ({ auth, grupos, created_updated }) => {
     const [resumenFiltroSelected, setResumenFiltroSelected] = useState([]);
 
     const handleOpenModalResumenPerfil = () => {
+        setGlobalLoading(true)
         handleCloseModal()
         axios.get(`/cliente/grupo/subcategorias/${filtroSelected.id}`)
             .then(response => {
                 setResumenFiltroSelected(response.data)
+                setGlobalLoading(false)
             })
             .catch(error => {
                 console.log(error);
