@@ -483,10 +483,14 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                     </div>
                 }
                 <span className="div_iconos_functions_grid">
-                    <a className="btnVerDocumentos d-inline-flex align-items-center">
+                    {/* <a className="btnVerDocumentos d-inline-flex align-items-center">
                         <i className="icon-Ver-documentos"></i>
                         <span>Ver documentos</span>
                         <i className="icon-Siguiente1"></i>
+                    </a> */}
+                    <a class="btnVerDocumentos d-inline-flex align-items-center oculto_sin_docs">
+                        <img src="/public/images/listado/sin_documentos.svg" alt="sin documentos" className="w-14"/>
+                        <span>Sin documentos</span>
                     </a>
                     <div className="iconos_functions_grid iconos_acciones_contratos">
 
@@ -991,7 +995,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                         <div className="d-inline-block seccion-estas-en">
                                             <p className="my-1">
                                                 Estás en:
-                                                <img src={perfiles[0]?.imagen_filtro}  className="mx-1"></img>
+                                                <img src={perfiles[0]?.imagen_filtro} className="mx-1"></img>
                                                 <span className="texto-estas-en">{perfiles[0]?.nombre_filtro}</span>
                                             </p>
                                         </div>

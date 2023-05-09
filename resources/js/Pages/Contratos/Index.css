@@ -1469,6 +1469,17 @@ input.p-inputtext.p-component.p-column-filter:not(:placeholder-shown)::before {
     padding-bottom: 4px;
 }
 
+#contratos .oculto_sin_docs {
+    border: 1px solid #686868;
+    padding: 0 26px 0 10px;
+    pointer-events: none;
+    cursor: default;
+}
+
+#contratos .w-14{
+    width: 14px;
+}
+
 #contratos .div_iconos_functions_grid .iconos_functions_grid {
     vertical-align: top;
     margin-top: 3px;
