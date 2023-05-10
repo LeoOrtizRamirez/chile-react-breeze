@@ -1,0 +1,569 @@
+#detalle-contratos .detalle-contrato-padre .contenedor-cabeceras {
+    z-index: 1000;
+    background-color: #f5f5f5;
+    padding-bottom: 20px;
+}
+
+#detalle-contratos .detalle-contrato-padre .indicadores-detalle {
+    border-bottom: 2px dashed hsla(0, 0%, 60%, .5);
+    font-family: Nexa-regular, sans-serif;
+    padding-bottom: 10px;
+}
+
+#detalle-contratos .detalle-contrato-padre button.volver,
+#detalle-contratos .detalle-contrato-padre p button,
+#detalle-contratos .detalle-contrato-padre p span {
+    color: #686868;
+}
+
+#detalle-contratos .detalle-contrato-padre button.volver {
+    padding: 0 9px;
+}
+
+#detalle-contratos .detalle-contrato-padre .indicadores-detalle button.volver span:not(.volver_text) {
+    font-size: 14px;
+}
+
+#detalle-contratos .detalle-contrato-padre button.volver .volver_icon {
+    font-size: 13px;
+    margin-right: 7px;
+    color: #80d0e4;
+}
+
+#detalle-contratos .detalle-contrato-padre .indicadores-detalle button.volver span.volver_text {
+    font-size: 14px;
+    vertical-align: text-bottom;
+}
+
+#detalle-contratos .detalle-contrato-padre .indicadores-detalle p {
+    font-size: 18px;
+}
+
+#detalle-contratos .detalle-contrato-padre .indicadores-detalle p span {
+    line-height: 40px;
+    vertical-align: middle;
+}
+
+#detalle-contratos .contador-de-contratos {
+    font-family: Nexa-bold, sans-serif;
+}
+
+#detalle-contratos .detalle-contrato-padre .indicadores-detalle .cambio-contrato {
+    outline: none;
+    padding: 0 10px;
+}
+
+#detalle-contratos .detalle-contrato-padre .indicadores-detalle .cambio-contrato span {
+    border-radius: 100%;
+    background-color: #00a1c9;
+    padding: 7px;
+    color: #fff;
+    font-size: 10px;
+}
+
+#detalle-contratos .detalle-contrato-padre #contenido_acciones button:not(#boton_notas) {
+    color: #9c9b9b;
+    padding: 12px 9px;
+}
+
+#detalle-contratos .detalle-contrato-padre #contenido_acciones button span {
+    font-size: 22px;
+}
+
+#detalle-contratos .detalle-contrato-padre #contenido_acciones .separador {
+    height: 15px;
+    width: 3px;
+    background: #9c9b9b;
+    opacity: .2;
+    vertical-align: middle;
+}
+
+#detalle-contratos .detalle-contrato-padre #contenido_acciones span.icon-Eliminar {
+    font-size: 20px;
+}
+
+#detalle-contratos .detalle-contrato-padre #contenido_acciones span.icon-Seguimientos {
+    font-size: 24px;
+}
+
+#detalle-contratos #mensaje-secop-caido {
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+#detalle-contratos #mensaje-secop-caido .alerta-new-styles {
+    background: #fefaef;
+    border: 0.1rem solid #ceb178;
+    -webkit-box-shadow: 0 0 1px 1px inset #f4e7a8;
+    box-shadow: inset 0 0 1px 1px #f4e7a8;
+    color: #000;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+#detalle-contratos #actualizar-secops-manual .actualizar-secops-manual--para-actualizar {
+    background: #fefaef;
+    border: 0.1rem solid #ceb178;
+    -webkit-box-shadow: 0 0 1px 1px inset #f4e7a8;
+    box-shadow: inset 0 0 1px 1px #f4e7a8;
+    color: #000;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+#detalle-contratos #actualizar-secops-manual .actualizar-secops-manual--para-actualizar i.fa-exclamation-triangle {
+    color: #f06a02;
+    font-size: 1.5rem;
+}
+
+#detalle-contratos #actualizar-secops-manual .actualizar-secops-manual--actualizado {
+    background: #badec6;
+    color: #000;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+#detalle-contratos #actualizar-secops-manual .actualizar-secops-manual--actualizado i {
+    color: #73c914;
+    font-size: 24px;
+}
+
+#detalle-contratos #actualizar-secops-manual .content-info {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: auto;
+    font-family: nexa-regular-2;
+}
+
+#detalle-contratos #actualizar-secops-manual .content-info {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: auto;
+    font-family: nexa-regular-2;
+}
+
+#detalle-contratos #actualizar-secops-manual .actualizar-secops-manual--para-actualizar .content-info p:first-of-type {
+    margin-right: 0.5em;
+}
+
+#detalle-contratos #actualizar-secops-manual .actualizar-secops-manual--para-actualizar .content-info button {
+    margin-left: 0.5em;
+    color: #fff;
+    padding: 2px 27px;
+    font-size: 18px;
+}
+
+#detalle-contratos .alert {
+    padding: 0.75rem 1.25rem;
+}
+
+#detalle-contratos .detalle-contrato-padre .contenido {
+    padding: 0 20px;
+    margin-top: 22px;
+}
+
+#detalle-contratos .card-header:first-child,
+#detalle-contratos .fases-borde {
+    border-radius: 15px !important;
+    -webkit-transition: background 1s;
+    transition: background 1s;
+}
+
+#detalle-contratos #info-seccion-contrato {
+    margin-top: 0;
+}
+
+#detalle-contratos .detalle-contrato-padre .contenido_html .contenido-seccion {
+    border-radius: 15px;
+    padding-top: 20px;
+    margin-top: 25px;
+}
+
+#detalle-contratos .info-seccion__primer_fila {
+    position: relative;
+    padding-top: 30px;
+}
+
+#detalle-contratos .info-seccion__primer_fila .icon_tipo_secop {
+    position: absolute;
+    right: 0;
+    bottom: 1px;
+}
+
+#detalle-contratos #infoContrato .icono_fuente__list {
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 16px !important;
+}
+
+#detalle-contratos .titulo-agrupacion i,
+#detalle-contratos .titulo-agrupacion p {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#detalle-contratos .titulo-agrupacion p {
+    margin-bottom: 0;
+}
+
+#detalle-contratos .titulo-agrupacion i {
+    font-size: 25px;
+    margin-right: 10px;
+}
+
+#detalle-contratos .info-borde {
+    border-bottom: 2px dashed hsla(0, 0%, 60%, .5);
+    margin-bottom: 20px;
+}
+
+#detalle-contratos .campos-detalle-contrato {
+    padding-bottom: 12px;
+}
+
+#detalle-contratos #infoContrato .contenido-detalle-contrato {
+    -webkit-box-align: normal;
+    -ms-flex-align: normal;
+    align-items: normal;
+}
+
+#detalle-contratos .contenido-detalle-contrato {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    color: #9c9b9b;
+    padding-left: 12px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+#detalle-contratos .contenido-detalle-contrato>.titulo-agrupacion,
+#detalle-contratos .contenido-detalle-contrato>b {
+    width: 45%;
+    padding-right: 8px;
+}
+
+#detalle-contratos .contenido-detalle-contrato>.titulo-agrupacion {
+    margin-left: -12px;
+    margin-right: 12px;
+}
+
+#detalle-contratos .contenido-detalle-contrato b {
+    margin-bottom: 16px;
+}
+
+#detalle-contratos .contenido-detalle-contrato-textheader b.title,
+#detalle-contratos .contenido-detalle-contrato b,
+#detalle-contratos .fase,
+#detalle-contratos .table-header-detalle-contrato,
+#detalle-contratos .titulo-agrupacion {
+    font-family: Nexa-bold, sans-serif !important;
+    color: #686868;
+}
+
+#detalle-contratos .contenido-detalle-contrato .info-contrato,
+#detalle-contratos .table-campo-detalle {
+    font-family: Nexa-regular, sans-serif !important;
+    color: #686868;
+}
+
+#detalle-contratos .contenido-detalle-contrato .info-contrato {
+    color: #000 !important;
+    text-align: left;
+    width: 65%;
+    font-size: 14px;
+    word-break: break-word;
+}
+
+#detalle-contratos .titulo-agrupacion {
+    color: #00a1c9;
+    max-width: 560px;
+}
+
+#detalle-contratos .fuente-new .new-primero {
+    width: 45%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: initial;
+    -ms-flex-pack: initial;
+    justify-content: initial;
+}
+
+#detalle-contratos .fuente-new .new-primero .icon-new {
+    margin-left: 23px;
+}
+
+@media (min-width: 501px) {
+    #detalle-contratos .fuente-new .new-primero>b {
+        width: 38% !important;
+    }
+}
+
+#detalle-contratos .fuente-new .new-primero>b {
+    margin-left: 14px;
+}
+
+#detalle-contratos .fuente-new .info-contrato {
+    display: -webkit-box!important;
+    display: -ms-flexbox!important;
+    display: flex!important;
+}
+
+#detalle-contratos .fuente-new .info-contrato .new-family {
+    color: #686868;
+    font-family: Nexa-bold,sans-serif;
+    font-size: 15px;
+    width: 100%;
+    padding-right: 40px;
+    word-break: break-word!important;
+}
+
+#detalle-contratos .fuente-new .info-contrato>button {
+    width: 35%;
+    max-height: 32px;
+}
+
+#detalle-contratos .boton_link_fuentes {
+    float: right;
+}
+
+#detalle-contratos .boton_link_fuentes i {
+    margin-right: 10px;
+}
+
+#detalle-contratos .descargas-new .new-documentos {
+    width: 45%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: initial;
+    -ms-flex-pack: initial;
+    justify-content: initial;
+}
+
+#detalle-contratos .descargas-new .new-documentos .icon-new {
+    margin-left: 23px;
+}
+
+#detalle-contratos .descargas-new .new-documentos>b {
+    margin-left: 14px;
+    width: 38%!important;
+}
+
+#detalle-contratos img{
+    height: fit-content !important;
+}
+
+#detalle-contratos .descargas-new .info-contrato .descargar-ver-docs {
+    width: 28%;
+    max-height: 32px;
+}
+
+#detalle-contratos .descargas-new .info-contrato {
+    display: -webkit-box!important;
+    display: -ms-flexbox!important;
+    display: flex!important;
+}
+
+#detalle-contratos .descargas-new .info-contrato .new-family {
+    color: #686868;
+    font-family: Nexa-bold,sans-serif;
+    font-size: 15px;
+    width: 50%;
+    padding-right: 25px;
+}
+
+#detalle-contratos .boton-lateral {
+    position: relative;
+}
+
+#detalle-contratos .boton-lateral_posicion {
+    position: absolute;
+    right: 0;
+}
+
+#detalle-contratos .descargas-new .info-contrato .descargar-ver-docs .icon-Siguiente1 {
+    margin-left: -12px;
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+#detalle-contratos .contenido-seccion>.contenido-detalle-contrato {
+    padding-bottom: 15px;
+}
+
+#detalle-contratos .contenido-detalle-contrato .info-contrato .separador-fecha {
+    font-size: 10px;
+    margin: 0 10px;
+    color: #9c9b9b;
+}
+
+#detalle-contratos .campos-detalle-contrato {
+    padding-bottom: 12px;
+}
+
+#detalle-contratos .contratos_row .table-responsive>table {
+    min-height: 250px;
+}
+
+#detalle-contratos .component-table-dinamyc>div>table {
+    width: 100%;
+}
+
+#detalle-contratos .table-campo-detalle {
+    min-height: auto!important;
+}
+
+#detalle-contratos .table-campo-detalle {
+    border-collapse: collapse;
+}
+
+#detalle-contratos .contenido-detalle-contrato .info-contrato, .table-campo-detalle {
+    font-family: Nexa-regular,sans-serif!important;
+    color: #686868;
+}
+
+#detalle-contratos #bodycontenido .table-responsive table tbody {
+    position: relative;
+}
+
+#detalle-contratos .table-campo-detalle .table-header-detalle-contrato {
+    color: #fff;
+}
+
+
+#detalle-contratos .table-campo-detalle tr>th:first-of-type {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+#detalle-contratos .header-table-agrupaciones, tr.table-header-detalle-contrato th {
+    text-transform: capitalize;
+    padding: 6px 14px;
+    font-size: 15px;
+    background-color: #00a1c9;
+}
+
+#detalle-contratos .table-campo-detalle tr>th:last-of-type {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#detalle-contratos .table-campo-detalle>tbody>tr:nth-child(2)>td {
+    margin-top: 24px!important;
+}
+
+#detalle-contratos .header-table-agrupaciones, .table-campo-detalle tr>td:first-of-type {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+#detalle-contratos .table-body-detalle-contrato td {
+    padding: 16px 28px;
+    position: relative;
+    font-size: 14px;
+}
+
+#detalle-contratos .table-campo-detalle>tbody>tr:nth-child(2)>td:before {
+    height: 36%!important;
+    top: 36%!important;
+}
+
+#detalle-contratos .table-body-detalle-contrato td:before {
+    content: "";
+    position: absolute;
+    right: 1px;
+    width: 1px;
+    height: 38%;
+    background: #9c9b9b;
+    opacity: .4;
+    top: 31%;
+}
+
+#detalle-contratos .table-body-detalle-contrato img {
+    max-width: 41px;
+    margin: auto;
+}
+
+#detalle-contratos .table-body-detalle-contrato td:last-of-type:before {
+    background: none;
+}
+
+#detalle-contratos .table-body-detalle-contrato a{
+    color: #686868;
+    border: 2px solid #686868;
+    background: #fff;
+    border-radius: 50px;
+    font-family: Nexa-bold,sans-serif;
+    font-size: 15px;
+    padding: 2px 25px;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    vertical-align: sub;
+    text-decoration: none!important;
+    cursor: pointer;
+}
+
+#detalle-contratos .table-body-detalle-contrato.bg-gris-claro {
+    background-color: hsla(0,0%,76%,.2);
+}
+
+#detalle-contratos .header-table-agrupaciones, .table-campo-detalle tr>td:last-of-type {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#detalle-contratos .header-table-agrupaciones, .table-campo-detalle tr>td:first-of-type {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+#detalle-contratos tbody>tr:last-of-type td {
+    border-bottom-left-radius: 12px!important;
+    border-bottom-right-radius: 12px!important;
+}
+
+#detalle-contratos .table-body-detalle-contrato a i,
+#detalle-contratos .table-body-detalle-contrato button i,
+#detalle-contratos .table__detale_vermas button i {
+    font-size: 20px;
+    margin-right: 12px;
+    color: #686868;
+}

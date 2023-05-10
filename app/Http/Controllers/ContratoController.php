@@ -526,4 +526,14 @@ class ContratoController extends Controller
         //return $response;
         return redirect()->route('contratos.index');
     }
+
+    public function detalleConcurso(){
+
+        return Inertia::render(
+            'Contratos/Detalle',
+            [
+                /* 'contratos' => $contratos */
+            ]
+        );
+    }
 }

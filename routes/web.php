@@ -95,6 +95,7 @@ Route::post('cliente/contratos/add_papelera', [ContratoController::class, 'addPa
 Route::post('cliente/contratos/delete_papelera', [ContratoController::class, 'deletePapelera'])->middleware(['auth', 'verified']);
 Route::post('cliente/contratos/get-info/{tipo}', [ContratoController::class, 'carpeta'])->middleware(['auth', 'verified']);
 Route::get('cliente/contratos/get-info/{tipo}', [ContratoController::class, 'carpeta'])->middleware(['auth', 'verified']);
+Route::get('cliente/contratos/detalle-contrato-2', [ContratoController::class, 'detalleConcurso'])->middleware(['auth', 'verified']);
 
 
 

@@ -181,10 +181,10 @@ a.btnRadius {
     cursor: pointer;
     font-family: Nexa-bold, sans-serif;
     text-decoration: none !important;
-    font-size: 17px;
+    font-size: 17px !important;
     white-space: normal !important;
     background: #fff;
-    padding: 3px 24px;
+    padding: 3px 24px !important;
     outline: none !important;
 }
 
@@ -417,65 +417,59 @@ span.p-toast-summary {
     color: #73c914!important;
 }
 
-/* .content-flex {
-    display: flex !important;
-    flex-direction: row !important;
+.btn-new-blue,
+.btn-new-danger,
+.btn-new-dark-blue,
+.btn-new-gray,
+.btn-new-green,
+.btn-new-warn,
+.btnbg-new-blue,
+.btnbg-new-danger,
+.btnbg-new-dark-blue,
+.btnbg-new-gray,
+.btnbg-new-green,
+.btnbg-new-warn {
+    cursor: pointer;
+    font-family: Nexa-bold,sans-serif !important;
+    text-decoration: none!important;
+    font-size: 17px;
+    white-space: normal!important;
+    background-color: #fff !important;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgb(255, 255, 255);
+    padding: 3px 24px;
+    outline: none!important;
 }
 
-.tamano-iconos {
-    font-size: 40px !important;
-    margin: 0px 5px !important;
+.icono_fuente__list {
+    border-radius: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 36px;
+    height: 36px;
+    font-family: Nexa-regular;
+    font-size: 15px;
+    font-style: normal;
+    color: #fff;
+    text-align: center;
+    font-weight: 400!important;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    vertical-align: middle;
+    line-height: 1;
+    padding-top: 1px;
 }
 
-.contenedor-logos {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+.text-azul {
+    color: #00a1c9!important;
 }
 
-.margen-logo {
-    margin-left: 15px !important;
-    margin-top: 5px !important;
+.text-verde {
+    color: #73c914!important;
 }
-
-a {
-    margin: 0px 3px 0px 3px !important;
-}
-
-.encabezado {
-    background-color: white !important;
-    border-radius: 15px !important;
-    -webkit-border-radius: 15px !important;
-    -moz-border-radius: 15px !important;
-    -ms-border-radius: 15px !important;
-    -o-border-radius: 15px !important;
-    border: none !important;
-    width: 90vw !important;
-    margin-top: 10px !important;
-}
-
-.margen-nav {
-    margin-top: 10px !important;
-}
-
-.opciones-centro-ayuda {
-    background-color: white !important;
-}
-
-.centro-ayuda-iconos {
-    color: rgb(151, 151, 151) !important;
-    margin-right: 7px !important;
-    position: absolute !important;
-    left: 20px !important;
-    font-size: 18px !important;
-    font-weight: bold !important;
-}
-
-.centro-ayuda-iconos-margen {
-    margin-left: 25px !important;
-}
-
-.centro-ayuda-iconos-color {
-    color: red !important;
-}
- */
