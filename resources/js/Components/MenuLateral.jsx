@@ -77,7 +77,7 @@ const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, perfiles = []
                 if (tipo == null) {
                     url = `/cliente/contratos/get-info/${zona}`
                 } else {
-                    url = `/cliente/contratos/get-info/${zona}?${tipo}=${idsArray}`
+                    url = `/cliente/contratos/get-info/${zona}?${tipo}=${array.id}`
                 }
                 break;
             case 'MP':

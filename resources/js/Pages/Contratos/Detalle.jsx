@@ -1,10 +1,44 @@
 import React, { useState, useEffect, useRef } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import "./Detalle.css";
+import SideBarNotas from "@/Components/SideBarNotas";
 
-const Detalle = ({ auth }) => {
+const Detalle = ({ auth, data, total_notas, zona="ALL" }) => {
+
+    const [totalNotas, setTotalNotas] = useState(total_notas)
+    const [globalLoading, setGlobalLoading] = useState(false)
+    const handleGlobalLoading = (loading) => {
+        setGlobalLoading(loading)
+    }
+    const [contrato, setContrato] = useState(data)
+    console.log("contratos", contrato)
+    var token = document.querySelector('meta[name="csrf-token"]')
+    useEffect(() => {
+        axios.post('/contrato-visatado', {
+            contrato: 1
+        },
+            { 'Authorization': `Bearer ${token}` })
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }, [])
+
+    const [sideBarNotasisOpen, setSideBarNotasisOpen] = useState(false)
+
+    const onHideSideBarNotas = () =>{
+        console.log("onHide")
+        setSideBarNotasisOpen(false)
+    }
+
+    const onChangeSideBarTotalNotas = (total) =>{
+        setTotalNotas(total)
+    }
+
     return (
-        <AuthenticatedLayout auth={auth} page={'detalle-contratos'}>
+        <AuthenticatedLayout auth={auth} page={'detalle-contratos'} globalLoading={globalLoading}>
             <div className="content_not_blank_interno">
                 <div id="bodycontenido" className="col contratos_row px-0">
                     <div className="detalle-contrato-padre" admin="" perfiles="258772,258771,258618,258619,258487" init-filter="">
@@ -21,27 +55,42 @@ const Detalle = ({ auth }) => {
                                         className="icon-atras"></span></button> <button type="button"
                                             className="btn bg-transparent cambio-contrato"><span className="icon-Siguiente1"></span></button></p>
                                 </div>
-                                <div id="contenido_acciones" className="col-4 pr-0 text-right iconos_acciones_contratos"> <button
-                                    id="botonActualizarManual" type="button" className="btn bg-transparent"><img
-                                        src="https://col.licitaciones.info/img/detalle-contrato/svg/proceso-manual-cargar.svg"
-                                        width="22" height="22" /></button>  <button id="btnContratosFavorito" type="button"
-                                            className="btn bg-transparent"><span className="icon-Favorito-click"></span></button>  <button
-                                                id="boton_sin_seguimiento" type="button" className="btn bg-transparent" style={{ display: 'none' }}><img
-                                            src="https://col.licitaciones.info/img/detalle-contrato/svg/Sin-seguimiento.svg" width="22"
-                                            height="22" /></button> <button id="btnContratosSeguimiento" type="button"
-                                                className="btn bg-transparent" ><span className="icon-Seguimientos"></span></button>
-                                    <button id="btnContratosCarpeta" type="button" className="btn bg-transparent"><span
-                                        className="icon-Mis-carpetas"><span className="path1"></span><span className="path2"></span></span></button>
-                                    <button id="btnContratosDelete" type="button" className="btn bg-transparent"><span
-                                        className="icon-Eliminar"></span></button>  <button id="btnContratosExternal" type="button"
-                                            className="btn bg-transparent"><span className="icon-Ir-a-la-fuente-click"></span></button>  <button
-                                                id="btnContratosCompartir" type="button" className="btn bg-transparent"><span
-                                                    className="icon-Compartir-click"></span></button>
-                                    <div className="separador d-inline-block mx-2">
-
-                                    </div> <button type="button" id="boton_notas" className="btn bg-transparent"><img
-                                        src="https://col.licitaciones.info/img/detalle-contrato/svg/Nota.svg" alt="icono de notas"
-                                        width="25" height="25" /> <span className="cuenta-notas"></span></button>
+                                <div id="contenido_acciones" className="col-4 pr-0 text-right iconos_acciones_contratos">
+                                    {false &&
+                                        <button id="botonActualizarManual" type="button" className="btn bg-transparent">
+                                            <img src="https://col.licitaciones.info/img/detalle-contrato/svg/proceso-manual-cargar.svg" width="22" height="22" />
+                                        </button>
+                                    }
+                                    <button id="btnContratosFavorito" type="button" className="btn bg-transparent">
+                                        <span className={`icon-Favorito-click ${contrato.favorito ? "favorito_active" : ""}`}></span>
+                                    </button>
+                                    <button id="boton_sin_seguimiento" type="button" className="btn bg-transparent" style={{ display: 'none' }}>
+                                        <img src="https://col.licitaciones.info/img/detalle-contrato/svg/Sin-seguimiento.svg" width="22" height="22" /></button>
+                                    <button id="btnContratosSeguimiento" type="button" className="btn bg-transparent" >
+                                        <span className="icon-Seguimientos"></span>
+                                    </button>
+                                    <button id="btnContratosCarpeta" type="button" className="btn bg-transparent">
+                                        <span className="icon-Mis-carpetas">
+                                            <span className="path1"></span>
+                                            <span className="path2"></span>
+                                        </span>
+                                    </button>
+                                    {false &&
+                                        <button id="btnContratosDelete" type="button" className="btn bg-transparent">
+                                            <span className="icon-Eliminar"></span>
+                                        </button>
+                                    }
+                                    <button id="btnContratosExternal" type="button" className="btn bg-transparent">
+                                        <span className="icon-Ir-a-la-fuente-click"></span>
+                                    </button>
+                                    <button id="btnContratosCompartir" type="button" className="btn bg-transparent">
+                                        <span className="icon-Compartir-click"></span>
+                                    </button>
+                                    <div className="separador d-inline-block mx-2"></div>
+                                    <button type="button" id="boton_notas" className="btn bg-transparent" onClick={()=>setSideBarNotasisOpen(true)}>
+                                        <img src="https://col.licitaciones.info/img/detalle-contrato/svg/Nota.svg" alt="icono de notas" width="25" height="25" />
+                                        <span className="cuenta-notas">{totalNotas > 0 ? totalNotas : ""}</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +104,7 @@ const Detalle = ({ auth }) => {
                                 </div>
                             </div>
                         </div>
-                        {true &&
+                        {false &&
                             <div id="actualizar-secops-manual">
                                 <div className="alert alert-warning actualizar-secops-manual--para-actualizar">
                                     <i aria-hidden="true" className="fa fa-exclamation-triangle"></i>
@@ -91,34 +140,32 @@ const Detalle = ({ auth }) => {
                                                         </div>
                                                         <div className="campos-detalle-contrato info-borde">
                                                             <div className="contenido-detalle-contrato"><b className="d-block">Entidad:</b>
-                                                                <p className="d-block info-contrato">EMPRESA REGIONAL DE ASEO DEL NORTE DE
-                                                                    CALDAS SA ESP</p>
+                                                                <p className="d-block info-contrato">{contrato.entidad_contratante}</p>
                                                             </div>
                                                             <div className="contenido-detalle-contrato"><b className="d-block">Modalidad:</b>
-                                                                <p className="d-block info-contrato">Régimen Especial</p>
+                                                                <p className="d-block info-contrato">{contrato.modalidad}</p>
                                                             </div>
                                                             <div className="contenido-detalle-contrato"><b className="d-block">Número:</b>
-                                                                <p className="d-block info-contrato">Convocatoria Publica No. 001 - 2023</p>
+                                                                <p className="d-block info-contrato"></p>
                                                             </div>
                                                             <div className="contenido-detalle-contrato" general="[object Object]"><b
                                                                 className="d-block">Estado del proceso:</b>
                                                                 <p className="d-block info-contrato"><span className=""
-                                                                    style={{ fontFamily: 'Nexa-bold', color: 'rgb(115, 201, 20)' }}>Convocatoria</span>
+                                                                    style={{ fontFamily: 'Nexa-bold', color: 'rgb(115, 201, 20)' }}>{contrato.estado_proceso}</span>
                                                                     <i className="fa fa-spinner fa-spin actualizando-contrato-icon"
                                                                         style={{ display: 'none' }}></i></p>
                                                             </div>
                                                             <div className="contenido-detalle-contrato"><b className="d-block">Objeto:</b>
-                                                                <p className="d-block info-contrato">MODERNIZACIÓN Y EXPANSIÓN DEL SISTEMA DE
-                                                                    ALUMBRADO PÚBLICO A TECNOLOGÍA LED DEL MUNICIPIO DE PACORA, CALDAS</p>
+                                                                <p className="d-block info-contrato">{contrato.objeto}</p>
                                                             </div>
                                                             <div className="contenido-detalle-contrato"><b className="d-block">Presupuesto
                                                                 oficial:</b>
                                                                 <p className="d-flex info-contrato align-items-center moneda_info"><span
                                                                     className="sin-min-width">$</span> <span
-                                                                        style={{ paddingLeft: 5 + 'px' }}>1,059,776,386</span></p>
+                                                                        style={{ paddingLeft: 5 + 'px' }}>{contrato.valor_texto}</span></p>
                                                             </div>
                                                             <div className="contenido-detalle-contrato"><b className="d-block">Localización:</b>
-                                                                <p className="d-block info-contrato">Caldas: Pácora</p>
+                                                                <p className="d-block info-contrato">{contrato.ubicacion}</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -128,15 +175,13 @@ const Detalle = ({ auth }) => {
                                                         </span>
                                                         </div>
                                                         <div className="campos-detalle-contrato info-border">
-                                                            <div className="contenido-detalle-contrato"><b className="d-block">Clasificación UNSPSC
-                                                                por la entidad contratante:</b>
-                                                                <p className="d-block info-contrato">81101700 - Ingeniería eléctrica y
-                                                                    electrónica</p>
+                                                            <div className="contenido-detalle-contrato">
+                                                                <b className="d-block">Clasificación UNSPSC por la entidad contratante:</b>
+                                                                <p className="d-block info-contrato"></p>
                                                             </div>
-                                                            <div className="contenido-detalle-contrato"><b className="d-block">Clasificación
-                                                                Licitaciones.info:</b>
-                                                                <p className="d-block info-contrato">Alumbrado (Construcción y/o mantenimiento),
-                                                                    -Iluminación led</p>
+                                                            <div className="contenido-detalle-contrato">
+                                                                <b className="d-block">Clasificación Licitaciones.info:</b>
+                                                                <p className="d-block info-contrato"></p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -209,23 +254,21 @@ const Detalle = ({ auth }) => {
                                             </div>
                                             <div className="card-body">
                                                 <div className="campos-detalle-contrato">
-                                                    <div className="contenido-detalle-contrato"><b className="string">Dirección de ejecución del
-                                                        contrato:</b>
-                                                        <p className="d-block info-contrato">calle 6 No. 5-23
-                                                            Aguadas
-                                                            Caldas
-                                                            COLOMBIA
-                                                        </p>
+                                                    <div className="contenido-detalle-contrato">
+                                                        <b className="string">Dirección de ejecución del contrato:</b>
+                                                        <p className="d-block info-contrato"></p>
                                                     </div>
-                                                    <div className="contenido-detalle-contrato"><b className="string">Visita al lugar de
-                                                        ejecución:</b>
-                                                        <p className="d-block info-contrato">No</p>
+                                                    <div className="contenido-detalle-contrato">
+                                                        <b className="string">Visita al lugar de ejecución:</b>
+                                                        <p className="d-block info-contrato"></p>
                                                     </div>
-                                                    <div className="contenido-detalle-contrato"><b className="string">Tipo de contrato:</b>
-                                                        <p className="d-block info-contrato">Decreto 092 de 2017</p>
+                                                    <div className="contenido-detalle-contrato">
+                                                        <b className="string">Tipo de contrato:</b>
+                                                        <p className="d-block info-contrato"></p>
                                                     </div>
-                                                    <div className="contenido-detalle-contrato"><b className="string">Plazo del contrato:</b>
-                                                        <p className="d-block info-contrato">4 Meses</p>
+                                                    <div className="contenido-detalle-contrato">
+                                                        <b className="string">Plazo del contrato:</b>
+                                                        <p className="d-block info-contrato"></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -240,20 +283,18 @@ const Detalle = ({ auth }) => {
                                                 <div className="campos-detalle-contrato">
                                                     <div className="contenido-detalle-lista">
                                                         <div>
-                                                            <div className="contenido-detalle-contrato"><b className="d-block">Fecha de
-                                                                publicación:</b>
+                                                            <div className="contenido-detalle-contrato">
+                                                                <b className="d-block"> Fecha de publicación:</b>
                                                                 <div className="d-block info-contrato">
-                                                                    <p className="d-block">27/04/2023 <span
-                                                                        className="separador-fecha icon-Menos1"></span> 03:37 pm</p>
+                                                                    <p className="d-block">00/00/0000 <span className="separador-fecha icon-Menos1"></span> 00:00 pm</p>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div>
-                                                            <div className="contenido-detalle-contrato"><b className="d-block">Fecha de Firma del
-                                                                Contrato:</b>
+                                                            <div className="contenido-detalle-contrato">
+                                                                <b className="d-block">Fecha de Firma del Contrato:</b>
                                                                 <div className="d-block info-contrato">
-                                                                    <p className="d-block">15/05/2023 <span
-                                                                        className="separador-fecha icon-Menos1"></span> 12:00 pm</p>
+                                                                    <p className="d-block">00/00/0000 <span className="separador-fecha icon-Menos1"></span> 00:00 pm</p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -261,17 +302,15 @@ const Detalle = ({ auth }) => {
                                                             <div className="contenido-detalle-contrato"><b className="d-block">Fecha de inicio de
                                                                 ejecución del contrato:</b>
                                                                 <div className="d-block info-contrato">
-                                                                    <p className="d-block">15/05/2023 <span
-                                                                        className="separador-fecha icon-Menos1"></span> 12:00 pm</p>
+                                                                    <p className="d-block">00/00/0000 <span className="separador-fecha icon-Menos1"></span> 00:00 pm</p>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div>
-                                                            <div className="contenido-detalle-contrato"><b className="d-block">Plazo de ejecución
-                                                                del contrato:</b>
+                                                            <div className="contenido-detalle-contrato">
+                                                                <b className="d-block">Plazo de ejecución del contrato:</b>
                                                                 <div className="d-block info-contrato">
-                                                                    <p className="d-block">15/09/2023 <span
-                                                                        className="separador-fecha icon-Menos1"></span> 12:00 pm</p>
+                                                                    <p className="d-block">00/00/0000 <span className="separador-fecha icon-Menos1"></span> 00:00 pm</p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -280,18 +319,21 @@ const Detalle = ({ auth }) => {
                                             </div>
                                         </div>
                                         <div data-section="Configuración financiera" className="px-5 bg-white contenido-seccion">
-                                            <div className="contenido-detalle-contrato"><span className="titulo-agrupacion "><i
-                                                className="icon-Configuracion-financiera"></i>
-                                                <p>Configuración financiera:</p>
-                                            </span>
+                                            <div className="contenido-detalle-contrato">
+                                                <span className="titulo-agrupacion ">
+                                                    <i className="icon-Configuracion-financiera"></i>
+                                                    <p>Configuración financiera:</p>
+                                                </span>
                                             </div>
                                             <div className="card-body">
                                                 <div className="campos-detalle-contrato">
-                                                    <div className="contenido-detalle-contrato"><b className="string">Solicitud de garantías:</b>
-                                                        <p className="d-block info-contrato">No</p>
+                                                    <div className="contenido-detalle-contrato">
+                                                        <b className="string">Solicitud de garantías:</b>
+                                                        <p className="d-block info-contrato"></p>
                                                     </div>
-                                                    <div className="contenido-detalle-contrato"><b className="string">¿Plan de pagos?:</b>
-                                                        <p className="d-block info-contrato">No</p>
+                                                    <div className="contenido-detalle-contrato">
+                                                        <b className="string">¿Plan de pagos?:</b>
+                                                        <p className="d-block info-contrato"></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -328,241 +370,241 @@ const Detalle = ({ auth }) => {
                                                                         </th>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato">
-                                                                        <td colspan="1"><img src="/images/extensiones/pdf.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/pdf.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">1. Estudios Previos</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1">1. Estudios Previos</td>
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395462"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colspan="1"><img src="/images/extensiones/pdf.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/pdf.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">2. Aviso Convocatoria</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1">2. Aviso Convocatoria</td>
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395463"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato">
-                                                                        <td colspan="1"><img src="/images/extensiones/pdf.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/pdf.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">4. CDP</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1">4. CDP</td>
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395464"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colspan="1"><img src="/images/extensiones/pdf.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/pdf.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">3. Convocatoria Publica</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1">3. Convocatoria Publica</td>
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395465"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato">
-                                                                        <td colspan="1"><img src="/images/extensiones/pdf.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/pdf.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">Anexo 1- Anexo Tecnico CCE-EICP-IDI-01 Licitacion
+                                                                        <td colSpan="1">Anexo 1- Anexo Tecnico CCE-EICP-IDI-01 Licitacion
                                                                         </td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395466"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colspan="1"><img src="/images/extensiones/xlsm.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/xlsm.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">Anexo 2- Cronograma CCE-EICP-IDI-02 Licitacion</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1">Anexo 2- Cronograma CCE-EICP-IDI-02 Licitacion</td>
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395467"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato">
-                                                                        <td colspan="1"><img src="/images/extensiones/pdf.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/pdf.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">Anexo 3 - Glosario - CCE-EICP-IDI-03 - Licitacion
+                                                                        <td colSpan="1">Anexo 3 - Glosario - CCE-EICP-IDI-03 - Licitacion
                                                                         </td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395468"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colspan="1"><img src="/images/extensiones/pdf.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/pdf.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">Anexo 4- Pacto de Transparencia CCE-EICP-IDI-04
+                                                                        <td colSpan="1">Anexo 4- Pacto de Transparencia CCE-EICP-IDI-04
                                                                             Licitacion</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395469"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato">
-                                                                        <td colspan="1"><img src="/images/extensiones/pdf.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/pdf.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">Anexo 5- Minuta del Contrato CCE-EICP-IDI-05
+                                                                        <td colSpan="1">Anexo 5- Minuta del Contrato CCE-EICP-IDI-05
                                                                             Licitacion</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395470"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colspan="1"><img src="/images/extensiones/docx.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/docx.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">Formato 1- Carta de Presentaci?n de la Oferta
+                                                                        <td colSpan="1">Formato 1- Carta de Presentaci?n de la Oferta
                                                                             CCE-EICP-FM-02 Licitacion</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395471"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato">
-                                                                        <td colspan="1"><img src="/images/extensiones/docx.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/docx.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">Formato 2 - Conformacion de Proponente Plural
+                                                                        <td colSpan="1">Formato 2 - Conformacion de Proponente Plural
                                                                             CCE-EICP-FM-03 Licitacion</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395472"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colspan="1"><img src="/images/extensiones/xlsx.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/xlsx.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">Formato 3- Experiencia CCE-EICP-FM-04 Licitacion
+                                                                        <td colSpan="1">Formato 3- Experiencia CCE-EICP-FM-04 Licitacion
                                                                         </td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395473"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato">
-                                                                        <td colspan="1"><img src="/images/extensiones/docx.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/docx.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">Formato 4- Capacidad financiera y organizacional
+                                                                        <td colSpan="1">Formato 4- Capacidad financiera y organizacional
                                                                             extranjeros CCE-EICP-FM-05 Licitacion</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395474"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colspan="1"><img src="/images/extensiones/xlsx.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/xlsx.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">Formato 5 - Capacidad Residual CCE-EICP-FM-06
+                                                                        <td colSpan="1">Formato 5 - Capacidad Residual CCE-EICP-FM-06
                                                                             Licitacion</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395475"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato">
-                                                                        <td colspan="1"><img src="/images/extensiones/docx.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/docx.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">Formato 6- Pago de Seguridad Social y Aportes
+                                                                        <td colSpan="1">Formato 6- Pago de Seguridad Social y Aportes
                                                                             Legales CCE-EICP-FM-07 Licitacion</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395476"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colspan="1"><img src="/images/extensiones/docx.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/docx.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">Formato 7- Factor de calidad CCE-EICP-FM-08
+                                                                        <td colSpan="1">Formato 7- Factor de calidad CCE-EICP-FM-08
                                                                             Licitacion</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395477"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato">
-                                                                        <td colspan="1"><img src="/images/extensiones/docx.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/docx.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">Formato 8- Vinculacion de personas con discapacidad
+                                                                        <td colSpan="1">Formato 8- Vinculacion de personas con discapacidad
                                                                             CCE-EICP-FM-09 Licitacion</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395478"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colspan="1"><img src="/images/extensiones/docx.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/docx.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">Formato 11 Autorizacion para el tratamiento de datos
+                                                                        <td colSpan="1">Formato 11 Autorizacion para el tratamiento de datos
                                                                             personales CCE-EICP-FM-77 - Licitacion</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395479"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato">
-                                                                        <td colspan="1"><img src="/images/extensiones/xlsx.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/xlsx.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">Formulario No. 1</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1">Formulario No. 1</td>
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395480"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colspan="1"><img src="/images/extensiones/pdf.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/pdf.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">Matriz 1 - Indicadores Financieros y
+                                                                        <td colSpan="1">Matriz 1 - Indicadores Financieros y
                                                                             Organizacionales CCE-EICP-FM-12 Licitacion</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395481"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato">
-                                                                        <td colspan="1"><img src="/images/extensiones/pdf.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/pdf.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">Matriz 2 - Riesgos CCE-EICP-FM-13 Licitacion</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1">Matriz 2 - Riesgos CCE-EICP-FM-13 Licitacion</td>
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395482"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colspan="1"><img src="/images/extensiones/pdf.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/pdf.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">5. Respuesta Observaciones</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1">5. Respuesta Observaciones</td>
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=296456767"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato">
-                                                                        <td colspan="1"><img src="/images/extensiones/pdf.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/pdf.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">ACTA DE CIERRE</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1">ACTA DE CIERRE</td>
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=297466020"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colspan="1"><img src="/images/extensiones/pdf.svg"
+                                                                        <td colSpan="1"><img src="/images/extensiones/pdf.svg"
                                                                             className="table_icono_tipo" /></td>
-                                                                        <td colspan="1">Informe de evaluacion</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1">Informe de evaluacion</td>
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=297466021"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato">
-                                                                        <td colspan="1">
+                                                                        <td colSpan="1">
                                                                             <img src="/images/extensiones/xlsx.svg" className="table_icono_tipo" />
                                                                         </td>
-                                                                        <td colspan="1">2 REQUISITOS HABILITANTES</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1">2 REQUISITOS HABILITANTES</td>
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=297466022"
                                                                             target="_blank"><i className="icon-Descargas-click"></i>
                                                                             Descargar</a></td>
@@ -621,29 +663,29 @@ const Detalle = ({ auth }) => {
                                                                         </th>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato">
-                                                                        <td colspan="1">Avisos</td>
-                                                                        <td colspan="1">CO1.REQ.4446425</td>
-                                                                        <td colspan="1">Publicación modificación</td>
-                                                                        <td colspan="1">2023-05-07 15:48:00</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1">Avisos</td>
+                                                                        <td colSpan="1">CO1.REQ.4446425</td>
+                                                                        <td colSpan="1">Publicación modificación</td>
+                                                                        <td colSpan="1">2023-05-07 15:48:00</td>
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Tendering/PublicMessageDisplay/Index?id=4216183&amp;contractNoticeUniqueIdentifier=&amp;prevCtxUrl=%2fPublic%2fTendering%2fOpportunityDetail%2fIndex%3fPerspective%3dDefault&amp;showDownloadDocument=False&amp;asPopupView=true"
                                                                             target="_blank"><i className="icon-Informacin-click"></i>
                                                                             Detalle</a></td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Tendering/RequestAmendmentView/CommunityView?docUniqueIdentifier=CO1.AMD.2160033&amp;communityFetch=True&amp;asPopupView=true"
                                                                             target="_blank"><i className="icon-Informacin-click"></i>
                                                                             Detalles de la enmienda</a></td>
                                                                     </tr>
                                                                     <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colspan="1">Avisos</td>
-                                                                        <td colspan="1">CO1.REQ.4446425</td>
-                                                                        <td colspan="1">Publicación modificación</td>
-                                                                        <td colspan="1">2023-05-03 20:04:00</td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1">Avisos</td>
+                                                                        <td colSpan="1">CO1.REQ.4446425</td>
+                                                                        <td colSpan="1">Publicación modificación</td>
+                                                                        <td colSpan="1">2023-05-03 20:04:00</td>
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Tendering/PublicMessageDisplay/Index?id=4172261&amp;contractNoticeUniqueIdentifier=&amp;prevCtxUrl=%2fPublic%2fTendering%2fOpportunityDetail%2fIndex%3fPerspective%3dDefault&amp;showDownloadDocument=False&amp;asPopupView=true"
                                                                             target="_blank"><i className="icon-Informacin-click"></i>
                                                                             Detalle</a></td>
-                                                                        <td colspan="1"><a
+                                                                        <td colSpan="1"><a
                                                                             href="https://community.secop.gov.co/Public/Tendering/RequestAmendmentView/CommunityView?docUniqueIdentifier=CO1.AMD.2146303&amp;communityFetch=True&amp;asPopupView=true"
                                                                             target="_blank"><i className="icon-Informacin-click"></i>
                                                                             Detalles de la enmienda</a></td>
@@ -662,6 +704,7 @@ const Detalle = ({ auth }) => {
                     </div>
                 </div>
             </div>
+            <SideBarNotas contrato={contrato} zona={zona} isOpen={sideBarNotasisOpen} onHide={onHideSideBarNotas} onChangeSideBarTotalNotas={onChangeSideBarTotalNotas} globalLoading={handleGlobalLoading}></SideBarNotas>
         </AuthenticatedLayout >
     );
 };

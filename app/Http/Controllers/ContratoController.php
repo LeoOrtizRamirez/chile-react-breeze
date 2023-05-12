@@ -12,7 +12,9 @@ use Inertia\Inertia;
 
 use App\Models\Carpeta;
 use App\Models\CarpetasHasContrato;
+use App\Models\ContratoHasPerfile;
 use App\Models\GrupoFiltroUsuario;
+use App\Models\Nota;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,60 +25,459 @@ class ContratoController extends Controller
 
     public function index(Request $request)
     {
+        $actividad_economica = "";
+        if (isset($request["query"]["actividad_economica"]) && $request["query"]["actividad_economica"] != "") {
+            $actividad_economica = $request["query"]["actividad_economica"];
+        }
+        $codigo_proceso = "";
+        if (isset($request["query"]["codigo_proceso"]) && $request["query"]["codigo_proceso"] != "") {
+            $codigo_proceso = $request["query"]["codigo_proceso"];
+        }
+        $entidad_contratante = "";
+        if (isset($request["query"]["entidad_contratante"]) && $request["query"]["entidad_contratante"] != "") {
+            $entidad_contratante = $request["query"]["entidad_contratante"];
+        }
+        $estado_proceso = "";
+        if (isset($request["query"]["estado_proceso"]) && $request["query"]["estado_proceso"] != "") {
+            $estado_proceso = $request["query"]["estado_proceso"];
+        }
+        $fecha_publicacion = "";
+        if (isset($request["query"]["fecha_publicacion"]) && $request["query"]["fecha_publicacion"] != "") {
+            $fecha_publicacion = $request["query"]["fecha_publicacion"];
+        }
+        $modalidad = "";
+        if (isset($request["query"]["modalidad"]) && $request["query"]["modalidad"] != "") {
+            $modalidad = $request["query"]["modalidad"];
+        }
+        $objeto = "";
+        if (isset($request["query"]["objeto"]) && $request["query"]["objeto"] != "") {
+            $objeto = $request["query"]["objeto"];
+        }
+        $rapida = "";
+        if (isset($request["query"]["rapida"]) && $request["query"]["rapida"] != "") {
+            $rapida = $request["query"]["rapida"];
+        }
+
+        $filtrar_nuevos = 0;
         if (isset($request->filtrar_nuevos) && !is_null($request->filtrar_nuevos)) {
             switch ($request->filtrar_nuevos) {
                 case '0':
-                    $zona = "ALL";
+                    $visualizar = "ALL";
+                    $filtrar_nuevos = 0;
                     break;
                 case '1':
-                    $zona = "No leidos";
+                    $visualizar = "No leidos";
+                    $filtrar_nuevos = 1;
                     break;
                 case '2':
-                    $zona = "Vistos recientemente";
+                    $visualizar = "Vistos recientemente";
+                    $filtrar_nuevos = 2;
                     break;
                 case '4':
-                    $zona = "Notas";
+                    $visualizar = "Notas";
+                    $filtrar_nuevos = 4;
                     break;
-
                 default:
-                    # code...
                     break;
             }
         } else {
-            $zona = "ALL";
-        }
-        $notas = request("filtrar_nuevos"); //4: Notas
-        $is_notas = false;
-        if (!is_null($notas) && $notas != "") {
-            $is_notas = true;
+            $visualizar = "ALL";
         }
 
-        $contratos_con_notas = DB::table('contratos')
-            ->join('notas', 'notas.id_contrato', '=', 'contratos.id')
-            ->where('notas.id_usuario', Auth::id())
-            ->select('contratos.id')
-            ->groupBy('contratos.id')
-            ->get()->pluck('id')->toArray();
 
-        $buscador_rapido = request("rapida");
-        $entidad_contratante = request("entidad_contratante");
-        $objeto = request("objeto");
-        $codigo_proceso = request("codigo_proceso");
-        $fecha_desde = request("fecha_desde");
-        $fecha_hasta = request("fecha_hasta");
-        $cuantia_desde = request("cuantia_desde");
-        $cuantia_hasta = request("cuantia_hasta");
-        $estado_proceso = request("estado_proceso");
-        // Revocada,Adjudicada,Cerrada,Desierta,Publicada
-        $fecha_publicacion = request("fecha_publicacion");
+        $contratos = $this->getAllContratos($rapida, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos);
+
+
+        $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
+        $grupos = GrupoFiltroUsuario::where('id_usuario', Auth::id())->orderBy('orden', 'ASC')->get();
+        if (request()->has("type") /* && request('type') == "fetch" */) { //dd(request('type'));
+            return json_encode($contratos);
+        } else {
+            return Inertia::render(
+                'Contratos/Index',
+                [
+                    'contratos' => $contratos,
+                    'nombre_carpeta' => 'ALL',
+                    'zona' => "ALL",
+                    'carpetas' => $carpetas,
+                    'grupos' => $grupos,
+                    'carpeta_actual' => null,
+                    'visualizar' => $visualizar
+                ]
+            );
+        }
+    }
+
+    public function create()
+    {
+        return Inertia::render('Contrato/Create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'id_user_clasificador' => 'required',
+        ]);
+
+        Contrato::create($request->all());
+        return Redirect::route('contratos.index');
+    }
+
+    public function show(Contrato $contrato)
+    {
+    }
+
+    public function edit(Contrato $contrato)
+    {
+        return Inertia::render('Contrato/Edit', ['contrato', $contrato]);
+    }
+
+    public function update(Request $request, Contrato $contrato)
+    {
+        $contrato->update($request->all());
+        return Redirect::route('contrato.index');
+    }
+
+    public function destroy(Contrato $contrato)
+    {
+        $contrato->delete();
+        return Redirect::route('contratos.index');
+    }
+
+    public function carpeta($tipo = null, Request $request)
+    {
+        $actividad_economica = "";
+        if (isset($request["query"]["actividad_economica"]) && $request["query"]["actividad_economica"] != "") {
+            $actividad_economica = $request["query"]["actividad_economica"];
+        }
+        $codigo_proceso = "";
+        if (isset($request["query"]["codigo_proceso"]) && $request["query"]["codigo_proceso"] != "") {
+            $codigo_proceso = $request["query"]["codigo_proceso"];
+        }
+        $entidad_contratante = "";
+        if (isset($request["query"]["entidad_contratante"]) && $request["query"]["entidad_contratante"] != "") {
+            $entidad_contratante = $request["query"]["entidad_contratante"];
+        }
+        $estado_proceso = "";
+        if (isset($request["query"]["estado_proceso"]) && $request["query"]["estado_proceso"] != "") {
+            $estado_proceso = $request["query"]["estado_proceso"];
+        }
+        $fecha_publicacion = "";
+        if (isset($request["query"]["fecha_publicacion"]) && $request["query"]["fecha_publicacion"] != "") {
+            $fecha_publicacion = $request["query"]["fecha_publicacion"];
+        }
+        $modalidad = "";
+        if (isset($request["query"]["modalidad"]) && $request["query"]["modalidad"] != "") {
+            $modalidad = $request["query"]["modalidad"];
+        }
+        $objeto = "";
+        if (isset($request["query"]["objeto"]) && $request["query"]["objeto"] != "") {
+            $objeto = $request["query"]["objeto"];
+        }
+        $rapida = "";
+        if (isset($request["query"]["rapida"]) && $request["query"]["rapida"] != "") {
+            $rapida = $request["query"]["rapida"];
+        }
+        /* $ubicacion = "";
+        if (isset($request["query"]["ubicacion"]) && $request["query"]["ubicacion"] != "") {
+            $ubicacion = $request["query"]["ubicacion"];
+        } */
+
+        $filtrar_nuevos = 0;
+        if (isset($request->filtrar_nuevos) && !is_null($request->filtrar_nuevos)) {
+            switch ($request->filtrar_nuevos) {
+                case '0':
+                    $visualizar = "ALL";
+                    $filtrar_nuevos = 0;
+                    break;
+                case '1':
+                    $visualizar = "No leidos";
+                    $filtrar_nuevos = 1;
+                    break;
+                case '2':
+                    $visualizar = "Vistos recientemente";
+                    $filtrar_nuevos = 2;
+                    break;
+                case '4':
+                    $visualizar = "Notas";
+                    $filtrar_nuevos = 4;
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            $visualizar = "ALL";
+        }
+
+
+        $carpeta = null;
+        $perfiles = null;
+        $contratos = null;
+
+
+        if ($tipo == 'F' || $tipo == 'P' || $tipo == 'C') {
+
+            if (isset($request->carpeta) && !is_null($request->carpeta)) {
+                $carpeta = Carpeta::find($request->carpeta);
+            } else {
+
+                $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', $tipo)->first();
+
+                if (is_null($carpeta)) {
+                    $carpeta = new Carpeta;
+                    $carpeta->id_usuario = Auth::id();
+                    switch ($tipo) {
+                        case 'F':
+                            $carpeta->tipo = 'F';
+                            $carpeta->nombre_carpeta = 'Favoritos';
+                            $carpeta->color = '#fdcb36';
+                            break;
+                        case 'P':
+                            $carpeta->tipo = 'P';
+                            $carpeta->nombre_carpeta = 'Papelera';
+                            $carpeta->color = '#d13161';
+                            break;
+                        default:
+                            break;
+                    }
+                    try {
+                        $carpeta->save();
+                    } catch (Exception $e) {
+                        dd($e->getMessage());
+                    }
+                }
+            }
+            $total_carpetas = 0;
+            if ($carpeta) {
+                $carpeta_has_contrato = CarpetasHasContrato::where('id_carpeta', $carpeta->id)->get();
+
+                $total_carpetas = sizeof($carpeta_has_contrato);
+                if ($total_carpetas > 0) {
+                    foreach ($carpeta_has_contrato as $key => $value) {
+                        $ids_contratos[] = $value->id_contrato;
+                    }
+                    $contratos = $this->getAllContratos($rapida, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos, $ids_contratos);
+
+                    /* $contratos = Contrato::with('fuente')
+                        ->whereIn('id', $ids_contratos)
+                        ->where(function ($query) use ($rapida, $entidad_contratante, $objeto, $codigo_proceso,  $estado_proceso, $filtrar_nuevos) {
+                            if (!is_null($rapida) && $rapida != "") {
+                                $query->where('entidad_contratante', 'like', '%' . $rapida . '%')
+                                    ->orWhere('objeto', 'like', '%' . $rapida . '%')
+                                    ->orWhere('modalidad', 'like', '%' . $rapida . '%');
+                            }
+                            if (!is_null($entidad_contratante) && $entidad_contratante != "") {
+                                $query->where('entidad_contratante', 'like', '%' . $entidad_contratante . '%');
+                            }
+                            if (!is_null($objeto) && $objeto != "") {
+                                $query->where('objeto', 'like', '%' . $objeto . '%');
+                            }
+                            if (!is_null($codigo_proceso) && $codigo_proceso != "") {
+                                $query->where('codigo_proceso', 'like', '%' . $codigo_proceso . '%');
+                            }
+                            if (!is_null($estado_proceso) && $estado_proceso != "") {
+                                $query->whereIn('estado_proceso', explode(",", $estado_proceso));
+                            }
+                        })
+                        ->where(function ($query) use ($filtrar_nuevos, $notas, $contratos_con_notas) {
+                            //dd($filtrar_nuevos);
+                            switch ($filtrar_nuevos) {
+                                case '4':
+                                    if (!is_null($notas) && $notas != "") {
+                                        $query->whereIn('id', $contratos_con_notas);
+                                    }
+                                    break;
+
+                                default:
+                                    # code...
+                                    break;
+                            }
+                        })
+                        ->paginate(30);
+                    foreach ($contratos as $key => $value) {
+                        $contratista = ContratistaContrato::where('id_contrato', $value->id)->first();
+                        if ($contratista) {
+                            $value->contratista = $contratista->nombre;
+                        }
+
+                        $actividad_economica = ClasificacionContrato::where('id_contrato', $value->id)->first();
+                        if ($actividad_economica) {
+                            $sub_categoria = SubCategoria::find($actividad_economica->id_sub_categoria);
+                            $value->actividad_economica = $sub_categoria->nombre;
+                        }
+
+                        $favorito = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'F')->first();
+                        if (is_null($favorito)) {
+                            $value->favorito = false;
+                        } else {
+                            $favorito = CarpetasHasContrato::where('id_contrato', $value->id)->where('id_carpeta', $favorito->id)->first();
+                            if (is_null($favorito)) {
+                                $value->favorito = false;
+                            } else {
+                                $value->favorito = true;
+                            }
+                        }
+
+                        $papelera = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'P')->first();
+                        if (is_null($papelera)) {
+                            $value->papelera = false;
+                        } else {
+                            $papelera = CarpetasHasContrato::where('id_contrato', $value->id)->where('id_carpeta', $papelera->id)->first();
+                            if (is_null($papelera)) {
+                                $value->papelera = false;
+                            } else {
+                                $value->papelera = true;
+                            }
+                        }
+
+                        //Buscar si el contrato esta guardado en carpetas del usuario actual
+                        $carpetas = CarpetasHasContrato::join('carpetas', 'carpetas.id', 'carpetas_has_contratos.id_carpeta')
+                            ->where('id_contrato', $value->id)
+                            ->where('carpetas.id_usuario', Auth::id())
+                            ->whereNotIn('carpetas.tipo', ['F', 'P'])
+                            ->get();
+                        $value->carpetas = $carpetas;
+                        $carpetas_ids = [];
+                        foreach ($carpetas as $item => $key) {
+                            $carpetas_ids[] = $key->id_carpeta;
+                        }
+                        $value->carpetas_ids = $carpetas_ids;
+
+                        if (in_array($value->id, $contratos_con_notas)) {
+                            $value->notas = true;
+                        } else {
+                            $value->notas = false;
+                        }
+                    } */
+                } else {
+                    $contratos = Contrato::with('fuente')->where('id', 0)->paginate(30); //Se busca el id 0 para que no retorne nada pero conserve la estructura que genera el paginate() y no se generen conflictos en el renderizado
+                }
+            }
+        } else { //MP - AL
+            $contratos = $this->getAllContratos($rapida, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos);
+        }
+
+        //dd($contratos);
+
+        if ($tipo == "MP") {
+            $ids_perfiles = $request->perfiles;
+            $perfiles = GrupoFiltroUsuario::whereIn('id', explode(",", $ids_perfiles))->get();
+            $contratos = Contrato::with('fuente')->where('id', 0)->paginate(30); //Se busca el id 0 para que no retorne nada pero conserve la estructura que genera el paginate() y no se generen conflictos en el renderizado
+        }
+
+
+
+        switch ($tipo) {
+            case 'F':
+                $nombre_carpeta = "Favoritos";
+                $zona = "F";
+                break;
+            case 'P':
+                $nombre_carpeta = "Papelera";
+                $zona = "P";
+                break;
+            case 'S':
+                $nombre_carpeta = "Seguimientos";
+                $zona = "S";
+                break;
+            case 'C':
+                $nombre_carpeta = $carpeta->nombre_carpeta;
+                $zona = "C";
+                break;
+            case 'MP':
+                $nombre_carpeta = "Perfiles";
+                $zona = "MP";
+                break;
+
+            default:
+                # code...
+                break;
+        }
+
+
+
+        $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
+        $grupos = GrupoFiltroUsuario::where('id_usuario', Auth::id())->orderBy('orden', 'ASC')->get();
+        /*         return Inertia::render(
+            'Contratos/Index',
+            [
+                'contratos' => $contratos,
+                'nombre_carpeta' => $nombre_carpeta,
+                'zona' => $zona,
+                'carpetas' => $carpetas,
+                'grupos' => $grupos,
+                'carpeta_actual' => $carpeta,
+                'perfiles' => $perfiles
+            ]
+        ); */
+
+
+        if (isset($request["query"]["type"]) && $request["query"]["type"] != "") {
+            return json_encode($contratos);
+        } else {
+            return Inertia::render(
+                'Contratos/Index',
+                [
+                    'contratos' => $contratos,
+                    'nombre_carpeta' => $nombre_carpeta,
+                    'zona' => $zona,
+                    'carpetas' => $carpetas,
+                    'grupos' => $grupos,
+                    'carpeta_actual' => $carpeta,
+                    'perfiles' => $perfiles,
+                    'visualizar' => $visualizar
+                ]
+            );
+        }
+
+
+        /* return Inertia::render(
+            'Contratos/Index', ['contratos' => $contratos]
+        ); */
+    }
+
+
+    public function getAllContratos($rapida, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos, $ids_contratos_carpetas = null)
+    {
+        $contratos_con_notas = $this->getContratosIdsConNotas();
+        $contratos_con_notas_filter = [];
+        $contratos_vistos = [];
+        switch ($filtrar_nuevos) {
+            case 0:
+                # code...
+                break;
+            case 1:
+                # code...
+                break;
+            case 2:
+                $contratos_vistos = ContratoHasPerfile::where('id_usuario', Auth::id())->where('leido', 1)->get()->pluck('id')->toArray();
+                break;
+            case 4:
+                $contratos_con_notas_filter = $this->getContratosIdsConNotas();
+                break;
+
+            default:
+                # code...
+                break;
+        }
+
+
+
+        
+
         $contratos = Contrato::with('fuente')
-            ->where(function ($query) use ($buscador_rapido, $entidad_contratante, $objeto, $codigo_proceso, $fecha_desde, $fecha_hasta, $cuantia_desde, $cuantia_hasta, $estado_proceso) {
-                /* if (!is_null($buscador_rapido) && $buscador_rapido != "") {
-                    $query->where('entidad_contratante', 'like', '%' . $buscador_rapido . '%')
-                        ->orWhere('objeto', 'like', '%' . $buscador_rapido . '%')
-                        ->orWhere('modalidad', 'like', '%' . $buscador_rapido . '%')
-                        ->orWhere('ubicacion', 'like', '%' . $buscador_rapido . '%');
-                } */
+            ->where(function ($query) use ($ids_contratos_carpetas) { //BUSCAR SOLO LOS CONTRATOS QUE ESTAN RELACIONADOS A ALGUNA CARPETA
+                if (!is_null($ids_contratos_carpetas)) {
+                    $query->whereIn('id', $ids_contratos_carpetas);
+                }
+            })
+            ->where(function ($query) use ($rapida, $entidad_contratante, $objeto, $codigo_proceso, /* $fecha_desde, $fecha_hasta, $cuantia_desde, $cuantia_hasta, */ $estado_proceso) {
+                if (!is_null($rapida) && $rapida != "") {
+                    $query->where('entidad_contratante', 'like', '%' . $rapida . '%')
+                        ->orWhere('objeto', 'like', '%' . $rapida . '%')
+                        ->orWhere('modalidad', 'like', '%' . $rapida . '%')
+                        ->orWhere('ubicacion', 'like', '%' . $rapida . '%');
+                }
                 // Inicio condiciones modal filtro avanzado
                 if (!is_null($entidad_contratante) && $entidad_contratante != "") {
                     $query->where('entidad_contratante', 'like', '%' . $entidad_contratante . '%');
@@ -87,18 +488,18 @@ class ContratoController extends Controller
                 if (!is_null($codigo_proceso) && $codigo_proceso != "") {
                     $query->where('codigo_proceso', 'like', '%' . $codigo_proceso . '%');
                 }
-                if (!is_null($fecha_desde) && $fecha_desde != "") {
-                    $query->where('fecha_publicacion', '>=', '' . $fecha_desde . '');
-                }
-                if (!is_null($fecha_hasta) && $fecha_hasta != "") {
-                    $query->where('fecha_publicacion', '<=', '' . $fecha_hasta . '');
-                }
-                if (!is_null($cuantia_desde) && $cuantia_desde != "") {
-                    $query->where('valor', '>=', '' . $cuantia_desde . '');
-                }
-                if (!is_null($cuantia_hasta) && $cuantia_hasta != "") {
-                    $query->where('valor', '<=', '' . $cuantia_hasta . '');
-                }
+                /* if (!is_null($fecha_desde) && $fecha_desde != "") {
+                        $query->where('fecha_publicacion', '>=', '' . $fecha_desde . '');
+                    }
+                    if (!is_null($fecha_hasta) && $fecha_hasta != "") {
+                        $query->where('fecha_publicacion', '<=', '' . $fecha_hasta . '');
+                    }
+                    if (!is_null($cuantia_desde) && $cuantia_desde != "") {
+                        $query->where('valor', '>=', '' . $cuantia_desde . '');
+                    }
+                    if (!is_null($cuantia_hasta) && $cuantia_hasta != "") {
+                        $query->where('valor', '<=', '' . $cuantia_hasta . '');
+                    } */
                 if (!is_null($codigo_proceso) && $codigo_proceso != "") {
                     $query->where('codigo_proceso', 'like', '%' . $codigo_proceso . '%');
                 }
@@ -111,12 +512,18 @@ class ContratoController extends Controller
                     $query->whereIn('estado_proceso', explode(",", $estado_proceso));
                 }
             })
-            ->where(function ($query) use ($notas, $contratos_con_notas) {
-                if (!is_null($notas) && $notas != "") {
-                    $query->whereIn('id', $contratos_con_notas);
+            ->where(function ($query) use ($contratos_con_notas_filter) {
+                if (sizeof($contratos_con_notas_filter) > 0) {
+                    $query->whereIn('id', $contratos_con_notas_filter);
+                }
+            })
+            ->where(function ($query) use ($contratos_vistos) {
+                if (sizeof($contratos_vistos) > 0) {
+                    $query->whereIn('id', $contratos_vistos);
                 }
             })
             ->paginate(30);
+
 
         foreach ($contratos as $key => $value) {
             $contratista = ContratistaContrato::where('id_contrato', $value->id)->first();
@@ -173,254 +580,17 @@ class ContratoController extends Controller
                 $value->notas = false;
             }
         }
-
-        $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
-        $grupos = GrupoFiltroUsuario::where('id_usuario', Auth::id())->orderBy('orden', 'ASC')->get();
-        if (request()->has("type") /* && request('type') == "fetch" */) { //dd(request('type'));
-            return json_encode($contratos);
-        } else {
-            return Inertia::render(
-                'Contratos/Index',
-                [
-                    'contratos' => $contratos,
-                    'nombre_carpeta' => 'ALL',
-                    'zona' => $zona,
-                    'carpetas' => $carpetas,
-                    'grupos' => $grupos,
-                    'filter_notas' => $is_notas,
-                    'carpeta_actual' => null
-                ]
-            );
-        }
+        return $contratos;
     }
 
-    public function create()
-    {
-        return Inertia::render('Contrato/Create');
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
-            'id_user_clasificador' => 'required',
-        ]);
-
-        Contrato::create($request->all());
-        return Redirect::route('contratos.index');
-    }
-
-    public function show(Contrato $contrato)
-    {
-    }
-
-    public function edit(Contrato $contrato)
-    {
-        return Inertia::render('Contrato/Edit', ['contrato', $contrato]);
-    }
-
-    public function update(Request $request, Contrato $contrato)
-    {
-        $contrato->update($request->all());
-        return Redirect::route('contrato.index');
-    }
-
-    public function destroy(Contrato $contrato)
-    {
-        $contrato->delete();
-        return Redirect::route('contratos.index');
-    }
-
-    public function carpeta($tipo, Request $request)
-    {
-        $carpeta = null;
-        $perfiles = null;
-        $contratos = null;
-        $contratos_con_notas = DB::table('contratos')
-            ->join('notas', 'notas.id_contrato', '=', 'contratos.id')
-            ->where('notas.id_usuario', Auth::id())
-            ->select('contratos.id')
-            ->groupBy('contratos.id')
-            ->get()->pluck('id')->toArray();
-
-
-        if ($tipo == 'F' || $tipo == 'P' || $tipo == 'C') {
-            
-            if (isset($request->carpeta) && !is_null($request->carpeta)) {
-                $carpeta = Carpeta::find($request->carpeta);
-            } else {
-                $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', $tipo)->first();
-                if (is_null($carpeta)) {
-                    $carpeta = new Carpeta;
-                    $carpeta->id_usuario = Auth::id();
-                    switch ($tipo) {
-                        case 'F':
-                            $carpeta->tipo = 'F';
-                            $carpeta->nombre_carpeta = 'Favoritos';
-                            $carpeta->color = '#fdcb36';
-                            break;
-                        case 'P':
-                            $carpeta->tipo = 'P';
-                            $carpeta->nombre_carpeta = 'Papelera';
-                            $carpeta->color = '#d13161';
-                            break;
-                        default:
-                            break;
-                    }
-                    try {
-                        $carpeta->save();
-                    } catch (Exception $e) {
-                        dd($e->getMessage());
-                    }
-                }
-            }
-            $total_carpetas = 0;
-            if ($carpeta) {
-                $carpeta_has_contrato = CarpetasHasContrato::where('id_carpeta', $carpeta->id)->get();
-
-                $total_carpetas = sizeof($carpeta_has_contrato);
-                if ($total_carpetas > 0) {
-                    foreach ($carpeta_has_contrato as $key => $value) {
-                        $ids_contratos[] = $value->id_contrato;
-                    }
-                    $contratos = Contrato::with('fuente')->whereIn('id', $ids_contratos)->paginate(30);
-                    foreach ($contratos as $key => $value) {
-                        $contratista = ContratistaContrato::where('id_contrato', $value->id)->first();
-                        if ($contratista) {
-                            $value->contratista = $contratista->nombre;
-                        }
-
-                        $actividad_economica = ClasificacionContrato::where('id_contrato', $value->id)->first();
-                        if ($actividad_economica) {
-                            $sub_categoria = SubCategoria::find($actividad_economica->id_sub_categoria);
-                            $value->actividad_economica = $sub_categoria->nombre;
-                        }
-
-                        $favorito = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'F')->first();
-                        if (is_null($favorito)) {
-                            $value->favorito = false;
-                        } else {
-                            $favorito = CarpetasHasContrato::where('id_contrato', $value->id)->where('id_carpeta', $favorito->id)->first();
-                            if (is_null($favorito)) {
-                                $value->favorito = false;
-                            } else {
-                                $value->favorito = true;
-                            }
-                        }
-
-                        $papelera = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'P')->first();
-                        if (is_null($papelera)) {
-                            $value->papelera = false;
-                        } else {
-                            $papelera = CarpetasHasContrato::where('id_contrato', $value->id)->where('id_carpeta', $papelera->id)->first();
-                            if (is_null($papelera)) {
-                                $value->papelera = false;
-                            } else {
-                                $value->papelera = true;
-                            }
-                        }
-
-                        //Buscar si el contrato esta guardado en carpetas del usuario actual
-                        $carpetas = CarpetasHasContrato::join('carpetas', 'carpetas.id', 'carpetas_has_contratos.id_carpeta')
-                            ->where('id_contrato', $value->id)
-                            ->where('carpetas.id_usuario', Auth::id())
-                            ->whereNotIn('carpetas.tipo', ['F', 'P'])
-                            ->get();
-                        $value->carpetas = $carpetas;
-                        $carpetas_ids = [];
-                        foreach ($carpetas as $item => $key) {
-                            $carpetas_ids[] = $key->id_carpeta;
-                        }
-                        $value->carpetas_ids = $carpetas_ids;
-
-                        if (in_array($value->id, $contratos_con_notas)) {
-                            $value->notas = true;
-                        } else {
-                            $value->notas = false;
-                        }
-                    }
-                }else{
-                    $contratos = Contrato::with('fuente')->where('id', 0)->paginate(30); //Se busca el id 0 para que no retorne nada pero conserve la estructura que genera el paginate() y no se generen conflictos en el renderizado
-                }
-            }
-        }
-
-        
-        if ($tipo == "MP") {
-            $ids_perfiles = $request->perfiles;
-            $perfiles = GrupoFiltroUsuario::whereIn('id', explode(",", $ids_perfiles))->get();
-            $contratos = Contrato::with('fuente')->where('id', 0)->paginate(30); //Se busca el id 0 para que no retorne nada pero conserve la estructura que genera el paginate() y no se generen conflictos en el renderizado
-        }
-
-       
-
-
-        switch ($tipo) {
-            case 'F':
-                $nombre_carpeta = "Favoritos";
-                $zona = "F";
-                break;
-            case 'P':
-                $nombre_carpeta = "Papelera";
-                $zona = "P";
-                break;
-            case 'S':
-                $nombre_carpeta = "Seguimientos";
-                $zona = "S";
-                break;
-            case 'C':
-                $nombre_carpeta = $carpeta->nombre_carpeta;
-                $zona = "C";
-                break;
-            case 'MP':
-                $nombre_carpeta = "Perfiles";
-                $zona = "MP";
-                break;
-
-            default:
-                # code...
-                break;
-        }
-
-
-        $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
-        $grupos = GrupoFiltroUsuario::where('id_usuario', Auth::id())->orderBy('orden', 'ASC')->get();
-/*         return Inertia::render(
-            'Contratos/Index',
-            [
-                'contratos' => $contratos,
-                'nombre_carpeta' => $nombre_carpeta,
-                'zona' => $zona,
-                'carpetas' => $carpetas,
-                'grupos' => $grupos,
-                'filter_notas' => false,
-                'carpeta_actual' => $carpeta,
-                'perfiles' => $perfiles
-            ]
-        ); */
-
-
-        if (request()->has("type") /* && request('type') == "fetch" */) { //dd(request('type'));
-            return json_encode($contratos);
-        } else {
-            return Inertia::render(
-                'Contratos/Index',
-                [
-                    'contratos' => $contratos,
-                    'nombre_carpeta' => $nombre_carpeta,
-                    'zona' => $zona,
-                    'carpetas' => $carpetas,
-                    'grupos' => $grupos,
-                    'filter_notas' => false,
-                    'carpeta_actual' => $carpeta,
-                    'perfiles' => $perfiles
-                ]
-            );
-        }
-
-
-        /* return Inertia::render(
-            'Contratos/Index', ['contratos' => $contratos]
-        ); */
+    public function getContratosIdsConNotas(){
+        $contratos = DB::table('contratos')
+        ->join('notas', 'notas.id_contrato', '=', 'contratos.id')
+        ->where('notas.id_usuario', Auth::id())
+        ->select('contratos.id')
+        ->groupBy('contratos.id')
+        ->get()->pluck('id')->toArray();
+        return $contratos;
     }
 
     public function addFavorito(Request $request)
@@ -527,13 +697,49 @@ class ContratoController extends Controller
         return redirect()->route('contratos.index');
     }
 
-    public function detalleConcurso(){
-
+    public function detalleConcurso(Request $request)
+    {
+        $total_notas = Nota::where('id_usuario', Auth::id())->where('id_contrato', $request->contrato["id"])->get();
         return Inertia::render(
             'Contratos/Detalle',
             [
-                /* 'contratos' => $contratos */
+                'data' => $request->contrato,
+                'total_notas' => sizeof($total_notas)
             ]
         );
+    }
+
+    public function contratoVisitado(Request $request)
+    {
+        $is_visitado = $this->isVisitado($request["contrato"]);
+        if (!$is_visitado) {
+            $contrato_has_perfil = new ContratoHasPerfile;
+            $contrato_has_perfil->id_usuario = Auth::id();
+            $contrato_has_perfil->id_contrato = $request["contrato"];
+            $contrato_has_perfil->leido = 1;
+            try {
+                $contrato_has_perfil->save();
+            } catch (Exception $e) {
+                dd($e->getMessage());
+            }
+        } else {
+            $contrato_has_perfil = ContratoHasPerfile::where('id_contrato', $request["contrato"])->where('id_usuario', Auth::id())->first();
+            $contrato_has_perfil->touch();
+        }
+        $response = [
+            'status' => 1,
+            'mesaje' => "Visita al contrato guardada."
+        ];
+        return $response;
+    }
+
+    public function isVisitado($contrato_id)
+    {
+        $response = false;
+        $contrato_has_perfil = ContratoHasPerfile::where('id_contrato', $contrato_id)->where('id_usuario', Auth::id())->first();
+        if (!is_null($contrato_has_perfil)) {
+            $response = true;
+        }
+        return $response;
     }
 }

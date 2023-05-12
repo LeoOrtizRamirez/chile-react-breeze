@@ -30,8 +30,9 @@ import CrearCarpeta from "@/Components/CrearCarpeta";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 
-const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter_notas, carpeta_actual, perfiles }) => {
-    console.log(zona)
+const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfiles, visualizar }) => {
+    console.log(visualizar)
+    const [visualizarFilter, setVisualizarFilter] = useState(visualizar)
     const [tabla, setTabla] = useState(contratos);
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
@@ -55,6 +56,138 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                 console.log(error);
             });
         console.log("selectedContratos current", selectedContratos)
+    }
+
+    const paginatorPost = (event, visualizar = null, paginator_url = null) => {
+        console.log("tabla", tabla)
+        if (visualizar != null) {
+            switch (visualizar) {
+                case 0:
+                    setVisualizarFilter("ALL")
+                    break;
+                case 1:
+                    setVisualizarFilter("No leidos")
+                    break;
+                case 2:
+                    setVisualizarFilter("Vistos recientemente")
+                    break;
+                case 4:
+                    setVisualizarFilter("Notas")
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        var url = ''
+        var full_url = ''
+        switch (zona) {
+            case 'MP':
+                full_url = getFullUrl(zona, perfiles);
+                break;
+            case 'C':
+                full_url = getFullUrl(zona, carpeta_actual);
+                break;
+            default:
+                full_url = getFullUrl(zona);
+                break;
+        }
+        console.log("full_url", full_url)
+        if (event?.key === 'Enter') {//Filtros del DataTable y busqueda rapida
+            paginatorPostSendRequest(full_url)
+        }
+        if (event?.type === 'click') {//Select Visualizar
+            if (zona != "ALL") {
+                paginatorPostSendRequest(`${full_url}&filtrar_nuevos=${visualizar}`)
+            } else {
+                paginatorPostSendRequest(`${full_url}?filtrar_nuevos=${visualizar}`)
+            }
+            //PARA CONTRATOS paginatorPostSendRequest(`${full_url}?filtrar_nuevos=${visualizar}`)
+
+        }
+    }
+
+    const paginatorPostSendRequest = (url) => {
+        setGlobalLoading(true)
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.post(url, {//pendiente organizar url para obtener ids de perfiles y carpetas
+            query: getUrlPostParams()
+        },
+            { 'Authorization': `Bearer ${token}` })
+            .then(response => {
+                setTabla(response.data)
+                setPageNumber(response.data.current_page - 1)
+                setPageSize(tabla.last_page + 1);
+                setGlobalLoading(false)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    const getFullUrl = (zona, array = null) => {
+        var url = '';
+        var idsArray = "";
+        if (array != null) {
+            if (Array.isArray(array)) {
+                idsArray = array.map((a) => a.id).join(',');
+            } else {
+                //Obtener ids de perfiles
+                if (perfiles?.length > 0) {
+                    var ids_perfiles = perfiles.map(item => item.id)
+                    if (ids_perfiles.includes(array.id)) {
+                        ids_perfiles = ids_perfiles.filter(item => item != array.id)
+                        idsArray = ids_perfiles.map((a) => a).join(',');
+                    } else {
+                        ids_perfiles.push(array.id)
+                        idsArray = ids_perfiles.map((a) => a).join(',');
+                    }
+                } else {
+                    idsArray = array.id;
+                }
+            }
+        }
+        switch (zona) {
+            case 'ALL':
+            case 'P':
+            case 'F':
+                url = `/cliente/contratos/get-info/${zona}`
+                break;
+            case 'C':
+                if (idsArray == "") {
+                    url = `/cliente/contratos/get-info/${zona}`
+                } else {
+                    url = `/cliente/contratos/get-info/${zona}?carpeta=${idsArray}`
+                }
+                break;
+            case 'MP':
+                if (idsArray == "") {
+                    url = `/cliente/contratos`
+                } else {
+                    url = `/cliente/contratos/get-info/${zona}?perfiles=${idsArray}`
+                }
+                break;
+            default:
+                break;
+        }
+        return url
+    }
+
+    const getUrlPostParams = () => {
+        const query = {
+            rapida: inputFilterBusquedaRapida,
+            actividad_economica: inputFilterActividadEconomica,
+            codigo_proceso: inputFilterCodigoProceso,
+            entidad_contratante: inputFilterEntidadContratante,
+            estado_proceso: inputFilterEstadoProceso,
+            fecha_publicacion: inputFilterFechaPublicacion,
+            modalidad: inputFilterModalidad,
+            objeto: inputFilterObjeto,
+            ubicacion: inputFilterUbicacion,
+            valor: inputFilterValor,
+            type: 'fetch'
+        }
+        return query
     }
 
     const getUrlParams = () => {
@@ -333,14 +466,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
 
 
 
-    /*Borrar filtros*/
-    const dt = useRef(null);
-    const handleClearFilters = () => {
-        if (dt.current) {
-            dt.current.reset();
-        }
-    }
-    /*Borrar filtros*/
+
 
     const [data, setData] = useState(contratos.data);
     const [filters, setFilters] = useState({
@@ -489,7 +615,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                         <i className="icon-Siguiente1"></i>
                     </a> */}
                     <a class="btnVerDocumentos d-inline-flex align-items-center oculto_sin_docs">
-                        <img src="/public/images/listado/sin_documentos.svg" alt="sin documentos" className="w-14"/>
+                        <img src="/public/images/listado/sin_documentos.svg" alt="sin documentos" className="w-14" />
                         <span>Sin documentos</span>
                     </a>
                     <div className="iconos_functions_grid iconos_acciones_contratos">
@@ -682,6 +808,44 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
         );
     };
 
+    const [inputFilterBusquedaRapida, setInputFilterBusquedaRapida] = useState("")
+    const [inputFilterEntidadContratante, setInputFilterEntidadContratante] = useState("")
+    const [inputFilterObjeto, setInputFilterObjeto] = useState("")
+    const [inputFilterValor, setInputFilterValor] = useState("")
+    const [inputFilterModalidad, setInputFilterModalidad] = useState([])
+    const [inputFilterCodigoProceso, setInputFilterCodigoProceso] = useState("")
+    const [inputFilterEstadoProceso, setInputFilterEstadoProceso] = useState("")
+    const [inputFilterFechaPublicacion, setInputFilterFechaPublicacion] = useState("")
+    const [inputFilterUbicacion, setInputFilterUbicacion] = useState([])
+    const [inputFilterActividadEconomica, setInputFilterActividadEconomica] = useState([])
+
+    const stateObject = {
+        inputFilterEntidadContratante: [inputFilterEntidadContratante, setInputFilterEntidadContratante],
+        inputFilterObjeto: [inputFilterObjeto, setInputFilterObjeto],
+        inputFilterValor: [inputFilterValor, setInputFilterValor],
+        inputFilterModalidad: [inputFilterModalidad, setInputFilterModalidad],
+        inputFilterCodigoProceso: [inputFilterCodigoProceso, setInputFilterCodigoProceso],
+        inputFilterEstadoProceso: [inputFilterEstadoProceso, setInputFilterEstadoProceso],
+        inputFilterFechaPublicacion: [inputFilterFechaPublicacion, setInputFilterFechaPublicacion],
+        inputFilterUbicacion: [inputFilterUbicacion, setInputFilterUbicacion],
+        inputFilterActividadEconomica: [inputFilterActividadEconomica, setInputFilterActividadEconomica]
+    };
+
+    const updateState = (stateName, value) => {
+        stateObject[stateName][1](value);
+    };
+
+    /*Borrar filtros*/
+    const dt = useRef(null);
+    const handleClearFilters = () => {
+        //setInputFilterEntidadContratante("")
+        console.log(dt)
+        if (dt.current) {
+            dt.current.reset();
+        }
+    }
+    /*Borrar filtros*/
+
     const columnFilterTemplate = (column) => {
         return (
             <>
@@ -703,10 +867,12 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                         placeholder="Buscar"
                         name={column.field}
                         /* onKeyPress={()=>paginator(`${tabla.path}?page=${tabla.current_page}`)} */
-                        onChange={(e) => onGlobalFilterChange(e, column.field)}
+                        /* onChange={(e) => onGlobalFilterChange(e, column.field)}
                         onInput={(e) => {
                             dt.current.filter(e.target.value, column.field, 'contains');
-                        }}
+                        }} */
+                        onKeyDown={paginatorPost}
+                        onChange={(e) => updateState(column.field, e.target.value)}
                     />
                 }
             </>
@@ -847,7 +1013,15 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                     <div id="top-botones" className="mb-2 mb-lg-0">
                         <div className="franja-busqueda-rapida">
                             <div className="input-busqueda-rapida">
-                                <input value={globalFilterValue} onChange={(e) => onGlobalFilterChange(e, 'global')} type="text" name="rapida" placeholder="Búsqueda rápida" className="form-control" />
+                                <input
+                                    value={inputFilterBusquedaRapida}
+                                    onChange={(e) => setInputFilterBusquedaRapida(e.target.value)}
+                                    onKeyDown={paginatorPost}
+                                    type="text"
+                                    name="rapida"
+                                    placeholder="Búsqueda rápida"
+                                    className="form-control"
+                                />
                                 <button type="button" className="submit-busqueda-rapida icon-Buscar-click"></button>
                             </div>
                             <div className="select-busqueda-rapida ml-4">
@@ -860,7 +1034,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                                 <span className="ver-filtros">
                                                     <span className="mr-2 visualizar">Visualizar:</span>
                                                     <span className="text-ver-filtros d-inline-flex pl-3 bg-white">
-                                                        {zona == "ALL" &&
+                                                        {visualizarFilter == "ALL" &&
                                                             <>
                                                                 <span className="align-self-center d-inline-flex iconOrdenamientoGrid">
                                                                     <span className="icon-Todos"></span>
@@ -868,7 +1042,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                                                 <span className="text-ver-filtros__text text-left">Todos</span>
                                                             </>
                                                         }
-                                                        {zona == "No leidos" &&
+                                                        {visualizarFilter == "No leidos" &&
                                                             <>
                                                                 <span className="align-self-center d-inline-flex iconOrdenamientoGrid">
                                                                     <span className="icon-No-leidos"></span>
@@ -876,7 +1050,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                                                 <span className="text-ver-filtros__text text-left">No leidos</span>
                                                             </>
                                                         }
-                                                        {zona == "Vistos recientemente" &&
+                                                        {visualizarFilter == "Vistos recientemente" &&
                                                             <>
                                                                 <span className="align-self-center d-inline-flex iconOrdenamientoGrid">
                                                                     <span className="icon-Vistos-recientemente"></span>
@@ -884,7 +1058,7 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                                                 <span className="text-ver-filtros__text text-left">Vistos recientemente</span>
                                                             </>
                                                         }
-                                                        {zona == "Notas" &&
+                                                        {visualizarFilter == "Notas" &&
                                                             <>
                                                                 <span className="align-self-center d-inline-flex iconOrdenamientoGrid">
                                                                     <span className="icon-Contratos"></span>
@@ -898,32 +1072,32 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                             </>
                                         }
                                     >
-                                        {zona != "ALL" &&
-                                            <Dropdown.Item href="/cliente/contratos?filtrar_nuevos=0" className='dropdown-item'>
+                                        {visualizarFilter != "ALL" &&
+                                            <Dropdown.Item onClick={(e) => paginatorPost(e, 0)} /* href={`/cliente/contratos/get-info/${visualizarFilter}?filtrar_nuevos=0`} */ className='dropdown-item'>
                                                 <span className="icon-options-order">
                                                     <span className="icon-Todos"></span>
                                                 </span>
                                                 <span className="text-options-order">Todos</span>
                                             </Dropdown.Item>
                                         }
-                                        {zona != "No leidos" &&
-                                            <Dropdown.Item href="/cliente/contratos?filtrar_nuevos=1" className='dropdown-item'>
+                                        {visualizarFilter != "No leidos" && zona != "ALL" && zona != "C" &&
+                                            <Dropdown.Item onClick={(e) => paginatorPost(e, 1)} /* href={`/cliente/contratos/get-info/${visualizarFilter}?filtrar_nuevos=1`} */ className='dropdown-item'>
                                                 <span className="icon-options-order">
                                                     <span className="icon-No-leidos"></span>
                                                 </span>
                                                 <span className="text-options-order">No leidos</span>
                                             </Dropdown.Item>
                                         }
-                                        {zona != "Vistos recientemente" &&
-                                            <Dropdown.Item href="/cliente/contratos?filtrar_nuevos=2" className='dropdown-item'>
+                                        {visualizarFilter != "Vistos recientemente" &&
+                                            <Dropdown.Item onClick={(e) => paginatorPost(e, 2)} /* href={`/cliente/contratos/get-info/${visualizarFilter}?filtrar_nuevos=2`} */ className='dropdown-item'>
                                                 <span className="icon-options-order">
                                                     <span className="icon-Vistos-recientemente"></span>
                                                 </span>
                                                 <span className="text-options-order">Vistos recientemente</span>
                                             </Dropdown.Item>
                                         }
-                                        {zona != "Notas" &&
-                                            <Dropdown.Item href="/cliente/contratos?filtrar_nuevos=4" className='dropdown-item'>
+                                        {visualizarFilter != "Notas" &&
+                                            <Dropdown.Item onClick={(e) => paginatorPost(e, 4)} /* href={`/cliente/contratos/get-info/${visualizarFilter}?filtrar_nuevos=4`} */ className='dropdown-item'>
                                                 <span className="icon-options-order">
                                                     <span className="icon-Contratos"></span>
                                                 </span>
@@ -1043,18 +1217,11 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                                 <span className="p-paginator-current">{tabla.data.length} registros</span>
                                 :
                                 <>
-                                    {filter_notas ?
-                                        <span className="p-paginator-current">{tabla.data.length} registros</span>
-                                        :
-                                        <>
-                                            <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-double-left" onClick={() => paginator(tabla.first_page_url)} />
-                                            <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-left" onClick={() => paginator(tabla.prev_page_url)} />
-                                            <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-right" onClick={() => paginator(tabla.next_page_url)} />
-                                            <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-double-right" onClick={() => paginator(tabla.last_page_url)} />
-                                            <span className="p-paginator-current">{`${tabla.from} - ${tabla.to} de ${tabla.total}`}</span>
-                                        </>
-                                    }
-
+                                    <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-double-left" onClick={(e) => paginatorPost(e, null, tabla.first_page_url)} />
+                                    <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-left" onClick={(e) => paginatorPost(e, null, tabla.prev_page_url)} />
+                                    <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-right" onClick={(e) => paginatorPost(e, null, tabla.next_page_url)} />
+                                    <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-double-right" onClick={(e) => paginatorPost(e, null, tabla.last_page_url)} />
+                                    <span className="p-paginator-current">{`${tabla.from} - ${tabla.to} de ${tabla.total}`}</span>
                                 </>
                             }
 
@@ -1731,6 +1898,20 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
 
     const toastBL = useRef(null);
 
+    const onRowClick = (event) => {
+        console.log(event)
+        const rowData = event.data;
+        //axios.get(`/cliente/contratos/detalle-contrato-2${row.id}`)
+        //window.location.href = `/cliente/contrato/${rowData.id}`;
+        var token = document.querySelector('meta[name="csrf-token"]')
+
+        Inertia.post('/cliente/contratos/detalle-contrato-2', { contrato: event.data }, {
+            headers: {
+                'Authorization': `Bearer ${token.content}`
+            }
+        });
+    };
+
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders} grupos={grupos} carpeta_actual={carpeta_actual} perfiles={perfiles} zona={zona} globalLoading={globalLoading}>
             <div className="content_not_blank_interno">
@@ -1739,7 +1920,9 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                     <DataTable id="datatableContratos" ref={dt} value={tabla.data} rows={pageSize} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
                         globalFilterFields={['fuente.alias_portal', 'entidad_contratante', 'objeto', 'valor', 'modalidad', 'codigo_proceso', 'estado_proceso', 'fecha_publicacion', 'ubicacion', 'actividad_economica']} emptyMessage={renderEmptyMessage()}
                         expandedRows={expandedRows} /* onRowToggle={(e) => setExpandedRows(e.data)}
-                        onRowExpand={onRowExpand} onRowCollapse={onRowCollapse} */ rowExpansionTemplate={rowExpansionTemplate}
+                        onRowExpand={onRowExpand} onRowCollapse={onRowCollapse} */
+                        rowExpansionTemplate={rowExpansionTemplate}
+                        onRowClick={onRowClick}
                         header={header}
                         selectionMode={rowClick ? null : 'checkbox'}
                         selection={selectedContratos}
@@ -1754,20 +1937,18 @@ const Index = ({ auth, contratos, nombre_carpeta, zona, carpetas, grupos, filter
                         <Column selectionMode="multiple" className='columna_seleccion columna_pequena' filter filterElement={clearTemplate}></Column>
                         {/* <Column filter className='columna_seleccion columna_pequena'  /> */}
                         <Column field="fuente.alias_portal" header="Portal" filter filterPlaceholder="Todos" className="rounded_left columna_tipo_secop" body={portalBodyTemplate} filterElement={columnFilterTemplate} />
-                        <Column field="entidad_contratante" header="Entidad" filter filterPlaceholder="Buscar" className="columna_entidad columna_120" body={entidadBodyTemplate} filterElement={columnFilterTemplate} />
-                        <Column field="objeto" header="Obejto" filter filterPlaceholder="Buscar" className="objeto_columna" body={objetoBodyTemplate} filterElement={columnFilterTemplate} />
-                        <Column field="valor" header="Cuantía" filter filterPlaceholder="Buscar" className="rangedropdown columna_120 columna_cuantia" body={cuantiaBodyTemplate} filterElement={columnFilterTemplate} />
-                        <Column field="modalidad" header="Modalidad" filter filterPlaceholder="Seleccionar" className="columna_100 columna_modalidad" filterElement={columnFilterTemplate} />
-                        <Column field="codigo_proceso" header="Número" filter filterPlaceholder="Buscar" className="columna_numero" filterElement={columnFilterTemplate} />
-                        <Column field="estado_proceso" header="Estado" filter filterPlaceholder="Buscar" className="columna_estado" body={estadoBodyTemplate} filterElement={columnFilterTemplate} />
-                        <Column field="fecha_publicacion" header="Publicada" filter filterPlaceholder="Buscar" className="columna_fecha" filterElement={columnFilterTemplate} />
-                        <Column field="ubicacion" header="Ubicación" filter filterPlaceholder="Seleccionar" className="columna_ubicacion" body={ubicacionBodyTemplate} filterElement={columnFilterTemplate} />
-                        <Column field="actividad_economica" header="Actividad Económica" filter filterElement={columnFilterTemplate} />
+                        <Column field="inputFilterEntidadContratante" header="Entidad" filter filterPlaceholder="Buscar" className="columna_entidad columna_120" body={entidadBodyTemplate} filterElement={columnFilterTemplate} />
+                        <Column field="inputFilterObjeto" header="Obejto" filter filterPlaceholder="Buscar" className="objeto_columna" body={objetoBodyTemplate} filterElement={columnFilterTemplate} />
+                        <Column field="inputFilterValor" header="Cuantía" filter filterPlaceholder="Buscar" className="rangedropdown columna_120 columna_cuantia" body={cuantiaBodyTemplate} filterElement={columnFilterTemplate} />
+                        <Column field="inputFilterModalidad" header="Modalidad" filter filterPlaceholder="Seleccionar" className="columna_100 columna_modalidad" filterElement={columnFilterTemplate} />
+                        <Column field="inputFilterCodigoProceso" header="Número" filter filterPlaceholder="Buscar" className="columna_numero" filterElement={columnFilterTemplate} />
+                        <Column field="inputFilterEstadoProceso" header="Estado" filter filterPlaceholder="Buscar" className="columna_estado" body={estadoBodyTemplate} filterElement={columnFilterTemplate} />
+                        <Column field="inputFilterFechaPublicacion" header="Publicada" filter filterPlaceholder="Buscar" className="columna_fecha" filterElement={columnFilterTemplate} />
+                        <Column field="inputFilterUbicacion" header="Ubicación" filter filterPlaceholder="Seleccionar" className="columna_ubicacion" body={ubicacionBodyTemplate} filterElement={columnFilterTemplate} />
+                        <Column field="inputFilterActividadEconomica" header="Actividad Económica" filter filterElement={columnFilterTemplate} />
                     </DataTable>
-
                 </div>
             </div>
-
             {selectedContratos.length > 0 &&
                 <div id="accionesSeleccionGrid" className="acciones-seleccion-grid">
                     <div id="pruebaFixed" className="pruebafixed">

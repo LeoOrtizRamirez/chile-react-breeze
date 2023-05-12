@@ -567,3 +567,20 @@
     margin-right: 12px;
     color: #686868;
 }
+
+/* #detalle-contratos .detalle-contrato-padre #contenido_acciones .cuenta-notas {
+    font-size: 9px;
+    font-family: Nexa-bold,sans-serif;
+    color: #c9003d;
+    position: relative;
+    right: 55%;
+} */
+
+#detalle-contratos .detalle-contrato-padre #contenido_acciones .cuenta-notas {
+    font-size: 9px;
+    font-family: Nexa-bold,sans-serif;
+    color: #c9003d;
+    position: absolute;
+    right: 26px;
+    margin-top: -18px;
+}
