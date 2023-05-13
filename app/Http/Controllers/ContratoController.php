@@ -700,11 +700,14 @@ class ContratoController extends Controller
     public function detalleConcurso(Request $request)
     {
         $total_notas = Nota::where('id_usuario', Auth::id())->where('id_contrato', $request->contrato["id"])->get();
+        $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
         return Inertia::render(
             'Contratos/Detalle',
             [
                 'data' => $request->contrato,
-                'total_notas' => sizeof($total_notas)
+                'total_notas' => sizeof($total_notas),
+                'carpeta_actual' => null,
+                'carpetas'=> $carpetas
             ]
         );
     }

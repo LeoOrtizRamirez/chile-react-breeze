@@ -2,19 +2,23 @@ import React, { useState, useEffect, useRef } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import "./Detalle.css";
 import SideBarNotas from "@/Components/SideBarNotas";
+import ModalFavorito from "@/Components/ModalFavorito";
+import ModalCarpetas from "@/Components/ModalCarpetas";
+import { Toast } from 'primereact/toast';
 
-const Detalle = ({ auth, data, total_notas, zona = "ALL" }) => {
+const Detalle = ({ auth, data, total_notas, carpeta_actual, carpetas, zona = "ALL" }) => {
 
+    const [folders, setFolders] = useState(carpetas)
     const [totalNotas, setTotalNotas] = useState(total_notas)
     const [globalLoading, setGlobalLoading] = useState(false)
     const handleGlobalLoading = (loading) => {
         setGlobalLoading(loading)
     }
     const [contrato, setContrato] = useState(data)
-    console.log("contratos", contrato)
+    console.log("cotrato", contrato)
     var token = document.querySelector('meta[name="csrf-token"]')
     useEffect(() => {
-        axios.post('/contrato-visatado', {
+        axios.post('/contrato-visitado', {
             contrato: 1
         },
             { 'Authorization': `Bearer ${token}` })
@@ -29,7 +33,6 @@ const Detalle = ({ auth, data, total_notas, zona = "ALL" }) => {
     const [sideBarNotasisOpen, setSideBarNotasisOpen] = useState(false)
 
     const onHideSideBarNotas = () => {
-        console.log("onHide")
         setSideBarNotasisOpen(false)
     }
 
@@ -37,6 +40,108 @@ const Detalle = ({ auth, data, total_notas, zona = "ALL" }) => {
         setTotalNotas(total)
     }
 
+
+
+    const [showModalFavorito, setShowModalFavorito] = useState(false);
+    const handleCloseModalFavorito = () => setShowModalFavorito(false);
+    const handleShowModalFavorito = (modal_open, data = null, is_favorito = false) => {
+        setShowModalFavorito(true);
+    }
+
+    const [showModalCarpetas, setShowModalCarpetas] = useState(false);
+    const handleCloseModalCarpetas = () => setShowModalCarpetas(false);
+    const handleShowModalCarpetas = (modal_open, data = null, is_favorito = false) => {
+        setShowModalCarpetas(true);
+    }
+
+    const toastBL = useRef(null);
+
+    const deleteContrato = (carpeta, contratos) => {
+        setGlobalLoading(true)
+        var _contratos = [];
+        if (contratos.length == undefined) {
+            _contratos = [contratos]
+        } else {
+            contratos.forEach(c => {
+                _contratos.push(c.id)
+            })
+        }
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.post('/cliente/carpeta/delete-contrato', {
+            contratos: _contratos,
+            carpeta: carpeta
+        },
+            { 'Authorization': `Bearer ${token}` })
+            .then(response => {
+                if (response.data.status == 1) {
+                    /* setSelectedContratos([])
+                    setTabla(prevTabla => {
+                        var newData = [...prevTabla.data];
+                        _contratos.forEach(c => {
+                            const index = prevTabla.data.findIndex(item => item.id === c);
+                            if (index === -1) {
+                                return { ...prevTabla };
+                            } else {
+                                if (zona == "C" && carpeta_actual?.id == carpeta) {
+                                    newData = newData.filter(item => item.id != c)
+                                } else {
+                                    const carpetas_ids = newData[index].carpetas_ids.filter(c => c != carpeta)
+                                    const carpetas_contrato = newData[index].carpetas.filter(c => c.id != carpeta);
+                                    newData[index] = { ...newData[index], carpetas_ids: carpetas_ids };
+                                    newData[index] = { ...newData[index], carpetas: carpetas_contrato };
+                                }
+                            }
+                        })
+                        return { ...prevTabla, data: newData };
+                    }); */
+                }
+                setGlobalLoading(false)
+                setShowModalFavorito(false)
+                toastBL.current.show({ severity: 'success', summary: 'Has eliminado el proceso de contratación de tus carpetas'/* , detail: 'Message Content' */, life: 3000 });
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    };
+
+    const onHandleContrato = (_contrato) => {
+        setContrato(_contrato)
+    }
+
+    const addFavorito = (_contrato) => {
+        setGlobalLoading(true)
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.post('/cliente/contratos/add_favorito', {
+            contrato: _contrato
+        },
+            { 'Authorization': `Bearer ${token}` })
+            .then(response => {
+                setContrato({ ...contrato, favorito: true })
+                /* setTabla(prevTabla => {
+                    const index = prevTabla.data.findIndex(item => item.id === contrato);
+                    if (index === -1) {
+                        return { ...prevTabla }; // return a new object reference
+                    } else {
+                        let newData = [...prevTabla.data]; // create a shallow copy of the data array
+                        newData[index] = { ...newData[index], favorito: true }; // modify the 'favorito' property
+                        return { ...prevTabla, data: newData }; // return a new object reference with the updated data
+                    }
+                }); */
+                setGlobalLoading(false)
+                toastBL.current.show({ severity: 'success', summary: 'Has agregado el proceso de contratación a tus favoritos.'/* , detail: 'Message Content' */, life: 3000 });
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    };
+
+    const onHandleFolders = (folders) => {
+        setFolders(folders)
+    }
+
+    const openNewTab = (url) => {
+        window.open(url, "_blank");
+      }
     return (
         <AuthenticatedLayout auth={auth} page={'detalle-contratos'} globalLoading={globalLoading}>
             <div className="content_not_blank_interno">
@@ -69,14 +174,14 @@ const Detalle = ({ auth, data, total_notas, zona = "ALL" }) => {
 
                                     {contrato.favorito ?
                                         <div className="custom-tooltip yellow" data-tooltip="Eliminar De Favoritos">
-                                            <button id="btnContratosFavorito" type="button" class="btn bg-transparent">
+                                            <button id="btnContratosFavorito" type="button" class="btn bg-transparent" onClick={() => handleShowModalFavorito("modal_seleccion_carpeta", contrato)}>
                                                 <span class="icon-Favorito-click favorito_active"></span>
                                             </button>
                                         </div>
                                         :
-                                        <div className="custom-tooltip yellow" contrato-tooltip="Agregar A Favoritos">
-                                            <button id="btnContratosFavorito" type="button" class="btn bg-transparent">
-                                                <span class="icon-Favorito-click favorito_active"></span>
+                                        <div className="custom-tooltip yellow" data-tooltip="Agregar A Favoritos">
+                                            <button id="btnContratosFavorito" type="button" class="btn bg-transparent" onClick={() => addFavorito(data.id)}>
+                                                <span class="icon-Favorito-click"></span>
                                             </button>
                                         </div>
                                     }
@@ -91,7 +196,7 @@ const Detalle = ({ auth, data, total_notas, zona = "ALL" }) => {
                                         </button>
                                     </div>
 
-                                    <div className="custom-tooltip blue" data-tooltip="Agregar A Carpeta(S)" onClick={() => handleShowModal("modal_seleccion_carpeta", data)}>
+                                    <div className="custom-tooltip blue" data-tooltip="Agregar A Carpeta(S)" onClick={() => handleShowModalCarpetas("modal_seleccion_carpeta", contrato)}>
                                         <button id="btnContratosCarpeta" type="button" className="btn bg-transparent">
                                             <span className="icon-Mis-carpetas">
                                                 <span className="path1"></span>
@@ -107,7 +212,7 @@ const Detalle = ({ auth, data, total_notas, zona = "ALL" }) => {
                                     }
 
                                     <div className="custom-tooltip dark" data-tooltip="Ir A La Fuente">
-                                        <button id="btnContratosExternal" type="button" className="btn bg-transparent">
+                                        <button onClick={()=>openNewTab(contrato.link)} id="btnContratosExternal" type="button" className="btn bg-transparent">
                                             <span className="icon-Ir-a-la-fuente-click"></span>
                                         </button>
                                     </div>
@@ -740,7 +845,35 @@ const Detalle = ({ auth, data, total_notas, zona = "ALL" }) => {
                     </div>
                 </div>
             </div>
-            <SideBarNotas contrato={contrato} zona={zona} isOpen={sideBarNotasisOpen} onHide={onHideSideBarNotas} onChangeSideBarTotalNotas={onChangeSideBarTotalNotas} globalLoading={handleGlobalLoading}></SideBarNotas>
+            <ModalFavorito
+                showModal={showModalFavorito}
+                modalId={'modal_confirm_delete'}
+                handleCloseModal={handleCloseModalFavorito}
+                title={'¿Deseas <span class="text_color_red">eliminar</span> el/los proceso(s) de tus favoritos?'}
+                contrato={contrato}
+                globalLoading={handleGlobalLoading}
+                onHandleContrato={onHandleContrato}
+            />
+            <ModalCarpetas
+                showModal={showModalCarpetas}
+                modalId={'modal_seleccion_carpeta'}
+                handleCloseModal={handleCloseModalCarpetas}
+                title={'¿Deseas <span class="text_color_red">eliminar</span> el/los proceso(s) de tus favoritos?'}
+                globalLoading={handleGlobalLoading}
+                onHandleContrato={onHandleContrato}
+                folders={folders}
+                onHandleFolders={onHandleFolders}
+                contrato={contrato}
+            />
+            <SideBarNotas
+                contrato={contrato}
+                zona={zona}
+                isOpen={sideBarNotasisOpen}
+                onHide={onHideSideBarNotas}
+                onChangeSideBarTotalNotas={onChangeSideBarTotalNotas}
+                globalLoading={handleGlobalLoading}
+            />
+            <Toast ref={toastBL} position="bottom-left" />
         </AuthenticatedLayout >
     );
 };

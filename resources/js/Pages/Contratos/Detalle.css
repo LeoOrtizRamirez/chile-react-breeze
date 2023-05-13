@@ -585,6 +585,18 @@
     margin-top: -18px;
 }
 
+
+#detalle-contratos .btn.focus, 
+#detalle-contratos .btn:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+#detalle-contratos .btn:focus, 
+#detalle-contratos .btn:hover {
+    text-decoration: none;
+}
+
 /*Tooltips*/
 #detalle-contratos .custom-tooltip {
     position: relative;

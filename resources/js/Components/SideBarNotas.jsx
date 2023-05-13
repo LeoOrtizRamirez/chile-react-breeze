@@ -5,7 +5,6 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Toast } from 'primereact/toast';
 
 const SideBarNotas = ({ contrato, zona, isOpen, onHide, onChangeSideBarTotalNotas, globalLoading }) => {
-    console.log("isOpen", isOpen)
     const [notas, setNotas] = useState([])
     const [searchingNotas, setSearchingNotas] = useState(false)
     const [loadingNotas, setLoadingNotas] = useState(false)
