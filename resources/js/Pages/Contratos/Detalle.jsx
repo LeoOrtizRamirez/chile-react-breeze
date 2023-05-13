@@ -6,8 +6,8 @@ import ModalFavorito from "@/Components/ModalFavorito";
 import ModalCarpetas from "@/Components/ModalCarpetas";
 import { Toast } from 'primereact/toast';
 
-const Detalle = ({ auth, data, total_notas, carpeta_actual, carpetas, zona = "ALL" }) => {
-
+const Detalle = ({ auth, data, total_notas, carpeta_actual, carpetas, tabla, zona = "ALL" }) => {
+    console.log(tabla)
     const [folders, setFolders] = useState(carpetas)
     const [totalNotas, setTotalNotas] = useState(total_notas)
     const [globalLoading, setGlobalLoading] = useState(false)
@@ -15,15 +15,14 @@ const Detalle = ({ auth, data, total_notas, carpeta_actual, carpetas, zona = "AL
         setGlobalLoading(loading)
     }
     const [contrato, setContrato] = useState(data)
-    console.log("cotrato", contrato)
     var token = document.querySelector('meta[name="csrf-token"]')
     useEffect(() => {
         axios.post('/contrato-visitado', {
-            contrato: 1
+            contrato: contrato.id
         },
             { 'Authorization': `Bearer ${token}` })
             .then(response => {
-                console.log(response)
+                //console.log(response)
             })
             .catch(error => {
                 console.log(error)
@@ -141,7 +140,7 @@ const Detalle = ({ auth, data, total_notas, carpeta_actual, carpetas, zona = "AL
 
     const openNewTab = (url) => {
         window.open(url, "_blank");
-      }
+    }
     return (
         <AuthenticatedLayout auth={auth} page={'detalle-contratos'} globalLoading={globalLoading}>
             <div className="content_not_blank_interno">
@@ -149,13 +148,17 @@ const Detalle = ({ auth, data, total_notas, carpeta_actual, carpetas, zona = "AL
                     <div className="detalle-contrato-padre" admin="" perfiles="258772,258771,258618,258619,258487" init-filter="">
                         <div className="contenedor-cabeceras" style={{ position: 'sticky', top: 48 + 'px' }}>
                             <div className="indicadores-detalle pt-3 row align-items-center mx-1">
-                                <div className="col-4"><button type="button" className="btn volver btn-new-gray btnRadius" ><span
-                                    className="icon-atras volver_icon"></span><span className="volver_text"> Regresar a mis
-                                        perfiles</span></button>
+                                <div className="col-4">
+                                    {zona == "ALL" &&
+                                        <button type="button" className="btn volver btn-new-gray btnRadius" >
+                                            <span className="icon-atras volver_icon"></span>
+                                            <span className="volver_text"> Regresar a todos los contratos</span>
+                                        </button>
+                                    }
                                 </div>
                                 <div className="col-4">
                                     <p className="mb-0 h-100 text-center"><span className="contador-de-contratos">
-                                        Contrato 10 de 19
+                                        Contrato 10 de {tabla.total}
                                     </span> <button type="button" className="btn bg-transparent cambio-contrato"><span
                                         className="icon-atras"></span></button> <button type="button"
                                             className="btn bg-transparent cambio-contrato"><span className="icon-Siguiente1"></span></button></p>
@@ -212,7 +215,7 @@ const Detalle = ({ auth, data, total_notas, carpeta_actual, carpetas, zona = "AL
                                     }
 
                                     <div className="custom-tooltip dark" data-tooltip="Ir A La Fuente">
-                                        <button onClick={()=>openNewTab(contrato.link)} id="btnContratosExternal" type="button" className="btn bg-transparent">
+                                        <button onClick={() => openNewTab(contrato.link)} id="btnContratosExternal" type="button" className="btn bg-transparent">
                                             <span className="icon-Ir-a-la-fuente-click"></span>
                                         </button>
                                     </div>

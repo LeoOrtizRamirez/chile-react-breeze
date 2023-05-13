@@ -1905,7 +1905,10 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         //window.location.href = `/cliente/contrato/${rowData.id}`;
         var token = document.querySelector('meta[name="csrf-token"]')
 
-        Inertia.post('/cliente/contratos/detalle-contrato-2', { contrato: event.data }, {
+        Inertia.post('/cliente/contratos/detalle-contrato-2', {
+            contrato: event.data,
+            tabla:tabla
+            }, {
             headers: {
                 'Authorization': `Bearer ${token.content}`
             }

@@ -707,7 +707,8 @@ class ContratoController extends Controller
                 'data' => $request->contrato,
                 'total_notas' => sizeof($total_notas),
                 'carpeta_actual' => null,
-                'carpetas'=> $carpetas
+                'carpetas'=> $carpetas,
+                'tabla' => $request->tabla
             ]
         );
     }
