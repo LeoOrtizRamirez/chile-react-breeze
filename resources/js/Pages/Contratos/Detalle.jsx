@@ -3,7 +3,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import "./Detalle.css";
 import SideBarNotas from "@/Components/SideBarNotas";
 
-const Detalle = ({ auth, data, total_notas, zona="ALL" }) => {
+const Detalle = ({ auth, data, total_notas, zona = "ALL" }) => {
 
     const [totalNotas, setTotalNotas] = useState(total_notas)
     const [globalLoading, setGlobalLoading] = useState(false)
@@ -28,12 +28,12 @@ const Detalle = ({ auth, data, total_notas, zona="ALL" }) => {
 
     const [sideBarNotasisOpen, setSideBarNotasisOpen] = useState(false)
 
-    const onHideSideBarNotas = () =>{
+    const onHideSideBarNotas = () => {
         console.log("onHide")
         setSideBarNotasisOpen(false)
     }
 
-    const onChangeSideBarTotalNotas = (total) =>{
+    const onChangeSideBarTotalNotas = (total) => {
         setTotalNotas(total)
     }
 
@@ -61,36 +61,72 @@ const Detalle = ({ auth, data, total_notas, zona="ALL" }) => {
                                             <img src="https://col.licitaciones.info/img/detalle-contrato/svg/proceso-manual-cargar.svg" width="22" height="22" />
                                         </button>
                                     }
-                                    <button id="btnContratosFavorito" type="button" className="btn bg-transparent">
+
+                                    {/* <button id="btnContratosFavorito" type="button" className="btn bg-transparent">
                                         <span className={`icon-Favorito-click ${contrato.favorito ? "favorito_active" : ""}`}></span>
-                                    </button>
+                                    </button> */}
+
+
+                                    {contrato.favorito ?
+                                        <div className="custom-tooltip yellow" data-tooltip="Eliminar De Favoritos">
+                                            <button id="btnContratosFavorito" type="button" class="btn bg-transparent">
+                                                <span class="icon-Favorito-click favorito_active"></span>
+                                            </button>
+                                        </div>
+                                        :
+                                        <div className="custom-tooltip yellow" contrato-tooltip="Agregar A Favoritos">
+                                            <button id="btnContratosFavorito" type="button" class="btn bg-transparent">
+                                                <span class="icon-Favorito-click favorito_active"></span>
+                                            </button>
+                                        </div>
+                                    }
+
                                     <button id="boton_sin_seguimiento" type="button" className="btn bg-transparent" style={{ display: 'none' }}>
-                                        <img src="https://col.licitaciones.info/img/detalle-contrato/svg/Sin-seguimiento.svg" width="22" height="22" /></button>
-                                    <button id="btnContratosSeguimiento" type="button" className="btn bg-transparent" >
-                                        <span className="icon-Seguimientos"></span>
+                                        <img src="https://col.licitaciones.info/img/detalle-contrato/svg/Sin-seguimiento.svg" width="22" height="22" />
                                     </button>
-                                    <button id="btnContratosCarpeta" type="button" className="btn bg-transparent">
-                                        <span className="icon-Mis-carpetas">
-                                            <span className="path1"></span>
-                                            <span className="path2"></span>
-                                        </span>
-                                    </button>
+
+                                    <div className="custom-tooltip green" data-tooltip="Agregar A Seguimientos">
+                                        <button id="btnContratosSeguimiento" type="button" className="btn bg-transparent" >
+                                            <span className="icon-Seguimientos"></span>
+                                        </button>
+                                    </div>
+
+                                    <div className="custom-tooltip blue" data-tooltip="Agregar A Carpeta(S)" onClick={() => handleShowModal("modal_seleccion_carpeta", data)}>
+                                        <button id="btnContratosCarpeta" type="button" className="btn bg-transparent">
+                                            <span className="icon-Mis-carpetas">
+                                                <span className="path1"></span>
+                                                <span className="path2"></span>
+                                            </span>
+                                        </button>
+                                    </div>
+
                                     {false &&
                                         <button id="btnContratosDelete" type="button" className="btn bg-transparent">
                                             <span className="icon-Eliminar"></span>
                                         </button>
                                     }
-                                    <button id="btnContratosExternal" type="button" className="btn bg-transparent">
-                                        <span className="icon-Ir-a-la-fuente-click"></span>
-                                    </button>
-                                    <button id="btnContratosCompartir" type="button" className="btn bg-transparent">
-                                        <span className="icon-Compartir-click"></span>
-                                    </button>
+
+                                    <div className="custom-tooltip dark" data-tooltip="Ir A La Fuente">
+                                        <button id="btnContratosExternal" type="button" className="btn bg-transparent">
+                                            <span className="icon-Ir-a-la-fuente-click"></span>
+                                        </button>
+                                    </div>
+
+                                    <div className="custom-tooltip purple" data-tooltip="Compartir">
+                                        <button id="btnContratosCompartir" type="button" className="btn bg-transparent">
+                                            <span className="icon-Compartir-click"></span>
+                                        </button>
+                                    </div>
+
+
                                     <div className="separador d-inline-block mx-2"></div>
-                                    <button type="button" id="boton_notas" className="btn bg-transparent" onClick={()=>setSideBarNotasisOpen(true)}>
-                                        <img src="https://col.licitaciones.info/img/detalle-contrato/svg/Nota.svg" alt="icono de notas" width="25" height="25" />
-                                        <span className="cuenta-notas">{totalNotas > 0 ? totalNotas : ""}</span>
-                                    </button>
+
+                                    <div className="custom-tooltip gray agregar-nota" data-tooltip="Agregar Nota">
+                                        <button type="button" id="boton_notas" className="btn bg-transparent" onClick={() => setSideBarNotasisOpen(true)}>
+                                            <img src="https://col.licitaciones.info/img/detalle-contrato/svg/Nota.svg" alt="icono de notas" width="25" height="25" />
+                                            <span className="cuenta-notas">{totalNotas > 0 ? totalNotas : ""}</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
