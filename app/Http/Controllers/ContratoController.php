@@ -471,13 +471,16 @@ class ContratoController extends Controller
                     $query->whereIn('id', $ids_contratos_carpetas);
                 }
             })
-            ->where(function ($query) use ($rapida, $entidad_contratante, $objeto, $codigo_proceso, /* $fecha_desde, $fecha_hasta, $cuantia_desde, $cuantia_hasta, */ $estado_proceso) {
+            ->where(function ($query) use ($rapida) { //BUSCAR SOLO LOS CONTRATOS QUE ESTAN RELACIONADOS A ALGUNA CARPETA
                 if (!is_null($rapida) && $rapida != "") {
                     $query->where('entidad_contratante', 'like', '%' . $rapida . '%')
                         ->orWhere('objeto', 'like', '%' . $rapida . '%')
                         ->orWhere('modalidad', 'like', '%' . $rapida . '%')
                         ->orWhere('ubicacion', 'like', '%' . $rapida . '%');
                 }
+            })
+            ->where(function ($query) use ($rapida, $entidad_contratante, $objeto, $codigo_proceso, /* $fecha_desde, $fecha_hasta, $cuantia_desde, $cuantia_hasta, */ $estado_proceso) {
+                
                 // Inicio condiciones modal filtro avanzado
                 if (!is_null($entidad_contratante) && $entidad_contratante != "") {
                     $query->where('entidad_contratante', 'like', '%' . $entidad_contratante . '%');
@@ -503,11 +506,6 @@ class ContratoController extends Controller
                 if (!is_null($codigo_proceso) && $codigo_proceso != "") {
                     $query->where('codigo_proceso', 'like', '%' . $codigo_proceso . '%');
                 }
-                if (!is_null($estado_proceso) && $estado_proceso != "") {
-                    $query->whereIn('estado_proceso', explode(",", $estado_proceso));
-                }
-                // Fin condiciones modal filtro avanzado
-
                 if (!is_null($estado_proceso) && $estado_proceso != "") {
                     $query->whereIn('estado_proceso', explode(",", $estado_proceso));
                 }
