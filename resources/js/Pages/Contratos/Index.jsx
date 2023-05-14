@@ -59,6 +59,11 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     }
 
     const paginatorPost = (event, visualizar = null, paginator_url = null) => {
+        var page = "";
+        if(paginator_url != null){
+            page = paginator_url.slice(-1)
+        }
+        console.log("page", page)
         console.log("tabla", tabla)
         if (visualizar != null) {
             switch (visualizar) {
@@ -94,13 +99,13 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         }
         console.log("full_url", full_url)
         if (event?.key === 'Enter') {//Filtros del DataTable y busqueda rapida
-            paginatorPostSendRequest(full_url)
+            paginatorPostSendRequest(`${full_url}${paginator_url != null ? "?page="+page : ""}`)
         }
         if (event?.type === 'click') {//Select Visualizar
             if (zona != "ALL") {
-                paginatorPostSendRequest(`${full_url}&filtrar_nuevos=${visualizar}`)
+                paginatorPostSendRequest(`${full_url}&filtrar_nuevos=${visualizar}${paginator_url != null ? "&page="+page : ""}`)
             } else {
-                paginatorPostSendRequest(`${full_url}?filtrar_nuevos=${visualizar}`)
+                paginatorPostSendRequest(`${full_url}?filtrar_nuevos=${visualizar}${paginator_url != null ? "&page="+page : ""}`)
             }
             //PARA CONTRATOS paginatorPostSendRequest(`${full_url}?filtrar_nuevos=${visualizar}`)
 
