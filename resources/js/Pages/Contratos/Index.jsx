@@ -31,9 +31,10 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 
 const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfiles, visualizar }) => {
-    console.log(visualizar)
     const [visualizarFilter, setVisualizarFilter] = useState(visualizar)
     const [tabla, setTabla] = useState(contratos);
+    console.log("current_url", tabla)
+
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
 
@@ -55,35 +56,40 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             .catch(error => {
                 console.log(error);
             });
-        console.log("selectedContratos current", selectedContratos)
     }
 
-    const paginatorPost = (event, visualizar = null, paginator_url = null) => {
-        var page = "";
-        if(paginator_url != null){
-            page = paginator_url.slice(-1)
+    const paginatorPost = (event, _visualizar = null, paginator_url = null) => {
+        console.log("_visualizar", _visualizar)
+        var page = ""
+        if (paginator_url != null) {
+            page = parseInt(paginator_url.split("=").pop(), 10);
         }
-        console.log("page", page)
-        console.log("tabla", tabla)
-        if (visualizar != null) {
-            switch (visualizar) {
-                case 0:
-                    setVisualizarFilter("ALL")
-                    break;
-                case 1:
-                    setVisualizarFilter("No leidos")
-                    break;
-                case 2:
-                    setVisualizarFilter("Vistos recientemente")
-                    break;
-                case 4:
-                    setVisualizarFilter("Notas")
-                    break;
+        var filtrar_nuevos = 0
+        switch (_visualizar) {
+            case "ALL":
+            case 0:
+                setVisualizarFilter("ALL")
+                filtrar_nuevos = 0
+                break;
+            case "No leidos":
+            case 1:
+                setVisualizarFilter("No leidos")
+                filtrar_nuevos = 1
+                break;
+            case "Vistos recientemente":
+            case 2:
+                setVisualizarFilter("Vistos recientemente")
+                filtrar_nuevos = 2
+                break;
+            case "Notas":
+            case 4:
+                setVisualizarFilter("Notas")
+                filtrar_nuevos = 4
+                break;
+            default:
+                break;
+        }
 
-                default:
-                    break;
-            }
-        }
         var url = ''
         var full_url = ''
         switch (zona) {
@@ -97,26 +103,30 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                 full_url = getFullUrl(zona);
                 break;
         }
-        console.log("full_url", full_url)
+
         if (event?.key === 'Enter') {//Filtros del DataTable y busqueda rapida
-            paginatorPostSendRequest(`${full_url}${paginator_url != null ? "?page="+page : ""}`)
+            paginatorPostSendRequest(`${full_url}`, `${paginator_url != null ? page : ""}`)
         }
         if (event?.type === 'click') {//Select Visualizar
-            if (zona != "ALL") {
-                paginatorPostSendRequest(`${full_url}&filtrar_nuevos=${visualizar}${paginator_url != null ? "&page="+page : ""}`)
+            if (zona != "ALL" && zona != "F" && zona != "P") {
+                paginatorPostSendRequest(`${full_url}&filtrar_nuevos=${filtrar_nuevos}`, `${paginator_url != null ? page : ""}`)
             } else {
-                paginatorPostSendRequest(`${full_url}?filtrar_nuevos=${visualizar}${paginator_url != null ? "&page="+page : ""}`)
+                paginatorPostSendRequest(`${full_url}?filtrar_nuevos=${filtrar_nuevos}`, `${paginator_url != null ? page : ""}`)
             }
-            //PARA CONTRATOS paginatorPostSendRequest(`${full_url}?filtrar_nuevos=${visualizar}`)
+            //PARA CONTRATOS paginatorPostSendRequest(`${full_url}?filtrar_nuevos=${filtrar_nuevos}`)
 
         }
     }
 
-    const paginatorPostSendRequest = (url) => {
+    const paginatorPostSendRequest = (url, page) => {
+        console.log("url", url)
+        console.log("page", page)
         setGlobalLoading(true)
         var token = document.querySelector('meta[name="csrf-token"]')
         axios.post(url, {//pendiente organizar url para obtener ids de perfiles y carpetas
-            query: getUrlPostParams()
+            query: getUrlPostParams(),
+            page: page,
+            per_page: 30
         },
             { 'Authorization': `Bearer ${token}` })
             .then(response => {
@@ -190,7 +200,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             objeto: inputFilterObjeto,
             ubicacion: inputFilterUbicacion,
             valor: inputFilterValor,
-            type: 'fetch'
+            type: 'fetch',
         }
         return query
     }
@@ -1085,7 +1095,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                                                 <span className="text-options-order">Todos</span>
                                             </Dropdown.Item>
                                         }
-                                        {visualizarFilter != "No leidos" && zona != "ALL" && zona != "C" &&
+                                        {visualizarFilter != "No leidos" && zona != "ALL" && zona != "C" && zona != "F" && zona != "P" &&
                                             <Dropdown.Item onClick={(e) => paginatorPost(e, 1)} /* href={`/cliente/contratos/get-info/${visualizarFilter}?filtrar_nuevos=1`} */ className='dropdown-item'>
                                                 <span className="icon-options-order">
                                                     <span className="icon-No-leidos"></span>
@@ -1222,10 +1232,10 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                                 <span className="p-paginator-current">{tabla.data.length} registros</span>
                                 :
                                 <>
-                                    <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-double-left" onClick={(e) => paginatorPost(e, null, tabla.first_page_url)} />
-                                    <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-left" onClick={(e) => paginatorPost(e, null, tabla.prev_page_url)} />
-                                    <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-right" onClick={(e) => paginatorPost(e, null, tabla.next_page_url)} />
-                                    <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-double-right" onClick={(e) => paginatorPost(e, null, tabla.last_page_url)} />
+                                    <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-double-left" onClick={(e) => paginatorPost(e, visualizarFilter, tabla.first_page_url)} />
+                                    <Button disabled={tabla.prev_page_url === null} icon="pi pi-angle-left" onClick={(e) => paginatorPost(e, visualizarFilter, tabla.prev_page_url)} />
+                                    <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-right" onClick={(e) => paginatorPost(e, visualizarFilter, tabla.next_page_url)} />
+                                    <Button disabled={tabla.next_page_url === null} icon="pi pi-angle-double-right" onClick={(e) => paginatorPost(e, visualizarFilter, tabla.last_page_url)} />
                                     <span className="p-paginator-current">{`${tabla.from} - ${tabla.to} de ${tabla.total}`}</span>
                                 </>
                             }
@@ -1904,16 +1914,56 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const toastBL = useRef(null);
 
     const onRowClick = (event) => {
-        console.log(event)
-        const rowData = event.data;
-        //axios.get(`/cliente/contratos/detalle-contrato-2${row.id}`)
-        //window.location.href = `/cliente/contrato/${rowData.id}`;
+        var url = ''
+        switch (zona) {
+            case 'MP':
+                url = getFullUrl(zona, perfiles);
+                break;
+            case 'C':
+                url = getFullUrl(zona, carpeta_actual);
+                break;
+            default:
+                url = getFullUrl(zona);
+                break;
+        }
+
+        var filtrar_nuevos = ""
+        switch (visualizarFilter) {
+            case "ALL":
+                filtrar_nuevos = 0
+                break;
+            case "No leidos":
+                filtrar_nuevos = 1
+                break;
+            case "Vistos recientemente":
+                filtrar_nuevos = 2
+                break;
+            case "Notas":
+                filtrar_nuevos = 4
+                break;
+            default:
+                break;
+        }
+
+
+        var full_url = ""
+        if (zona != "ALL" && zona != "F" && zona != "P") {
+            full_url = `${url}&filtrar_nuevos=${filtrar_nuevos}`
+        } else {
+            full_url = `${url}?filtrar_nuevos=${filtrar_nuevos}`
+        }
+
+        
         var token = document.querySelector('meta[name="csrf-token"]')
 
         Inertia.post('/cliente/contratos/detalle-contrato-2', {
-            contrato: event.data,
-            tabla:tabla
-            }, {
+            index: event.index,
+            tabla: tabla,
+            current_url: full_url,
+            query: getUrlPostParams(),
+            current_page: tabla.current_page,
+            zona: zona
+        }, {
             headers: {
                 'Authorization': `Bearer ${token.content}`
             }

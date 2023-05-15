@@ -85,7 +85,7 @@ class ContratoController extends Controller
         }
 
 
-        $contratos = $this->getAllContratos($rapida, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos);
+        $contratos = $this->getAllContratos($request, $rapida, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos);
 
 
         $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
@@ -97,7 +97,6 @@ class ContratoController extends Controller
                 'Contratos/Index',
                 [
                     'contratos' => $contratos,
-                    'nombre_carpeta' => 'ALL',
                     'zona' => "ALL",
                     'carpetas' => $carpetas,
                     'grupos' => $grupos,
@@ -209,6 +208,7 @@ class ContratoController extends Controller
             $visualizar = "ALL";
         }
 
+        //dd($filtrar_nuevos);
 
         $carpeta = null;
         $perfiles = null;
@@ -219,10 +219,11 @@ class ContratoController extends Controller
 
             if (isset($request->carpeta) && !is_null($request->carpeta)) {
                 $carpeta = Carpeta::find($request->carpeta);
+                
             } else {
 
                 $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', $tipo)->first();
-
+                
                 if (is_null($carpeta)) {
                     $carpeta = new Carpeta;
                     $carpeta->id_usuario = Auth::id();
@@ -250,13 +251,13 @@ class ContratoController extends Controller
             $total_carpetas = 0;
             if ($carpeta) {
                 $carpeta_has_contrato = CarpetasHasContrato::where('id_carpeta', $carpeta->id)->get();
-
+                //dd($carpeta_has_contrato);
                 $total_carpetas = sizeof($carpeta_has_contrato);
                 if ($total_carpetas > 0) {
                     foreach ($carpeta_has_contrato as $key => $value) {
                         $ids_contratos[] = $value->id_contrato;
                     }
-                    $contratos = $this->getAllContratos($rapida, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos, $ids_contratos);
+                    $contratos = $this->getAllContratos($request, $rapida, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos, $ids_contratos);
 
                     /* $contratos = Contrato::with('fuente')
                         ->whereIn('id', $ids_contratos)
@@ -354,9 +355,10 @@ class ContratoController extends Controller
                 }
             }
         } else { //MP - AL
-            $contratos = $this->getAllContratos($rapida, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos);
+            $contratos = $this->getAllContratos($request, $rapida, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos);
         }
 
+        
         //dd($contratos);
 
         if ($tipo == "MP") {
@@ -369,28 +371,23 @@ class ContratoController extends Controller
 
         switch ($tipo) {
             case 'F':
-                $nombre_carpeta = "Favoritos";
                 $zona = "F";
                 break;
             case 'P':
-                $nombre_carpeta = "Papelera";
                 $zona = "P";
                 break;
             case 'S':
-                $nombre_carpeta = "Seguimientos";
                 $zona = "S";
                 break;
             case 'C':
-                $nombre_carpeta = $carpeta->nombre_carpeta;
                 $zona = "C";
                 break;
             case 'MP':
-                $nombre_carpeta = "Perfiles";
                 $zona = "MP";
                 break;
 
             default:
-                # code...
+                $zona = "ALL";
                 break;
         }
 
@@ -402,7 +399,6 @@ class ContratoController extends Controller
             'Contratos/Index',
             [
                 'contratos' => $contratos,
-                'nombre_carpeta' => $nombre_carpeta,
                 'zona' => $zona,
                 'carpetas' => $carpetas,
                 'grupos' => $grupos,
@@ -412,22 +408,29 @@ class ContratoController extends Controller
         ); */
 
 
+        
         if (isset($request["query"]["type"]) && $request["query"]["type"] != "") {
+            
             return json_encode($contratos);
         } else {
-            return Inertia::render(
-                'Contratos/Index',
-                [
-                    'contratos' => $contratos,
-                    'nombre_carpeta' => $nombre_carpeta,
-                    'zona' => $zona,
-                    'carpetas' => $carpetas,
-                    'grupos' => $grupos,
-                    'carpeta_actual' => $carpeta,
-                    'perfiles' => $perfiles,
-                    'visualizar' => $visualizar
-                ]
-            );
+            //dd($contratos);
+            try {
+                return Inertia::render(
+                    'Contratos/Index',
+                    [
+                        'contratos' => $contratos,
+                        'zona' => $zona,
+                        'carpetas' => $carpetas,
+                        'grupos' => $grupos,
+                        'carpeta_actual' => $carpeta,
+                        'perfiles' => $perfiles,
+                        'visualizar' => $visualizar
+                    ]
+                );
+            } catch (Exception $e) {
+                dd($e->getMessage());
+            }
+            
         }
 
 
@@ -437,8 +440,9 @@ class ContratoController extends Controller
     }
 
 
-    public function getAllContratos($rapida, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos, $ids_contratos_carpetas = null)
+    public function getAllContratos($request, $rapida, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos, $ids_contratos_carpetas = null)
     {
+        
         $contratos_con_notas = $this->getContratosIdsConNotas();
         $contratos_con_notas_filter = [];
         $contratos_vistos = [];
@@ -463,8 +467,8 @@ class ContratoController extends Controller
 
 
 
-        
 
+//dd($ids_contratos_carpetas);
         $contratos = Contrato::with('fuente')
             ->where(function ($query) use ($ids_contratos_carpetas) { //BUSCAR SOLO LOS CONTRATOS QUE ESTAN RELACIONADOS A ALGUNA CARPETA
                 if (!is_null($ids_contratos_carpetas)) {
@@ -479,8 +483,8 @@ class ContratoController extends Controller
                         ->orWhere('ubicacion', 'like', '%' . $rapida . '%');
                 }
             })
-            ->where(function ($query) use ($rapida, $entidad_contratante, $objeto, $codigo_proceso, /* $fecha_desde, $fecha_hasta, $cuantia_desde, $cuantia_hasta, */ $estado_proceso) {
-                
+            ->where(function ($query) use ($entidad_contratante, $objeto, $codigo_proceso, /* $fecha_desde, $fecha_hasta, $cuantia_desde, $cuantia_hasta, */ $estado_proceso) {
+
                 // Inicio condiciones modal filtro avanzado
                 if (!is_null($entidad_contratante) && $entidad_contratante != "") {
                     $query->where('entidad_contratante', 'like', '%' . $entidad_contratante . '%');
@@ -510,18 +514,18 @@ class ContratoController extends Controller
                     $query->whereIn('estado_proceso', explode(",", $estado_proceso));
                 }
             })
-            ->where(function ($query) use ($contratos_con_notas_filter) {
-                if (sizeof($contratos_con_notas_filter) > 0) {
+            ->where(function ($query) use ($contratos_con_notas_filter, $filtrar_nuevos) {
+                if ($filtrar_nuevos == 4) {
                     $query->whereIn('id', $contratos_con_notas_filter);
                 }
             })
-            ->where(function ($query) use ($contratos_vistos) {
-                if (sizeof($contratos_vistos) > 0) {
+            ->where(function ($query) use ($contratos_vistos, $filtrar_nuevos) {
+                if ($filtrar_nuevos == 2) {
                     $query->whereIn('id', $contratos_vistos);
                 }
             })
-            ->paginate(30);
-
+            //->paginate(30);
+            ->paginate($request->input('per_page', 30));
 
         foreach ($contratos as $key => $value) {
             $contratista = ContratistaContrato::where('id_contrato', $value->id)->first();
@@ -574,20 +578,25 @@ class ContratoController extends Controller
 
             if (in_array($value->id, $contratos_con_notas)) {
                 $value->notas = true;
+                $total_notas = Nota::where('id_usuario', Auth::id())->where('id_contrato', $value->id)->get();
+                $value->total_notas = sizeof($total_notas);
             } else {
                 $value->notas = false;
+                $value->total_notas = 0;
             }
         }
+        
         return $contratos;
     }
 
-    public function getContratosIdsConNotas(){
+    public function getContratosIdsConNotas()
+    {
         $contratos = DB::table('contratos')
-        ->join('notas', 'notas.id_contrato', '=', 'contratos.id')
-        ->where('notas.id_usuario', Auth::id())
-        ->select('contratos.id')
-        ->groupBy('contratos.id')
-        ->get()->pluck('id')->toArray();
+            ->join('notas', 'notas.id_contrato', '=', 'contratos.id')
+            ->where('notas.id_usuario', Auth::id())
+            ->select('contratos.id')
+            ->groupBy('contratos.id')
+            ->get()->pluck('id')->toArray();
         return $contratos;
     }
 
@@ -697,16 +706,18 @@ class ContratoController extends Controller
 
     public function detalleConcurso(Request $request)
     {
-        $total_notas = Nota::where('id_usuario', Auth::id())->where('id_contrato', $request->contrato["id"])->get();
         $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
         return Inertia::render(
             'Contratos/Detalle',
             [
-                'data' => $request->contrato,
-                'total_notas' => sizeof($total_notas),
                 'carpeta_actual' => null,
-                'carpetas'=> $carpetas,
-                'tabla' => $request->tabla
+                'carpetas' => $carpetas,
+                'contratos' => $request->tabla,
+                'index' => $request->index,
+                'current_url' => $request->current_url,
+                'query' => $request["query"],
+                'current_page' => $request->current_page,
+                'zona' => $request->zona
             ]
         );
     }

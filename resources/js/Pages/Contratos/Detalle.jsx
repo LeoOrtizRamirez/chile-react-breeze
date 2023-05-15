@@ -5,16 +5,61 @@ import SideBarNotas from "@/Components/SideBarNotas";
 import ModalFavorito from "@/Components/ModalFavorito";
 import ModalCarpetas from "@/Components/ModalCarpetas";
 import { Toast } from 'primereact/toast';
+import { Inertia } from '@inertiajs/inertia'
 
-const Detalle = ({ auth, data, total_notas, carpeta_actual, carpetas, tabla, zona = "ALL" }) => {
-    console.log(tabla)
+const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current_page, zona = "ALL" }) => {
+
+    const [currentPage, setCurrentPage] = useState(parseInt(current_page))
+    const [tabla, setTabla] = useState(contratos)
+    const [indexTabla, setIndexTabla] = useState(index)
+    const [contrato, setContrato] = useState(tabla.data[indexTabla])
+    const changeContrato = (index) => {
+        if (tabla.from + index > tabla.to) {
+            setCurrentPage(currentPage + 1)
+            paginatorPostSendRequest(current_url, currentPage + 1, 'next')
+        } else {
+            if (index == -1) {
+                setCurrentPage(currentPage - 1)
+                paginatorPostSendRequest(current_url, currentPage - 1, 'prev')
+            } else {
+                setIndexTabla(index)
+                setContrato(tabla.data[index])
+            }
+        }
+    }
+
+    const paginatorPostSendRequest = (url, page, type) => {
+        setGlobalLoading(true)
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.post(url, {//pendiente organizar url para obtener ids de perfiles y carpetas
+            query: query,
+            page: page,
+            per_page: 30
+        },
+            { 'Authorization': `Bearer ${token}` })
+            .then(response => {
+                setTabla(response.data)
+                if (type == 'prev') {
+                    setIndexTabla(29)
+                    setContrato(response.data.data[29])
+                } else {
+                    setIndexTabla(0)
+                    setContrato(response.data.data[0])
+                }
+                setGlobalLoading(false)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+
     const [folders, setFolders] = useState(carpetas)
-    const [totalNotas, setTotalNotas] = useState(total_notas)
     const [globalLoading, setGlobalLoading] = useState(false)
     const handleGlobalLoading = (loading) => {
         setGlobalLoading(loading)
     }
-    const [contrato, setContrato] = useState(data)
+
     var token = document.querySelector('meta[name="csrf-token"]')
     useEffect(() => {
         axios.post('/contrato-visitado', {
@@ -27,7 +72,7 @@ const Detalle = ({ auth, data, total_notas, carpeta_actual, carpetas, tabla, zon
             .catch(error => {
                 console.log(error)
             })
-    }, [])
+    }, [contrato])
 
     const [sideBarNotasisOpen, setSideBarNotasisOpen] = useState(false)
 
@@ -36,7 +81,22 @@ const Detalle = ({ auth, data, total_notas, carpeta_actual, carpetas, tabla, zon
     }
 
     const onChangeSideBarTotalNotas = (total) => {
-        setTotalNotas(total)
+        let _contrato = contrato;
+        _contrato = { ..._contrato, notas: true };
+        _contrato = { ..._contrato, total_notas: total };
+        setContrato(_contrato);
+
+        setTabla(prevTabla => {
+            const index = prevTabla.data.findIndex(item => item.id === contrato.id);
+            if (index === -1) {
+                return { ...prevTabla };
+            } else {
+                let newData = [...prevTabla.data];
+                newData[index] = { ...newData[index], notas: true };
+                newData[index] = { ...newData[index], total_notas: total };
+                return { ...prevTabla, data: newData };
+            }
+        });
     }
 
 
@@ -104,7 +164,18 @@ const Detalle = ({ auth, data, total_notas, carpeta_actual, carpetas, tabla, zon
     };
 
     const onHandleContrato = (_contrato) => {
+
         setContrato(_contrato)
+        setTabla(prevTabla => {
+            const index = prevTabla.data.findIndex(item => item.id === contrato.id);
+            if (index === -1) {
+                return { ...prevTabla };
+            } else {
+                let newData = [...prevTabla.data];
+                newData[index] = _contrato;
+                return { ...prevTabla, data: newData };
+            }
+        });
     }
 
     const addFavorito = (_contrato) => {
@@ -116,14 +187,24 @@ const Detalle = ({ auth, data, total_notas, carpeta_actual, carpetas, tabla, zon
             { 'Authorization': `Bearer ${token}` })
             .then(response => {
                 setContrato({ ...contrato, favorito: true })
+                setTabla(prevTabla => {
+                    const index = prevTabla.data.findIndex(item => item.id === contrato.id);
+                    if (index === -1) {
+                        return { ...prevTabla };
+                    } else {
+                        let newData = [...prevTabla.data];
+                        newData[index] = { ...newData[index], favorito: true };
+                        return { ...prevTabla, data: newData };
+                    }
+                });
                 /* setTabla(prevTabla => {
                     const index = prevTabla.data.findIndex(item => item.id === contrato);
                     if (index === -1) {
-                        return { ...prevTabla }; // return a new object reference
+                        return { ...prevTabla };
                     } else {
-                        let newData = [...prevTabla.data]; // create a shallow copy of the data array
-                        newData[index] = { ...newData[index], favorito: true }; // modify the 'favorito' property
-                        return { ...prevTabla, data: newData }; // return a new object reference with the updated data
+                        let newData = [...prevTabla.data];
+                        newData[index] = { ...newData[index], favorito: true };
+                        return { ...prevTabla, data: newData };
                     }
                 }); */
                 setGlobalLoading(false)
@@ -141,6 +222,22 @@ const Detalle = ({ auth, data, total_notas, carpeta_actual, carpetas, tabla, zon
     const openNewTab = (url) => {
         window.open(url, "_blank");
     }
+
+    const retunrPage = () => {
+        delete query.type;
+        Inertia.post(current_url, {
+            query: query,
+            page: currentPage,
+            per_page: 30
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token.content}`
+            }
+        });
+
+    }
+
+
     return (
         <AuthenticatedLayout auth={auth} page={'detalle-contratos'} globalLoading={globalLoading}>
             <div className="content_not_blank_interno">
@@ -149,19 +246,44 @@ const Detalle = ({ auth, data, total_notas, carpeta_actual, carpetas, tabla, zon
                         <div className="contenedor-cabeceras" style={{ position: 'sticky', top: 48 + 'px' }}>
                             <div className="indicadores-detalle pt-3 row align-items-center mx-1">
                                 <div className="col-4">
-                                    {zona == "ALL" &&
-                                        <button type="button" className="btn volver btn-new-gray btnRadius" >
-                                            <span className="icon-atras volver_icon"></span>
+                                    <button type="button" className="btn volver btn-new-gray btnRadius" onClick={retunrPage}>
+                                        <span className="icon-atras volver_icon"></span>
+
+                                        {zona == "ALL" &&
                                             <span className="volver_text"> Regresar a todos los contratos</span>
-                                        </button>
-                                    }
+                                        }
+                                        {zona == "C" &&
+                                            <span className="volver_text"> Regresar a mis carpetas</span>
+                                        }
+                                        {zona == "MP" &&
+                                            <span className="volver_text"> Regresar a mis perfiles</span>
+                                        }
+                                        {zona == "F" &&
+                                            <span className="volver_text"> Regresar a mis favoritos</span>
+                                        }
+                                        {zona == "S" &&
+                                            <span className="volver_text"> Regresar a mis seguimientos</span>
+                                        }
+                                        {zona == "P" &&
+                                            <span className="volver_text"> Regresar a papelera</span>
+                                        }
+                                    </button>
                                 </div>
                                 <div className="col-4">
-                                    <p className="mb-0 h-100 text-center"><span className="contador-de-contratos">
-                                        Contrato 10 de {tabla.total}
-                                    </span> <button type="button" className="btn bg-transparent cambio-contrato"><span
-                                        className="icon-atras"></span></button> <button type="button"
-                                            className="btn bg-transparent cambio-contrato"><span className="icon-Siguiente1"></span></button></p>
+                                    <p className="mb-0 h-100 text-center">
+                                        <span className="contador-de-contratos">Contrato {indexTabla + tabla.from} de {tabla.total}</span>
+
+                                        {indexTabla + tabla.from > 1 &&
+                                            <button type="button" className="btn bg-transparent cambio-contrato" onClick={() => changeContrato(indexTabla - 1)}>
+                                                <span className="icon-atras"></span>
+                                            </button>
+                                        }
+                                        {(indexTabla + tabla.from) <= tabla.total - 1 &&
+                                            <button type="button" className="btn bg-transparent cambio-contrato" onClick={() => changeContrato(indexTabla + 1)}>
+                                                <span className="icon-Siguiente1"></span>
+                                            </button>
+                                        }
+                                    </p>
                                 </div>
                                 <div id="contenido_acciones" className="col-4 pr-0 text-right iconos_acciones_contratos">
                                     {false &&
@@ -183,7 +305,7 @@ const Detalle = ({ auth, data, total_notas, carpeta_actual, carpetas, tabla, zon
                                         </div>
                                         :
                                         <div className="custom-tooltip yellow" data-tooltip="Agregar A Favoritos">
-                                            <button id="btnContratosFavorito" type="button" class="btn bg-transparent" onClick={() => addFavorito(data.id)}>
+                                            <button id="btnContratosFavorito" type="button" class="btn bg-transparent" onClick={() => addFavorito(contrato.id)}>
                                                 <span class="icon-Favorito-click"></span>
                                             </button>
                                         </div>
@@ -232,7 +354,7 @@ const Detalle = ({ auth, data, total_notas, carpeta_actual, carpetas, tabla, zon
                                     <div className="custom-tooltip gray agregar-nota" data-tooltip="Agregar Nota">
                                         <button type="button" id="boton_notas" className="btn bg-transparent" onClick={() => setSideBarNotasisOpen(true)}>
                                             <img src="https://col.licitaciones.info/img/detalle-contrato/svg/Nota.svg" alt="icono de notas" width="25" height="25" />
-                                            <span className="cuenta-notas">{totalNotas > 0 ? totalNotas : ""}</span>
+                                            <span className="cuenta-notas">{contrato.total_notas > 0 ? contrato.total_notas : ""}</span>
                                         </button>
                                     </div>
                                 </div>
