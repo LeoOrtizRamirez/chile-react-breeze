@@ -864,7 +864,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const columnFilterTemplate = (column) => {
         return (
             <>
-                {column.field == "modalidad" || column.field == "ubicacion" || column.field == "actividad_economica" ?
+                {column.field == "inputFilterModalidad" || column.field == "inputFilterUbicacion" || column.field == "inputFilterActividadEconomica" ?
                     <input
                         type="text"
                         className="p-inputtext p-component p-column-filter"
@@ -900,7 +900,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const [contratoSelected, setContratoSelected] = useState([])
     const handleCloseModal = () => setShowModal(false);
     const handleShowModal = (modal_open, data = null, is_favorito = false) => {
-        if (modal_open == "actividad_economica" || modal_open == "modalidad" || modal_open == "ubicacion") {
+        if (modal_open == "inputFilterActividadEconomica" || modal_open == "inputFilterModalidad" || modal_open == "inputFilterUbicacion") {
             setModalId("modal_actividades")
             setModalOpened(modal_open)
         } else {
@@ -1953,7 +1953,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             full_url = `${url}?filtrar_nuevos=${filtrar_nuevos}`
         }
 
-        
+
         var token = document.querySelector('meta[name="csrf-token"]')
 
         Inertia.post('/cliente/contratos/detalle-contrato-2', {
@@ -2095,13 +2095,13 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
 
             <Modal show={showModal} onHide={handleCloseModal} id={modalId} centered>
                 <Modal.Header>
-                    {modalOpened == "actividad_economica" &&
+                    {modalOpened == "inputFilterActividadEconomica" &&
                         <h4 className="modal-title">Selecciona la(s) actividad(es) económica(s) de tu interés.</h4>
                     }
-                    {modalOpened == "modalidad" &&
+                    {modalOpened == "inputFilterModalidad" &&
                         <h4 className="modal-title">Selecciona la modalidad.</h4>
                     }
-                    {modalOpened == "ubicacion" &&
+                    {modalOpened == "inputFilterUbicacion" &&
                         <h4 className="modal-title">Selecciona la ubicación.</h4>
                     }
                     {modalOpened == "modal_confirm_delete" &&
@@ -2120,31 +2120,40 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                     <button type="button" aria-label="Close" className="close icon-Cerrar-modal" onClick={handleCloseModal}></button>
                 </Modal.Header>
                 <Modal.Body>
-                    {modalOpened == "actividad_economica" &&
-                        <ActividadEconomica
-                            subcategorias={sectores}
-                            nameBuscador={"Busca por actividad económica o UNSPSC"}
-                            onHandleSectores={onHandleSectores}
-                            tipo={"ActividadEconomica"}
-                            checkeds={checkedsActividadesEconomicas}
-                        />
+
+                    {modalOpened == "inputFilterActividadEconomica" &&
+                        <div className="tree_categorias tree_1">
+                            <ActividadEconomica
+                                subcategorias={sectores}
+                                nameBuscador={"Busca por actividad económica o UNSPSC"}
+                                onHandleSectores={onHandleSectores}
+                                tipo={"ActividadEconomica"}
+                                checkeds={checkedsActividadesEconomicas}
+                                checkAllText={""}
+                            />
+                        </div>
+
                     }
-                    {modalOpened == "modalidad" &&
-                        <ActividadEconomica
-                            subcategorias={tiposcompras}
-                            nameBuscador={"Buscar Tipo de Compra"}
-                            onHandleSectores={onHandleSectores}
-                            tipo={"TiposCompras"}
-                            checkeds={checkedsTiposCompras}
-                        />
+                    {modalOpened == "inputFilterModalidad" &&
+                        <div className="tree_categorias tree_1">
+                            <ActividadEconomica
+                                subcategorias={tiposcompras}
+                                nameBuscador={"Buscar Modalidad"}
+                                onHandleSectores={onHandleSectores}
+                                tipo={"TiposCompras"}
+                                checkeds={checkedsTiposCompras}
+                                checkAllText={"Seleccionar todas las modalidades"}
+                            />
+                        </div>
                     }
-                    {modalOpened == "ubicacion" &&
+                    {modalOpened == "inputFilterUbicacion" &&
                         <ActividadEconomica
                             subcategorias={localizaciones}
                             nameBuscador={"Buscar Localización"}
                             onHandleSectores={onHandleSectores}
                             tipo={"Localizaciones"}
                             checkeds={checkedsLocalizaciones}
+                            checkAllText={"Todo el país - Colombia"}
                         />
                     }
                     {modalOpened == "modal_confirm_delete" &&
@@ -2301,7 +2310,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                             }
                         </>
                     }
-                    {modalOpened == "ubicacion" || modalOpened == "modalidad" || modalOpened == "actividad_economica" &&
+                    {modalOpened == "inputFilterActividadEconomica" || modalOpened == "inputFilterModalidad" || modalOpened == "inputFilterUbicacion" &&
                         <button type="button" className="btnRadius btn-new-green">Seleccionar</button>
                     }
                     {modalOpened == "modal_seleccion_carpeta" &&

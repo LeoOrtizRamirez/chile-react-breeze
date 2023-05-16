@@ -462,3 +462,16 @@
     background-color: #73c914 !important;
     border-color: #73c914 !important;
 }
+
+#SubCategorias .tree-filter-empty {
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+#SubCategorias .tree-filter-empty {
+    font-family: Nexa-bold,sans-serif;
+    text-align: center;
+    margin: 30px 0;
+    font-size: 20px;
+    color: #9c9b9b;
+}
