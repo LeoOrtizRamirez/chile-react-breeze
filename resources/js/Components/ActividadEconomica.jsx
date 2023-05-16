@@ -52,7 +52,6 @@ const ActividadEconomica = ({
             }
         });
         setSectoresIds(full_array);
-        console.log("full_array", full_array)
     }, []);
 
     const [checksActividadesEconomicas, setChecksActividadesEconomicas] =
@@ -523,7 +522,6 @@ const ActividadEconomica = ({
 
 
     const ordenarLicicodigos = (FilteredLicicodigos) => {
-        console.log("FilteredLicicodigos", FilteredLicicodigos)
         var FilteredActividadesEcomomicas = []
         const productosLicicodigos_filtrados = [
             FilteredLicicodigos[0].Licicodigo1,
@@ -550,9 +548,10 @@ const ActividadEconomica = ({
     }
 
     const inputSearchActividadEconomica = (e) => {
+        console.log(e)
         setFilterEpty(false)
         if (e.target.value == "") {
-            console.log("here")
+            console.log("h")
             setSectores(fakeSectores);
             setSegmentos([]);
             setActividadesEconomicas([]);
@@ -588,7 +587,6 @@ const ActividadEconomica = ({
                         return el;
                     }
                 });
-                console.log("FilteredLicicodigos", FilteredLicicodigos.length)
                 if (FilteredLicicodigos.length == 0) {
                     console.log("LICICODIGOS")
                     FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
