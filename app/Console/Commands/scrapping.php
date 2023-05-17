@@ -13,6 +13,11 @@ use Symfony\Component\HttpClient\HttpClient;
 
 use App\Models\Contrato;
 use App\Models\ContratistaContrato;
+use App\Models\DocumentosProceso;
+use Illuminate\Support\Facades\Date;
+
+use Carbon\Carbon;
+use Exception;
 
 class scrapping extends Command
 {
@@ -153,7 +158,7 @@ class scrapping extends Command
                     echo "El contrato ya existe...\n";
                 } else {
                     $model->save();
-                    echo "Guardando Contrato - pagina: " . $pagina . " de: ".$num_paginas. "\n";
+                    echo "Guardando Contrato - pagina: " . $pagina . " de: " . $num_paginas . "\n";
                     $this->guardarDetalle($model, $contratista_nombre);
                     //Fin - Actividad economica
 
@@ -196,19 +201,20 @@ class scrapping extends Command
 
     function guardarDetalle($model, $contratista_nombre)
     {
+        sleep(3);
         $crawlerDetalle = $this->getClient()->request('GET', $model->link);
         $model->modalidad = $this->textValidation($crawlerDetalle->filter('#lblFicha1Tipo'));
         $model->ubicacion = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
 
-        if($this->textValidation($crawlerDetalle->filter('#lblFicha2Region')) != ""){
+        if ($this->textValidation($crawlerDetalle->filter('#lblFicha2Region')) != "") {
             $model->unspsc = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblCategoria'));
         }
-        
+
         $estado_proceso_fuente = $this->textValidation($crawlerDetalle->filter('#imgEstado'), '#imgEstado', 'src');
 
-        if($estado_proceso_fuente != ""){
+        if ($estado_proceso_fuente != "") {
             $estado_proceso = $this->getEstadoProceso($estado_proceso_fuente);
-        }else{
+        } else {
             do {
                 $crawlerDetalle = $this->getClient()->request('GET', $model->link);
                 $estado_proceso_fuente = $this->textValidation($crawlerDetalle->filter('#imgEstado'), '#imgEstado', 'src');
@@ -216,7 +222,7 @@ class scrapping extends Command
             } while ($estado_proceso_fuente == "");
         }
         $model->estado_proceso = $estado_proceso;
-        echo "Estado:" . $estado_proceso. "\n";
+        echo "Estado:" . $estado_proceso . "\n";
         $model->save();
         echo "Guardando Detalle del Contrato\n";
 
@@ -248,9 +254,78 @@ class scrapping extends Command
         $clasificacion_contrato->id_sub_categoria = $subcategoria_id;
         $clasificacion_contrato->save();
         echo "Guardando ClasificacionContrato\n\n";
+
+        //Obtener enlace a documentos
+        $url_documentos = $this->textValidation($crawlerDetalle->filter('#imgAdjuntos'), "#imgAdjuntos", "onclick");
+
+        //Este código usa la preg_match()función con una expresión regular para extraer el texto entre la primera barra diagonal y la comilla simple de cierre. La URL resultante luego se imprime en la consola. Puede ajustar el patrón de expresión regular según sea necesario para que coincida con el formato específico de su valor de atributo.
+        $regex = "/\/(.+?)'/";
+        if (preg_match($regex, $url_documentos, $match)) {
+            $targetUrl = $match[1];
+        }
+
+        $this->guardarDocumentos($model->id, "https://www.mercadopublico.cl/Procurement/Modules/" . $targetUrl);
     }
 
-    public function getEstadoProceso($img){
+    public function guardarDocumentos($id_contrato, $link)
+    {
+        $crawlerDocumentos = $this->getClient()->request('GET', $link);
+        $query = parse_url($link, PHP_URL_QUERY);
+        parse_str($query, $params);
+        $form_enc = $params['enc'];
+        
+        echo "\n\n\n".  $form_enc . "\n\n";
+        $contador = 1;
+        try {
+            $crawlerDocumentos->filter("table#DWNL_grdId tr:not(:first-child)")->each(function ($node) use (&$form_enc, &$link, &$id_contrato, &$contador) {
+                $contador += 1;
+
+                $inicio_id = "0";
+                if ($contador >= 10) {
+                    $inicio_id = "";
+                }
+                $documentos_proceso = new DocumentosProceso;
+                $documentos_proceso->ruta = $link;
+
+
+                $namedoc = $this->textValidation($node->filter('#DWNL_grdId_ctl' . $inicio_id . $contador . '_File'));
+
+
+                $documentos_proceso->namedoc = $namedoc;
+
+                $extension = pathinfo($namedoc, PATHINFO_EXTENSION);
+                $documentos_proceso->extension = $extension;
+
+                $documentos_proceso->descripcion = $this->textValidation($node->filter('#DWNL_grdId_ctl' . $inicio_id . $contador . '_Description'));
+                $documentos_proceso->size = $this->textValidation($node->filter('#DWNL_grdId_ctl' . $inicio_id . $contador . '_FileLength'));
+
+
+                $fecha_fuente_string = $this->textValidation($node->filter('#DWNL_grdId_ctl' . $inicio_id . $contador . '_AtcDateTime'));
+                $carbonDate = Carbon::createFromFormat('d-m-Y H:i:s', $fecha_fuente_string);
+                $documentos_proceso->fecha_fuente = $carbonDate;
+
+                $documentos_proceso->identificador_fuente = "";
+                $documentos_proceso->id_contrato = $id_contrato;
+
+                $view_state = $this->textValidation($node->filter('#__VIEWSTATE'), '', 'value');
+                $view_state_generator = $this->textValidation($node->filter('#__VIEWSTATEGENERATOR'), '#__VIEWSTATEGENERATOR', 'value');
+                $json_adicional = [
+                    "enc" => $form_enc,
+                    "__VIEWSTATE" =>  $view_state,
+                    "__VIEWSTATEGENERATOR" => $view_state_generator,
+                    'DWNL$grdId$ctl' . $inicio_id. $contador . '$search.x' => 1,
+                    'DWNL$grdId$ctl' . $inicio_id. $contador . '$search.y' => 1,
+                ];
+                $documentos_proceso->json_adicional = json_encode($json_adicional);
+                $documentos_proceso->save();
+            });
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    public function getEstadoProceso($img)
+    {
         $estado_proceso = $img;
         switch ($img) {
             case '../../Includes/images/FichaLight/iconos_estados/publicadas.png':

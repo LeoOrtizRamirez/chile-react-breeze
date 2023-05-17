@@ -210,3 +210,6 @@ Route::post('/cliente/notas/actualizar', [NotaController::class, 'actualizar'])-
 Route::post('/cliente/notas/ordenar-notas', [NotaController::class, 'ordenar'])->middleware(['auth', 'verified']);
 
 Route::post('register/modal', [RegisteredUserController::class, 'registerModal'])->name('registerModal');
+
+
+Route::get('/scrapping', [ContratoController::class, 'scrapping']);
