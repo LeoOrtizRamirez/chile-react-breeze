@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubCategoriaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NotaController;
+use App\Http\Controllers\DocumentoProcesoController;
 
 use App\Models\Contrato;
 use Illuminate\Foundation\Application;
@@ -102,6 +103,8 @@ Route::get('cliente/contratos/detalle-contrato-2', function () {
 Route::post('cliente/contratos/detalle-contrato-2', [ContratoController::class, 'detalleConcurso'])->middleware(['auth', 'verified']);
 Route::post('contrato-visitado', [ContratoController::class, 'contratoVisitado'])->middleware(['auth', 'verified']);
 
+/*Documentos*/
+Route::post('cliente/contratos/documentos', [DocumentoProcesoController::class, 'getDocumentos'])->middleware(['auth', 'verified']);
 
 
 Route::resource('planes', PlaneController::class)

@@ -13,6 +13,7 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
     const [tabla, setTabla] = useState(contratos)
     const [indexTabla, setIndexTabla] = useState(index)
     const [contrato, setContrato] = useState(tabla.data[indexTabla])
+    const [documentos, setDocumentos] = useState([])
     const changeContrato = (index) => {
         if (tabla.from + index > tabla.to) {
             setCurrentPage(currentPage + 1)
@@ -68,6 +69,17 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
             { 'Authorization': `Bearer ${token}` })
             .then(response => {
                 //console.log(response)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
+        axios.post('/cliente/contratos/documentos', {
+            contrato_id: contrato.id,
+        },
+            { 'Authorization': `Bearer ${token}` })
+            .then(response => {
+                setDocumentos(response.data)
             })
             .catch(error => {
                 console.log(error)
@@ -236,6 +248,8 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
         });
 
     }
+
+
 
 
     return (
@@ -604,284 +618,71 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                                 </div>
                                             </div>
                                         </div>
-                                        <div data-section="Documentos del proceso" className="px-5 bg-white contenido-seccion">
-                                            <div className="contenido-detalle-contrato"><span className="titulo-agrupacion "><i
-                                                className="icon-Documentos"></i>
-                                                <p>Documentos del proceso:</p>
-                                            </span>
-                                            </div>
-                                            <div className="card-body">
-                                                <div className="campos-detalle-contrato">
-                                                    <div className="contenido-detalle-contrato"><b style={{ display: 'none' }}>Documentos:</b>
-                                                    </div>
-                                                    <div className="component-table-dinamyc">
-                                                        <div className="table-responsive">
-                                                            <table className="mx-auto table-campo-detalle  text-center">
-                                                                <tbody>
-                                                                    <tr className="table-header-detalle-contrato">
-                                                                        <th>
-                                                                            <div>Tipo
+                                        {documentos.length > 0 &&
+                                            <div data-section="Documentos del proceso" className="px-5 bg-white contenido-seccion">
+                                                <div className="contenido-detalle-contrato"><span className="titulo-agrupacion "><i
+                                                    className="icon-Documentos"></i>
+                                                    <p>Documentos del proceso:</p>
+                                                </span>
+                                                </div>
+                                                <div className="card-body">
+                                                    <div className="campos-detalle-contrato">
+                                                        <div className="contenido-detalle-contrato"><b style={{ display: 'none' }}>Documentos:</b>
+                                                        </div>
+                                                        <div className="component-table-dinamyc">
+                                                            <div className="table-responsive">
+                                                                <table className="mx-auto table-campo-detalle  text-center">
+                                                                    <tbody>
+                                                                        <tr className="table-header-detalle-contrato">
+                                                                            <th>
+                                                                                <div>Tipo
 
-                                                                            </div>
-                                                                        </th>
-                                                                        <th>
-                                                                            <div>Nombre
+                                                                                </div>
+                                                                            </th>
+                                                                            <th>
+                                                                                <div>Nombre
 
-                                                                            </div>
-                                                                        </th>
-                                                                        <th>
-                                                                            <div>Descargar
+                                                                                </div>
+                                                                            </th>
+                                                                            <th>
+                                                                                <div>Descargar
 
-                                                                            </div>
-                                                                        </th>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/pdf.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">1. Estudios Previos</td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395462"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/pdf.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">2. Aviso Convocatoria</td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395463"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/pdf.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">4. CDP</td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395464"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/pdf.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">3. Convocatoria Publica</td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395465"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/pdf.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">Anexo 1- Anexo Tecnico CCE-EICP-IDI-01 Licitacion
-                                                                        </td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395466"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/xlsm.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">Anexo 2- Cronograma CCE-EICP-IDI-02 Licitacion</td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395467"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/pdf.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">Anexo 3 - Glosario - CCE-EICP-IDI-03 - Licitacion
-                                                                        </td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395468"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/pdf.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">Anexo 4- Pacto de Transparencia CCE-EICP-IDI-04
-                                                                            Licitacion</td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395469"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/pdf.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">Anexo 5- Minuta del Contrato CCE-EICP-IDI-05
-                                                                            Licitacion</td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395470"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/docx.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">Formato 1- Carta de Presentaci?n de la Oferta
-                                                                            CCE-EICP-FM-02 Licitacion</td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395471"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/docx.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">Formato 2 - Conformacion de Proponente Plural
-                                                                            CCE-EICP-FM-03 Licitacion</td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395472"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/xlsx.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">Formato 3- Experiencia CCE-EICP-FM-04 Licitacion
-                                                                        </td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395473"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/docx.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">Formato 4- Capacidad financiera y organizacional
-                                                                            extranjeros CCE-EICP-FM-05 Licitacion</td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395474"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/xlsx.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">Formato 5 - Capacidad Residual CCE-EICP-FM-06
-                                                                            Licitacion</td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395475"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/docx.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">Formato 6- Pago de Seguridad Social y Aportes
-                                                                            Legales CCE-EICP-FM-07 Licitacion</td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395476"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/docx.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">Formato 7- Factor de calidad CCE-EICP-FM-08
-                                                                            Licitacion</td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395477"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/docx.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">Formato 8- Vinculacion de personas con discapacidad
-                                                                            CCE-EICP-FM-09 Licitacion</td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395478"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/docx.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">Formato 11 Autorizacion para el tratamiento de datos
-                                                                            personales CCE-EICP-FM-77 - Licitacion</td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395479"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/xlsx.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">Formulario No. 1</td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395480"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/pdf.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">Matriz 1 - Indicadores Financieros y
-                                                                            Organizacionales CCE-EICP-FM-12 Licitacion</td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395481"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/pdf.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">Matriz 2 - Riesgos CCE-EICP-FM-13 Licitacion</td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395482"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/pdf.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">5. Respuesta Observaciones</td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=296456767"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/pdf.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">ACTA DE CIERRE</td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=297466020"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato bg-gris-claro">
-                                                                        <td colSpan="1"><img src="/public/images/extensiones/pdf.svg"
-                                                                            className="table_icono_tipo" /></td>
-                                                                        <td colSpan="1">Informe de evaluacion</td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=297466021"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                    <tr className="table-body-detalle-contrato">
-                                                                        <td colSpan="1">
-                                                                            <img src="/public/images/extensiones/xlsx.svg" className="table_icono_tipo" />
-                                                                        </td>
-                                                                        <td colSpan="1">2 REQUISITOS HABILITANTES</td>
-                                                                        <td colSpan="1"><a
-                                                                            href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=297466022"
-                                                                            target="_blank"><i className="icon-Descargas-click"></i>
-                                                                            Descargar</a></td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
+                                                                                </div>
+                                                                            </th>
+                                                                        </tr>
+                                                                        {documentos.map((documento, index) => (
+                                                                            <tr className={`table-body-detalle-contrato ${index % 2 != 0 ? "bg-gris-claro" : ""}`}>
+                                                                                <td colSpan="1">
+                                                                                    {['docx', 'doc'].includes(documento.extension.toLowerCase()) &&
+                                                                                        <img src={`/images/extensiones/docx.svg`} className="table_icono_tipo" />
+                                                                                    }
+                                                                                    {documento.extension.toLowerCase() == "pdf" &&
+                                                                                        <img src={`/images/extensiones/pdf.svg`} className="table_icono_tipo" />
+                                                                                    }
+                                                                                    {documento.extension.toLowerCase() == "xlsx" &&
+                                                                                        <img src={`/images/extensiones/xlsx.svg`} className="table_icono_tipo" />
+                                                                                    }
+                                                                                    {documento.extension.toLowerCase() == "zip" &&
+                                                                                        <img src={`/images/extensiones/zip.svg`} className="table_icono_tipo" />
+                                                                                    }
+                                                                                    {documento.extension.toLowerCase() == "rar" &&
+                                                                                        <img src={`/images/extensiones/rar.svg`} className="table_icono_tipo" />
+                                                                                    }
+                                                                                </td>
+                                                                                <td colSpan="1">{documento.namedoc}</td>
+                                                                                <td colSpan="1">
+                                                                                    <a href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395462" target="_blank"><i className="icon-Descargas-click"></i>Descargar</a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        ))}
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        }
                                         <div data-section="Mensajes y observaciones" className="px-5 bg-white contenido-seccion">
                                             <div className="contenido-detalle-contrato"><span className="titulo-agrupacion "><i
                                                 className="icon-Datos-principales"></i>
