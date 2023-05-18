@@ -10,11 +10,18 @@
     padding-bottom: 10px;
 }
 
+#detalle-contratos .descargas-new .info-contrato .descargar-ver-docs.btn-new-gray:hover {
+    background: #686868 !important;
+    color: #fff !important;
+}
+
 #detalle-contratos .detalle-contrato-padre button.volver,
-#detalle-contratos .detalle-contrato-padre p button,
-#detalle-contratos .detalle-contrato-padre p span {
+#detalle-contratos .detalle-contrato-padre p button/* ,
+#detalle-contratos .detalle-contrato-padre p span */ {
     color: #686868;
 }
+
+
 
 #detalle-contratos .detalle-contrato-padre button.volver {
     padding: 0 9px;
@@ -596,6 +603,8 @@
 #detalle-contratos .btn:hover {
     text-decoration: none;
 }
+
+
 
 /*Tooltips*/
 #detalle-contratos .custom-tooltip {

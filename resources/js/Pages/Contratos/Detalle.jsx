@@ -6,6 +6,7 @@ import ModalFavorito from "@/Components/ModalFavorito";
 import ModalCarpetas from "@/Components/ModalCarpetas";
 import { Toast } from 'primereact/toast';
 import { Inertia } from '@inertiajs/inertia'
+import ModalDocumentos from "@/Components/ModalDocumentos";
 
 const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current_page, zona = "ALL" }) => {
 
@@ -278,6 +279,16 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
             });
     }
 
+    const [dataModalDocumentos, setDataModalDocumentos] = useState([])
+    const [showModalDocumentos, setShowModalDocumentos] = useState(false);
+    const handleCloseModalDocumentos = () => {
+        setDataModalDocumentos([])
+        setShowModalDocumentos(false)
+    };
+    const handleShowModalDocumentos = (data) => {
+        setDataModalDocumentos(data)
+        setShowModalDocumentos(true)
+    };
     return (
         <AuthenticatedLayout auth={auth} page={'detalle-contratos'} globalLoading={globalLoading}>
             <div className="content_not_blank_interno">
@@ -535,11 +546,11 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                                                     width="25px" height="25px" alt="" className="d-block icon-new" /> <b
                                                                         className="d-block">Descargar todos los documentos:</b>
                                                                 </div>
-                                                                <p className="d-block info-contrato boton-lateral"><span
-                                                                    className="d-inline-block new-family">Este proceso contiene <span
-                                                                        className="text-azul">25</span> documentos.</span>  <button
-                                                                            className="btn btn-new-gray btnRadius d-inline-block descargar-ver-docs boton-lateral_posicion"><span
-                                                                                className="icon-Siguiente1"></span> <span>Ver docs</span></button>
+                                                                <p className="d-block info-contrato boton-lateral">
+                                                                    <span className="d-inline-block new-family">Este proceso contiene <span className="text-azul">{contrato.documentos.length}</span> documentos.</span>
+                                                                    <button className="btn btn-new-gray btnRadius d-inline-block descargar-ver-docs boton-lateral_posicion" onClick={() => handleShowModalDocumentos(contrato)}>
+                                                                        <span className="icon-Siguiente1"></span> <span>Ver docs</span>
+                                                                    </button>
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -814,6 +825,7 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                 onHandleFolders={onHandleFolders}
                 contrato={contrato}
             />
+            <ModalDocumentos showModal={showModalDocumentos} handleCloseModal={handleCloseModalDocumentos} modalId="modal_documentos" data={dataModalDocumentos}></ModalDocumentos>
             <SideBarNotas
                 contrato={contrato}
                 zona={zona}
