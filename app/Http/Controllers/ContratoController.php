@@ -21,9 +21,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\DocumentosProceso;
-use Goutte\Client;
+/* use Goutte\Client; */
 use Symfony\Component\HttpClient\HttpClient;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
+use Illuminate\Http\Response;
 
 class ContratoController extends Controller
 {
@@ -224,11 +226,10 @@ class ContratoController extends Controller
 
             if (isset($request->carpeta) && !is_null($request->carpeta)) {
                 $carpeta = Carpeta::find($request->carpeta);
-                
             } else {
 
                 $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', $tipo)->first();
-                
+
                 if (is_null($carpeta)) {
                     $carpeta = new Carpeta;
                     $carpeta->id_usuario = Auth::id();
@@ -363,7 +364,7 @@ class ContratoController extends Controller
             $contratos = $this->getAllContratos($request, $rapida, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos);
         }
 
-        
+
         //dd($contratos);
 
         if ($tipo == "MP") {
@@ -413,9 +414,9 @@ class ContratoController extends Controller
         ); */
 
 
-        
+
         if (isset($request["query"]["type"]) && $request["query"]["type"] != "") {
-            
+
             return json_encode($contratos);
         } else {
             //dd($contratos);
@@ -435,7 +436,6 @@ class ContratoController extends Controller
             } catch (Exception $e) {
                 dd($e->getMessage());
             }
-            
         }
 
 
@@ -447,7 +447,7 @@ class ContratoController extends Controller
 
     public function getAllContratos($request, $rapida, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos, $ids_contratos_carpetas = null)
     {
-        
+
         $contratos_con_notas = $this->getContratosIdsConNotas();
         $contratos_con_notas_filter = [];
         $contratos_vistos = [];
@@ -473,7 +473,7 @@ class ContratoController extends Controller
 
 
 
-//dd($ids_contratos_carpetas);
+        //dd($ids_contratos_carpetas);
         $contratos = Contrato::with('fuente')
             ->where(function ($query) use ($ids_contratos_carpetas) { //BUSCAR SOLO LOS CONTRATOS QUE ESTAN RELACIONADOS A ALGUNA CARPETA
                 if (!is_null($ids_contratos_carpetas)) {
@@ -590,7 +590,7 @@ class ContratoController extends Controller
                 $value->total_notas = 0;
             }
         }
-        
+
         return $contratos;
     }
 
@@ -759,95 +759,5 @@ class ContratoController extends Controller
             $response = true;
         }
         return $response;
-    }
-
-    public function scrapping(){
-        $crawlerDocumentos = $this->getClient()->request('GET', "https://www.mercadopublico.cl/Procurement/Modules/Attachment/ViewAttachment.aspx?enc=IIzjlUL096%2b99M7LdnU5HZzNyvTO6t7PgX8P6RzoLY2MWyck9xRRswoiLBhEDMAOlKAgiuhw%2f%2fSYlaY8PdJon3bsYXhwZEVB49rSA2aNDBeOZdATUha2ebkW7Ew%2bmbvUpVr5YBZH%2bBIs5fBQqx%2b9l175chcJSpjkUE9J3zqIfXUc2g070Arb5mvawooroSD534LlSyah%2fZvzVBZ9ez5JPqdiRh5nQnk6joiu4OD6WOh%2bUtNL%2b0Ep%2bso18rwP3CMFXfRN8gFS1%2bnSP%2b%2bKzcZbi5Gha8aot%2faI%2fLwpx%2fIVuLwChb%2f4kjHHmmFcKGa%2bGcJD");
-        print_r($crawlerDocumentos);
-        
-        $link = "";
-        $id_contrato = 1;
-
-        $contador =1;
-        try {
-            $crawlerDocumentos->filter("table#DWNL_grdId tr:not(:first-child)")->each(function ($node) use (&$link, &$id_contrato, &$contador) {
-                $contador += 1;
-                $documentos_proceso = new DocumentosProceso;
-                $documentos_proceso->ruta = $link;
-    
-                $namedoc = $this->textValidation($node->filter('#DWNL_grdId_ctl0' . $contador . '_File'));
-
-                
-                $documentos_proceso->namedoc = $namedoc;
-    
-                $extension = pathinfo($namedoc, PATHINFO_EXTENSION);
-                $documentos_proceso->extension = $extension;
-    
-                $documentos_proceso->descripcion = $this->textValidation($node->filter('DWNL_grdId_ctl0' . $contador . '_Description'));
-                $documentos_proceso->size = $this->textValidation($node->filter('#DWNL_grdId_ctl0' . $contador . '_FileLength'));
-                $documentos_proceso->json_adicional = json_encode([0]);
-    
-                $fecha_fuente_string = $this->textValidation($node->filter('#DWNL_grdId_ctl0' . $contador . '_AtcDateTime'));
-    
-                $dateString = "04-05-2023 16:43:24";
-                $carbonDate = Carbon::createFromFormat('d-m-Y H:i:s', $dateString);
-    
-                echo $fecha_fuente_string . "<br>";
-                $documentos_proceso->fecha_fuente = $carbonDate;
-                $documentos_proceso->identificador_fuente = "";
-                $documentos_proceso->id_contrato = $id_contrato;
-                $documentos_proceso->save();
-            });
-        } catch (Exception $e) {
-            dd($e->getMessage());
-        }
-        
-    }
-
-    public function getClient()
-    {
-        $client = HttpClient::create(array(
-            'headers' => array(
-                'Host' => 'www.mercadopublico.cl',
-                'Content-Type' => 'application/json',
-            ),
-        ));
-        return new Client($client);
-    }
-
-    function textValidation($node, $selector = "", $attr = null)
-    {
-        if ($selector == "") {
-            if (is_null($attr)) {
-                if ($node->count()) {
-                    return $node->text();
-                } else {
-                    return "";
-                }
-            } else {
-                if ($node->count()) {
-                    if ($node->attr($attr) == "") {
-                        return $node->attr("href");
-                    }
-                    return $node->attr($attr);
-                } else {
-                    return "";
-                }
-            }
-        }
-
-        if (!is_null($attr)) {
-            if ($node->filter($selector)->count()) {
-                return $node->filter($selector)->attr($attr);
-            } else {
-                return '';
-            }
-        }
-
-        if ($node->filter($selector)->count()) {
-            return $node->filter($selector)->text();
-        } else {
-            return '';
-        }
     }
 }

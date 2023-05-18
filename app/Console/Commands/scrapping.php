@@ -274,10 +274,17 @@ class scrapping extends Command
         parse_str($query, $params);
         $form_enc = $params['enc'];
         
-        echo "\n\n\n".  $form_enc . "\n\n";
+        
         $contador = 1;
         try {
-            $crawlerDocumentos->filter("table#DWNL_grdId tr:not(:first-child)")->each(function ($node) use (&$form_enc, &$link, &$id_contrato, &$contador) {
+
+            $view_state = $this->textValidation($crawlerDocumentos->filter('#__VIEWSTATE'), '#__VIEWSTATE', 'value');
+            $view_state_generator = $this->textValidation($crawlerDocumentos->filter('#__VIEWSTATEGENERATOR'), '#__VIEWSTATEGENERATOR', 'value');
+
+            echo "\n\n\n".  $view_state . "\n\n";
+            echo "\n\n\n".  $view_state_generator . "\n\n";
+
+            $crawlerDocumentos->filter("table#DWNL_grdId tr:not(:first-child)")->each(function ($node) use (&$form_enc, &$view_state, &$view_state_generator, &$link, &$id_contrato, &$contador) {
                 $contador += 1;
 
                 $inicio_id = "0";
@@ -307,14 +314,12 @@ class scrapping extends Command
                 $documentos_proceso->identificador_fuente = "";
                 $documentos_proceso->id_contrato = $id_contrato;
 
-                $view_state = $this->textValidation($node->filter('#__VIEWSTATE'), '', 'value');
-                $view_state_generator = $this->textValidation($node->filter('#__VIEWSTATEGENERATOR'), '#__VIEWSTATEGENERATOR', 'value');
                 $json_adicional = [
                     "enc" => $form_enc,
                     "__VIEWSTATE" =>  $view_state,
                     "__VIEWSTATEGENERATOR" => $view_state_generator,
-                    'DWNL$grdId$ctl' . $inicio_id. $contador . '$search.x' => 1,
-                    'DWNL$grdId$ctl' . $inicio_id. $contador . '$search.y' => 1,
+                    "x" => 'DWNL$grdId$ctl' . $inicio_id. $contador . '$search.x',
+                    "y" => 'DWNL$grdId$ctl' . $inicio_id. $contador . '$search.y',
                 ];
                 $documentos_proceso->json_adicional = json_encode($json_adicional);
                 $documentos_proceso->save();

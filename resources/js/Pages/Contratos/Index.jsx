@@ -33,7 +33,6 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfiles, visualizar }) => {
     const [visualizarFilter, setVisualizarFilter] = useState(visualizar)
     const [tabla, setTabla] = useState(contratos);
-    console.log("current_url", tabla)
 
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
@@ -59,7 +58,6 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     }
 
     const paginatorPost = (event, _visualizar = null, paginator_url = null) => {
-        console.log("_visualizar", _visualizar)
         var page = ""
         if (paginator_url != null) {
             page = parseInt(paginator_url.split("=").pop(), 10);
@@ -119,8 +117,6 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     }
 
     const paginatorPostSendRequest = (url, page) => {
-        console.log("url", url)
-        console.log("page", page)
         setGlobalLoading(true)
         var token = document.querySelector('meta[name="csrf-token"]')
         axios.post(url, {//pendiente organizar url para obtener ids de perfiles y carpetas
@@ -854,7 +850,6 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const dt = useRef(null);
     const handleClearFilters = () => {
         //setInputFilterEntidadContratante("")
-        console.log(dt)
         if (dt.current) {
             dt.current.reset();
         }
@@ -1278,7 +1273,6 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                     }
                 });
                 setLoading(false)
-                console.log(toastBL.current)
                 toastBL.current.show({ severity: 'success', summary: 'Has agregado el proceso de contratación a tus favoritos.'/* , detail: 'Message Content' */, life: 3000 });
             })
             .catch(error => {

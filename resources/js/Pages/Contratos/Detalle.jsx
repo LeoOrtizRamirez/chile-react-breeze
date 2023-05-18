@@ -250,7 +250,32 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
     }
 
 
-
+    const descargarDocumento = (documento) => {
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        fetch('/cliente/contratos/descargar-documentos', {
+            method: 'POST',
+            body: JSON.stringify({
+                documento: documento // pass the documento object
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': token
+            },
+            responseType: 'blob'
+        })
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(new Blob([blob]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', documento.namedoc);
+                document.body.appendChild(link);
+                link.click();
+            })
+            .catch(error => {
+                console.error('There was a problem with the Fetch request:', error);
+            });
+    }
 
     return (
         <AuthenticatedLayout auth={auth} page={'detalle-contratos'} globalLoading={globalLoading}>
@@ -313,14 +338,14 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
 
                                     {contrato.favorito ?
                                         <div className="custom-tooltip yellow" data-tooltip="Eliminar De Favoritos">
-                                            <button id="btnContratosFavorito" type="button" class="btn bg-transparent" onClick={() => handleShowModalFavorito("modal_seleccion_carpeta", contrato)}>
-                                                <span class="icon-Favorito-click favorito_active"></span>
+                                            <button id="btnContratosFavorito" type="button" className="btn bg-transparent" onClick={() => handleShowModalFavorito("modal_seleccion_carpeta", contrato)}>
+                                                <span className="icon-Favorito-click favorito_active"></span>
                                             </button>
                                         </div>
                                         :
                                         <div className="custom-tooltip yellow" data-tooltip="Agregar A Favoritos">
-                                            <button id="btnContratosFavorito" type="button" class="btn bg-transparent" onClick={() => addFavorito(contrato.id)}>
-                                                <span class="icon-Favorito-click"></span>
+                                            <button id="btnContratosFavorito" type="button" className="btn bg-transparent" onClick={() => addFavorito(contrato.id)}>
+                                                <span className="icon-Favorito-click"></span>
                                             </button>
                                         </div>
                                     }
@@ -393,10 +418,10 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                         <button type="button" id="btnActualizarDetalle" className="btn btn-warning mt-0">Actualizar</button>
                                     </div>
                                 </div>
-                                <div class="alert alert-success actualizar-secops-manual--actualizado">
-                                    <i aria-hidden="true" class="icon-notification icon-Notificacin-verde"></i>
-                                    <div class="content-info">
-                                        <p class="mt-0 mb-0">Este contrato se encuentra actualizado hasta 2023-05-10 07:05:09</p>
+                                <div className="alert alert-success actualizar-secops-manual--actualizado">
+                                    <i aria-hidden="true" className="icon-notification icon-Notificacin-verde"></i>
+                                    <div className="content-info">
+                                        <p className="mt-0 mb-0">Este contrato se encuentra actualizado hasta 2023-05-10 07:05:09</p>
                                     </div>
                                 </div>
                             </div>
@@ -471,32 +496,29 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                                     </span>
                                                         <div className="campos-detalle-contrato  info-borde">
                                                             <div className="contenido-detalle-contrato fuente-new">
-                                                                <div className="new-primero"><img
-                                                                    src="https://col.licitaciones.info/img/detalle-contrato/svg/Fuente-detalle.svg"
-                                                                    width="25px" height="25px" alt="" className="d-block icon-new" /> <b
-                                                                        className="d-block">Fuente 1:</b>
+                                                                <div className="new-primero">
+                                                                    <img src="https://col.licitaciones.info/img/detalle-contrato/svg/Fuente-detalle.svg" width="25px" height="25px" alt="" className="d-block icon-new" />
+                                                                    <b className="d-block">Fuente 1:</b>
                                                                 </div>
-                                                                <p id="movil-link-detalle" className="info-contrato"><a
-                                                                    className="d-inline-block new-family text-azul">https://community.secop.gov.co/Public/Tendering/OpportunityDetail/Index?noticeUID=CO1.NTC.4349255&amp;isFromPublicArea=True&amp;isModal=true&amp;asPopupView=true&amp;currentLanguage=es&amp;currentCulture=es</a>
-                                                                    <button
-                                                                        className="btn btn-new-green btnRadius d-inline-block  boton_link_fuentes text-verde"><i
-                                                                            className="icon-Copiar-enlace"></i>
+                                                                <p id="movil-link-detalle" className="info-contrato">
+                                                                    <a className="d-inline-block new-family text-azul">link</a>
+                                                                    <button className="btn btn-new-green btnRadius d-inline-block  boton_link_fuentes text-verde">
+                                                                        <i className="icon-Copiar-enlace"></i>
                                                                         Copiar link
-                                                                    </button></p>
+                                                                    </button>
+                                                                </p>
                                                             </div>
                                                             <div className="contenido-detalle-contrato fuente-new">
-                                                                <div className="new-primero"><img
-                                                                    src="https://col.licitaciones.info/img/detalle-contrato/svg/Fuente-detalle.svg"
-                                                                    width="25px" height="25px" alt="" className="d-block icon-new" /> <b
-                                                                        className="d-block">Fuente para usuarios registrados en Secop2:</b>
+                                                                <div className="new-primero">
+                                                                    <img src="https://col.licitaciones.info/img/detalle-contrato/svg/Fuente-detalle.svg" width="25px" height="25px" alt="" className="d-block icon-new" />
+                                                                    <b className="d-block">Fuente para usuarios registrados en Secop2:</b>
                                                                 </div>
-                                                                <p id="movil-link-detalle" className="info-contrato"><a
-                                                                    className="d-inline-block new-family text-azul">https://www.secop.gov.co/CO1BusinessLine/Tendering/ContractNoticeView/Index?prevCtxLbl=Buscar+procesos&amp;prevCtxUrl=https%3a%2f%2fwww.secop.gov.co%3a443%2fCO1BusinessLine%2fTendering%2fContractNoticeManagement%2fIndex&amp;notice=CO1.NTC.4349255</a>
-                                                                    <button
-                                                                        className="btn btn-new-green btnRadius d-inline-block  boton_link_fuentes text-verde"><i
-                                                                            className="icon-Copiar-enlace"></i>
-                                                                        Copiar link
-                                                                    </button></p>
+                                                                <p id="movil-link-detalle" className="info-contrato">
+                                                                    <a className="d-inline-block new-family text-azul">link</a>
+                                                                    <button className="btn btn-new-green btnRadius d-inline-block  boton_link_fuentes text-verde">
+                                                                        <i className="icon-Copiar-enlace"></i>Copiar link
+                                                                    </button>
+                                                                </p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -651,7 +673,7 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                                                             </th>
                                                                         </tr>
                                                                         {documentos.map((documento, index) => (
-                                                                            <tr className={`table-body-detalle-contrato ${index % 2 != 0 ? "bg-gris-claro" : ""}`}>
+                                                                            <tr className={`table-body-detalle-contrato ${index % 2 != 0 ? "bg-gris-claro" : ""}`} key={`documento_${index}`}>
                                                                                 <td colSpan="1">
                                                                                     {['docx', 'doc'].includes(documento.extension.toLowerCase()) &&
                                                                                         <img src={`/images/extensiones/docx.svg`} className="table_icono_tipo" />
@@ -671,7 +693,7 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                                                                 </td>
                                                                                 <td colSpan="1">{documento.namedoc}</td>
                                                                                 <td colSpan="1">
-                                                                                    <a href="https://community.secop.gov.co/Public/Archive/RetrieveFile/Index?DocumentId=295395462" target="_blank"><i className="icon-Descargas-click"></i>Descargar</a>
+                                                                                    <a onClick={() => descargarDocumento(documento)} target="_blank"><i className="icon-Descargas-click"></i>Descargar</a>
                                                                                 </td>
                                                                             </tr>
                                                                         ))}
@@ -775,7 +797,7 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                 showModal={showModalFavorito}
                 modalId={'modal_confirm_delete'}
                 handleCloseModal={handleCloseModalFavorito}
-                title={'¿Deseas <span class="text_color_red">eliminar</span> el/los proceso(s) de tus favoritos?'}
+                title={'¿Deseas <span className="text_color_red">eliminar</span> el/los proceso(s) de tus favoritos?'}
                 contrato={contrato}
                 globalLoading={handleGlobalLoading}
                 onHandleContrato={onHandleContrato}
@@ -784,7 +806,7 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                 showModal={showModalCarpetas}
                 modalId={'modal_seleccion_carpeta'}
                 handleCloseModal={handleCloseModalCarpetas}
-                title={'¿Deseas <span class="text_color_red">eliminar</span> el/los proceso(s) de tus favoritos?'}
+                title={'¿Deseas <span className="text_color_red">eliminar</span> el/los proceso(s) de tus favoritos?'}
                 globalLoading={handleGlobalLoading}
                 onHandleContrato={onHandleContrato}
                 folders={folders}

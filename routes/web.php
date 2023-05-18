@@ -105,6 +105,7 @@ Route::post('contrato-visitado', [ContratoController::class, 'contratoVisitado']
 
 /*Documentos*/
 Route::post('cliente/contratos/documentos', [DocumentoProcesoController::class, 'getDocumentos'])->middleware(['auth', 'verified']);
+Route::post('cliente/contratos/descargar-documentos', [DocumentoProcesoController::class, 'descargarDocumentos']);
 
 
 Route::resource('planes', PlaneController::class)
