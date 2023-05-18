@@ -68,19 +68,19 @@ const ModalDocumentos = ({ showModal, handleCloseModal, modalId, data = [] }) =>
                                 <div className="col-12 contenedor_documentos col-lg-6">
                                     <div className="documentos_doc">
                                         {['docx', 'doc'].includes(documento.extension.toLowerCase()) &&
-                                            <img src={`/images/extensiones/docx.svg`} width="30" className="documentos_doc_icono" />
+                                            <img src={`/public/images/extensiones/docx.svg`} width="30" className="documentos_doc_icono" />
                                         }
                                         {documento.extension.toLowerCase() == "pdf" &&
-                                            <img src={`/images/extensiones/pdf.svg`} width="30" className="documentos_doc_icono" />
+                                            <img src={`/public/images/extensiones/pdf.svg`} width="30" className="documentos_doc_icono" />
                                         }
                                         {documento.extension.toLowerCase() == "xlsx" &&
-                                            <img src={`/images/extensiones/xlsx.svg`} width="30" className="documentos_doc_icono" />
+                                            <img src={`/public/images/extensiones/xlsx.svg`} width="30" className="documentos_doc_icono" />
                                         }
                                         {documento.extension.toLowerCase() == "zip" &&
-                                            <img src={`/images/extensiones/zip.svg`} width="30" className="documentos_doc_icono" />
+                                            <img src={`/public/images/extensiones/zip.svg`} width="30" className="documentos_doc_icono" />
                                         }
                                         {documento.extension.toLowerCase() == "rar" &&
-                                            <img src={`/images/extensiones/rar.svg`} width="30" className="documentos_doc_icono" />
+                                            <img src={`/public/images/extensiones/rar.svg`} width="30" className="documentos_doc_icono" />
                                         }
                                         <div className="documentos_doc_textos">
                                             <span className="texto_nombre_doc">{documento.namedoc}</span>
