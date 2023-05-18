@@ -676,19 +676,19 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                                                             <tr className={`table-body-detalle-contrato ${index % 2 != 0 ? "bg-gris-claro" : ""}`} key={`documento_${index}`}>
                                                                                 <td colSpan="1">
                                                                                     {['docx', 'doc'].includes(documento.extension.toLowerCase()) &&
-                                                                                        <img src={`/images/extensiones/docx.svg`} className="table_icono_tipo" />
+                                                                                        <img src={`/public/images/extensiones/docx.svg`} className="table_icono_tipo" />
                                                                                     }
                                                                                     {documento.extension.toLowerCase() == "pdf" &&
-                                                                                        <img src={`/images/extensiones/pdf.svg`} className="table_icono_tipo" />
+                                                                                        <img src={`/public/images/extensiones/pdf.svg`} className="table_icono_tipo" />
                                                                                     }
                                                                                     {documento.extension.toLowerCase() == "xlsx" &&
-                                                                                        <img src={`/images/extensiones/xlsx.svg`} className="table_icono_tipo" />
+                                                                                        <img src={`/public/images/extensiones/xlsx.svg`} className="table_icono_tipo" />
                                                                                     }
                                                                                     {documento.extension.toLowerCase() == "zip" &&
-                                                                                        <img src={`/images/extensiones/zip.svg`} className="table_icono_tipo" />
+                                                                                        <img src={`/public/images/extensiones/zip.svg`} className="table_icono_tipo" />
                                                                                     }
                                                                                     {documento.extension.toLowerCase() == "rar" &&
-                                                                                        <img src={`/images/extensiones/rar.svg`} className="table_icono_tipo" />
+                                                                                        <img src={`/public/images/extensiones/rar.svg`} className="table_icono_tipo" />
                                                                                     }
                                                                                 </td>
                                                                                 <td colSpan="1">{documento.namedoc}</td>
