@@ -589,6 +589,10 @@ class ContratoController extends Controller
                 $value->notas = false;
                 $value->total_notas = 0;
             }
+
+
+            $documentos_procesos = DocumentosProceso::where('id_contrato', $value->id)->get();
+            $value->documentos = $documentos_procesos;
         }
 
         return $contratos;

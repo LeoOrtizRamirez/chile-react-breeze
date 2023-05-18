@@ -208,6 +208,10 @@ a.btnRadius {
     border-radius: 40px;
 }
 
+.btn-new-gray:focus, .btn-new-gray:hover {
+    background: #686868!important;
+    color: #fff!important;
+}
 /*Botones*/
 
 /*Modals*/

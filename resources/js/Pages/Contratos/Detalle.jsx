@@ -268,6 +268,7 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                 const url = window.URL.createObjectURL(new Blob([blob]));
                 const link = document.createElement('a');
                 link.href = url;
+                link.target = '_blank';
                 link.setAttribute('download', documento.namedoc);
                 document.body.appendChild(link);
                 link.click();

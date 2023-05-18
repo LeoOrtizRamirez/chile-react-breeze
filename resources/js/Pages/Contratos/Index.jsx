@@ -29,6 +29,8 @@ import CrearCarpeta from "@/Components/CrearCarpeta";
 
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
+import ModalDocumentos from "@/Components/ModalDocumentos";
+
 
 const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfiles, visualizar }) => {
     const [visualizarFilter, setVisualizarFilter] = useState(visualizar)
@@ -620,15 +622,19 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                     </div>
                 }
                 <span className="div_iconos_functions_grid">
-                    {/* <a className="btnVerDocumentos d-inline-flex align-items-center">
-                        <i className="icon-Ver-documentos"></i>
-                        <span>Ver documentos</span>
-                        <i className="icon-Siguiente1"></i>
-                    </a> */}
-                    <a class="btnVerDocumentos d-inline-flex align-items-center oculto_sin_docs">
-                        <img src="/public/images/listado/sin_documentos.svg" alt="sin documentos" className="w-14" />
-                        <span>Sin documentos</span>
-                    </a>
+                    {data.documentos.length > 0 ?
+                        <a className="btnVerDocumentos d-inline-flex align-items-center" onClick={() => handleShowModalDocumentos(data)}>
+                            <i className="icon-Ver-documentos"></i>
+                            <span>Ver documentos</span>
+                            <i className="icon-Siguiente1"></i>
+                        </a>
+                        :
+                        <a class="btnVerDocumentos d-inline-flex align-items-center oculto_sin_docs">
+                            <img src="/public/images/listado/sin_documentos.svg" alt="sin documentos" className="w-14" />
+                            <span>Sin documentos</span>
+                        </a>
+                    }
+
                     <div className="iconos_functions_grid iconos_acciones_contratos">
 
                         {data.favorito ?
@@ -916,7 +922,16 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     }
 
 
-
+    const [dataModalDocumentos, setDataModalDocumentos] = useState([])
+    const [showModalDocumentos, setShowModalDocumentos] = useState(false);
+    const handleCloseModalDocumentos = () => {
+        setDataModalDocumentos([])
+        setShowModalDocumentos(false)
+    };
+    const handleShowModalDocumentos = (data) => {
+        setDataModalDocumentos(data)
+        setShowModalDocumentos(true)
+    };
 
 
     const [sectores, setSectores] = useState([]);
@@ -1747,13 +1762,11 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     }
 
     const saveNota = () => {
-        console.log("refInputTitle", refInputTitle.current.value)
-        console.log("refInputText", refInputText.current.value)
-        if(refInputTitle.current.value==""){
+        if (refInputTitle.current.value == "") {
             toastBL.current.show({ severity: 'error', summary: 'Debes ingresar un título para la nota!'/* , detail: 'Message Content' */, life: 3000 });
             return;
         }
-        if(refInputText.current.value==""){
+        if (refInputText.current.value == "") {
             toastBL.current.show({ severity: 'error', summary: 'Debes ingresar un contenido para la nota!'/* , detail: 'Message Content' */, life: 3000 });
             return;
         }
@@ -2530,6 +2543,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                     </div>
                 </div>
             </Sidebar>
+            <ModalDocumentos showModal={showModalDocumentos} handleCloseModal={handleCloseModalDocumentos} modalId="modal_documentos" data={dataModalDocumentos}></ModalDocumentos>
             <Toast ref={toastBL} position="bottom-left" />
         </AuthenticatedLayout >
     );
