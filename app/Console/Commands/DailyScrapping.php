@@ -13,9 +13,13 @@ use Symfony\Component\HttpClient\HttpClient;
 
 use App\Models\Contrato;
 use App\Models\ContratistaContrato;
+use App\Models\DocumentosProceso;
 
 use DateTime;
 use DateTimeZone;  
+
+use Carbon\Carbon;
+use Exception;
 
 class DailyScrapping extends Command
 {
@@ -214,7 +218,12 @@ class DailyScrapping extends Command
         $model->ubicacion = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
 
         if($this->textValidation($crawlerDetalle->filter('#lblFicha2Region')) != ""){
-            $model->unspsc = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblCategoria'));
+            $unspsc = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblCategoria')); 
+            if($unspsc == ""){
+                $model->unspsc = 0;   
+            }else{
+                $model->unspsc = $unspsc;
+            }   
         }
         
         $estado_proceso_fuente = $this->textValidation($crawlerDetalle->filter('#imgEstado'), '#imgEstado', 'src');
@@ -262,6 +271,78 @@ class DailyScrapping extends Command
         $clasificacion_contrato->save();
         echo "Guardando ClasificacionContrato\n\n";
         
+        //Obtener enlace a documentos
+        $url_documentos = $this->textValidation($crawlerDetalle->filter('#imgAdjuntos'), "#imgAdjuntos", "onclick");
+
+        //Este código usa la preg_match()función con una expresión regular para extraer el texto entre la primera barra diagonal y la comilla simple de cierre. La URL resultante luego se imprime en la consola. Puede ajustar el patrón de expresión regular según sea necesario para que coincida con el formato específico de su valor de atributo.
+        $regex = "/\/(.+?)'/";
+        if (preg_match($regex, $url_documentos, $match)) {
+            $targetUrl = $match[1];
+        }
+
+        $this->guardarDocumentos($model->id, "https://www.mercadopublico.cl/Procurement/Modules/" . $targetUrl);
+    }
+
+    public function guardarDocumentos($id_contrato, $link)
+    {
+        $crawlerDocumentos = $this->getClient()->request('GET', $link);
+        $query = parse_url($link, PHP_URL_QUERY);
+        parse_str($query, $params);
+        $form_enc = $params['enc'];
+        
+        
+        $contador = 1;
+        try {
+
+            $view_state = $this->textValidation($crawlerDocumentos->filter('#__VIEWSTATE'), '#__VIEWSTATE', 'value');
+            $view_state_generator = $this->textValidation($crawlerDocumentos->filter('#__VIEWSTATEGENERATOR'), '#__VIEWSTATEGENERATOR', 'value');
+
+            echo "\n\n\n".  $view_state . "\n\n";
+            echo "\n\n\n".  $view_state_generator . "\n\n";
+
+            $crawlerDocumentos->filter("table#DWNL_grdId tr:not(:first-child)")->each(function ($node) use (&$form_enc, &$view_state, &$view_state_generator, &$link, &$id_contrato, &$contador) {
+                $contador += 1;
+
+                $inicio_id = "0";
+                if ($contador >= 10) {
+                    $inicio_id = "";
+                }
+                $documentos_proceso = new DocumentosProceso;
+                $documentos_proceso->ruta = $link;
+
+
+                $namedoc = $this->textValidation($node->filter('#DWNL_grdId_ctl' . $inicio_id . $contador . '_File'));
+
+
+                $documentos_proceso->namedoc = $namedoc;
+
+                $extension = pathinfo($namedoc, PATHINFO_EXTENSION);
+                $documentos_proceso->extension = $extension;
+
+                $documentos_proceso->descripcion = $this->textValidation($node->filter('#DWNL_grdId_ctl' . $inicio_id . $contador . '_Description'));
+                $documentos_proceso->size = $this->textValidation($node->filter('#DWNL_grdId_ctl' . $inicio_id . $contador . '_FileLength'));
+
+
+                $fecha_fuente_string = $this->textValidation($node->filter('#DWNL_grdId_ctl' . $inicio_id . $contador . '_AtcDateTime'));
+                $carbonDate = Carbon::createFromFormat('d-m-Y H:i:s', $fecha_fuente_string);
+                $documentos_proceso->fecha_fuente = $carbonDate;
+
+                $documentos_proceso->identificador_fuente = "";
+                $documentos_proceso->id_contrato = $id_contrato;
+
+                $json_adicional = [
+                    "enc" => $form_enc,
+                    "__VIEWSTATE" =>  $view_state,
+                    "__VIEWSTATEGENERATOR" => $view_state_generator,
+                    "x" => 'DWNL$grdId$ctl' . $inicio_id. $contador . '$search.x',
+                    "y" => 'DWNL$grdId$ctl' . $inicio_id. $contador . '$search.y',
+                ];
+                $documentos_proceso->json_adicional = json_encode($json_adicional);
+                $documentos_proceso->save();
+            });
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
     }
 
     public function getEstadoProceso($img){

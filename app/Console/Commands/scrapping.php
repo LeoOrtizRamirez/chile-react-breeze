@@ -207,7 +207,12 @@ class scrapping extends Command
         $model->ubicacion = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
 
         if ($this->textValidation($crawlerDetalle->filter('#lblFicha2Region')) != "") {
-            $model->unspsc = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblCategoria'));
+            $unspsc = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblCategoria')); 
+            if($unspsc == ""){
+                $model->unspsc = 0;   
+            }else{
+                $model->unspsc = $unspsc;
+            }   
         }
 
         $estado_proceso_fuente = $this->textValidation($crawlerDetalle->filter('#imgEstado'), '#imgEstado', 'src');
