@@ -96,6 +96,14 @@ const SideBarNotas = ({ contrato, zona, isOpen, onHide, onChangeSideBarTotalNota
     }
 
     const saveNota = () => {
+        if(refInputTitle.current.value==""){
+            toastBL.current.show({ severity: 'error', summary: 'Debes ingresar un título para la nota!'/* , detail: 'Message Content' */, life: 3000 });
+            return;
+        }
+        if(refInputText.current.value==""){
+            toastBL.current.show({ severity: 'error', summary: 'Debes ingresar un contenido para la nota!'/* , detail: 'Message Content' */, life: 3000 });
+            return;
+        }
         globalLoading(true)
         var token = document.querySelector('meta[name="csrf-token"]')
         axios.post('/cliente/notas/admin-note', {

@@ -1747,6 +1747,16 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     }
 
     const saveNota = () => {
+        console.log("refInputTitle", refInputTitle.current.value)
+        console.log("refInputText", refInputText.current.value)
+        if(refInputTitle.current.value==""){
+            toastBL.current.show({ severity: 'error', summary: 'Debes ingresar un título para la nota!'/* , detail: 'Message Content' */, life: 3000 });
+            return;
+        }
+        if(refInputText.current.value==""){
+            toastBL.current.show({ severity: 'error', summary: 'Debes ingresar un contenido para la nota!'/* , detail: 'Message Content' */, life: 3000 });
+            return;
+        }
         setGlobalLoading(true)
         var token = document.querySelector('meta[name="csrf-token"]')
         axios.post('/cliente/notas/admin-note', {
