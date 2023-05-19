@@ -201,7 +201,7 @@ class scrapping extends Command
 
     function guardarDetalle($model, $contratista_nombre)
     {
-        sleep(3);
+        //sleep(3);
         $crawlerDetalle = $this->getClient()->request('GET', $model->link);
         $model->modalidad = $this->textValidation($crawlerDetalle->filter('#lblFicha1Tipo'));
         $model->ubicacion = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
