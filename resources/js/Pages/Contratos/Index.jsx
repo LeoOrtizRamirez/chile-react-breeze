@@ -1656,7 +1656,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     }, [showModal])
 
     const rowClassName = (rowData) => {
-        return `row-${rowData.id}`;
+        return `row-${rowData.id} hover-row`;
     }
 
     const [notas, setNotas] = useState([])

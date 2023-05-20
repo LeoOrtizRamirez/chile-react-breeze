@@ -331,4 +331,10 @@ class UserController extends Controller
 
         return $response;
     }
+
+    public function solicitud(){
+        return Inertia::render('Usuarios/Solicitud', [
+
+        ]);
+    }
 }
