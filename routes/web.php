@@ -220,3 +220,4 @@ Route::get('/scrapping', [ContratoController::class, 'scrapping']);
 
 /*Configuraciones*/
 Route::get('/cliente/solicitud', [UserController::class, 'solicitud'])->middleware(['auth', 'verified']);
+Route::get('/cliente/sugerencias', [UserController::class, 'sugerencias'])->middleware(['auth', 'verified']);

@@ -12,7 +12,7 @@ const Solicitud = ({auth }) => {
                 <div className="procesando-solicitud col">
                     <div className="row justify-content-center ">
                         <div className="col-4 col-md-offset-1">
-                            <img src="https://col.licitaciones.info/img/solicitudes/Solicitud.png" alt="" className="procesando-solicitud__imagen-nueva img-fluid"/>
+                            <img src="/public/images/solicitudes/Solicitud.png" alt="" className="procesando-solicitud__imagen-nueva img-fluid"/>
                         </div>
                         <div className="procesando-solicitud__text-dinamic col-6 offset-1">
                             <div className="procesando-solicitud__contenedor-text-dinamic">

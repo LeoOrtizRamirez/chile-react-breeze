@@ -337,4 +337,10 @@ class UserController extends Controller
 
         ]);
     }
+
+    public function sugerencias(){
+        return Inertia::render('Usuarios/Sugerencias',[
+
+        ]);
+    }
 }

@@ -402,7 +402,7 @@ span.p-toast-summary {
     background-origin: initial;
     background-clip: initial;
     background-color: rgb(255, 255, 255);
-    padding: 3px 24px;
+    padding: 3px 24px !important;
     outline: none!important;
 }
 
