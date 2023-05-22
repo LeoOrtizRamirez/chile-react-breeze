@@ -424,13 +424,13 @@ const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, perfiles = []
                     </a>
                 </li>
                 <li id="item_menu-ajustes-li">
-                    <a href="/cliente/notificacion-correo" id="item_menu-publicidad">
+                    <a id="item_menu-publicidad" href="/cliente/notificacion-correo">
                         <span className="icon-Ajustes"></span>
                         <span className="item-title-menu">Ajustes</span>
                     </a>
                 </li>
                 <li id="item_menu-publicarcontrato-li" className="dropright">
-                    <a id="item_menu-publicarcontrato" href="/cliente/contrato">
+                    <a id="item_menu-publicarcontrato" href="/cliente/solicitud">
                         <span className="icon-Publicar-click"></span>
                         <span className="item-title-menu">Publicar contrato</span>
                     </a>

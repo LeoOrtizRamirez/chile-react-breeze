@@ -221,3 +221,6 @@ Route::get('/scrapping', [ContratoController::class, 'scrapping']);
 /*Configuraciones*/
 Route::get('/cliente/solicitud', [UserController::class, 'solicitud'])->middleware(['auth', 'verified']);
 Route::get('/cliente/sugerencias', [UserController::class, 'sugerencias'])->middleware(['auth', 'verified']);
+Route::get('/cliente/notificacion-correo', [UserController::class, 'notificacionCorreo'])->middleware(['auth', 'verified']);
+Route::post('/cliente/notificacion-correo/save-notification', [GrupoFiltroUsuarioController::class, 'saveNotification'])->middleware(['auth', 'verified']);
+

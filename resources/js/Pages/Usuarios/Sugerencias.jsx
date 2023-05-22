@@ -38,7 +38,7 @@ const Sugerencias = ({ auth }) => {
                             </div>
                             <span className="is-danger-message" style={{ display: 'none' }}>La busqueda debe tener minimo 3 carateres</span>
                         </div>
-                        {false &&
+                        {true &&
                             <div className="results container-fluid">
                                 <div className="row align-items-center">
                                     <div className="col-md-4">
@@ -87,7 +87,7 @@ const Sugerencias = ({ auth }) => {
                             </div>
                         }
 
-                        {true &&
+                        {false &&
                             <div className="container-fluid results_new">
                                 <div className="row  align-items-center text-center">
                                     <div className="text-center col-12 results__menos_resultados">

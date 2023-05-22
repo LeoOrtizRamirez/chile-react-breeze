@@ -509,10 +509,10 @@ class GrupoFiltroUsuarioController extends Controller
         $data['localizaciones'] = $localizaciones;
         $data['total_tiposcompras'] = sizeof($segmentos_tipos_compras);
         $data['total_localizaciones'] = sizeof($segmentos_localizaciones);
-        
+
         return $data;
     }
-    
+
 
     public function ordenar(Request $request)
     {
@@ -523,5 +523,24 @@ class GrupoFiltroUsuarioController extends Controller
         }
         $perfiles = GrupoFiltroUsuario::where('id_usuario', Auth::id())->orderBy('orden', 'ASC')->get();
         return $perfiles;
+    }
+
+    public function saveNotification(Request $request)
+    {
+        try {
+            foreach ($request->perfiles as $key => $perfil) {
+                $perfil = GrupoFiltroUsuario::find($perfil["id"]);
+                if ($request->web) {
+                    $perfil["envio_alertas"] = 1;
+                } else {
+                    $perfil["envio_alertas"] = 0;
+                }
+                $perfil->save();
+            }
+            $perfiles = GrupoFiltroUsuario::where('id_usuario', Auth::id())->orderBy('orden', 'ASC')->get();
+            return $perfiles;
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+        }
     }
 }

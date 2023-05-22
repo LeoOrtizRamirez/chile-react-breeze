@@ -629,7 +629,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                             <i className="icon-Siguiente1"></i>
                         </a>
                         :
-                        <a class="btnVerDocumentos d-inline-flex align-items-center oculto_sin_docs">
+                        <a className="btnVerDocumentos d-inline-flex align-items-center oculto_sin_docs">
                             <img src="/public/images/listado/sin_documentos.svg" alt="sin documentos" className="w-14" />
                             <span>Sin documentos</span>
                         </a>

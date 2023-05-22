@@ -11,46 +11,50 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 use App\Mail\VerificationCodeMailable;
+use App\Models\GrupoFiltroUsuario;
 use App\Models\PasswordReset;
 use Illuminate\Auth\Passwords\DatabaseTokenRepository;
 use Illuminate\Support\Facades\Mail;
 use DB;
 use Exception;
 use App\Models\Plane;
+use Illuminate\Support\Facades\Auth;
+
 class UserController extends Controller
 {
 
-    public function index(){
-        
+    public function index()
+    {
+
         $buscador_rapido = request("buscador_rapido");
         $fecha_publicacion = request("fecha_publicacion");
 
         $usuarios =
-        User::where(
-            function ($query) use ($buscador_rapido) {
-                if (!is_null($buscador_rapido) && $buscador_rapido != "") {
-                    $query->where('name', 'like', '%' . $buscador_rapido . '%')
-                        ->orWhere('email', 'like', '%' . $buscador_rapido . '%')
-                        ->orWhere('celular', 'like', '%' . $buscador_rapido . '%')
-                        ->orWhere('identificacion', 'like', '%' . $buscador_rapido . '%');
+            User::where(
+                function ($query) use ($buscador_rapido) {
+                    if (!is_null($buscador_rapido) && $buscador_rapido != "") {
+                        $query->where('name', 'like', '%' . $buscador_rapido . '%')
+                            ->orWhere('email', 'like', '%' . $buscador_rapido . '%')
+                            ->orWhere('celular', 'like', '%' . $buscador_rapido . '%')
+                            ->orWhere('identificacion', 'like', '%' . $buscador_rapido . '%');
+                    }
                 }
-            }
-        )
-        ->where(function ($query) use ($fecha_publicacion) {
-            if (!is_null($fecha_publicacion) && $fecha_publicacion != "") {
-                $query->where('created_at', request("fecha_publicacion"));
-            }
-        })
-        ->paginate(30);
+            )
+            ->where(function ($query) use ($fecha_publicacion) {
+                if (!is_null($fecha_publicacion) && $fecha_publicacion != "") {
+                    $query->where('created_at', request("fecha_publicacion"));
+                }
+            })
+            ->paginate(30);
 
-        if (request()->has("type") ) {
+        if (request()->has("type")) {
             return json_encode($usuarios);
         } else {
             return Inertia::render(
-                'Usuarios/Index',['usuarios' => $usuarios]
+                'Usuarios/Index',
+                ['usuarios' => $usuarios]
             );
         }
-      
     }
 
     public function paginador($idUsuario, $page, $estado)
@@ -63,31 +67,31 @@ class UserController extends Controller
         $fecha_publicacion = request("fecha_publicacion");
 
         $usuariosAll =
-        User::where(
-            function ($query) use ($buscador_rapido) {
-                if (!is_null($buscador_rapido) && $buscador_rapido != "") {
-                    $query->where('name', 'like', '%' . $buscador_rapido . '%')
-                        ->orWhere('email', 'like', '%' . $buscador_rapido . '%')
-                        ->orWhere('celular', 'like', '%' . $buscador_rapido . '%')
-                        ->orWhere('identificacion', 'like', '%' . $buscador_rapido . '%');
+            User::where(
+                function ($query) use ($buscador_rapido) {
+                    if (!is_null($buscador_rapido) && $buscador_rapido != "") {
+                        $query->where('name', 'like', '%' . $buscador_rapido . '%')
+                            ->orWhere('email', 'like', '%' . $buscador_rapido . '%')
+                            ->orWhere('celular', 'like', '%' . $buscador_rapido . '%')
+                            ->orWhere('identificacion', 'like', '%' . $buscador_rapido . '%');
+                    }
                 }
-            }
-        )
-        ->where(function ($query) use ($fecha_publicacion) {
-            if (!is_null($fecha_publicacion) && $fecha_publicacion != "") {
-                $query->where('created_at', request("fecha_publicacion"));
-            }
-        })
-        ->count();
-
-        
-        $usuarios = User::where(function ($query) use ($estado, $idUsuario) {
-                if ($estado == "next") {
-                    $query->where('id', '>', $idUsuario);
-                } else {
-                    $query->where('id', '<', $idUsuario);
+            )
+            ->where(function ($query) use ($fecha_publicacion) {
+                if (!is_null($fecha_publicacion) && $fecha_publicacion != "") {
+                    $query->where('created_at', request("fecha_publicacion"));
                 }
             })
+            ->count();
+
+
+        $usuarios = User::where(function ($query) use ($estado, $idUsuario) {
+            if ($estado == "next") {
+                $query->where('id', '>', $idUsuario);
+            } else {
+                $query->where('id', '<', $idUsuario);
+            }
+        })
             ->where(function ($query) use ($buscador_rapido) {
                 if (!is_null($buscador_rapido) && $buscador_rapido != "") {
                     $query->where('name', 'like', '%' . $buscador_rapido . '%')
@@ -103,19 +107,19 @@ class UserController extends Controller
             })
             ->paginate(30);
 
-            if ($estado == "prev") {
-                $pagina = $page - $pagina;
-                $numElementosPagina = ($numElementosPagina * ($page - 1));
-                $totalElemetosPaginados = ($numElementosPagina - 30) + 1;
-            } else {
-                $numElementosPagina =  $numElementosPagina * ($page + 1);
-                $pagina = $pagina + $page;
-                $totalElemetosPaginados = ($numElementosPagina - 30) + 1;
-            }
-    
+        if ($estado == "prev") {
+            $pagina = $page - $pagina;
+            $numElementosPagina = ($numElementosPagina * ($page - 1));
+            $totalElemetosPaginados = ($numElementosPagina - 30) + 1;
+        } else {
+            $numElementosPagina =  $numElementosPagina * ($page + 1);
+            $pagina = $pagina + $page;
+            $totalElemetosPaginados = ($numElementosPagina - 30) + 1;
+        }
+
 
         //old
-      /*   if ($estado == "next") {
+        /*   if ($estado == "next") {
             $usuarios = User::where('id', '>', $idUsuario)
                 ->limit(30)
                 ->get();
@@ -163,13 +167,13 @@ class UserController extends Controller
 
     public function edit(User $usuario)
     {
-     
+
         $planes = Plane::all();
         $planUsuario = Plane::find($usuario->idplan);
         return Inertia::render('Usuarios/Editar', [
             'usuario' => $usuario,
             'planesAll' => $planes,
-            'planUsuario' =>$planUsuario
+            'planUsuario' => $planUsuario
         ]);
     }
 
@@ -250,17 +254,16 @@ class UserController extends Controller
 
     public function destroy(User $usuario)
     {
-       
-        if( $usuario->delete()){
+
+        if ($usuario->delete()) {
             return json_encode("Success");
-        }else{
+        } else {
             return json_encode("Error");
         }
-        
 
 
-    /*     return redirect(route('usuarios.index')); */
-    
+
+        /*     return redirect(route('usuarios.index')); */
     }
 
     public function userValidate($email)
@@ -276,9 +279,9 @@ class UserController extends Controller
             $user->save();
             //Enviar correo electronico con codigo
             $mail = new VerificationCodeMailable($user);
-            try{
+            try {
                 Mail::to($user->email)->send($mail);
-            }catch(Exception $e){
+            } catch (Exception $e) {
                 print_r($e->getMessage());
             }
             $response = 'Success';
@@ -332,15 +335,21 @@ class UserController extends Controller
         return $response;
     }
 
-    public function solicitud(){
-        return Inertia::render('Usuarios/Solicitud', [
-
-        ]);
+    public function solicitud()
+    {
+        return Inertia::render('Usuarios/Solicitud', []);
     }
 
-    public function sugerencias(){
-        return Inertia::render('Usuarios/Sugerencias',[
+    public function sugerencias()
+    {
+        return Inertia::render('Usuarios/Sugerencias', []);
+    }
 
+    public function notificacionCorreo()
+    {
+        $grupos = GrupoFiltroUsuario::where('id_usuario', Auth::id())->orderBy('orden', 'ASC')->get();
+        return Inertia::render('Usuarios/NotificacionCorreo', [
+            "grupos" => $grupos
         ]);
     }
 }
