@@ -72,7 +72,7 @@ const NotificacionCorreo = ({ auth, grupos }) => {
     const [data, setData] = useState(grupos);
 
     const validateEnvioAlertas = (arr) => {
-        const first = arr[0].envio_alertas;
+        const first = arr[0]?.envio_alertas;
         const all = arr.every((el) => el.envio_alertas === first)
         if(all && first == 1){
             return true
