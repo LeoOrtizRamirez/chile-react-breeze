@@ -133,44 +133,53 @@ class scrapping extends Command
                 //Contratista
                 $contratista_nombre = $this->textValidation($node->filter(".lic-bloq-footer .col-md-4:nth-child(1)"));
 
-
-                $model = new Contrato;
-                $model->entidad_contratante = $entidad_contratante;
-                $model->codigo_proceso = $codigo_proceso;
-                $model->objeto = $objeto;
-                $model->modalidad = "";
-                $model->ubicacion = "";
-                $model->link = $link;
-                $model->valor = $valor;
-                $model->valor_texto = $valor_texto;
-                $model->estado_agrupado = "";
-                $model->unspsc = 0;
-                $model->unspsc_adicionales = "";
-                $model->numero_documentos = 0;
-                $model->fecha_actualizacion_estado = now();
-                $model->fecha_last_update_seguimiento = now();
-                $model->fecha_publicacion = $fecha_publicacion;
-                $model->fecha_vencimiento = $fecha_cierre;
-                $model->estado_proceso = "";
-                $model->id_fuente_contract = 1; //FUENTE MP
-
-                if ($this->buscarContrato($model)) {
+                $current_model = $this->buscarContrato($link);
+                if ($current_model) {
                     echo "El contrato ya existe...\n";
+                    $current_model->entidad_contratante = $entidad_contratante;
+                    $current_model->codigo_proceso = $codigo_proceso;
+                    $current_model->objeto = $objeto;
+                    $current_model->modalidad = "";
+                    $current_model->ubicacion = "";
+                    $current_model->link = $link;
+                    $current_model->valor = $valor;
+                    $current_model->valor_texto = $valor_texto;
+                    $current_model->estado_agrupado = "";
+                    $current_model->unspsc = 0;
+                    $current_model->unspsc_adicionales = "";
+                    $current_model->numero_documentos = 0;
+                    $current_model->fecha_actualizacion_estado = now();
+                    $current_model->fecha_last_update_seguimiento = now();
+                    $current_model->fecha_publicacion = $fecha_publicacion;
+                    $current_model->fecha_vencimiento = $fecha_cierre;
+                    $current_model->estado_proceso = "";
+                    $current_model->id_fuente_contract = 1; //FUENTE MP
+                    $current_model->save();
+                    echo "El contrato ya se actualizó...\n";
+                    $this->guardarDetalle($current_model, $contratista_nombre);
                 } else {
+                    $model = new Contrato;
+                    $model->entidad_contratante = $entidad_contratante;
+                    $model->codigo_proceso = $codigo_proceso;
+                    $model->objeto = $objeto;
+                    $model->modalidad = "";
+                    $model->ubicacion = "";
+                    $model->link = $link;
+                    $model->valor = $valor;
+                    $model->valor_texto = $valor_texto;
+                    $model->estado_agrupado = "";
+                    $model->unspsc = 0;
+                    $model->unspsc_adicionales = "";
+                    $model->numero_documentos = 0;
+                    $model->fecha_actualizacion_estado = now();
+                    $model->fecha_last_update_seguimiento = now();
+                    $model->fecha_publicacion = $fecha_publicacion;
+                    $model->fecha_vencimiento = $fecha_cierre;
+                    $model->estado_proceso = "";
+                    $model->id_fuente_contract = 1; //FUENTE MP
                     $model->save();
                     echo "Guardando Contrato - pagina: " . $pagina . " de: " . $num_paginas . "\n";
                     $this->guardarDetalle($model, $contratista_nombre);
-                    //Fin - Actividad economica
-
-                    /*
-                    $contratista_contrato_id = $this->buscarContratistaContrato($contratista_nombre);
-                    if($contratista_contrato_id){
-                        $contratista = new ContratistaContrato;
-                        $contratista->nombre = $contratista_nombre;
-                        $contratista->id_contrato = $model->id;
-                        $contratista->save();
-                    }
-                    */
                 }
             });
             $pagina++;
@@ -179,11 +188,11 @@ class scrapping extends Command
         //return redirect()->route('contratos')->with('info', 'Se realizó la búsqueda con éxito');
     }
 
-    function buscarContrato($model)
+    function buscarContrato($link)
     {
-        $contrato =  Contrato::where('link', $model->link)->first();
+        $contrato =  Contrato::where('link', $link)->first();
         if ($contrato) {
-            return true;
+            return $contrato;
         } else {
             return false;
         }
@@ -210,7 +219,7 @@ class scrapping extends Command
 
         if ($unspsc != "") {
             $model->unspsc = $unspsc;
-        }else{
+        } else {
             $model->unspsc = 0;
         }
 
@@ -230,11 +239,17 @@ class scrapping extends Command
         $model->save();
         echo "Guardando Detalle del Contrato\n";
 
-        $contratista = new ContratistaContrato;
-        $contratista->nombre = $contratista_nombre;
-        $contratista->id_contrato = $model->id;
-        $contratista->save();
-        echo "Guardando ContratistaContrato\n";
+        $current_contratista = ContratistaContrato::where('id_contrato', $model->id)->first();
+        if ($current_contratista) {
+        } else {
+            $contratista = new ContratistaContrato;
+            $contratista->nombre = $contratista_nombre;
+            $contratista->id_contrato = $model->id;
+            $contratista->save();
+            echo "Guardando ContratistaContrato\n";
+        }
+
+
 
         //Inicio - Actividad economica
         //Buscar o crear SubCategoria
@@ -268,7 +283,13 @@ class scrapping extends Command
             $targetUrl = $match[1];
         }
 
+        //Eliminar documentos actuales
+        $documentos_proceso = DocumentosProceso::where('id_contrato', $model->id)->get();
+        foreach ($documentos_proceso as $key => $documento) {
+            $documento->delete();
+        }
         $this->guardarDocumentos($model->id, "https://www.mercadopublico.cl/Procurement/Modules/" . $targetUrl);
+        echo "Guardando Documentos\n\n";
     }
 
     public function guardarDocumentos($id_contrato, $link)
@@ -277,17 +298,10 @@ class scrapping extends Command
         $query = parse_url($link, PHP_URL_QUERY);
         parse_str($query, $params);
         $form_enc = $params['enc'];
-        
-        
         $contador = 1;
         try {
-
             $view_state = $this->textValidation($crawlerDocumentos->filter('#__VIEWSTATE'), '#__VIEWSTATE', 'value');
             $view_state_generator = $this->textValidation($crawlerDocumentos->filter('#__VIEWSTATEGENERATOR'), '#__VIEWSTATEGENERATOR', 'value');
-
-            echo "\n\n\n".  $view_state . "\n\n";
-            echo "\n\n\n".  $view_state_generator . "\n\n";
-
             $crawlerDocumentos->filter("table#DWNL_grdId tr:not(:first-child)")->each(function ($node) use (&$form_enc, &$view_state, &$view_state_generator, &$link, &$id_contrato, &$contador) {
                 $contador += 1;
 
@@ -298,9 +312,7 @@ class scrapping extends Command
                 $documentos_proceso = new DocumentosProceso;
                 $documentos_proceso->ruta = $link;
 
-
                 $namedoc = $this->textValidation($node->filter('#DWNL_grdId_ctl' . $inicio_id . $contador . '_File'));
-
 
                 $documentos_proceso->namedoc = $namedoc;
 
@@ -309,7 +321,6 @@ class scrapping extends Command
 
                 $documentos_proceso->descripcion = $this->textValidation($node->filter('#DWNL_grdId_ctl' . $inicio_id . $contador . '_Description'));
                 $documentos_proceso->size = $this->textValidation($node->filter('#DWNL_grdId_ctl' . $inicio_id . $contador . '_FileLength'));
-
 
                 $fecha_fuente_string = $this->textValidation($node->filter('#DWNL_grdId_ctl' . $inicio_id . $contador . '_AtcDateTime'));
                 $carbonDate = Carbon::createFromFormat('d-m-Y H:i:s', $fecha_fuente_string);
@@ -322,8 +333,8 @@ class scrapping extends Command
                     "enc" => $form_enc,
                     "__VIEWSTATE" =>  $view_state,
                     "__VIEWSTATEGENERATOR" => $view_state_generator,
-                    "x" => 'DWNL$grdId$ctl' . $inicio_id. $contador . '$search.x',
-                    "y" => 'DWNL$grdId$ctl' . $inicio_id. $contador . '$search.y',
+                    "x" => 'DWNL$grdId$ctl' . $inicio_id . $contador . '$search.x',
+                    "y" => 'DWNL$grdId$ctl' . $inicio_id . $contador . '$search.y',
                 ];
                 $documentos_proceso->json_adicional = json_encode($json_adicional);
                 $documentos_proceso->save();
