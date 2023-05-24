@@ -504,11 +504,11 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                                         <div className="campos-detalle-contrato info-border">
                                                             <div className="contenido-detalle-contrato">
                                                                 <b className="d-block">Clasificación UNSPSC por la entidad contratante:</b>
-                                                                <p className="d-block info-contrato">{contrato.unspsc}</p>
+                                                                <p className="d-block info-contrato">{`${contrato.unspsc_nombre == null ? "" : contrato.unspsc_nombre + " - "}  ${contrato.unspsc}`}</p>
                                                             </div>
                                                             <div className="contenido-detalle-contrato">
                                                                 <b className="d-block">Clasificación Licitaciones.info:</b>
-                                                                <p className="d-block info-contrato">{contrato.actividad_economica}</p>
+                                                                <p className="d-block info-contrato">{contrato.actividades_economicas}</p>
                                                             </div>
                                                         </div>
                                                     </div>

@@ -12,6 +12,7 @@ use Inertia\Inertia;
 
 use App\Models\Carpeta;
 use App\Models\CarpetasHasContrato;
+use App\Models\CodigoCpv;
 use App\Models\ContratoHasPerfile;
 use App\Models\GrupoFiltroUsuario;
 use App\Models\Nota;
@@ -544,18 +545,19 @@ class ContratoController extends Controller
                 $value->actividad_economica = $sub_categoria->nombre;
             } */
 
-            $_sub_categorias = "";
-            $_clasificacion_contrato = ClasificacionContrato::where('id_contrato', $value->id)->get();
-            
-            if ($_clasificacion_contrato) {
-                foreach ($_clasificacion_contrato as $key => $value) {
-                    $sub_categoria = SubCategoria::find($value->id_sub_categoria);
-                    
-                    $_sub_categorias .= $sub_categoria->nombre . ", ";
+            $sub_categorias = "";
+            $clasificacion_contrato = ClasificacionContrato::where('id_contrato', $value->id)->get();
+            if ($clasificacion_contrato) {
+                foreach ($clasificacion_contrato as $key => $cc) {
+                    $sub_categoria = SubCategoria::find($cc->id_sub_categoria);
+                    if(sizeof($clasificacion_contrato) -1 != $key){
+                        $sub_categorias .= $sub_categoria->nombre . " - ";
+                    }else{
+                        $sub_categorias .= $sub_categoria->nombre;
+                    }
                 }
             }
-            $value->actividades_economicas = $_sub_categorias;
-            //dd($value->actividades_economicas);
+            $value->actividades_economicas = $sub_categorias;
 
             $favorito = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'F')->first();
             if (is_null($favorito)) {
@@ -567,6 +569,13 @@ class ContratoController extends Controller
                 } else {
                     $value->favorito = true;
                 }
+            }
+
+            $unspsc = CodigoCpv::find($value->unspsc);
+            if($unspsc){
+                $value->unspsc_nombre = $unspsc->nombre;
+            }else{
+                $value->unspsc_nombre = "";
             }
 
             $papelera = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'P')->first();
@@ -612,7 +621,6 @@ class ContratoController extends Controller
             }
             
         }
-
         return $contratos;
     }
 
