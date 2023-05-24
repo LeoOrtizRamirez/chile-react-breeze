@@ -782,6 +782,21 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             </div>
         );
     };
+    const fechaBodyTemplate = (grupo) => {
+        return (
+            <span>{grupo.fecha_publicacion}</span>
+        );
+    }
+    const actividadEconomicaBodyTemplate = (grupo) =>{
+        return (
+            <span>{grupo.actividades_economicas}</span>
+        );
+    }
+    const modalidadBodyTemplate = (grupo) =>{
+        return (
+            <span>{grupo.modalidad}</span>
+        );
+    }
     const cuantiaBodyTemplate = (grupo) => {
         return (
             <span className="valor_range--estandar d-flex justify-content-center">
@@ -2016,12 +2031,12 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                         <Column field="inputFilterEntidadContratante" header="Entidad" filter filterPlaceholder="Buscar" className="columna_entidad columna_120" body={entidadBodyTemplate} filterElement={columnFilterTemplate} />
                         <Column field="inputFilterObjeto" header="Obejto" filter filterPlaceholder="Buscar" className="objeto_columna" body={objetoBodyTemplate} filterElement={columnFilterTemplate} />
                         <Column field="inputFilterValor" header="Cuantía" filter filterPlaceholder="Buscar" className="rangedropdown columna_120 columna_cuantia" body={cuantiaBodyTemplate} filterElement={columnFilterTemplate} />
-                        <Column field="inputFilterModalidad" header="Modalidad" filter filterPlaceholder="Seleccionar" className="columna_100 columna_modalidad" filterElement={columnFilterTemplate} />
+                        <Column field="inputFilterModalidad" header="Modalidad" filter filterPlaceholder="Seleccionar" className="columna_100 columna_modalidad" body={modalidadBodyTemplate} filterElement={columnFilterTemplate} />
                         <Column field="inputFilterCodigoProceso" header="Número" filter filterPlaceholder="Buscar" className="columna_numero" filterElement={columnFilterTemplate} />
                         <Column field="inputFilterEstadoProceso" header="Estado" filter filterPlaceholder="Buscar" className="columna_estado" body={estadoBodyTemplate} filterElement={columnFilterTemplate} />
-                        <Column field="inputFilterFechaPublicacion" header="Publicada" filter filterPlaceholder="Buscar" className="columna_fecha" filterElement={columnFilterTemplate} />
+                        <Column field="inputFilterFechaPublicacion" header="Publicada" filter filterPlaceholder="Buscar" className="columna_fecha" body={fechaBodyTemplate} filterElement={columnFilterTemplate} />
                         <Column field="inputFilterUbicacion" header="Ubicación" filter filterPlaceholder="Seleccionar" className="columna_ubicacion" body={ubicacionBodyTemplate} filterElement={columnFilterTemplate} />
-                        <Column field="inputFilterActividadEconomica" header="Actividad Económica" filter filterElement={columnFilterTemplate} />
+                        <Column field="inputFilterActividadEconomica" header="Actividad Económica" filter filterElement={columnFilterTemplate} body={actividadEconomicaBodyTemplate}/>
                     </DataTable>
                 </div>
             </div>

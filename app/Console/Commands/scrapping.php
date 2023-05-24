@@ -137,7 +137,8 @@ class scrapping extends Command
                 $current_model = $this->buscarContrato($link);
                 if ($current_model) {
                     echo "El contrato ya existe...\n";
-                    $current_model->entidad_contratante = $entidad_contratante;
+                    //TEMPORAL
+                    /* $current_model->entidad_contratante = $entidad_contratante;
                     $current_model->codigo_proceso = $codigo_proceso;
                     $current_model->objeto = $objeto;
                     $current_model->modalidad = "";
@@ -157,7 +158,7 @@ class scrapping extends Command
                     $current_model->id_fuente_contract = 1; //FUENTE MP
                     $current_model->save();
                     echo "El contrato ya se actualizó...\n";
-                    $this->guardarDetalle($current_model, $contratista_nombre);
+                    $this->guardarDetalle($current_model, $contratista_nombre); */
                 } else {
                     $model = new Contrato;
                     $model->entidad_contratante = $entidad_contratante;
