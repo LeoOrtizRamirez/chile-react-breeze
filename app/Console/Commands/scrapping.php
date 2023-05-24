@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\ClasificacionContrato;
+use App\Models\CodigoCpv;
 use App\Models\SubCategoria;
 use Illuminate\Console\Command;
 
@@ -254,7 +255,7 @@ class scrapping extends Command
         //Inicio - Actividad economica
         //Buscar o crear SubCategoria
 
-        $actividad_economica = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblProducto'));
+        /* $actividad_economica = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblProducto'));
         $find_subcategoria = SubCategoria::where('nombre', $actividad_economica)->first();
         if ($find_subcategoria) {
             $subcategoria_id = $find_subcategoria->id;
@@ -266,13 +267,26 @@ class scrapping extends Command
             $subcategoria->save();
             $subcategoria_id = $subcategoria->id;
             echo "Guardando SubCategoria\n";
+        } */
+
+        $codigo_cpv = CodigoCpv::find($model->unspsc);
+        if ($codigo_cpv) {
+            $array = explode(",", $codigo_cpv->filtros); // Convert string to array
+            $array = array_filter($array, 'strlen'); // Remove empty values
+            echo "ARRAY";
+            print_r($array);
+
+            foreach ($array as $key => $value) {
+                $clasificacion_contrato = new ClasificacionContrato();
+                $clasificacion_contrato->id_contrato = $model->id;
+                $clasificacion_contrato->id_sub_categoria = $value;
+                $clasificacion_contrato->save();
+                echo "Guardando ClasificacionContrato\n\n";
+            }
+        } else {
         }
 
-        $clasificacion_contrato = new ClasificacionContrato();
-        $clasificacion_contrato->id_contrato = $model->id;
-        $clasificacion_contrato->id_sub_categoria = $subcategoria_id;
-        $clasificacion_contrato->save();
-        echo "Guardando ClasificacionContrato\n\n";
+
 
         //Obtener enlace a documentos
         $url_documentos = $this->textValidation($crawlerDetalle->filter('#imgAdjuntos'), "#imgAdjuntos", "onclick");

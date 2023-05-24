@@ -508,7 +508,7 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                                             </div>
                                                             <div className="contenido-detalle-contrato">
                                                                 <b className="d-block">Clasificación Licitaciones.info:</b>
-                                                                <p className="d-block info-contrato"></p>
+                                                                <p className="d-block info-contrato">{contrato.actividad_economica}</p>
                                                             </div>
                                                         </div>
                                                     </div>

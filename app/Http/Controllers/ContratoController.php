@@ -538,11 +538,24 @@ class ContratoController extends Controller
                 $value->contratista = $contratista->nombre;
             }
 
-            $actividad_economica = ClasificacionContrato::where('id_contrato', $value->id)->first();
+            /* $actividad_economica = ClasificacionContrato::where('id_contrato', $value->id)->first();
             if ($actividad_economica) {
                 $sub_categoria = SubCategoria::find($actividad_economica->id_sub_categoria);
                 $value->actividad_economica = $sub_categoria->nombre;
+            } */
+
+            $_sub_categorias = "";
+            $_clasificacion_contrato = ClasificacionContrato::where('id_contrato', $value->id)->get();
+            
+            if ($_clasificacion_contrato) {
+                foreach ($_clasificacion_contrato as $key => $value) {
+                    $sub_categoria = SubCategoria::find($value->id_sub_categoria);
+                    
+                    $_sub_categorias .= $sub_categoria->nombre . ", ";
+                }
             }
+            $value->actividades_economicas = $_sub_categorias;
+            //dd($value->actividades_economicas);
 
             $favorito = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'F')->first();
             if (is_null($favorito)) {
@@ -592,7 +605,12 @@ class ContratoController extends Controller
 
 
             $documentos_procesos = DocumentosProceso::where('id_contrato', $value->id)->get();
-            $value->documentos = $documentos_procesos;
+            if($documentos_procesos){
+                $value->documentos = $documentos_procesos;
+            }else{
+                $value->documentos = 0;
+            }
+            
         }
 
         return $contratos;

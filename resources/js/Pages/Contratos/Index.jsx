@@ -35,6 +35,7 @@ import ModalDocumentos from "@/Components/ModalDocumentos";
 const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfiles, visualizar }) => {
     const [visualizarFilter, setVisualizarFilter] = useState(visualizar)
     const [tabla, setTabla] = useState(contratos);
+    console.log(tabla)
 
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
