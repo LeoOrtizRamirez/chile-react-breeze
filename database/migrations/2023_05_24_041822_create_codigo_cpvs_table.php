@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('codigo_cpv', function (Blueprint $table) {
+        Schema::create('codigo_cpvs', function (Blueprint $table) {
             $table->id();
             $table->text('nombre');
             $table->text('filtros');
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('codigo_cpv');
+        Schema::dropIfExists('codigo_cpvs');
     }
 };
