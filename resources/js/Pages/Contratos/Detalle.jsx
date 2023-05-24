@@ -289,6 +289,16 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
         setDataModalDocumentos(data)
         setShowModalDocumentos(true)
     };
+
+    const copyText = (id) => {
+        var aux = document.createElement("input");
+        aux.setAttribute("value", document.getElementById(id).innerHTML);
+        document.body.appendChild(aux);
+        aux.select();
+        document.execCommand("copy");
+        document.body.removeChild(aux);
+        toastBL.current.show({ severity: 'success', summary: 'Enlace copiado'/* , detail: 'Message Content' */, life: 3000 });
+    }
     return (
         <AuthenticatedLayout auth={auth} page={'detalle-contratos'} globalLoading={globalLoading}>
             <div className="content_not_blank_interno">
@@ -494,7 +504,7 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                                         <div className="campos-detalle-contrato info-border">
                                                             <div className="contenido-detalle-contrato">
                                                                 <b className="d-block">Clasificación UNSPSC por la entidad contratante:</b>
-                                                                <p className="d-block info-contrato"></p>
+                                                                <p className="d-block info-contrato">{contrato.unspsc}</p>
                                                             </div>
                                                             <div className="contenido-detalle-contrato">
                                                                 <b className="d-block">Clasificación Licitaciones.info:</b>
@@ -513,14 +523,14 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                                                     <b className="d-block">Fuente 1:</b>
                                                                 </div>
                                                                 <p id="movil-link-detalle" className="info-contrato">
-                                                                    <a className="d-inline-block new-family text-azul">link</a>
-                                                                    <button className="btn btn-new-green btnRadius d-inline-block  boton_link_fuentes text-verde">
+                                                                    <a className="d-inline-block new-family text-azul" id="copy-link" onClick={()=>openNewTab(contrato.link)}>{contrato.link}</a>
+                                                                    <button className="btn btn-new-green btnRadius d-inline-block  boton_link_fuentes text-verde" onClick={() => copyText('copy-link')}>
                                                                         <i className="icon-Copiar-enlace"></i>
                                                                         Copiar link
                                                                     </button>
                                                                 </p>
                                                             </div>
-                                                            <div className="contenido-detalle-contrato fuente-new">
+                                                            {/* <div className="contenido-detalle-contrato fuente-new">
                                                                 <div className="new-primero">
                                                                     <img src="https://col.licitaciones.info/img/detalle-contrato/svg/Fuente-detalle.svg" width="25px" height="25px" alt="" className="d-block icon-new" />
                                                                     <b className="d-block">Fuente para usuarios registrados en Secop2:</b>
@@ -531,7 +541,7 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                                                         <i className="icon-Copiar-enlace"></i>Copiar link
                                                                     </button>
                                                                 </p>
-                                                            </div>
+                                                            </div> */}
                                                         </div>
                                                     </div>
                                                     <div children="">
@@ -560,7 +570,7 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                         </div>
                                     </div>
                                     <div className="mb-1 mt-3 bg-transparent border-0 card-corrector">
-                                        <div data-section="Detalle de la planeación" className="px-5 bg-white contenido-seccion">
+                                        {/* <div data-section="Detalle de la planeación" className="px-5 bg-white contenido-seccion">
                                             <div className="contenido-detalle-contrato"><span className="titulo-agrupacion "><i
                                                 className="icon-Pliego"></i>
                                                 <p>Detalle de la planeación:</p>
@@ -586,8 +596,8 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div data-section="Cronograma" className="px-5 bg-white contenido-seccion">
+                                        </div> */}
+                                        {/* <div data-section="Cronograma" className="px-5 bg-white contenido-seccion">
                                             <div className="contenido-detalle-contrato"><span className="titulo-agrupacion "><i
                                                 className="icon-Cronograma"></i>
                                                 <p>Cronograma:</p>
@@ -631,8 +641,8 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div data-section="Configuración financiera" className="px-5 bg-white contenido-seccion">
+                                        </div> */}
+                                        {/* <div data-section="Configuración financiera" className="px-5 bg-white contenido-seccion">
                                             <div className="contenido-detalle-contrato">
                                                 <span className="titulo-agrupacion ">
                                                     <i className="icon-Configuracion-financiera"></i>
@@ -651,7 +661,7 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         {documentos.length > 0 &&
                                             <div data-section="Documentos del proceso" className="px-5 bg-white contenido-seccion">
                                                 <div className="contenido-detalle-contrato"><span className="titulo-agrupacion "><i
@@ -717,7 +727,7 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                                 </div>
                                             </div>
                                         }
-                                        <div data-section="Mensajes y observaciones" className="px-5 bg-white contenido-seccion">
+                                        {/* <div data-section="Mensajes y observaciones" className="px-5 bg-white contenido-seccion">
                                             <div className="contenido-detalle-contrato"><span className="titulo-agrupacion "><i
                                                 className="icon-Datos-principales"></i>
                                                 <p>Mensajes y observaciones:</p>
@@ -797,7 +807,7 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>

@@ -340,7 +340,7 @@ class scrapping extends Command
                 $documentos_proceso->save();
             });
         } catch (Exception $e) {
-            dd($e->getMessage());
+            echo ($e->getMessage());
         }
     }
 
