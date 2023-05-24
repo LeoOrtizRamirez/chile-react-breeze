@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CarpetasController;
+use App\Http\Controllers\CodigoCpvController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\GrupoFiltroUsuarioController;
 use App\Http\Controllers\MailController;
@@ -224,3 +225,4 @@ Route::get('/cliente/sugerencias', [UserController::class, 'sugerencias'])->midd
 Route::get('/cliente/notificacion-correo', [UserController::class, 'notificacionCorreo'])->middleware(['auth', 'verified']);
 Route::post('/cliente/notificacion-correo/save-notification', [GrupoFiltroUsuarioController::class, 'saveNotification'])->middleware(['auth', 'verified']);
 
+Route::post('/cliente/get-licicodigos', [CodigoCpvController::class, 'getLicicodigos']);

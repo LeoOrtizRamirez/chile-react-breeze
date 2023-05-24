@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./ActividadEconomica.css";
 
-import _clases from './../../../public/data/clases.json';
-import _productos from './../../../public/data/productos.json';
-
 const ActividadEconomica = ({
     subcategorias,
     id,
@@ -13,8 +10,23 @@ const ActividadEconomica = ({
     checkeds,
     checkAllText
 }) => {
-    const [productosLicicodigos, setProductosLicicodigos] = useState(_productos)
-    const [clasesLicicodigos, setClasesLicicodigos] = useState(_clases)
+    const [productosLicicodigos, setProductosLicicodigos] = useState([])
+    useEffect(() => {
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.post('/cliente/get-licicodigos', {
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token.content}`
+            }
+        })
+            .then(response => {
+                setProductosLicicodigos(response.data)
+            })
+            .catch(error => {
+                // Handle error
+                console.log(error.response.data);
+            });
+    }, [])
     const [fakeSectores, setFakeSectores] = useState(subcategorias);
     const [sectores, setSectores] = useState(subcategorias);
     const [openSectores, setOpenSectores] = useState([]);
@@ -522,14 +534,9 @@ const ActividadEconomica = ({
 
 
     const ordenarLicicodigos = (FilteredLicicodigos) => {
+        var productosLicicodigos_filtrados = FilteredLicicodigos[0].filtros.split(',').filter(e => e !== '');
+        productosLicicodigos_filtrados = productosLicicodigos_filtrados.map(str => parseInt(str));
         var FilteredActividadesEcomomicas = []
-        const productosLicicodigos_filtrados = [
-            FilteredLicicodigos[0].Licicodigo1,
-            FilteredLicicodigos[0].Licicodigo2,
-            FilteredLicicodigos[0].Licicodigo3,
-            FilteredLicicodigos[0].Licicodigo4,
-            FilteredLicicodigos[0].Licicodigo5,
-        ]
         FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
             if (productosLicicodigos_filtrados.includes(el.id)) {
                 return el;
@@ -548,10 +555,8 @@ const ActividadEconomica = ({
     }
 
     const inputSearchActividadEconomica = (e) => {
-        console.log(e)
         setFilterEpty(false)
         if (e.target.value == "") {
-            console.log("h")
             setSectores(fakeSectores);
             setSegmentos([]);
             setActividadesEconomicas([]);
@@ -565,22 +570,57 @@ const ActividadEconomica = ({
             const pattern = new RegExp(e.target.value, "i");
             var FilteredLicicodigos = []
             var FilteredActividadesEcomomicas = []
-            var liciProductosClases = clasesLicicodigos.concat(productosLicicodigos)
             if (!isNaN(e.target.value) && e.target.value.length >= 6) {
+                FilteredLicicodigos = productosLicicodigos.filter(function (el) {
+                    if (e.target.value == el?.id) {
+                        return el;
+                    }
+                });
+                if (FilteredLicicodigos.length == 0) {
+                    setFilterEpty(true)
+                    return;
+                }
+                FilteredActividadesEcomomicas = ordenarLicicodigos(FilteredLicicodigos)
+            } else if (!isNaN(e.target.value) && e.target.value.length < 6) {
+                setFilterEpty(true)
+            } else {
+                //BUSCAR SI EXISTE UN RESULTADO EXACTO EN CLASES Y PRODUCTOS
+                FilteredLicicodigos = productosLicicodigos.filter(function (el) {
+                    if (e.target.value.toLowerCase() == el?.nombre?.toLowerCase()) {
+                        return el;
+                    }
+                });
+                if (FilteredLicicodigos.length == 0) {
+                    FilteredActividadesEcomomicas = fakeSectores.filter(function (el) {
+                        if (pattern.test(el.nombre)) {
+                            return el;
+                        }
+                    });
+                    if (FilteredActividadesEcomomicas.length == 0) {
+                        setFilterEpty(true)
+                    }
+                } else {
+                    if (FilteredLicicodigos.length == 0) {
+                        return;
+                    }
+                    FilteredActividadesEcomomicas = ordenarLicicodigos(FilteredLicicodigos)
+                }
+            }
+            /* if (!isNaN(e.target.value) && e.target.value.length >= 6) {
                 console.log("NUMERO CLASES Y PRODUCTOS")
                 FilteredLicicodigos = liciProductosClases.filter(function (el) {
                     if (e.target.value == el?.CodigoProducto || e.target.value == el?.CodigoClase) {
                         return el;
                     }
                 });
-                if(FilteredLicicodigos.length == 0){
+                if (FilteredLicicodigos.length == 0) {
                     setFilterEpty(true)
                     return;
                 }
                 FilteredActividadesEcomomicas = ordenarLicicodigos(FilteredLicicodigos)
-            } else if(!isNaN(e.target.value) && e.target.value.length < 6) {
+            } else if (!isNaN(e.target.value) && e.target.value.length < 6) {
                 setFilterEpty(true)
-            }else{
+            } else {
                 //BUSCAR SI EXISTE UN RESULTADO EXACTO EN CLASES Y PRODUCTOS
                 FilteredLicicodigos = liciProductosClases.filter(function (el) {
                     if (e.target.value.toLowerCase() == el?.NombreClase?.toLowerCase() || e.target.value.toLowerCase() == el?.NombreProducto?.toLowerCase()) {
@@ -594,17 +634,17 @@ const ActividadEconomica = ({
                             return el;
                         }
                     });
-                    if(FilteredActividadesEcomomicas.length == 0){
+                    if (FilteredActividadesEcomomicas.length == 0) {
                         setFilterEpty(true)
                     }
                 } else {
                     console.log("NOMBRE CLASES Y PRODUCTOS")
-                    if(FilteredLicicodigos.length == 0){
+                    if (FilteredLicicodigos.length == 0) {
                         return;
                     }
                     FilteredActividadesEcomomicas = ordenarLicicodigos(FilteredLicicodigos)
                 }
-            }
+            } */
 
             var sectores_filtrados = [];
             var segmentos_filtrados = [];
