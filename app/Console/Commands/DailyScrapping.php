@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\ClasificacionContrato;
+use App\Models\CodigoCpv;
 use App\Models\SubCategoria;
 use Illuminate\Console\Command;
 
@@ -213,6 +214,7 @@ class DailyScrapping extends Command
 
     function guardarDetalle($model, $contratista_nombre)
     {
+        //sleep(3);
         $crawlerDetalle = $this->getClient()->request('GET', $model->link);
         $model->modalidad = $this->textValidation($crawlerDetalle->filter('#lblFicha1Tipo'));
         $model->ubicacion = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
@@ -221,15 +223,15 @@ class DailyScrapping extends Command
 
         if ($unspsc != "") {
             $model->unspsc = $unspsc;
-        }else{
+        } else {
             $model->unspsc = 0;
         }
-        
+
         $estado_proceso_fuente = $this->textValidation($crawlerDetalle->filter('#imgEstado'), '#imgEstado', 'src');
 
-        if($estado_proceso_fuente != ""){
+        if ($estado_proceso_fuente != "") {
             $estado_proceso = $this->getEstadoProceso($estado_proceso_fuente);
-        }else{
+        } else {
             do {
                 $crawlerDetalle = $this->getClient()->request('GET', $model->link);
                 $estado_proceso_fuente = $this->textValidation($crawlerDetalle->filter('#imgEstado'), '#imgEstado', 'src');
@@ -237,39 +239,58 @@ class DailyScrapping extends Command
             } while ($estado_proceso_fuente == "");
         }
         $model->estado_proceso = $estado_proceso;
-        echo "Estado:" . $estado_proceso. "\n";
+        echo "Estado:" . $estado_proceso . "\n";
         $model->save();
         echo "Guardando Detalle del Contrato\n";
 
-        $contratista = new ContratistaContrato;
-        $contratista->nombre = $contratista_nombre;
-        $contratista->id_contrato = $model->id;
-        $contratista->save();
-        echo "Guardando ContratistaContrato\n";
+        $current_contratista = ContratistaContrato::where('id_contrato', $model->id)->first();
+        if ($current_contratista) {
+        } else {
+            $contratista = new ContratistaContrato;
+            $contratista->nombre = $contratista_nombre;
+            $contratista->id_contrato = $model->id;
+            $contratista->save();
+            echo "Guardando ContratistaContrato\n";
+        }
+
+
 
         //Inicio - Actividad economica
         //Buscar o crear SubCategoria
 
-        $actividad_economica = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblProducto'));
+        /* $actividad_economica = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblProducto'));
         $find_subcategoria = SubCategoria::where('nombre', $actividad_economica)->first();
-        if($find_subcategoria){
+        if ($find_subcategoria) {
             $subcategoria_id = $find_subcategoria->id;
             echo "Ya esta creada\n";
-        }else{
+        } else {
             $subcategoria = new SubCategoria();
             $subcategoria->nombre = $actividad_economica;
             $subcategoria->tipo_categoria = 4; //Actividad Económica Scrapping
             $subcategoria->save();
             $subcategoria_id = $subcategoria->id;
             echo "Guardando SubCategoria\n";
+        } */
+
+        $codigo_cpv = CodigoCpv::find($model->unspsc);
+        if ($codigo_cpv) {
+            $array = explode(",", $codigo_cpv->filtros); // Convert string to array
+            $array = array_filter($array, 'strlen'); // Remove empty values
+            echo "ARRAY";
+            print_r($array);
+
+            foreach ($array as $key => $value) {
+                $clasificacion_contrato = new ClasificacionContrato();
+                $clasificacion_contrato->id_contrato = $model->id;
+                $clasificacion_contrato->id_sub_categoria = $value;
+                $clasificacion_contrato->save();
+                echo "Guardando ClasificacionContrato\n\n";
+            }
+        } else {
         }
 
-        $clasificacion_contrato = new ClasificacionContrato();
-        $clasificacion_contrato->id_contrato = $model->id;
-        $clasificacion_contrato->id_sub_categoria = $subcategoria_id;
-        $clasificacion_contrato->save();
-        echo "Guardando ClasificacionContrato\n\n";
-        
+
+
         //Obtener enlace a documentos
         $url_documentos = $this->textValidation($crawlerDetalle->filter('#imgAdjuntos'), "#imgAdjuntos", "onclick");
 
@@ -279,7 +300,13 @@ class DailyScrapping extends Command
             $targetUrl = $match[1];
         }
 
+        //Eliminar documentos actuales
+        $documentos_proceso = DocumentosProceso::where('id_contrato', $model->id)->get();
+        foreach ($documentos_proceso as $key => $documento) {
+            $documento->delete();
+        }
         $this->guardarDocumentos($model->id, "https://www.mercadopublico.cl/Procurement/Modules/" . $targetUrl);
+        echo "Guardando Documentos\n\n";
     }
 
     public function guardarDocumentos($id_contrato, $link)
@@ -288,17 +315,10 @@ class DailyScrapping extends Command
         $query = parse_url($link, PHP_URL_QUERY);
         parse_str($query, $params);
         $form_enc = $params['enc'];
-        
-        
         $contador = 1;
         try {
-
             $view_state = $this->textValidation($crawlerDocumentos->filter('#__VIEWSTATE'), '#__VIEWSTATE', 'value');
             $view_state_generator = $this->textValidation($crawlerDocumentos->filter('#__VIEWSTATEGENERATOR'), '#__VIEWSTATEGENERATOR', 'value');
-
-            echo "\n\n\n".  $view_state . "\n\n";
-            echo "\n\n\n".  $view_state_generator . "\n\n";
-
             $crawlerDocumentos->filter("table#DWNL_grdId tr:not(:first-child)")->each(function ($node) use (&$form_enc, &$view_state, &$view_state_generator, &$link, &$id_contrato, &$contador) {
                 $contador += 1;
 
@@ -309,9 +329,7 @@ class DailyScrapping extends Command
                 $documentos_proceso = new DocumentosProceso;
                 $documentos_proceso->ruta = $link;
 
-
                 $namedoc = $this->textValidation($node->filter('#DWNL_grdId_ctl' . $inicio_id . $contador . '_File'));
-
 
                 $documentos_proceso->namedoc = $namedoc;
 
@@ -320,7 +338,6 @@ class DailyScrapping extends Command
 
                 $documentos_proceso->descripcion = $this->textValidation($node->filter('#DWNL_grdId_ctl' . $inicio_id . $contador . '_Description'));
                 $documentos_proceso->size = $this->textValidation($node->filter('#DWNL_grdId_ctl' . $inicio_id . $contador . '_FileLength'));
-
 
                 $fecha_fuente_string = $this->textValidation($node->filter('#DWNL_grdId_ctl' . $inicio_id . $contador . '_AtcDateTime'));
                 $carbonDate = Carbon::createFromFormat('d-m-Y H:i:s', $fecha_fuente_string);
@@ -333,14 +350,14 @@ class DailyScrapping extends Command
                     "enc" => $form_enc,
                     "__VIEWSTATE" =>  $view_state,
                     "__VIEWSTATEGENERATOR" => $view_state_generator,
-                    "x" => 'DWNL$grdId$ctl' . $inicio_id. $contador . '$search.x',
-                    "y" => 'DWNL$grdId$ctl' . $inicio_id. $contador . '$search.y',
+                    "x" => 'DWNL$grdId$ctl' . $inicio_id . $contador . '$search.x',
+                    "y" => 'DWNL$grdId$ctl' . $inicio_id . $contador . '$search.y',
                 ];
                 $documentos_proceso->json_adicional = json_encode($json_adicional);
                 $documentos_proceso->save();
             });
         } catch (Exception $e) {
-            dd($e->getMessage());
+            echo ($e->getMessage());
         }
     }
 
