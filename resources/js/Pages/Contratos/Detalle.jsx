@@ -473,7 +473,7 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                                                 <p className="d-block info-contrato">{contrato.modalidad}</p>
                                                             </div>
                                                             <div className="contenido-detalle-contrato"><b className="d-block">Número:</b>
-                                                                <p className="d-block info-contrato"></p>
+                                                                <p className="d-block info-contrato">{contrato.codigo_proceso}</p>
                                                             </div>
                                                             <div className="contenido-detalle-contrato" general="[object Object]"><b
                                                                 className="d-block">Estado del proceso:</b>
