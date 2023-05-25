@@ -797,6 +797,11 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             <span>{grupo.modalidad}</span>
         );
     }
+    const numeroBodyTemplate = (grupo) =>{
+        return (
+            <span>{grupo.codigo_proceso}</span>
+        );
+    }
     const cuantiaBodyTemplate = (grupo) => {
         return (
             <span className="valor_range--estandar d-flex justify-content-center">
@@ -2032,7 +2037,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                         <Column field="inputFilterObjeto" header="Obejto" filter filterPlaceholder="Buscar" className="objeto_columna" body={objetoBodyTemplate} filterElement={columnFilterTemplate} />
                         <Column field="inputFilterValor" header="Cuantía" filter filterPlaceholder="Buscar" className="rangedropdown columna_120 columna_cuantia" body={cuantiaBodyTemplate} filterElement={columnFilterTemplate} />
                         <Column field="inputFilterModalidad" header="Modalidad" filter filterPlaceholder="Seleccionar" className="columna_100 columna_modalidad" body={modalidadBodyTemplate} filterElement={columnFilterTemplate} />
-                        <Column field="inputFilterCodigoProceso" header="Número" filter filterPlaceholder="Buscar" className="columna_numero" filterElement={columnFilterTemplate} />
+                        <Column field="inputFilterCodigoProceso" header="Número" filter filterPlaceholder="Buscar" className="columna_numero" body={numeroBodyTemplate} filterElement={columnFilterTemplate} />
                         <Column field="inputFilterEstadoProceso" header="Estado" filter filterPlaceholder="Buscar" className="columna_estado" body={estadoBodyTemplate} filterElement={columnFilterTemplate} />
                         <Column field="inputFilterFechaPublicacion" header="Publicada" filter filterPlaceholder="Buscar" className="columna_fecha" body={fechaBodyTemplate} filterElement={columnFilterTemplate} />
                         <Column field="inputFilterUbicacion" header="Ubicación" filter filterPlaceholder="Seleccionar" className="columna_ubicacion" body={ubicacionBodyTemplate} filterElement={columnFilterTemplate} />
