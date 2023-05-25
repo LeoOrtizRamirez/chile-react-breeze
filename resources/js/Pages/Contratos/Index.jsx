@@ -261,7 +261,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         tabla.data.forEach(element => {
             let contrato_parent = document.querySelector(`.row-${element.id}`)
             if (contrato_parent) {
-                contrato_parent.style.display = "contents";
+                contrato_parent.style.display = "";
             }
         })
         showMoreSelecteds.forEach(element => {
