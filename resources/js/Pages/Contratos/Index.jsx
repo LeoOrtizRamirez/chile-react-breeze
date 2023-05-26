@@ -31,6 +31,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import ModalDocumentos from "@/Components/ModalDocumentos";
 import ModalCalendario from "@/Components/ModalCalendario";
+import ModalEstados from "@/Components/ModalEstados";
 
 
 
@@ -52,7 +53,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                 console.log(error.response.data);
             });
     }, [])
-    
+
     const [visualizarFilter, setVisualizarFilter] = useState(visualizar)
     const [tabla, setTabla] = useState(contratos);
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
@@ -60,6 +61,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
 
     var filterFechaPublicacion = "";
     var filterActividad = [];
+    var filterEstadosProceso = "";
 
     const paginatorPost = (event, _visualizar = null, paginator_url = null) => {
         var page = ""
@@ -194,7 +196,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             actividad_economica: checkedsActividadesEconomicas,
             codigo_proceso: inputFilterCodigoProceso,
             entidad_contratante: inputFilterEntidadContratante,
-            estado_proceso: inputFilterEstadoProceso,
+            estado_proceso: filterEstadosProceso,
             fecha_publicacion: filterFechaPublicacion,
             modalidad: checkedsTiposCompras,
             objeto: inputFilterObjeto,
@@ -905,6 +907,23 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                 placeholder="Seleccionar"
                 name={column.field}
                 onClick={() => handleShowModalCalendario()}
+                onInput={(e) => {
+                    dt.current.filter(e.target.value, column.field, 'contains');
+                }}
+                value={inputFilterFechaPublicacion}
+            />
+        );
+    };
+
+
+    const estadocolumnFilterTemplate = (column) => {
+        return (
+            <input
+                type="text"
+                className="p-inputtext p-component p-column-filter"
+                placeholder="Seleccionar"
+                name={column.field}
+                onClick={() => handleShowModalEstados()}
                 onInput={(e) => {
                     dt.current.filter(e.target.value, column.field, 'contains');
                 }}
@@ -2033,13 +2052,23 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         setShowModalCalendario(true)
     };
 
+    const [showModalEstados, setShowModalEstados] = useState(false);
+    const handleCloseModalEstados = (estados) => {
+        filterEstadosProceso = estados
+        //setInputFilterFechaPublicacion(`${start} ${end}`)
+        paginatorPost()
+        setShowModalEstados(false)
+    };
+    const handleShowModalEstados = () => {
+        setShowModalEstados(true)
+    };
+
     const handleCloseModalActividadEconomica = () => {
         console.log("checkedsActividadesEconomicas", checkedsActividadesEconomicas)
         console.log("checkedsLocalizaciones", checkedsLocalizaciones)
         console.log("checkedsTiposCompras", checkedsTiposCompras)
         setShowModal(false)
         paginatorPost()
-        
     };
 
     return (
@@ -2072,7 +2101,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                         <Column field="inputFilterValor" header="Cuantía" filter filterPlaceholder="Buscar" className="rangedropdown columna_120 columna_cuantia" body={cuantiaBodyTemplate} filterElement={columnFilterTemplate} />
                         <Column field="inputFilterModalidad" header="Modalidad" filter filterPlaceholder="Seleccionar" className="columna_100 columna_modalidad" body={modalidadBodyTemplate} filterElement={actividadEconomicaColumnFilterTemplate} />
                         <Column field="inputFilterCodigoProceso" header="Número" filter filterPlaceholder="Buscar" className="columna_numero" body={numeroBodyTemplate} filterElement={columnFilterTemplate} />
-                        <Column field="inputFilterEstadoProceso" header="Estado" filter filterPlaceholder="Buscar" className="columna_estado" body={estadoBodyTemplate} filterElement={columnFilterTemplate} />
+                        <Column field="inputFilterEstadoProceso" header="Estado" filter filterPlaceholder="Buscar" className="columna_estado" body={estadoBodyTemplate} filterElement={estadocolumnFilterTemplate} />
                         <Column field="inputFilterFechaPublicacion" header="Publicada" filter filterPlaceholder="Buscar" className="columna_fecha" body={fechaBodyTemplate} filterElement={fechaColumnFilterTemplate} />
                         <Column field="inputFilterUbicacion" header="Ubicación" filter filterPlaceholder="Seleccionar" className="columna_ubicacion" body={ubicacionBodyTemplate} filterElement={actividadEconomicaColumnFilterTemplate} />
                         <Column field="inputFilterActividadEconomica" header="Actividad Económica" filter filterElement={actividadEconomicaColumnFilterTemplate} body={actividadEconomicaBodyTemplate} />
@@ -2603,6 +2632,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             </Sidebar>
             <ModalDocumentos showModal={showModalDocumentos} handleCloseModal={handleCloseModalDocumentos} modalId="modal_documentos" data={dataModalDocumentos}></ModalDocumentos>
             <ModalCalendario showModal={showModalCalendario} handleCloseModal={handleCloseModalCalendario} modalId="modal_calendario" />
+            <ModalEstados showModal={showModalEstados} handleCloseModal={handleCloseModalEstados} modalId="modal_filtro_estado" />
             <Toast ref={toastBL} position="bottom-left" />
         </AuthenticatedLayout >
     );

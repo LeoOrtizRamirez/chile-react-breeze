@@ -477,35 +477,37 @@ class ContratoController extends Controller
         //dd($ids_contratos_carpetas);
         try {
             $contratos = Contrato::with('fuente')
-                ->select('contratos.id', 
-                'contratos.entidad_contratante',
-                'contratos.codigo_proceso',
-                'contratos.objeto',
-                'contratos.modalidad',
-                'contratos.ubicacion',
-                'contratos.link',
-                'contratos.random',
-                'contratos.estado_agrupado',
-                'contratos.unspsc',
-                'contratos.unspsc_adicionales',
-                'contratos.numero_documentos',
-                'contratos.valor',
-                'contratos.valor_texto',
-                'contratos.fecha_actualizacion_estado',
-                'contratos.fecha_last_update_seguimiento',
-                'contratos.fecha_publicacion',
-                'contratos.fecha_vencimiento',
-                'contratos.estado_proceso',
-                'contratos.id_user_clasificador',
-                'contratos.id_fuente_contract',
-                'contratos.created_at',
-                'contratos.updated_at')
+                ->select(
+                    'contratos.id',
+                    'contratos.entidad_contratante',
+                    'contratos.codigo_proceso',
+                    'contratos.objeto',
+                    'contratos.modalidad',
+                    'contratos.ubicacion',
+                    'contratos.link',
+                    'contratos.random',
+                    'contratos.estado_agrupado',
+                    'contratos.unspsc',
+                    'contratos.unspsc_adicionales',
+                    'contratos.numero_documentos',
+                    'contratos.valor',
+                    'contratos.valor_texto',
+                    'contratos.fecha_actualizacion_estado',
+                    'contratos.fecha_last_update_seguimiento',
+                    'contratos.fecha_publicacion',
+                    'contratos.fecha_vencimiento',
+                    'contratos.estado_proceso',
+                    'contratos.id_user_clasificador',
+                    'contratos.id_fuente_contract',
+                    'contratos.created_at',
+                    'contratos.updated_at'
+                )
                 ->where(function ($query) use ($ids_contratos_carpetas) { //BUSCAR SOLO LOS CONTRATOS QUE ESTAN RELACIONADOS A ALGUNA CARPETA
                     if (!is_null($ids_contratos_carpetas)) {
                         $query->whereIn('id', $ids_contratos_carpetas);
                     }
                 })
-                ->where(function ($query) use ($rapida) { //BUSCAR SOLO LOS CONTRATOS QUE ESTAN RELACIONADOS A ALGUNA CARPETA
+                ->where(function ($query) use ($rapida) {
                     if (!is_null($rapida) && $rapida != "") {
                         $query->where('entidad_contratante', 'like', '%' . $rapida . '%')
                             ->orWhere('objeto', 'like', '%' . $rapida . '%')
@@ -518,11 +520,12 @@ class ContratoController extends Controller
                         $query->whereBetween('fecha_publicacion', [$fecha_publicacion["start"], $fecha_publicacion["end"]]);
                     }
                 })
-                ->when($actividad_economica, function ($query, $actividad_economica) {
-                    return $query->join('clasificacion_contratos', 'contratos.id', '=', 'clasificacion_contratos.id_contrato')
-                                 ->whereIn('clasificacion_contratos.id_sub_categoria', $actividad_economica);
+                ->where(function ($query) use ($estado_proceso) {
+                    if (!is_null($estado_proceso) && $estado_proceso != "") {
+                        $query->whereIn('estado_proceso', $estado_proceso);
+                    }
                 })
-                ->where(function ($query) use ($entidad_contratante, $objeto, $codigo_proceso, $estado_proceso) {
+                ->where(function ($query) use ($entidad_contratante, $objeto, $codigo_proceso) {
                     if (!is_null($entidad_contratante) && $entidad_contratante != "") {
                         $query->where('entidad_contratante', 'like', '%' . $entidad_contratante . '%');
                     }
@@ -535,9 +538,6 @@ class ContratoController extends Controller
                     if (!is_null($codigo_proceso) && $codigo_proceso != "") {
                         $query->where('codigo_proceso', 'like', '%' . $codigo_proceso . '%');
                     }
-                    if (!is_null($estado_proceso) && $estado_proceso != "") {
-                        $query->whereIn('estado_proceso', explode(",", $estado_proceso));
-                    }
                 })
                 ->where(function ($query) use ($contratos_con_notas_filter, $filtrar_nuevos) {
                     if ($filtrar_nuevos == 4) {
@@ -549,30 +549,35 @@ class ContratoController extends Controller
                         $query->whereIn('id', $contratos_vistos);
                     }
                 })
-                ->groupBy('contratos.id', 
-                'contratos.entidad_contratante',
-                'contratos.codigo_proceso',
-                'contratos.objeto',
-                'contratos.modalidad',
-                'contratos.ubicacion',
-                'contratos.link',
-                'contratos.random',
-                'contratos.estado_agrupado',
-                'contratos.unspsc',
-                'contratos.unspsc_adicionales',
-                'contratos.numero_documentos',
-                'contratos.valor',
-                'contratos.valor_texto',
-                'contratos.fecha_actualizacion_estado',
-                'contratos.fecha_last_update_seguimiento',
-                'contratos.fecha_publicacion',
-                'contratos.fecha_vencimiento',
-                'contratos.estado_proceso',
-                'contratos.id_user_clasificador',
-                'contratos.id_fuente_contract',
-                'contratos.created_at',
-                'contratos.updated_at'
-                )
+                ->when($actividad_economica, function ($query, $actividad_economica) {
+                    return $query->join('clasificacion_contratos', 'contratos.id', '=', 'clasificacion_contratos.id_contrato')
+                        ->whereIn('clasificacion_contratos.id_sub_categoria', $actividad_economica)
+                        ->groupBy(
+                            'contratos.id',
+                            'contratos.entidad_contratante',
+                            'contratos.codigo_proceso',
+                            'contratos.objeto',
+                            'contratos.modalidad',
+                            'contratos.ubicacion',
+                            'contratos.link',
+                            'contratos.random',
+                            'contratos.estado_agrupado',
+                            'contratos.unspsc',
+                            'contratos.unspsc_adicionales',
+                            'contratos.numero_documentos',
+                            'contratos.valor',
+                            'contratos.valor_texto',
+                            'contratos.fecha_actualizacion_estado',
+                            'contratos.fecha_last_update_seguimiento',
+                            'contratos.fecha_publicacion',
+                            'contratos.fecha_vencimiento',
+                            'contratos.estado_proceso',
+                            'contratos.id_user_clasificador',
+                            'contratos.id_fuente_contract',
+                            'contratos.created_at',
+                            'contratos.updated_at'
+                        );
+                })
                 ->paginate($request->input('per_page', 30));
         } catch (\Throwable $th) {
             dd($th);
