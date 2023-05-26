@@ -8,10 +8,11 @@ const ActividadEconomica = ({
     onHandleSectores,
     tipo,
     checkeds,
-    checkAllText
+    checkAllText,
+    licicodigos
 }) => {
-    const [productosLicicodigos, setProductosLicicodigos] = useState([])
-    useEffect(() => {
+    //const [productosLicicodigos, setProductosLicicodigos] = useState(licicodigos)
+    /* useEffect(() => {
         var token = document.querySelector('meta[name="csrf-token"]')
         axios.post('/cliente/get-licicodigos', {
         }, {
@@ -26,7 +27,7 @@ const ActividadEconomica = ({
                 // Handle error
                 console.log(error.response.data);
             });
-    }, [])
+    }, []) */
     const [fakeSectores, setFakeSectores] = useState(subcategorias);
     const [sectores, setSectores] = useState(subcategorias);
     const [openSectores, setOpenSectores] = useState([]);
@@ -571,7 +572,7 @@ const ActividadEconomica = ({
             var FilteredLicicodigos = []
             var FilteredActividadesEcomomicas = []
             if (!isNaN(e.target.value) && e.target.value.length >= 6) {
-                FilteredLicicodigos = productosLicicodigos.filter(function (el) {
+                FilteredLicicodigos = licicodigos.filter(function (el) {
                     if (e.target.value == el?.id) {
                         return el;
                     }
@@ -585,7 +586,7 @@ const ActividadEconomica = ({
                 setFilterEpty(true)
             } else {
                 //BUSCAR SI EXISTE UN RESULTADO EXACTO EN CLASES Y PRODUCTOS
-                FilteredLicicodigos = productosLicicodigos.filter(function (el) {
+                FilteredLicicodigos = licicodigos.filter(function (el) {
                     if (e.target.value.toLowerCase() == el?.nombre?.toLowerCase()) {
                         return el;
                     }

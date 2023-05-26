@@ -35,6 +35,24 @@ import ModalCalendario from "@/Components/ModalCalendario";
 
 
 const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfiles, visualizar }) => {
+    const [licicodigos, setLicicodigos] = useState([]);
+    useEffect(() => {
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.post('/cliente/get-licicodigos', {
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token.content}`
+            }
+        })
+            .then(response => {
+                setLicicodigos(response.data)
+            })
+            .catch(error => {
+                // Handle error
+                console.log(error.response.data);
+            });
+    }, [])
+    
     const [visualizarFilter, setVisualizarFilter] = useState(visualizar)
     const [tabla, setTabla] = useState(contratos);
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
@@ -2184,6 +2202,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                                 tipo={"ActividadEconomica"}
                                 checkeds={checkedsActividadesEconomicas}
                                 checkAllText={""}
+                                licicodigos={licicodigos}
                             />
                         </div>
 
@@ -2197,6 +2216,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                                 tipo={"TiposCompras"}
                                 checkeds={checkedsTiposCompras}
                                 checkAllText={"Seleccionar todas las modalidades"}
+                                licicodigos={licicodigos}
                             />
                         </div>
                     }
@@ -2208,6 +2228,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                             tipo={"Localizaciones"}
                             checkeds={checkedsLocalizaciones}
                             checkAllText={"Todo el país - Colombia"}
+                            licicodigos={licicodigos}
                         />
                     }
                     {modalOpened == "modal_confirm_delete" &&

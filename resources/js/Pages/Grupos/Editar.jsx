@@ -31,6 +31,23 @@ const Editar = ({
     pasos_seleccionados,
     paso_actual
 }) => {
+    const [licicodigos, setLicicodigos] = useState([]);
+    useEffect(() => {
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.post('/cliente/get-licicodigos', {
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token.content}`
+            }
+        })
+            .then(response => {
+                setLicicodigos(response.data)
+            })
+            .catch(error => {
+                // Handle error
+                console.log(error.response.data);
+            });
+    }, [])
 
     const [sectores, setSectores] = useState(actividades_economicas);
 
@@ -383,6 +400,7 @@ const Editar = ({
                                                 tipo={"ActividadEconomica"}
                                                 checkeds={checkedsActividadesEconomicas}
                                                 checkAllText={""}
+                                                licicodigos={licicodigos}
                                             />
                                         )}
                                     </>
@@ -395,6 +413,7 @@ const Editar = ({
                                                 tipo={"TiposCompras"}
                                                 checkeds={checkedsTiposCompras}
                                                 checkAllText={"Seleccionar todas las modalidades"}
+                                                licicodigos={licicodigos}
                                             />
                                         )}
                                     </>
@@ -408,6 +427,7 @@ const Editar = ({
                                                 tipo={"Localizaciones"}
                                                 checkeds={checkedsLocalizaciones}
                                                 checkAllText={"Todo el país - Colombia"}
+                                                licicodigos={licicodigos}
                                             />
                                         )}
                                     </>

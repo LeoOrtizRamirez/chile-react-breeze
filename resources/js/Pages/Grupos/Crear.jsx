@@ -26,7 +26,24 @@ const Crear = ({
     tiposcompras,
     localizaciones,
 }) => {
-
+    const [licicodigos, setLicicodigos] = useState([]);
+    useEffect(() => {
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.post('/cliente/get-licicodigos', {
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token.content}`
+            }
+        })
+            .then(response => {
+                setLicicodigos(response.data)
+            })
+            .catch(error => {
+                // Handle error
+                console.log(error.response.data);
+            });
+    }, [])
+    
     const [sectores, setSectores] = useState(actividades_economicas);
 
     const [checkedsActividadesEconomicas, setCheckedsActividadesEconomicas] = useState([])
@@ -370,6 +387,7 @@ const Crear = ({
                                                 tipo={"ActividadEconomica"}
                                                 checkeds={checkedsActividadesEconomicas}
                                                 checkAllText={""}
+                                                licicodigos={licicodigos}
                                             />
                                         )}
                                     </>
@@ -382,6 +400,7 @@ const Crear = ({
                                                 tipo={"TiposCompras"}
                                                 checkeds={checkedsTiposCompras}
                                                 checkAllText={"Seleccionar todas las modalidades"}
+                                                licicodigos={licicodigos}
                                             />
                                         )}
                                     </>
@@ -395,6 +414,7 @@ const Crear = ({
                                                 tipo={"Localizaciones"}
                                                 checkeds={checkedsLocalizaciones}
                                                 checkAllText={"Todo el país - Colombia"}
+                                                licicodigos={licicodigos}
                                             />
                                         )}
                                     </>
