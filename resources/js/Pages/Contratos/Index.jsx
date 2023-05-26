@@ -41,6 +41,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const [pageNumber, setPageNumber] = useState(0);
 
     var filterFechaPublicacion = "";
+    var filterActividad = [];
 
     const paginatorPost = (event, _visualizar = null, paginator_url = null) => {
         var page = ""
@@ -172,14 +173,14 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const getUrlPostParams = () => {
         const query = {
             rapida: inputFilterBusquedaRapida,
-            actividad_economica: inputFilterActividadEconomica,
+            actividad_economica: checkedsActividadesEconomicas,
             codigo_proceso: inputFilterCodigoProceso,
             entidad_contratante: inputFilterEntidadContratante,
             estado_proceso: inputFilterEstadoProceso,
             fecha_publicacion: filterFechaPublicacion,
-            modalidad: inputFilterModalidad,
+            modalidad: checkedsTiposCompras,
             objeto: inputFilterObjeto,
-            ubicacion: inputFilterUbicacion,
+            ubicacion: checkedsLocalizaciones,
             valor: inputFilterValor,
             type: 'fetch',
         }
@@ -867,43 +868,45 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
 
     const columnFilterTemplate = (column) => {
         return (
-            <>
-                {column.field == "inputFilterFechaPublicacion" &&
-                    <input
-                        type="text"
-                        className="p-inputtext p-component p-column-filter"
-                        placeholder="Seleccionar"
-                        name={column.field}
-                        onClick={() => handleShowModalCalendario()}
-                        onInput={(e) => {
-                            dt.current.filter(e.target.value, column.field, 'contains');
-                        }}
-                        value={inputFilterFechaPublicacion}
-                    />
-                }
-                {column.field == "inputFilterModalidad" || column.field == "inputFilterUbicacion" || column.field == "inputFilterActividadEconomica" &&
-                    <input
-                        type="text"
-                        className="p-inputtext p-component p-column-filter"
-                        placeholder="Seleccionar"
-                        name={column.field}
-                        onClick={() => handleShowModal(column.field)}
-                        onInput={(e) => {
-                            dt.current.filter(e.target.value, column.field, 'contains');
-                        }}
-                    />
-                }
-                {column.field != "inputFilterFechaPublicacion" && column.field != "inputFilterModalidad" && column.field != "inputFilterUbicacion" && column.field != "inputFilterActividadEconomica" &&
-                    <input
-                        type="text"
-                        className="p-inputtext p-component p-column-filter"
-                        placeholder="Buscar"
-                        name={column.field}
-                        onKeyDown={paginatorPost}
-                        onChange={(e) => updateState(column.field, e.target.value)}
-                    />
-                }
-            </>
+            <input
+                type="text"
+                className="p-inputtext p-component p-column-filter"
+                placeholder="Buscar"
+                name={column.field}
+                onKeyDown={paginatorPost}
+                onChange={(e) => updateState(column.field, e.target.value)}
+            />
+        );
+    };
+
+    const fechaColumnFilterTemplate = (column) => {
+        return (
+            <input
+                type="text"
+                className="p-inputtext p-component p-column-filter"
+                placeholder="Seleccionar"
+                name={column.field}
+                onClick={() => handleShowModalCalendario()}
+                onInput={(e) => {
+                    dt.current.filter(e.target.value, column.field, 'contains');
+                }}
+                value={inputFilterFechaPublicacion}
+            />
+        );
+    };
+
+    const actividadEconomicaColumnFilterTemplate = (column) => {
+        return (
+            <input
+                type="text"
+                className="p-inputtext p-component p-column-filter"
+                placeholder="Seleccionar"
+                name={column.field}
+                onClick={() => handleShowModal(column.field)}
+                onInput={(e) => {
+                    dt.current.filter(e.target.value, column.field, 'contains');
+                }}
+            />
         );
     };
 
@@ -2002,17 +2005,23 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const [showModalCalendario, setShowModalCalendario] = useState(false);
     const handleCloseModalCalendario = (start, end) => {
         if (end != undefined) {
-            filterFechaPublicacion = {start: start, end: end}
+            filterFechaPublicacion = { start: start, end: end }
             setInputFilterFechaPublicacion(`${start} ${end}`)
-            
             paginatorPost()
-        }else{
-            console.log("else")
         }
         setShowModalCalendario(false)
     };
     const handleShowModalCalendario = () => {
         setShowModalCalendario(true)
+    };
+
+    const handleCloseModalActividadEconomica = () => {
+        console.log("checkedsActividadesEconomicas", checkedsActividadesEconomicas)
+        console.log("checkedsLocalizaciones", checkedsLocalizaciones)
+        console.log("checkedsTiposCompras", checkedsTiposCompras)
+        setShowModal(false)
+        paginatorPost()
+        
     };
 
     return (
@@ -2043,12 +2052,12 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                         <Column field="inputFilterEntidadContratante" header="Entidad" filter filterPlaceholder="Buscar" className="columna_entidad columna_120" body={entidadBodyTemplate} filterElement={columnFilterTemplate} />
                         <Column field="inputFilterObjeto" header="Obejto" filter filterPlaceholder="Buscar" className="objeto_columna" body={objetoBodyTemplate} filterElement={columnFilterTemplate} />
                         <Column field="inputFilterValor" header="Cuantía" filter filterPlaceholder="Buscar" className="rangedropdown columna_120 columna_cuantia" body={cuantiaBodyTemplate} filterElement={columnFilterTemplate} />
-                        <Column field="inputFilterModalidad" header="Modalidad" filter filterPlaceholder="Seleccionar" className="columna_100 columna_modalidad" body={modalidadBodyTemplate} filterElement={columnFilterTemplate} />
+                        <Column field="inputFilterModalidad" header="Modalidad" filter filterPlaceholder="Seleccionar" className="columna_100 columna_modalidad" body={modalidadBodyTemplate} filterElement={actividadEconomicaColumnFilterTemplate} />
                         <Column field="inputFilterCodigoProceso" header="Número" filter filterPlaceholder="Buscar" className="columna_numero" body={numeroBodyTemplate} filterElement={columnFilterTemplate} />
                         <Column field="inputFilterEstadoProceso" header="Estado" filter filterPlaceholder="Buscar" className="columna_estado" body={estadoBodyTemplate} filterElement={columnFilterTemplate} />
-                        <Column field="inputFilterFechaPublicacion" header="Publicada" filter filterPlaceholder="Buscar" className="columna_fecha" body={fechaBodyTemplate} filterElement={columnFilterTemplate} />
-                        <Column field="inputFilterUbicacion" header="Ubicación" filter filterPlaceholder="Seleccionar" className="columna_ubicacion" body={ubicacionBodyTemplate} filterElement={columnFilterTemplate} />
-                        <Column field="inputFilterActividadEconomica" header="Actividad Económica" filter filterElement={columnFilterTemplate} body={actividadEconomicaBodyTemplate} />
+                        <Column field="inputFilterFechaPublicacion" header="Publicada" filter filterPlaceholder="Buscar" className="columna_fecha" body={fechaBodyTemplate} filterElement={fechaColumnFilterTemplate} />
+                        <Column field="inputFilterUbicacion" header="Ubicación" filter filterPlaceholder="Seleccionar" className="columna_ubicacion" body={ubicacionBodyTemplate} filterElement={actividadEconomicaColumnFilterTemplate} />
+                        <Column field="inputFilterActividadEconomica" header="Actividad Económica" filter filterElement={actividadEconomicaColumnFilterTemplate} body={actividadEconomicaBodyTemplate} />
                     </DataTable>
                 </div>
             </div>
@@ -2355,8 +2364,8 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                             }
                         </>
                     }
-                    {modalOpened == "inputFilterActividadEconomica" || modalOpened == "inputFilterModalidad" || modalOpened == "inputFilterUbicacion" &&
-                        <button type="button" className="btnRadius btn-new-green">Seleccionar</button>
+                    {["inputFilterActividadEconomica", "inputFilterModalidad", "inputFilterUbicacion"].includes(modalOpened) &&
+                        <button type="button" className="btnRadius btn-new-green" onClick={handleCloseModalActividadEconomica}>Seleccionar</button>
                     }
                     {modalOpened == "modal_seleccion_carpeta" &&
                         <div className="actions-buttons-modal buttons-modal-carpetas">
