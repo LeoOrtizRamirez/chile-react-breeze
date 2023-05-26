@@ -40,10 +40,10 @@ const ModalEstados = ({ showModal, handleCloseModal, modalId }) => {
 
     return (
         <>
-            <Modal show={showModal} onHide={() => handleCloseModal()} id={modalId} centered size="lg">
+            <Modal show={showModal} onHide={() => handleCloseModal(null)} id={modalId} centered size="lg">
                 <Modal.Header>
                     <h4 className="modal-title">Selecciona el estado.</h4>
-                    <button type="button" aria-label="Close" className="close icon-Cerrar-modal" onClick={handleCloseModal}></button>
+                    <button type="button" aria-label="Close" className="close icon-Cerrar-modal" onClick={()=>handleCloseModal(null)}></button>
                 </Modal.Header>
                 <Modal.Body>
                     <div className="body-checkbox-modal">

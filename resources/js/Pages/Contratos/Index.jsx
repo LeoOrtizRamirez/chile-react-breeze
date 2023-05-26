@@ -876,6 +876,85 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         stateObject[stateName][1](value);
     };
 
+    const getMyState = (stateName) => {
+        return stateObject[stateName][0];
+    };
+
+    const columnFilterTemplate = (column) => {
+        var columnValue = getMyState(column.field)
+        return (
+            <div className="filter">
+                <input
+                    type="text"
+                    className="p-inputtext p-component p-column-filter"
+                    placeholder="Buscar"
+                    name={column.field}
+                    onKeyDown={paginatorPost}
+                    onChange={(e) => updateState(column.field, e.target.value)}
+                    value={columnValue}
+                />
+                {columnValue != "" &&
+                    <i class="icon-Cancelar clearfilter_grid" onClick={() => clearInputFilter(column.field)}></i>
+                }
+            </div>
+        );
+    };
+
+    const fechaColumnFilterTemplate = (column) => {
+        return (
+            <div className="filter">
+                <input
+                    type="text"
+                    className="p-inputtext p-component p-column-filter"
+                    placeholder="Seleccionar"
+                    name={column.field}
+                    onClick={() => handleShowModalCalendario()}
+                    onInput={(e) => {
+                        dt.current.filter(e.target.value, column.field, 'contains');
+                    }}
+                    value={inputFilterFechaPublicacion}
+                />
+                {inputFilterFechaPublicacion != "" &&
+                    <i class="icon-Cancelar clearfilter_grid" onClick={() => clearInputFilter("inputFilterFechaPublicacion")}></i>
+                }
+            </div>
+
+        );
+    };
+
+
+    const estadocolumnFilterTemplate = (column) => {
+        return (
+            <div className="filter">
+                <input
+                    type="text"
+                    className="p-inputtext p-component p-column-filter"
+                    placeholder="Seleccionar"
+                    name={column.field}
+                    onClick={() => handleShowModalEstados()}
+                    onInput={(e) => {
+                        dt.current.filter(e.target.value, column.field, 'contains');
+                    }}
+                    value={inputFilterEstadoProceso}
+                />
+                {inputFilterEstadoProceso != "" &&
+                    <i class="icon-Cancelar clearfilter_grid" onClick={() => clearInputFilter("inputFilterEstadoProceso")}></i>
+                }
+            </div>
+        );
+    };
+
+    const clearInputFilter = (input, value = "") => {
+        updateState(input, value)
+        if (input == "inputFilterFechaPublicacion") {
+            filterFechaPublicacion = ""
+        }
+        if (input == "inputFilterEstadoProceso") {
+            filterEstadosProceso = ""
+        }
+        paginatorPost()
+    }
+
     /*Borrar filtros*/
     const dt = useRef(null);
     const handleClearFilters = () => {
@@ -885,52 +964,6 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         }
     }
     /*Borrar filtros*/
-
-    const columnFilterTemplate = (column) => {
-        return (
-            <input
-                type="text"
-                className="p-inputtext p-component p-column-filter"
-                placeholder="Buscar"
-                name={column.field}
-                onKeyDown={paginatorPost}
-                onChange={(e) => updateState(column.field, e.target.value)}
-            />
-        );
-    };
-
-    const fechaColumnFilterTemplate = (column) => {
-        return (
-            <input
-                type="text"
-                className="p-inputtext p-component p-column-filter"
-                placeholder="Seleccionar"
-                name={column.field}
-                onClick={() => handleShowModalCalendario()}
-                onInput={(e) => {
-                    dt.current.filter(e.target.value, column.field, 'contains');
-                }}
-                value={inputFilterFechaPublicacion}
-            />
-        );
-    };
-
-
-    const estadocolumnFilterTemplate = (column) => {
-        return (
-            <input
-                type="text"
-                className="p-inputtext p-component p-column-filter"
-                placeholder="Seleccionar"
-                name={column.field}
-                onClick={() => handleShowModalEstados()}
-                onInput={(e) => {
-                    dt.current.filter(e.target.value, column.field, 'contains');
-                }}
-                value={inputFilterFechaPublicacion}
-            />
-        );
-    };
 
     const actividadEconomicaColumnFilterTemplate = (column) => {
         return (
@@ -2054,9 +2087,11 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
 
     const [showModalEstados, setShowModalEstados] = useState(false);
     const handleCloseModalEstados = (estados) => {
-        filterEstadosProceso = estados
-        //setInputFilterFechaPublicacion(`${start} ${end}`)
-        paginatorPost()
+        if (estados != null) {
+            filterEstadosProceso = estados
+            setInputFilterEstadoProceso(`${estados.length} Seleccionado(s)`)
+            paginatorPost()
+        }
         setShowModalEstados(false)
     };
     const handleShowModalEstados = () => {
@@ -2095,7 +2130,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                     >
                         <Column selectionMode="multiple" className='columna_seleccion columna_pequena' filter filterElement={clearTemplate}></Column>
                         {/* <Column filter className='columna_seleccion columna_pequena'  /> */}
-                        <Column field="fuente.alias_portal" header="Portal" filter filterPlaceholder="Todos" className="rounded_left columna_tipo_secop" body={portalBodyTemplate} filterElement={columnFilterTemplate} />
+                        <Column field="fuente.alias_portal" header="Portal" filterPlaceholder="Todos" className="rounded_left columna_tipo_secop" body={portalBodyTemplate} filterElement={columnFilterTemplate} />
                         <Column field="inputFilterEntidadContratante" header="Entidad" filter filterPlaceholder="Buscar" className="columna_entidad columna_120" body={entidadBodyTemplate} filterElement={columnFilterTemplate} />
                         <Column field="inputFilterObjeto" header="Obejto" filter filterPlaceholder="Buscar" className="objeto_columna" body={objetoBodyTemplate} filterElement={columnFilterTemplate} />
                         <Column field="inputFilterValor" header="Cuantía" filter filterPlaceholder="Buscar" className="rangedropdown columna_120 columna_cuantia" body={cuantiaBodyTemplate} filterElement={columnFilterTemplate} />

@@ -3328,6 +3328,17 @@ body>div.fade.modal-backdrop.show:nth-child(5) {
     margin-top: -613px;
 }
 
+#contratos .filter{
+    position: relative;
+}
+
+#contratos  i.icon-Cancelar.clearfilter_grid {
+    position: absolute;
+    right: 5px;
+    top: 6px;
+    color: #c9003d;
+    cursor: pointer;
+}
 
 /*Boton flotante*/
 #contratos #accionesSeleccionGrid .pruebafixed {
