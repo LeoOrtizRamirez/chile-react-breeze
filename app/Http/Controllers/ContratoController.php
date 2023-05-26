@@ -93,7 +93,7 @@ class ContratoController extends Controller
         }
 
 
-        $contratos = $this->getAllContratos($request, $rapida, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos);
+        $contratos = $this->getAllContratos($request, $rapida, $fecha_publicacion, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos);
 
 
         $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
@@ -264,7 +264,7 @@ class ContratoController extends Controller
                     foreach ($carpeta_has_contrato as $key => $value) {
                         $ids_contratos[] = $value->id_contrato;
                     }
-                    $contratos = $this->getAllContratos($request, $rapida, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos, $ids_contratos);
+                    $contratos = $this->getAllContratos($request, $rapida, $fecha_publicacion, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos, $ids_contratos);
 
                     /* $contratos = Contrato::with('fuente')
                         ->whereIn('id', $ids_contratos)
@@ -362,7 +362,7 @@ class ContratoController extends Controller
                 }
             }
         } else { //MP - AL
-            $contratos = $this->getAllContratos($request, $rapida, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos);
+            $contratos = $this->getAllContratos($request, $rapida, $fecha_publicacion, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos);
         }
 
 
@@ -446,7 +446,7 @@ class ContratoController extends Controller
     }
 
 
-    public function getAllContratos($request, $rapida, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos, $ids_contratos_carpetas = null)
+    public function getAllContratos($request, $rapida, $fecha_publicacion, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos, $ids_contratos_carpetas = null)
     {
 
         $contratos_con_notas = $this->getContratosIdsConNotas();
@@ -487,6 +487,11 @@ class ContratoController extends Controller
                         ->orWhere('objeto', 'like', '%' . $rapida . '%')
                         ->orWhere('modalidad', 'like', '%' . $rapida . '%')
                         ->orWhere('ubicacion', 'like', '%' . $rapida . '%');
+                }
+            })
+            ->where(function ($query) use ($fecha_publicacion) {
+                if (!is_null($fecha_publicacion) && $fecha_publicacion != "") {
+                    $query->whereBetween('fecha_publicacion', [$fecha_publicacion["start"], $fecha_publicacion["end"]]);
                 }
             })
             ->where(function ($query) use ($entidad_contratante, $objeto, $codigo_proceso, /* $fecha_desde, $fecha_hasta, $cuantia_desde, $cuantia_hasta, */ $estado_proceso) {

@@ -1,0 +1,116 @@
+#modal_calendario .modal-content {
+    border-radius: 17px;
+    border: 0;
+}
+
+#modal_calendario .modal-header {
+    position: relative;
+    text-align: center;
+    padding-right: 48px!important;
+    border: 0!important;
+}
+
+#modal_calendario .modal-header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid #e9ecef;
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
+}
+
+#modal_calendario .modal-header .modal-title {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    font-family: Nexa-bold;
+    font-weight: 400;
+    color: #686868;
+    font-size: 20px;
+    padding-top: 8px;
+    line-height: 1.3;
+}
+
+#modal_calendario .modal-header .icon-Cerrar-modal {
+    position: absolute;
+    top: 17px;
+    right: 17px;
+    display: inline-block;
+    z-index: 3;
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    font-size: 43px;
+    color: #c9003d;
+    border: 0;
+    background-color: transparent;
+    outline: none;
+    font-weight: 400;
+}
+
+#modal_calendario .modal-header .icon-Cerrar-modal:hover {
+    opacity: .7;
+    cursor: pointer;
+}
+
+#modal_calendario .modal-body{
+    text-align: center;
+}
+
+#modal_calendario .modal-footer{
+    justify-content: center;
+    border: none;
+}
+
+#modal_calendario .rdrDefinedRangesWrapper,
+#modal_calendario .rdrDateDisplayWrapper{
+    display: none;;
+}
+
+#modal_calendario .rdrStartEdge, 
+#modal_calendario .rdrEndEdge{
+    color: #00a1c9 !important;
+}
+
+#modal_calendario .rdrStartEdge ~ .rdrDayNumber span,
+#modal_calendario .rdrEndEdge ~ .rdrDayNumber span{
+    color: #fff !important;
+}
+
+#modal_calendario .rdrInRange{
+    color: #d9f1f7 !important;    
+}
+
+
+#modal_calendario .rdrDay {
+    font-size: 16px;
+}
+
+#modal_calendario .rdrDay:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span, 
+#modal_calendario .rdrDay:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span {
+    color: #686868;
+    font-weight: 400;
+    font-family: 'Nexa-regular';
+}
+
+#modal_calendario .rdrStartEdge ~ .rdrDayNumber span, 
+#modal_calendario .rdrEndEdge ~ .rdrDayNumber span {
+    color: #fff !important;
+    font-weight: 400;
+    font-family: 'Nexa-regular';
+}
+
+button.rdrDay.rdrDayToday span {
+    color: #00a1c9 !important;
+}
+
+#modal_calendario .rdrDayToday .rdrDayNumber span:after{
+    background: none !important;
+}

@@ -30,35 +30,17 @@ import CrearCarpeta from "@/Components/CrearCarpeta";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import ModalDocumentos from "@/Components/ModalDocumentos";
+import ModalCalendario from "@/Components/ModalCalendario";
+
 
 
 const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfiles, visualizar }) => {
     const [visualizarFilter, setVisualizarFilter] = useState(visualizar)
     const [tabla, setTabla] = useState(contratos);
-    console.log(tabla)
-
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
 
-    /*     useEffect(() => {
-            setTabla(contratos)
-        }, [contratos]) */
-
-    const paginator = (url) => {
-        console.log("selectedContratos", selectedContratos)
-        setLoading(true)
-        let _url = url + getUrlParams()
-        axios.get(_url)
-            .then(response => {
-                setTabla(response.data)
-                setPageNumber(response.data.current_page - 1)
-                setPageSize(tabla.last_page + 1);
-                setLoading(false)
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }
+    var filterFechaPublicacion = "";
 
     const paginatorPost = (event, _visualizar = null, paginator_url = null) => {
         var page = ""
@@ -105,7 +87,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                 break;
         }
 
-        if (event?.key === 'Enter') {//Filtros del DataTable y busqueda rapida
+        if (event?.key === 'Enter' || event == undefined) {//Filtros del DataTable y busqueda rapida, undefined: filtro de fecha
             paginatorPostSendRequest(`${full_url}`, `${paginator_url != null ? page : ""}`)
         }
         if (event?.type === 'click') {//Select Visualizar
@@ -194,7 +176,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             codigo_proceso: inputFilterCodigoProceso,
             entidad_contratante: inputFilterEntidadContratante,
             estado_proceso: inputFilterEstadoProceso,
-            fecha_publicacion: inputFilterFechaPublicacion,
+            fecha_publicacion: filterFechaPublicacion,
             modalidad: inputFilterModalidad,
             objeto: inputFilterObjeto,
             ubicacion: inputFilterUbicacion,
@@ -787,17 +769,17 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             <span>{grupo.fecha_publicacion}</span>
         );
     }
-    const actividadEconomicaBodyTemplate = (grupo) =>{
+    const actividadEconomicaBodyTemplate = (grupo) => {
         return (
             <span>{grupo.actividades_economicas}</span>
         );
     }
-    const modalidadBodyTemplate = (grupo) =>{
+    const modalidadBodyTemplate = (grupo) => {
         return (
             <span>{grupo.modalidad}</span>
         );
     }
-    const numeroBodyTemplate = (grupo) =>{
+    const numeroBodyTemplate = (grupo) => {
         return (
             <span>{grupo.codigo_proceso}</span>
         );
@@ -886,7 +868,20 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const columnFilterTemplate = (column) => {
         return (
             <>
-                {column.field == "inputFilterModalidad" || column.field == "inputFilterUbicacion" || column.field == "inputFilterActividadEconomica" ?
+                {column.field == "inputFilterFechaPublicacion" &&
+                    <input
+                        type="text"
+                        className="p-inputtext p-component p-column-filter"
+                        placeholder="Seleccionar"
+                        name={column.field}
+                        onClick={() => handleShowModalCalendario()}
+                        onInput={(e) => {
+                            dt.current.filter(e.target.value, column.field, 'contains');
+                        }}
+                        value={inputFilterFechaPublicacion}
+                    />
+                }
+                {column.field == "inputFilterModalidad" || column.field == "inputFilterUbicacion" || column.field == "inputFilterActividadEconomica" &&
                     <input
                         type="text"
                         className="p-inputtext p-component p-column-filter"
@@ -897,17 +892,13 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                             dt.current.filter(e.target.value, column.field, 'contains');
                         }}
                     />
-                    :
+                }
+                {column.field != "inputFilterFechaPublicacion" && column.field != "inputFilterModalidad" && column.field != "inputFilterUbicacion" && column.field != "inputFilterActividadEconomica" &&
                     <input
                         type="text"
                         className="p-inputtext p-component p-column-filter"
                         placeholder="Buscar"
                         name={column.field}
-                        /* onKeyPress={()=>paginator(`${tabla.path}?page=${tabla.current_page}`)} */
-                        /* onChange={(e) => onGlobalFilterChange(e, column.field)}
-                        onInput={(e) => {
-                            dt.current.filter(e.target.value, column.field, 'contains');
-                        }} */
                         onKeyDown={paginatorPost}
                         onChange={(e) => updateState(column.field, e.target.value)}
                     />
@@ -2008,6 +1999,22 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         });
     };
 
+    const [showModalCalendario, setShowModalCalendario] = useState(false);
+    const handleCloseModalCalendario = (start, end) => {
+        if (end != undefined) {
+            filterFechaPublicacion = {start: start, end: end}
+            setInputFilterFechaPublicacion(`${start} ${end}`)
+            
+            paginatorPost()
+        }else{
+            console.log("else")
+        }
+        setShowModalCalendario(false)
+    };
+    const handleShowModalCalendario = () => {
+        setShowModalCalendario(true)
+    };
+
     return (
         <AuthenticatedLayout auth={auth} page={'contratos'} carpetas={folders} grupos={grupos} carpeta_actual={carpeta_actual} perfiles={perfiles} zona={zona} globalLoading={globalLoading}>
             <div className="content_not_blank_interno">
@@ -2041,7 +2048,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                         <Column field="inputFilterEstadoProceso" header="Estado" filter filterPlaceholder="Buscar" className="columna_estado" body={estadoBodyTemplate} filterElement={columnFilterTemplate} />
                         <Column field="inputFilterFechaPublicacion" header="Publicada" filter filterPlaceholder="Buscar" className="columna_fecha" body={fechaBodyTemplate} filterElement={columnFilterTemplate} />
                         <Column field="inputFilterUbicacion" header="Ubicación" filter filterPlaceholder="Seleccionar" className="columna_ubicacion" body={ubicacionBodyTemplate} filterElement={columnFilterTemplate} />
-                        <Column field="inputFilterActividadEconomica" header="Actividad Económica" filter filterElement={columnFilterTemplate} body={actividadEconomicaBodyTemplate}/>
+                        <Column field="inputFilterActividadEconomica" header="Actividad Económica" filter filterElement={columnFilterTemplate} body={actividadEconomicaBodyTemplate} />
                     </DataTable>
                 </div>
             </div>
@@ -2565,6 +2572,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                 </div>
             </Sidebar>
             <ModalDocumentos showModal={showModalDocumentos} handleCloseModal={handleCloseModalDocumentos} modalId="modal_documentos" data={dataModalDocumentos}></ModalDocumentos>
+            <ModalCalendario showModal={showModalCalendario} handleCloseModal={handleCloseModalCalendario} modalId="modal_calendario" />
             <Toast ref={toastBL} position="bottom-left" />
         </AuthenticatedLayout >
     );
