@@ -13,7 +13,6 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
-import { InputText } from 'primereact/inputtext';
 import { Sidebar } from 'primereact/sidebar';
 
 
@@ -60,16 +59,6 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
 
-    /*Variables globales */
-    var filterActividadesEconomicas = []
-    var filterFechaPublicacion = "";
-    var filterEstadosProceso = "";
-    var filterCodigoProceso = "";
-    var filterEntidadContratante = ""
-    var filterObjeto = ""
-    var filterValor = ""
-    /*Variables globales */
-
     const paginatorPost = (event, _visualizar = null, paginator_url = null) => {
         var page = ""
         if (paginator_url != null) {
@@ -101,7 +90,6 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                 break;
         }
 
-        var url = ''
         var full_url = ''
         switch (zona) {
             case 'MP':
@@ -214,40 +202,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         return query
     }
 
-    const getUrlParams = () => {
-        let paginador_zona = ''
-        switch (zona) {
-            case 'C':
-                paginador_zona = 'carpeta'
-                break;
-            default:
-                break;
-        }
-        let rapida = document.querySelector('input[name="rapida"]')?.value
-
-        let portal = document.querySelector('input[name="fuente.alias_portal"]')?.value
-        let entidad_contratante = document.querySelector('input[name="entidad_contratante"]')?.value
-        let objeto = document.querySelector('input[name="objeto"]')?.value
-        let valor = document.querySelector('input[name="valor"]')?.value
-        let modalidad = document.querySelector('input[name="modalidad"]')?.value
-        let codigo_proceso = document.querySelector('input[name="codigo_proceso"]')?.value
-        let estado_proceso = document.querySelector('input[name="estado_proceso"]')?.value
-        let fecha_publicacion = document.querySelector('input[name="fecha_publicacion"]')?.value
-        let ubicacion = document.querySelector('input[name="ubicacion"]')?.value
-        let actividad_economica = document.querySelector('input[name="actividad_economica"]')?.value
-        return `&${paginador_zona}=${carpeta_actual?.id}&type=fetch&rapida=${rapida}&portal=${portal}&entidad_contratante=${entidad_contratante}&objeto=${objeto}&valor=${valor}&modalidad=${modalidad}&codigo_proceso=${codigo_proceso}&estado_proceso=${estado_proceso}&fecha_publicacion=${fecha_publicacion}&ubicacion=${ubicacion}&actividad_economica=${actividad_economica}`
-    }
-
-
-    // let queryStringBusquedaAvanzada = "";
-    const [queryStringBusquedaAvanzada, setqueryStringBusquedaAvanzada] =
-        useState("");
-
-    const [tableContratos, setTableContratos] = useState(contratos.data);
-
-
     /*Inicio - ver más, ver menos */
-    const [showLess, setShowLess] = useState(true);
     const [showMoreSelecteds, setShowMoreSelecteds] = useState([]);
     const onHandleShowMoreSelecteds = (data, type) => {
         switch (type) {
@@ -282,9 +237,6 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         });
     }, [showMoreSelecteds])
 
-    const hideData = () => {
-        setShowMoreSelected([]);
-    };
     /*Fin - ver más, ver menos */
 
     /*Inicio Scroll*/
@@ -323,136 +275,11 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     });
     /*Fin Scroll*/
 
-    /*Inicio Buscador rapido y paginador */
-    const [totalPaginas, setTotalPaginas] = useState(contratos.to);
-    const [currentPage, setCurrentPage] = useState(contratos.from);
-    const [totalElementos, setTotalElementos] = useState(contratos.total);
-    const [nextPage, setNextPage] = useState(contratos.next_page_url);
-    const [prevPage, setPrevPage] = useState(contratos.prev_page_url);
-    const [inputSearch, setInputSearch] = useState("");
-    const [inputFechaPublicacion, setInputFechaPublicacion] = useState("");
-
-    // Define pagination properties
-    const [rowsPerPage, setRowsPerPage] = useState(10);
-
-    const onPageChange = event => setCurrentPage(event.first / event.rows);
-    const onRowsChange = event => setRowsPerPage(event.target.value);
-
-    const totalRecords = contratos.data.length;
-
-    /* const getUrlParams = () => {
-        //Obtener inputs de formulario y guardarlos en objeto
-        var form = document.getElementById("form_busqueda_rapida");
-        let formData = new FormData(form);
-        let object = {};
-        formData.forEach(function (value, key) {
-            object[key] = value;
-        });
-        const querystring = encodeQueryData(object);
-        return querystring;
-    }; */
-
-    const encodeQueryData = (data) => {
-        //Convertir objeto en url
-        const ret = [];
-        for (let d in data)
-            ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
-        return ret.join("&");
-    };
-
-    const pageChange = (url) => {
-        // debugger;
-        //Peticiones por paginador
-        if (url == null) return;
-        let querystring = getUrlParams();
-        if (queryStringBusquedaAvanzada !== "") {
-            querystring = queryStringBusquedaAvanzada;
-        }
-        setLoading(true);
-        fetch(url + "&" + querystring)
-            .then((response) => response.json())
-            .then((data) => {
-                tableFormat(data);
-                setLoading(false);
-            });
-    };
-
-    const buscadorRapido = useRef(0);
-
-    /* useEffect(() => {
-        if (buscadorRapido.current != 0) {
-            buscadorRapido.current.addEventListener(
-                "keypress",
-                function (event) {
-                    if (event.key === "Enter") {
-                        event.preventDefault();
-                        const querystring = getUrlParams();
-                        setLoading(true);
-                        setqueryStringBusquedaAvanzada("");
-                        fetch("/contratos/?" + querystring)
-                            // fetch("/contratos/?entidad_contratante=coquimbo&fecha_publicacion=&type=fetch")
-                            .then((response) => response.json())
-                            .then((data) => {
-                                // console.log(data);
-                                tableFormat(data);
-                                setLoading(false);
-                            });
-                    }
-                }
-            );
-        }
-    }, []); */
-
-    const busquedaAvanzada = (queryString) => {
-        // debugger;
-        setqueryStringBusquedaAvanzada(queryString + "&type=fetch");
-        setLoading(true);
-        fetch("/contratos/?" + queryString + "&type=fetch")
-            // fetch("/contratos/?entidad_contratante=turismo&fecha_publicacion=&type=fetch")
-            .then((response) => response.json())
-            .then((data) => {
-                tableFormat(data);
-                setLoading(false);
-            });
-        setShowBusquedaAvanzada(false);
-    };
-
-    const tableFormat = (data) => {
-        //Formatear valores del paginador
-        // debugger;
-        setTableContratos(data.data);
-        setTotalPaginas(data.to);
-        setCurrentPage(data.from);
-        setTotalElementos(data.total);
-        setNextPage(data.next_page_url);
-        setPrevPage(data.prev_page_url);
-    };
-
-    useEffect(() => {
-        //Al cargar la pagina, si hay parametros asignar valores al formulario
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const fecha_publicacion = urlParams.get("fecha_publicacion");
-        if (fecha_publicacion != null) {
-            setInputFechaPublicacion(fecha_publicacion);
-        }
-        const buscador_rapido = urlParams.get("buscador_rapido");
-        if (buscador_rapido != null) {
-            setInputSearch(buscador_rapido);
-        }
-    }, []);
 
     /*Inicio Loader */
     const [loading, setLoading] = useState(false);
     /*Fin Loader */
 
-    // Inicio buscador avanzado
-
-    const [showBusquedaAvanzada, setShowBusquedaAvanzada] = useState(false);
-    const handleCloseBusquedaAvanzada = () => setShowBusquedaAvanzada(false);
-    const handleShowBusquedaAvanzada = () => setShowBusquedaAvanzada(true);
-    const handleBusqueda = (queryString) => busquedaAvanzada(queryString);
-    // fin buscador avanzado
 
 
 
@@ -487,12 +314,6 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
 
 
 
-
-
-
-
-
-    const [data, setData] = useState(contratos.data);
     const [filters, setFilters] = useState({
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
         'fuente.alias_portal': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -506,9 +327,6 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         ubicacion: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
         actividad_economica: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
     });
-
-    //const [loading, setLoading] = useState(false);
-    const [statuses] = useState(['No', 'Si']);
 
 
     const clearTemplate = (options) => {
@@ -546,19 +364,11 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
 
 
 
+    const toast = useRef(null);
+
 
     /*Tr child */
     const [expandedRows, setExpandedRows] = useState(null);
-    const toast = useRef(null);
-    const onRowExpand = (event) => {
-        toast.current.show({ severity: 'info', summary: 'Product Expanded', detail: event.data.actividad_economica, life: 3000 });
-    };
-
-    const onRowCollapse = (event) => {
-        toast.current.show({ severity: 'success', summary: 'Product Collapsed', detail: event.data.actividad_economica, life: 3000 });
-    };
-
-
     const expandAll = () => {
         let _expandedRows = {};
         tabla.data.forEach((p) => { (_expandedRows[`${p.id}`] = true) });
@@ -567,10 +377,6 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     useEffect(() => {
         expandAll()
     }, [tabla])
-
-    const collapseAll = () => {
-        setExpandedRows(null);
-    };
 
     const rowExpansionTemplate = (data) => {
         return (
@@ -764,98 +570,28 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const [rowClick, setRowClick] = useState(false);
     /*Checks */
 
-    const portalBodyTemplate = (grupo) => {
-        return (
-            <>
-                <span className="icon_tipo_secop">
-                    <i className="icono_fuente__list">{grupo.fuente.alias_portal}</i>
-                </span>
-            </>
-        );
-    };
-    const entidadBodyTemplate = (grupo) => {
-        return (
-            <div className="content_ver_mas_grid entidad_grid">
-                <p className="span_grid">{grupo.entidad_contratante}</p>
-            </div>
-        );
-    };
-    const objetoBodyTemplate = (grupo) => {
-        return (
-            <div className="content_ver_mas_grid objeto_grid">
-                <p className="objeto_grid_p">
-                    <span className="objeto_grid_span">
-                        <span className="tt-uppercase">{grupo.objeto}</span>
-                        <a className="vermas text-right mr-0 mt-0" onClick={() => onHandleShowMoreSelecteds(grupo.id, 'add')}>Ver más<i className="icon-Desplegar"></i></a>
-                    </span>
-                </p>
-            </div>
-        );
-    };
-    const fechaBodyTemplate = (grupo) => {
-        return (
-            <span>{grupo.fecha_publicacion}</span>
-        );
-    }
-    const actividadEconomicaBodyTemplate = (grupo) => {
-        return (
-            <span>{grupo.actividades_economicas}</span>
-        );
-    }
-    const modalidadBodyTemplate = (grupo) => {
-        return (
-            <span>{grupo.modalidad}</span>
-        );
-    }
-    const numeroBodyTemplate = (grupo) => {
-        return (
-            <span>{grupo.codigo_proceso}</span>
-        );
-    }
-    const cuantiaBodyTemplate = (grupo) => {
-        return (
-            <span className="valor_range--estandar d-flex justify-content-center">
-                <i className="valor_range__moneda sin-min-width">$</i>{(grupo.valor).toLocaleString("en-US", options).replace('COP', '')}
-            </span>
-        );
-    };
-    const estadoBodyTemplate = (grupo) => {
-        return (
-            <span style={{ fontFamily: "Nexa-bold", color: "rgb(115, 201, 20)" }}>{grupo.estado_proceso}</span>
-        );
-    };
-    const ubicacionBodyTemplate = (grupo) => {
-        return (
-            <div className="content_ver_mas_grid ubicaciones_grid">
-                <p className="scroll_fit">
-                    <span>
-                        <span>{grupo.ubicacion}</span>
-                    </span>
-                </p>
-            </div>
-        );
-    };
 
 
-    const handleColumnFilterClick = (event, column) => {
-        // Do something with the event and column
-        console.log('Clicked on column filter', column);
-    };
-    const columnFilterOpenModal = (column) => {
-        return (
-            <input
-                type="text"
-                className="p-inputtext p-component p-column-filter column_ver_mas columna_actividad rounded_right"
-                placeholder="Seleccionar"
-                /* onClick={(event) => handleColumnFilterClick(event, column)} */
-                onClick={() => handleShowModal(column.field)}
-                onInput={(e) => {
-                    dt.current.filter(e.target.value, 'actividad_economica', 'contains');
-                }}
-            />
-        );
-    };
 
+
+    /*Variables globales*/
+    var filterActividadesEconomicas = []
+    var filterFechaPublicacion = "";
+    var filterEstadosProceso = "";
+    var filterCodigoProceso = "";
+    var filterEntidadContratante = ""
+    var filterObjeto = ""
+    var filterValor = ""
+    /*Variables globales */
+
+    /*Variables para enviar valor a variable global una vez renderizada la página */
+    const [inputValor, setInputValor] = useState("")
+    const [inputFechaPublicacion, setInputFechaPublicacion] = useState("")
+    const [inputEstadosProceso, setEstadosProceso] = useState("")
+
+    /*Variables para enviar valor a variable global una vez renderizada la página */
+
+    /*textos de los inputs para filtrar */
     const [inputFilterBusquedaRapida, setInputFilterBusquedaRapida] = useState("")
     const [inputFilterEntidadContratante, setInputFilterEntidadContratante] = useState("")
     const [inputFilterObjeto, setInputFilterObjeto] = useState("")
@@ -866,6 +602,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const [inputFilterFechaPublicacion, setInputFilterFechaPublicacion] = useState("")
     const [inputFilterUbicacion, setInputFilterUbicacion] = useState([])
     const [inputFilterActividadEconomica, setInputFilterActividadEconomica] = useState([])
+    /*textos de los inputs para filtrar */
 
     const stateObject = {
         inputFilterEntidadContratante: [inputFilterEntidadContratante, setInputFilterEntidadContratante],
@@ -885,6 +622,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
 
     /*Filtros pernozalizados */
     const fechaColumnFilterTemplate = (column) => {
+        filterFechaPublicacion = inputFechaPublicacion
         return (
             <div className="filter">
                 <input
@@ -907,6 +645,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     };
 
     const estadocolumnFilterTemplate = (column) => {
+        filterEstadosProceso = inputEstadosProceso
         return (
             <div className="filter">
                 <input
@@ -928,6 +667,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     };
 
     const valorFilterTemplate = (column) => {
+        filterValor = inputValor
         return (
             <div className="filter">
                 <input
@@ -1008,6 +748,80 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     };
     /*Filtros pernozalizados */
 
+    /*Contenido de columnas personalizadas*/
+    const portalBodyTemplate = (grupo) => {
+        return (
+            <>
+                <span className="icon_tipo_secop">
+                    <i className="icono_fuente__list">{grupo.fuente.alias_portal}</i>
+                </span>
+            </>
+        );
+    };
+    const entidadBodyTemplate = (grupo) => {
+        return (
+            <div className="content_ver_mas_grid entidad_grid">
+                <p className="span_grid">{grupo.entidad_contratante}</p>
+            </div>
+        );
+    };
+    const objetoBodyTemplate = (grupo) => {
+        return (
+            <div className="content_ver_mas_grid objeto_grid">
+                <p className="objeto_grid_p">
+                    <span className="objeto_grid_span">
+                        <span className="tt-uppercase">{grupo.objeto}</span>
+                        <a className="vermas text-right mr-0 mt-0" onClick={() => onHandleShowMoreSelecteds(grupo.id, 'add')}>Ver más<i className="icon-Desplegar"></i></a>
+                    </span>
+                </p>
+            </div>
+        );
+    };
+    const fechaBodyTemplate = (grupo) => {
+        return (
+            <span>{grupo.fecha_publicacion}</span>
+        );
+    }
+    const actividadEconomicaBodyTemplate = (grupo) => {
+        return (
+            <span>{grupo.actividades_economicas}</span>
+        );
+    }
+    const modalidadBodyTemplate = (grupo) => {
+        return (
+            <span>{grupo.modalidad}</span>
+        );
+    }
+    const numeroBodyTemplate = (grupo) => {
+        return (
+            <span>{grupo.codigo_proceso}</span>
+        );
+    }
+    const cuantiaBodyTemplate = (grupo) => {
+        return (
+            <span className="valor_range--estandar d-flex justify-content-center">
+                <i className="valor_range__moneda sin-min-width">$</i>{(grupo.valor).toLocaleString("en-US", options).replace('COP', '')}
+            </span>
+        );
+    };
+    const estadoBodyTemplate = (grupo) => {
+        return (
+            <span style={{ fontFamily: "Nexa-bold", color: "rgb(115, 201, 20)" }}>{grupo.estado_proceso}</span>
+        );
+    };
+    const ubicacionBodyTemplate = (grupo) => {
+        return (
+            <div className="content_ver_mas_grid ubicaciones_grid">
+                <p className="scroll_fit">
+                    <span>
+                        <span>{grupo.ubicacion}</span>
+                    </span>
+                </p>
+            </div>
+        );
+    };
+    /*Contenido de columnas personalizadas*/
+
     const clearInputFilter = (input, value = "") => {
         updateState(input, value)
         switch (input) {
@@ -1027,6 +841,12 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                 filterActividadesEconomicas = []
                 setCheckedsActividadesEconomicas([])
                 break;
+            case "inputFilterValor":
+                filterValor = ""
+                setInputFilterValor("")
+                break;
+
+
             default:
                 break;
         }
@@ -1162,27 +982,6 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
 
     const [globalFilterValue, setGlobalFilterValue] = useState('');
 
-    const onGlobalFilterChange = (e, input_name) => {
-        if (input_name == "global") {
-            const value = e.target.value;
-            let _filters = { ...filters };
-            _filters[input_name].value = value;
-            setFilters(_filters);
-            setGlobalFilterValue(value);
-        }
-
-
-        let _url = `${tabla.path}?page=${tabla.current_page}` + getUrlParams()
-        axios.get(_url)
-            .then(response => {
-                setTabla(response.data)
-                setPageNumber(response.data.current_page - 1)
-                setPageSize(tabla.last_page + 1);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    };
 
     const renderHeader = () => {
         return (
@@ -2074,6 +1873,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const handleCloseModalCalendario = (start, end) => {
         if (end != undefined) {
             filterFechaPublicacion = { start: start, end: end }
+            setInputFechaPublicacion({ start: start, end: end })
             setInputFilterFechaPublicacion(`${start} ${end}`)
             paginatorPost()
         }
@@ -2087,6 +1887,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const handleCloseModalEstados = (estados) => {
         if (estados != null) {
             filterEstadosProceso = estados
+            setEstadosProceso(estados)
             setInputFilterEstadoProceso(`${estados.length} Seleccionado(s)`)
             paginatorPost()
         }
@@ -2101,6 +1902,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const handleCloseModalValor = (precios) => {
         if (precios != null) {
             filterValor = precios
+            setInputValor(precios)
             setInputFilterValor(`${precios[0].toLocaleString("en-US", options).replace('COP', '$')} - ${precios[1] > 0 ? precios[1].toLocaleString("en-US", options).replace('COP', '$') : "Sin limite superior"}`)
             paginatorPost()
         }
