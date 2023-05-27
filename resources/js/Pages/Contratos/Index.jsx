@@ -32,6 +32,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import ModalDocumentos from "@/Components/ModalDocumentos";
 import ModalCalendario from "@/Components/ModalCalendario";
 import ModalEstados from "@/Components/ModalEstados";
+import ModalValor from "@/Components/ModalValor";
 
 
 
@@ -59,12 +60,15 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
 
+    /*Variables globales */
     var filterActividadesEconomicas = []
     var filterFechaPublicacion = "";
     var filterEstadosProceso = "";
     var filterCodigoProceso = "";
     var filterEntidadContratante = ""
     var filterObjeto = ""
+    var filterValor = ""
+    /*Variables globales */
 
     const paginatorPost = (event, _visualizar = null, paginator_url = null) => {
         var page = ""
@@ -204,7 +208,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             modalidad: checkedsTiposCompras,
             objeto: filterObjeto,
             ubicacion: checkedsLocalizaciones,
-            valor: inputFilterValor,
+            valor: filterValor,
             type: 'fetch',
         }
         return query
@@ -811,7 +815,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const cuantiaBodyTemplate = (grupo) => {
         return (
             <span className="valor_range--estandar d-flex justify-content-center">
-                <i className="valor_range__moneda sin-min-width">$</i>{grupo.valor}
+                <i className="valor_range__moneda sin-min-width">$</i>{(grupo.valor).toLocaleString("en-US", options).replace('COP', '')}
             </span>
         );
     };
@@ -879,6 +883,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         stateObject[stateName][1](value);
     };
 
+    /*Filtros pernozalizados */
     const fechaColumnFilterTemplate = (column) => {
         return (
             <div className="filter">
@@ -901,7 +906,6 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         );
     };
 
-
     const estadocolumnFilterTemplate = (column) => {
         return (
             <div className="filter">
@@ -918,6 +922,27 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                 />
                 {inputFilterEstadoProceso != "" &&
                     <i class="icon-Cancelar clearfilter_grid" onClick={() => clearInputFilter("inputFilterEstadoProceso")}></i>
+                }
+            </div>
+        );
+    };
+
+    const valorFilterTemplate = (column) => {
+        return (
+            <div className="filter">
+                <input
+                    type="text"
+                    className="p-inputtext p-component p-column-filter"
+                    placeholder="Seleccionar"
+                    name={column.field}
+                    onClick={() => handleShowModalValor()}
+                    onInput={(e) => {
+                        dt.current.filter(e.target.value, column.field, 'contains');
+                    }}
+                    value={inputFilterValor}
+                />
+                {inputFilterValor != "" &&
+                    <i class="icon-Cancelar clearfilter_grid" onClick={() => clearInputFilter("inputFilterValor")}></i>
                 }
             </div>
         );
@@ -981,6 +1006,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             </div>
         );
     };
+    /*Filtros pernozalizados */
 
     const clearInputFilter = (input, value = "") => {
         updateState(input, value)
@@ -1259,38 +1285,6 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
 
                                     </NavDropdown>
                                 </Nav>
-
-                                {/* <div id="dropdown-filtro-nuevos" className="dropdown d-inline-block dropdown_filtros show">
-                                    <button type="button" id="dropdown-filtro" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="true" className="btn ml-2 dropdown-toggle btn-gris">
-                                        <span className="ver-filtros">
-                                            <span className="mr-2">Visualizar:</span>
-                                            <span className="text-ver-filtros d-inline-flex pl-3 bg-white">
-                                                <span className="align-self-center d-inline-flex iconOrdenamientoGrid">
-                                                    <span className="icon-Todos"></span>
-                                                </span>
-                                                <span className="text-ver-filtros__text text-left">Todos</span>
-                                            </span>
-                                        </span>
-                                    </button>
-                                    <div aria-labelledby="dropdown-filtro" className="dropdown-menu show" x-placement="bottom-start">
-                                        <button type="button" className="dropdown-item" style={{ display: 'none' }}>
-                                            <span className="icon-options-order">
-                                                <span className="icon-Todos"></span>
-                                            </span>
-                                            <span className="text-options-order">Todos</span>
-                                        </button>
-                                        <button type="button" className="dropdown-item">
-                                            <span className="icon-options-order">
-                                                <span className="icon-Vistos-recientemente"></span></span>
-                                            <span className="text-options-order">Vistos recientemente</span></button>
-                                        <button type="button" className="dropdown-item">
-                                            <span className="icon-options-order"><span className="icon-Contratos"></span>
-                                            </span>
-                                            <span className="text-options-order">Notas creadas</span>
-                                        </button>
-                                    </div>
-                                </div> */}
                             </div>
                             {zona == "F" &&
                                 <div className="d-inline-block seccion-estas-en">
@@ -2102,6 +2096,20 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         setShowModalEstados(true)
     };
 
+    const options = { style: "currency", currency: "COP", minimumFractionDigits: 0 };
+    const [showModalValor, setShowModalValor] = useState(false);
+    const handleCloseModalValor = (precios) => {
+        if (precios != null) {
+            filterValor = precios
+            setInputFilterValor(`${precios[0].toLocaleString("en-US", options).replace('COP', '$')} - ${precios[1] > 0 ? precios[1].toLocaleString("en-US", options).replace('COP', '$') : "Sin limite superior"}`)
+            paginatorPost()
+        }
+        setShowModalValor(false)
+    };
+    const handleShowModalValor = () => {
+        setShowModalValor(true)
+    };
+
     const handleCloseModalActividadEconomica = () => {
         console.log("checkedsActividadesEconomicas", checkedsActividadesEconomicas)
         console.log("checkedsLocalizaciones", checkedsLocalizaciones)
@@ -2138,7 +2146,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                         <Column field="fuente.alias_portal" header="Portal" filterPlaceholder="Todos" className="rounded_left columna_tipo_secop" body={portalBodyTemplate} filterElement={columnFilterTemplate} />
                         <Column field="inputFilterEntidadContratante" header="Entidad" filter filterPlaceholder="Buscar" className="columna_entidad columna_120" body={entidadBodyTemplate} filterElement={columnFilterTemplate} />
                         <Column field="inputFilterObjeto" header="Obejto" filter filterPlaceholder="Buscar" className="objeto_columna" body={objetoBodyTemplate} filterElement={columnFilterTemplate} />
-                        <Column field="inputFilterValor" header="Cuantía" filter filterPlaceholder="Buscar" className="rangedropdown columna_120 columna_cuantia" body={cuantiaBodyTemplate} filterElement={columnFilterTemplate} />
+                        <Column field="inputFilterValor" header="Cuantía" filter filterPlaceholder="Buscar" className="rangedropdown columna_120 columna_cuantia" body={cuantiaBodyTemplate} filterElement={valorFilterTemplate} />
                         <Column field="inputFilterModalidad" header="Modalidad" filter filterPlaceholder="Seleccionar" className="columna_100 columna_modalidad" body={modalidadBodyTemplate} filterElement={actividadEconomicaColumnFilterTemplate} />
                         <Column field="inputFilterCodigoProceso" header="Número" filter filterPlaceholder="Buscar" className="columna_numero" body={numeroBodyTemplate} filterElement={columnFilterTemplate} />
                         <Column field="inputFilterEstadoProceso" header="Estado" filter filterPlaceholder="Buscar" className="columna_estado" body={estadoBodyTemplate} filterElement={estadocolumnFilterTemplate} />
@@ -2673,6 +2681,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             <ModalDocumentos showModal={showModalDocumentos} handleCloseModal={handleCloseModalDocumentos} modalId="modal_documentos" data={dataModalDocumentos}></ModalDocumentos>
             <ModalCalendario showModal={showModalCalendario} handleCloseModal={handleCloseModalCalendario} modalId="modal_calendario" />
             <ModalEstados showModal={showModalEstados} handleCloseModal={handleCloseModalEstados} modalId="modal_filtro_estado" />
+            <ModalValor showModal={showModalValor} handleCloseModal={handleCloseModalValor} modalId="modal_filtro_valor" />
             <Toast ref={toastBL} position="bottom-left" />
         </AuthenticatedLayout >
     );

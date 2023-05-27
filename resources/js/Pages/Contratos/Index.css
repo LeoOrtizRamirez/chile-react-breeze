@@ -1733,7 +1733,7 @@ input.p-inputtext.p-component.p-column-filter:not(:placeholder-shown)::before {
 #contratos .valor_range--estandar i {
     color: #73c914;
     min-width: 28px;
-    padding-right: 6px;
+    /* padding-right: 6px; */
 }
 
 #contratos .valor_range__moneda {

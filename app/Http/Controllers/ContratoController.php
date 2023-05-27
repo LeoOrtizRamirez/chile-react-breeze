@@ -65,7 +65,10 @@ class ContratoController extends Controller
         if (isset($request["query"]["rapida"]) && $request["query"]["rapida"] != "") {
             $rapida = $request["query"]["rapida"];
         }
-
+        $valor = "";
+        if (isset($request["query"]["valor"]) && $request["query"]["valor"] != "") {
+            $valor = $request["query"]["valor"];
+        }
         $filtrar_nuevos = 0;
         if (isset($request->filtrar_nuevos) && !is_null($request->filtrar_nuevos)) {
             switch ($request->filtrar_nuevos) {
@@ -93,7 +96,7 @@ class ContratoController extends Controller
         }
 
 
-        $contratos = $this->getAllContratos($request, $rapida, $fecha_publicacion, $actividad_economica, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos);
+        $contratos = $this->getAllContratos($request, $rapida, $valor, $fecha_publicacion, $actividad_economica, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos);
 
 
         $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
@@ -185,6 +188,10 @@ class ContratoController extends Controller
         if (isset($request["query"]["rapida"]) && $request["query"]["rapida"] != "") {
             $rapida = $request["query"]["rapida"];
         }
+        $valor = "";
+        if (isset($request["query"]["valor"]) && $request["query"]["valor"] != "") {
+            $valor = $request["query"]["valor"];
+        }
         /* $ubicacion = "";
         if (isset($request["query"]["ubicacion"]) && $request["query"]["ubicacion"] != "") {
             $ubicacion = $request["query"]["ubicacion"];
@@ -264,7 +271,7 @@ class ContratoController extends Controller
                     foreach ($carpeta_has_contrato as $key => $value) {
                         $ids_contratos[] = $value->id_contrato;
                     }
-                    $contratos = $this->getAllContratos($request, $rapida, $fecha_publicacion, $actividad_economica, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos, $ids_contratos);
+                    $contratos = $this->getAllContratos($request, $rapida, $valor, $fecha_publicacion, $actividad_economica, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos, $ids_contratos);
 
                     /* $contratos = Contrato::with('fuente')
                         ->whereIn('id', $ids_contratos)
@@ -362,7 +369,7 @@ class ContratoController extends Controller
                 }
             }
         } else { //MP - AL
-            $contratos = $this->getAllContratos($request, $rapida, $fecha_publicacion, $actividad_economica, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos);
+            $contratos = $this->getAllContratos($request, $rapida, $valor, $fecha_publicacion, $actividad_economica, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos);
         }
 
 
@@ -446,7 +453,7 @@ class ContratoController extends Controller
     }
 
 
-    public function getAllContratos($request, $rapida, $fecha_publicacion, $actividad_economica, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos, $ids_contratos_carpetas = null)
+    public function getAllContratos($request, $rapida, $valor, $fecha_publicacion, $actividad_economica, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos, $ids_contratos_carpetas = null)
     {
 
         $contratos_con_notas = $this->getContratosIdsConNotas();
@@ -518,6 +525,15 @@ class ContratoController extends Controller
                 ->where(function ($query) use ($fecha_publicacion) {
                     if (!is_null($fecha_publicacion) && $fecha_publicacion != "") {
                         $query->whereBetween('fecha_publicacion', [$fecha_publicacion["start"], $fecha_publicacion["end"]]);
+                    }
+                })
+                ->where(function ($query) use ($valor) {
+                    if (!is_null($valor) && $valor != "") {
+                        if ($valor[1] == 0) {
+                            $query->where('valor', '>=',  $valor[0]);
+                        } else {
+                            $query->whereBetween('valor', $valor);
+                        }
                     }
                 })
                 ->where(function ($query) use ($estado_proceso) {

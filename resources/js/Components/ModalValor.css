@@ -1,0 +1,94 @@
+#modal_filtro_valor .modal-content {
+    border-radius: 17px;
+    border: 0;
+}
+
+#modal_filtro_valor .modal-header {
+    position: relative;
+    text-align: center;
+    padding-right: 48px!important;
+    border: 0!important;
+}
+
+#modal_filtro_valor .modal-header .modal-title {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    font-family: Nexa-bold;
+    font-weight: 400;
+    color: #686868;
+    font-size: 20px;
+    padding-top: 8px;
+    line-height: 1.3;
+}
+
+#modal_filtro_valor .modal-header .icon-Cerrar-modal {
+    right: 17px !important;
+}
+
+#modal_filtro_valor .modal-body {
+    padding-right: 55px;
+    padding-left: 55px;
+}
+
+#modal_filtro_valor .modal-body .margtop {
+    margin-top: 20px;
+}
+
+#modal_filtro_valor .modal-body .cuadro_text_cuantia {
+    padding: 0 35px;
+    display: block;
+    position: relative;
+}
+
+#modal_filtro_valor .modal-body .cuadro_text_cuantia label {
+    position: relative;
+    display: block;
+    padding-bottom: 15px;
+    font-family: Nexa-bold;
+    font-size: 16px;
+    font-weight: 400!important;
+    color: #5b5b5f;
+    padding: 0 10px 13px 28px;
+}
+
+#modal_filtro_valor .modal-body .cuadro_text_cuantia label>span {
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    font-size: 20px;
+}
+
+#modal_filtro_valor .modal-body .cuadro_text_cuantia input {
+    border-radius: 20px;
+    border: 2px solid #ddd;
+    display: block;
+    padding: 5px 30px;
+    font-size: 13px;
+    font-family: Nexa-regular;
+}
+
+#modal_filtro_valor .btnAceptarModal {
+    color: #73c914 !important;
+    border: 2px solid #73c914 !important;
+    font-family: Nexa-bold !important;
+    font-size: 16px;
+    font-weight: 400!important;
+    background: none;
+    border-radius: 25px;
+    padding: 4px 28px !important;
+    display: inline-block;
+    cursor: pointer;
+}
+
+#modal_filtro_valor .btnAceptarModal:hover, #modal_filtro_valor .btnAceptarModal:focus {
+    background: #73c914!important;
+    color: #fff!important;
+}
+
+#modal_filtro_valor .modal-footer{
+    justify-content: center;
+    border: none;
+    padding-top: 35px;
+    padding-bottom: 20px;
+}
