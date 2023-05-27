@@ -60,8 +60,11 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const [pageNumber, setPageNumber] = useState(0);
 
     var filterFechaPublicacion = "";
-    var filterActividad = [];
     var filterEstadosProceso = "";
+    var filterCodigoProceso = "";
+    var filterEntidadContratante = ""
+    var filterObjeto = ""
+    var filterCodigoProceso = ""
 
     const paginatorPost = (event, _visualizar = null, paginator_url = null) => {
         var page = ""
@@ -191,15 +194,16 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     }
 
     const getUrlPostParams = () => {
+        console.log("filtrando filterCodigoProceso", filterCodigoProceso)
         const query = {
             rapida: inputFilterBusquedaRapida,
             actividad_economica: checkedsActividadesEconomicas,
-            codigo_proceso: inputFilterCodigoProceso,
-            entidad_contratante: inputFilterEntidadContratante,
+            codigo_proceso: filterCodigoProceso,
+            entidad_contratante: filterEntidadContratante,
             estado_proceso: filterEstadosProceso,
             fecha_publicacion: filterFechaPublicacion,
             modalidad: checkedsTiposCompras,
-            objeto: inputFilterObjeto,
+            objeto: filterObjeto,
             ubicacion: checkedsLocalizaciones,
             valor: inputFilterValor,
             type: 'fetch',
@@ -876,12 +880,24 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         stateObject[stateName][1](value);
     };
 
-    const getMyState = (stateName) => {
-        return stateObject[stateName][0];
-    };
-
     const columnFilterTemplate = (column) => {
-        var columnValue = getMyState(column.field)
+        var columnValue = stateObject[column.field][0]
+        switch (column.field) {
+            case "inputFilterCodigoProceso":
+                filterCodigoProceso = columnValue
+                break;
+            case "inputFilterEntidadContratante":
+                filterEntidadContratante = columnValue
+                break;
+            case "inputFilterObjeto":
+                filterObjeto = columnValue
+                break;
+            case "inputFilterCodigoProceso":
+                filterCodigoProceso = columnValue
+                break;
+            default:
+                break;
+        }
         return (
             <div className="filter">
                 <input
@@ -946,12 +962,23 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
 
     const clearInputFilter = (input, value = "") => {
         updateState(input, value)
-        if (input == "inputFilterFechaPublicacion") {
-            filterFechaPublicacion = ""
+        switch (input) {
+            case "inputFilterCodigoProceso":
+                filterCodigoProceso = ""
+                break;
+            case "inputFilterEntidadContratante":
+                filterEntidadContratante = ""
+                break;
+            case "inputFilterObjeto":
+                filterObjeto = ""
+                break;
+            case "inputFilterCodigoProceso":
+                filterCodigoProceso = ""
+                break;
+            default:
+                break;
         }
-        if (input == "inputFilterEstadoProceso") {
-            filterEstadosProceso = ""
-        }
+
         paginatorPost()
     }
 

@@ -2,6 +2,10 @@
     color: white !important;
 }
 
+#contratos tbody.p-datatable-tbody {
+    cursor: pointer;
+}
+
 #contratos .p-datatable .p-datatable-header {
     background: #f5f5f5;
     color: #343a40;
@@ -1716,6 +1720,10 @@ input.p-inputtext.p-component.p-column-filter:not(:placeholder-shown)::before {
     vertical-align: top;
     margin-top: 5px;
     display: inline-block;
+}
+
+#contratos .content_ver_mas_grid a.vermas:hover{
+    color: #000;
 }
 
 #contratos .tt-uppercase {
