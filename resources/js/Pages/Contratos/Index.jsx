@@ -59,12 +59,12 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const [pageSize, setPageSize] = useState(tabla.last_page + 1);
     const [pageNumber, setPageNumber] = useState(0);
 
+    var filterActividadesEconomicas = []
     var filterFechaPublicacion = "";
     var filterEstadosProceso = "";
     var filterCodigoProceso = "";
     var filterEntidadContratante = ""
     var filterObjeto = ""
-    var filterCodigoProceso = ""
 
     const paginatorPost = (event, _visualizar = null, paginator_url = null) => {
         var page = ""
@@ -194,10 +194,9 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     }
 
     const getUrlPostParams = () => {
-        console.log("filtrando filterCodigoProceso", filterCodigoProceso)
         const query = {
             rapida: inputFilterBusquedaRapida,
-            actividad_economica: checkedsActividadesEconomicas,
+            actividad_economica: filterActividadesEconomicas,
             codigo_proceso: filterCodigoProceso,
             entidad_contratante: filterEntidadContratante,
             estado_proceso: filterEstadosProceso,
@@ -880,42 +879,6 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         stateObject[stateName][1](value);
     };
 
-    const columnFilterTemplate = (column) => {
-        var columnValue = stateObject[column.field][0]
-        switch (column.field) {
-            case "inputFilterCodigoProceso":
-                filterCodigoProceso = columnValue
-                break;
-            case "inputFilterEntidadContratante":
-                filterEntidadContratante = columnValue
-                break;
-            case "inputFilterObjeto":
-                filterObjeto = columnValue
-                break;
-            case "inputFilterCodigoProceso":
-                filterCodigoProceso = columnValue
-                break;
-            default:
-                break;
-        }
-        return (
-            <div className="filter">
-                <input
-                    type="text"
-                    className="p-inputtext p-component p-column-filter"
-                    placeholder="Buscar"
-                    name={column.field}
-                    onKeyDown={paginatorPost}
-                    onChange={(e) => updateState(column.field, e.target.value)}
-                    value={columnValue}
-                />
-                {columnValue != "" &&
-                    <i class="icon-Cancelar clearfilter_grid" onClick={() => clearInputFilter(column.field)}></i>
-                }
-            </div>
-        );
-    };
-
     const fechaColumnFilterTemplate = (column) => {
         return (
             <div className="filter">
@@ -960,6 +923,65 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         );
     };
 
+    const columnFilterTemplate = (column) => {
+        var columnValue = stateObject[column.field][0]
+        switch (column.field) {
+            case "inputFilterCodigoProceso":
+                filterCodigoProceso = columnValue
+                break;
+            case "inputFilterEntidadContratante":
+                filterEntidadContratante = columnValue
+                break;
+            case "inputFilterObjeto":
+                filterObjeto = columnValue
+                break;
+            case "inputFilterCodigoProceso":
+                filterCodigoProceso = columnValue
+                break;
+            default:
+                break;
+        }
+        return (
+            <div className="filter">
+                <input
+                    type="text"
+                    className="p-inputtext p-component p-column-filter"
+                    placeholder="Buscar"
+                    name={column.field}
+                    onKeyDown={paginatorPost}
+                    onChange={(e) => updateState(column.field, e.target.value)}
+                    value={columnValue}
+                />
+                {columnValue != "" &&
+                    <i class="icon-Cancelar clearfilter_grid" onClick={() => clearInputFilter(column.field)}></i>
+                }
+            </div>
+        );
+    };
+
+    const actividadEconomicaColumnFilterTemplate = (column) => {
+        var columnValue = stateObject[column.field][0]
+        filterActividadesEconomicas = checkedsActividadesEconomicas
+        return (
+            <div className="filter">
+                <input
+                    type="text"
+                    className="p-inputtext p-component p-column-filter"
+                    placeholder="Seleccionar"
+                    name={column.field}
+                    onClick={() => handleShowModal(column.field)}
+                    onInput={(e) => {
+                        dt.current.filter(e.target.value, column.field, 'contains');
+                    }}
+                    value={columnValue}
+                />
+                {columnValue != "" &&
+                    <i class="icon-Cancelar clearfilter_grid" onClick={() => clearInputFilter(column.field)}></i>
+                }
+            </div>
+        );
+    };
+
     const clearInputFilter = (input, value = "") => {
         updateState(input, value)
         switch (input) {
@@ -974,6 +996,10 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                 break;
             case "inputFilterCodigoProceso":
                 filterCodigoProceso = ""
+                break;
+            case "inputFilterActividadEconomica":
+                filterActividadesEconomicas = []
+                setCheckedsActividadesEconomicas([])
                 break;
             default:
                 break;
@@ -992,20 +1018,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     }
     /*Borrar filtros*/
 
-    const actividadEconomicaColumnFilterTemplate = (column) => {
-        return (
-            <input
-                type="text"
-                className="p-inputtext p-component p-column-filter"
-                placeholder="Seleccionar"
-                name={column.field}
-                onClick={() => handleShowModal(column.field)}
-                onInput={(e) => {
-                    dt.current.filter(e.target.value, column.field, 'contains');
-                }}
-            />
-        );
-    };
+
 
     const [showModal, setShowModal] = useState(false);
     const [modalOpened, setModalOpened] = useState("")
@@ -1097,8 +1110,10 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             case "ActividadEconomica":
                 if (data.length > 0) {
                     setCheckedsActividadesEconomicas(data)
+                    filterActividadesEconomicas = data  //Variable Global
                 } else {
                     setCheckedsActividadesEconomicas([])
+                    filterActividadesEconomicas = []
                 }
                 break;
             case "Localizaciones":
@@ -1447,44 +1462,6 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                 console.log(error)
             })
     };
-
-
-    /* const removeFavoritos = () => {
-        var token = document.querySelector('meta[name="csrf-token"]')
-        var contratos = [];
-        if (contratoSelected.length == undefined) {
-            contratos = [contratoSelected]
-        } else {
-            contratos = contratoSelected
-        }
-        axios.post('/cliente/carpeta/add-contrato', {
-            contratos: contratos,
-            carpetas: carpetasSeleccionadas
-        },
-            { 'Authorization': `Bearer ${token}` })
-            .then(response => {
-                if (response.data.status == 1) {
-                    setTabla(prevTabla => {
-                        const newData = [...prevTabla.data];
-                        contratos.forEach(contrato => {
-                            const index = prevTabla.data.findIndex(item => item.id === contrato.id);
-                            if (index === -1) {
-                                return { ...prevTabla };
-                            } else {
-                                const carpetas_contrato = carpetas.filter(carpeta => carpetasSeleccionadas.includes(carpeta.id));
-                                newData[index] = { ...newData[index], carpetas_ids: carpetasSeleccionadas };
-                                newData[index] = { ...newData[index], carpetas: carpetas_contrato };
-                            }
-                        })
-                        return { ...prevTabla, data: newData };
-                    });
-                }
-                setShowModal(false)
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    } */
 
 
     const addPapelera = (contrato) => {
@@ -2129,6 +2106,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         console.log("checkedsActividadesEconomicas", checkedsActividadesEconomicas)
         console.log("checkedsLocalizaciones", checkedsLocalizaciones)
         console.log("checkedsTiposCompras", checkedsTiposCompras)
+        setInputFilterActividadEconomica(`${checkedsActividadesEconomicas.length} Seleccionada(s)`)
         setShowModal(false)
         paginatorPost()
     };
