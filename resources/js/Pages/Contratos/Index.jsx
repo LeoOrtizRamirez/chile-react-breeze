@@ -90,17 +90,25 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                 break;
         }
 
-        var full_url = ''
+
+        var url = ''
         switch (zona) {
             case 'MP':
-                full_url = getFullUrl(zona, perfiles);
+                url = getFullUrl(zona, perfiles);
                 break;
             case 'C':
-                full_url = getFullUrl(zona, carpeta_actual);
+                url = getFullUrl(zona, carpeta_actual);
                 break;
             default:
-                full_url = getFullUrl(zona);
+                url = getFullUrl(zona);
                 break;
+        }
+
+        var full_url = ""
+        if (zona != "ALL" && zona != "F" && zona != "P") {
+            full_url = `${url}&filtrar_nuevos=${filtrar_nuevos}`
+        } else {
+            full_url = `${url}?filtrar_nuevos=${filtrar_nuevos}`
         }
 
         if (event?.key === 'Enter' || event == undefined) {//Filtros del DataTable y busqueda rapida, undefined: filtro de fecha
@@ -854,7 +862,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             default:
                 break;
         }
-        paginatorPost()
+        paginatorPost(undefined, visualizarFilter)
     }
 
     /*Borrar filtros*/
@@ -1878,7 +1886,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             filterFechaPublicacion = { start: start, end: end }
             setInputFechaPublicacion({ start: start, end: end })
             setInputFilterFechaPublicacion(`${start} ${end}`)
-            paginatorPost()
+            paginatorPost(undefined, visualizarFilter)
         }
         setShowModalCalendario(false)
     };
@@ -1892,7 +1900,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             filterEstadosProceso = estados
             setInputEstadosProceso(estados)
             setInputFilterEstadoProceso(`${estados.length} Seleccionado(s)`)
-            paginatorPost()
+            paginatorPost(undefined, visualizarFilter)
         }
         setShowModalEstados(false)
     };
@@ -1907,7 +1915,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             filterValor = precios
             setInputValor(precios)
             setInputFilterValor(`${precios[0].toLocaleString("en-US", options).replace('COP', '$')} - ${precios[1] > 0 ? precios[1].toLocaleString("en-US", options).replace('COP', '$') : "Sin limite superior"}`)
-            paginatorPost()
+            paginatorPost(undefined, visualizarFilter)
         }
         setShowModalValor(false)
     };
@@ -1921,7 +1929,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         console.log("checkedsTiposCompras", checkedsTiposCompras)
         setInputFilterActividadEconomica(`${checkedsActividadesEconomicas.length} Seleccionada(s)`)
         setShowModal(false)
-        paginatorPost()
+        paginatorPost(undefined, visualizarFilter)
     };
 
     return (
