@@ -183,10 +183,10 @@ class scrapping extends Command
                 if ($current_model) {
                     echo "El contrato ya existe...\n";
                     //TEMPORAL
-                    /* $current_model->entidad_contratante = $entidad_contratante;
+                    $current_model->entidad_contratante = $entidad_contratante;
                     $current_model->codigo_proceso = $codigo_proceso;
                     $current_model->objeto = $objeto;
-                    $current_model->modalidad = "";
+                    $current_model->modalidad = $modalidad;
                     $current_model->ubicacion = "";
                     $current_model->link = $link;
                     $current_model->valor = $valor;
@@ -201,16 +201,15 @@ class scrapping extends Command
                     $current_model->fecha_vencimiento = $fecha_cierre;
                     $current_model->estado_proceso = "";
                     $current_model->id_fuente_contract = 1; //FUENTE MP
-                    $model->modalidad = $modalidad;
                     $current_model->save();
                     echo "El contrato ya se actualizó...\n";
-                    $this->guardarDetalle($current_model, $contratista_nombre); */
+                    $this->guardarDetalle($current_model, $contratista_nombre);
                 } else {
                     $model = new Contrato;
                     $model->entidad_contratante = $entidad_contratante;
                     $model->codigo_proceso = $codigo_proceso;
                     $model->objeto = $objeto;
-                    $model->modalidad = "";
+                    $model->modalidad = $modalidad;
                     $model->ubicacion = "";
                     $model->link = $link;
                     $model->valor = $valor;
@@ -225,7 +224,6 @@ class scrapping extends Command
                     $model->fecha_vencimiento = $fecha_cierre;
                     $model->estado_proceso = "";
                     $model->id_fuente_contract = 1; //FUENTE MP
-                    $model->modalidad = $modalidad;
                     $model->save();
                     echo "Guardando Contrato - pagina: " . $pagina . " de: " . $num_paginas . "\n";
                     $this->guardarDetalle($model, $contratista_nombre);
@@ -262,7 +260,72 @@ class scrapping extends Command
         //sleep(3);
         $crawlerDetalle = $this->getClient()->request('GET', $model->link);
         //$model->modalidad = $this->textValidation($crawlerDetalle->filter('#lblFicha1Tipo'));
-        $model->ubicacion = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
+
+        $_departamento = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
+        switch ($_departamento) {
+            case 'Región de Arica y Parinacota':
+                $departamento = "Arica y Parinacota";
+                break;
+            case 'Región de Tarapacá':
+                $departamento = "Tarapacá";
+                break;
+            case 'Región de Antofagasta':
+                $departamento = "Antofagasta";
+                break;
+            case 'Región de Atacama':
+                $departamento = "Atacama";
+                break;
+            case 'Región de Coquimbo':
+                $departamento = "Coquimbo";
+                break;
+            case 'Región de Valparaíso':
+                $departamento = "Valparaíso";
+                break;
+            case 'Región Metropolitana de Santiago':
+                $departamento = "Metropolitana de Santiago";
+                break;
+            case 'Región del Libertador General Bernardo O´Higgins':
+                $departamento = "Libertador General Bernardo O'Higgins";
+                break;
+            case 'Región del Maule':
+                $departamento = "Maule";
+                break;
+            case 'Región del Ñuble':
+                $departamento = "Ñuble";
+                break;
+            case 'Región del Biobío':
+                $departamento = "Biobío";
+                break;
+            case 'Región de la Araucanía':
+                $departamento = "Araucanía";
+                break;
+            case 'Región de Los Ríos':
+                $departamento = "Los Ríos";
+                break;
+            case 'Región de los Lagos':
+                $departamento = "Los Lagos";
+                break;
+            case 'Región Aysén del General Carlos Ibáñez del Campo':
+                $departamento = "Aysén del General Carlos Ibáñez del Campo";
+                break;
+            case 'Región de Magallanes y de la Antártica':
+                $departamento = "Magallanes y de la Antártica";
+                break;
+            default:
+                $departamento = "";
+                break;
+        }
+        $municipio = $this->textValidation($crawlerDetalle->filter('#lblFicha2Comuna'));
+
+        $ubicacion = "";
+        if ($departamento != "") {
+            if ($municipio == "No hay información") {
+                $ubicacion = $departamento;
+            } else {
+                $ubicacion = $departamento . " : " . $municipio;
+            }
+        }
+        $model->ubicacion = $ubicacion;
 
         $unspsc = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblCategoria'));
 

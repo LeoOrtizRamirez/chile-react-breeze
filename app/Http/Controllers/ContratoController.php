@@ -51,7 +51,14 @@ class ContratoController extends Controller
         }
         $ubicacion = "";
         if (isset($request["query"]["ubicacion"]) && $request["query"]["ubicacion"] != "") {
-            $ubicacion = $request["query"]["ubicacion"];
+            $ubicacion = SubCategoria::whereIn('id', $request["query"]["ubicacion"])
+                ->whereNotNull('id_padre_sub_categoria')
+                ->get()
+                ->pluck('nombre')
+                ->toArray();
+            if (empty($ubicacion)) {
+                $ubicacion = "";
+            }
         }
         $codigo_proceso = "";
         if (isset($request["query"]["codigo_proceso"]) && $request["query"]["codigo_proceso"] != "") {
@@ -186,8 +193,16 @@ class ContratoController extends Controller
         }
         $ubicacion = "";
         if (isset($request["query"]["ubicacion"]) && $request["query"]["ubicacion"] != "") {
-            $ubicacion = $request["query"]["ubicacion"];
+            $ubicacion = SubCategoria::whereIn('id', $request["query"]["ubicacion"])
+                ->whereNotNull('id_padre_sub_categoria')
+                ->get()
+                ->pluck('nombre')
+                ->toArray();
+            if (empty($ubicacion)) {
+                $ubicacion = "";
+            }
         }
+        //dd($ubicacion);
         $codigo_proceso = "";
         if (isset($request["query"]["codigo_proceso"]) && $request["query"]["codigo_proceso"] != "") {
             $codigo_proceso = $request["query"]["codigo_proceso"];
@@ -588,6 +603,13 @@ class ContratoController extends Controller
                 ->where(function ($query) use ($modalidad) {
                     if (!is_null($modalidad) && $modalidad != "") {
                         $query->whereIn('modalidad', $modalidad);
+                    }
+                })
+                ->where(function ($query) use ($ubicacion) {
+                    if (!is_null($ubicacion) && $ubicacion != "") {
+                        foreach ($ubicacion as $ubi) {
+                            $query->orWhere('ubicacion', 'LIKE', '%'.$ubi.'%');
+                        }
                     }
                 })
                 ->when($actividad_economica, function ($query, $actividad_economica) {

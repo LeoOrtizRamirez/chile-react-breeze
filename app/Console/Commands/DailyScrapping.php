@@ -263,7 +263,19 @@ class DailyScrapping extends Command
         //sleep(3);
         $crawlerDetalle = $this->getClient()->request('GET', $model->link);
         //$model->modalidad = $this->textValidation($crawlerDetalle->filter('#lblFicha1Tipo'));
-        $model->ubicacion = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
+        
+        $departamento = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
+        $municipio = $this->textValidation($crawlerDetalle->filter('#lblFicha2Comuna'));
+
+        $ubicacion = "";
+        if ($departamento != "") {
+            if ($municipio == "No hay información") {
+                $ubicacion = $departamento;
+            } else {
+                $ubicacion = $departamento . " : " . $municipio;
+            }
+        }
+        $model->ubicacion = $ubicacion;
 
         $unspsc = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblCategoria'));
 
