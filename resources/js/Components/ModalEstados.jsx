@@ -60,8 +60,8 @@ const ModalEstados = ({ showModal, handleCloseModal, modalId }) => {
                             </span>
                             <span className="text_option_modal">Selecciona todos los estados</span>
                         </div>
-                        {estados.map(estado => (
-                            <div className="inputs_checkbox linea_divisoria">
+                        {estados.map((estado, key) => (
+                            <div className="inputs_checkbox linea_divisoria" key={`estado_${key}`}>
                                 <span className="body_checkbox">
                                     <div className="checkbox" style={{ margin: 0 + 'px' }}>
                                         <label>

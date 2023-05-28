@@ -1935,10 +1935,9 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     border: 0 !important;
 }
 
-#modal_actividades .modal-body,
-.modal_filter_grid .modal-body2 {
+#modal_actividades .modal-body {
     padding: 35px 55px 28px;
-    text-align: center;
+    /* text-align: center; */
 }
 
 #modal_actividades .modal-header .icon-Cerrar-modal {

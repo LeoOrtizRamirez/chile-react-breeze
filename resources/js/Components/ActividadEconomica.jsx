@@ -779,16 +779,16 @@ element.id_padre_sub_categoria
     };
     return (
         <div id="SubCategorias">
-            <div class="tree_categorias__busqueda mb-3 mb-md-4">
-                <div class="mx-auto">
+            <div className="tree_categorias__busqueda mb-3 mb-md-4">
+                <div className="mx-auto">
                     <input
                         type="text"
                         placeholder={nameBuscador}
-                        class="form-control"
+                        className="form-control"
                         onKeyDown={inputSearchActividadEconomica}
                     />
-                    <i class="icon-Cancelar" style={{ display: 'none' }}></i>
-                    <button type="button" class="icon-Buscar-click"></button>
+                    <i className="icon-Cancelar" style={{ display: 'none' }}></i>
+                    <button type="button" className="icon-Buscar-click"></button>
                 </div>
             </div>
             {/* <div className="mx-60 mt-30 d-flex">
@@ -815,12 +815,12 @@ element.id_padre_sub_categoria
                 </h2>
             </div> */}
             {checkAllText != "" &&
-                <div class="tree_categorias__check_personalizado">
+                <div className="tree_categorias__check_personalizado">
                     <input
                         type="checkbox"
                         name="check_all2"
                         id="check_all2"
-                        class="form-check-input filled-in"
+                        className="form-check-input filled-in"
                         onChange={checkAll}
                         checked={checksActividadesEconomicas.length == sectores.length}
                     />
@@ -873,7 +873,7 @@ element.id_padre_sub_categoria
                                                     }
                                                 >
                                                     {tipo == "ActividadEconomica" &&
-                                                        <div class="tree-division__img">
+                                                        <div className="tree-division__img">
                                                             <img src={`/public/images/subcategorias/${sector.icon}`} width="35px" />
                                                         </div>
                                                     }
@@ -887,7 +887,7 @@ element.id_padre_sub_categoria
                                                     onClick={() => checked(sector)}
                                                 >
                                                     {tipo == "ActividadEconomica" &&
-                                                        <div class="tree-division__img">
+                                                        <div className="tree-division__img">
                                                             <img src={`/public/images/subcategorias/${sector.icon}`} width="35px" />
                                                         </div>
                                                     }
@@ -905,19 +905,11 @@ element.id_padre_sub_categoria
                                                     {sector.id ==
                                                         segmento.id_padre_sub_categoria && (
                                                             <li
-                                                                className={`tree-node has-child draggable segmento ${openSegmentos.includes(
-                                                                    segmento.id
-                                                                )
-                                                                    ? "expanded"
-                                                                    : ""
-                                                                    }`}
-                                                                id={
-                                                                    "segmento_" +
-                                                                    segmento.id
-                                                                }
+                                                                className={`${segmento.childs.length > 0 ? `tree-node has-child draggable segmento ${openSegmentos.includes(segmento.id)? "expanded" : "" }` : "tree-node draggable"} `}
+                                                                id={"segmento_" + segmento.id}
                                                             >
-                                                                <div className="tree-content segmento">
-                                                                    <i className="tree-arrow expanded has-child ltr"></i>
+                                                                <div className={`${segmento.childs.length > 0 ? "tree-content segmento" : "tree-content actividad-economica"}`}>
+                                                                    <i className={`${segmento.childs.length > 0 ? "tree-arrow has-child ltr" : ""}`}></i>
                                                                     <input
                                                                         id={
                                                                             "segmento_check_" +
@@ -944,7 +936,7 @@ element.id_padre_sub_categoria
                                                                                 : ""
                                                                         }
                                                                     />
-                                                                    <span className="tree-anchor">
+                                                                    <span className={`${segmento.childs.length > 0 ? "tree-anchor" : "tree-anchor children" }`}>
 
                                                                         {tipo == "ActividadEconomica" ?
                                                                             <span
@@ -962,30 +954,10 @@ element.id_padre_sub_categoria
                                                                                 </span>
                                                                             </span>
                                                                             :
-                                                                            <span
-                                                                                className="tree-division tree-division1"
-                                                                            >
-                                                                                <>
-                                                                                    {index % 2 == 0 ? (
-                                                                                        <span className="tree-division__title my-auto">
-                                                                                            {
-                                                                                                segmento.nombre
-                                                                                            }
-                                                                                        </span>
-                                                                                    ) : (
-                                                                                        <span className="tree-division__title-gray my-auto">
-                                                                                            {
-                                                                                                segmento.nombre
-                                                                                            }
-                                                                                        </span>
-                                                                                    )}
-                                                                                </>
+                                                                            <span className="tree-division tree-division1">
+                                                                                <span className="tree-division__title my-auto">{segmento.nombre}</span>
                                                                             </span>
-
                                                                         }
-
-
-
                                                                     </span>
                                                                 </div>
                                                                 {tipo == "ActividadEconomica" && openSegmentos.includes(
@@ -1056,7 +1028,7 @@ element.id_padre_sub_categoria
                     ))}
                 </ul>
                 :
-                <div class="tree-filter-empty">No hay resultados con esta búsqueda</div>
+                <div className="tree-filter-empty">No hay resultados con esta búsqueda</div>
             }
         </div>
     );

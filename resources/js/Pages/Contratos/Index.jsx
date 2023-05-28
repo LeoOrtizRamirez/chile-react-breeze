@@ -646,7 +646,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                     value={inputFilterFechaPublicacion}
                 />
                 {inputFilterFechaPublicacion != "" &&
-                    <i class="icon-Cancelar clearfilter_grid" onClick={() => clearInputFilter("inputFilterFechaPublicacion")}></i>
+                    <i className="icon-Cancelar clearfilter_grid" onClick={() => clearInputFilter("inputFilterFechaPublicacion")}></i>
                 }
             </div>
 
@@ -669,7 +669,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                     value={inputFilterEstadoProceso}
                 />
                 {inputFilterEstadoProceso != "" &&
-                    <i class="icon-Cancelar clearfilter_grid" onClick={() => clearInputFilter("inputFilterEstadoProceso")}></i>
+                    <i className="icon-Cancelar clearfilter_grid" onClick={() => clearInputFilter("inputFilterEstadoProceso")}></i>
                 }
             </div>
         );
@@ -691,7 +691,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                     value={inputFilterValor}
                 />
                 {inputFilterValor != "" &&
-                    <i class="icon-Cancelar clearfilter_grid" onClick={() => clearInputFilter("inputFilterValor")}></i>
+                    <i className="icon-Cancelar clearfilter_grid" onClick={() => clearInputFilter("inputFilterValor")}></i>
                 }
             </div>
         );
@@ -727,7 +727,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                     value={columnValue}
                 />
                 {columnValue != "" &&
-                    <i class="icon-Cancelar clearfilter_grid" onClick={() => clearInputFilter(column.field)}></i>
+                    <i className="icon-Cancelar clearfilter_grid" onClick={() => clearInputFilter(column.field)}></i>
                 }
             </div>
         );
@@ -750,7 +750,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                     value={columnValue}
                 />
                 {columnValue != "" &&
-                    <i class="icon-Cancelar clearfilter_grid" onClick={() => clearInputFilter(column.field)}></i>
+                    <i className="icon-Cancelar clearfilter_grid" onClick={() => clearInputFilter(column.field)}></i>
                 }
             </div>
         );
