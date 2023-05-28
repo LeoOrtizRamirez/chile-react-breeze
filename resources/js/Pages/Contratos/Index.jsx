@@ -111,7 +111,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             full_url = `${url}?filtrar_nuevos=${filtrar_nuevos}`
         }
 
-        if (event?.key === 'Enter' || event == undefined) {//Filtros del DataTable y busqueda rapida, undefined: filtro de fecha
+        /* if (event?.key === 'Enter' || event == undefined) {//Filtros del DataTable y busqueda rapida, undefined: filtro de fecha
             paginatorPostSendRequest(`${full_url}`, `${paginator_url != null ? page : ""}`)
         }
         if (event?.type === 'click') {//Select Visualizar
@@ -122,7 +122,8 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             }
             //PARA CONTRATOS paginatorPostSendRequest(`${full_url}?filtrar_nuevos=${filtrar_nuevos}`)
 
-        }
+        } */
+        paginatorPostSendRequest(`${full_url}`, `${paginator_url != null ? page : ""}`)
     }
 
     const paginatorPostSendRequest = (url, page) => {
