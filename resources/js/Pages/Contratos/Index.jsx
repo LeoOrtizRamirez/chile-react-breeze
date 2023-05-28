@@ -587,7 +587,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     /*Variables para enviar valor a variable global una vez renderizada la página */
     const [inputValor, setInputValor] = useState("")
     const [inputFechaPublicacion, setInputFechaPublicacion] = useState("")
-    const [inputEstadosProceso, setEstadosProceso] = useState("")
+    const [inputEstadosProceso, setInputEstadosProceso] = useState("")
 
     /*Variables para enviar valor a variable global una vez renderizada la página */
 
@@ -831,8 +831,9 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             case "inputFilterEntidadContratante":
                 filterEntidadContratante = ""
                 break;
-            case "inputFilterObjeto":
-                filterObjeto = ""
+            case "inputFilterFechaPublicacion":
+                filterFechaPublicacion = ""
+                setInputFechaPublicacion("")
                 break;
             case "inputFilterCodigoProceso":
                 filterCodigoProceso = ""
@@ -841,16 +842,18 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                 filterActividadesEconomicas = []
                 setCheckedsActividadesEconomicas([])
                 break;
+            case "inputFilterEstadoProceso":
+                filterEstadosProceso = ""
+                setInputEstadosProceso("")
+                break;
             case "inputFilterValor":
                 filterValor = ""
                 setInputFilterValor("")
+                setInputValor("")
                 break;
-
-
             default:
                 break;
         }
-
         paginatorPost()
     }
 
@@ -1887,7 +1890,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const handleCloseModalEstados = (estados) => {
         if (estados != null) {
             filterEstadosProceso = estados
-            setEstadosProceso(estados)
+            setInputEstadosProceso(estados)
             setInputFilterEstadoProceso(`${estados.length} Seleccionado(s)`)
             paginatorPost()
         }
