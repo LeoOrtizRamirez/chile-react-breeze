@@ -117,6 +117,52 @@ class DailyScrapping extends Command
                     $valor = (int) str_replace('.','',$valor_texto);
                 }
 
+                $modalidad = "";
+                $_modalidad = $this->textValidation($node->filter(".estado-lic strong:nth-child(1)"));
+                switch ($_modalidad) {
+                    case 'L1':
+                        $modalidad = "(L1) Licitación Pública Menor a 100 UTM";
+                        break;
+                    case 'LE':
+                        $modalidad = "(LE) Licitación Pública Entre 100 y 1000 UTM";
+                        break;
+                    case 'LP':
+                        $modalidad = "(LP) Licitación Pública igual o superior a 1.000 UTM e inferior a 2.000 UTM";
+                        break;
+                    case 'LQ':
+                        $modalidad = "(LQ) Licitación Pública igual o superior a 2.000 UTM e inferior a 5.000 UTM";
+                        break;
+                    case 'LR':
+                        $modalidad = "(LR) Licitación Pública igual o superior a 5.000 UTM";
+                        break;
+                    case 'LS':
+                        $modalidad = "(LS) Licitación Pública Servicios personales especializados";
+                        break;
+                    case 'O1':
+                        $modalidad = "(O1) Licitación Pública de Obras";
+                        break;
+                    case 'E2':
+                        $modalidad = "(E2) Licitación Privada Inferior a 100 UTM";
+                        break;
+                    case 'CO':
+                        $modalidad = "(CO) Licitación Privada igual o superior a 100 UTM e inferior a 1000 UTM";
+                        break;
+                    case 'B2':
+                        $modalidad = "(B2) Licitación Privada igual o superior a 1000 UTM e inferior a 2000 UTM";
+                        break;
+                    case 'H2':
+                        $modalidad = "(H2) Licitación Privada igual o superior a 2000 UTM e inferior a 5000 UTM";
+                        break;
+                    case 'I2':
+                        $modalidad = "(I2) Licitación Privada Mayor a 5000 UTM";
+                        break;
+                    case 'O2':
+                        $modalidad = "(O2) Licitación Privada de Obras";
+                        break;
+                    default:
+                        $modalidad = "";
+                        break;
+                }
 
                 //Formato fecha_publicacion               
                 $fecha_publicacion  = $this->textValidation($node->filter("div.lic-block-body > div:nth-child(3) > div:nth-child(2) > span"));
@@ -151,7 +197,7 @@ class DailyScrapping extends Command
                 $model->entidad_contratante = $entidad_contratante;
                 $model->codigo_proceso = $codigo_proceso;
                 $model->objeto = $objeto;
-                $model->modalidad = "";
+                $model->modalidad = $modalidad;
                 $model->ubicacion = "";
                 $model->link = $link;
                 $model->valor = $valor;
@@ -216,7 +262,7 @@ class DailyScrapping extends Command
     {
         //sleep(3);
         $crawlerDetalle = $this->getClient()->request('GET', $model->link);
-        $model->modalidad = $this->textValidation($crawlerDetalle->filter('#lblFicha1Tipo'));
+        //$model->modalidad = $this->textValidation($crawlerDetalle->filter('#lblFicha1Tipo'));
         $model->ubicacion = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
 
         $unspsc = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblCategoria'));
