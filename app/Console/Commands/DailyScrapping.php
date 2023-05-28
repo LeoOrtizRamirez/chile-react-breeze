@@ -264,7 +264,60 @@ class DailyScrapping extends Command
         $crawlerDetalle = $this->getClient()->request('GET', $model->link);
         //$model->modalidad = $this->textValidation($crawlerDetalle->filter('#lblFicha1Tipo'));
         
-        $departamento = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
+        $_departamento = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
+        switch ($_departamento) {
+            case 'Región de Arica y Parinacota':
+                $departamento = "Arica y Parinacota";
+                break;
+            case 'Región de Tarapacá':
+                $departamento = "Tarapacá";
+                break;
+            case 'Región de Antofagasta':
+                $departamento = "Antofagasta";
+                break;
+            case 'Región de Atacama':
+                $departamento = "Atacama";
+                break;
+            case 'Región de Coquimbo':
+                $departamento = "Coquimbo";
+                break;
+            case 'Región de Valparaíso':
+                $departamento = "Valparaíso";
+                break;
+            case 'Región Metropolitana de Santiago':
+                $departamento = "Metropolitana de Santiago";
+                break;
+            case 'Región del Libertador General Bernardo O´Higgins':
+                $departamento = "Libertador General Bernardo O'Higgins";
+                break;
+            case 'Región del Maule':
+                $departamento = "Maule";
+                break;
+            case 'Región del Ñuble':
+                $departamento = "Ñuble";
+                break;
+            case 'Región del Biobío':
+                $departamento = "Biobío";
+                break;
+            case 'Región de la Araucanía':
+                $departamento = "Araucanía";
+                break;
+            case 'Región de Los Ríos':
+                $departamento = "Los Ríos";
+                break;
+            case 'Región de los Lagos':
+                $departamento = "Los Lagos";
+                break;
+            case 'Región Aysén del General Carlos Ibáñez del Campo':
+                $departamento = "Aysén del General Carlos Ibáñez del Campo";
+                break;
+            case 'Región de Magallanes y de la Antártica':
+                $departamento = "Magallanes y de la Antártica";
+                break;
+            default:
+                $departamento = "";
+                break;
+        }
         $municipio = $this->textValidation($crawlerDetalle->filter('#lblFicha2Comuna'));
 
         $ubicacion = "";
@@ -276,6 +329,7 @@ class DailyScrapping extends Command
             }
         }
         $model->ubicacion = $ubicacion;
+
 
         $unspsc = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblCategoria'));
 
