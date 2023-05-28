@@ -90,7 +90,7 @@ const Crear = ({
 
     const options = { style: "currency", currency: "COP", minimumFractionDigits: 0 };
     const [cuantiaHasta, setCuantiaHasta] = useState("");
-    const [cuantiaDesde, setCuantiaDesde] = useState("$0");
+    const [cuantiaDesde, setCuantiaDesde] = useState((0).toLocaleString("en-US", options).replace('COP', '$'));
     const [toggleSwitchCuantiaDesde, setToggleSwitchCuantiaDesde] = useState(false);
     const [switchSinPresupuestoAsignado, setSwitchSinPresupuestoAsignado] = useState(true);
 
@@ -101,7 +101,7 @@ const Crear = ({
         }
         return numericValue.toLocaleString("en-US", options).replace('COP', '$')
     };
-    
+
     const changeToggleSwitchCuantiaDesde = (value) => {
         if (value == 0) {
             setToggleSwitchCuantiaDesde(false);

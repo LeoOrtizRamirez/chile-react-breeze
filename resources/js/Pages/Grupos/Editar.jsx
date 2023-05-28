@@ -95,8 +95,8 @@ const Editar = ({
     }
 
     const options = { style: "currency", currency: "COP", minimumFractionDigits: 0 };
-    const [cuantiaHasta, setCuantiaHasta] = useState(perfil.limite_superior_cuantia);
-    const [cuantiaDesde, setCuantiaDesde] = useState(perfil.limite_inferior_cuantia);
+    const [cuantiaHasta, setCuantiaHasta] = useState((perfil.limite_superior_cuantia).toLocaleString("en-US", options).replace('COP', '$'));
+    const [cuantiaDesde, setCuantiaDesde] = useState((perfil.limite_inferior_cuantia).toLocaleString("en-US", options).replace('COP', '$'));
     const [toggleSwitchCuantiaDesde, setToggleSwitchCuantiaDesde] = useState(false);
     const [switchSinPresupuestoAsignado, setSwitchSinPresupuestoAsignado] = useState(perfil.sin_presupuesto == 1 ? true : false);
 

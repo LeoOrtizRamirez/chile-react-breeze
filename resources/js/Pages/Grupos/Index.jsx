@@ -29,6 +29,8 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 /*Tooltips */
 
+import DateRangePicker from 'react-bootstrap-daterangepicker';
+
 const Index = ({ auth, grupos, created_updated }) => {
     const [filtroSelected, setFiltroSelected] = useState({})
     const [paso, setPaso] = useState(1)
@@ -259,6 +261,27 @@ const Index = ({ auth, grupos, created_updated }) => {
             });
     };
     const [globalLoading, setGlobalLoading] = useState(false)
+
+    const options = { style: "currency", currency: "COP", minimumFractionDigits: 0 };
+    const limiteInferiorCuantiaBodyTemplate = (grupo) => {
+        return (
+            <span className="">{(grupo.limite_inferior_cuantia).toLocaleString("en-US", options).replace('COP', '$')}</span>
+        );
+    };
+    const limiteSuperiorCuantiaBodyTemplate = (grupo) => {
+        return (
+            <span className="">{(grupo.limite_superior_cuantia).toLocaleString("en-US", options).replace('COP', '$')}</span>
+        );
+    };
+
+    const historicoFilterTemplate = (grupo) => {
+        return (
+            <DateRangePicker>
+                <input type="text" className="form-control" />
+            </DateRangePicker>
+        );
+    };
+
     return (
         <>
             <AuthenticatedLayout auth={auth} page={'grupos'} grupos={grupos} globalLoading={globalLoading}>
@@ -309,9 +332,9 @@ const Index = ({ auth, grupos, created_updated }) => {
                                                 <Column style={{ maxWidth: 600 + 'px' }} filter className='columna_seleccion columna_pequena' filterElement={clearTemplate} />
                                                 <Column field="nombre_filtro" body={nombreFiltroBodyTemplate} header="Nombre" filter filterPlaceholder="Buscar" className="columna_nombre" />
                                                 <Column field="descripcion_filtro" header="Descripción" filter filterPlaceholder="Buscar" className="columna_grande" />
-                                                <Column field="limite_inferior_cuantia" header="Cuantia inferior" filter filterPlaceholder="Buscar" className="columna_promedio" />
-                                                <Column field="limite_superior_cuantia" header="Cuantia superior" filter filterPlaceholder="Buscar" className="columna_promedio" />
-                                                <Column field="historico" header="Histórico" filter filterPlaceholder="Buscar" className="columna_promedio" />
+                                                <Column field="limite_inferior_cuantia" header="Cuantia inferior" filter filterPlaceholder="Buscar" className="columna_promedio" body={limiteInferiorCuantiaBodyTemplate} />
+                                                <Column field="limite_superior_cuantia" header="Cuantia superior" filter filterPlaceholder="Buscar" className="columna_promedio" body={limiteSuperiorCuantiaBodyTemplate} />
+                                                <Column field="historico" header="Histórico" filter filterPlaceholder="Buscar" className="columna_promedio" filterElement={historicoFilterTemplate}/>
                                                 <Column field="envio_alertas" header="Notificaciones" showFilterMenu={false} filter filterElement={statusRowFilterTemplate} className="columna_notificaciones" />
                                                 <Column body={accionesBodyTemplate} filter className="v-hidden columna_acciones" />
 
