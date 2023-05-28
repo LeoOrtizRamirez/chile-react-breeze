@@ -94,29 +94,20 @@ const Editar = ({
         }
     }
 
-    const refCuantiaHasta = useRef("")
+    const options = { style: "currency", currency: "COP", minimumFractionDigits: 0 };
     const [cuantiaHasta, setCuantiaHasta] = useState(perfil.limite_superior_cuantia);
     const [cuantiaDesde, setCuantiaDesde] = useState(perfil.limite_inferior_cuantia);
     const [toggleSwitchCuantiaDesde, setToggleSwitchCuantiaDesde] = useState(false);
     const [switchSinPresupuestoAsignado, setSwitchSinPresupuestoAsignado] = useState(perfil.sin_presupuesto == 1 ? true : false);
 
-    const formatValue = (e, type) => {
-        var number = e.target.value;
-        number = clearValue(number);
-
-        if (type == "desde") {
-            changeToggleSwitchCuantiaDesde(number)
-            setCuantiaDesde("$" + new Intl.NumberFormat().format(number));
-        } else {
-            if (number == 0) {
-                setCuantiaHasta('')
-                refCuantiaHasta.current.setAttribute("placeholder", "Sin limite superior")
-            } else {
-                setCuantiaHasta("$" + new Intl.NumberFormat().format(number))
-            }
+    const handleChange = (e) => {
+        const numericValue = parseInt(e.target.value.replace(/[^0-9]+/g, "")) || 0;
+        if(e.target.name == "cuantia_desde"){
+            changeToggleSwitchCuantiaDesde(numericValue) 
         }
+        return numericValue.toLocaleString("en-US", options).replace('COP', '$')
     };
-
+    
     const changeToggleSwitchCuantiaDesde = (value) => {
         if (value == 0) {
             setToggleSwitchCuantiaDesde(false);
@@ -124,17 +115,6 @@ const Editar = ({
             setToggleSwitchCuantiaDesde(true);
         }
     }
-
-    const clearValue = (value) => {
-        value = value.replace(" ", "");
-        value = value.replace("$", "");
-        value = value.replace(",", "");
-        value = value.replace(".", "");
-        if (value == "") {
-            value = 0
-        }
-        return parseInt(value);
-    };
 
     const [switchHistorico, setSwitchHistorico] = useState(perfil.historico == null ? false : true);
     const [switchEmail, setSwitchEmail] = useState(perfil.envio_alertas == 1 ? true : false);
@@ -452,9 +432,7 @@ const Editar = ({
                                                             </label>
                                                             <input
                                                                 value={cuantiaDesde}
-                                                                onChange={
-                                                                    (e) => formatValue(e, 'desde')
-                                                                }
+                                                                onChange={(e) => setCuantiaDesde(handleChange(e))}
                                                                 type="text"
                                                                 id="cuantia_desde"
                                                                 name="cuantia_desde"
@@ -475,11 +453,8 @@ const Editar = ({
                                                                 Cuantía hasta:
                                                             </label>
                                                             <input
-                                                                ref={refCuantiaHasta}
                                                                 value={cuantiaHasta}
-                                                                onChange={
-                                                                    (e) => formatValue(e, 'hasta')
-                                                                }
+                                                                onChange={(e) => setCuantiaHasta(handleChange(e))}
                                                                 type="text"
                                                                 id="cuantia_hasta"
                                                                 name="cuantia_hasta"

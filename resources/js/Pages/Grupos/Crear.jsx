@@ -88,30 +88,20 @@ const Crear = ({
         }
     }
 
-
-    const refCuantiaHasta = useRef("")
+    const options = { style: "currency", currency: "COP", minimumFractionDigits: 0 };
     const [cuantiaHasta, setCuantiaHasta] = useState("");
     const [cuantiaDesde, setCuantiaDesde] = useState("$0");
     const [toggleSwitchCuantiaDesde, setToggleSwitchCuantiaDesde] = useState(false);
     const [switchSinPresupuestoAsignado, setSwitchSinPresupuestoAsignado] = useState(true);
 
-    const formatValue = (e, type) => {
-        var number = e.target.value;
-        number = clearValue(number);
-
-        if (type == "desde") {
-            changeToggleSwitchCuantiaDesde(number)
-            setCuantiaDesde("$" + new Intl.NumberFormat().format(number));
-        } else {
-            if (number == 0) {
-                setCuantiaHasta('')
-                refCuantiaHasta.current.setAttribute("placeholder", "Sin limite superior")
-            } else {
-                setCuantiaHasta("$" + new Intl.NumberFormat().format(number))
-            }
+    const handleChange = (e) => {
+        const numericValue = parseInt(e.target.value.replace(/[^0-9]+/g, "")) || 0;
+        if(e.target.name == "cuantia_desde"){
+            changeToggleSwitchCuantiaDesde(numericValue) 
         }
+        return numericValue.toLocaleString("en-US", options).replace('COP', '$')
     };
-
+    
     const changeToggleSwitchCuantiaDesde = (value) => {
         if (value == 0) {
             setToggleSwitchCuantiaDesde(false);
@@ -119,17 +109,6 @@ const Crear = ({
             setToggleSwitchCuantiaDesde(true);
         }
     }
-
-    const clearValue = (value) => {
-        value = value.replace(" ", "");
-        value = value.replace("$", "");
-        value = value.replace(",", "");
-        value = value.replace(".", "");
-        if (value == "") {
-            value = 0
-        }
-        return parseInt(value);
-    };
 
     const [switchHistorico, setSwitchHistorico] = useState(true);
     const [switchEmail, setSwitchEmail] = useState(true);
@@ -322,6 +301,8 @@ const Crear = ({
     const toastBL = useRef(null);
 
     const [globalLoading, setGlobalLoading] = useState(false)
+
+    
     return (
         <>
             <AuthenticatedLayout auth={auth} page={'perfiles'} globalLoading={globalLoading}>
@@ -439,9 +420,7 @@ const Crear = ({
                                                             </label>
                                                             <input
                                                                 value={cuantiaDesde}
-                                                                onChange={
-                                                                    (e) => formatValue(e, 'desde')
-                                                                }
+                                                                onChange={(e) => setCuantiaDesde(handleChange(e))}
                                                                 type="text"
                                                                 id="cuantia_desde"
                                                                 name="cuantia_desde"
@@ -462,11 +441,8 @@ const Crear = ({
                                                                 Cuantía hasta:
                                                             </label>
                                                             <input
-                                                                ref={refCuantiaHasta}
                                                                 value={cuantiaHasta}
-                                                                onChange={
-                                                                    (e) => formatValue(e, 'hasta')
-                                                                }
+                                                                onChange={(e) => setCuantiaHasta(handleChange(e))}
                                                                 type="text"
                                                                 id="cuantia_hasta"
                                                                 name="cuantia_hasta"
