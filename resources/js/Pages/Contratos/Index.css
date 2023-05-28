@@ -394,6 +394,10 @@ select:focus {
     max-width: 150px;
 }
 
+#contratos .p-datatable .p-datatable-tbody>tr>td.columna_entidad {
+    max-width: 120px !important;
+}
+
 #contratos .p-datatable .p-datatable-tbody>tr>td.columna_fecha,
 #contratos .p-datatable .p-datatable-tbody>tr>td.columna_cuantia,
 #contratos .p-datatable .p-datatable-tbody>tr>td.columna_estado {
