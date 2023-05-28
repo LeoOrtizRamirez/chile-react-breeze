@@ -1,17 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Link, useForm, Head } from "@inertiajs/inertia-react";
 import "./Index.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Modal from "react-bootstrap/Modal";
 import ResumenPerfil from "@/Components/ResumenPerfil";
-
-/*Toast*/
-import Toast from "react-bootstrap/Toast";
-import ToastContainer from "react-bootstrap/ToastContainer";
-import "../../../css/estilos-toast.css";
-/*Toast*/
 
 /*PRIMEFACES */
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
@@ -19,24 +12,13 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
-import { Tag } from 'primereact/tag';
 import "primereact/resources/themes/lara-light-indigo/theme.css";//theme
 import "primereact/resources/primereact.min.css";//core
 import "primeicons/primeicons.css";//icons
 
-/*Tooltips */
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
-/*Tooltips */
-
-import DateRangePicker from 'react-bootstrap-daterangepicker';
-
 const Index = ({ auth, grupos, created_updated }) => {
     const [filtroSelected, setFiltroSelected] = useState({})
     const [paso, setPaso] = useState(1)
-    /*Tooltip */
-    const [showTooltip, setshowTooltip] = useState(true)
-    /*Tooltip */
 
     /*Modals */
     const [showModal, setShowModal] = useState(created_updated);
@@ -148,15 +130,6 @@ const Index = ({ auth, grupos, created_updated }) => {
             <div className="custom-tooltip green ver-mas-informacion" data-tooltip="Ver más información">
                 <a id="tlpBorrarNota" className="icon-Informacin-click icon-pd-info" onClick={() => handleShowModal('modalInformacionPerfil', grupo)}></a>
             </div>
-
-
-            {/* {toolTips.map((placement, index) => (
-                <OverlayTrigger rootClose={true} key={index} overlay={
-                    <Tooltip id={`tooltip-${placement.name}-${grupo.id}`} className={`tooltip tooltip-${placement.name}`}>{placement.text}</Tooltip>
-                }>
-                    <button type="button" id={`${placement.name}-btn${grupo.id}`} className={`${placement.icon}`} onClick={() => handleShowModal(placement.modal, grupo)}></button>
-                </OverlayTrigger>
-            ))} */}
         </div>;
     };
 
@@ -274,14 +247,6 @@ const Index = ({ auth, grupos, created_updated }) => {
         );
     };
 
-    const historicoFilterTemplate = (grupo) => {
-        return (
-            <DateRangePicker>
-                <input type="text" className="form-control" />
-            </DateRangePicker>
-        );
-    };
-
     return (
         <>
             <AuthenticatedLayout auth={auth} page={'grupos'} grupos={grupos} globalLoading={globalLoading}>
@@ -334,7 +299,7 @@ const Index = ({ auth, grupos, created_updated }) => {
                                                 <Column field="descripcion_filtro" header="Descripción" filter filterPlaceholder="Buscar" className="columna_grande" />
                                                 <Column field="limite_inferior_cuantia" header="Cuantia inferior" filter filterPlaceholder="Buscar" className="columna_promedio" body={limiteInferiorCuantiaBodyTemplate} />
                                                 <Column field="limite_superior_cuantia" header="Cuantia superior" filter filterPlaceholder="Buscar" className="columna_promedio" body={limiteSuperiorCuantiaBodyTemplate} />
-                                                <Column field="historico" header="Histórico" filter filterPlaceholder="Buscar" className="columna_promedio" filterElement={historicoFilterTemplate}/>
+                                                <Column field="historico" header="Histórico" filter filterPlaceholder="Buscar" className="columna_promedio"/>
                                                 <Column field="envio_alertas" header="Notificaciones" showFilterMenu={false} filter filterElement={statusRowFilterTemplate} className="columna_notificaciones" />
                                                 <Column body={accionesBodyTemplate} filter className="v-hidden columna_acciones" />
 
