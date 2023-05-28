@@ -394,7 +394,7 @@ const Crear = ({
                                                 onHandleSectores={onHandleSectores}
                                                 tipo={"Localizaciones"}
                                                 checkeds={checkedsLocalizaciones}
-                                                checkAllText={"Todo el país - Colombia"}
+                                                checkAllText={"Todo el país - Chile"}
                                                 licicodigos={licicodigos}
                                             />
                                         )}

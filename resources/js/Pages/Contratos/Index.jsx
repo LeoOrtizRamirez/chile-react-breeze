@@ -2109,7 +2109,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                             onHandleSectores={onHandleSectores}
                             tipo={"Localizaciones"}
                             checkeds={checkedsLocalizaciones}
-                            checkAllText={"Todo el país - Colombia"}
+                            checkAllText={"Todo el país - Chile"}
                             licicodigos={licicodigos}
                         />
                     }

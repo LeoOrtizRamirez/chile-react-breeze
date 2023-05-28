@@ -105,7 +105,52 @@ class scrapping extends Command
                     $valor = (int) str_replace('.', '', $valor_texto);
                 }
 
-
+                $modalidad = "";
+                $_modalidad = $this->textValidation($node->filter(".estado-lic strong:nth-child(1)"));
+                switch ($_modalidad) {
+                    case 'L1':
+                        $modalidad = "(L1) Licitación Pública Menor a 100 UTM";
+                        break;
+                    case 'LE':
+                        $modalidad = "(LE) Licitación Pública Entre 100 y 1000 UTM";
+                        break;
+                    case 'LP':
+                        $modalidad = "(LP) Licitación Pública igual o superior a 1.000 UTM e inferior a 2.000 UTM";
+                        break;
+                    case 'LQ':
+                        $modalidad = "(LQ) Licitación Pública igual o superior a 2.000 UTM e inferior a 5.000 UTM";
+                        break;
+                    case 'LR':
+                        $modalidad = "(LR) Licitación Pública igual o superior a 5.000 UTM";
+                        break;
+                    case 'LS':
+                        $modalidad = "(LS) Licitación Pública Servicios personales especializados";
+                        break;
+                    case 'O1':
+                        $modalidad = "(O1) Licitación Pública de Obras";
+                        break;
+                    case 'E2':
+                        $modalidad = "(E2) Licitación Privada Inferior a 100 UTM";
+                        break;
+                    case 'CO':
+                        $modalidad = "(CO) Licitación Privada igual o superior a 100 UTM e inferior a 1000 UTM";
+                        break;
+                    case 'B2':
+                        $modalidad = "(B2) Licitación Privada igual o superior a 1000 UTM e inferior a 2000 UTM";
+                        break;
+                    case 'H2':
+                        $modalidad = "(H2) Licitación Privada igual o superior a 2000 UTM e inferior a 5000 UTM";
+                        break;
+                    case 'I2':
+                        $modalidad = "(I2) Licitación Privada Mayor a 5000 UTM";
+                        break;
+                    case 'O2':
+                        $modalidad = "(O2) Licitación Privada de Obras";
+                        break;
+                    default:
+                        $modalidad = "";
+                        break;
+                }
                 //Formato fecha_publicacion               
                 $fecha_publicacion  = $this->textValidation($node->filter("div.lic-block-body > div:nth-child(3) > div:nth-child(2) > span"));
                 $date = str_replace('/', '-', $fecha_publicacion);
@@ -156,6 +201,7 @@ class scrapping extends Command
                     $current_model->fecha_vencimiento = $fecha_cierre;
                     $current_model->estado_proceso = "";
                     $current_model->id_fuente_contract = 1; //FUENTE MP
+                    $model->modalidad = $modalidad;
                     $current_model->save();
                     echo "El contrato ya se actualizó...\n";
                     $this->guardarDetalle($current_model, $contratista_nombre); */
@@ -179,6 +225,7 @@ class scrapping extends Command
                     $model->fecha_vencimiento = $fecha_cierre;
                     $model->estado_proceso = "";
                     $model->id_fuente_contract = 1; //FUENTE MP
+                    $model->modalidad = $modalidad;
                     $model->save();
                     echo "Guardando Contrato - pagina: " . $pagina . " de: " . $num_paginas . "\n";
                     $this->guardarDetalle($model, $contratista_nombre);
@@ -214,7 +261,7 @@ class scrapping extends Command
     {
         //sleep(3);
         $crawlerDetalle = $this->getClient()->request('GET', $model->link);
-        $model->modalidad = $this->textValidation($crawlerDetalle->filter('#lblFicha1Tipo'));
+        //$model->modalidad = $this->textValidation($crawlerDetalle->filter('#lblFicha1Tipo'));
         $model->ubicacion = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
 
         $unspsc = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblCategoria'));

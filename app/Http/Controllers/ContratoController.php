@@ -37,6 +37,22 @@ class ContratoController extends Controller
         if (isset($request["query"]["actividad_economica"]) && $request["query"]["actividad_economica"] != "") {
             $actividad_economica = $request["query"]["actividad_economica"];
         }
+        $modalidad = "";
+        if (isset($request["query"]["modalidad"]) && $request["query"]["modalidad"] != "") {
+            $modalidad = SubCategoria::whereIn('id', $request["query"]["modalidad"])
+                ->whereNotNull('id_padre_sub_categoria')
+                ->get()
+                ->pluck('nombre')
+                ->toArray();
+
+            if (empty($modalidad)) {
+                $modalidad = "";
+            }
+        }
+        $ubicacion = "";
+        if (isset($request["query"]["ubicacion"]) && $request["query"]["ubicacion"] != "") {
+            $ubicacion = $request["query"]["ubicacion"];
+        }
         $codigo_proceso = "";
         if (isset($request["query"]["codigo_proceso"]) && $request["query"]["codigo_proceso"] != "") {
             $codigo_proceso = $request["query"]["codigo_proceso"];
@@ -52,10 +68,6 @@ class ContratoController extends Controller
         $fecha_publicacion = "";
         if (isset($request["query"]["fecha_publicacion"]) && $request["query"]["fecha_publicacion"] != "") {
             $fecha_publicacion = $request["query"]["fecha_publicacion"];
-        }
-        $modalidad = "";
-        if (isset($request["query"]["modalidad"]) && $request["query"]["modalidad"] != "") {
-            $modalidad = $request["query"]["modalidad"];
         }
         $objeto = "";
         if (isset($request["query"]["objeto"]) && $request["query"]["objeto"] != "") {
@@ -96,7 +108,7 @@ class ContratoController extends Controller
         }
 
 
-        $contratos = $this->getAllContratos($request, $rapida, $valor, $fecha_publicacion, $actividad_economica, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos);
+        $contratos = $this->getAllContratos($request, $rapida, $valor, $fecha_publicacion, $actividad_economica, $modalidad, $ubicacion, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos);
 
 
         $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
@@ -160,6 +172,22 @@ class ContratoController extends Controller
         if (isset($request["query"]["actividad_economica"]) && $request["query"]["actividad_economica"] != "") {
             $actividad_economica = $request["query"]["actividad_economica"];
         }
+        $modalidad = "";
+        if (isset($request["query"]["modalidad"]) && $request["query"]["modalidad"] != "") {
+            $modalidad = SubCategoria::whereIn('id', $request["query"]["modalidad"])
+                ->whereNotNull('id_padre_sub_categoria')
+                ->get()
+                ->pluck('nombre')
+                ->toArray();
+
+            if (empty($modalidad)) {
+                $modalidad = "";
+            }
+        }
+        $ubicacion = "";
+        if (isset($request["query"]["ubicacion"]) && $request["query"]["ubicacion"] != "") {
+            $ubicacion = $request["query"]["ubicacion"];
+        }
         $codigo_proceso = "";
         if (isset($request["query"]["codigo_proceso"]) && $request["query"]["codigo_proceso"] != "") {
             $codigo_proceso = $request["query"]["codigo_proceso"];
@@ -176,10 +204,6 @@ class ContratoController extends Controller
         if (isset($request["query"]["fecha_publicacion"]) && $request["query"]["fecha_publicacion"] != "") {
             $fecha_publicacion = $request["query"]["fecha_publicacion"];
         }
-        $modalidad = "";
-        if (isset($request["query"]["modalidad"]) && $request["query"]["modalidad"] != "") {
-            $modalidad = $request["query"]["modalidad"];
-        }
         $objeto = "";
         if (isset($request["query"]["objeto"]) && $request["query"]["objeto"] != "") {
             $objeto = $request["query"]["objeto"];
@@ -192,10 +216,6 @@ class ContratoController extends Controller
         if (isset($request["query"]["valor"]) && $request["query"]["valor"] != "") {
             $valor = $request["query"]["valor"];
         }
-        /* $ubicacion = "";
-        if (isset($request["query"]["ubicacion"]) && $request["query"]["ubicacion"] != "") {
-            $ubicacion = $request["query"]["ubicacion"];
-        } */
 
         $filtrar_nuevos = 0;
         if (isset($request->filtrar_nuevos) && !is_null($request->filtrar_nuevos)) {
@@ -271,7 +291,7 @@ class ContratoController extends Controller
                     foreach ($carpeta_has_contrato as $key => $value) {
                         $ids_contratos[] = $value->id_contrato;
                     }
-                    $contratos = $this->getAllContratos($request, $rapida, $valor, $fecha_publicacion, $actividad_economica, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos, $ids_contratos);
+                    $contratos = $this->getAllContratos($request, $rapida, $valor, $fecha_publicacion, $actividad_economica, $modalidad, $ubicacion, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos, $ids_contratos);
 
                     /* $contratos = Contrato::with('fuente')
                         ->whereIn('id', $ids_contratos)
@@ -369,7 +389,7 @@ class ContratoController extends Controller
                 }
             }
         } else { //MP - AL
-            $contratos = $this->getAllContratos($request, $rapida, $valor, $fecha_publicacion, $actividad_economica, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos);
+            $contratos = $this->getAllContratos($request, $rapida, $valor, $fecha_publicacion, $actividad_economica, $modalidad, $ubicacion, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos);
         }
 
 
@@ -453,7 +473,7 @@ class ContratoController extends Controller
     }
 
 
-    public function getAllContratos($request, $rapida, $valor, $fecha_publicacion, $actividad_economica, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos, $ids_contratos_carpetas = null)
+    public function getAllContratos($request, $rapida, $valor, $fecha_publicacion, $actividad_economica, $modalidad, $ubicacion, $entidad_contratante, $objeto, $codigo_proceso, $estado_proceso, $filtrar_nuevos, $ids_contratos_carpetas = null)
     {
 
         $contratos_con_notas = $this->getContratosIdsConNotas();
@@ -565,6 +585,11 @@ class ContratoController extends Controller
                         $query->whereIn('id', $contratos_vistos);
                     }
                 })
+                ->where(function ($query) use ($modalidad) {
+                    if (!is_null($modalidad) && $modalidad != "") {
+                        $query->whereIn('modalidad', $modalidad);
+                    }
+                })
                 ->when($actividad_economica, function ($query, $actividad_economica) {
                     return $query->join('clasificacion_contratos', 'contratos.id', '=', 'clasificacion_contratos.id_contrato')
                         ->whereIn('clasificacion_contratos.id_sub_categoria', $actividad_economica)
@@ -594,6 +619,7 @@ class ContratoController extends Controller
                             'contratos.updated_at'
                         );
                 })
+                ->orderBy('fecha_publicacion', 'DESC')
                 ->paginate($request->input('per_page', 30));
         } catch (\Throwable $th) {
             dd($th);
