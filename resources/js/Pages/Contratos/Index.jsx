@@ -94,21 +94,14 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         var url = ''
         switch (zona) {
             case 'MP':
-                url = getFullUrl(zona, perfiles);
+                url = getFullUrl(zona, perfiles, filtrar_nuevos);
                 break;
             case 'C':
-                url = getFullUrl(zona, carpeta_actual);
+                url = getFullUrl(zona, carpeta_actual, filtrar_nuevos);
                 break;
             default:
-                url = getFullUrl(zona);
+                url = getFullUrl(zona, null, filtrar_nuevos);
                 break;
-        }
-
-        var full_url = ""
-        if (zona != "ALL" && zona != "F" && zona != "P") {
-            full_url = `${url}&filtrar_nuevos=${filtrar_nuevos}`
-        } else {
-            full_url = `${url}?filtrar_nuevos=${filtrar_nuevos}`
         }
 
         /* if (event?.key === 'Enter' || event == undefined) {//Filtros del DataTable y busqueda rapida, undefined: filtro de fecha
@@ -123,7 +116,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             //PARA CONTRATOS paginatorPostSendRequest(`${full_url}?filtrar_nuevos=${filtrar_nuevos}`)
 
         } */
-        paginatorPostSendRequest(`${full_url}`, `${paginator_url != null ? page : ""}`)
+        paginatorPostSendRequest(`${url}`, `${paginator_url != null ? page : ""}`)
     }
 
     const paginatorPostSendRequest = (url, page) => {
@@ -146,7 +139,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             })
     }
 
-    const getFullUrl = (zona, array = null) => {
+    const getFullUrl = (zona, array = null, filtrar_nuevos) => {
         var url = '';
         var idsArray = "";
         if (array != null) {
@@ -191,7 +184,14 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             default:
                 break;
         }
-        return url
+
+        var full_url = ""
+        if (zona != "ALL" && zona != "F" && zona != "P") {
+            full_url = `${url}&filtrar_nuevos=${filtrar_nuevos}`
+        } else {
+            full_url = `${url}?filtrar_nuevos=${filtrar_nuevos}`
+        }
+        return full_url
     }
 
     const getUrlPostParams = () => {
@@ -1825,19 +1825,6 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const toastBL = useRef(null);
 
     const onRowClick = (event) => {
-        var url = ''
-        switch (zona) {
-            case 'MP':
-                url = getFullUrl(zona, perfiles);
-                break;
-            case 'C':
-                url = getFullUrl(zona, carpeta_actual);
-                break;
-            default:
-                url = getFullUrl(zona);
-                break;
-        }
-
         var filtrar_nuevos = ""
         switch (visualizarFilter) {
             case "ALL":
@@ -1856,21 +1843,25 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                 break;
         }
 
-
-        var full_url = ""
-        if (zona != "ALL" && zona != "F" && zona != "P") {
-            full_url = `${url}&filtrar_nuevos=${filtrar_nuevos}`
-        } else {
-            full_url = `${url}?filtrar_nuevos=${filtrar_nuevos}`
+        var url = ''
+        switch (zona) {
+            case 'MP':
+                url = getFullUrl(zona, perfiles, filtrar_nuevos);
+                break;
+            case 'C':
+                url = getFullUrl(zona, carpeta_actual, filtrar_nuevos);
+                break;
+            default:
+                url = getFullUrl(zona, null, filtrar_nuevos);
+                break;
         }
-
 
         var token = document.querySelector('meta[name="csrf-token"]')
 
         Inertia.post('/cliente/contratos/detalle-contrato-2', {
             index: event.index,
             tabla: tabla,
-            current_url: full_url,
+            current_url: url,
             query: getUrlPostParams(),
             current_page: tabla.current_page,
             zona: zona
