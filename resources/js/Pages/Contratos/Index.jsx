@@ -202,9 +202,9 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             entidad_contratante: filterEntidadContratante,
             estado_proceso: filterEstadosProceso,
             fecha_publicacion: filterFechaPublicacion,
-            modalidad: checkedsTiposCompras,
+            modalidad: filterModalidades,
             objeto: filterObjeto,
-            ubicacion: checkedsLocalizaciones,
+            ubicacion: filterUbicaciones,
             valor: filterValor,
             type: 'fetch',
         }
@@ -872,7 +872,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                 break;
             case "inputFilterModalidad":
                 filterModalidades = ""
-                setCheckedsTiposCompras("")
+                setCheckedsTiposCompras([])
                 break;
             case "inputFilterValor":
                 filterValor = ""
@@ -996,15 +996,19 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             case "Localizaciones":
                 if (data.length > 0) {
                     setCheckedsLocalizaciones(data)
+                    filterUbicaciones = data
                 } else {
                     setCheckedsLocalizaciones([])
+                    filterUbicaciones = []
                 }
                 break;
             case "TiposCompras":
                 if (data.length > 0) {
                     setCheckedsTiposCompras(data)
+                    filterModalidades = data
                 } else {
                     setCheckedsTiposCompras([])
+                    filterModalidades = []
                 }
                 break;
         }
