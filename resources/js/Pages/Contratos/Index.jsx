@@ -585,6 +585,8 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
 
     /*Variables globales*/
     var filterActividadesEconomicas = []
+    var filterUbicaciones = []
+    var filterModalidades = []
     var filterFechaPublicacion = "";
     var filterEstadosProceso = "";
     var filterCodigoProceso = "";
@@ -611,6 +613,8 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const [inputFilterFechaPublicacion, setInputFilterFechaPublicacion] = useState("")
     const [inputFilterUbicacion, setInputFilterUbicacion] = useState([])
     const [inputFilterActividadEconomica, setInputFilterActividadEconomica] = useState([])
+    const [inputFilterUbicaciones, setInputFilterUbicaciones] = useState([])
+    const [inputFilterModalidades, setInputFilterModalidades] = useState([])
     /*textos de los inputs para filtrar */
 
     const stateObject = {
@@ -734,8 +738,19 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     };
 
     const actividadEconomicaColumnFilterTemplate = (column) => {
+        switch (column.field) {
+            case "inputFilterActividadEconomica":
+                filterActividadesEconomicas = checkedsActividadesEconomicas
+                break;
+            case "inputFilterModalidad":
+                filterModalidades = checkedsTiposCompras
+                break;
+            case "inputFilterUbicacion":
+                filterUbicaciones = checkedsLocalizaciones
+                break;
+        }
         var columnValue = stateObject[column.field][0]
-        filterActividadesEconomicas = checkedsActividadesEconomicas
+
         return (
             <div className="filter">
                 <input
@@ -851,9 +866,13 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                 filterActividadesEconomicas = []
                 setCheckedsActividadesEconomicas([])
                 break;
-            case "inputFilterEstadoProceso":
-                filterEstadosProceso = ""
-                setInputEstadosProceso("")
+            case "inputFilterUbicacion":
+                filterUbicaciones = []
+                setCheckedsLocalizaciones([])
+                break;
+            case "inputFilterModalidad":
+                filterModalidades = ""
+                setCheckedsTiposCompras("")
                 break;
             case "inputFilterValor":
                 filterValor = ""
@@ -1915,11 +1934,20 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         setShowModalValor(true)
     };
 
-    const handleCloseModalActividadEconomica = () => {
-        console.log("checkedsActividadesEconomicas", checkedsActividadesEconomicas)
-        console.log("checkedsLocalizaciones", checkedsLocalizaciones)
-        console.log("checkedsTiposCompras", checkedsTiposCompras)
-        setInputFilterActividadEconomica(`${checkedsActividadesEconomicas.length} Seleccionada(s)`)
+    const handleCloseModalActividadEconomica = (input) => {
+        switch (input) {
+            case "inputFilterActividadEconomica":
+                setInputFilterActividadEconomica(`${checkedsActividadesEconomicas.length} Seleccionada(s)`)
+                break;
+            case "inputFilterModalidad":
+                setInputFilterModalidad(`${checkedsTiposCompras.length} Seleccionada(s)`)
+                break;
+            case "inputFilterUbicacion":
+                setInputFilterUbicacion(`${checkedsLocalizaciones.length} Seleccionada(s)`)
+                break;
+            default:
+                break;
+        }
         setShowModal(false)
         paginatorPost(undefined, visualizarFilter)
     };
@@ -2268,7 +2296,17 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                         </>
                     }
                     {["inputFilterActividadEconomica", "inputFilterModalidad", "inputFilterUbicacion"].includes(modalOpened) &&
-                        <button type="button" className="btnRadius btn-new-green" onClick={handleCloseModalActividadEconomica}>Seleccionar</button>
+                        <>
+                            {modalOpened == "inputFilterActividadEconomica" &&
+                                <button type="button" className="btnRadius btn-new-green" onClick={() => handleCloseModalActividadEconomica("inputFilterActividadEconomica")}>Seleccionar</button>
+                            }
+                            {modalOpened == "inputFilterModalidad" &&
+                                <button type="button" className="btnRadius btn-new-green" onClick={() => handleCloseModalActividadEconomica("inputFilterModalidad")}>Seleccionar</button>
+                            }
+                            {modalOpened == "inputFilterUbicacion" &&
+                                <button type="button" className="btnRadius btn-new-green" onClick={() => handleCloseModalActividadEconomica("inputFilterUbicacion")}>Seleccionar</button>
+                            }
+                        </>
                     }
                     {modalOpened == "modal_seleccion_carpeta" &&
                         <div className="actions-buttons-modal buttons-modal-carpetas">
