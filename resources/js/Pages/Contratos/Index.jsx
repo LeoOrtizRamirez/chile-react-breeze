@@ -117,7 +117,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
 
         } */
 
-        if (event?.key === 'Enter' || event == undefined || event?.type === 'click' ) {
+        if (event?.key === 'Enter' || event == undefined || event?.type === 'click') {
             //Enter: Filtros del DataTable y busqueda rapida, undefined: filtro de fecha,click: Select Visualizar
             paginatorPostSendRequest(`${url}`, `${paginator_url != null ? page : ""}`)
         }
@@ -717,9 +717,6 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             case "inputFilterObjeto":
                 filterObjeto = columnValue
                 break;
-            case "inputFilterCodigoProceso":
-                filterCodigoProceso = columnValue
-                break;
             default:
                 break;
         }
@@ -858,6 +855,9 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                 break;
             case "inputFilterEntidadContratante":
                 filterEntidadContratante = ""
+                break;
+            case "inputFilterObjeto":
+                filterObjeto = ""
                 break;
             case "inputFilterFechaPublicacion":
                 filterFechaPublicacion = ""
