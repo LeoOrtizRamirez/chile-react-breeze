@@ -859,8 +859,9 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                 filterFechaPublicacion = ""
                 setInputFechaPublicacion("")
                 break;
-            case "inputFilterCodigoProceso":
-                filterCodigoProceso = ""
+            case "inputFilterEstadoProceso":
+                filterEstadosProceso = ""
+                setInputEstadosProceso("")
                 break;
             case "inputFilterActividadEconomica":
                 filterActividadesEconomicas = []
@@ -2526,9 +2527,9 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                 </div>
             </Sidebar>
             <ModalDocumentos showModal={showModalDocumentos} handleCloseModal={handleCloseModalDocumentos} modalId="modal_documentos" data={dataModalDocumentos}></ModalDocumentos>
-            <ModalCalendario showModal={showModalCalendario} handleCloseModal={handleCloseModalCalendario} modalId="modal_calendario" />
-            <ModalEstados showModal={showModalEstados} handleCloseModal={handleCloseModalEstados} modalId="modal_filtro_estado" />
-            <ModalValor showModal={showModalValor} handleCloseModal={handleCloseModalValor} modalId="modal_filtro_valor" />
+            <ModalCalendario data={inputFechaPublicacion} showModal={showModalCalendario} handleCloseModal={handleCloseModalCalendario} modalId="modal_calendario" />
+            <ModalEstados data={inputEstadosProceso} showModal={showModalEstados} handleCloseModal={handleCloseModalEstados} modalId="modal_filtro_estado" />
+            <ModalValor data={inputValor} showModal={showModalValor} handleCloseModal={handleCloseModalValor} modalId="modal_filtro_valor" />
             <Toast ref={toastBL} position="bottom-left" />
         </AuthenticatedLayout >
     );

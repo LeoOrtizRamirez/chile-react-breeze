@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './ModalEstados.css'
 import { Modal } from 'react-bootstrap';
-const ModalEstados = ({ showModal, handleCloseModal, modalId }) => {
+const ModalEstados = ({ data, showModal, handleCloseModal, modalId }) => {
     const [estados, setEstados] = useState(["Publicada", "Cerrada", "Desierta", "Adjudicada", "Revocada", "Suspendida"])
     const [fakeEstados, setFakeEstados] = useState(estados)
-    const [estadosSeleccionados, setEstadosSeleccionados] = useState([])
+    const [estadosSeleccionados, setEstadosSeleccionados] = useState(data)
 
     const filtrarEstados = (event) => {
         setEstados(fakeEstados)
@@ -38,6 +38,9 @@ const ModalEstados = ({ showModal, handleCloseModal, modalId }) => {
 
     }
 
+    useEffect(()=>{
+        setEstadosSeleccionados(data == "" ? [] : data)
+    },[showModal])
     return (
         <>
             <Modal show={showModal} onHide={() => handleCloseModal(null)} id={modalId} centered size="lg">

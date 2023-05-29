@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './ModalCalendario.css'
 import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
@@ -6,10 +6,11 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import es from 'date-fns/locale/es'
 import { Modal } from 'react-bootstrap';
 
-const ModalCalendario = ({ showModal, handleCloseModal, modalId }) => {
+const ModalCalendario = ({ data, showModal, handleCloseModal, modalId }) => {
+    console.log("data", data)
     const [selectedDateRange, setSelectedDateRange] = useState({
-        startDate: new Date(),
-        endDate: new Date(),
+        startDate: data == "" ? new Date() : new Date(data.start),
+        endDate: data == "" ? new Date() : new Date(data.end),
         key: 'selection',
         locale: es
     });
@@ -31,6 +32,14 @@ const ModalCalendario = ({ showModal, handleCloseModal, modalId }) => {
         return `${year}-${month}-${day}`;
     };
 
+    useEffect(() => {
+        setSelectedDateRange({
+            startDate: data == "" ? new Date() : new Date(data.start),
+            endDate: data == "" ? new Date() : new Date(data.end),
+            key: 'selection',
+            locale: es
+        })
+    }, [showModal])
 
     return (
         <>

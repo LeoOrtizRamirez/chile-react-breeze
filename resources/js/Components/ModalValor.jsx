@@ -1,15 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './ModalValor.css'
 import { Modal } from 'react-bootstrap';
-const ModalValor = ({ showModal, handleCloseModal, modalId }) => {
+const ModalValor = ({ data, showModal, handleCloseModal, modalId }) => {
     const options = { style: "currency", currency: "COP", minimumFractionDigits: 0 };
-    const [cuantiaDesde, setCuantiaDesde] = useState((0).toLocaleString("en-US", options).replace('COP', '$'));
-    const [cuantiaHasta, setCuantiaHasta] = useState("");
+    const [cuantiaDesde, setCuantiaDesde] = useState(data.length > 0 ? (data[0]).toLocaleString("en-US", options).replace('COP', '$') : (0).toLocaleString("en-US", options).replace('COP', '$'));
+    const [cuantiaHasta, setCuantiaHasta] = useState(data.length > 0 ? (data[1]).toLocaleString("en-US", options).replace('COP', '$') : "");
 
     const handleChange = (e) => {
         const numericValue = parseInt(e.target.value.replace(/[^0-9]+/g, "")) || 0;
         return numericValue.toLocaleString("en-US", options).replace('COP', '$')
     };
+
+    useEffect(()=>{
+        setCuantiaDesde(data.length > 0 ? (data[0]).toLocaleString("en-US", options).replace('COP', '$') : (0).toLocaleString("en-US", options).replace('COP', '$'))
+        setCuantiaHasta(data.length > 0 ? (data[1] > 0 ? (data[1]).toLocaleString("en-US", options).replace('COP', '$') : "") : "")
+    },[showModal])
     return (
         <Modal show={showModal} onHide={() => handleCloseModal(null)} id={modalId} centered size="lg">
             <Modal.Header>
