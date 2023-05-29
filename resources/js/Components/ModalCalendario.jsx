@@ -7,7 +7,6 @@ import es from 'date-fns/locale/es'
 import { Modal } from 'react-bootstrap';
 
 const ModalCalendario = ({ data, showModal, handleCloseModal, modalId }) => {
-    console.log("data", data)
     const [selectedDateRange, setSelectedDateRange] = useState({
         startDate: data == "" ? new Date() : new Date(data.start),
         endDate: data == "" ? new Date() : new Date(data.end),
