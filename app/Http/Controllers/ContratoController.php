@@ -546,69 +546,69 @@ class ContratoController extends Controller
                 )
                 ->where(function ($query) use ($ids_contratos_carpetas) { //BUSCAR SOLO LOS CONTRATOS QUE ESTAN RELACIONADOS A ALGUNA CARPETA
                     if (!is_null($ids_contratos_carpetas)) {
-                        $query->whereIn('id', $ids_contratos_carpetas);
+                        $query->whereIn('contratos.id', $ids_contratos_carpetas);
                     }
                 })
                 ->where(function ($query) use ($rapida) {
                     if (!is_null($rapida) && $rapida != "") {
-                        $query->where('entidad_contratante', 'like', '%' . $rapida . '%')
-                            ->orWhere('objeto', 'like', '%' . $rapida . '%')
-                            ->orWhere('modalidad', 'like', '%' . $rapida . '%')
-                            ->orWhere('ubicacion', 'like', '%' . $rapida . '%');
+                        $query->where('contratos.entidad_contratante', 'like', '%' . $rapida . '%')
+                            ->orWhere('contratos.objeto', 'like', '%' . $rapida . '%')
+                            ->orWhere('contratos.modalidad', 'like', '%' . $rapida . '%')
+                            ->orWhere('contratos.ubicacion', 'like', '%' . $rapida . '%');
                     }
                 })
                 ->where(function ($query) use ($fecha_publicacion) {
                     if (!is_null($fecha_publicacion) && $fecha_publicacion != "") {
-                        $query->whereBetween('fecha_publicacion', [$fecha_publicacion["start"], $fecha_publicacion["end"]]);
+                        $query->whereBetween('contratos.fecha_publicacion', [$fecha_publicacion["start"], $fecha_publicacion["end"]]);
                     }
                 })
                 ->where(function ($query) use ($valor) {
                     if (!is_null($valor) && $valor != "") {
                         if ($valor[1] == 0) {
-                            $query->where('valor', '>=',  $valor[0]);
+                            $query->where('contratos.valor', '>=',  $valor[0]);
                         } else {
-                            $query->whereBetween('valor', $valor);
+                            $query->whereBetween('contratos.valor', $valor);
                         }
                     }
                 })
                 ->where(function ($query) use ($estado_proceso) {
                     if (!is_null($estado_proceso) && $estado_proceso != "") {
-                        $query->whereIn('estado_proceso', $estado_proceso);
+                        $query->whereIn('contratos.estado_proceso', $estado_proceso);
                     }
                 })
                 ->where(function ($query) use ($entidad_contratante, $objeto, $codigo_proceso) {
                     if (!is_null($entidad_contratante) && $entidad_contratante != "") {
-                        $query->where('entidad_contratante', 'like', '%' . $entidad_contratante . '%');
+                        $query->where('contratos.entidad_contratante', 'like', '%' . $entidad_contratante . '%');
                     }
                     if (!is_null($objeto) && $objeto != "") {
-                        $query->where('objeto', 'like', '%' . $objeto . '%');
+                        $query->where('contratos.objeto', 'like', '%' . $objeto . '%');
                     }
                     if (!is_null($codigo_proceso) && $codigo_proceso != "") {
-                        $query->where('codigo_proceso', 'like', '%' . $codigo_proceso . '%');
+                        $query->where('contratos.codigo_proceso', 'like', '%' . $codigo_proceso . '%');
                     }
                     if (!is_null($codigo_proceso) && $codigo_proceso != "") {
-                        $query->where('codigo_proceso', 'like', '%' . $codigo_proceso . '%');
+                        $query->where('contratos.codigo_proceso', 'like', '%' . $codigo_proceso . '%');
                     }
                 })
                 ->where(function ($query) use ($contratos_con_notas_filter, $filtrar_nuevos) {
                     if ($filtrar_nuevos == 4) {
-                        $query->whereIn('id', $contratos_con_notas_filter);
+                        $query->whereIn('contratos.id', $contratos_con_notas_filter);
                     }
                 })
                 ->where(function ($query) use ($contratos_vistos, $filtrar_nuevos) {
                     if ($filtrar_nuevos == 2) {
-                        $query->whereIn('id', $contratos_vistos);
+                        $query->whereIn('contratos.id', $contratos_vistos);
                     }
                 })
                 ->where(function ($query) use ($modalidad) {
                     if (!is_null($modalidad) && $modalidad != "") {
-                        $query->whereIn('modalidad', $modalidad);
+                        $query->whereIn('contratos.modalidad', $modalidad);
                     }
                 })
                 ->where(function ($query) use ($ubicacion) {
                     if (!is_null($ubicacion) && $ubicacion != "") {
                         foreach ($ubicacion as $ubi) {
-                            $query->orWhere('ubicacion', 'LIKE', '%'.$ubi.'%');
+                            $query->orWhere('contratos.ubicacion', 'LIKE', '%'.$ubi.'%');
                         }
                     }
                 })
@@ -641,7 +641,7 @@ class ContratoController extends Controller
                             'contratos.updated_at'
                         );
                 })
-                ->orderBy('fecha_publicacion', 'DESC')
+                ->orderBy('contratos.fecha_publicacion', 'DESC')
                 ->paginate($request->input('per_page', 30));
         } catch (\Throwable $th) {
             dd($th);
