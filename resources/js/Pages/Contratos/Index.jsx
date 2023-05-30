@@ -405,7 +405,9 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                                     <i id="iconFuente-8125395" className="icono_fuente__list" style={{ background: 'rgb(0, 61, 201)' }}>MP</i>
                                 </span>
                                 <span className="proceso_detail_infoentidad__entidad">{data.entidad_contratante}</span>
-                                <i>No leído</i>
+                                {false &&
+                                    <i>No leído</i>
+                                }
                             </div>
                         </div>
                         <div className="proceso__detail_infofull position-relative">
@@ -727,7 +729,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                     className="p-inputtext p-component p-column-filter"
                     placeholder="Buscar"
                     name={column.field}
-                    onKeyDown={paginatorPost}
+                    onKeyDown={(e)=>paginatorPost(e, visualizarFilter)}
                     onChange={(e) => updateState(column.field, e.target.value)}
                     value={columnValue}
                 />
@@ -893,7 +895,6 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     /*Borrar filtros*/
     const dt = useRef(null);
     const handleClearFilters = () => {
-        //setInputFilterEntidadContratante("")
         if (dt.current) {
             dt.current.reset();
         }
@@ -1033,7 +1034,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                                 <input
                                     value={inputFilterBusquedaRapida}
                                     onChange={(e) => setInputFilterBusquedaRapida(e.target.value)}
-                                    onKeyDown={paginatorPost}
+                                    onKeyDown={(e)=>paginatorPost(e, visualizarFilter)}
                                     type="text"
                                     name="rapida"
                                     placeholder="Búsqueda rápida"
