@@ -384,6 +384,15 @@ class DailyScrapping extends Command
             echo "Guardando SubCategoria\n";
         } */
 
+
+        //Borrar las clasificaciones actuales si las tiene
+        $clasificaciones = ClasificacionContrato::where('id_contrato', $model->id)->get();
+        if ($clasificaciones) {
+            foreach ($clasificaciones as $key => $clasificacion) {
+                $clasificacion->delete();
+            }
+        }
+        //Guardar nuevas clasificaciones
         $codigo_cpv = CodigoCpv::find($model->unspsc);
         if ($codigo_cpv) {
             $array = explode(",", $codigo_cpv->filtros); // Convert string to array
