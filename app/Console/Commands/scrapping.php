@@ -398,7 +398,7 @@ class scrapping extends Command
             print_r($array);
 
             foreach ($array as $key => $value) {
-                if ($value != "") {
+                if ($value != " ") {
                     $clasificacion_contrato = new ClasificacionContrato();
                     $clasificacion_contrato->id_contrato = $model->id;
                     $clasificacion_contrato->id_sub_categoria = $value;

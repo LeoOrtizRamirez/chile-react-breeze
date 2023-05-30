@@ -299,6 +299,19 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
         document.body.removeChild(aux);
         toastBL.current.show({ severity: 'success', summary: 'Enlace copiado'/* , detail: 'Message Content' */, life: 3000 });
     }
+
+    const dateFormat = (_date) => {
+        const date = new Date(_date);
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        const seconds = date.getSeconds().toString().padStart(2, '0');
+
+        const outputDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        return outputDate
+    }
     return (
         <AuthenticatedLayout auth={auth} page={'detalle-contratos'} globalLoading={globalLoading}>
             <div className="content_not_blank_interno">
@@ -431,19 +444,19 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                 </div>
                             </div>
                         </div>
-                        {false &&
+                        {true &&
                             <div id="actualizar-secops-manual">
                                 <div className="alert alert-warning actualizar-secops-manual--para-actualizar">
                                     <i aria-hidden="true" className="fa fa-exclamation-triangle"></i>
                                     <div className="content-info">
-                                        <p className="mt-0 mb-0">Este contrato se encuentra actualizado hasta: <b className="fechReload">2023-05-09 08:18:57</b> ¿Deseas actualizarlo?</p>
+                                        <p className="mt-0 mb-0">Este contrato se encuentra actualizado hasta: <b className="fechReload">{dateFormat(contrato.updated_at)}</b> ¿Deseas actualizarlo?</p>
                                         <button type="button" id="btnActualizarDetalle" className="btn btn-warning mt-0">Actualizar</button>
                                     </div>
                                 </div>
                                 <div className="alert alert-success actualizar-secops-manual--actualizado">
                                     <i aria-hidden="true" className="icon-notification icon-Notificacin-verde"></i>
                                     <div className="content-info">
-                                        <p className="mt-0 mb-0">Este contrato se encuentra actualizado hasta 2023-05-10 07:05:09</p>
+                                        <p className="mt-0 mb-0">Este contrato se encuentra actualizado hasta {dateFormat(contrato.updated_at)}</p>
                                     </div>
                                 </div>
                             </div>
@@ -523,7 +536,7 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                                                     <b className="d-block">Fuente 1:</b>
                                                                 </div>
                                                                 <p id="movil-link-detalle" className="info-contrato">
-                                                                    <a className="d-inline-block new-family text-azul" id="copy-link" onClick={()=>openNewTab(contrato.link)}>{contrato.link}</a>
+                                                                    <a className="d-inline-block new-family text-azul" id="copy-link" onClick={() => openNewTab(contrato.link)}>{contrato.link}</a>
                                                                     <button className="btn btn-new-green btnRadius d-inline-block  boton_link_fuentes text-verde" onClick={() => copyText('copy-link')}>
                                                                         <i className="icon-Copiar-enlace"></i>
                                                                         Copiar link
