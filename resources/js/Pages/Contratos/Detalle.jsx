@@ -15,6 +15,7 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
     const [indexTabla, setIndexTabla] = useState(index)
     const [contrato, setContrato] = useState(tabla.data[indexTabla])
     const [documentos, setDocumentos] = useState([])
+    const [actualizacionManual, setActualizacionManual] = useState(false)
     const changeContrato = (index) => {
         if (tabla.from + index > tabla.to) {
             setCurrentPage(currentPage + 1)
@@ -74,17 +75,7 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
             .catch(error => {
                 console.log(error)
             })
-
-        axios.post('/cliente/contratos/documentos', {
-            contrato_id: contrato.id,
-        },
-            { 'Authorization': `Bearer ${token}` })
-            .then(response => {
-                setDocumentos(response.data)
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        getDocumentos(contrato.id)
     }, [contrato])
 
     const [sideBarNotasisOpen, setSideBarNotasisOpen] = useState(false)
@@ -305,13 +296,73 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
         const year = date.getFullYear();
         const month = (date.getMonth() + 1).toString().padStart(2, '0');
         const day = date.getDate().toString().padStart(2, '0');
-        const hours = date.getHours().toString().padStart(2, '0');
+        const hours = (date.getHours() - 7).toString().padStart(2, '0');
         const minutes = date.getMinutes().toString().padStart(2, '0');
         const seconds = date.getSeconds().toString().padStart(2, '0');
-
         const outputDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
         return outputDate
     }
+
+    const isUpdated = (_date) => {
+        const currentDate = new Date();
+        console.log("currentDate", currentDate)
+        const updatedDate = new Date(_date);
+        console.log("updated", updatedDate)
+        const diffMilliseconds = currentDate.getTime() - updatedDate.getTime();
+        const diffMinutes = Math.floor(diffMilliseconds / 1000 / 60);
+        const diffHours = Math.floor(diffMinutes / 60);
+        const diffDays = Math.floor(diffHours / 24);
+
+        console.log(diffMilliseconds, diffMinutes, diffHours, diffDays);
+        if (diffHours > 2) {
+            return false
+        } else {
+            return true
+        }
+    }
+
+    const actualizarContrato = (contrato) => {
+        console.log("contrato", contrato)
+        setActualizacionManual(true)
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.post('/cliente/contratos/dispatch-actualizacion-proceso', {
+            link: contrato.link
+        },
+            { 'Authorization': `Bearer ${token}` })
+            .then(response => {
+                getDocumentos(contrato.id)
+                console.log(response.data)
+                setActualizacionManual(false)
+                setContrato(response.data)
+                /* setTabla(prevTabla => {
+                    const index = prevTabla.data.findIndex(item => item.id === contrato.id);
+                    if (index === -1) {
+                        return { ...prevTabla };
+                    } else {
+                        let newData = [...prevTabla.data];
+                        newData[index] = { ...newData[index], favorito: true };
+                        return { ...prevTabla, data: newData };
+                    }
+                }); */
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    const getDocumentos = (contrato_id) => {
+        axios.post('/cliente/contratos/documentos', {
+            contrato_id: contrato_id,
+        },
+            { 'Authorization': `Bearer ${token}` })
+            .then(response => {
+                setDocumentos(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
     return (
         <AuthenticatedLayout auth={auth} page={'detalle-contratos'} globalLoading={globalLoading}>
             <div className="content_not_blank_interno">
@@ -360,7 +411,7 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                     </p>
                                 </div>
                                 <div id="contenido_acciones" className="col-4 pr-0 text-right iconos_acciones_contratos">
-                                    {false &&
+                                    {!isUpdated(contrato.updated_at) &&
                                         <button id="botonActualizarManual" type="button" className="btn bg-transparent">
                                             <img src="https://col.licitaciones.info/img/detalle-contrato/svg/proceso-manual-cargar.svg" width="22" height="22" />
                                         </button>
@@ -444,23 +495,42 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                 </div>
                             </div>
                         </div>
-                        {true &&
-                            <div id="actualizar-secops-manual">
-                                <div className="alert alert-warning actualizar-secops-manual--para-actualizar">
-                                    <i aria-hidden="true" className="fa fa-exclamation-triangle"></i>
-                                    <div className="content-info">
-                                        <p className="mt-0 mb-0">Este contrato se encuentra actualizado hasta: <b className="fechReload">{dateFormat(contrato.updated_at)}</b> ¿Deseas actualizarlo?</p>
-                                        <button type="button" id="btnActualizarDetalle" className="btn btn-warning mt-0">Actualizar</button>
+
+                        <div id="actualizar-secops-manual">
+                            {actualizacionManual ?
+                                <div class="alert alert-info actualizar-secops-manual--actualizando">
+                                    <i aria-hidden="true" class="icon-Informacin-click"></i>
+                                    <div class="content-info">
+                                        <p class="mt-0 mb-0">Este proceso durará pocos segundos mientras realiza la actualización de documentos y contenidos, Gracias por su espera!</p>
                                     </div>
                                 </div>
-                                <div className="alert alert-success actualizar-secops-manual--actualizado">
-                                    <i aria-hidden="true" className="icon-notification icon-Notificacin-verde"></i>
-                                    <div className="content-info">
-                                        <p className="mt-0 mb-0">Este contrato se encuentra actualizado hasta {dateFormat(contrato.updated_at)}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        }
+                                :
+                                <>
+                                    {!isUpdated(contrato.updated_at) ?
+                                        <div className="alert alert-warning actualizar-secops-manual--para-actualizar">
+                                            <i aria-hidden="true" className="fa fa-exclamation-triangle"></i>
+                                            <div className="content-info">
+                                                <p className="mt-0 mb-0">Este contrato se encuentra actualizado hasta: <b className="fechReload">{dateFormat(contrato.updated_at)}</b> ¿Deseas actualizarlo?</p>
+                                                <button
+                                                    type="button"
+                                                    id="btnActualizarDetalle"
+                                                    className="btn btn-warning mt-0"
+                                                    onClick={() => actualizarContrato(contrato)}
+                                                >Actualizar</button>
+                                            </div>
+                                        </div>
+                                        :
+                                        <div className="alert alert-success actualizar-secops-manual--actualizado">
+                                            <i aria-hidden="true" className="icon-notification icon-Notificacin-verde"></i>
+                                            <div className="content-info">
+                                                <p className="mt-0 mb-0">Este contrato se encuentra actualizado hasta {dateFormat(contrato.updated_at)}</p>
+                                            </div>
+                                        </div>
+                                    }
+                                </>
+                            }
+                        </div>
+
 
                         <div className="contenido mx-auto mb-5">
                             <div className="contenido_html">

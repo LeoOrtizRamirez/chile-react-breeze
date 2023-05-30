@@ -102,6 +102,7 @@ Route::get('cliente/contratos/detalle-contrato-2', function () {
     return redirect('/cliente/contratos');
 });
 Route::post('cliente/contratos/detalle-contrato-2', [ContratoController::class, 'detalleConcurso'])->middleware(['auth', 'verified']);
+Route::post('cliente/contratos/dispatch-actualizacion-proceso', [ContratoController::class, 'updateScrapping'])->middleware(['auth', 'verified']);
 Route::post('contrato-visitado', [ContratoController::class, 'contratoVisitado'])->middleware(['auth', 'verified']);
 
 /*Documentos*/

@@ -28,10 +28,10 @@ class CreateContratosTable extends Migration
             $table->integer('numero_documentos');
             $table->bigInteger('valor')->nullable();
             $table->string('valor_texto')->nullable();
-            $table->date('fecha_actualizacion_estado')->comment('Esta fecha solo debe actualizarse cuando cambie el estado_agrupado');
-            $table->date('fecha_last_update_seguimiento')->comment('Fecha utilizada para manejar el seguimiento, con esto sabemos la ultima vez que se miro el contrato desde seguimiento');
-            $table->date('fecha_publicacion');
-            $table->date('fecha_vencimiento')->comment('Fecha maxima para postularse');
+            $table->timestamp('fecha_actualizacion_estado')->nullable()->comment('Esta fecha solo debe actualizarse cuando cambie el estado_agrupado');
+            $table->timestamp('fecha_last_update_seguimiento')->nullable()->comment('Fecha utilizada para manejar el seguimiento, con esto sabemos la ultima vez que se miro el contrato desde seguimiento');
+            $table->timestamp('fecha_publicacion')->nullable();
+            $table->timestamp('fecha_vencimiento')->nullable()->comment('Fecha maxima para postularse');
             $table->string('estado_proceso')->comment('Texto del campo estado del proceso de la fuente');
 
             $table->unsignedBigInteger('id_user_clasificador')->nullable();

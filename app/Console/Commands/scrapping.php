@@ -177,7 +177,7 @@ class scrapping extends Command
                 //Fin construccion url detalle
 
                 //Contratista
-                $contratista_nombre = $this->textValidation($node->filter(".lic-bloq-footer .col-md-4:nth-child(1)"));
+                //$contratista_nombre = $this->textValidation($node->filter(".lic-bloq-footer .col-md-4:nth-child(1)"));
 
                 $current_model = $this->buscarContrato($link);
                 if ($current_model) {
@@ -203,7 +203,7 @@ class scrapping extends Command
                     $current_model->id_fuente_contract = 1; //FUENTE MP
                     $current_model->save();
                     echo "El contrato ya se actualizó...\n";
-                    $this->guardarDetalle($current_model, $contratista_nombre);
+                    $this->guardarDetalle($current_model);
                 } else {
                     $model = new Contrato;
                     $model->entidad_contratante = $entidad_contratante;
@@ -226,7 +226,7 @@ class scrapping extends Command
                     $model->id_fuente_contract = 1; //FUENTE MP
                     $model->save();
                     echo "Guardando Contrato - pagina: " . $pagina . " de: " . $num_paginas . "\n";
-                    $this->guardarDetalle($model, $contratista_nombre);
+                    $this->guardarDetalle($model);
                 }
             });
             $pagina++;
@@ -255,11 +255,10 @@ class scrapping extends Command
         }
     }
 
-    function guardarDetalle($model, $contratista_nombre)
+    function guardarDetalle($model)
     {
-        //sleep(3);
         $crawlerDetalle = $this->getClient()->request('GET', $model->link);
-        //$model->modalidad = $this->textValidation($crawlerDetalle->filter('#lblFicha1Tipo'));
+        $contratista_nombre = $this->textValidation($crawlerDetalle->filter('#lblFicha2Razon'));
 
         $_departamento = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
         switch ($_departamento) {
@@ -361,27 +360,6 @@ class scrapping extends Command
             echo "Guardando ContratistaContrato\n";
         }
 
-
-
-        //Inicio - Actividad economica
-        //Buscar o crear SubCategoria
-
-        /* $actividad_economica = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblProducto'));
-        $find_subcategoria = SubCategoria::where('nombre', $actividad_economica)->first();
-        if ($find_subcategoria) {
-            $subcategoria_id = $find_subcategoria->id;
-            echo "Ya esta creada\n";
-        } else {
-            $subcategoria = new SubCategoria();
-            $subcategoria->nombre = $actividad_economica;
-            $subcategoria->tipo_categoria = 4; //Actividad Económica Scrapping
-            $subcategoria->save();
-            $subcategoria_id = $subcategoria->id;
-            echo "Guardando SubCategoria\n";
-        } */
-
-
-
         //Borrar las clasificaciones actuales si las tiene
         $clasificaciones = ClasificacionContrato::where('id_contrato', $model->id)->get();
         if ($clasificaciones) {
@@ -407,8 +385,6 @@ class scrapping extends Command
                 }
             }
         }
-
-
 
         //Obtener enlace a documentos
         $url_documentos = $this->textValidation($crawlerDetalle->filter('#imgAdjuntos'), "#imgAdjuntos", "onclick");

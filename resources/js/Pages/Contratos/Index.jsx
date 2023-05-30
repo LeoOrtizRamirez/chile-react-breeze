@@ -435,7 +435,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                                         </p>
                                     </div>
                                     <div className="d-flex text-left"><strong>F. publicación:</strong>
-                                        <p>{data.fecha_publicacion}</p>
+                                        <p>{data.fecha_publicacion.split(' ')[0]}</p>
                                     </div>
                                     <div className="d-flex text-left"><strong>Ubicación:</strong>
                                         <p><i className="icon-Ubicacin-grid"></i>{data.ubicacion}</p>
@@ -806,7 +806,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     };
     const fechaBodyTemplate = (grupo) => {
         return (
-            <span>{grupo.fecha_publicacion}</span>
+            <span>{grupo.fecha_publicacion.split(' ')[0]}</span>
         );
     }
     const actividadEconomicaBodyTemplate = (grupo) => {

@@ -260,10 +260,8 @@ class DailyScrapping extends Command
 
     function guardarDetalle($model, $contratista_nombre)
     {
-        //sleep(3);
         $crawlerDetalle = $this->getClient()->request('GET', $model->link);
-        //$model->modalidad = $this->textValidation($crawlerDetalle->filter('#lblFicha1Tipo'));
-        
+
         $_departamento = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
         switch ($_departamento) {
             case 'Región de Arica y Parinacota':
@@ -330,7 +328,6 @@ class DailyScrapping extends Command
         }
         $model->ubicacion = $ubicacion;
 
-
         $unspsc = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblCategoria'));
 
         if ($unspsc != "") {
@@ -365,26 +362,6 @@ class DailyScrapping extends Command
             echo "Guardando ContratistaContrato\n";
         }
 
-
-
-        //Inicio - Actividad economica
-        //Buscar o crear SubCategoria
-
-        /* $actividad_economica = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblProducto'));
-        $find_subcategoria = SubCategoria::where('nombre', $actividad_economica)->first();
-        if ($find_subcategoria) {
-            $subcategoria_id = $find_subcategoria->id;
-            echo "Ya esta creada\n";
-        } else {
-            $subcategoria = new SubCategoria();
-            $subcategoria->nombre = $actividad_economica;
-            $subcategoria->tipo_categoria = 4; //Actividad Económica Scrapping
-            $subcategoria->save();
-            $subcategoria_id = $subcategoria->id;
-            echo "Guardando SubCategoria\n";
-        } */
-
-
         //Borrar las clasificaciones actuales si las tiene
         $clasificaciones = ClasificacionContrato::where('id_contrato', $model->id)->get();
         if ($clasificaciones) {
@@ -409,9 +386,7 @@ class DailyScrapping extends Command
                     echo "Guardando ClasificacionContrato\n\n";
                 }
             }
-        } 
-
-
+        }
 
         //Obtener enlace a documentos
         $url_documentos = $this->textValidation($crawlerDetalle->filter('#imgAdjuntos'), "#imgAdjuntos", "onclick");

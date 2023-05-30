@@ -27,6 +27,7 @@ use Symfony\Component\HttpClient\HttpClient;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Date;
 
 class ContratoController extends Controller
 {
@@ -608,7 +609,7 @@ class ContratoController extends Controller
                 ->where(function ($query) use ($ubicacion) {
                     if (!is_null($ubicacion) && $ubicacion != "") {
                         foreach ($ubicacion as $ubi) {
-                            $query->orWhere('contratos.ubicacion', 'LIKE', '%'.$ubi.'%');
+                            $query->orWhere('contratos.ubicacion', 'LIKE', '%' . $ubi . '%');
                         }
                     }
                 })
@@ -903,5 +904,97 @@ class ContratoController extends Controller
             $response = true;
         }
         return $response;
+    }
+
+    public function updateScrapping(Request $request)
+    {
+        $model = Contrato::where('link', $request->link)->first();
+        if ($model) {
+            $model->fecha_last_update_seguimiento = now();
+            $model->save();
+            $model->guardarDetalle($model);
+
+            $contratos_con_notas = $this->getContratosIdsConNotas();
+
+            $contratista = ContratistaContrato::where('id_contrato', $model->id)->first();
+            if ($contratista) {
+                $model->contratista = $contratista->nombre;
+            }
+
+            $sub_categorias = "";
+            $clasificacion_contrato = ClasificacionContrato::where('id_contrato', $model->id)->get();
+            if ($clasificacion_contrato) {
+                foreach ($clasificacion_contrato as $key => $cc) {
+                    $sub_categoria = SubCategoria::find($cc->id_sub_categoria);
+                    if (sizeof($clasificacion_contrato) - 1 != $key) {
+                        $sub_categorias .= $sub_categoria->nombre . " - ";
+                    } else {
+                        $sub_categorias .= $sub_categoria->nombre;
+                    }
+                }
+            }
+            $model->actividades_economicas = $sub_categorias;
+
+            $favorito = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'F')->first();
+            if (is_null($favorito)) {
+                $model->favorito = false;
+            } else {
+                $favorito = CarpetasHasContrato::where('id_contrato', $model->id)->where('id_carpeta', $favorito->id)->first();
+                if (is_null($favorito)) {
+                    $model->favorito = false;
+                } else {
+                    $model->favorito = true;
+                }
+            }
+
+            $unspsc = CodigoCpv::find($model->unspsc);
+            if ($unspsc) {
+                $model->unspsc_nombre = $unspsc->nombre;
+            } else {
+                $model->unspsc_nombre = "";
+            }
+
+            $papelera = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'P')->first();
+            if (is_null($papelera)) {
+                $model->papelera = false;
+            } else {
+                $papelera = CarpetasHasContrato::where('id_contrato', $model->id)->where('id_carpeta', $papelera->id)->first();
+                if (is_null($papelera)) {
+                    $model->papelera = false;
+                } else {
+                    $model->papelera = true;
+                }
+            }
+
+            //Buscar si el contrato esta guardado en carpetas del usuario actual
+            $carpetas = CarpetasHasContrato::join('carpetas', 'carpetas.id', 'carpetas_has_contratos.id_carpeta')
+                ->where('id_contrato', $model->id)
+                ->where('carpetas.id_usuario', Auth::id())
+                ->whereNotIn('carpetas.tipo', ['F', 'P'])
+                ->get();
+            $model->carpetas = $carpetas;
+            $carpetas_ids = [];
+            foreach ($carpetas as $item => $key) {
+                $carpetas_ids[] = $key->id_carpeta;
+            }
+            $model->carpetas_ids = $carpetas_ids;
+
+            if (in_array($model->id, $contratos_con_notas)) {
+                $model->notas = true;
+                $total_notas = Nota::where('id_usuario', Auth::id())->where('id_contrato', $model->id)->get();
+                $model->total_notas = sizeof($total_notas);
+            } else {
+                $model->notas = false;
+                $model->total_notas = 0;
+            }
+
+            $documentos_procesos = DocumentosProceso::where('id_contrato', $model->id)->get();
+            if ($documentos_procesos) {
+                $model->documentos = $documentos_procesos;
+            } else {
+                $model->documentos = 0;
+            }
+        }
+        return $model;
     }
 }

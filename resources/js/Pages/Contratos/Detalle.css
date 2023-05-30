@@ -156,6 +156,29 @@
     font-size: 24px;
 }
 
+#detalle-contratos #actualizar-secops-manual .actualizar-secops-manual--actualizando {
+    border-color: #60c4dd;
+    color: #000;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between
+}
+
+#detalle-contratos #actualizar-secops-manual .actualizar-secops-manual--actualizando .content-info p:first-of-type {
+    margin-right: .5em
+}
+
+#detalle-contratos #actualizar-secops-manual .actualizar-secops-manual--actualizando i {
+    color: #00a1c9;
+    font-size: 24px
+}
+
 #detalle-contratos #actualizar-secops-manual .content-info {
     display: -webkit-box;
     display: -ms-flexbox;
