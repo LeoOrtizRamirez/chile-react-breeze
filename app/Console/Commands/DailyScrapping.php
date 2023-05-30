@@ -388,18 +388,19 @@ class DailyScrapping extends Command
         if ($codigo_cpv) {
             $array = explode(",", $codigo_cpv->filtros); // Convert string to array
             $array = array_filter($array, 'strlen'); // Remove empty values
-            echo "ARRAY";
+            echo "Licicodigos:\n";
             print_r($array);
 
             foreach ($array as $key => $value) {
-                $clasificacion_contrato = new ClasificacionContrato();
-                $clasificacion_contrato->id_contrato = $model->id;
-                $clasificacion_contrato->id_sub_categoria = $value;
-                $clasificacion_contrato->save();
-                echo "Guardando ClasificacionContrato\n\n";
+                if ($value != "") {
+                    $clasificacion_contrato = new ClasificacionContrato();
+                    $clasificacion_contrato->id_contrato = $model->id;
+                    $clasificacion_contrato->id_sub_categoria = $value;
+                    $clasificacion_contrato->save();
+                    echo "Guardando ClasificacionContrato\n\n";
+                }
             }
-        } else {
-        }
+        } 
 
 
 
