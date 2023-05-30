@@ -334,16 +334,16 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                 console.log(response.data)
                 setActualizacionManual(false)
                 setContrato(response.data)
-                /* setTabla(prevTabla => {
+                setTabla(prevTabla => {
                     const index = prevTabla.data.findIndex(item => item.id === contrato.id);
                     if (index === -1) {
                         return { ...prevTabla };
                     } else {
                         let newData = [...prevTabla.data];
-                        newData[index] = { ...newData[index], favorito: true };
+                        newData[index] = response.data
                         return { ...prevTabla, data: newData };
                     }
-                }); */
+                });
             })
             .catch(error => {
                 console.log(error)
@@ -412,7 +412,12 @@ const Detalle = ({ auth, carpetas, contratos, index, current_url, query, current
                                 </div>
                                 <div id="contenido_acciones" className="col-4 pr-0 text-right iconos_acciones_contratos">
                                     {!isUpdated(contrato.updated_at) &&
-                                        <button id="botonActualizarManual" type="button" className="btn bg-transparent">
+                                        <button
+                                            id="botonActualizarManual"
+                                            type="button"
+                                            className="btn bg-transparent"
+                                            onClick={() => actualizarContrato(contrato)}
+                                        >
                                             <img src="https://col.licitaciones.info/img/detalle-contrato/svg/proceso-manual-cargar.svg" width="22" height="22" />
                                         </button>
                                     }
