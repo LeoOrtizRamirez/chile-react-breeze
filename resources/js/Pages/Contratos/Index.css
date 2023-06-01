@@ -405,7 +405,7 @@ select:focus {
 #contratos .p-datatable .p-datatable-tbody>tr>td.columna_fecha,
 #contratos .p-datatable .p-datatable-tbody>tr>td.columna_cuantia,
 #contratos .p-datatable .p-datatable-tbody>tr>td.columna_estado {
-    min-width: 130px !important;
+    min-width: 110px !important;
 }
 
 #contratos .p-datatable .p-datatable-tbody>tr>td.columna_pequena {
@@ -1694,11 +1694,15 @@ input.p-inputtext.p-component.p-column-filter:not(:placeholder-shown)::before {
 
 #contratos .p-datatable .p-datatable-tbody>tr>td.columna_cuantia,
 #contratos .p-datatable .p-datatable-tbody>tr>td.columna_modalidad,
-#contratos .p-datatable .p-datatable-tbody>tr>td.columna_numero,
+/* #contratos .p-datatable .p-datatable-tbody>tr>td.columna_numero, */
 #contratos .p-datatable .p-datatable-tbody>tr>td.columna_estado,
 #contratos .p-datatable .p-datatable-tbody>tr>td.columna_fecha,
 #contratos .p-datatable .p-datatable-tbody>tr>td.columna_publicacion {
-    width: 9% !important;
+   /*  width: 9% !important; */
+}
+
+#contratos .p-datatable .p-datatable-tbody>tr>td.columna_numero {
+    min-width: 120px !important;
 }
 
 #contratos .p-datatable .p-datatable-tbody>tr td,
