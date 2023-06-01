@@ -438,7 +438,11 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                                         <p>{data.fecha_publicacion.split(' ')[0]}</p>
                                     </div>
                                     <div className="d-flex text-left"><strong>Ubicación:</strong>
-                                        <p><i className="icon-Ubicacin-grid"></i>{data.ubicacion}</p>
+                                        {data.ubicacion != "" ?
+                                            <p><i className="icon-Ubicacin-grid"></i>{data.ubicacion}</p>
+                                            :
+                                            <p>Sin información</p>
+                                        }
                                     </div>
                                     <div className="d-flex text-left"><strong>Actividad<br />económica:</strong>
                                         <p>Litografía e Impresión a gran formato, -Impresiones, fotocopiado y alquiler de fotocopiadoras,-Encuadernación, empastado y argollado</p>
@@ -729,7 +733,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                     className="p-inputtext p-component p-column-filter"
                     placeholder="Buscar"
                     name={column.field}
-                    onKeyDown={(e)=>paginatorPost(e, visualizarFilter)}
+                    onKeyDown={(e) => paginatorPost(e, visualizarFilter)}
                     onChange={(e) => updateState(column.field, e.target.value)}
                     value={columnValue}
                 />
@@ -838,13 +842,20 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     };
     const ubicacionBodyTemplate = (grupo) => {
         return (
-            <div className="content_ver_mas_grid ubicaciones_grid">
-                <p className="scroll_fit">
-                    <span>
-                        <span>{grupo.ubicacion}</span>
-                    </span>
-                </p>
-            </div>
+            <>
+                {
+                    grupo.ubicacion != "" ?
+                        <div className="content_ver_mas_grid ubicaciones_grid">
+                            <p className="scroll_fit">
+                                <span>
+                                    <span>{grupo.ubicacion}</span>
+                                </span>
+                            </p>
+                        </div>
+                        :
+                        <p>Sin información</p>
+                }
+            </>
         );
     };
     /*Contenido de columnas personalizadas*/
@@ -1034,7 +1045,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                                 <input
                                     value={inputFilterBusquedaRapida}
                                     onChange={(e) => setInputFilterBusquedaRapida(e.target.value)}
-                                    onKeyDown={(e)=>paginatorPost(e, visualizarFilter)}
+                                    onKeyDown={(e) => paginatorPost(e, visualizarFilter)}
                                     type="text"
                                     name="rapida"
                                     placeholder="Búsqueda rápida"
