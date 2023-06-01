@@ -360,8 +360,8 @@ class UserController extends Controller
 
         $request->validate([
             'current_password' => 'required',
-            'new_password' => ['required', 'string', 'min:8'],
-            'new_password_confirmation' => ['required', 'string', 'min:8'],
+            'new_password' => ['required', 'string', 'min:6'],
+            'new_password_confirmation' => ['required', 'string', 'min:6'],
         ]);
     
         $user = User::find(Auth::id());

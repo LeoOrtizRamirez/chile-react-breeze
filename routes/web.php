@@ -20,6 +20,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     $contratosAll = Contrato::where('fecha_publicacion', date('Y-m-d'))
@@ -230,3 +231,8 @@ Route::get('/cliente/notificacion-correo', [UserController::class, 'notificacion
 Route::post('/cliente/notificacion-correo/save-notification', [GrupoFiltroUsuarioController::class, 'saveNotification'])->middleware(['auth', 'verified']);
 
 Route::post('/cliente/get-licicodigos', [CodigoCpvController::class, 'getLicicodigos']);
+
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+  });
