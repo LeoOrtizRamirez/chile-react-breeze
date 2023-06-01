@@ -221,6 +221,9 @@ Route::post('register/modal', [RegisteredUserController::class, 'registerModal']
 Route::get('/scrapping', [ContratoController::class, 'scrapping']);
 
 /*Configuraciones*/
+
+Route::post('/cliente/mi-cuenta/cambio', [UserController::class, 'changePassword'])->middleware(['auth', 'verified'])->name('user.change-password');
+
 Route::get('/cliente/solicitud', [UserController::class, 'solicitud'])->middleware(['auth', 'verified']);
 Route::get('/cliente/sugerencias', [UserController::class, 'sugerencias'])->middleware(['auth', 'verified']);
 Route::get('/cliente/notificacion-correo', [UserController::class, 'notificacionCorreo'])->middleware(['auth', 'verified']);

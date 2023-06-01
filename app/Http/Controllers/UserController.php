@@ -19,6 +19,8 @@ use DB;
 use Exception;
 use App\Models\Plane;
 use Illuminate\Support\Facades\Auth;
+use App\Rules\MatchOldPassword;
+
 
 class UserController extends Controller
 {
@@ -351,5 +353,27 @@ class UserController extends Controller
         return Inertia::render('Usuarios/NotificacionCorreo', [
             "grupos" => $grupos
         ]);
+    }
+
+    public function changePassword(Request $request)
+    {
+
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => ['required', 'string', 'min:8'],
+            'new_password_confirmation' => ['required', 'string', 'min:8'],
+        ]);
+    
+        $user = User::find(Auth::id());
+        $currentPassword = $user->password;
+    
+        if (!Hash::check($request->current_password, $currentPassword)) {
+            return response()->json(['error' => 'La contraseña actual es incorrecta.'], 422);
+        }
+    
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+    
+        return response()->json(['message' => 'La contraseña se ha actualizado satisfactoriamente.']);
     }
 }

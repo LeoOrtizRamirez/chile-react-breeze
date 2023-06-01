@@ -1,0 +1,195 @@
+#modal_cambiar_contrasena {
+    max-width: 560px;
+}
+
+#modal_cambiar_contrasena .modal-content {
+    border-radius: 17px;
+    border: 0;
+}
+
+#modal_cambiar_contrasena .modal-header {
+    position: relative;
+    text-align: center;
+    padding-right: 48px !important;
+    border: 0 !important;
+}
+
+#modal_cambiar_contrasena .modal-header .icon-Cerrar-modal {
+    right: 17px !important;
+}
+
+#modal_cambiar_contrasena .modal-body{
+    padding: 0px !important;
+}
+
+#modal_cambiar_contrasena .div_imagen_cambio_contrasena {
+    margin-top: -165px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#modal_cambiar_contrasena .div_imagen_cambio_contrasena_img {
+    width: 235px;
+    margin: auto;
+}
+
+#modal_cambiar_contrasena .div_cambio_contrasena {
+    padding: 20px 90px 30px !important;
+    text-align: center;
+}
+
+
+#modal_cambiar_contrasena .div_cambio_contrasena_titulo {
+    color: #00a1c9;
+    font-size: 22px;
+    font-family: Nexa-bold,sans-serif;
+    margin-bottom: 25px;
+}
+
+#modal_cambiar_contrasena .div_cambio_contrasena_form {
+    text-align: left;
+}
+
+#modal_cambiar_contrasena .div_cambio_contrasena_form form {
+    max-width: 370px;
+}
+
+#modal_cambiar_contrasena .div_cambio_contrasena_form_div {
+    padding: 0 0 10px;
+    position: relative;
+}
+
+#modal_cambiar_contrasena .div_cambio_contrasena_form_div_label {
+    font-family: Nexa-bold,sans-serif;
+    font-size: 15px;
+    margin-bottom: 20px;
+    color: #686868;
+}
+
+#modal_cambiar_contrasena .alineacion_boton_cambio_contrasena {
+    position: relative;
+    padding-right: 55px;
+}
+
+#modal_cambiar_contrasena .inputs_cambio_contrasena {
+    height: 30px;
+    width: 100%;
+    font-size: 12px;
+}
+
+#modal_cambiar_contrasena .form-control {
+    border: 1px solid #ddd;
+    border-radius: 1rem;
+}
+
+#modal_cambiar_contrasena .div_cambio_contrasena_form_div_input_button {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#modal_cambiar_contrasena .icono_mostrar_contrasena {
+    outline: none!important;
+    -webkit-box-shadow: none!important;
+    box-shadow: none!important;
+}
+
+#modal_cambiar_contrasena .btnRadius_indicativo {
+    right: 0;
+    height: 30px;
+    width: 43px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 1rem;
+}
+
+#modal_cambiar_contrasena .btnRadius_indicativo>span {
+    display: block;
+    font-size: 18px;
+    color: #686868;
+}
+
+#modal_cambiar_contrasena .barra_progreso, .botones_cambio_contrasena {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+#modal_cambiar_contrasena .barra_progreso {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#modal_cambiar_contrasena .top_barra_progreso {
+    margin-top: 2px;
+}
+
+#modal_cambiar_contrasena .progress {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 1rem;
+    overflow: hidden;
+    font-size: .75rem;
+    background-color: #e9ecef;
+    border-radius: 0.25rem;
+}
+
+#modal_cambiar_contrasena .progress {
+    height: 4px !important;
+    width: 60px;
+    margin-top: 9px;
+}
+
+#modal_cambiar_contrasena .progress-bar {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    background-color: #007bff;
+    transition: width .6s ease;
+}
+
+#modal_cambiar_contrasena .responsive_barra_progreso {
+    margin-left: 10px;
+}
+
+#modal_cambiar_contrasena .div_texto_nivel_contrasena {
+    text-align: center;
+    line-height: 0;
+    margin-top: 6px;
+    margin-left: 5px;
+}
+
+#modal_cambiar_contrasena .texto_nivel_contrasena {
+    font-size: 12px;
+    font-family: Nexa-bold,sans-serif;
+    line-height: 10.4px;
+}
+
+#modal_cambiar_contrasena .botones_cambio_contrasena {
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+}
+
+#modal_cambiar_contrasena .boton_actualizar_cambio_contrasena {
+    font-size: 17px !important;
+    font-family: Nexa-bold,sans-serif !important;
+    padding: 3px 45px !important;
+    display: inline-block !important;
+    margin-top: 15px !important;
+}
+
+#modal_cambiar_contrasena .form-group {
+    margin-bottom: 1rem !important;
+}
