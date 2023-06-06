@@ -82,7 +82,7 @@ const Header = ({ auth }) => {
                                         </div>
                                     </div>
                                     <Dropdown.Divider />
-                                    <Dropdown.Item href="#" className='dropdown-item item-dropdown-menu d-flex align-items-center'>
+                                    <Dropdown.Item href="/cliente/mi-cuenta" className='dropdown-item item-dropdown-menu d-flex align-items-center'>
                                         <span className="icon-Datos1 align-self-center"></span>
                                         <span className="pl-4 w-100 text-left">Mis datos personales</span>
                                         <span className="icon-Siguiente1 align-self-center"></span>
