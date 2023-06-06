@@ -274,20 +274,20 @@ const MiCuenta = ({ auth, _plan, _publicidad }) => {
 
                                                 {selectedOptionPaisInteres == "Colombia" &&
                                                     <>
-                                                        <img width="22" src="/public/images/banderas/listado_nombres/col.svg" alt="Flag" className="flag" />
+                                                        <img width="22" src="/public/images/banderas/listado_nombres/COL.svg" alt="Flag" className="flag" />
                                                         <span className="option__item-text ml-2">Colombia</span>
                                                     </>
                                                 }
 
                                                 {selectedOptionPaisInteres == "Ecuador" &&
                                                     <>
-                                                        <img width="22" src="/public/images/banderas/listado_nombres/ecu.svg" alt="Flag" className="flag" />
+                                                        <img width="22" src="/public/images/banderas/listado_nombres/ECU.svg" alt="Flag" className="flag" />
                                                         <span className="option__item-text ml-2">Ecuador</span>
                                                     </>
                                                 }
                                                 {selectedOptionPaisInteres == "Panama" &&
                                                     <>
-                                                        <img width="22" src="/public/images/banderas/listado_nombres/pan.svg" alt="Flag" className="flag" />
+                                                        <img width="22" src="/public/images/banderas/listado_nombres/PAN.svg" alt="Flag" className="flag" />
                                                         <span className="option__item-text ml-2">Panama</span>
                                                     </>
                                                 }
@@ -307,7 +307,7 @@ const MiCuenta = ({ auth, _plan, _publicidad }) => {
                                                 <Dropdown.Item eventKey="Colombia">
                                                     <div className="option__main-container">
                                                         <div className="content-wrapper d-flex justify-content-center">
-                                                            <img width="22" src="/public/images/banderas/listado_nombres/col.svg" alt="Flag" className="flag mr-2" /> <span className="option__item-text">Colombia</span>
+                                                            <img width="22" src="/public/images/banderas/listado_nombres/COL.svg" alt="Flag" className="flag mr-2" /> <span className="option__item-text">Colombia</span>
                                                         </div>
                                                     </div>
                                                 </Dropdown.Item>
@@ -316,7 +316,7 @@ const MiCuenta = ({ auth, _plan, _publicidad }) => {
                                                 <Dropdown.Item eventKey="Ecuador">
                                                     <div className="option__main-container">
                                                         <div className="content-wrapper d-flex justify-content-center">
-                                                            <img width="22" src="/public/images/banderas/listado_nombres/ecu.svg" alt="Flag" className="flag mr-2" /> <span className="option__item-text">Ecuador</span>
+                                                            <img width="22" src="/public/images/banderas/listado_nombres/ECU.svg" alt="Flag" className="flag mr-2" /> <span className="option__item-text">Ecuador</span>
                                                         </div>
                                                     </div>
                                                 </Dropdown.Item>
@@ -325,7 +325,7 @@ const MiCuenta = ({ auth, _plan, _publicidad }) => {
                                                 <Dropdown.Item eventKey="Panama">
                                                     <div className="option__main-container">
                                                         <div className="content-wrapper d-flex justify-content-center">
-                                                            <img width="22" src="/public/images/banderas/listado_nombres/pan.svg" alt="Flag" className="flag mr-2" /> <span className="option__item-text">Panama</span>
+                                                            <img width="22" src="/public/images/banderas/listado_nombres/PAN.svg" alt="Flag" className="flag mr-2" /> <span className="option__item-text">Panama</span>
                                                         </div>
                                                     </div>
                                                 </Dropdown.Item>
