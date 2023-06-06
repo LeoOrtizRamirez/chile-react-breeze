@@ -14,6 +14,7 @@ use App\Http\Controllers\SubCategoriaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NotaController;
 use App\Http\Controllers\DocumentoProcesoController;
+use App\Http\Controllers\PublicidadController;
 
 use App\Models\Contrato;
 use Illuminate\Foundation\Application;
@@ -221,9 +222,19 @@ Route::post('register/modal', [RegisteredUserController::class, 'registerModal']
 
 Route::get('/scrapping', [ContratoController::class, 'scrapping']);
 
-/*Configuraciones*/
 
+Route::post('/cliente/difusion/store', [PublicidadController::class, 'store'])->middleware(['auth', 'verified']);
+Route::post('/cliente/difusion/update', [PublicidadController::class, 'update'])->middleware(['auth', 'verified']);
+Route::post('/cliente/difusion/destroy', [PublicidadController::class, 'delete'])->middleware(['auth', 'verified']);
+
+
+/*Configuraciones*/
+/*Mi Cuenta */
+Route::get('/cliente/mi-cuenta', [UserController::class, 'miCuenta'])->middleware(['auth', 'verified'])->name('user.mi-cuenta');
+Route::post('/cliente/mi-cuenta/update', [UserController::class, 'miCuentaUpdate'])->middleware(['auth', 'verified']);
 Route::post('/cliente/mi-cuenta/cambio', [UserController::class, 'changePassword'])->middleware(['auth', 'verified'])->name('user.change-password');
+/*Mi Cuenta*/
+
 
 Route::get('/cliente/solicitud', [UserController::class, 'solicitud'])->middleware(['auth', 'verified']);
 Route::get('/cliente/sugerencias', [UserController::class, 'sugerencias'])->middleware(['auth', 'verified']);

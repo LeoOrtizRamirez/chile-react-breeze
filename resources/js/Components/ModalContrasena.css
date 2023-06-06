@@ -193,3 +193,20 @@
 #modal_cambiar_contrasena .form-group {
     margin-bottom: 1rem !important;
 }
+
+#modal_cambiar_contrasena .modal-header .icon-Cerrar-modal {
+    position: absolute;
+    top: 17px;
+    right: 17px;
+    display: inline-block;
+    z-index: 3;
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    font-size: 43px;
+    color: #c9003d;
+    border: 0;
+    background-color: transparent;
+    outline: none;
+    font-weight: 400;
+}

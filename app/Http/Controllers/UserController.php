@@ -363,17 +363,32 @@ class UserController extends Controller
             'new_password' => ['required', 'string', 'min:6'],
             'new_password_confirmation' => ['required', 'string', 'min:6'],
         ]);
-    
+
         $user = User::find(Auth::id());
         $currentPassword = $user->password;
-    
+
         if (!Hash::check($request->current_password, $currentPassword)) {
             return response()->json(['error' => 'La contraseña actual es incorrecta.'], 422);
         }
-    
+
         $user->password = Hash::make($request->new_password);
         $user->save();
-    
+
         return response()->json(['message' => 'La contraseña se ha actualizado satisfactoriamente.']);
+    }
+
+    public function miCuenta()
+    {
+        $user = Auth::user();
+        $plan = $user->plan;
+        $publicidad = $user->publicidad;
+        return Inertia::render('Usuarios/MiCuenta', [
+            '_plan' => $plan,
+            '_publicidad' => $publicidad,
+        ]);
+    }
+
+    public function miCuentaUpdate(){
+        dd("here");
     }
 }
