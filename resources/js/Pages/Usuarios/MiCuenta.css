@@ -19,6 +19,11 @@
     }
 }
 
+#mi-cuenta .col-avatar {
+    background: #fff;
+    border-radius: 14px;
+}
+
 @media (min-width: 992px) {
     #mi-cuenta .col-avatar .avatar {
         margin-top: 0;

@@ -6,6 +6,8 @@ import Tabs from 'react-bootstrap/Tabs';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Toast } from 'primereact/toast';
 import { Modal } from 'react-bootstrap';
+import ModalPaises from '@/Components/ModalPaises';
+
 const MiCuenta = ({ auth, _plan, _publicidad }) => {
     const toastBL = useRef(null);
     const [data, setData] = useState({
@@ -26,7 +28,7 @@ const MiCuenta = ({ auth, _plan, _publicidad }) => {
         id: auth.user.id,
         identificacion: auth.user.identificacion,
         idplan: auth.user.idplan,
-        indicativo: auth.user.indicativo,
+        indicativo: auth.user.indicativo == undefined ? "+56 - Chile" : auth.user.indicativo,
         indicativo_empresa: auth.user.indicativo_empresa,
         name: auth.user.name,
         nit_empresa: auth.user.nit_empresa,
@@ -38,6 +40,7 @@ const MiCuenta = ({ auth, _plan, _publicidad }) => {
         pais_empresa: auth.user.pais_empresa,
         plan: auth.user.plan,
         profile_photo_path: auth.user.profile_photo_path,
+        tratamiento: auth.user.tratamiento,
         telefono_fijo: auth.user.telefono_fijo,
         telefono_fijo_empresa: auth.user.telefono_fijo_empresa,
         updated_at: auth.user.updated_at,
@@ -53,7 +56,7 @@ const MiCuenta = ({ auth, _plan, _publicidad }) => {
         'enlace': _publicidad?.enlace == undefined ? "" : _publicidad?.enlace,
     })
     const [errors, setErrors] = useState({});
-    const [selectedOptionTratamiento, setSelectedOptionTratamiento] = useState('Selecciona');
+    const [selectedOptionTratamiento, setSelectedOptionTratamiento] = useState(data.tratamiento == undefined ? "No especificado" : data.tratamiento);
     const handleSelectTratamiento = (eventKey) => {
         setSelectedOptionTratamiento(eventKey)
     };
@@ -132,8 +135,21 @@ const MiCuenta = ({ auth, _plan, _publicidad }) => {
         setShowModal(true)
     }
 
-    const [globalLoading, setGlobalLoading] = useState(false)
+    const [indicativo, setIndicativo] = useState(data.indicativo == undefined ? "+57 - Colombia" : data.indicativo)
+    const [showModalPaises, setShowModalPaises] = useState(false)
+    const handleCloseModalPaises = (_indicativo) => {
+        console.log("indicativo", _indicativo)
+        if (_indicativo != null) {
+            setIndicativo(_indicativo)
+            setData({ ...data, indicativo: `${_indicativo.indicative} - ${_indicativo.title}` })
+        }
+        setShowModalPaises(false)
+    }
+    const handleShowModaPaises = () => {
+        setShowModalPaises(true)
+    }
 
+    const [globalLoading, setGlobalLoading] = useState(false)
 
     const isFirstTitulo = useRef(true)
     const isFirstContenido1 = useRef(true)
@@ -228,6 +244,7 @@ const MiCuenta = ({ auth, _plan, _publicidad }) => {
         setErrors(errors);
         return formIsValid;
     }
+
     return (
         <AuthenticatedLayout auth={auth} page={'mi-cuenta'} globalLoading={globalLoading}>
             <div className="content_not_blank_interno">
@@ -245,7 +262,7 @@ const MiCuenta = ({ auth, _plan, _publicidad }) => {
                                         <p>{data.nombre_completo}</p>
                                     </div>
                                     <div className="ocupacion">
-                                        <p>Desarrollador</p>
+                                        <p>{data.ocupacion}</p>
                                     </div>
                                 </div>
                                 <div className="avatar__plan">
@@ -255,12 +272,8 @@ const MiCuenta = ({ auth, _plan, _publicidad }) => {
                                     </div>
                                     <div className="info-plan info-fecha-final-plan"><span className="info-label">Fin de plan</span> <span className="info-valor">2023/12/31</span></div></div>
                             </div>
-                            <div className="sub-seccion pais-zona-horaria--sub-seccion text-center">
+                            {/* <div className="sub-seccion pais-zona-horaria--sub-seccion text-center">
                                 <div id="paisInteres" className="select-pais">
-
-
-
-
                                     <span className="select-pais__title">País de interés</span>
                                     <Dropdown onSelect={handleSelectPaisInteres}>
                                         <Dropdown.Toggle variant="success" id="mi-cuenta" drop="end" className="dropdown b-dropdown lici-dropdown btn-group">
@@ -343,7 +356,7 @@ const MiCuenta = ({ auth, _plan, _publicidad }) => {
                                         </Dropdown.Toggle>
                                     </Dropdown>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                         <div className="col-lg-12 col-xl-9 col-form-data">
                             <div className="navigation-component sub-seccion">
@@ -462,8 +475,8 @@ const MiCuenta = ({ auth, _plan, _publicidad }) => {
                                                                                 <label for="indicativoUsuario" className="form-group__label">Indicativo:</label>
                                                                                 <Dropdown onSelect={handleSelectPaisInteres}>
                                                                                     <Dropdown.Toggle variant="success" id="indicativoUsuario" drop="end" className="dropdown b-dropdown lici-dropdown btn-group">
-                                                                                        <div className="option option-display">
-                                                                                            <span className="option__item-text">Colombia +57</span>
+                                                                                        <div className="option option-display" onClick={handleShowModaPaises}>
+                                                                                            <span className="option__item-text">{data.indicativo}</span>
                                                                                         </div>
                                                                                     </Dropdown.Toggle>
                                                                                 </Dropdown>
@@ -828,6 +841,7 @@ const MiCuenta = ({ auth, _plan, _publicidad }) => {
                     }
                 </Modal.Footer>
             </Modal>
+            <ModalPaises data={data.indicativo} showModal={showModalPaises} handleCloseModal={handleCloseModalPaises} modalId="modalIndicativos" />
         </AuthenticatedLayout >
     )
 }

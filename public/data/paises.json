@@ -25,7 +25,7 @@
         "title": "Chile",
         "indicative": "+56",
         "fixed": true,
-        "selected": true
+        "selected": false
     },
     {
         "image": "/public/images/banderas/listado_nombres/AFG.svg",
