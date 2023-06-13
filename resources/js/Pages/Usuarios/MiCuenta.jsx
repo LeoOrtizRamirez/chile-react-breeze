@@ -7,6 +7,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { Toast } from 'primereact/toast';
 import { Modal } from 'react-bootstrap';
 import ModalPaises from '@/Components/ModalPaises';
+import ModalFoto from '@/Components/ModalFoto';
 
 const MiCuenta = ({ auth, _plan, _publicidad }) => {
     const toastBL = useRef(null);
@@ -245,6 +246,22 @@ const MiCuenta = ({ auth, _plan, _publicidad }) => {
         return formIsValid;
     }
 
+    const [showModalFoto, setShowModalFoto] = useState(false)
+    const handleCloseModalFoto = (data, action) => {
+        if (data != null) {
+            setData({ ...data, profile_photo_path: data.profile_photo_path })
+            if (action == "save") {
+                toastBL.current.show({ severity: 'success', summary: 'Tu imagen se actualizo correctamente'/* , detail: 'Message Content' */, life: 3000 });
+            } else {
+                toastBL.current.show({ severity: 'success', summary: 'Tu imagen se elimino correctamente'/* , detail: 'Message Content' */, life: 3000 });
+            }
+        }
+        setShowModalFoto(false)
+    }
+    const handleShowModalFoto = () => {
+        setShowModalFoto(true)
+    }
+
     return (
         <AuthenticatedLayout auth={auth} page={'mi-cuenta'} globalLoading={globalLoading}>
             <div className="content_not_blank_interno">
@@ -254,8 +271,8 @@ const MiCuenta = ({ auth, _plan, _publicidad }) => {
                             <div className="avatar sub-seccion text-center">
                                 <div className="avatar__info">
                                     <div className="imagen">
-                                        <img width="175" height="175" src="https://col.licitaciones.info/img/mi_cuenta/svg/default_avatar.svg" alt="Avatar" className="imagen__avatar" />
-                                        <button className="imagen__cambiar-avatar-button">
+                                        <img width="175" height="175" src={`${data.profile_photo_path != null ? "/uploads/" + data.profile_photo_path : "https://col.licitaciones.info/img/mi_cuenta/svg/default_avatar.svg"}`} alt="Avatar" className="imagen__avatar" />
+                                        <button className="imagen__cambiar-avatar-button" onClick={handleShowModalFoto}>
                                             <img src="https://col.licitaciones.info/img/mi_cuenta/svg/cambiarImagen.svg" alt="Cambiar imágen" />
                                         </button></div>
                                     <div className="nombre">
@@ -842,6 +859,7 @@ const MiCuenta = ({ auth, _plan, _publicidad }) => {
                 </Modal.Footer>
             </Modal>
             <ModalPaises data={data.indicativo} showModal={showModalPaises} handleCloseModal={handleCloseModalPaises} modalId="modalIndicativos" />
+            <ModalFoto data={data.profile_photo_path} showModal={showModalFoto} handleCloseModal={handleCloseModalFoto} modalId="modal_seleccion_imagen" />
         </AuthenticatedLayout >
     )
 }

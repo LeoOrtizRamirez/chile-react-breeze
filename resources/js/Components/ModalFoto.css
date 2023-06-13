@@ -1,0 +1,173 @@
+#modal_seleccion_imagen {
+    max-width: 693px;
+}
+
+#modal_seleccion_imagen .modal-content {
+    border-radius: 17px;
+    border: 0;
+}
+
+#modal_seleccion_imagen .modal-header {
+    border: none !important;
+}
+
+#modal_seleccion_imagen .modal-body {
+    background: hsla(0, 1%, 61%, .1);
+    margin-bottom: 20px;
+    height: 100%;
+    border-radius: 15px;
+    padding: 12px 0;
+}
+
+#modal_seleccion_imagen .modal-header .seleccion_imagen_titulo {
+    margin: 30px auto 0;
+    font-size: 22px;
+    color: #686868;
+    font-family: Nexa-bold, sans-serif;
+}
+
+#modal_seleccion_imagen .modal-header .icon-Cerrar-modal {
+    position: absolute;
+    top: 17px;
+    right: 17px;
+    display: inline-block;
+    z-index: 3;
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    font-size: 43px;
+    color: #c9003d;
+    border: 0;
+    background-color: transparent;
+    outline: none;
+    font-weight: 400;
+}
+
+#modal_seleccion_imagen .modal-header .icon-Cerrar-modal {
+    top: 11px !important;
+    right: 11px !important;
+}
+
+#modal_seleccion_imagen .modal-footer {
+    border: none !important;
+    padding-bottom: 28px;
+}
+
+#modal_seleccion_imagen .seleccion_imagen_botones {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: space-evenly;
+    -ms-flex-pack: space-evenly;
+    justify-content: space-evenly;
+    margin: 0 auto;
+    padding: 10px 50px 0;
+}
+
+#modal_seleccion_imagen .reactEasyCrop_Container {
+    position: relative !important;
+    margin: auto;
+    width: 495.7px !important;
+    height: 278.8px !important;
+}
+
+#modal_seleccion_imagen .reactEasyCrop_CropArea {
+    width: 278.8px !important;
+    height: 278.8px !important;
+    border-radius: 50% !important;
+    color: #686868 !important;
+}
+
+#modal_seleccion_imagen input[type="file"] {
+    opacity: 0;
+    width: 280px;
+    height: 281px;
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    cursor: pointer;
+}
+
+#modal_seleccion_imagen .crop-container.sin-foto img.reactEasyCrop_Image.reactEasyCrop_Contain{
+    display: none;
+}
+
+#modal_seleccion_imagen .crop-container.sin-foto .reactEasyCrop_CropArea:hover{
+    background-color: hsl(0deg 0% 80.78%);
+}
+
+#modal_seleccion_imagen  img.reactEasyCrop_Image.reactEasyCrop_Contain {
+    height: 278.8px;
+}
+
+#modal_seleccion_imagen .reactEasyCrop_Container {
+    border-radius: 15px;
+}
+
+#modal_seleccion_imagen .controls {
+    justify-content: center;
+    display: flex;
+    margin-top: 15px;
+    width: 100%;
+}
+
+#modal_seleccion_imagen p.crop-text {
+    position: absolute;
+    top: 140px;
+    left: 228px;
+    cursor: pointer;
+}
+
+
+
+#modal_seleccion_imagen .zoom-range {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 2px;
+    border-top: 5px solid #fff;
+    border-bottom: 5px solid #fff;
+    background: #00a1c9;
+    /* width: 100%; */
+}
+
+#modal_seleccion_imagen .zoom-range::-moz-range-thumb {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 1px solid #00a1c9;
+    background: #00a1c9;
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+#modal_seleccion_imagen .zoom-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 1px solid #00a1c9;
+    background: #00a1c9;
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+#modal_seleccion_imagen .controls:hover input[type='range']::-webkit-slider-thumb {
+    box-shadow: 0px 0px 0px 8px rgba(63, 81, 181, 0.16);
+    border-radius: 50%;
+}
+
+#modal_seleccion_imagen .controls:hover input[type='range']::-moz-range-thumb {
+    box-shadow: 0px 0px 0px 8px rgba(63, 81, 181, 0.16);
+}
+
+#modal_seleccion_imagen .icon.icon-remove{
+    position: absolute;
+    cursor: pointer;
+    top: -4px;
+    left: 450px;
+}
+
+#modal_seleccion_imagen button.btnRadius.btn-new-danger {
+    margin-right: 40px;
+}

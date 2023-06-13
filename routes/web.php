@@ -233,6 +233,8 @@ Route::post('/cliente/difusion/destroy', [PublicidadController::class, 'delete']
 Route::get('/cliente/mi-cuenta', [UserController::class, 'miCuenta'])->middleware(['auth', 'verified'])->name('user.mi-cuenta');
 Route::post('/cliente/mi-cuenta/update', [UserController::class, 'miCuentaUpdate'])->middleware(['auth', 'verified']);
 Route::post('/cliente/mi-cuenta/cambio', [UserController::class, 'changePassword'])->middleware(['auth', 'verified'])->name('user.change-password');
+Route::post('/cliente/mi-cuenta/upload-image-perfil', [UserController::class, 'uploadImagePerfil'])->middleware(['auth', 'verified']);
+Route::post('/cliente/mi-cuenta/eliminar-imagen-perfil', [UserController::class, 'eliminarImagenPerfil'])->middleware(['auth', 'verified']);
 /*Mi Cuenta*/
 
 
@@ -240,7 +242,6 @@ Route::get('/cliente/solicitud', [UserController::class, 'solicitud'])->middlewa
 Route::get('/cliente/sugerencias', [UserController::class, 'sugerencias'])->middleware(['auth', 'verified']);
 Route::get('/cliente/notificacion-correo', [UserController::class, 'notificacionCorreo'])->middleware(['auth', 'verified']);
 Route::post('/cliente/notificacion-correo/save-notification', [GrupoFiltroUsuarioController::class, 'saveNotification'])->middleware(['auth', 'verified']);
-
 Route::post('/cliente/get-licicodigos', [CodigoCpvController::class, 'getLicicodigos']);
 
 Route::get('/logout', function () {

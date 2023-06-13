@@ -388,7 +388,40 @@ class UserController extends Controller
         ]);
     }
 
-    public function miCuentaUpdate(){
+    public function miCuentaUpdate()
+    {
         dd("here");
+    }
+
+    public function uploadImagePerfil(Request $request)
+    {
+        $user = User::find(Auth::id());
+    
+        if (!is_null($user->profile_photo_path)) {
+            if (file_exists(public_path('/uploads/').$user->profile_photo_path)) {
+                unlink(public_path('/uploads/').$user->profile_photo_path);
+            }
+        }
+        
+        $file = $request->file('image');
+        $filename = uniqid() . "_" . $file->getClientOriginalName();
+        $file->move(public_path('/uploads/'), $filename);
+
+        $user->profile_photo_path = $filename;
+        $user->save();
+        return json_encode($user);
+    }
+
+    public function eliminarImagenPerfil(){
+        $user = User::find(Auth::id());
+        $user->profile_photo_path = null;
+        $user->save();
+
+        if (!is_null($user->profile_photo_path)) {
+            if (file_exists(public_path('/uploads/').$user->profile_photo_path)) {
+                unlink(public_path('/uploads/').$user->profile_photo_path);
+            }
+        }
+        return json_encode($user);
     }
 }
