@@ -75,7 +75,7 @@ const ModalFoto = ({ data, showModal, handleCloseModal, modalId }) => {
     }
 
     useEffect(()=>{
-        setImage(`${data == null ? "https://col.licitaciones.info/img/mi_cuenta/svg/default_avatar.svg" : "/uploads/" + data}`)
+        setImage(`${data == null ? "https://col.licitaciones.info/img/mi_cuenta/svg/default_avatar.svg" : "/public/uploads/" + data}`)
     },[showModal])
     return (
         <Modal show={showModal} onHide={() => handleCloseModal(null)} id={modalId} centered>
