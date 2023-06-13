@@ -20,7 +20,8 @@ use Exception;
 use App\Models\Plane;
 use Illuminate\Support\Facades\Auth;
 use App\Rules\MatchOldPassword;
-
+use Illuminate\Support\Facades\Storage;
+use Image;
 
 class UserController extends Controller
 {
@@ -395,31 +396,66 @@ class UserController extends Controller
 
     public function uploadImagePerfil(Request $request)
     {
+
+
         $user = User::find(Auth::id());
-    
+
         if (!is_null($user->profile_photo_path)) {
-            if (file_exists(public_path('/uploads/').$user->profile_photo_path)) {
-                unlink(public_path('/uploads/').$user->profile_photo_path);
+            if (file_exists(public_path('/uploads/') . $user->profile_photo_path)) {
+                unlink(public_path('/uploads/') . $user->profile_photo_path);
             }
         }
-        
+
         $file = $request->file('image');
         $filename = uniqid() . "_" . $file->getClientOriginalName();
         $file->move(public_path('/uploads/'), $filename);
+
+
+
+        // Redimensionar la imagen recortada
+        /* try {
+            $path = $file->storeAs('public/images', $filename);
+            $croppedArea = json_decode($request->input('croppedArea'));
+            $resizedImage = Image::make(Storage::url($path))
+                ->crop(
+                    $croppedArea->width,
+                    $croppedArea->height,
+                    $croppedArea->x,
+                    $croppedArea->y
+                )
+                ->resize(300, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })
+                ->encode($file->extension());
+
+            Storage::put(
+                'public/images/thumbnails/' . $filename,
+                $resizedImage->__toString(),
+                'public'
+            );
+        } catch (\Throwable $th) {
+            dd($th);
+        } */
+
+
+
+
+
 
         $user->profile_photo_path = $filename;
         $user->save();
         return json_encode($user);
     }
 
-    public function eliminarImagenPerfil(){
+    public function eliminarImagenPerfil()
+    {
         $user = User::find(Auth::id());
         $user->profile_photo_path = null;
         $user->save();
 
         if (!is_null($user->profile_photo_path)) {
-            if (file_exists(public_path('/uploads/').$user->profile_photo_path)) {
-                unlink(public_path('/uploads/').$user->profile_photo_path);
+            if (file_exists(public_path('/uploads/') . $user->profile_photo_path)) {
+                unlink(public_path('/uploads/') . $user->profile_photo_path);
             }
         }
         return json_encode($user);

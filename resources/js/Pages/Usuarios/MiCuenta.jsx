@@ -271,7 +271,7 @@ const MiCuenta = ({ auth, _plan, _publicidad }) => {
                             <div className="avatar sub-seccion text-center">
                                 <div className="avatar__info">
                                     <div className="imagen">
-                                        <img width="175" height="175" src={`${data.profile_photo_path != null ? "/uploads/" + data.profile_photo_path : "https://col.licitaciones.info/img/mi_cuenta/svg/default_avatar.svg"}`} alt="Avatar" className="imagen__avatar" />
+                                        <img width="175" height="175" src={`${data.profile_photo_path != null ? "/public/uploads/" + data.profile_photo_path : "https://col.licitaciones.info/img/mi_cuenta/svg/default_avatar.svg"}`} alt="Avatar" className="imagen__avatar" />
                                         <button className="imagen__cambiar-avatar-button" onClick={handleShowModalFoto}>
                                             <img src="https://col.licitaciones.info/img/mi_cuenta/svg/cambiarImagen.svg" alt="Cambiar imágen" />
                                         </button></div>

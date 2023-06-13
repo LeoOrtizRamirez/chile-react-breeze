@@ -7,12 +7,12 @@ import Cropper from 'react-easy-crop'
 const ModalFoto = ({ data, showModal, handleCloseModal, modalId }) => {
     const [crop, setCrop] = useState({ x: 0, y: 0 })
     const [zoom, setZoom] = useState(1)
-    const [croppedArea, setCroppedArea] = useState(null);
+    const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
     const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
-        console.log(croppedArea, croppedAreaPixels)
-        setCroppedArea(croppedArea);
+        console.log(croppedAreaPixels, croppedAreaPixels)
+        setCroppedAreaPixels(croppedAreaPixels);
     }, [])
-    const [image, setImage] = useState(`${data == null ? "https://col.licitaciones.info/img/mi_cuenta/svg/default_avatar.svg" : "/uploads/" + data}`);
+    const [image, setImage] = useState(`${data == null ? "https://col.licitaciones.info/img/mi_cuenta/svg/default_avatar.svg" : "/public/uploads/" + data}`);
 
     const onSelectFile = (event) => {
         if (event.target.files && event.target.files.length > 0) {
@@ -38,6 +38,7 @@ const ModalFoto = ({ data, showModal, handleCloseModal, modalId }) => {
     const saveImage = async () => {
         const formData = new FormData();
         formData.append('image', dataURItoBlob(image), 'image.png');
+        formData.append('croppedArea', JSON.stringify(croppedAreaPixels));
         var token = document.querySelector('meta[name="csrf-token"]')
         fetch('/cliente/mi-cuenta/upload-image-perfil', {
             method: 'POST',
@@ -69,31 +70,6 @@ const ModalFoto = ({ data, showModal, handleCloseModal, modalId }) => {
             })
     }
 
-    const getCroppedImg = (imageSrc, croppedAreaPixels) => {
-        const canvas = document.createElement('canvas');
-        const { width, height } = croppedAreaPixels;
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext('2d');
-
-        const image = new Image();
-        image.src = imageSrc;
-        const scaleX = image.naturalWidth / image.width;
-        const scaleY = image.naturalHeight / image.height;
-        ctx.drawImage(
-            image,
-            croppedAreaPixels.x * scaleX,
-            croppedAreaPixels.y * scaleY,
-            croppedAreaPixels.width * scaleX,
-            croppedAreaPixels.height * scaleY,
-            0,
-            0,
-            width,
-            height
-        );
-
-        return canvas.toDataURL('image/jpeg');
-    };
     const imageClear = () => {
         setImage("")
     }
