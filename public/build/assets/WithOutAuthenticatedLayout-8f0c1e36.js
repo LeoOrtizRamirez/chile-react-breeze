@@ -1,1 +1,0 @@
-import{r as o,j as s,F as i,a as t}from"./app-5fc30145.js";/* empty css                      *//* empty css              */import{H as n,F as c}from"./Footer-2d021859.js";function h({auth:e,header:u,children:r,page:a}){return o.exports.useState(!1),s(i,{children:[t(n,{user:e}),t("div",{id:a,children:r}),t(c,{})]})}export{h as A};
