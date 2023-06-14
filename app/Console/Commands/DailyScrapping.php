@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\ClasificacionContrato;
+use App\Models\CodigoCpv;
 use App\Models\SubCategoria;
 use Illuminate\Console\Command;
 
@@ -13,9 +14,13 @@ use Symfony\Component\HttpClient\HttpClient;
 
 use App\Models\Contrato;
 use App\Models\ContratistaContrato;
+use App\Models\DocumentosProceso;
 
 use DateTime;
 use DateTimeZone;  
+
+use Carbon\Carbon;
+use Exception;
 
 class DailyScrapping extends Command
 {
@@ -112,6 +117,52 @@ class DailyScrapping extends Command
                     $valor = (int) str_replace('.','',$valor_texto);
                 }
 
+                $modalidad = "";
+                $_modalidad = $this->textValidation($node->filter(".estado-lic strong:nth-child(1)"));
+                switch ($_modalidad) {
+                    case 'L1':
+                        $modalidad = "(L1) Licitación Pública Menor a 100 UTM";
+                        break;
+                    case 'LE':
+                        $modalidad = "(LE) Licitación Pública Entre 100 y 1000 UTM";
+                        break;
+                    case 'LP':
+                        $modalidad = "(LP) Licitación Pública igual o superior a 1.000 UTM e inferior a 2.000 UTM";
+                        break;
+                    case 'LQ':
+                        $modalidad = "(LQ) Licitación Pública igual o superior a 2.000 UTM e inferior a 5.000 UTM";
+                        break;
+                    case 'LR':
+                        $modalidad = "(LR) Licitación Pública igual o superior a 5.000 UTM";
+                        break;
+                    case 'LS':
+                        $modalidad = "(LS) Licitación Pública Servicios personales especializados";
+                        break;
+                    case 'O1':
+                        $modalidad = "(O1) Licitación Pública de Obras";
+                        break;
+                    case 'E2':
+                        $modalidad = "(E2) Licitación Privada Inferior a 100 UTM";
+                        break;
+                    case 'CO':
+                        $modalidad = "(CO) Licitación Privada igual o superior a 100 UTM e inferior a 1000 UTM";
+                        break;
+                    case 'B2':
+                        $modalidad = "(B2) Licitación Privada igual o superior a 1000 UTM e inferior a 2000 UTM";
+                        break;
+                    case 'H2':
+                        $modalidad = "(H2) Licitación Privada igual o superior a 2000 UTM e inferior a 5000 UTM";
+                        break;
+                    case 'I2':
+                        $modalidad = "(I2) Licitación Privada Mayor a 5000 UTM";
+                        break;
+                    case 'O2':
+                        $modalidad = "(O2) Licitación Privada de Obras";
+                        break;
+                    default:
+                        $modalidad = "";
+                        break;
+                }
 
                 //Formato fecha_publicacion               
                 $fecha_publicacion  = $this->textValidation($node->filter("div.lic-block-body > div:nth-child(3) > div:nth-child(2) > span"));
@@ -146,7 +197,7 @@ class DailyScrapping extends Command
                 $model->entidad_contratante = $entidad_contratante;
                 $model->codigo_proceso = $codigo_proceso;
                 $model->objeto = $objeto;
-                $model->modalidad = "";
+                $model->modalidad = $modalidad;
                 $model->ubicacion = "";
                 $model->link = $link;
                 $model->valor = $valor;
@@ -210,14 +261,86 @@ class DailyScrapping extends Command
     function guardarDetalle($model, $contratista_nombre)
     {
         $crawlerDetalle = $this->getClient()->request('GET', $model->link);
-        $model->modalidad = $this->textValidation($crawlerDetalle->filter('#lblFicha1Tipo'));
-        $model->ubicacion = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
-        $model->unspsc = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblCategoria'));
+
+        $_departamento = $this->textValidation($crawlerDetalle->filter('#lblFicha2Region'));
+        switch ($_departamento) {
+            case 'Región de Arica y Parinacota':
+                $departamento = "Arica y Parinacota";
+                break;
+            case 'Región de Tarapacá':
+                $departamento = "Tarapacá";
+                break;
+            case 'Región de Antofagasta':
+                $departamento = "Antofagasta";
+                break;
+            case 'Región de Atacama':
+                $departamento = "Atacama";
+                break;
+            case 'Región de Coquimbo':
+                $departamento = "Coquimbo";
+                break;
+            case 'Región de Valparaíso':
+                $departamento = "Valparaíso";
+                break;
+            case 'Región Metropolitana de Santiago':
+                $departamento = "Metropolitana de Santiago";
+                break;
+            case 'Región del Libertador General Bernardo O´Higgins':
+                $departamento = "Libertador General Bernardo O'Higgins";
+                break;
+            case 'Región del Maule':
+                $departamento = "Maule";
+                break;
+            case 'Región del Ñuble':
+                $departamento = "Ñuble";
+                break;
+            case 'Región del Biobío':
+                $departamento = "Biobío";
+                break;
+            case 'Región de la Araucanía':
+                $departamento = "Araucanía";
+                break;
+            case 'Región de Los Ríos':
+                $departamento = "Los Ríos";
+                break;
+            case 'Región de los Lagos':
+                $departamento = "Los Lagos";
+                break;
+            case 'Región Aysén del General Carlos Ibáñez del Campo':
+                $departamento = "Aysén del General Carlos Ibáñez del Campo";
+                break;
+            case 'Región de Magallanes y de la Antártica':
+                $departamento = "Magallanes y de la Antártica";
+                break;
+            default:
+                $departamento = "";
+                break;
+        }
+        $municipio = $this->textValidation($crawlerDetalle->filter('#lblFicha2Comuna'));
+
+        $ubicacion = "";
+        if ($departamento != "") {
+            if ($municipio == "No hay información") {
+                $ubicacion = $departamento;
+            } else {
+                $ubicacion = $departamento . " : " . $municipio;
+            }
+        }
+        $model->ubicacion = $ubicacion;
+
+        $unspsc = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblCategoria'));
+
+        if ($unspsc != "") {
+            $model->unspsc = $unspsc;
+        } else {
+            $model->unspsc = 0;
+        }
+
         $estado_proceso_fuente = $this->textValidation($crawlerDetalle->filter('#imgEstado'), '#imgEstado', 'src');
 
-        if($estado_proceso_fuente != ""){
+        if ($estado_proceso_fuente != "") {
             $estado_proceso = $this->getEstadoProceso($estado_proceso_fuente);
-        }else{
+        } else {
             do {
                 $crawlerDetalle = $this->getClient()->request('GET', $model->link);
                 $estado_proceso_fuente = $this->textValidation($crawlerDetalle->filter('#imgEstado'), '#imgEstado', 'src');
@@ -225,39 +348,114 @@ class DailyScrapping extends Command
             } while ($estado_proceso_fuente == "");
         }
         $model->estado_proceso = $estado_proceso;
-        echo "Estado:" . $estado_proceso. "\n";
+        echo "Estado:" . $estado_proceso . "\n";
         $model->save();
         echo "Guardando Detalle del Contrato\n";
 
-        $contratista = new ContratistaContrato;
-        $contratista->nombre = $contratista_nombre;
-        $contratista->id_contrato = $model->id;
-        $contratista->save();
-        echo "Guardando ContratistaContrato\n";
-
-        //Inicio - Actividad economica
-        //Buscar o crear SubCategoria
-
-        $actividad_economica = $this->textValidation($crawlerDetalle->filter('#grvProducto_ctl02_lblProducto'));
-        $find_subcategoria = SubCategoria::where('nombre', $actividad_economica)->first();
-        if($find_subcategoria){
-            $subcategoria_id = $find_subcategoria->id;
-            echo "Ya esta creada\n";
-        }else{
-            $subcategoria = new SubCategoria();
-            $subcategoria->nombre = $actividad_economica;
-            $subcategoria->tipo_categoria = 4; //Actividad Económica Scrapping
-            $subcategoria->save();
-            $subcategoria_id = $subcategoria->id;
-            echo "Guardando SubCategoria\n";
+        $current_contratista = ContratistaContrato::where('id_contrato', $model->id)->first();
+        if ($current_contratista) {
+        } else {
+            $contratista = new ContratistaContrato;
+            $contratista->nombre = $contratista_nombre;
+            $contratista->id_contrato = $model->id;
+            $contratista->save();
+            echo "Guardando ContratistaContrato\n";
         }
 
-        $clasificacion_contrato = new ClasificacionContrato();
-        $clasificacion_contrato->id_contrato = $model->id;
-        $clasificacion_contrato->id_sub_categoria = $subcategoria_id;
-        $clasificacion_contrato->save();
-        echo "Guardando ClasificacionContrato\n\n";
-        
+        //Borrar las clasificaciones actuales si las tiene
+        $clasificaciones = ClasificacionContrato::where('id_contrato', $model->id)->get();
+        if ($clasificaciones) {
+            foreach ($clasificaciones as $key => $clasificacion) {
+                $clasificacion->delete();
+            }
+        }
+        //Guardar nuevas clasificaciones
+        $codigo_cpv = CodigoCpv::find($model->unspsc);
+        if ($codigo_cpv) {
+            $array = explode(",", $codigo_cpv->filtros); // Convert string to array
+            $array = array_filter($array, 'strlen'); // Remove empty values
+            echo "Licicodigos:\n";
+            print_r($array);
+
+            foreach ($array as $key => $value) {
+                if ($value != " ") {
+                    $clasificacion_contrato = new ClasificacionContrato();
+                    $clasificacion_contrato->id_contrato = $model->id;
+                    $clasificacion_contrato->id_sub_categoria = $value;
+                    $clasificacion_contrato->save();
+                    echo "Guardando ClasificacionContrato\n\n";
+                }
+            }
+        }
+
+        //Obtener enlace a documentos
+        $url_documentos = $this->textValidation($crawlerDetalle->filter('#imgAdjuntos'), "#imgAdjuntos", "onclick");
+
+        //Este código usa la preg_match()función con una expresión regular para extraer el texto entre la primera barra diagonal y la comilla simple de cierre. La URL resultante luego se imprime en la consola. Puede ajustar el patrón de expresión regular según sea necesario para que coincida con el formato específico de su valor de atributo.
+        $regex = "/\/(.+?)'/";
+        if (preg_match($regex, $url_documentos, $match)) {
+            $targetUrl = $match[1];
+        }
+
+        //Eliminar documentos actuales
+        $documentos_proceso = DocumentosProceso::where('id_contrato', $model->id)->get();
+        foreach ($documentos_proceso as $key => $documento) {
+            $documento->delete();
+        }
+        $this->guardarDocumentos($model->id, "https://www.mercadopublico.cl/Procurement/Modules/" . $targetUrl);
+        echo "Guardando Documentos\n\n";
+    }
+
+    public function guardarDocumentos($id_contrato, $link)
+    {
+        $crawlerDocumentos = $this->getClient()->request('GET', $link);
+        $query = parse_url($link, PHP_URL_QUERY);
+        parse_str($query, $params);
+        $form_enc = $params['enc'];
+        $contador = 1;
+        try {
+            $view_state = $this->textValidation($crawlerDocumentos->filter('#__VIEWSTATE'), '#__VIEWSTATE', 'value');
+            $view_state_generator = $this->textValidation($crawlerDocumentos->filter('#__VIEWSTATEGENERATOR'), '#__VIEWSTATEGENERATOR', 'value');
+            $crawlerDocumentos->filter("table#DWNL_grdId tr:not(:first-child)")->each(function ($node) use (&$form_enc, &$view_state, &$view_state_generator, &$link, &$id_contrato, &$contador) {
+                $contador += 1;
+
+                $inicio_id = "0";
+                if ($contador >= 10) {
+                    $inicio_id = "";
+                }
+                $documentos_proceso = new DocumentosProceso;
+                $documentos_proceso->ruta = $link;
+
+                $namedoc = $this->textValidation($node->filter('#DWNL_grdId_ctl' . $inicio_id . $contador . '_File'));
+
+                $documentos_proceso->namedoc = $namedoc;
+
+                $extension = pathinfo($namedoc, PATHINFO_EXTENSION);
+                $documentos_proceso->extension = $extension;
+
+                $documentos_proceso->descripcion = $this->textValidation($node->filter('#DWNL_grdId_ctl' . $inicio_id . $contador . '_Description'));
+                $documentos_proceso->size = $this->textValidation($node->filter('#DWNL_grdId_ctl' . $inicio_id . $contador . '_FileLength'));
+
+                $fecha_fuente_string = $this->textValidation($node->filter('#DWNL_grdId_ctl' . $inicio_id . $contador . '_AtcDateTime'));
+                $carbonDate = Carbon::createFromFormat('d-m-Y H:i:s', $fecha_fuente_string);
+                $documentos_proceso->fecha_fuente = $carbonDate;
+
+                $documentos_proceso->identificador_fuente = "";
+                $documentos_proceso->id_contrato = $id_contrato;
+
+                $json_adicional = [
+                    "enc" => $form_enc,
+                    "__VIEWSTATE" =>  $view_state,
+                    "__VIEWSTATEGENERATOR" => $view_state_generator,
+                    "x" => 'DWNL$grdId$ctl' . $inicio_id . $contador . '$search.x',
+                    "y" => 'DWNL$grdId$ctl' . $inicio_id . $contador . '$search.y',
+                ];
+                $documentos_proceso->json_adicional = json_encode($json_adicional);
+                $documentos_proceso->save();
+            });
+        } catch (Exception $e) {
+            echo ($e->getMessage());
+        }
     }
 
     public function getEstadoProceso($img){

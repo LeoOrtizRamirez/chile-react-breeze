@@ -35,7 +35,7 @@ class CarpetasController extends Controller
         $last_orden = Carpeta::max('orden');
 
         if (is_null($request->color)) {
-            $validated['color'] = "#ffc107";
+            $validated['color'] = $this->getRandomColor();
         } else {
             $validated['color'] = $request->color;
         }
@@ -47,7 +47,15 @@ class CarpetasController extends Controller
         } catch (Exception $e) {
             dd($e->getMessage());
         }
-        return redirect(route('carpetas.index'));
+        //return redirect(route('carpetas.index'));
+        $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
+        return $carpetas;
+    }
+
+    public function getRandomColor(){
+        $colors = ["#00A1C9","#FFC107","#003DC9","#C900A1","#8C00C9","#C9003D","#73C914","#686868","#000000"];
+        $rand_index = array_rand($colors);
+        return $colors[$rand_index];
     }
 
     public function crear(Request $request)
@@ -59,7 +67,7 @@ class CarpetasController extends Controller
         $last_orden = Carpeta::max('orden');
 
         if (is_null($request->color)) {
-            $validated['color'] = "#ffc107";
+            $validated['color'] = $this->getRandomColor();
         } else {
             $validated['color'] = $request->color;
         }
@@ -97,7 +105,9 @@ class CarpetasController extends Controller
         } catch (Exception $e) {
             dd($e->getMessage());
         }
-        return redirect(route('carpetas.index'));
+        /* return redirect(route('carpetas.index')); */
+        $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
+        return $carpetas;
     }
 
     public function delete(Request $request)
@@ -110,125 +120,31 @@ class CarpetasController extends Controller
 
         $carpeta = Carpeta::find($request->id);
         $carpeta->delete();
-        return redirect(route('carpetas.index'));
+
+        /* return redirect(route('carpetas.index')); */
+        $carpetas = Carpeta::where('id_usuario', Auth::id())->whereNotIn('tipo', ['F', 'P'])->orderBy('orden', 'ASC')->get();
+        return $carpetas;
     }
 
-    public function addFavorito(Request $request)
-    {
-        //Buscar si ya tiene carpeta de favoritos
-        $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'F')->first();
 
-        if (is_null($carpeta)) {
-            $carpeta = new Carpeta;
-            $carpeta->id_usuario = Auth::id();
-            $carpeta->tipo = 'F';
-            $carpeta->nombre_carpeta = 'Favoritos';
-            $carpeta->color = '#fdcb36';
-            try {
-                $carpeta->save();
-            } catch (Exception $e) {
-                dd($e->getMessage());
-            }
-        }
-        $carpeta_has_contrato = new CarpetasHasContrato;
-        $carpeta_has_contrato->id_contrato = $request->contrato;
-        $carpeta_has_contrato->id_carpeta = $carpeta->id;
-        try {
-            $carpeta_has_contrato->save();
-        } catch (Exception $e) {
-            dd($e->getMessage());
-        }
-        $response = [
-            'status' => 1,
-            'mesaje' => "Has agregado el proceso de contratación a tus <b class=\"text-naranja\">favoritos<\/b>."
-        ];
-        //return $response;
-        return redirect()->route('contratos.index')->with('message', "Has agregado el proceso de contratación a tus <b class=\"text-naranja\">favoritos<\/b>.");
-    }
 
-    public function deleteFavorito(Request $request)
-    {
-        //Buscar si ya tiene carpeta de favoritos
-        $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'F')->first();
-        $carpeta_has_contrato = CarpetasHasContrato::where('id_contrato', $request->contrato)->where('id_carpeta', $carpeta->id)->first();
-        try {
-            $carpeta_has_contrato->delete();
-        } catch (Exception $e) {
-            dd($e->getMessage());
-        }
-        $response = [
-            'status' => 1,
-            'mesaje' => "Contratos eliminados de favoritos exitosamente."
-        ];
-        //return $response;
-        return redirect()->route('contratos.index');
-    }
 
-    public function addPapelera(Request $request)
-    {
-        //Buscar si ya tiene carpeta de favoritos
-        $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'P')->first();
-
-        if (is_null($carpeta)) {
-            $carpeta = new Carpeta;
-            $carpeta->id_usuario = Auth::id();
-            $carpeta->tipo = 'P';
-            $carpeta->nombre_carpeta = 'Papelera';
-            $carpeta->color = '#d13161';
-            try {
-                $carpeta->save();
-            } catch (Exception $e) {
-                dd($e->getMessage());
-            }
-        }
-        $carpeta_has_contrato = new CarpetasHasContrato;
-        $carpeta_has_contrato->id_contrato = $request->contrato;
-        $carpeta_has_contrato->id_carpeta = $carpeta->id;
-        try {
-            $carpeta_has_contrato->save();
-        } catch (Exception $e) {
-            dd($e->getMessage());
-        }
-        $response = [
-            'status' => 1,
-            'mesaje' => "Has agregado el proceso de contratación a tus <b class=\"text-naranja\">favoritos<\/b>."
-        ];
-        //return $response;
-        return redirect()->route('contratos.index')->with('message', "Has agregado el proceso de contratación a tus <b class=\"text-naranja\">favoritos<\/b>.");
-    }
-
-    public function deletePapelera(Request $request)
-    {
-        //Buscar si ya tiene carpeta de favoritos
-        $carpeta = Carpeta::where('id_usuario', Auth::id())->where('tipo', 'P')->first();
-        $carpeta_has_contrato = CarpetasHasContrato::where('id_contrato', $request->contrato)->where('id_carpeta', $carpeta->id)->first();
-        try {
-            $carpeta_has_contrato->delete();
-        } catch (Exception $e) {
-            dd($e->getMessage());
-        }
-        $response = [
-            'status' => 1,
-            'mesaje' => "Contratos eliminados de favoritos exitosamente."
-        ];
-        //return $response;
-        return redirect()->route('contratos.index');
-    }
 
     public function addContrato(Request $request)
     {
-
-        foreach ($request->carpetas as $key => $value) {
-            //Buscar si ya existe
-            $validator = CarpetasHasContrato::where('id_contrato', $request->contrato)->where('id_carpeta', $value)->first();
-            if (!$validator) {
-                $carpeta_has_contrato = new CarpetasHasContrato;
-                $carpeta_has_contrato->id_contrato = $request->contrato;
-                $carpeta_has_contrato->id_carpeta = $value;
-                try {
-                    $carpeta_has_contrato->save();
-                } catch (Exception $e) {
-                    dd($e->getMessage());
+        foreach ($request->carpetas as $key => $carpeta) {
+            foreach ($request->contratos as $key => $contrato) {
+                //Buscar si ya existe
+                $validator = CarpetasHasContrato::where('id_contrato', $contrato["id"])->where('id_carpeta', $carpeta)->first();
+                if (!$validator) {
+                    $carpeta_has_contrato = new CarpetasHasContrato;
+                    $carpeta_has_contrato->id_carpeta = $carpeta;
+                    $carpeta_has_contrato->id_contrato = $contrato["id"];
+                    try {
+                        $carpeta_has_contrato->save();
+                    } catch (Exception $e) {
+                        dd($e->getMessage());
+                    }
                 }
             }
         }
@@ -236,25 +152,46 @@ class CarpetasController extends Controller
             'status' => 1,
             'mesaje' => "Has agregado el proceso de contratación a tus <b class=\"text-azul-oscuro\">carpetas</b>."
         ];
-
-        return redirect()->route('contratos.index');
+        return $response;
+        //return redirect()->route('contratos.index');
     }
 
     public function deleteContrato(Request $request)
     {
-        $validator = CarpetasHasContrato::where('id_contrato', $request->contrato)->where('id_carpeta', $request->carpeta)->first();
-        if ($validator) {
-            try {
-                $validator->delete();
-            } catch (Exception $e) {
-                dd($e->getMessage());
+        //dd($request->contratos);
+        foreach ($request->contratos as $key => $contrato) {
+            $carpeta_has_contrato = CarpetasHasContrato::where('id_contrato', $contrato)->where('id_carpeta', $request->carpeta)->first();
+            //dd($carpeta_has_contrato);
+            if ($carpeta_has_contrato) {
+                try {
+                    $carpeta_has_contrato->delete();
+                } catch (Exception $e) {
+                    dd($e->getMessage());
+                }
             }
         }
-        return redirect()->route('contratos.index');
 
+
+        $response = [
+            'status' => 1,
+            'mesaje' => "Carpeta eliminada de contrato exitosamente."
+        ];
+        return $response;
+        //return redirect()->route('contratos.index');
     }
 
-    public function findCarpeta()
+    public function getCarpetasPaginadas(Request $request)
     {
+        $search = request("filtroBusqueda");
+        $carpetas = Carpeta::where('id_usuario', Auth::id())
+            ->whereNotIn('tipo', ['F', 'P'])
+            ->where(function ($query) use ($search) {
+                if (!is_null($search) && $search != "") {
+                    $query->where('nombre_carpeta', 'like', '%' . $search . '%');
+                }
+            })
+            ->orderBy('orden', 'ASC')
+            ->get();
+        return $carpetas;
     }
 }

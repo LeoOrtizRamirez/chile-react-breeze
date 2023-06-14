@@ -9,7 +9,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Nav from 'react-bootstrap/Nav';
 import Modal from 'react-bootstrap/Modal';
 
-import { Paises } from '@/Components/Paises';
+import Paises from '@/Components/Paises';
 
 export default function Contacto({auth}) {
 

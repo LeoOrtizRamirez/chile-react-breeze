@@ -24,12 +24,14 @@ return new class extends Migration
 
             $table->string('nombre_completo')->nullable();
             $table->string('identificacion')->nullable();
-            $table->string('celular',15)->nullable();
-            $table->string('indicativo',20)->nullable();
-            $table->string('telefono_fijo',10)->nullable();
-            $table->string('direccion',50)->nullable();
-            $table->string('ciudad',50)->nullable();
-            $table->string('pais',50)->nullable();
+            $table->string('celular', 15)->nullable();
+            $table->string('indicativo', 20)->nullable();
+            $table->string('telefono_fijo', 10)->nullable();
+            $table->string('direccion', 50)->nullable();
+            $table->string('ciudad', 50)->nullable();
+            $table->string('pais', 50)->nullable();
+            $table->string('ocupacion', 200)->nullable();
+            $table->string('tratamiento', 50)->nullable();
 
             $table->unsignedBigInteger('idplan')->nullable();
             $table->foreign('idplan')
@@ -37,26 +39,32 @@ return new class extends Migration
                 ->on('planes')
                 ->onDelete('set null');
 
+            $table->unsignedBigInteger('id_publicidad')->nullable();
+            $table->foreign('id_publicidad')
+                ->references('id')
+                ->on('publicidades')
+                ->onDelete('set null');
+
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->date('fecha_vencimiento')->nullable();
             $table->integer('estado')->nullable();
-            $table->string('origen',30)->nullable();
+            $table->string('origen', 30)->nullable();
             $table->string('password');
-            $table->string('verification_code',4)->nullable();
-            
+            $table->string('verification_code', 4)->nullable();
+
             //Datos empresa
 
-            $table->string('nombre_empresa',50)->nullable();
-            $table->string('nit_empresa',20)->nullable();
-            $table->string('pais_empresa',50)->nullable();
-            $table->string('ciudad_empresa',50)->nullable();
-            $table->string('direccion_empresa',50)->nullable();
-            $table->string('celular_empresa',15)->nullable();
-            $table->string('indicativo_empresa',20)->nullable();
-            $table->string('telefono_fijo_empresa',15)->nullable();
+            $table->string('nombre_empresa', 50)->nullable();
+            $table->string('nit_empresa', 20)->nullable();
+            $table->string('pais_empresa', 50)->nullable();
+            $table->string('ciudad_empresa', 50)->nullable();
+            $table->string('direccion_empresa', 50)->nullable();
+            $table->string('celular_empresa', 15)->nullable();
+            $table->string('indicativo_empresa', 20)->nullable();
+            $table->string('telefono_fijo_empresa', 15)->nullable();
             $table->string('email_facturacion_empresa')->nullable();
-            $table->string('descripcion_actividad_economica',30)->nullable();
+            $table->string('descripcion_actividad_economica', 30)->nullable();
 
             //Campos Laravel
             $table->rememberToken();

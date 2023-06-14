@@ -1,13 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 /* import "./Crear.css"; */
-/*Toast*/
-import Toast from "react-bootstrap/Toast";
-import ToastContainer from "react-bootstrap/ToastContainer";
-import "../../../css/estilos-toast.css";
 
 import ActividadEconomica from "@/Components/ActividadEconomica";
-/*Toast*/
+
 
 /* HEADER*/
 import { Head, useForm } from "@inertiajs/inertia-react";
@@ -22,16 +18,32 @@ import 'react-calendar/dist/Calendar.css';
 
 import './Crear.css'
 
+import { Toast } from 'primereact/toast';
+
 const Crear = ({
     auth,
     actividades_economicas,
     tiposcompras,
     localizaciones,
 }) => {
-
-    const [showToast, setShowToast] = useState(false);
-    const [toastMessage, setToastMessage] = useState("");
-    const [toastIcon, setToastIcon] = useState("");
+    const [licicodigos, setLicicodigos] = useState([]);
+    useEffect(() => {
+        var token = document.querySelector('meta[name="csrf-token"]')
+        axios.post('/cliente/get-licicodigos', {
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token.content}`
+            }
+        })
+            .then(response => {
+                setLicicodigos(response.data)
+            })
+            .catch(error => {
+                // Handle error
+                console.log(error.response.data);
+            });
+    }, [])
+    
     const [sectores, setSectores] = useState(actividades_economicas);
 
     const [checkedsActividadesEconomicas, setCheckedsActividadesEconomicas] = useState([])
@@ -68,38 +80,26 @@ const Crear = ({
     const [iconosPerfiles, setIconosPerfiles] = useState([]);
 
     const changeContent = (id) => {
-        if (id == 2 && checkedsActividadesEconomicas.length == 0) {
-            setToastMessage("Debes seleccionar mínimo una actividad económica");
-            setToastIcon("icon-error");
-            setShowToast(true);
+        if (checkedsActividadesEconomicas.length == 0) {
+            toastBL.current.show({ severity: 'error', summary: 'Debes seleccionar mínimo una actividad económica.'/* , detail: 'Message Content' */, life: 3000 });
         } else {
             setContainer(id)
             setIconosPerfiles([...iconosPerfiles, id])
         }
     }
 
-
-    const refCuantiaHasta = useRef("")
+    const options = { style: "currency", currency: "COP", minimumFractionDigits: 0 };
     const [cuantiaHasta, setCuantiaHasta] = useState("");
-    const [cuantiaDesde, setCuantiaDesde] = useState("$0");
+    const [cuantiaDesde, setCuantiaDesde] = useState((0).toLocaleString("en-US", options).replace('COP', '$'));
     const [toggleSwitchCuantiaDesde, setToggleSwitchCuantiaDesde] = useState(false);
     const [switchSinPresupuestoAsignado, setSwitchSinPresupuestoAsignado] = useState(true);
 
-    const formatValue = (e, type) => {
-        var number = e.target.value;
-        number = clearValue(number);
-
-        if (type == "desde") {
-            changeToggleSwitchCuantiaDesde(number)
-            setCuantiaDesde("$" + new Intl.NumberFormat().format(number));
-        } else {
-            if (number == 0) {
-                setCuantiaHasta('')
-                refCuantiaHasta.current.setAttribute("placeholder", "Sin limite superior")
-            } else {
-                setCuantiaHasta("$" + new Intl.NumberFormat().format(number))
-            }
+    const handleChange = (e) => {
+        const numericValue = parseInt(e.target.value.replace(/[^0-9]+/g, "")) || 0;
+        if(e.target.name == "cuantia_desde"){
+            changeToggleSwitchCuantiaDesde(numericValue) 
         }
+        return numericValue.toLocaleString("en-US", options).replace('COP', '$')
     };
 
     const changeToggleSwitchCuantiaDesde = (value) => {
@@ -109,17 +109,6 @@ const Crear = ({
             setToggleSwitchCuantiaDesde(true);
         }
     }
-
-    const clearValue = (value) => {
-        value = value.replace(" ", "");
-        value = value.replace("$", "");
-        value = value.replace(",", "");
-        value = value.replace(".", "");
-        if (value == "") {
-            value = 0
-        }
-        return parseInt(value);
-    };
 
     const [switchHistorico, setSwitchHistorico] = useState(true);
     const [switchEmail, setSwitchEmail] = useState(true);
@@ -150,10 +139,21 @@ const Crear = ({
     }
 
     const [inputNombrePerfil, setInputNombrePerfil] = useState("")
+    /* const inputNombrePerfil = useRef(null) */
     const [inputDescripcionPerfil, setInputDescripcionPerfil] = useState("")
     const [fechaHistorico, setFechaHistorico] = useState("")
 
-    const handleClickOutside = (event) => {
+    const handleInputNombrePerfil = (e) => {
+        var input_nombre_prefil = document.querySelector('#inputNombrePerfil')
+        if (e.target.value == "") {
+            input_nombre_prefil?.classList.add('is-invalid')
+        } else {
+            input_nombre_prefil?.classList.remove('is-invalid')
+        }
+        setInputNombrePerfil(e.target.value)
+
+    }
+    /* const handleClickOutside = (event) => {
         if (inputNombrePerfil.current && !inputNombrePerfil.current.contains(event.target)) {
             if (inputNombrePerfil.current.value == "") {
                 inputNombrePerfil.current.classList.add('is-invalid')
@@ -168,10 +168,18 @@ const Crear = ({
         return () => {
             document.removeEventListener('click', handleClickOutside, true);
         };
-    }, []);
+    }, []); */
 
 
     const Guardar = () => {
+        if (inputNombrePerfil == "") {
+            var input_nombre_prefil = document.querySelector('#inputNombrePerfil')
+            input_nombre_prefil?.classList.add('is-invalid')
+            toastBL.current.show({ severity: 'error', summary: 'Debes ingresar un nombre para el perfil.'/* , detail: 'Message Content' */, life: 3000 });
+            return;
+        }
+        setGlobalLoading(true)
+        
         var payload = {
             'actividades_economicas': checkedsActividadesEconomicas,
             'tipos_compras': checkedsTiposCompras,
@@ -194,6 +202,7 @@ const Crear = ({
             }
         })
             .then(response => {
+                setGlobalLoading(false)
                 console.log(response)
                 window.location.href = "/cliente/grupo?create=success";
             })
@@ -267,6 +276,8 @@ const Crear = ({
             'actividades_economicas': sub_actividades_economicas,
             'tiposcompras': sub_tiposcompras,
             'localizaciones': sub_localizaciones,
+            'total_tiposcompras': tiposcompras.length,
+            'total_localizaciones':localizaciones.length,
             'perfil': {
                 'limite_inferior_cuantia': cuantiaDesde,
                 'limite_superior_cuantia': cuantiaHasta,
@@ -286,9 +297,15 @@ const Crear = ({
         setShowModalResumenPerfil(false);
     };
     /*ResumenPerfil */
+
+    const toastBL = useRef(null);
+
+    const [globalLoading, setGlobalLoading] = useState(false)
+
+    
     return (
         <>
-            <AuthenticatedLayout auth={auth} page={'perfiles'}>
+            <AuthenticatedLayout auth={auth} page={'perfiles'} globalLoading={globalLoading}>
                 <div className="content_blank_interno margin_left_layout">
                     <div class="col">
                         <h2 class="name_seccion_app">Crear perfil de negocio</h2>
@@ -308,7 +325,7 @@ const Crear = ({
                                         <li>
                                             <div className={`perfil-guias__indicador ${container == 2 ? "perfil-guias__indicador--activo" : ""}`} onClick={() => changeContent(2)}>
                                                 <i id="icon2" className={`icon-Paso-2-click ${container == 2 ? "c-activo-iconos" : ""}`} ></i>{" "}
-                                                <span id="span2" className={`${container == 2 ? "c-activo-texto-iconos" : ""}`}>Tipo de compra</span>
+                                                <span id="span2" className={`${container == 2 ? "c-activo-texto-iconos" : ""}`}>Modalidad</span>
                                             </div>
                                         </li>
                                     )}
@@ -350,6 +367,8 @@ const Crear = ({
                                                 onHandleSectores={onHandleSectores}
                                                 tipo={"ActividadEconomica"}
                                                 checkeds={checkedsActividadesEconomicas}
+                                                checkAllText={""}
+                                                licicodigos={licicodigos}
                                             />
                                         )}
                                     </>
@@ -357,10 +376,12 @@ const Crear = ({
                                         {container == 2 && (
                                             <ActividadEconomica
                                                 subcategorias={tiposcompras}
-                                                nameBuscador={"Buscar Tipo de Compra"}
+                                                nameBuscador={"Buscar Modalidad"}
                                                 onHandleSectores={onHandleSectores}
                                                 tipo={"TiposCompras"}
                                                 checkeds={checkedsTiposCompras}
+                                                checkAllText={"Seleccionar todas las modalidades"}
+                                                licicodigos={licicodigos}
                                             />
                                         )}
                                     </>
@@ -373,6 +394,8 @@ const Crear = ({
                                                 onHandleSectores={onHandleSectores}
                                                 tipo={"Localizaciones"}
                                                 checkeds={checkedsLocalizaciones}
+                                                checkAllText={"Todo el país - Chile"}
+                                                licicodigos={licicodigos}
                                             />
                                         )}
                                     </>
@@ -397,9 +420,7 @@ const Crear = ({
                                                             </label>
                                                             <input
                                                                 value={cuantiaDesde}
-                                                                onChange={
-                                                                    (e) => formatValue(e, 'desde')
-                                                                }
+                                                                onChange={(e) => setCuantiaDesde(handleChange(e))}
                                                                 type="text"
                                                                 id="cuantia_desde"
                                                                 name="cuantia_desde"
@@ -420,11 +441,8 @@ const Crear = ({
                                                                 Cuantía hasta:
                                                             </label>
                                                             <input
-                                                                ref={refCuantiaHasta}
                                                                 value={cuantiaHasta}
-                                                                onChange={
-                                                                    (e) => formatValue(e, 'hasta')
-                                                                }
+                                                                onChange={(e) => setCuantiaHasta(handleChange(e))}
                                                                 type="text"
                                                                 id="cuantia_hasta"
                                                                 name="cuantia_hasta"
@@ -492,15 +510,17 @@ const Crear = ({
                                                             <div className="perfil-preferencia__form1">
                                                                 <label id="nombre" className="perfil-preferencia__labels">Dale un nombre a tu perfil:</label>
                                                                 <input
+                                                                    id="inputNombrePerfil"
                                                                     value={inputNombrePerfil}
-                                                                    onChange={e => setInputNombrePerfil(e.target.value)}
+                                                                    onChange={handleInputNombrePerfil}
                                                                     type="text"
                                                                     name="nombre"
                                                                     className="form-control inputs_form padd-peq mb-0"
                                                                     required
+                                                                /*  ref={inputNombrePerfil} */
                                                                 />
-                                                                <div className="invalid-feedback mb-3">El campo nombre perfil es obligatorio.</div>
-                                                                <label id="descripcion" className="perfil-preferencia__labels">Descripción del perfil (opcional):</label>
+                                                                <div className="invalid-feedback">El campo nombre perfil es obligatorio.</div>
+                                                                <label id="descripcion" className="perfil-preferencia__labels mt-3">Descripción del perfil (opcional):</label>
                                                                 <textarea
                                                                     value={inputDescripcionPerfil}
                                                                     onChange={e => setInputDescripcionPerfil(e.target.value)}
@@ -860,34 +880,7 @@ const Crear = ({
                         <ResumenPerfil showModal={showModalResumenPerfil} handleCloseModal={handleCloseModalResumenPerfil} data={resumenFiltroSelected} />
                     </div>
                 </div>
-                <ToastContainer position="bottom-start">
-                    <Toast
-                        onClose={() => setShowToast(false)}
-                        show={showToast}
-                        delay={3000}
-                        autohide
-                    >
-                        <div
-                            className={`notification-toast ${toastIcon == "icon-error" ? "error" : "success"
-                                }`}
-                        >
-                            <span
-                                className={`toast-icon ${toastIcon == "icon-error"
-                                    ? "toast-danger"
-                                    : "toast-success"
-                                    }`}
-                            >
-                                <span className={toastIcon}></span>
-                            </span>
-                            <p className="title">{toastMessage}</p>
-                            <button
-                                type="button"
-                                className="icon-close m-auto"
-                                onClick={() => setShowToast(false)}
-                            />
-                        </div>
-                    </Toast>
-                </ToastContainer>
+                <Toast ref={toastBL} position="bottom-left" />
             </AuthenticatedLayout>
         </>
     );

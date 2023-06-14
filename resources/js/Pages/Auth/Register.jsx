@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Head, useForm } from "@inertiajs/inertia-react";
 import Modal from "react-bootstrap/Modal";
 //
-import { Paises } from "@/Components/Paises";
+import Paises from '@/Components/Paises';
 import PasswordSecurity from "@/Components/PasswordSecurity";
 import Header from "@/Components/Header/HeaderLite";
 import ModalTC from "@/Components/Modals/ModalTC";

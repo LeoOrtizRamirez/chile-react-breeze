@@ -2,6 +2,10 @@
     color: white !important;
 }
 
+#contratos tbody.p-datatable-tbody {
+    cursor: pointer;
+}
+
 #contratos .p-datatable .p-datatable-header {
     background: #f5f5f5;
     color: #343a40;
@@ -51,19 +55,34 @@
 }
 
 
-#contratos .select-busqueda-rapida .ver-filtros .text-ver-filtros .iconOrdenamientoGrid>span {
+#contratos .ver-filtros .text-ver-filtros .iconOrdenamientoGrid>span {
     font-size: 15px;
     color: #60c4dd;
     margin-right: 5px;
 }
 
-#contratos .select-busqueda-rapida .ver-filtros .text-ver-filtros__text {
+#contratos .ver-filtros .text-ver-filtros__text {
     min-width: 140px;
 }
 
-#contratos .select-busqueda-rapida .ver-filtros>span:first-child {
+#contratos .ver-filtros>span:first-child {
     font-family: Nexa-bold, sans-serif;
     color: #686868;
+}
+
+#contratos .ver-filtros .text-ver-filtros .iconOrdenamientoGrid>img {
+    width: 15px;
+    margin-right: 5px;
+}
+
+#contratos .dropdown-item.active, .dropdown-item:active {
+    color: #fff!important;
+    background-color: #1195d2 !important;
+}
+
+#contratos .dropdown-menu .dropdown-item:active span, 
+#contratos .dropdown-menu .dropdown-item:focus span {
+    color: white !important;
 }
 
 #contratos .visualizar {
@@ -124,8 +143,13 @@
     filter: drop-shadow(0px -2px 1px rgba(0, 0, 0, .2));
 }
 
-#contratos #dropdown-filtro-nuevos .nav-link {
+#contratos #dropdown-filtro-nuevos .nav-link,
+#contratos #dropdown-filtros .nav-link {
     padding: 0px;
+}
+
+#contratos #dropdown-filtros .dropdown-item:hover {
+    background-color: unset !important;
 }
 
 #contratos .seccion-estas-en {
@@ -184,7 +208,7 @@
     color: #c6c6c6;
 }
 
-#contratos .select-busqueda-rapida .ver-filtros .text-ver-filtros {
+#contratos .ver-filtros .text-ver-filtros {
     border-radius: 15px;
     padding: 6px 0;
     padding-left: 1rem;
@@ -279,6 +303,10 @@
     background-color: #e3e3e3 !important;
 }
 
+#contratos .p-datatable .p-datatable-tbody>tr.p-datatable-emptymessage:hover {
+    background-color: #fff !important;
+}
+
 .p-datatable .p-datatable-thead>tr>th {
     background-color: #f5f5f5 !important;
 }
@@ -352,7 +380,7 @@ select:focus {
 #contratos .p-datatable .p-datatable-tbody>tr>td {
     padding: 20px 6px 14px;
     min-width: 150px !important;
-    background: #fff;
+    /* background: #fff; */
     vertical-align: middle !important;
     text-align: center;
     font-size: 13px !important;
@@ -366,10 +394,18 @@ select:focus {
     border-width: 0px;
 }
 
+#contratos .p-datatable .p-datatable-tbody>tr>td.columna_ubicacion {
+    max-width: 150px;
+}
+
+#contratos .p-datatable .p-datatable-tbody>tr>td.columna_entidad {
+    max-width: 120px !important;
+}
+
 #contratos .p-datatable .p-datatable-tbody>tr>td.columna_fecha,
 #contratos .p-datatable .p-datatable-tbody>tr>td.columna_cuantia,
 #contratos .p-datatable .p-datatable-tbody>tr>td.columna_estado {
-    min-width: 130px !important;
+    min-width: 110px !important;
 }
 
 #contratos .p-datatable .p-datatable-tbody>tr>td.columna_pequena {
@@ -1449,6 +1485,17 @@ input.p-inputtext.p-component.p-column-filter:not(:placeholder-shown)::before {
     padding-bottom: 4px;
 }
 
+#contratos .oculto_sin_docs {
+    border: 1px solid #686868;
+    padding: 0 26px 0 10px;
+    pointer-events: none;
+    cursor: default;
+}
+
+#contratos .w-14{
+    width: 14px;
+}
+
 #contratos .div_iconos_functions_grid .iconos_functions_grid {
     vertical-align: top;
     margin-top: 3px;
@@ -1495,6 +1542,21 @@ input.p-inputtext.p-component.p-column-filter:not(:placeholder-shown)::before {
 #contratos .btn_contratos_notas img {
     height: 22px;
     width: 22px;
+}
+
+#contratos .with-notes .btn_contratos_notas img {
+    height: 20px;
+    width: 21px;
+}
+
+#contratos .custom-tooltip.yellow.with-notes:hover:before,
+#contratos .custom-tooltip.yellow.with-notes:hover:after {
+    left: 50% !important;
+}
+
+#contratos .with-notes .custom-tooltip.yellow:hover:before,
+#contratos .with-notes .custom-tooltip.yellow:hover:after {
+    left: 50% !important;
 }
 
 #contratos .div_iconos_functions_grid .separator_docs {
@@ -1632,11 +1694,15 @@ input.p-inputtext.p-component.p-column-filter:not(:placeholder-shown)::before {
 
 #contratos .p-datatable .p-datatable-tbody>tr>td.columna_cuantia,
 #contratos .p-datatable .p-datatable-tbody>tr>td.columna_modalidad,
-#contratos .p-datatable .p-datatable-tbody>tr>td.columna_numero,
+/* #contratos .p-datatable .p-datatable-tbody>tr>td.columna_numero, */
 #contratos .p-datatable .p-datatable-tbody>tr>td.columna_estado,
 #contratos .p-datatable .p-datatable-tbody>tr>td.columna_fecha,
 #contratos .p-datatable .p-datatable-tbody>tr>td.columna_publicacion {
-    width: 9% !important;
+   /*  width: 9% !important; */
+}
+
+#contratos .p-datatable .p-datatable-tbody>tr>td.columna_numero {
+    min-width: 120px !important;
 }
 
 #contratos .p-datatable .p-datatable-tbody>tr td,
@@ -1672,6 +1738,10 @@ input.p-inputtext.p-component.p-column-filter:not(:placeholder-shown)::before {
     display: inline-block;
 }
 
+#contratos .content_ver_mas_grid a.vermas:hover{
+    color: #000;
+}
+
 #contratos .tt-uppercase {
     text-transform: uppercase;
 }
@@ -1679,7 +1749,7 @@ input.p-inputtext.p-component.p-column-filter:not(:placeholder-shown)::before {
 #contratos .valor_range--estandar i {
     color: #73c914;
     min-width: 28px;
-    padding-right: 6px;
+    /* padding-right: 6px; */
 }
 
 #contratos .valor_range__moneda {
@@ -1741,6 +1811,11 @@ input.p-inputtext.p-component.p-column-filter:not(:placeholder-shown)::before {
 #contratos .p-checkbox .p-checkbox-box.p-highlight {
     border-color: #73c914 !important;
     background: #73c914 !important;
+}
+
+#contratos .p-checkbox-box.p-component.p-highlight.p-disabled {
+    border-color: #fff !important;
+    background-color: #fff !important;
 }
 
 #contratos .p-checkbox .p-checkbox-box {
@@ -1876,10 +1951,9 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     border: 0 !important;
 }
 
-#modal_actividades .modal-body,
-.modal_filter_grid .modal-body2 {
+#modal_actividades .modal-body {
     padding: 35px 55px 28px;
-    text-align: center;
+    /* text-align: center; */
 }
 
 #modal_actividades .modal-header .icon-Cerrar-modal {
@@ -2030,6 +2104,17 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     max-width: 300px;
 }
 
+#modal_confirm_delete .modal-body .informacion_contratos--icono>span .icon-Mis-carpetas {
+    font-size: 17px;
+    vertical-align: middle;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos--icono>span {
+    font-family: Nexa-regular,sans-serif;
+    color: #686868;
+    font-size: 13px;
+}
+
 #modal_confirm_delete .modal-body .informacion_contratos--listado .informacion_contratos--contrato_info>div {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -2049,6 +2134,24 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     -ms-flex-pack: center;
     justify-content: center;
     border: 0;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos .borde{
+    border-bottom: 1px solid hsla(0,1%,61%,.15);
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos .borde td {
+    padding: 15px 0;
+}
+
+#modal_confirm_delete .modal-body .informacion_contratos--listado .informacion_contratos--contrato_check {
+    margin: 0px 10px 0 -45px!important;
+}
+
+#modal_confirm_delete input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    color: #73c914 !important;
 }
 
 #modal_seleccion_carpeta {
@@ -2203,13 +2306,23 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
 #contratos .custom-tooltip:hover:before {
     content: "";
     position: absolute;
-    top: -14%;
+    top: -15%;
     left: 50%;
     transform: translateX(-50%);
     border-style: solid;
     border-width: 6px 6px 0 6px;
     border-color: #292929 transparent transparent transparent;
 }
+
+/* #contratos .custom-tooltip.with-notes:hover:before{
+    top: -29% !important;
+    left: 50% !important; 
+}
+
+#contratos .custom-tooltip.yellow.with-notes:hover:before, 
+#contratos .custom-tooltip.yellow.with-notes:hover:after {
+    left: 50% !important;
+} */
 
 #contratos .custom-tooltip.yellow:hover:after {
     background-color: #ffc107;
@@ -2291,7 +2404,8 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     color: #8c00c9 !important;
 }
 
-#contratos .custom-tooltip.gray:hover:after {
+#contratos .custom-tooltip.gray:hover:after
+{
     top: -185%;
 }
 
@@ -2299,6 +2413,11 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
 #contratos .custom-tooltip.yellow:hover:after {
     left: 34%;
 }
+
+/* #contratos .custom-tooltip.yellow.with-notes:hover:before,
+#contratos .custom-tooltip.yellow.with-notes:hover:after {
+    left: 49% !important;
+} */
 
 #contratos .p-datatable>.p-datatable-wrapper {
     overflow: unset !important;
@@ -2369,7 +2488,7 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     color: #686868 !important;
 }
 
-#contratos #mensajes-personalizado-papelera .estructura-mensaje-personalisado {
+#contratos #mensajes-personalizado-papelera .estructura-mensaje-personalizado {
     max-width: 500px;
 }
 
@@ -2385,7 +2504,7 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     padding-bottom: 1.4rem;
 }
 
-#contratos #mensajes-personalizado-favoritos .estructura-mensaje-personalisado {
+#contratos #mensajes-personalizado-favoritos .estructura-mensaje-personalizado {
     max-width: 500px;
 }
 
@@ -2463,7 +2582,7 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     color: #686868;
 }
 
-#contratos #mensajes-personalizado-sin-contratos-carpeta .texto-personalisado-azul {
+#contratos #mensajes-personalizado-sin-contratos-carpeta .texto-personalizado-azul {
     color: #0f85d6;
 }
 
@@ -2486,6 +2605,64 @@ input.p-inputtext.p-component.p-column-filter[placeholder="Todos"]::placeholder 
     padding: 2px 10px;
     margin-bottom: 8px;
     font-family: Nexa-bold, sans-serif;
+}
+
+#mensajes-personalizado-perfil .titulo-personalizado {
+    padding-bottom: 3.75rem;
+    max-width: 447px;
+    margin: 0 auto;
+    color: #c9003d !important;
+}
+
+#mensajes-personalizado-sin-leer .titulo-personalizado,
+#mensajes-personalizado-visto-reciente .titulo-personalizado {
+    padding-bottom: 3.75rem;
+    max-width: 447px;
+    margin: 0 auto;
+}
+
+#mensajes-personalizado-perfil #titulo-movil-personalizado, 
+#mensajes-personalizado-perfil .titulo-personalizado,
+#mensajes-personalizado-sin-leer .titulo-personalizado,
+#mensajes-personalizado-visto-reciente .titulo-personalizado {
+    font-family: Nexa-bold,sans-serif!important;
+    color: #686868;
+}
+
+#mensajes-personalizado-perfil .mensaje-icono, 
+#mensajes-personalizado-sin-leer .mensaje-icono,
+#mensajes-personalizado-visto-reciente .mensaje-icono {
+    font-size: 35px!important;
+    color: #ffc107 !important;
+    position: absolute;
+    right: 100%;
+    margin-right: 7px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    top: 0;
+    height: 100%;
+}
+
+#mensajes-personalizado-perfil .mensaje-personalizado {
+    font-size: 18px!important;
+    max-width: 428px;
+    margin-bottom: 0;
+    line-height: 1.2;
+    font-family: Nexa-regular,sans-serif!important;
+    color: #686868 !important;
+}
+
+#mensajes-personalizado-sin-leer .mensaje-personalizado,
+#mensajes-personalizado-visto-reciente .mensaje-personalizado {
+    font-size: 19px!important;
+    max-width: 460px;
+    margin-bottom: 0;
+    font-family: Nexa-regular,sans-serif!important;
+    color: #686868 !important;
 }
 
 
@@ -2810,14 +2987,24 @@ body>div.fade.modal-backdrop.show:nth-child(5) {
     position: relative;
 }
 
-#notasContainer .notes-content__zone-input-search .input-container span.icon-Buscar-click, #sidebar-notes .notes-content__zone-input-search .input-container span.icon-Buscar-click {
+#notasContainer .notes-content__zone-input-search .input-container span.icon-Buscar-click, 
+#sidebar-notes .notes-content__zone-input-search .input-container span.icon-Buscar-click {
     color: #00a1c9;
     top: 8px;
     right: 12px;
     font-size: 20px;
 }
 
-#notasContainer .notes-content__zone-input-search .input-container span[class^=icon-], #sidebar-notes .notes-content__zone-input-search .input-container span[class^=icon-] {
+#notasContainer .notes-content__zone-input-search .input-container span.icon-Cancelar, 
+#sidebar-notes .notes-content__zone-input-search .input-container span.icon-Cancelar {
+    color: #c9003d;
+    right: 40px;
+    font-size: 18px;
+    top: 10px;
+}
+
+#notasContainer .notes-content__zone-input-search .input-container span[class^=icon-], 
+#sidebar-notes .notes-content__zone-input-search .input-container span[class^=icon-] {
     cursor: pointer;
     position: absolute;
 }
@@ -3133,3 +3320,198 @@ body>div.fade.modal-backdrop.show:nth-child(5) {
     -webkit-transition: all .2s ease-in;
     transition: all .2s ease-in;
 }
+
+#sidebar-notes .notasCargando {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background-color: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    z-index: 20;
+}
+
+#notasContainer .notes-content, 
+#sidebar-notes .notes-content {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+#sidebar-notes img.loader-notas {
+    max-width: unset;
+    margin-top: -613px;
+}
+
+#contratos .filter{
+    position: relative;
+}
+
+#contratos  i.icon-Cancelar.clearfilter_grid {
+    position: absolute;
+    right: 5px;
+    top: 6px;
+    color: #c9003d;
+    cursor: pointer;
+}
+
+/*Boton flotante*/
+#contratos #accionesSeleccionGrid .pruebafixed {
+    z-index: 1050;
+    position: fixed;
+    bottom: 5px;
+    left: 0;
+    width: 100%;
+    padding: 1px 75px 5px 86px;
+    background: transparent;
+    text-align: center;
+}
+
+#contratos #accionesSeleccionGrid > div {
+    display: inline-block;
+    vertical-align: top;
+    background: white;
+    border-radius: 20px;
+    margin-top: 2px;
+    padding: 2px 5px;
+    position: relative;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante {
+    display: inline-block;
+    background: #fff;
+    -webkit-box-shadow: 0 0 13px 5px rgb(0 0 0 / 30%);
+    box-shadow: 0 0 13px 5px rgb(0 0 0 / 30%);
+    border-radius: 30px;
+    width: auto!important;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante .container-acciones {
+    height: 62px;
+}
+
+#contratos #accionesSeleccionGrid > div .container-acciones {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante .container-acciones>div {
+    cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante #contadorSeleccion {
+    margin-left: 15px!important;
+    margin-right: 10px!important;
+    font-size: 13px;
+    font-family: 'Nexa-regular';
+    color: #212529 !important;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante .container-acciones>div>p, 
+#contratos #accionesSeleccionGrid .menu-flotante .container-acciones>div>span {
+    vertical-align: middle;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante .contador-selecciones {
+    background-color: #ddd;
+    border-radius: 50%;
+    padding: 8px 12px 8px 10px;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante .nombre-especifico {
+    margin-bottom: 0!important;
+    margin-right: 18px!important;
+    display: inline-block;
+    font-family: Nexa-bold;
+    font-size: 12px;
+}
+
+#contratos #accionesSeleccionGrid .nombre-especifico.tlpCount-texto {
+    color: #686868!important;
+}
+
+#contratos #accionesSeleccionGrid .separador-busqueda-rapida {
+    color: #c8c8c8;
+    font-size: 16px;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    margin-top: 3px;
+    margin-bottom: 2px;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante .marg_first_separador {
+    margin-left: 0!important;
+    margin-right: 19px!important;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante .accion-tooltip {
+    margin-left: 0!important;
+    margin-right: 5px!important;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante #tlpExcel>img {
+    width: 30px;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante .tlpExcel-texto, 
+#contratos #accionesSeleccionGrid .menu-flotante .tlpRestaurarPapelera-texto {
+    color: #73c914;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante #tlpMoverContrato>img {
+    height: 35px;
+    width: 40px;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante .tlpMoverContrato-texto {
+    color: #003dc9;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante #tlpEliminarSeguimiento>img {
+    width: 50px;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante .tlpEliminarSeguimiento-texto, 
+#contratos #accionesSeleccionGrid .menu-flotante .tlpRestaurar-texto {
+    color: #c9003d;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante #tlpEliminar {
+    color: #c9003d!important;
+    font-size: 32px!important;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante .tlpEliminar-texto {
+    color: #c9003d;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante #tlpRestaurar>img {
+    width: 40px;
+}
+
+#contratos #accionesSeleccionGrid .menu-flotante #tlpMarcarLeido>img, 
+#contratos #accionesSeleccionGrid .menu-flotante #tlpMarcarNoLeido>img {
+    height: 45px;
+    width: 45px;
+}
+/*Boton flotante*/

@@ -5,11 +5,11 @@
 #ModalPaises .modal-filter__search {
     margin-top: 27px;
     margin-bottom: 44px;
-    width: 460px;
+    width: 100%;
 }
 
 #ModalPaises .modal-filter__search .form-group .input-container {
-    margin-left: -20px;
+    /* margin-left: -20px; */
     position: relative;
     width: 100%;
     display: flex;
@@ -97,7 +97,7 @@
 #ModalPaises .modal-filter__list {
     max-height: 67vh;
     min-height: 20vh;
-    width: 420px !important;
+    width: 100%;
     overflow-x: hidden;
     padding: 0 30px 0 50px !important;
     size: 7px;

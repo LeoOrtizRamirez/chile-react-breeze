@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CarpetasController;
+use App\Http\Controllers\CodigoCpvController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\GrupoFiltroUsuarioController;
 use App\Http\Controllers\MailController;
@@ -12,12 +13,15 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubCategoriaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NotaController;
+use App\Http\Controllers\DocumentoProcesoController;
+use App\Http\Controllers\PublicidadController;
 
 use App\Models\Contrato;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     $contratosAll = Contrato::where('fecha_publicacion', date('Y-m-d'))
@@ -89,12 +93,23 @@ Route::resource('posts', PostController::class)
 
 
 Route::get('cliente/contratos', [ContratoController::class, 'index'])->middleware(['auth', 'verified'])->name('contratos.index');
-Route::post('cliente/contratos/add_favorito', [CarpetasController::class, 'addFavorito'])->middleware(['auth', 'verified']);
-Route::post('cliente/contratos/delete_favorito', [CarpetasController::class, 'deleteFavorito'])->middleware(['auth', 'verified']);
-Route::post('cliente/contratos/add_papelera', [CarpetasController::class, 'addPapelera'])->middleware(['auth', 'verified']);
-Route::post('cliente/contratos/delete_papelera', [CarpetasController::class, 'deletePapelera'])->middleware(['auth', 'verified']);
+Route::post('cliente/contratos/add_favorito', [ContratoController::class, 'addFavorito'])->middleware(['auth', 'verified']);
+Route::post('cliente/contratos/delete_favorito', [ContratoController::class, 'deleteFavorito'])->middleware(['auth', 'verified']);
+Route::post('cliente/contratos/add_papelera', [ContratoController::class, 'addPapelera'])->middleware(['auth', 'verified']);
+Route::post('cliente/contratos/delete_papelera', [ContratoController::class, 'deletePapelera'])->middleware(['auth', 'verified']);
 Route::post('cliente/contratos/get-info/{tipo}', [ContratoController::class, 'carpeta'])->middleware(['auth', 'verified']);
+Route::get('cliente/contratos/get-info/{tipo}', [ContratoController::class, 'carpeta'])->middleware(['auth', 'verified']);
+Route::get('cliente/contratos/detalle-contrato-2', [ContratoController::class, 'index'])->middleware(['auth', 'verified']);
+Route::get('cliente/contratos/detalle-contrato-2', function () {
+    return redirect('/cliente/contratos');
+});
+Route::post('cliente/contratos/detalle-contrato-2', [ContratoController::class, 'detalleConcurso'])->middleware(['auth', 'verified']);
+Route::post('cliente/contratos/dispatch-actualizacion-proceso', [ContratoController::class, 'updateScrapping'])->middleware(['auth', 'verified']);
+Route::post('contrato-visitado', [ContratoController::class, 'contratoVisitado'])->middleware(['auth', 'verified']);
 
+/*Documentos*/
+Route::post('cliente/contratos/documentos', [DocumentoProcesoController::class, 'getDocumentos'])->middleware(['auth', 'verified']);
+Route::post('cliente/contratos/descargar-documentos', [DocumentoProcesoController::class, 'descargarDocumentos']);
 
 
 Route::resource('planes', PlaneController::class)
@@ -176,7 +191,9 @@ Route::post('/cliente/grupo/update', [GrupoFiltroUsuarioController::class, 'upda
 Route::post('/cliente/grupo/duplicar', [GrupoFiltroUsuarioController::class, 'copy'])->middleware(['auth', 'verified']);
 Route::post('/cliente/grupo/destroy', [GrupoFiltroUsuarioController::class, 'delete'])->middleware(['auth', 'verified']);
 Route::get('/cliente/grupo/subcategorias/{id}', [GrupoFiltroUsuarioController::class, 'subcategorias'])->middleware(['auth', 'verified']);
+Route::post('/cliente/grupo/save-order', [GrupoFiltroUsuarioController::class, 'ordenar'])->middleware(['auth', 'verified']);
 Route::post('grupo-filtro-usuarios/store', [GrupoFiltroUsuarioController::class, 'store'])->middleware(['auth', 'verified']);
+
 
 
 /*Carpetas */
@@ -186,6 +203,8 @@ Route::post('/cliente/carpeta/crear', [CarpetasController::class, 'crear'])->mid
 Route::post('/cliente/carpeta/update', [CarpetasController::class, 'update'])->middleware(['auth', 'verified'])->name('carpetas.update');
 Route::post('/cliente/carpeta/eliminar', [CarpetasController::class, 'delete'])->middleware(['auth', 'verified'])->name('carpetas.delete');
 Route::get('/cliente/carpeta/carpetas-user', [CarpetasController::class, 'getCarpetas'])->middleware(['auth', 'verified']);
+Route::get('/cliente/carpeta/get-carpetas-paginadas', [CarpetasController::class, 'getCarpetasPaginadas'])->middleware(['auth', 'verified']);
+
 
 Route::post('/cliente/carpeta/add-contrato', [CarpetasController::class, 'addContrato'])->middleware(['auth', 'verified']);
 Route::post('/cliente/carpeta/delete-contrato', [CarpetasController::class, 'deleteContrato'])->middleware(['auth', 'verified']);
@@ -196,5 +215,36 @@ Route::post('/cliente/notas/admin-note', [NotaController::class, 'create'])->mid
 Route::get('/cliente/notas/get-notes', [NotaController::class, 'getNotes'])->middleware(['auth', 'verified']);
 Route::post('/cliente/notas/eliminar', [NotaController::class, 'eliminar'])->middleware(['auth', 'verified']);
 Route::post('/cliente/notas/actualizar', [NotaController::class, 'actualizar'])->middleware(['auth', 'verified']);
+Route::post('/cliente/notas/ordenar-notas', [NotaController::class, 'ordenar'])->middleware(['auth', 'verified']);
 
 Route::post('register/modal', [RegisteredUserController::class, 'registerModal'])->name('registerModal');
+
+
+Route::get('/scrapping', [ContratoController::class, 'scrapping']);
+
+
+Route::post('/cliente/difusion/store', [PublicidadController::class, 'store'])->middleware(['auth', 'verified']);
+Route::post('/cliente/difusion/update', [PublicidadController::class, 'update'])->middleware(['auth', 'verified']);
+Route::post('/cliente/difusion/destroy', [PublicidadController::class, 'delete'])->middleware(['auth', 'verified']);
+
+
+/*Configuraciones*/
+/*Mi Cuenta */
+Route::get('/cliente/mi-cuenta', [UserController::class, 'miCuenta'])->middleware(['auth', 'verified'])->name('user.mi-cuenta');
+Route::post('/cliente/mi-cuenta/update', [UserController::class, 'miCuentaUpdate'])->middleware(['auth', 'verified']);
+Route::post('/cliente/mi-cuenta/cambio', [UserController::class, 'changePassword'])->middleware(['auth', 'verified'])->name('user.change-password');
+Route::post('/cliente/mi-cuenta/upload-image-perfil', [UserController::class, 'uploadImagePerfil'])->middleware(['auth', 'verified']);
+Route::post('/cliente/mi-cuenta/eliminar-imagen-perfil', [UserController::class, 'eliminarImagenPerfil'])->middleware(['auth', 'verified']);
+/*Mi Cuenta*/
+
+
+Route::get('/cliente/solicitud', [UserController::class, 'solicitud'])->middleware(['auth', 'verified']);
+Route::get('/cliente/sugerencias', [UserController::class, 'sugerencias'])->middleware(['auth', 'verified']);
+Route::get('/cliente/notificacion-correo', [UserController::class, 'notificacionCorreo'])->middleware(['auth', 'verified']);
+Route::post('/cliente/notificacion-correo/save-notification', [GrupoFiltroUsuarioController::class, 'saveNotification'])->middleware(['auth', 'verified']);
+Route::post('/cliente/get-licicodigos', [CodigoCpvController::class, 'getLicicodigos']);
+
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+  });

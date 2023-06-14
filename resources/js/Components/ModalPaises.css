@@ -1,0 +1,73 @@
+#modalIndicativos {
+    max-width: 680px!important;
+}
+
+#modalIndicativos .modal-header {
+    position: relative;
+    text-align: center;
+    padding-right: 48px!important;
+    border: 0!important;
+}
+
+#modalIndicativos .modal-content {
+    border-radius: 17px;
+    border: 0;
+}
+
+#modalIndicativos .modal-body {
+    padding: 0px 55px 28px;
+}
+
+#modalIndicativos .modal-header .icon-Cerrar-modal {
+    position: absolute;
+    top: 17px;
+    right: 17px;
+    display: inline-block;
+    z-index: 3;
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    font-size: 43px;
+    color: #c9003d;
+    border: 0;
+    background-color: transparent;
+    outline: none;
+    font-weight: 400;
+}
+
+#modalIndicativos .modal-filter__list::-webkit-scrollbar-button {
+    width: 0;
+    height: 0
+}
+
+#modalIndicativos .modal-filter__list::-webkit-scrollbar {
+    background-color: #dfe3e4;
+    width: 7px
+}
+
+#modalIndicativos .modal-filter__list::-moz-scrollbar {
+    background-color: #dfe3e4;
+    width: 7px
+}
+
+#modalIndicativos .modal-filter__list::-webkit-scrollbar-track {
+    background-color: #dfe3e4;
+    border-radius: 10px
+}
+
+#modalIndicativos .modal-filter__list::-webkit-scrollbar-thumb {
+    background-color: #9c9b9b;
+    border-radius: 10px
+}
+
+#modalIndicativos .modal-filter__list::-webkit-scrollbar-thumb:active {
+    background: #8a8080
+}
+
+#modalIndicativos .modal-filter__list::-webkit-scrollbar-track:hover {
+    background: #dedede
+}
+
+#modalIndicativos .modal-filter__list::-webkit-scrollbar-corner {
+    background: transparent
+}

@@ -20,7 +20,18 @@ class User extends Authenticatable implements MustVerifyEmail{
             $model->uuid = (string) Str::uuid();
         });
     }
+    
+    //1 Contrato tiene una Plan, una Plan tiene muchos usuarios
+    public function plan()
+    {
+        return $this->belongsTo('App\Models\Plane', 'idplan', 'id');
+    }
 
+    //1 Contrato tiene una Publicidad, una Publicidad tiene muchos usuarios
+    public function publicidad()
+    {
+        return $this->belongsTo('App\Models\Publicidad', 'id_publicidad', 'id');
+    }
 
     public function posts()
     {

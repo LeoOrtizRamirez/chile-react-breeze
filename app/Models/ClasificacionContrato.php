@@ -9,6 +9,11 @@ class ClasificacionContrato extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id_contrato',
+        'id_sub_categoria',
+    ];
+
     //1 Contrato tiene muchas clasificaciones, una ClasificacionContrato tiene un Contrato
     public function contrato(){
         return $this->belongsTo('App\models\Contrato', 'id_contrato', 'id');

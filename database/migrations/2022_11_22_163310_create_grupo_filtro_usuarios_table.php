@@ -28,6 +28,7 @@ class CreateGrupoFiltroUsuariosTable extends Migration
             $table->integer('limite_inferior_cuantia');
             $table->integer('limite_superior_cuantia')->nullable();
             $table->date('historico');
+            $table->integer('orden')->nullable();
             $table->timestamps();
         });
     }

@@ -348,3 +348,58 @@
     position: relative;
     font-family: Nexa-bold,sans-serif;
 }
+
+#carpetas #mensajes-personalizado-busqueda {
+    padding-top: 8rem;
+    padding-bottom: 3.4rem;
+}
+
+#carpetas #mensajes-personalizado-busqueda .estructura-mensaje-personalizado {
+    max-width: 460px;
+}
+
+#carpetas #mensajes-personalizado-busqueda #titulo-movil-personalizado, 
+#carpetas #mensajes-personalizado-busqueda .titulo-personalizado {
+    font-family: Nexa-bold,sans-serif!important;
+    color: #686868;
+}
+
+#carpetas #mensajes-personalizado-busqueda .titulo-personalizado {
+    padding-bottom: 3.75rem;
+    max-width: 447px;
+    margin: 0 auto;
+    color: #c9003d;
+}
+
+#carpetas #mensajes-personalizado-busqueda .mensaje-icono {
+    font-size: 35px!important;
+    color: #ffc107;
+    position: absolute;
+    right: 100%;
+    margin-right: 7px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    top: 0;
+    height: 100%;
+}
+
+#carpetas #mensajes-personalizado-busqueda .mensaje-icono, 
+#carpetas #mensajes-personalizado-busqueda .mensaje-personalizado {
+    padding: 5px 8px;
+}
+
+#carpetas #mensajes-personalizado-busqueda .mensaje-personalizado {
+    font-size: 18px!important;
+    max-width: 428px;
+    margin-bottom: 0;
+    line-height: 1.2;
+}
+
+#carpetas #mensajes-personalizado-busqueda .mensaje-personalizado {
+    font-family: Nexa-regular,sans-serif!important;
+    color: #686868;
+}

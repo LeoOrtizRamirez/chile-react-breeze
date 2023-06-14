@@ -1,17 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Link, useForm, Head } from "@inertiajs/inertia-react";
 import "./Index.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Modal from "react-bootstrap/Modal";
 import ResumenPerfil from "@/Components/ResumenPerfil";
-
-/*Toast*/
-import Toast from "react-bootstrap/Toast";
-import ToastContainer from "react-bootstrap/ToastContainer";
-import "../../../css/estilos-toast.css";
-/*Toast*/
 
 /*PRIMEFACES */
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
@@ -19,22 +12,13 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
-import { Tag } from 'primereact/tag';
 import "primereact/resources/themes/lara-light-indigo/theme.css";//theme
 import "primereact/resources/primereact.min.css";//core
 import "primeicons/primeicons.css";//icons
 
-/*Tooltips */
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
-/*Tooltips */
-
 const Index = ({ auth, grupos, created_updated }) => {
     const [filtroSelected, setFiltroSelected] = useState({})
     const [paso, setPaso] = useState(1)
-    /*Tooltip */
-    const [showTooltip, setshowTooltip] = useState(true)
-    /*Tooltip */
 
     /*Modals */
     const [showModal, setShowModal] = useState(created_updated);
@@ -53,10 +37,12 @@ const Index = ({ auth, grupos, created_updated }) => {
     const [resumenFiltroSelected, setResumenFiltroSelected] = useState([]);
 
     const handleOpenModalResumenPerfil = () => {
+        setGlobalLoading(true)
         handleCloseModal()
         axios.get(`/cliente/grupo/subcategorias/${filtroSelected.id}`)
             .then(response => {
                 setResumenFiltroSelected(response.data)
+                setGlobalLoading(false)
             })
             .catch(error => {
                 console.log(error);
@@ -129,13 +115,21 @@ const Index = ({ auth, grupos, created_updated }) => {
 
     const accionesBodyTemplate = (grupo) => {
         return <div className="iconos_functions_grid">
-            {toolTips.map((placement, index) => (
-                <OverlayTrigger rootClose={true} key={index} overlay={
-                    <Tooltip id={`tooltip-${placement.name}-${grupo.id}`} className={`tooltip tooltip-${placement.name}`}>{placement.text}</Tooltip>
-                }>
-                    <button type="button" id={`${placement.name}-btn${grupo.id}`} className={`${placement.icon}`} onClick={() => handleShowModal(placement.modal, grupo)}></button>
-                </OverlayTrigger>
-            ))}
+            <div className="custom-tooltip light-blue" data-tooltip="Editar perfil">
+                <a id="tlpBorrarNota" className="icon-Editar icon-pd-editar" onClick={() => handleShowModal('modalEditarPerfil', grupo)}></a>
+            </div>
+            <div className="custom-tooltip red" data-tooltip="Eliminar perfil">
+                <a id="tlpBorrarNota" className="icon-Eliminar icon-pd-eliminar" onClick={() => handleShowModal('modalEliminarPerfil', grupo)}></a>
+            </div>
+            <div className="custom-tooltip dark-blue" data-tooltip="Duplicar perfil">
+                <a id="tlpBorrarNota" className="icon-Duplicar icon-pd-duplicar" onClick={() => handleShowModal('modalDuplicarPerfil', grupo)}></a>
+            </div>
+            <div className="custom-tooltip aquamarine-blue" data-tooltip="Marcar como leídos">
+                <a id="tlpBorrarNota" className="icon-Leidos icon-pd-leidos" onClick={() => handleShowModal('modalLeidosPerfil', grupo)}></a>
+            </div>
+            <div className="custom-tooltip green ver-mas-informacion" data-tooltip="Ver más información">
+                <a id="tlpBorrarNota" className="icon-Informacin-click icon-pd-info" onClick={() => handleShowModal('modalInformacionPerfil', grupo)}></a>
+            </div>
         </div>;
     };
 
@@ -191,6 +185,7 @@ const Index = ({ auth, grupos, created_updated }) => {
 
 
     const Copy = () => {
+        setGlobalLoading(true)
         var payload = {
             'perfil': filtroSelected.id,
             'nombre_filtro': nameCopyFilter,
@@ -206,6 +201,8 @@ const Index = ({ auth, grupos, created_updated }) => {
             .then(response => {
                 setData(getGrupos(response.data))
                 handleCloseModal()
+                setGlobalLoading(false)
+
             })
             .catch(error => {
                 // Handle error
@@ -214,6 +211,7 @@ const Index = ({ auth, grupos, created_updated }) => {
     };
 
     const Delete = () => {
+        setGlobalLoading(true)
         var payload = {
             'perfil': filtroSelected.id,
         };
@@ -228,15 +226,30 @@ const Index = ({ auth, grupos, created_updated }) => {
             .then(response => {
                 setData(getGrupos(response.data))
                 handleCloseModal()
+                setGlobalLoading(false)
             })
             .catch(error => {
                 // Handle error
                 console.log(error);
             });
     };
+    const [globalLoading, setGlobalLoading] = useState(false)
+
+    const options = { style: "currency", currency: "COP", minimumFractionDigits: 0 };
+    const limiteInferiorCuantiaBodyTemplate = (grupo) => {
+        return (
+            <span className="">{(grupo.limite_inferior_cuantia).toLocaleString("en-US", options).replace('COP', '$')}</span>
+        );
+    };
+    const limiteSuperiorCuantiaBodyTemplate = (grupo) => {
+        return (
+            <span className="">{(grupo.limite_superior_cuantia).toLocaleString("en-US", options).replace('COP', '$')}</span>
+        );
+    };
+
     return (
         <>
-            <AuthenticatedLayout auth={auth} page={'grupos'}>
+            <AuthenticatedLayout auth={auth} page={'grupos'} grupos={grupos} globalLoading={globalLoading}>
 
                 <div className="content_blank_interno margin_left_layout">
                     {data.length > 0 &&
@@ -284,9 +297,9 @@ const Index = ({ auth, grupos, created_updated }) => {
                                                 <Column style={{ maxWidth: 600 + 'px' }} filter className='columna_seleccion columna_pequena' filterElement={clearTemplate} />
                                                 <Column field="nombre_filtro" body={nombreFiltroBodyTemplate} header="Nombre" filter filterPlaceholder="Buscar" className="columna_nombre" />
                                                 <Column field="descripcion_filtro" header="Descripción" filter filterPlaceholder="Buscar" className="columna_grande" />
-                                                <Column field="limite_inferior_cuantia" header="Cuantia inferior" filter filterPlaceholder="Buscar" className="columna_promedio" />
-                                                <Column field="limite_superior_cuantia" header="Cuantia superior" filter filterPlaceholder="Buscar" className="columna_promedio" />
-                                                <Column field="historico" header="Histórico" filter filterPlaceholder="Buscar" className="columna_promedio" />
+                                                <Column field="limite_inferior_cuantia" header="Cuantia inferior" filter filterPlaceholder="Buscar" className="columna_promedio" body={limiteInferiorCuantiaBodyTemplate} />
+                                                <Column field="limite_superior_cuantia" header="Cuantia superior" filter filterPlaceholder="Buscar" className="columna_promedio" body={limiteSuperiorCuantiaBodyTemplate} />
+                                                <Column field="historico" header="Histórico" filter filterPlaceholder="Buscar" className="columna_promedio"/>
                                                 <Column field="envio_alertas" header="Notificaciones" showFilterMenu={false} filter filterElement={statusRowFilterTemplate} className="columna_notificaciones" />
                                                 <Column body={accionesBodyTemplate} filter className="v-hidden columna_acciones" />
 
@@ -302,7 +315,7 @@ const Index = ({ auth, grupos, created_updated }) => {
                                 <div id="mensajes-personalizado-sin-perfil" class="content_blank_interno">
                                     <div class="row  align-items-center">
                                         <div class="col-md-5 text-center">
-                                            <img src="https://col.licitaciones.info/img/mensajes-personalisados/sin-perfil.png" alt="" class="img-fluid" />
+                                            <img src="/public/images/mensajes-personalizados/sin-perfil.png" alt="" class="img-fluid" />
                                         </div>
                                         <div class="col-md-6 offset-md-1">
                                             <h4 class="text-center titulo-personalizado">Aún no has creado un perfil de negocio.</h4>

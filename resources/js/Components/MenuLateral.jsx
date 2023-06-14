@@ -5,7 +5,10 @@ import { Nav, NavDropdown } from 'react-bootstrap';
 import { Inertia } from '@inertiajs/inertia'
 
 import CrearCarpeta from './CrearCarpeta';
-const MenuLateral = ({ carpetas = [], perfiles = [] }) => {
+
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+const MenuLateral = ({ carpetas = [], grupos = [], carpeta_actual, perfiles = [], zona = null }) => {
+    const [groups, setGroups] = useState(grupos)
     const [folders, setFolders] = useState(carpetas == null ? [] : carpetas)
     useEffect(() => {
         if (carpetas != null) {
@@ -15,7 +18,6 @@ const MenuLateral = ({ carpetas = [], perfiles = [] }) => {
 
     useEffect(() => {
         if (carpetas == null) {
-            console.log("null")
             axios.get(`/cliente/carpeta/carpetas-user`)
                 .then(response => {
                     setFolders(response.data)
@@ -39,27 +41,89 @@ const MenuLateral = ({ carpetas = [], perfiles = [] }) => {
         setShowModalCrearCarpeta(false);
     };
 
-    const changePage = (tipo, id = null) => {
-        var token = document.querySelector('meta[name="csrf-token"]')
-        if (id == null) {
-            Inertia.post(`/cliente/contratos/get-info/${tipo}`, {
-                headers: {
-                    'Authorization': `Bearer ${token.content}`
+    const changePage = (zona, tipo = null, array = null) => {
+        var url = '';
+        var idsArray = "";
+        if (array != null) {
+            if (Array.isArray(array)) {
+                idsArray = array.map((a) => a.id).join(',');
+            } else {
+                //Obtener ids de perfiles
+                if (perfiles?.length > 0) {
+                    var ids_perfiles = perfiles.map(item => item.id)
+                    if (ids_perfiles.includes(array.id)) {
+                        ids_perfiles = ids_perfiles.filter(item => item != array.id)
+                        idsArray = ids_perfiles.map((a) => a).join(',');
+                    } else {
+                        ids_perfiles.push(array.id)
+                        idsArray = ids_perfiles.map((a) => a).join(',');
+                    }
+                } else {
+                    idsArray = array.id;
                 }
-            });
-        } else {
-            Inertia.post(`/cliente/contratos/get-info/${tipo}?carpeta=${id}`, {
-                headers: {
-                    'Authorization': `Bearer ${token.content}`
-                }
-            });
+            }
         }
+        switch (zona) {
+            case 'Contratos':
+                url = `/cliente/contratos`
+                break;
+            case 'P':
+                url = `/cliente/contratos/get-info/${zona}`
+                break;
+            case 'F':
+                url = `/cliente/contratos/get-info/${zona}`
+                break;
+            case 'C':
+                if (tipo == null) {
+                    url = `/cliente/contratos/get-info/${zona}`
+                } else {
+                    url = `/cliente/contratos/get-info/${zona}?${tipo}=${array.id}`
+                }
+                break;
+            case 'MP':
+                if (idsArray == "") {
+                    url = `/cliente/contratos`
+                } else {
+                    url = `/cliente/contratos/get-info/${zona}?${tipo}=${idsArray}`
+                }
+                break;
+            default:
+                break;
+        }
+        Inertia.get(url);
     }
+
+
+    const initialTasks = [
+        {
+            id: "1",
+            text: "React.js",
+        },
+        {
+            id: "2",
+            text: "HTML/CSS",
+        },
+        {
+            id: "3",
+            text: "AWS",
+        },
+        {
+            id: "4",
+            text: "JavaScript",
+        },
+    ];
+    const reorder = (list, startIndex, endIndex) => {
+        const result = [...list];
+        const [removed] = result.splice(startIndex, 1);
+        result.splice(endIndex, 0, removed);
+        return result;
+    };
+    const [tasks, setTasks] = useState(initialTasks);
 
     return (
         <div id="menu-lateral" className="fixed-top">
             <Nav className="new-menu scroll_fit">
-                {perfiles.length > 0 ?
+                {groups.length > 0 ?
                     <NavDropdown
                         drop={'end'}
                         id="item_menu-misperfiles"
@@ -92,43 +156,101 @@ const MenuLateral = ({ carpetas = [], perfiles = [] }) => {
                             <div className="item-checkbox-menu item-checkbox-menu-subtitle">
                                 <span className="body_checkbox">
                                     <div className="checkbox" style={{ margin: 0 + 'px' }}><label>
-                                        <input type="checkbox" id="checkboxPerfilAll" className="input_perfil_val" value="0" />
+                                        {perfiles?.length == groups?.length ?
+                                            <input
+                                                type="checkbox"
+                                                id="checkboxPerfilAll"
+                                                className="input_perfil_val"
+                                                checked={true}
+                                                onClick={() => changePage('Contratos')}
+                                            />
+                                            :
+                                            <input
+                                                type="checkbox"
+                                                id="checkboxPerfilAll"
+                                                className="input_perfil_val"
+                                                onClick={() => changePage('MP', 'perfiles', groups)}
+                                                style={{ backgroundColor: perfiles?.length > 0 ? '#73c914' : '' }}
+                                            />
+                                        }
+
                                     </label>
                                     </div>
                                 </span> <label htmlFor="checkboxPerfilAll" id="visita_0" className="d-block">Mis perfiles
                                 </label>
                             </div>
+
                             <div className="body-all-perfiles">
                                 <div className="scroll_fit">
                                     <div id="menuperfiles_movil">
-                                        <div className="contenedor_perfiles">
-                                            {perfiles.map((perfil, index) => (
-                                                <div className="item-checkbox-menu item-icon-menu">
-                                                    <span className="body_checkbox">
-                                                        <input type="checkbox" id="checkboxPerfil0" className="input_perfil_val" value="256058" />
-                                                    </span> <label id="visita_256058" className="">
-                                                        <div className="content-img">
-                                                            <div className="content-img--img imgperfil">
-                                                                <img src="/storage/banco-imagenes/artistas/Licitaciones/perfil-amarillo.svg" />
-                                                            </div>
-                                                        </div>
-                                                        <span title="PRIMER" alt="PRIMER" className="cursor-type-pointer">{perfil.nombre_filtro}</span>
-                                                    </label>
-                                                    <div className="indic-item-menu"><i className="contadores_nuevos_point"></i>
-                                                    </div> <i className="icono-arrastre icon-Mover"></i>
-                                                </div>
-                                            ))}
+                                        <DragDropContext onDragEnd={(result) => {
+                                            const { source, destination } = result;
+                                            if (!destination) { return; }
+                                            if (source.index === destination.index && source.droppableId === destination.droppableId) { return; }
+                                            setGroups((prevGroup) => reorder(prevGroup, source.index, destination.index));
+                                            let perfiles_ordenados = reorder(groups, source.index, destination.index)
+                                            var token = document.querySelector('meta[name="csrf-token"]')
+                                            axios.post('/cliente/grupo/save-order', {
+                                                perfiles: perfiles_ordenados
+                                            },
+                                                { 'Authorization': `Bearer ${token}` })
+                                                .then(response => {
 
-                                        </div>
+                                                })
+                                                .catch(error => {
+                                                    console.log(error)
+                                                })
+                                        }}
+                                        >
+
+                                            <Droppable droppableId="groups">
+                                                {(droppableProvided) => (
+                                                    <div {...droppableProvided.droppableProps} ref={droppableProvided.innerRef} className="contenedor_perfiles">
+                                                        {groups.map((group, index) => (
+                                                            <Draggable key={group.id} draggableId={`grupo_${group.id}`} index={index}>
+                                                                {(draggableProvided) => (
+                                                                    <div {...draggableProvided.draggableProps} ref={draggableProvided.innerRef}
+                                                                        {...draggableProvided.dragHandleProps} className="item-checkbox-menu item-icon-menu" /* key={`perfil_${index}`} */ onClick={() => changePage('MP', 'perfiles', group)}>
+                                                                        <span className="body_checkbox">
+                                                                            <input
+                                                                                type="checkbox"
+                                                                                id="checkboxPerfil0"
+                                                                                className="input_perfil_val"
+                                                                                value="256058"
+                                                                                checked={perfiles?.find(perfil => perfil.id === group.id)}
+                                                                            />
+                                                                        </span> <label id="visita_256058" className="">
+                                                                            <div className="content-img">
+                                                                                <div className="content-img--img imgperfil">
+                                                                                    <img src={group.imagen_filtro} />
+                                                                                </div>
+                                                                            </div>
+                                                                            <span title="PRIMER" alt="PRIMER" className="cursor-type-pointer">{group.nombre_filtro}</span>
+                                                                        </label>
+                                                                        {/* <div className="indic-item-menu">
+                                                        <i className="contadores_nuevos_point"></i>
+                                                    </div> */}
+                                                                        <i className="icono-arrastre icon-Mover"></i>
+                                                                    </div>
+                                                                )}
+                                                            </Draggable>
+                                                        ))}
+                                                        {droppableProvided.placeholder}
+                                                    </div>
+                                                )}
+                                            </Droppable>
+
+                                        </DragDropContext>
                                     </div>
                                 </div>
                             </div>
+
                             <div className="botones-dropdown-menu">
                                 <a href="/cliente/grupo" className="btn-new-gray text-center activeli">Administrar perfil(es)</a>
                                 <a href="/cliente/grupo/crear" className="btn-new-green text-center"><i className="icon-Crear icon-boton"></i>Crear perfil</a>
                             </div>
                         </div>
-                    </NavDropdown>
+                    </NavDropdown >
                     :
                     <li id="item_menu-seguimiento-li">
                         <a href="/cliente/grupo" id="item_menu-misperfiles" className="">
@@ -193,71 +315,95 @@ const MenuLateral = ({ carpetas = [], perfiles = [] }) => {
                     </span>
                     <div className="drop-perfiles position-relative">
                         <span className="icon-Contraer-campana-click"></span>
-                        <div class="item-checkbox-menu item-checkbox-menu-subtitle">
-                            <label class="d-block">Carpetas</label>
+                        <div className="item-checkbox-menu item-checkbox-menu-subtitle">
+                            <label className="d-block">Carpetas</label>
                         </div>
                         <div className="body-all-perfiles">
                             <div className="scroll_fit">
                                 <div className="contenedor_carpetas">
                                     <div>
-                                        <div class="item-checkbox-menu item-icon-menu">
-                                            <span class="body_checkbox">
-                                                <div class="radio" style={{ margin: 0 + 'px;' }}>
+                                        <div className="item-checkbox-menu item-icon-menu">
+                                            <span className="body_checkbox">
+                                                <div className="radio" style={{ margin: 0 + 'px;' }}>
                                                     <label>
-                                                        <input type="radio" name="radiocontratos" id="radioContratosFavoritos" class="input_carpeta_val" value="F" onClick={() => changePage('F')} />
+                                                        <input
+                                                            type="radio"
+                                                            name="radiocontratos"
+                                                            id="radioContratosFavoritos"
+                                                            className="input_carpeta_val"
+                                                            value="F"
+                                                            checked={zona == "F"}
+                                                            onClick={() => changePage('F')}
+                                                        />
                                                     </label>
                                                 </div>
                                             </span>
                                             <label for="radioContratosFavoritos" id="">
-                                                <div class="content-img">
-                                                    <div class="content-img--img">
-                                                        <span class="icon-Favorito-click content-img--img__iconos" style={{ color: 'rgb(253, 203, 54);' }}>
+                                                <div className="content-img">
+                                                    <div className="content-img--img">
+                                                        <span className="icon-Favorito-click content-img--img__iconos" style={{ color: 'rgb(253, 203, 54);' }}>
                                                         </span>
                                                     </div>
                                                 </div>
                                                 Favoritos
-                                            </label> <i class="icono-arrastre icon-Mover"></i>
+                                            </label> <i className="icono-arrastre icon-Mover"></i>
                                         </div>
-                                        <div class="item-checkbox-menu item-icon-menu">
-                                            <span class="body_checkbox">
-                                                <div class="radio" style={{ margin: 0 + 'px;' }}>
+                                        <div className="item-checkbox-menu item-icon-menu">
+                                            <span className="body_checkbox">
+                                                <div className="radio" style={{ margin: 0 + 'px;' }}>
                                                     <label>
-                                                        <input type="radio" name="radiocontratos" id="radioContratosEliminados" class="input_carpeta_val" value="E" onClick={() => changePage('P')} />
+                                                        <input
+                                                            type="radio"
+                                                            name="radiocontratos"
+                                                            id="radioContratosEliminados"
+                                                            className="input_carpeta_val"
+                                                            value="P"
+                                                            checked={zona == "P"}
+                                                            onClick={() => changePage('P')}
+                                                        />
                                                     </label>
                                                 </div>
                                             </span>
                                             <label for="radioContratosEliminados" id="">
-                                                <div class="content-img">
-                                                    <div class="content-img--img">
-                                                        <span class="icon-Eliminar content-img--img__iconos" style={{ color: 'rgb(209, 49, 97)' }}></span>
+                                                <div className="content-img">
+                                                    <div className="content-img--img">
+                                                        <span className="icon-Eliminar content-img--img__iconos" style={{ color: 'rgb(209, 49, 97)' }}></span>
                                                     </div>
                                                 </div>
                                                 Papelera
-                                            </label> <i class="icono-arrastre icon-Mover"></i>
+                                            </label> <i className="icono-arrastre icon-Mover"></i>
                                         </div>
                                         {folders.map((carpeta, index) => (
-                                            <div class="item-checkbox-menu item-icon-menu" key={index}>
-                                                <span class="body_checkbox">
-                                                    <div class="radio" style={{ margin: 0 + 'px;' }}>
+                                            <div className="item-checkbox-menu item-icon-menu" key={`carpeta_${index}`}>
+                                                <span className="body_checkbox">
+                                                    <div className="radio" style={{ margin: 0 + 'px;' }}>
                                                         <label>
-                                                            <input type="radio" name="radiocontratos" id="checkboxCarpeta0" class="input_carpeta_val" value="21956" onClick={() => changePage('C', carpeta.id)} />
+                                                            <input
+                                                                type="radio"
+                                                                name="radiocontratos"
+                                                                id={`checkboxCarpeta${carpeta.id}`}
+                                                                className="input_carpeta_val"
+                                                                value={carpeta.id}
+                                                                checked={carpeta.id == carpeta_actual?.id}
+                                                                onClick={() => changePage('C', 'carpeta', carpeta)}
+                                                            />
                                                         </label>
                                                     </div>
                                                 </span>
                                                 <label for="checkboxCarpeta0" id="carpeta_21956">
-                                                    <div class="content-img">
-                                                        <div class="content-img--img">
-                                                            <span class="icon-Mis-carpetas content-img--img__iconos" style={{ color: carpeta.color }}>
-                                                                <span class="path1">
+                                                    <div className="content-img">
+                                                        <div className="content-img--img">
+                                                            <span className="icon-Mis-carpetas content-img--img__iconos" style={{ color: carpeta.color }}>
+                                                                <span className="path1">
                                                                 </span>
-                                                                <span class="path2">
+                                                                <span className="path2">
                                                                 </span>
                                                             </span>
                                                         </div>
                                                     </div>
                                                     {carpeta.nombre_carpeta}
                                                 </label>
-                                                <i class="icono-arrastre icon-Mover"></i>
+                                                <i className="icono-arrastre icon-Mover"></i>
                                             </div>
                                         ))}
                                     </div>
@@ -278,13 +424,13 @@ const MenuLateral = ({ carpetas = [], perfiles = [] }) => {
                     </a>
                 </li>
                 <li id="item_menu-ajustes-li">
-                    <a href="/cliente/notificacion-correo" id="item_menu-publicidad">
+                    <a id="item_menu-publicidad" href="/cliente/notificacion-correo">
                         <span className="icon-Ajustes"></span>
                         <span className="item-title-menu">Ajustes</span>
                     </a>
                 </li>
                 <li id="item_menu-publicarcontrato-li" className="dropright">
-                    <a id="item_menu-publicarcontrato" href="/cliente/contrato">
+                    <a id="item_menu-publicarcontrato" href="/cliente/solicitud">
                         <span className="icon-Publicar-click"></span>
                         <span className="item-title-menu">Publicar contrato</span>
                     </a>
@@ -295,12 +441,12 @@ const MenuLateral = ({ carpetas = [], perfiles = [] }) => {
                         <span className="item-title-menu">Sugerencia de entidades</span>
                     </a>
                 </li>
-            </Nav>
+            </Nav >
             <ul className="new-menu scroll_fit ">
 
             </ul>
             <CrearCarpeta showModal={showModalCrearCarpeta} handleCloseModal={handleCloseModalCrearCarpeta} carpeta={carpeta} />
-        </div>
+        </div >
     )
 }
 
