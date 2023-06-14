@@ -36,8 +36,42 @@ import ModalValor from "@/Components/ModalValor";
 
 
 const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfiles, visualizar, query }) => {
+
+
+    /*Variables globales*/
+    var filterActividadesEconomicas = useRef([])
+    var filterUbicaciones = useRef([])
+    var filterModalidades = useRef([])
+    var filterFechaPublicacion = useRef([])
+    var filterEstadosProceso = useRef([])
+    var filterCodigoProceso = useRef([])
+    var filterEntidadContratante = useRef([])
+    var filterObjeto = useRef([])
+    var filterValor = useRef([])
+    /*Variables globales */
+
+    /*Variables para enviar valor a variable global una vez renderizada la página */
+    const [inputValor, setInputValor] = useState("")
+    const [inputFechaPublicacion, setInputFechaPublicacion] = useState("")
+    const [inputEstadosProceso, setInputEstadosProceso] = useState("")
+    /*Variables para enviar valor a variable global una vez renderizada la página */
+
+    /*textos de los inputs para filtrar */
+    const [inputFilterBusquedaRapida, setInputFilterBusquedaRapida] = useState("")
+    const [inputFilterEntidadContratante, setInputFilterEntidadContratante] = useState("")
+    const [inputFilterObjeto, setInputFilterObjeto] = useState("")
+    const [inputFilterValor, setInputFilterValor] = useState("")
+    const [inputFilterModalidad, setInputFilterModalidad] = useState([])
+    const [inputFilterCodigoProceso, setInputFilterCodigoProceso] = useState("")
+    const [inputFilterEstadoProceso, setInputFilterEstadoProceso] = useState("")
+    const [inputFilterFechaPublicacion, setInputFilterFechaPublicacion] = useState("")
+    const [inputFilterUbicacion, setInputFilterUbicacion] = useState([])
+    const [inputFilterActividadEconomica, setInputFilterActividadEconomica] = useState([])
+    const [inputFilterUbicaciones, setInputFilterUbicaciones] = useState([])
+    const [inputFilterModalidades, setInputFilterModalidades] = useState([])
+    /*textos de los inputs para filtrar */
+
     useEffect(() => {
-        console.log("query", query)
         setInputFilterEntidadContratante(query?.entidad_contratante == undefined ? "" : query?.entidad_contratante)
         setInputFilterBusquedaRapida(query?.rapida == undefined ? "" : query?.rapida)
         setInputFilterObjeto(query?.objeto == undefined ? "" : query?.objeto)
@@ -49,16 +83,23 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         setInputFilterModalidad(query?.modalidad == undefined || query?.modalidad?.length == 0 ? "" : `${query?.modalidad.length} Seleccionada(s)`)
         setInputFilterUbicacion(query?.ubicacion == undefined || query?.ubicacion?.length == 0 ? "" : `${query?.ubicacion.length} Seleccionada(s)`)
 
-        filterActividadesEconomicas = query?.actividad_economica == undefined || query?.actividad_economica?.length == 0 ? [] : query?.actividad_economica
-        filterUbicaciones = query?.ubicacion == undefined || query?.ubicacion?.length == 0 ? [] : query?.ubicacion
-        filterModalidades = query?.modalidad == undefined || query?.modalidad?.length == 0 ? [] : query?.modalidad
-        filterFechaPublicacion = query?.fecha_publicacion == undefined ? "" : { start: query?.fecha_publicacion?.start, end: query?.fecha_publicacion?.end }
-        filterEstadosProceso = query?.estado_proceso == undefined ? "" : query?.estado_proceso
-        filterCodigoProceso = query?.codigo_proceso == undefined ? "" : query?.codigo_proceso
-        filterEntidadContratante = query?.entidad_contratante == undefined ? "" : query?.entidad_contratante
-        filterObjeto = query?.objeto == undefined ? "" : query?.objeto
-        filterValor = query?.valor == undefined ? "" : query?.valor
+        filterActividadesEconomicas.current = query?.actividad_economica == undefined || query?.actividad_economica?.length == 0 ? [] : query?.actividad_economica
+        filterUbicaciones.current = query?.ubicacion == undefined || query?.ubicacion?.length == 0 ? [] : query?.ubicacion
+        filterModalidades.current = query?.modalidad == undefined || query?.modalidad?.length == 0 ? [] : query?.modalidad
+        filterFechaPublicacion.current = query?.fecha_publicacion == undefined ? "" : { start: query?.fecha_publicacion?.start, end: query?.fecha_publicacion?.end }
+        filterEstadosProceso.current = query?.estado_proceso == undefined ? "" : query?.estado_proceso
+        filterCodigoProceso.current = query?.codigo_proceso == undefined ? "" : query?.codigo_proceso
+        filterEntidadContratante.current = query?.entidad_contratante == undefined ? "" : query?.entidad_contratante
+        filterObjeto.current = query?.objeto == undefined ? "" : query?.objeto
+        filterValor.current = query?.valor == undefined ? "" : query?.valor
 
+        setInputValor(query?.valor == undefined ? "" : query?.valor)
+        setInputFechaPublicacion(query?.fecha_publicacion == undefined ? "" : { start: query?.fecha_publicacion?.start, end: query?.fecha_publicacion?.end })
+        setInputEstadosProceso(query?.estado_proceso == undefined ? "" : query?.estado_proceso)
+
+        setCheckedsActividadesEconomicas(query?.actividad_economica == undefined || query?.actividad_economica?.length == 0 ? [] : query?.actividad_economica)
+        setCheckedsLocalizaciones(query?.ubicacion == undefined || query?.ubicacion?.length == 0 ? [] : query?.ubicacion)
+        setCheckedsTiposCompras(query?.modalidad == undefined || query?.modalidad?.length == 0 ? [] : query?.modalidad)
     }, [query])
 
 
@@ -224,7 +265,6 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     }
 
     const getUrlPostParams = () => {
-        console.log("modalidades", filterModalidades.current)
         const query = {
             rapida: inputFilterBusquedaRapida,
             actividad_economica: filterActividadesEconomicas.current,
@@ -619,48 +659,8 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
 
 
 
-    /*Variables globales*/
-    /* var filterActividadesEconomicas = []
-    var filterUbicaciones = []
-    var filterModalidades = []
-    var filterFechaPublicacion = "";
-    var filterEstadosProceso = "";
-    var filterCodigoProceso = "";
-    var filterEntidadContratante = ""
-    var filterObjeto = ""
-    var filterValor = "" */
-    var filterActividadesEconomicas = useRef([])
-    var filterUbicaciones = useRef([])
-    var filterModalidades = useRef([])
-    var filterFechaPublicacion = useRef([])
-    var filterEstadosProceso = useRef([])
-    var filterCodigoProceso = useRef([])
-    var filterEntidadContratante = useRef([])
-    var filterObjeto = useRef([])
-    var filterValor = useRef([])
-    /*Variables globales */
 
-    /*Variables para enviar valor a variable global una vez renderizada la página */
-    const [inputValor, setInputValor] = useState("")
-    const [inputFechaPublicacion, setInputFechaPublicacion] = useState("")
-    const [inputEstadosProceso, setInputEstadosProceso] = useState("")
 
-    /*Variables para enviar valor a variable global una vez renderizada la página */
-
-    /*textos de los inputs para filtrar */
-    const [inputFilterBusquedaRapida, setInputFilterBusquedaRapida] = useState("")
-    const [inputFilterEntidadContratante, setInputFilterEntidadContratante] = useState("")
-    const [inputFilterObjeto, setInputFilterObjeto] = useState("")
-    const [inputFilterValor, setInputFilterValor] = useState("")
-    const [inputFilterModalidad, setInputFilterModalidad] = useState([])
-    const [inputFilterCodigoProceso, setInputFilterCodigoProceso] = useState("")
-    const [inputFilterEstadoProceso, setInputFilterEstadoProceso] = useState("")
-    const [inputFilterFechaPublicacion, setInputFilterFechaPublicacion] = useState("")
-    const [inputFilterUbicacion, setInputFilterUbicacion] = useState([])
-    const [inputFilterActividadEconomica, setInputFilterActividadEconomica] = useState([])
-    const [inputFilterUbicaciones, setInputFilterUbicaciones] = useState([])
-    const [inputFilterModalidades, setInputFilterModalidades] = useState([])
-    /*textos de los inputs para filtrar */
 
     const stateObject = {
         inputFilterEntidadContratante: [inputFilterEntidadContratante, setInputFilterEntidadContratante],
