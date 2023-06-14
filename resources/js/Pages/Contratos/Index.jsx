@@ -49,6 +49,15 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         setInputFilterModalidad(query?.modalidad == undefined || query?.modalidad?.length == 0 ? "" : `${query?.modalidad.length} Seleccionada(s)`)
         setInputFilterUbicacion(query?.ubicacion == undefined || query?.ubicacion?.length == 0 ? "" : `${query?.ubicacion.length} Seleccionada(s)`)
 
+        filterActividadesEconomicas = query?.actividad_economica == undefined || query?.actividad_economica?.length == 0 ? [] : query?.actividad_economica
+        filterUbicaciones = query?.ubicacion == undefined || query?.ubicacion?.length == 0 ? [] : query?.ubicacion
+        filterModalidades = query?.modalidad == undefined || query?.modalidad?.length == 0 ? [] : query?.modalidad
+        filterFechaPublicacion = query?.fecha_publicacion == undefined ? "" : { start: query?.fecha_publicacion?.start, end: query?.fecha_publicacion?.end }
+        filterEstadosProceso = query?.estado_proceso == undefined ? "" : query?.estado_proceso
+        filterCodigoProceso = query?.codigo_proceso == undefined ? "" : query?.codigo_proceso
+        filterEntidadContratante = query?.entidad_contratante == undefined ? "" : query?.entidad_contratante
+        filterObjeto = query?.objeto == undefined ? "" : query?.objeto
+        filterValor = query?.valor == undefined ? "" : query?.valor
 
     }, [query])
 
@@ -215,17 +224,18 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     }
 
     const getUrlPostParams = () => {
+        console.log("modalidades", filterModalidades.current)
         const query = {
             rapida: inputFilterBusquedaRapida,
-            actividad_economica: filterActividadesEconomicas,
-            codigo_proceso: filterCodigoProceso,
-            entidad_contratante: filterEntidadContratante,
-            estado_proceso: filterEstadosProceso,
-            fecha_publicacion: filterFechaPublicacion,
-            modalidad: filterModalidades,
-            objeto: filterObjeto,
-            ubicacion: filterUbicaciones,
-            valor: filterValor,
+            actividad_economica: filterActividadesEconomicas.current,
+            codigo_proceso: filterCodigoProceso.current,
+            entidad_contratante: filterEntidadContratante.current,
+            estado_proceso: filterEstadosProceso.current,
+            fecha_publicacion: filterFechaPublicacion.current,
+            modalidad: filterModalidades.current,
+            objeto: filterObjeto.current,
+            ubicacion: filterUbicaciones.current,
+            valor: filterValor.current,
             type: 'fetch',
         }
         return query
@@ -610,7 +620,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
 
 
     /*Variables globales*/
-    var filterActividadesEconomicas = []
+    /* var filterActividadesEconomicas = []
     var filterUbicaciones = []
     var filterModalidades = []
     var filterFechaPublicacion = "";
@@ -618,7 +628,16 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     var filterCodigoProceso = "";
     var filterEntidadContratante = ""
     var filterObjeto = ""
-    var filterValor = ""
+    var filterValor = "" */
+    var filterActividadesEconomicas = useRef([])
+    var filterUbicaciones = useRef([])
+    var filterModalidades = useRef([])
+    var filterFechaPublicacion = useRef([])
+    var filterEstadosProceso = useRef([])
+    var filterCodigoProceso = useRef([])
+    var filterEntidadContratante = useRef([])
+    var filterObjeto = useRef([])
+    var filterValor = useRef([])
     /*Variables globales */
 
     /*Variables para enviar valor a variable global una vez renderizada la página */
@@ -661,7 +680,10 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
 
     /*Filtros pernozalizados */
     const fechaColumnFilterTemplate = (column) => {
-        filterFechaPublicacion = inputFechaPublicacion
+        filterFechaPublicacion.current
+
+
+            = inputFechaPublicacion
         return (
             <div className="filter">
                 <input
@@ -684,7 +706,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     };
 
     const estadocolumnFilterTemplate = (column) => {
-        filterEstadosProceso = inputEstadosProceso
+        filterEstadosProceso.current = inputEstadosProceso
         return (
             <div className="filter">
                 <input
@@ -706,7 +728,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     };
 
     const valorFilterTemplate = (column) => {
-        filterValor = inputValor
+        filterValor.current = inputValor
         return (
             <div className="filter">
                 <input
@@ -731,13 +753,13 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         var columnValue = stateObject[column.field][0]
         switch (column.field) {
             case "inputFilterCodigoProceso":
-                filterCodigoProceso = columnValue
+                filterCodigoProceso.current = columnValue
                 break;
             case "inputFilterEntidadContratante":
-                filterEntidadContratante = columnValue
+                filterEntidadContratante.current = columnValue
                 break;
             case "inputFilterObjeto":
-                filterObjeto = columnValue
+                filterObjeto.current = columnValue
                 break;
             default:
                 break;
@@ -763,13 +785,13 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const actividadEconomicaColumnFilterTemplate = (column) => {
         switch (column.field) {
             case "inputFilterActividadEconomica":
-                filterActividadesEconomicas = checkedsActividadesEconomicas
+                filterActividadesEconomicas.current = checkedsActividadesEconomicas
                 break;
             case "inputFilterModalidad":
-                filterModalidades = checkedsTiposCompras
+                filterModalidades.current = checkedsTiposCompras
                 break;
             case "inputFilterUbicacion":
-                filterUbicaciones = checkedsLocalizaciones
+                filterUbicaciones.current = checkedsLocalizaciones
                 break;
         }
         var columnValue = stateObject[column.field][0]
@@ -880,36 +902,36 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
         updateState(input, value)
         switch (input) {
             case "inputFilterCodigoProceso":
-                filterCodigoProceso = ""
+                filterCodigoProceso.current = ""
                 break;
             case "inputFilterEntidadContratante":
-                filterEntidadContratante = ""
+                filterEntidadContratante.current = ""
                 break;
             case "inputFilterObjeto":
-                filterObjeto = ""
+                filterObjeto.current = ""
                 break;
             case "inputFilterFechaPublicacion":
-                filterFechaPublicacion = ""
+                filterFechaPublicacion.current = ""
                 setInputFechaPublicacion("")
                 break;
             case "inputFilterEstadoProceso":
-                filterEstadosProceso = ""
+                filterEstadosProceso.current = ""
                 setInputEstadosProceso("")
                 break;
             case "inputFilterActividadEconomica":
-                filterActividadesEconomicas = []
+                filterActividadesEconomicas.current = []
                 setCheckedsActividadesEconomicas([])
                 break;
             case "inputFilterUbicacion":
-                filterUbicaciones = []
+                filterUbicaciones.current = []
                 setCheckedsLocalizaciones([])
                 break;
             case "inputFilterModalidad":
-                filterModalidades = ""
+                filterModalidades.current = ""
                 setCheckedsTiposCompras([])
                 break;
             case "inputFilterValor":
-                filterValor = ""
+                filterValor.current = ""
                 setInputFilterValor("")
                 setInputValor("")
                 break;
@@ -1020,28 +1042,28 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
             case "ActividadEconomica":
                 if (data.length > 0) {
                     setCheckedsActividadesEconomicas(data)
-                    filterActividadesEconomicas = data  //Variable Global
+                    filterActividadesEconomicas.current = data  //Variable Global
                 } else {
                     setCheckedsActividadesEconomicas([])
-                    filterActividadesEconomicas = []
+                    filterActividadesEconomicas.current = []
                 }
                 break;
             case "Localizaciones":
                 if (data.length > 0) {
                     setCheckedsLocalizaciones(data)
-                    filterUbicaciones = data
+                    filterUbicaciones.current = data
                 } else {
                     setCheckedsLocalizaciones([])
-                    filterUbicaciones = []
+                    filterUbicaciones.current = []
                 }
                 break;
             case "TiposCompras":
                 if (data.length > 0) {
                     setCheckedsTiposCompras(data)
-                    filterModalidades = data
+                    filterModalidades.current = data
                 } else {
                     setCheckedsTiposCompras([])
-                    filterModalidades = []
+                    filterModalidades.current = []
                 }
                 break;
         }
@@ -1931,7 +1953,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const [showModalCalendario, setShowModalCalendario] = useState(false);
     const handleCloseModalCalendario = (start, end) => {
         if (end != undefined) {
-            filterFechaPublicacion = { start: start, end: end }
+            filterFechaPublicacion.current = { start: start, end: end }
             setInputFechaPublicacion({ start: start, end: end })
             setInputFilterFechaPublicacion(`${start} ${end}`)
             paginatorPost(undefined, visualizarFilter)
@@ -1945,7 +1967,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const [showModalEstados, setShowModalEstados] = useState(false);
     const handleCloseModalEstados = (estados) => {
         if (estados != null) {
-            filterEstadosProceso = estados
+            filterEstadosProceso.current = estados
             setInputEstadosProceso(estados)
             setInputFilterEstadoProceso(`${estados.length} Seleccionado(s)`)
             paginatorPost(undefined, visualizarFilter)
@@ -1960,7 +1982,7 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
     const [showModalValor, setShowModalValor] = useState(false);
     const handleCloseModalValor = (precios) => {
         if (precios != null) {
-            filterValor = precios
+            filterValor.current = precios
             setInputValor(precios)
             setInputFilterValor(`${precios[0].toLocaleString("en-US", options).replace('COP', '$')} - ${precios[1] > 0 ? precios[1].toLocaleString("en-US", options).replace('COP', '$') : "Sin limite superior"}`)
             paginatorPost(undefined, visualizarFilter)
