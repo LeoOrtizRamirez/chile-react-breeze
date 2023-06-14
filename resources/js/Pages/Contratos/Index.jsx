@@ -35,7 +35,24 @@ import ModalValor from "@/Components/ModalValor";
 
 
 
-const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfiles, visualizar }) => {
+const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfiles, visualizar, query }) => {
+    useEffect(() => {
+        console.log("query", query)
+        setInputFilterEntidadContratante(query?.entidad_contratante == undefined ? "" : query?.entidad_contratante)
+        setInputFilterBusquedaRapida(query?.rapida == undefined ? "" : query?.rapida)
+        setInputFilterObjeto(query?.objeto == undefined ? "" : query?.objeto)
+        setInputFilterCodigoProceso(query?.codigo_proceso == undefined ? "" : query?.codigo_proceso)
+        setInputFilterValor(query?.valor == undefined ? "" : `${query?.valor[0]?.toLocaleString("en-US", options).replace('COP', '$')} - ${query?.valor[1] > 0 ? query?.valor[1]?.toLocaleString("en-US", options).replace('COP', '$') : "Sin limite superior"}`)
+        setInputFilterEstadoProceso(query?.estado_proceso == undefined ? "" : `${query?.estado_proceso.length} Seleccionado(s)`)
+        setInputFilterFechaPublicacion(query?.fecha_publicacion == undefined ? "" : `${query?.fecha_publicacion.start} ${query?.fecha_publicacion.end}`)
+        setInputFilterActividadEconomica(query?.actividad_economica == undefined || query?.actividad_economica?.length == 0 ? "" : `${query?.actividad_economica.length} Seleccionada(s)`)
+        setInputFilterModalidad(query?.modalidad == undefined || query?.modalidad?.length == 0 ? "" : `${query?.modalidad.length} Seleccionada(s)`)
+        setInputFilterUbicacion(query?.ubicacion == undefined || query?.ubicacion?.length == 0 ? "" : `${query?.ubicacion.length} Seleccionada(s)`)
+
+
+    }, [query])
+
+
     const [licicodigos, setLicicodigos] = useState([]);
     useEffect(() => {
         var token = document.querySelector('meta[name="csrf-token"]')
@@ -49,7 +66,6 @@ const Index = ({ auth, contratos, zona, carpetas, grupos, carpeta_actual, perfil
                 setLicicodigos(response.data)
             })
             .catch(error => {
-                // Handle error
                 console.log(error.response.data);
             });
     }, [])

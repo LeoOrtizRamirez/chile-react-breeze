@@ -132,7 +132,8 @@ class ContratoController extends Controller
                     'carpetas' => $carpetas,
                     'grupos' => $grupos,
                     'carpeta_actual' => null,
-                    'visualizar' => $visualizar
+                    'visualizar' => $visualizar,
+                    'query' => null
                 ]
             );
         }
@@ -474,7 +475,8 @@ class ContratoController extends Controller
                         'grupos' => $grupos,
                         'carpeta_actual' => $carpeta,
                         'perfiles' => $perfiles,
-                        'visualizar' => $visualizar
+                        'visualizar' => $visualizar,
+                        'query' => $request["query"]
                     ]
                 );
             } catch (Exception $e) {
